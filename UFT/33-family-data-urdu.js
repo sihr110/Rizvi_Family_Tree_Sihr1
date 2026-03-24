@@ -1,13 +1,13 @@
 // Urdu Family Data
-// Saved: 19/03/2026, 3:20:56 pm
+// Saved: 24/03/2026, 5:47:58 pm
 const FAMILY_DATA_URDU = [
   {
     "name": "حضرت عبدالمطلب",
-    "father": "ھاشم ابن عبدالمناف",
+    "father": "ہاشم بن عبد مناف",
     "mother": "---",
     "spouse": "---",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "حضرت عبداللہ",
@@ -15,7 +15,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "بی بی امنہ بنت وھاب (علیہ السلام)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "حضرت ابو طالب",
@@ -23,463 +23,463 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "بی بی فاطمہ بنت اسد   (علیہ السلام)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "محمد رسول اللہ (صلی اللہ علیہ وآلہ وسلم)",
+    "name": "محمد رسول اللہ صلی اللہ علیہ وسلم",
     "father": "حضرت عبداللہ",
-    "mother": "---",
+    "mother": "بی بی آمنہ بنت وہب (ع)",
     "spouse": "بی بی خدیجہ کبرہ (علیہ السلام)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "امام علی (علیہ السلام)",
+    "name": "امام علی علیہ السلام",
     "father": "حضرت ابو طالب",
     "mother": "بی بی فاطمہ بنت اسد   (علیہ السلام)",
     "spouse": "سیدہ فاطمہ زھرا(علیہ السلام)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ فاطمہ زھرا(علیہ السلام)",
-    "father": "محمد رسول اللہ (صلی اللہ علیہ وآلہ وسلم)",
-    "mother": "بی بی آمنہ  (علیہ اسلام)",
+    "name": "سیدہ فاطمہ زہرا سلام اللہ علیہا",
+    "father": "محمد رسول اللہ صلی اللہ علیہ وسلم",
+    "mother": "بی بی خدیجہ کبرہ (علیہ السلام)",
     "spouse": "امام علی (علیہ السلام)",
     "gen": "(Pre-Root)",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "امام حسن (علیہ السلام)",
-    "father": "امام علی (علیہ السلام)",
-    "mother": "سیدہ فاطمہ زھرا(علیہ السلام)",
+    "name": "امام حسن علیہ السلام",
+    "father": "امام علی علیہ السلام",
+    "mother": "سیدہ فاطمہ زہرا سلام اللہ علیہا",
     "spouse": "بی بی ام فروہ (علیہ السلام)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "امام حسین (علیہ السلام)",
-    "father": "امام علی (علیہ السلام)",
-    "mother": "سیدہ فاطمہ زھرا(علیہ السلام)",
+    "name": "امام حسین علیہ السلام",
+    "father": "امام علی علیہ السلام",
+    "mother": "سیدہ فاطمہ زہرا سلام اللہ علیہا",
     "spouse": "بی بی شھربانو (علیہ السلام)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "بی بی زینب (علیہ السلام)",
-    "father": "امام علی (علیہ السلام)",
-    "mother": "سیدہ فاطمہ زھرا(علیہ السلام)",
+    "father": "امام علی علیہ السلام",
+    "mother": "سیدہ فاطمہ زہرا سلام اللہ علیہا",
     "spouse": "جناب عبداللہ ابن جعفر  (علیہ اسلام)",
     "gen": "(Pre-Root)",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "بی بی ام کلشوم (علیہ السلام) - 01",
-    "father": "امام علی (علیہ السلام)",
-    "mother": "سیدہ فاطمہ زھرا(علیہ السلام)",
+    "father": "امام علی علیہ السلام",
+    "mother": "سیدہ فاطمہ زہرا سلام اللہ علیہا",
     "spouse": "جناب عون ابن جعفر  (علیہ اسلام)",
     "gen": "(Pre-Root)",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "حضرت محسن (علیہ السلام)",
-    "father": "امام علی (علیہ السلام)",
-    "mother": "سیدہ فاطمہ زھرا(علیہ السلام)",
+    "name": "حضرت محسن علیہ السلام",
+    "father": "امام علی علیہ السلام",
+    "mother": "سیدہ فاطمہ زہرا سلام اللہ علیہا",
     "spouse": "---",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "امام علی زین العابدین (علیہ السلام)",
-    "father": "امام حسین (علیہ السلام)",
+    "name": "امام علی زین العابدین علیہ السلام",
+    "father": "امام حسین علیہ السلام",
     "mother": "بی بی شھربانو (علیہ السلام)",
-    "spouse": "سید ہ  فاطمہ بنت امام حسن (علیہ اسلام)",
+    "spouse": "سیدہ فاطمہ بنت امام حسن علیہ السلام",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "امام محمد باقر (علیہ السلام)",
-    "father": "امام علی زین العابدین (علیہ السلام)",
+    "name": "امام محمد باقر علیہ السلام",
+    "father": "امام علی زین العابدین علیہ السلام",
     "mother": "سید ہ  فاطمہ بنت امام حسن (علیہ اسلام)",
-    "spouse": "بی بی ام فروہ (علیہ السلام)",
+    "spouse": "بی بی ام فروہ (ع)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "امام جعفر صادق (علیہ السلام)",
-    "father": "امام محمد باقر (علیہ السلام)",
+    "name": "امام جعفر صادق علیہ السلام",
+    "father": "امام محمد باقر علیہ السلام",
     "mother": "بی بی ام فروہ (علیہ السلام)",
-    "spouse": "بی بی حمیدہ خاتون (علیہ السلام)",
+    "spouse": "بی بی حمیدہ خاتون",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "امام موسی کاظم (علیہ السلام)",
-    "father": "امام جعفر صادق (علیہ السلام)",
+    "name": "امام موسیٰ کاظم علیہ السلام",
+    "father": "امام جعفر صادق علیہ السلام",
     "mother": "بی بی حمیدہ خاتون (علیہ السلام)",
-    "spouse": "بی بی نجمہ (علیہ السلام)",
+    "spouse": "بی بی نجمہ خاتون (ع)",
     "gen": "(Pre-Root)",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "امام علی رضا (علیہ السلام)",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "امام علی رضا علیہ السلام",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "بی بی نجمہ (علیہ السلام)",
-    "spouse": "بی بی سبیکہ (علیہ السلام)",
+    "spouse": "بی بی سبیکا (یا خیزوران)",
     "gen": "G-001-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید حسن ابن موسی",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سید حسن بن موسیٰ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسین - 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عباس - 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید قاسم - 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S5",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید جعفر - 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S6",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید عبداللہa",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سید عبداللہ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S7",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید اسحاق",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S8",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید زید",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S9",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ہارون",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S10",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حمزہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S11",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید اسمعیل",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سید اسماعیل",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S12",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S13",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید احمد",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S14",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید فضل",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S15",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید سلیمان",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S16",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید عبیداللہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سید عبید اللہ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S17",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید صالح",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S18",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ابراہیم ابن موسی",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سید ابراہیم بن موسیٰ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S19",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ فاطمہ بنت موسی",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ فاطمہ بنت موسیٰ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ زینب - 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ عائشہ ـ 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ عائشہ - 01",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ خدیجہ - 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ رقیہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D5",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ حکیمہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D6",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ علییا",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ عالیہ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D7",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ام کلشوم ۔ 01",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ ام کلثوم- 02",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D8",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ امینہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ آمنہ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D9",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ابھیا",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ ام عبیحہ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D10",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ ام سلمہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D11",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ حجر خاتون",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D12",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ حسنہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D13",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ لبنی",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ لبنیٰ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D14",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ بریحہ",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D15",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ام جعفر",
-    "father": "امام موسی کاظم (علیہ السلام)",
+    "name": "سیدہ ام جعفرؓ",
+    "father": "امام موسیٰ کاظم علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D16",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "امام محمد تقی (علیہ السلام)",
-    "father": "امام علی رضا (علیہ السلام)",
+    "name": "امام محمد تقی علیہ السلام",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسن",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسین - 02",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید جعفر - 02",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی نقی",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S5",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید فضل",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S6",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید یعقوب - 01",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S7",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ابراہیم ابن علی رضا",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S8",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ عائشہ (فاطمہ) - 02",
-    "father": "امام علی رضا (علیہ السلام)",
+    "father": "امام علی رضا علیہ السلام",
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید احمد مجتبی",
+    "name": "سید احمد مجتبیٰ",
     "father": "سید ابراہیم ابن علی رضا",
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد",
@@ -487,7 +487,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمود",
@@ -495,7 +495,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید طیب",
@@ -503,15 +503,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید موسی",
+    "name": "سید موسیٰ",
     "father": "سید ابراہیم ابن علی رضا",
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S5",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید یعقوب - 02",
@@ -519,7 +519,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S6",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ابراہیم - 01",
@@ -527,7 +527,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S7",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید قطب الدین",
@@ -535,7 +535,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S8",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عزیز",
@@ -543,15 +543,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S9",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عبداللہ - 01",
-    "father": "سید احمد مجتبی",
+    "father": "سید احمد مجتبیٰ",
     "mother": "---",
     "spouse": "---",
     "gen": "G-004-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی - 01",
@@ -559,7 +559,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-004-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد - 01",
@@ -567,7 +567,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-005-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حیدر شاہ",
@@ -575,111 +575,111 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-006-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید مرتضی",
+    "name": "سید مرتضیٰ",
     "father": "سید حیدر شاہ",
     "mother": "---",
     "spouse": "---",
     "gen": "G-007-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید حسن ترمذی",
-    "father": "سید مرتضی",
+    "name": "سید حسن ترمذی ۔",
+    "father": "سید مرتضیٰ",
     "mother": "---",
     "spouse": "---",
     "gen": "G-008-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید شاہ حسین - 01",
-    "father": "سید حسن ترمذی",
+    "name": "سید شاہ حسین۔01",
+    "father": "سید حسن ترمذی ۔",
     "mother": "---",
     "spouse": "---",
     "gen": "G-009-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد عباس",
-    "father": "سید شاہ حسین - 01",
+    "father": "سید شاہ حسین۔01",
     "mother": "---",
     "spouse": "---",
     "gen": "G-010-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید امبر",
+    "name": "سید عنبر",
     "father": "سید محمد عباس",
     "mother": "---",
     "spouse": "---",
     "gen": "G-011-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسین اکبر",
-    "father": "سید امبر",
+    "father": "سید عنبر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-012-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید مصطفی - 01",
+    "name": "سید مصطفی  01",
     "father": "سید حسین اکبر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-013-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ابو قاسم",
+    "name": "سید ابوالقاسم",
     "father": "سید حسین اکبر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-013-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید باقر",
-    "father": "سید ابو قاسم",
+    "father": "سید ابوالقاسم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-014-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید قمبر -01",
-    "father": "سید ابو قاسم",
+    "name": "سید قمبر۔01",
+    "father": "سید ابوالقاسم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-014-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ابو جعفر",
+    "name": "سید ابوجعفر",
     "father": "سید باقر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-015-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ا طہر",
-    "father": "سید ابو جعفر",
+    "name": "سید اطہر",
+    "father": "سید ابوجعفر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-016-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید سجاد",
-    "father": "سید ا طہر",
+    "father": "سید اطہر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-017-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید امداد علی",
@@ -687,7 +687,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-018-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید مصطفی - 02",
@@ -695,7 +695,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-019-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید سراج",
@@ -703,7 +703,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-020-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شاہ حسین شہید",
@@ -711,15 +711,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-021-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید بادشاہ حسین ",
+    "name": "سید بادشاہ حسین",
     "father": "سید سراج",
     "mother": "---",
     "spouse": "---",
     "gen": "G-021-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید بادشاہ حسین شہید",
@@ -727,15 +727,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-022-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شاد حسین شہید",
-    "father": "سید شاہ حسین شھید",
+    "father": "سید شاہ حسین شہید",
     "mother": "---",
     "spouse": "---",
     "gen": "G-022-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید سبحان حسین",
@@ -743,7 +743,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-023-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید امام الدین",
@@ -751,7 +751,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-023-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ابراہیم - 02",
@@ -759,15 +759,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-024-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ثمر حسینین",
+    "name": "سید ثمر حسنین",
     "father": "سید امام الدین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-024-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید فرخ حسین",
@@ -775,15 +775,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-025-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید سلطان حسینین",
-    "father": "سید ثمر حسینین",
+    "name": "سید سلطان حسنین",
+    "father": "سید ثمر حسنین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-025-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید خرم",
@@ -791,15 +791,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-026-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حیدر",
-    "father": "سید سلطان حسینین",
+    "father": "سید سلطان حسنین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-026-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عبداللہ - 02",
@@ -807,7 +807,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-027-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید احمد حسین",
@@ -815,7 +815,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-027-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی - 02",
@@ -823,7 +823,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-028-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید اکبر حسین",
@@ -831,7 +831,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-028-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید لطف حسین",
@@ -839,7 +839,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-029-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد حسین",
@@ -847,7 +847,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-029-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ابراہیم حسین - 01",
@@ -855,7 +855,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-030-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید برکت حسین",
@@ -863,15 +863,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-030-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید خرم حسین - 01",
+    "name": "سید خرم حسین۔01",
     "father": "سید ابراہیم حسین - 01",
     "mother": "---",
     "spouse": "---",
     "gen": "G-031-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید امیر حسین",
@@ -879,15 +879,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-031-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید رحمت اللہ حسین",
-    "father": "سید خرم حسین - 01",
+    "father": "سید خرم حسین۔01",
     "mother": "---",
     "spouse": "---",
     "gen": "G-032-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی حسین",
@@ -895,15 +895,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-032-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید خوب اللہ حسین",
+    "name": "سیدخوب اللہ حسین",
     "father": "سید رحمت اللہ حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-033-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید احسن حسین (رضا حسین)",
@@ -911,7 +911,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-033-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید دوست محمد شہید",
@@ -919,31 +919,31 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-033-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید غلام حسین",
-    "father": "سید خوب اللہ حسین",
+    "father": "سیدخوب اللہ حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-034-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید اکبر علی - 01",
+    "name": "سید اکبر علی ۔01",
     "father": "سید احسن حسین (رضا حسین)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-034-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید مدد علی",
-    "father": "سید خوب اللہ حسین",
+    "father": "سیدخوب اللہ حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-034-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ہدایت علی",
@@ -951,15 +951,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید انصار حسین - 01",
+    "name": "سید انصر حسین۔01",
     "father": "سید غلام حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شیر علی",
@@ -967,23 +967,23 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید غالب علی",
-    "father": "سید اکبر علی - 01",
+    "father": "سید اکبر علی ۔01",
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ہزبرعلی",
+    "name": "سید حزب علی",
     "father": "سید مدد علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شمشیر علی",
@@ -991,7 +991,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-036-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید رضا حسین - 01",
@@ -999,15 +999,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-036-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید منصب علی",
-    "father": "سید ہزبرعلی",
+    "father": "سید حزب علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-036-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عطا حسین",
@@ -1015,15 +1015,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید خرم حسین - 02",
+    "name": "سید خرم حسین۔02",
     "father": "سید شمشیر علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید نواب علی",
@@ -1031,7 +1031,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عنایت حسین",
@@ -1039,23 +1039,23 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید شاہ حسین - 02",
-    "father": "سید خرم حسین - 02",
+    "name": "سید شاہ حسین۔02",
+    "father": "سید خرم حسین۔02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید اکبر علی - 02",
+    "name": "سید اکبر علی۔02",
     "father": "سید نواب علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید اصغر علی - 01",
@@ -1063,7 +1063,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید جواد علی",
@@ -1071,23 +1071,23 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ امروء",
+    "name": "سیدہ عمراؤ",
     "father": "سید نواب علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ شریفاؔؔ",
+    "name": "سیدہ شریفاں",
     "father": "سید نواب علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید ایوب الحسن",
@@ -1095,7 +1095,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید یعقوب الحسن",
@@ -1103,7 +1103,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ تصدق فاطمہ",
@@ -1111,15 +1111,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید انصار حسین - 02",
+    "name": "سید انصر حسین۔02",
     "father": "سید عطا حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ابرار حسین",
@@ -1127,7 +1127,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد تقی",
@@ -1135,7 +1135,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد نقی",
@@ -1143,7 +1143,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد عسکری",
@@ -1151,63 +1151,63 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ مصحفی خاتون",
+    "name": "سیدہ مصحف خاتون",
     "father": "سید جواد علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید ابراہیم حسین - 02",
-    "father": "سید شاہ حسین - 02",
+    "name": "سید ابراہیم حسین۔02",
+    "father": "سید شاہ حسین۔02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید اشفاق حسین",
-    "father": "سید شاہ حسین - 02",
+    "father": "سید شاہ حسین۔02",
     "mother": "---",
-    "spouse": "سیدہ کنیز صغری رضوی",
+    "spouse": "سیدہ کنیز صغرا رضوی",
     "gen": "G-039-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ خاتون",
-    "father": "سید شاہ حسین - 02",
+    "father": "سید شاہ حسین۔02",
     "mother": "---",
-    "spouse": "سید وعابد حسین",
+    "spouse": "سید عابد حسین",
     "gen": "G-039-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ صابرہ خاتون",
-    "father": "سید شاہ حسین - 02",
+    "father": "سید شاہ حسین۔02",
     "mother": "---",
     "spouse": "سید محمد تقی الحسن",
     "gen": "G-039-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید علی عباس",
-    "father": "سید اکبر علی - 02",
-    "mother": "---",
+    "father": "سید اکبر علی۔02",
+    "mother": "سیدہ لئیق رضوی",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید وزارت حسین",
+    "name": "سید وقار حسین",
     "father": "سید اصغر علی - 01",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید یاور حسین",
@@ -1215,7 +1215,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ابصار حسین",
@@ -1223,7 +1223,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شمشاد حسین",
@@ -1231,7 +1231,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید تفضل حسین",
@@ -1239,7 +1239,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شاہد حسین",
@@ -1247,7 +1247,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید زاہد حسین",
@@ -1255,7 +1255,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S5",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ نفیس فاطمہ",
@@ -1263,31 +1263,31 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید نجم Ul حسن",
+    "name": "سید نجم الحسن",
     "father": "سید یعقوب الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید محمد نیر",
+    "name": "سید محمد نیئر",
     "father": "سید یعقوب الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید شمس الحسن",
+    "name": "سید شام الحسن",
     "father": "سید یعقوب الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید تنویر الحسن",
@@ -1295,15 +1295,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ شمیم فاطمہ",
+    "name": "سیدہ شمیم ​​فاطمہ",
     "father": "سید یعقوب الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ تنظیم فاطمہ",
@@ -1311,164 +1311,167 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید امانت حسین",
-    "father": "سید انصار حسین - 02",
+    "father": "سید انصر حسین۔02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی محمد",
-    "father": "سید انصار حسین - 02",
+    "father": "سید انصر حسین۔02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ا طہر حسین (منے)",
-    "father": "سید ابراہیم حسین - 02",
+    "name": "سید اطہر حسین (منی)",
+    "father": "سید ابراہیم حسین۔02",
     "mother": "---",
-    "spouse": "---",
+    "spouse": "سیدہ حمیدہ خاتون رضوی",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید عباس حسین (کبن)",
-    "father": "سید ابراہیم حسین - 02",
+    "name": "سید عباس حسین (کابان)",
+    "father": "سید ابراہیم حسین۔02",
     "mother": "---",
-    "spouse": "سیدہ راضیہ خاتون رضوی",
+    "spouse": "سیدہ رضیہ خاتون رضوی",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ کبرہ خاتون",
-    "father": "سید ابراہیم حسین - 02",
+    "name": "سیدہ کبریٰ خاتون",
+    "father": "سید ابراہیم حسین۔02",
     "mother": "---",
+    "spouse": "سید عبادت حسین رضوی",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ مبارک خاتون",
-    "father": "سید ابراہیم حسین - 02",
+    "father": "سید ابراہیم حسین۔02",
     "mother": "---",
+    "spouse": "سید غیور الحسن رضوی",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ وسیہ خاتون",
-    "father": "سید ابراہیم حسین - 02",
+    "name": "سیدہ واسعہ خاتون",
+    "father": "سید ابراہیم حسین۔02",
     "mother": "---",
-    "spouse": "سید وحید الحسین رضوی",
+    "spouse": "سید وحید الحسن رضوی",
     "gen": "G-040-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ یمینہ خاتون",
-    "father": "سید ابراہیم حسین - 02",
+    "name": "سیدہ یامینہ خاتون",
+    "father": "سید ابراہیم حسین۔02",
     "mother": "---",
     "spouse": "سید علی امام رضوی",
     "gen": "G-040-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید عبادت حسین",
     "father": "سید اشفاق حسین",
-    "mother": "سیدہ کنیز صغری رضوی",
+    "mother": "سیدہ کنیز صغرا رضوی",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ولادت حسین",
+    "name": "سید ولایت حسین",
     "father": "سید اشفاق حسین",
-    "mother": "سیدہ کنیز صغری رضوی",
+    "mother": "سیدہ کنیز صغرا رضوی",
     "spouse": "سیدہ تنویر فاطمہ",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید رسالت حسین",
     "father": "سید اشفاق حسین",
-    "mother": "سیدہ کنیز صغری رضوی",
-    "spouse": "سیدہ لئیق بانو نقوی",
+    "mother": "سیدہ کنیز صغرا رضوی",
+    "spouse": "سیدہ لائق بانو نقوی",
     "gen": "G-040-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ عالیہ",
     "father": "سید اشفاق حسین",
-    "mother": "سیدہ کنیز صغری رضوی",
+    "mother": "سیدہ کنیز صغرا رضوی",
+    "spouse": "سید اظہار الحسن نقوی",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ راضیہ",
+    "name": "سیدہ رضیہ",
     "father": "سید اشفاق حسین",
-    "mother": "سیدہ کنیز صغری رضوی",
-    "spouse": "---",
+    "mother": "سیدہ کنیز صغرا رضوی",
+    "spouse": "سید عباس حسین رضوی",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ وہاںہ",
+    "name": "سیدہ وجیہہ",
     "father": "سید اشفاق حسین",
-    "mother": "سیدہ کنیز صغری رضوی",
-    "spouse": "سید ماجد عباس عابدی",
+    "mother": "سیدہ کنیز صغرا رضوی",
+    "spouse": "سید ماجد عباس عابدی۔",
     "gen": "G-040-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ تقیہ",
     "father": "سید اشفاق حسین",
-    "mother": "سیدہ کنیز صغری رضوی",
+    "mother": "سیدہ کنیز صغرا رضوی",
     "spouse": "---",
     "gen": "G-040-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید نسیم عباس",
     "father": "سید علی عباس",
-    "mother": "---",
-    "spouse": "---",
+    "mother": "سیدہ لئیق رضوی",
+    "spouse": "سیدہ معصومہ فاطمہ رضوی",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید دلاور عباس (علیم)",
     "father": "سید علی عباس",
-    "mother": "---",
+    "mother": "سیدہ لئیق رضوی",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید قیصرعباس",
+    "name": "سید قاصر عباس",
     "father": "سید علی عباس",
-    "mother": "---",
-    "spouse": "---",
+    "mother": "سیدہ لئیق رضوی",
+    "spouse": "سیدہ نگہت رضوی",
     "gen": "G-040-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید منظر عباس",
     "father": "سید علی عباس",
-    "mother": "---",
+    "mother": "سیدہ لئیق رضوی",
     "spouse": "---",
     "gen": "G-040-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ سعید",
     "father": "سید علی عباس",
-    "mother": "---",
+    "mother": "سیدہ لئیق رضوی",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید عزیز علی",
@@ -1476,15 +1479,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید سعید عباس",
+    "name": "سید سعید عباس (بچن)",
     "father": "سید محمد تقی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد باقر",
@@ -1492,7 +1495,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد جعفر",
@@ -1500,15 +1503,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ معصوم فاطمہ",
+    "name": "سیدہ معصومہ فاطمہ",
     "father": "سید محمد نقی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ نصیر فاطمہ",
@@ -1516,7 +1519,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ نجم فاطمہ",
@@ -1524,47 +1527,47 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید مسلم",
-    "father": "سید وزارت حسین",
+    "father": "سید وقار حسین",
     "mother": "---",
-    "spouse": "سیدہ رِفعت زھرا رضوی",
+    "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ تنویر فاطمہ",
-    "father": "سید وزارت حسین",
+    "father": "سید وقار حسین",
     "mother": "---",
-    "spouse": "سید ولادت حسین رضوی",
+    "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ تفسیر فاطمہ",
-    "father": "سید وزارت حسین",
+    "father": "سید وقار حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ تطہیر فاطمہ",
-    "father": "سید وزارت حسین",
+    "name": "سیدہ طاھر فاطمہ",
+    "father": "سید وقار حسین",
     "mother": "---",
-    "spouse": "سید افسر عالم رضوی",
+    "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ رِفعت زھرا",
+    "name": "سیدہ رفعت زہرہ",
     "father": "سید یاور حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید عرفان",
@@ -1572,31 +1575,31 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ زینت زھرا",
+    "name": "سیدہ زینت زہرہ",
     "father": "سید یاور حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید ظفر الحسن (شارب)",
+    "name": "سید ظفر الحسن (شعیب)",
     "father": "سید تفضل حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید اظہار حسن",
+    "name": "سید اظہار الحسن",
     "father": "سید تفضل حسین",
     "mother": "---",
-    "spouse": "سیدہ تسنیم فاطمہ رضوی",
+    "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید نصیر الحسن",
@@ -1604,23 +1607,23 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ عصمت زھرا",
+    "name": "سیدہ عصمت زہرہ",
     "father": "سید تفضل حسین",
     "mother": "---",
     "spouse": "سید محمد اظہر رضوی",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد اظہر",
     "father": "سید شاہد حسین",
     "mother": "---",
-    "spouse": "سیدہ عصمت زھرا رضوی",
+    "spouse": "سیدہ عصمت زہرا رضوی",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد مظہر",
@@ -1628,15 +1631,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید محمد نزر",
+    "name": "سید محمد نذر",
     "father": "سید شاہد حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ عزیز فاطمہ",
@@ -1644,15 +1647,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ تسنیم فاطمہ ",
+    "name": "سیدہ تسنیم فاطمہ",
     "father": "سید شاہد حسین",
     "mother": "---",
-    "spouse": "---",
+    "spouse": "سید اظہار الحسن رضوی",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ شکیل فاطمہ",
@@ -1660,7 +1663,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید حیدر شکو",
@@ -1668,15 +1671,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید علی اعلی",
+    "name": "سید علی آلا",
     "father": "سید نجم الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسن محترم",
@@ -1684,15 +1687,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید حسینین افرین",
+    "name": "سید حسنین آفرین",
     "father": "سید نجم الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی عالم",
@@ -1700,7 +1703,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S5",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسن دانش",
@@ -1708,31 +1711,31 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S6",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ دُر e نجف",
+    "name": "سیدہ دور نجف",
     "father": "سید نجم الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ کوہ e نور",
+    "name": "سیدہ کوہ نور",
     "father": "سید نجم الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ مناظر فاطمہ",
+    "name": "سیدہ منزہ فاطمہ",
     "father": "سید نجم الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ شاداب رضوی",
@@ -1740,87 +1743,87 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید شکیل رضا",
-    "father": "سید محمد نیر",
+    "father": "سید محمد نیئر",
     "mother": "---",
-    "spouse": "سیدہ ہما بتول",
+    "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید اقلیم رضا",
-    "father": "سید محمد نیر",
+    "name": "سید عاقل رضا",
+    "father": "سید محمد نیئر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ طلعت",
-    "father": "سید محمد نیر",
+    "father": "سید محمد نیئر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ یاسمین",
-    "father": "سید محمد نیر",
+    "father": "سید محمد نیئر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ شاہ تارا",
-    "father": "سید محمد نیر",
+    "name": "سیدہ شا تارہ",
+    "father": "سید محمد نیئر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ صفت",
-    "father": "سید محمد نیر",
+    "father": "سید محمد نیئر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد رضا",
-    "father": "سید شمس الحسن",
+    "father": "سید شام الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ہاشم رضا",
-    "father": "سید شمس الحسن",
+    "father": "سید شام الحسن",
     "mother": "---",
-    "spouse": "سیدہ قرہ العین  عارفہ",
+    "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ سیما بتول",
-    "father": "سید شمس الحسن",
+    "father": "سید شام الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ ہما بتول",
-    "father": "سید شمس الحسن",
+    "father": "سید شام الحسن",
     "mother": "---",
-    "spouse": "سید شکیل رضا",
+    "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد علی",
@@ -1828,7 +1831,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد کامل",
@@ -1836,7 +1839,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد عاصم",
@@ -1844,15 +1847,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ ثمرہ",
+    "name": "سیدہ سمیرا",
     "father": "سید تنویر الحسن",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید علی حیدر",
@@ -1860,38 +1863,38 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید اکبر حسین",
-    "father": "سید ا طہر حسین (منے)",
+    "father": "سید اطہر حسین (منی)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ لٗیق خاتون",
-    "father": "سید ا طہر حسین (منے)",
+    "name": "سیدہ لائقہ خاتون",
+    "father": "سید اطہر حسین (منی)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ انوری خاتون",
-    "father": "سید ا طہر حسین (منے)",
+    "father": "سید اطہر حسین (منی)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید جاوید عباس",
-    "father": "سید سعید عباس",
+    "father": "سید سعید عباس (بچن)",
     "mother": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید آفتاب حیدر",
@@ -1899,7 +1902,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد حیدر - 01",
@@ -1907,7 +1910,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید کامران حیدر - 01",
@@ -1915,15 +1918,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ دُر شہوار",
+    "name": "سیدہ در الشوار",
     "father": "سید عبادت حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ شاہین",
@@ -1931,7 +1934,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ زرینہ",
@@ -1939,15 +1942,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ حمّہ",
+    "name": "سیدہ ہما ۔",
     "father": "سید عبادت حسین",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ نگار",
@@ -1955,335 +1958,335 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D5",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید ظفر اقبال",
-    "father": "سید ولادت حسین",
-    "mother": "سیدہ تنویر فاطمہ",
+    "father": "سید ولایت حسین",
+    "mother": "سیدہ تنویر فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید نجف حیدر",
-    "father": "سید ولادت حسین",
-    "mother": "سیدہ تنویر فاطمہ",
+    "father": "سید ولایت حسین",
+    "mother": "سیدہ تنویر فاطمہ رضوی",
     "spouse": "سیدہ سبین رضوی",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید رضا حیدر",
-    "father": "سید ولادت حسین",
-    "mother": "سیدہ تنویر فاطمہ",
-    "spouse": "سیدہ ثروت زھرا رضوی",
+    "father": "سید ولایت حسین",
+    "mother": "سیدہ تنویر فاطمہ رضوی",
+    "spouse": "سیدہ ثروت زہرا رضوی",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید شمیم حیدر",
-    "father": "سید ولادت حسین",
-    "mother": "سیدہ تنویر فاطمہ",
+    "name": "سید شمیم ​​حیدر",
+    "father": "سید ولایت حسین",
+    "mother": "سیدہ تنویر فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ انجم نگہت",
-    "father": "سید ولادت حسین",
-    "mother": "سیدہ تنویر فاطمہ",
+    "father": "سید ولایت حسین",
+    "mother": "سیدہ تنویر فاطمہ رضوی",
     "spouse": "سید نسیم حیدر رضوی",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید ریحان حیدر",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "عظمی جمیل",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "عظمیٰ حیدر",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عمران حیدر",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "مہ جبین",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "مہجبین",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید کامران حیدر - 02",
+    "name": "سید کامران حیدر۔02",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
+    "mother": "سیدہ لائق بانو نقوی",
     "spouse": "نادیہ",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید فرحان حیدر",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "سیدہ تطہیر زھرا رضوی",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "سیدہ طاہر زہرا رضوی",
     "gen": "G-041-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید خرم حیدر",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "سیدہ ثمیرانقوی (مونا)",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "سیدہ سمیرا نقوی (مونا)",
     "gen": "G-041-S5",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید ذیشان حیدر",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "سید شازیہ  رضوی (دعا)",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "سید دعا رضوی (دعا)",
     "gen": "G-041-S6",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید سلمان حیدر",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
+    "mother": "سیدہ لائق بانو نقوی",
     "spouse": "سیدہ تارا زیدی",
     "gen": "G-041-S7",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عدنان حیدر",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "سیدہ فریاب زھرازیدی",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "سیدہ فریاب زہرہ زیدی",
     "gen": "G-041-S8",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ عصمت صبا",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "سید محمد علی افضل رضوی",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "سید ایم علی افضل رضوی",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ طلعت صبا",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
+    "mother": "سیدہ لائق بانو نقوی",
     "spouse": "سید عباس رضا نقوی (رضوان)",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ عشرت صبا",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
+    "mother": "سیدہ لائق بانو نقوی",
     "spouse": "سید اقبال حیدر نقوی (شاہد)",
     "gen": "G-041-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ ثروت رضوی",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "سید ذلکفل رضا نقوی (عشرت)",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "سید ذوالکفل رضا نقوی (عشرت)",
     "gen": "G-041-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ ارم رضوی",
     "father": "سید رسالت حسین",
-    "mother": "سیدہ لئیق بانو نقوی",
-    "spouse": "سید محمد مہدی نقوی (دانش)",
+    "mother": "سیدہ لائق بانو نقوی",
+    "spouse": "سید ایم مہدی نقوی (ڈینش)",
     "gen": "G-041-D5",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید آصف",
-    "father": "سید نسیم عباس",
-    "mother": "---",
+    "father": "سید نسیم",
+    "mother": "سیدہ معصومہ فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید سلمان",
-    "father": "سید نسیم عباس",
-    "mother": "---",
+    "father": "سید نسیم",
+    "mother": "سیدہ معصومہ فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ ہما",
-    "father": "سید نسیم عباس",
-    "mother": "---",
+    "father": "سید نسیم",
+    "mother": "سیدہ معصومہ فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ اسما",
-    "father": "سید نسیم عباس",
-    "mother": "---",
+    "name": "سیدہ اسماء",
+    "father": "سید نسیم",
+    "mother": "سیدہ معصومہ فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ ناہید",
-    "father": "سید نسیم عباس",
-    "mother": "---",
+    "father": "سید نسیم",
+    "mother": "سیدہ معصومہ فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید اسد عباس",
-    "father": "سید قیصرعباس",
-    "mother": "---",
+    "name": "سید اسد",
+    "father": "سید قاصر عباس",
+    "mother": "سیدہ نگہت رضوی",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید اصفر عباس",
-    "father": "سید قیصرعباس",
-    "mother": "---",
+    "name": "سید اسفار",
+    "father": "سید قاصر عباس",
+    "mother": "سیدہ نگہت رضوی",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید قمبر عباس -002",
-    "father": "سید قیصرعباس",
-    "mother": "---",
+    "name": "سید قمبر۔02",
+    "father": "سید قاصر عباس",
+    "mother": "سیدہ نگہت رضوی",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ مدحت",
-    "father": "سید قیصرعباس",
-    "mother": "---",
+    "father": "سید قاصر عباس",
+    "mother": "سیدہ نگہت رضوی",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید کمال حیدر - 01",
     "father": "سید مسلم",
-    "mother": "سیدہ رِفعت زھرارضوی",
+    "mother": "سیدہ رفعت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ثر حیدر",
+    "name": "سید مدثر حیدر",
     "father": "سید مسلم",
-    "mother": "سیدہ رِفعت زھرارضوی",
+    "mother": "سیدہ رفعت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید مزمل حیدر",
     "father": "سید مسلم",
-    "mother": "سیدہ رِفعت زھرارضوی",
+    "mother": "سیدہ رفعت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسن حیدر",
     "father": "سید مسلم",
-    "mother": "سیدہ رِفعت زھرارضوی",
+    "mother": "سیدہ رفعت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ سبین",
     "father": "سید مسلم",
-    "mother": "سیدہ رِفعت زھرارضوی",
-    "spouse": "سید نجف حیدر",
+    "mother": "سیدہ رفعت زہرا رضوی",
+    "spouse": "سید نجف حیدر رضوی",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ",
+    "name": "سیدہ [بے نام]",
     "father": "سید مسلم",
-    "mother": "سیدہ رِفعت زھرارضوی",
+    "mother": "سیدہ رفعت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید ابو طالب - 02",
-    "father": "سید ظفر الحسن (شارب)",
+    "father": "سید ظفر الحسن (شعیب)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید عبداللہ - 03",
-    "father": "سید ظفر الحسن (شارب)",
+    "father": "سید ظفر الحسن (شعیب)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید کمال حیدر - 02",
-    "father": "سید ظفر الحسن (شارب)",
+    "name": "سید کمال حیدر۔02",
+    "father": "سید ظفر الحسن (شعیب)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید جمال حیدر",
-    "father": "سید ظفر الحسن (شارب)",
+    "father": "سید ظفر الحسن (شعیب)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ وعفت زھرا",
-    "father": "سید ظفر الحسن (شارب)",
+    "name": "سیدہ عفت زہرہ",
+    "father": "سید ظفر الحسن (شعیب)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ثروت زھرا",
-    "father": "سید ظفر الحسن (شارب)",
+    "name": "سیدہ ثروت زہرہ",
+    "father": "سید ظفر الحسن (شعیب)",
     "mother": "---",
     "spouse": "سید رضا حیدر رضوی",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ نصرت زھرا",
-    "father": "سید ظفر الحسن (شارب)",
+    "name": "سیدہ نصرت زہرہ",
+    "father": "سید ظفر الحسن (شعیب)",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد علی انجم",
     "father": "سید اظہار الحسن",
     "mother": "سیدہ تسنیم فاطمہ رضوی",
-    "spouse": "سیدہ تبسم رضوی",
+    "spouse": "سید تبسم وصی رضوی",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد علی اعظم",
@@ -2291,7 +2294,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد علی عظیم",
@@ -2299,7 +2302,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد علی معظم",
@@ -2307,15 +2310,15 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ قرۃ العین ارجمد",
+    "name": "سیدہ قرۃ العین ارجمند",
     "father": "سید اظہار الحسن",
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "سید جمیل زیدی",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ قرۃ العین طاہرہ",
@@ -2323,7 +2326,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "سید فرحت مہدی زیدی",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ قرۃ العین نور",
@@ -2331,79 +2334,79 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "سید الطاف حسین",
     "gen": "G-041-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ قرۃ العین صالح",
+    "name": "سیدہ قرۃ العین صالحہ",
     "father": "سید اظہار الحسن",
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "سید وقار زیدی",
     "gen": "G-041-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ قرۃ العین عارفہ",
+    "name": "سیدہ قرۃ العین عرفہ",
     "father": "سید اظہار الحسن",
     "mother": "سیدہ تسنیم فاطمہ رضوی",
     "spouse": "سید ہاشم رضا رضوی",
     "gen": "G-041-D5",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد عمران رضوی",
     "father": "سید محمد اظہر",
-    "mother": "سیدہ عصمت زھرا رضوی",
+    "mother": "سیدہ عصمت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد کامران رضوی",
     "father": "سید محمد اظہر",
-    "mother": "سیدہ عصمت زھرا رضوی",
+    "mother": "سیدہ عصمت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید  محمد عدنان حیدر",
+    "name": "سید محمد عدنان حیدر",
     "father": "سید محمد اظہر",
-    "mother": "سیدہ عصمت زھرا رضوی",
+    "mother": "سیدہ عصمت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ اعزاز عالیہ",
     "father": "سید محمد اظہر",
-    "mother": "سیدہ عصمت زھرا رضوی",
+    "mother": "سیدہ عصمت زہرا رضوی",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ ارم رضوی",
     "father": "سید محمد اظہر",
-    "mother": "سیدہ عصمت زھرا رضوی",
-    "spouse": "سید شبہ کاظمی",
+    "mother": "سیدہ عصمت زہرا رضوی",
+    "spouse": "سید شبی کاظمی",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ حنا رضوی",
     "father": "سید محمد اظہر",
-    "mother": "سیدہ عصمت زھرا رضوی",
+    "mother": "سیدہ عصمت زہرا رضوی",
     "spouse": "سید وصی حسین نقوی",
     "gen": "G-041-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ نقش زھرا",
+    "name": "سیدہ ناشق زہرہ",
     "father": "سید حیدر شکو",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ فرح بتول",
@@ -2411,7 +2414,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد ثمر",
@@ -2419,7 +2422,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد شبر",
@@ -2427,31 +2430,31 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید مرتضی حیدر",
+    "name": "سید مرتضیٰ حیدر",
     "father": "سید ظفر اقبال",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید ارتضی حیدر",
+    "name": "سید ارتضیٰ حیدر",
     "father": "سید ظفر اقبال",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ بتول ظفرحیدر",
+    "name": "سیدہ بتول ظفر حیدر",
     "father": "سید ظفر اقبال",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ کوثر ظفر حیدر",
@@ -2459,7 +2462,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ خدیجہ ظفر حیدر",
@@ -2467,7 +2470,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ ملیکہ ظفر حیدر",
@@ -2475,7 +2478,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید احسن سجاد",
@@ -2483,7 +2486,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ سبین رضوی",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسین حیدر - 01",
@@ -2491,7 +2494,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ سبین رضوی",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ مریم نجف",
@@ -2499,7 +2502,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ سبین رضوی",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ رمشا نجف",
@@ -2507,7 +2510,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ سبین رضوی",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ سارہ نجف",
@@ -2515,7 +2518,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ سبین رضوی",
     "spouse": "---",
     "gen": "G-042-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ فروہ نجف",
@@ -2523,175 +2526,175 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ سبین رضوی",
     "spouse": "---",
     "gen": "G-042-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد خرم حیدر",
     "father": "سید رضا حیدر",
-    "mother": "سیدہ ثروت زھرا رضوی",
-    "spouse": "سیدہ امنہ زیدی",
+    "mother": "سیدہ ثروت زہرا رضوی",
+    "spouse": "سیدہ آمنہ زیدی",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ تابندہ زھرا",
+    "name": "سیدہ تابندہ زہرہ",
     "father": "سید رضا حیدر",
-    "mother": "سیدہ ثروت زھرا رضوی",
+    "mother": "سیدہ ثروت زہرا رضوی",
     "spouse": "سید منتظر مہدی",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد عباس حیدر",
     "father": "سید رضا حیدر",
-    "mother": "سیدہ ثروت زھرا رضوی",
-    "spouse": "سیدہ ثمانہ بتول",
+    "mother": "سیدہ ثروت زہرا رضوی",
+    "spouse": "سیدہ سمانہ بتول رضوی",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد علی حیدر - 01",
     "father": "سید رضا حیدر",
-    "mother": "سیدہ ثروت زھرا رضوی",
+    "mother": "سیدہ ثروت زہرا رضوی",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شبیر حیدر",
-    "father": "سید شمیم حیدر",
+    "father": "سید شمیم ​​حیدر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید شبر حیدر",
-    "father": "سید شمیم حیدر",
+    "father": "سید شمیم ​​حیدر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ فِضّہ شمیم",
-    "father": "سید شمیم حیدر",
+    "name": "سیدہ فضا شمیم",
+    "father": "سید شمیم ​​حیدر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ رباب شمیم",
-    "father": "سید شمیم حیدر",
+    "father": "سید شمیم ​​حیدر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ حنین حیدر",
     "father": "سید ریحان حیدر",
-    "mother": "عظمی جمیل",
+    "mother": "عظمیٰ حیدر",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ثمانہ حیدر",
+    "name": "سیدہ سمانہ حیدر",
     "father": "سید ریحان حیدر",
-    "mother": "عظمی جمیل",
+    "mother": "عظمیٰ حیدر",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ عفِیفہ حیدر",
+    "name": "سیدہ عفیفہ حیدر",
     "father": "سید ریحان حیدر",
-    "mother": "عظمی جمیل",
+    "mother": "عظمیٰ حیدر",
     "spouse": "---",
     "gen": "G-042-D3",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ معصومہ حیدر",
     "father": "سید ریحان حیدر",
-    "mother": "عظمی جمیل",
+    "mother": "عظمیٰ حیدر",
     "spouse": "---",
     "gen": "G-042-D4",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ زینب کامران - 02",
-    "father": "سید کامران حیدر - 02",
+    "name": "سیدہ زینب کامران۔02",
+    "father": "سید کامران حیدر۔02",
     "mother": "نادیہ",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید حسین حیدر - 02",
-    "father": "سید کامران حیدر - 02",
+    "name": "سید حسین حیدر۔02",
+    "father": "سید کامران حیدر۔02",
     "mother": "نادیہ",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید محمد حسینین حیدر",
+    "name": "سید محمد حسنین حیدر",
     "father": "سید فرحان حیدر",
-    "mother": "سیدہ تطہیر زھرا رضوی",
+    "mother": "سیدہ طاہر زہرا رضوی",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ فِضّہ حیدر - 02",
+    "name": "سیدہ فضا حیدر۔02",
     "father": "سید فرحان حیدر",
-    "mother": "سیدہ تطہیر زھرا رضوی",
+    "mother": "سیدہ طاہر زہرا رضوی",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ سکینہ حیدر",
     "father": "سید خرم حیدر",
-    "mother": "سیدہ ثمیرانقوی (مونا)",
+    "mother": "سیدہ سمیرا نقوی (مونا)",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید قاسم حیدر",
     "father": "سید خرم حیدر",
-    "mother": "سیدہ ثمیرانقوی (مونا)",
+    "mother": "سیدہ سمیرا نقوی (مونا)",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید میثم حیدر",
     "father": "سید ذیشان حیدر",
-    "mother": "سید شازیہ رضوی (دعا)",
+    "mother": "سید دعا رضوی (دعا)",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید مجتبی حیدر",
+    "name": "سید مجتبیٰ حیدر",
     "father": "سید ذیشان حیدر",
-    "mother": "سید شازیہ رضوی (دعا)",
+    "mother": "سید دعا رضوی (دعا)",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید علی حیدر - 02",
+    "name": "سید علی حیدر۔02",
     "father": "سید ذیشان حیدر",
-    "mother": "سید شازیہ رضوی (دعا)",
+    "mother": "سید دعا رضوی (دعا)",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد حیدر - 02",
@@ -2699,7 +2702,7 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ تارا زیدی",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید مہدی حیدر",
@@ -2707,79 +2710,79 @@ const FAMILY_DATA_URDU = [
     "mother": "سیدہ تارا زیدی",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید موسی حیدر",
+    "name": "سید موسیٰ حیدر",
     "father": "سید سلمان حیدر",
     "mother": "سیدہ تارا زیدی",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد عباس حیدر",
     "father": "سید عدنان حیدر",
-    "mother": "سیدہ فریاب زھرازیدی",
+    "mother": "سیدہ فریاب زہرہ زیدی",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ امنہ حیدر",
+    "name": "سیدہ آمنہ حیدر",
     "father": "سید عدنان حیدر",
-    "mother": "سیدہ فریاب زھرازیدی",
+    "mother": "سیدہ فریاب زہرہ زیدی",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ خدیجہ حیدر - 02",
+    "name": "سیدہ خدیجہ حیدر۔02",
     "father": "سید عدنان حیدر",
-    "mother": "سیدہ فریاب زھرازیدی",
+    "mother": "سیدہ فریاب زہرہ زیدی",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید حیدر علی",
     "father": "سید محمد علی انجم",
-    "mother": "سید تبسم رضوی",
+    "mother": "سید تبسم وصی رضوی",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ بینش فاطمہ",
     "father": "سید محمد علی انجم",
-    "mother": "سید تبسم رضوی",
+    "mother": "سید تبسم وصی رضوی",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید حمزہ رضوی",
-    "father": "سید محمد علی عظم",
+    "father": "سید محمد علی اعظم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی جوہر رضوی",
-    "father": "سید محمد علی عظم",
+    "father": "سید محمد علی اعظم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ عروج فاطمہ",
-    "father": "سید محمد علی عظم",
+    "father": "سید محمد علی اعظم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محمد علی رضا",
@@ -2787,7 +2790,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید محمد علی عباس",
@@ -2795,15 +2798,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ ظومن فاطمہ",
+    "name": "سیدہ ضامن فاطمہ",
     "father": "سید محمد علی عظیم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ یمنہ فاطمہ",
@@ -2811,31 +2814,31 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید علی فہیم",
-    "father": "سید محمد علی معضم",
+    "father": "سید محمد علی معظم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی ابراہیم",
-    "father": "سید محمد علی معضم",
+    "father": "سید محمد علی معظم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ عائزہ رضوی",
-    "father": "سید محمد علی معضم",
+    "father": "سید محمد علی معظم",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید محتشم علی",
@@ -2843,7 +2846,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید احتشام عباس",
@@ -2851,7 +2854,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید اصغر علی - 02",
@@ -2859,23 +2862,23 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ ملکہ رضوی",
+    "name": "سیدہ ملیکہ رضوی",
     "father": "سید ابو طالب - 02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ثناء  رضوی",
+    "name": "سیدہ ثناء رضوی",
     "father": "سید ابو طالب - 02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سیدہ خدیجہ رضوی",
@@ -2883,15 +2886,15 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ثمانہ بتول",
+    "name": "سیدہ سمانہ بتول",
     "father": "سید عبداللہ - 03",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید عسکری رضوی",
@@ -2899,7 +2902,7 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید احمد علی",
@@ -2907,31 +2910,31 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید حسن غازی",
-    "father": "سید کمال حیدر - 02",
+    "father": "سید کمال حیدر۔02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سید علی غازی",
-    "father": "سید کمال حیدر - 02",
+    "father": "سید کمال حیدر۔02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ امامہ فاطمہ",
-    "father": "سید کمال حیدر - 02",
+    "father": "سید کمال حیدر۔02",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
     "name": "سید فخر عباس",
@@ -2939,55 +2942,55 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ حور زھرا",
+    "name": "سیدہ حور زہرہ",
     "father": "سید جمال حیدر",
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سیدہ ماھرہ زھرا",
+    "name": "سیدہ ماہرہ زہرہ",
     "father": "سید محمد خرم حیدر",
-    "mother": "سیدہ امنہ زیدی",
+    "mother": "سیدہ آمنہ زیدی",
     "spouse": "---",
     "gen": "G-043-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید محمد مصطفی حیدر",
+    "name": "سید محمد مصطفیٰ حیدر",
     "father": "سید محمد خرم حیدر",
-    "mother": "سیدہ امنہ زیدی",
+    "mother": "سیدہ آمنہ زیدی",
     "spouse": "---",
     "gen": "G-043-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سیدہ زوحہ زھرا",
+    "name": "سیدہ زوہا زہرہ",
     "father": "سید محمد عباس حیدر",
-    "mother": "سیدہ ثمانہ بتول",
+    "mother": "سیدہ سمانہ بتول رضوی",
     "spouse": "---",
     "gen": "G-043-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   },
   {
-    "name": "سید مصطفی حیدر",
+    "name": "سید مصطفیٰ حیدر",
     "father": "سید حیدر علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-043-S1",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
-    "name": "سید عمّار حیدر",
+    "name": "سید عمار حیدر",
     "father": "سید حیدر علی",
     "mother": "---",
     "spouse": "---",
     "gen": "G-043-S2",
-    "gender": "Male"
+    "gender": "MALE"
   },
   {
     "name": "سیدہ عالیہ فاطمہ",
@@ -2995,8 +2998,8 @@ const FAMILY_DATA_URDU = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-043-D1",
-    "gender": "Female"
+    "gender": "FEMALE"
   }
 ];
 
-const FILE_INFO = { saved_time: "19/03/2026, 3:20:56 pm", total_members: 375 };
+const FILE_INFO = { saved_time: "24/03/2026, 5:47:58 pm", total_members: 375 };

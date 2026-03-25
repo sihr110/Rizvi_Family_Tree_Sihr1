@@ -1,6 +1,6 @@
 <!-- ===================================== -->
 <!-- FILE NAME: 23-individual-table-pc.html -->
-<!-- LAST UPDATED: 18/03/2026              -->
+<!-- LAST UPDATED: 25/03/2026              -->
 <!-- ===================================== -->
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رضوی خاندان · جدول</title>
+    <title>رضوی خاندان ــ ٹیبل</title>
     <meta name="google" content="notranslate">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -18,6 +18,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+        /* CHANGE 1: Reset Button CSS */
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -271,10 +290,13 @@
             position: relative;
         }
 
+        /* CHANGE 2: Search section centered */
         .search-section {
             padding: 15px;
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
+            width: 85%;
+            margin: 0 auto;
         }
 
         .search-row {
@@ -475,6 +497,7 @@
             transition: all 0.2s;
             flex-shrink: 0;
             font-family: 'Inter', sans-serif;
+            line-height: 1;
         }
 
         .toggle-icon:hover {
@@ -641,7 +664,7 @@
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span>رضوی خاندان · جدول</span>
+                <span>رضوی خاندان ــ ٹیبل</span>
             </div>
             <div class="header-actions">
                 <div class="header-btn tree-view" onclick="switchToTreeView()">🌳 شجرہ</div>
@@ -654,12 +677,13 @@
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="resetIndividual()">🔄 دوبارہ ترتیب</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
         </div>
 
         <div class="main-content">
             <div class="center-content">
+                <!-- CHANGE 3: Search section with reset button -->
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">نام تلاش کریں</span>
@@ -667,6 +691,7 @@
                             <input type="text" id="searchInput" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetIndividual()">🔄 دوبارہ ترتیب</div>
                     </div>
                 </div>
 
@@ -772,8 +797,12 @@
             document.head.appendChild(script);
         }
 
+        // CHANGE 6: Fixed displayName to remove ۔01 pattern
         function displayName(str) {
-            return str ? str.replace(/\s*-\s*\d+$/, '').trim() : '';
+            if (!str) return '';
+            // Remove patterns: " - 02", "-02", "۔02", " - 2", "-2", "۔2"
+            let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
+            return cleaned;
         }
 
         function formatCurrentTime() {
@@ -816,10 +845,10 @@
                 <div class="welcome-container">
                     <div class="welcome-box">
                         <div class="welcome-icon">🌿</div>
-                        <div class="welcome-title">رضوی خاندان · جدول</div>
+                        <div class="welcome-title">رضوی خاندان ــ ٹیبل</div>
                         <div class="welcome-text">
                             براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>
-                            تاکہ ان کے خاندانی روابط جدول میں دیکھ سکیں۔
+                            تاکہ ان کے خاندانی روابط ٹیبل میں دیکھ سکیں۔
                         </div>
                     </div>
                 </div>
@@ -857,6 +886,7 @@
             renderTable();
         }
 
+        // CHANGE 5: Fixed toggleSection function
         window.toggleSection = function(section) {
             if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
             else if (section === 'children') childrenCollapsed = !childrenCollapsed;
@@ -920,11 +950,7 @@
             
             let html = `<table class="family-table">`;
             html += `<thead><tr>
-                <th>نام</th>
-                <th>جنریشن</th>
-                <th>والد</th>
-                <th>والدہ</th>
-                <th>شریک حیات</th>
+                <th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th>
             </tr></thead><tbody>`;
             
             members.forEach(m => {
@@ -1077,7 +1103,7 @@
                 const header = document.createElement('div');
                 header.style.marginBottom = '30px'; 
                 header.style.textAlign = 'center';
-                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">رضوی خاندان کا جدول</h1>
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">رضوی خاندان کا ٹیبل</h1>
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
                 
                 tableElement.insertBefore(header, tableElement.firstChild);
@@ -1162,7 +1188,7 @@
                 const header = document.createElement('div');
                 header.style.marginBottom = '30px'; 
                 header.style.textAlign = 'center';
-                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">رضوی خاندان کا جدول</h1>
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">رضوی خاندان کا ٹیبل</h1>
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
                 tableElement.insertBefore(header, tableElement.firstChild);
 

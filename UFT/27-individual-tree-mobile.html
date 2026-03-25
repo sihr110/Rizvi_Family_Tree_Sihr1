@@ -9,7 +9,7 @@
 <head>
     <meta name="google" content="notranslate">
     <meta charset="UTF-8">
-    <!-- MOBILE VIEWPORT - initial-scale=0.5 exactly like file 7 -->
+    <!-- MOBILE VIEWPORT -->
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <title>رضوی خاندان · انفرادی شجرہ (موبائل)</title>
     
@@ -21,6 +21,25 @@
     <script src="33-family-data-urdu.js"></script>
    
     <style>
+        /* CHANGE 1: Reset Button CSS */
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
         /* Gentle pulsing/blinking effect for toggle button */
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
@@ -128,7 +147,7 @@
 
         .toggle-menu-panel {
             position: absolute;
-            right: 10px; /* RTL adjustment */
+            right: 10px;
             left: auto;
             top: 60px;
             background: white;
@@ -166,7 +185,7 @@
 
         .toggle-menu-item:hover {
             background: #faebcd;
-            transform: translateX(-5px); /* RTL adjustment */
+            transform: translateX(-5px);
         }
 
         .toggle-menu-item.active {
@@ -190,10 +209,13 @@
             position: relative;
         }
 
+        /* CHANGE 2: Search section centered */
         .search-section {
             padding: 15px;
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
+            width: 85%;
+            margin: 0 auto;
         }
 
         .search-row {
@@ -279,7 +301,7 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        /* Tree container with zoom - CLEAN VERSION */
+        /* Tree container */
         .tree-container {
             flex: 1;
             overflow: auto;
@@ -290,7 +312,7 @@
         }
 
         .tree-root-layout {
-            transform-origin: top right; /* RTL adjustment */
+            transform-origin: top right;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -425,7 +447,7 @@
         .child-icon {
             position: absolute;
             bottom: 8px;
-            left: 12px; /* RTL adjustment */
+            left: 12px;
             right: auto;
             font-size: 18px;
             line-height: 1;
@@ -471,7 +493,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px; /* RTL adjustment */
+            margin-right: 15px;
             margin-left: 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: all 0.2s;
@@ -598,7 +620,7 @@
                 font-size: 16px;
                 position: static;
                 transform: none;
-                margin-right: 10px; /* RTL adjustment */
+                margin-right: 10px;
                 margin-left: 0;
             }
             
@@ -623,6 +645,15 @@
             
             .welcome-icon {
                 font-size: 48px;
+            }
+            
+            .search-section {
+                width: 90%;
+            }
+            
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
             }
         }
 
@@ -652,7 +683,6 @@
                 <span class="header-icon">🌿</span>
                 <span>رضوی خاندان · انفرادی شجرہ</span>
             </div>
-            <!-- Header buttons removed - now in toggle menu -->
         </div>
 
         <div class="toggle-menu-panel" id="toggleMenuPanel">
@@ -660,15 +690,16 @@
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="showTableView()">📊 جدول ویو</div>
+            <div class="toggle-menu-item" onclick="showTableView()">📊 ٹیبل ویو</div>
             <div class="toggle-menu-item" onclick="showDashboard()">🏠 ڈیش بورڈ</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="resetIndividual()">🔄 دوبارہ ترتیب</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
         </div>
 
         <div class="main-content">
             <div class="center-content">
+                <!-- CHANGE 3: Search section with reset button -->
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">نام تلاش کریں</span>
@@ -676,6 +707,7 @@
                             <input type="text" id="searchInput" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetIndividual()">🔄 دوبارہ ترتیب</div>
                     </div>
                 </div>
 
@@ -728,7 +760,7 @@
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
     <script>
-        // ==================== JAVASCRIPT FROM FILE 7 - URDU VERSION ====================
+        // ==================== JAVASCRIPT FROM ORIGINAL FILE ====================
         let db = [];
         let fileInfo = null;
         let currentIndividual = null;
@@ -849,6 +881,7 @@
             renderTree();
         }
 
+        // CHANGE 5: Fixed toggleSection function
         window.toggleSection = function(section) {
             if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
             else if (section === 'children') childrenCollapsed = !childrenCollapsed;
@@ -871,37 +904,26 @@
             return arr;
         }
 
-        // MODIFIED: renderBox omits 'Status' line entirely AND removes any rose/flower icons
         function renderBox(person, label, isSiblingOrChild = false) {
             const isFemale = person.gender?.startsWith('F');
             const isSelected = currentIndividual?.name === person.name;
             const mother = person.mother || '—';
             const hasKids = db.some(c => c.father === person.name);
-            // Removed statusIcon and fatherStatus entirely (no roses)
 
             let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}" onclick="handleBoxClick(this)">`;
             html += `<div class="box-header"><span>${label}</span><span>${person.gen || '—'}</span></div>`;
             html += `<div class="box-body">`;
-            
-            // Name line - NO icon after name
             html += `<div class="box-row"><span class="box-label">نام :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
             
-            // For siblings/children: show spouse and mother. For main/ancestors: show father, mother, spouse.
             if (isSiblingOrChild) {
                 html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
-                // Mother line
                 html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${mother}</span></div>`;
-                // NO status line
             } else {
-                // Main person/ancestors: show father, mother, spouse (NO status, NO roses)
                 html += `<div class="box-row"><span class="box-label">والد :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
                 html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${mother}</span></div>`;
                 html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
-                // No status line
             }
-            
             if (hasKids) html += `<div class="child-icon">👪</div>`;
-            
             html += `</div></div>`;
             return html;
         }
@@ -951,20 +973,13 @@
                 const females = members.filter(m => m.gender === 'Female');
                 
                 let html = '';
-                
-                if (males.length > 0) {
-                    html += renderGenderGroup(males, type);
-                }
-                
-                if (females.length > 0) {
-                    html += renderGenderGroup(females, type);
-                }
-                
+                if (males.length > 0) html += renderGenderGroup(males, type);
+                if (females.length > 0) html += renderGenderGroup(females, type);
                 return html;
             }
             
-            const count = members.length;
             const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'بہن' : 'بھائی') : (m.gender?.startsWith('F') ? 'بیٹی' : 'بیٹا');
+            const count = members.length;
             
             if (count === 1) {
                 return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
@@ -1106,7 +1121,6 @@
             }
         };
 
-        // ==================== UPDATED PDF EXPORT with quality parameter ====================
         async function exportIndividualPDF(quality = 'high') {
             const member = currentIndividual;
             if (!member) return;
@@ -1119,26 +1133,14 @@
             if (!treeElement) return alert('کوئی مواد نہیں');
             
             try {
-                // SAVE original zoom (which is 0.5 on mobile)
-                const originalZoom = treeElement.style.zoom;
-                
-                // TEMPORARILY REMOVE the 0.5 zoom for PDF capture
-                treeElement.style.zoom = '1';
-                
-                // Create a clone
                 const clone = treeElement.cloneNode(true);
                 
-                // RESTORE original zoom immediately after cloning
-                treeElement.style.zoom = originalZoom;
-                
-                // Create wrapper with same styling
                 const wrapper = document.createElement('div');
                 wrapper.style.background = 'white';
                 wrapper.style.padding = '20px';
                 wrapper.style.width = 'fit-content';
                 wrapper.style.margin = '0 auto';
                 
-                // Add header
                 const header = document.createElement('div');
                 header.style.marginBottom = '30px'; 
                 header.style.textAlign = 'center';
@@ -1146,7 +1148,6 @@
                 header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:0;">رضوی خاندان کا شجرہ</h1>
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
                 
-                // Add footer
                 const footer = document.createElement('div');
                 footer.style.marginTop = '30px';
                 footer.style.padding = '15px 20px';
@@ -1169,7 +1170,6 @@
                 wrapper.appendChild(clone);
                 wrapper.appendChild(footer);
                 
-                // Temporarily add to body for capture
                 wrapper.style.position = 'absolute';
                 wrapper.style.left = '-9999px';
                 wrapper.style.top = '0';
@@ -1199,7 +1199,6 @@
                     useCORS: true 
                 });
                 
-                // Clean up
                 document.body.removeChild(wrapper);
                 document.body.removeChild(loadingMsg);
 
@@ -1217,7 +1216,6 @@
                 const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 pdf.save(`shajra_${safeName}_${quality}_${Date.now()}.pdf`);
                 
-                // Show file size
                 const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
                 const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
                 alert(`✅ ${qualityText} PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`);
@@ -1228,7 +1226,6 @@
             }
         }
 
-        // ==================== JPEG EXPORT ====================
         window.exportAsJPEG = async function() {
             const member = currentIndividual;
             if (!member) return;
@@ -1237,10 +1234,7 @@
             if (!treeElement) return alert('کوئی مواد نہیں');
             
             try {
-                const originalZoom = treeElement.style.zoom;
-                treeElement.style.zoom = '1';
                 const clone = treeElement.cloneNode(true);
-                treeElement.style.zoom = originalZoom;
                 
                 const wrapper = document.createElement('div');
                 wrapper.style.background = 'white';
@@ -1355,7 +1349,6 @@
             });
         }
         
-        // Call setup
         setupEventListeners();
         
         window.showDashboard = showDashboard; 

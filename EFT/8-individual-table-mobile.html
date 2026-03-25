@@ -1,6 +1,6 @@
 <!-- ===================================== -->
 <!-- FILE NAME: 8-individual-table-mobile.html -->
-<!-- LAST UPDATED: 15/03/2026              -->
+<!-- LAST UPDATED: 25/03/2026              -->
 <!-- Table view for Rizvi Family - Mobile version -->
 <!-- VITAL STATUS COLUMN REMOVED -->
 <!-- ===================================== -->
@@ -18,6 +18,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+
+/* CHANGE 1: Reset Button CSS */
+.reset-btn {
+    padding: 10px 20px;
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.reset-btn:hover {
+    background: var(--light-gold);
+    transform: scale(1.02);
+}
 
 /* Gentle pulsing/blinking effect with gold and light green - Header Toggle */
 .left-toggle-btn {
@@ -187,10 +206,13 @@
             position: relative;
         }
 
+        /* CHANGE 2: Search section centered */
         .search-section {
             padding: 15px;
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
+            width: 85%;
+            margin: 0 auto;
         }
 
         .search-row {
@@ -363,7 +385,7 @@
 
         .toggle-icon {
             position: absolute;
-            left: 165px; 
+            left: 185px; 
             font-size: 22px;
             font-weight: bold;
             background: var(--gold);
@@ -377,6 +399,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: all 0.2s;
             flex-shrink: 0;
+            line-height: 1;
         }
 
         .section-heading {
@@ -528,6 +551,11 @@
                 margin-left: 10%;
                 font-size: 16px;
             }
+            
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
         }
 
         @media screen and (max-width: 360px) {
@@ -563,12 +591,13 @@
             <div class="toggle-menu-item" onclick="switchToTreeView()">🌳 Tree View</div>
             <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="resetIndividual()">🔄 Reset</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
         </div>
 
         <div class="main-content">
             <div class="center-content">
+                <!-- CHANGE 3: Search section with reset button -->
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">SEARCH MEMBER</span>
@@ -576,6 +605,7 @@
                             <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
                     </div>
                 </div>
 
@@ -638,8 +668,12 @@
         let childrenCollapsed = true;
         let ancestorsCollapsed = true;
 
+        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) {
-            return str ? str.replace(/\s*-\s*\d+$/, '').trim() : '';
+            if (!str) return '';
+            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -742,6 +776,7 @@
             renderTable();
         }
 
+        // CHANGE 5: Fixed toggleSection function
         window.toggleSection = function(section) {
             if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
             else if (section === 'children') childrenCollapsed = !childrenCollapsed;
@@ -834,7 +869,7 @@
                 const ancestors = getAncestors(currentIndividual);
                 if (ancestors.length) {
                     html += `<div class="section-heading" onclick="toggleSection('ancestors')">`;
-                    html += `<span>🌳 ANCESTORS</span>`;
+                    html += `<span>🌳 ANCESTORS (${ancestors.length})</span>`;
                     html += `<span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!ancestorsCollapsed) {
@@ -846,10 +881,10 @@
             if (showSiblings) {
                 const father = findParent(currentIndividual);
                 if (father) {
-                    const siblings = db.filter(s => s.father === father.name);
+                    const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
                     if (siblings.length) {
                         html += `<div class="section-heading" onclick="toggleSection('siblings')">`;
-                        html += `<span>👥 SIBLINGS</span>`;
+                        html += `<span>👥 SIBLINGS (${siblings.length})</span>`;
                         html += `<span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span>`;
                         html += `</div>`;
                         if (!siblingsCollapsed) {
@@ -863,7 +898,7 @@
                 const children = db.filter(c => c.father === currentIndividual.name);
                 if (children.length) {
                     html += `<div class="section-heading" onclick="toggleSection('children')">`;
-                    html += `<span>👶 CHILDREN</span>`;
+                    html += `<span>👶 CHILDREN (${children.length})</span>`;
                     html += `<span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!childrenCollapsed) {

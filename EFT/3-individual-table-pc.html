@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rizvi family · table view (no vital)</title>
+    <title>Rizvi family · table view )</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -14,6 +14,25 @@
     <script src="13-family-data.js"></script>
     
     <style>
+        /* CHANGE 1: Reset Button CSS */
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
         /* Gentle pulsing/blinking effect with gold and light green - Header Toggle */
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
@@ -259,10 +278,13 @@
             position: relative;
         }
 
+        /* CHANGE 2: Search section centered */
         .search-section {
             padding: 15px;
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
+            width: 85%;
+            margin: 0 auto;
         }
 
         .search-row {
@@ -469,6 +491,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: all 0.2s;
             flex-shrink: 0;
+            line-height: 1;
         }
 
         .section-heading {
@@ -611,7 +634,7 @@
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span>Rizvi family · table view (no vital)</span>
+                <span>Rizvi family · table view </span>
             </div>
             <div class="header-actions">
                 <div class="header-btn tree-view" onclick="switchToTreeView()">🌳 Tree View</div>
@@ -624,12 +647,13 @@
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="resetIndividual()">🔄 Reset</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
         </div>
 
         <div class="main-content">
             <div class="center-content">
+                <!-- CHANGE 3: Search section with reset button -->
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">SEARCH MEMBER</span>
@@ -637,6 +661,7 @@
                             <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
                     </div>
                 </div>
 
@@ -701,9 +726,12 @@
         let childrenCollapsed = true;
         let ancestorsCollapsed = true;
 
-        // displayName function to hide numeric suffixes
+        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) {
-            return str ? str.replace(/\s*-\s*\d+$/, '').trim() : '';
+            if (!str) return '';
+            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -809,6 +837,7 @@
             renderTable();
         }
 
+        // CHANGE 5: Fixed toggleSection function
         window.toggleSection = function(section) {
             if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
             else if (section === 'children') childrenCollapsed = !childrenCollapsed;
@@ -863,7 +892,7 @@
             `;
         }
 
-        // render table for list of members (no vital column)
+        // render table for list of members - column
         function renderTableForMembers(members, title, includeSelected = false) {
             if (!members || members.length === 0) return '';
             
@@ -903,7 +932,7 @@
                 const ancestors = getAncestors(currentIndividual);
                 if (ancestors.length) {
                     html += `<div class="section-heading" onclick="toggleSection('ancestors')">`;
-                    html += `<span>🌳 ANCESTORS</span>`;
+                    html += `<span>🌳 ANCESTORS (${ancestors.length})</span>`;
                     html += `<span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!ancestorsCollapsed) {
@@ -916,10 +945,10 @@
             if (showSiblings) {
                 const father = findParent(currentIndividual);
                 if (father) {
-                    const siblings = db.filter(s => s.father === father.name);
+                    const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
                     if (siblings.length) {
                         html += `<div class="section-heading" onclick="toggleSection('siblings')">`;
-                        html += `<span>👥 SIBLINGS</span>`;
+                        html += `<span>👥 SIBLINGS (${siblings.length})</span>`;
                         html += `<span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span>`;
                         html += `</div>`;
                         if (!siblingsCollapsed) {
@@ -934,7 +963,7 @@
                 const children = db.filter(c => c.father === currentIndividual.name);
                 if (children.length) {
                     html += `<div class="section-heading" onclick="toggleSection('children')">`;
-                    html += `<span>👶 CHILDREN</span>`;
+                    html += `<span>👶 CHILDREN (${children.length})</span>`;
                     html += `<span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!childrenCollapsed) {

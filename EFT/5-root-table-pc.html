@@ -11,9 +11,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
-    <script src="family-data.js"></script>
+    <script src="13-family-data.js"></script>
     
     <style>
+        /* CHANGE 1: Reset Button CSS */
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
         /* ========== EXACT STYLES FROM FILE 3 ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -243,10 +262,13 @@
             flex: 1;
         }
 
+        /* CHANGE 2: Fixed header section centered */
         .fixed-header-section {
             padding: 15px 15px 0 15px;
             background: #fffcf8;
             flex-shrink: 0;
+            width: 85%;
+            margin: 0 auto;
         }
 
         .border-line {
@@ -287,6 +309,19 @@
             transition: transform 0.1s;
             width: 100%;
             min-height: 100%;
+        }
+
+        /* Empty State Styles */
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 60px;
+            background: var(--light-sage);
+            border: 2px solid var(--border-sage);
+            border-radius: 16px;
+            margin: 20px auto;
+            max-width: 500px;
+            font-family: 'Inter', sans-serif;
         }
 
         .search-row {
@@ -395,6 +430,13 @@
             .gap-row {
                 flex-wrap: wrap;
                 white-space: normal;
+            }
+            .fixed-header-section {
+                width: 95%;
+            }
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
             }
         }
 
@@ -672,7 +714,7 @@
 
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div class="toggle-menu-item" onclick="switchToTreeView()">🌲 Switch to Tree View</div>
-            <div class="toggle-menu-item" onclick="resetSearch()">🔄 Reset</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
             <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
         </div>
@@ -682,12 +724,14 @@
         <div class="main-content" id="mainContent">
             <div id="rootSection">
                 <div class="fixed-header-section">
+                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <span class="search-label">MEMBER 1</span>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 Reset</div>
                     </div>
                     <div class="search-row">
                         <span class="search-label">MEMBER 2</span>
@@ -695,11 +739,18 @@
                             <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 Reset</div>
                     </div>
                     <div class="border-line"></div>
                 </div>
                 <div class="scrollable-content">
-                    <div id="rootTables"></div>
+                    <div id="rootTables">
+                        <div class="empty-state">
+                            <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                            <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                            <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -761,8 +812,12 @@
         // ======================================================================
         // ========================== HELPER FUNCTIONS ==========================
         // ======================================================================
+        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) {
-            return str ? str.replace(/\s*-\s*\d+$/, '').trim() : '';
+            if (!str) return '';
+            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
         }
 
         function formatCurrentTime() {
@@ -818,6 +873,37 @@
         window.toggleLeftMenu = function() {
             document.getElementById('toggleMenuPanel').classList.toggle('show');
         };
+
+        // ======================================================================
+        // ========================== RESET FUNCTIONS ===========================
+        // ======================================================================
+        function resetSearchRow(rowNum) {
+            if (rowNum === 1) {
+                member1 = null;
+                document.getElementById('search1').value = '';
+                const dropdown1 = document.getElementById('dropdown1');
+                if (dropdown1) dropdown1.style.display = 'none';
+            } else if (rowNum === 2) {
+                member2 = null;
+                document.getElementById('search2').value = '';
+                const dropdown2 = document.getElementById('dropdown2');
+                if (dropdown2) dropdown2.style.display = 'none';
+            }
+            
+            if (!member1 && !member2) {
+                resetSearch();
+            } else if (member1 && member2) {
+                renderTables();
+            } else {
+                document.getElementById('rootTables').innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                        <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                    </div>
+                `;
+            }
+        }
 
         // ======================================================================
         // ========================== SAVE OPTIONS ==============================
@@ -1050,7 +1136,7 @@
                     <div class="table-container">
                         <h3>${displayName(member1.name)}'s Path to Root</h3>
                         <table class="lineage-table">
-                            <tr><th>#</th><th>Name</th><th>Gen</th></tr>
+                             <thead>  <tr><th>#</th><th>Name</th><th>Gen</th></tr> </thead> <tbody>
             `;
             
             path1.forEach((member, index) => {
@@ -1059,20 +1145,21 @@
                 const rowClass = isRoot ? 'root-row' : (isFemale ? 'female-row' : '');
                 
                 html += `<tr class="${rowClass}" onclick="selectMember('${member.name}')">`;
-                html += `<td>${index + 1}</td>`;
-                html += `<td>${displayName(member.name)}${isRoot ? ' (Root)' : ''}</td>`;
-                html += `<td>${member.gen}</td>`;
-                html += `</tr>`;
+                html += `  <td>${index + 1}</td>`;
+                html += `  <td>${displayName(member.name)}${isRoot ? ' (Root)' : ''}</td>`;
+                html += `  <td>${member.gen}</td>`;
+                html += `  </tr>`;
             });
             
             html += `
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
                     
-                    <div class="table-container">
-                        <h3>${displayName(member2.name)}'s Path to Root</h3>
-                        <table class="lineage-table">
-                            <tr><th>#</th><th>Name</th><th>Gen</th></tr>
+                <div class="table-container">
+                    <h3>${displayName(member2.name)}'s Path to Root</h3>
+                    <table class="lineage-table">
+                         <thead> <tr><th>#</th><th>Name</th><th>Gen</th></tr> </thead> <tbody>
             `;
             
             path2.forEach((member, index) => {
@@ -1081,16 +1168,17 @@
                 const rowClass = isRoot ? 'root-row' : (isFemale ? 'female-row' : '');
                 
                 html += `<tr class="${rowClass}" onclick="selectMember('${member.name}')">`;
-                html += `<td>${index + 1}</td>`;
-                html += `<td>${displayName(member.name)}${isRoot ? ' (Root)' : ''}</td>`;
-                html += `<td>${member.gen}</td>`;
-                html += `</tr>`;
+                html += `  <td>${index + 1}</td>`;
+                html += `  <td>${displayName(member.name)}${isRoot ? ' (Root)' : ''}</td>`;
+                html += `  <td>${member.gen}</td>`;
+                html += `  </tr>`;
             });
             
             html += `
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
             `;
             
             document.getElementById('rootTables').innerHTML = html;
@@ -1116,7 +1204,13 @@
             member2 = null;
             document.getElementById('search1').value = '';
             document.getElementById('search2').value = '';
-            document.getElementById('rootTables').innerHTML = '<div style="text-align:center; color:#999; padding:60px;">Select two members to analyze their common root</div>';
+            document.getElementById('rootTables').innerHTML = `
+                <div class="empty-state">
+                    <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                    <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                    <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                </div>
+            `;
             document.getElementById('dropdown1').style.display = 'none';
             document.getElementById('dropdown2').style.display = 'none';
         };
@@ -1401,8 +1495,14 @@
                     renderTables();
                 } catch(e) { console.error("Stored member parse error", e); }
             } else {
-                // Show default message
-                document.getElementById('rootTables').innerHTML = '<div style="text-align:center; color:#999; padding:60px;">Select two members to analyze their common root</div>';
+                // Show default message with 👥 icon
+                document.getElementById('rootTables').innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                        <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                    </div>
+                `;
             }
         });
     </script>

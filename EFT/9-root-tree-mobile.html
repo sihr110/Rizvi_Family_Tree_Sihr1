@@ -1,9 +1,7 @@
 <!-- ===================================== -->
 <!-- FILE NAME: 9-root-tree-mobile.html    -->
-<!-- LAST UPDATED: 15/03/2026              -->
+<!-- LAST UPDATED: 25/03/2026              -->
 <!-- ===================================== -->
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +20,25 @@
     <script src="13-family-data.js"></script>
     
     <style>
+        /* CHANGE 1: Reset Button CSS */
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
         /* Gentle pulsing/blinking effect */
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
@@ -194,10 +211,13 @@
             flex: 1;
         }
 
+        /* CHANGE 2: Fixed header section centered */
         .fixed-header-section {
             padding: 15px 15px 0 15px;
             background: #fffcf8;
             flex-shrink: 0;
+            width: 85%;
+            margin: 0 auto;
         }
 
         .border-line {
@@ -228,6 +248,19 @@
         .scrollable-content::-webkit-scrollbar-thumb {
             background: var(--gold);
             border-radius: 3px;
+        }
+
+        /* Empty State Styles */
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 60px;
+            background: var(--light-sage);
+            border: 2px solid var(--border-sage);
+            border-radius: 16px;
+            margin: 20px auto;
+            max-width: 500px;
+            font-family: 'Inter', sans-serif;
         }
 
         .search-row {
@@ -434,6 +467,20 @@
             .box {
                 min-width: 240px;
             }
+            
+            .fixed-header-section {
+                width: 95%;
+            }
+            
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .empty-state {
+                padding: 30px 20px;
+                margin: 20px 15px;
+            }
         }
         
         @media screen and (max-width: 360px) {
@@ -455,23 +502,25 @@
             </div>
         </div>
 
-     <div class="toggle-menu-panel" id="toggleMenuPanel">
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    <div class="toggle-menu-item" onclick="switchToTableView()">📋 Switch to Table</div>
-    <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
-    <div class="toggle-menu-item" onclick="resetSearch()">🔄 Reset</div>
-    <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
-</div>
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="switchToTableView()">📋 Switch to Table</div>
+            <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
+            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
+        </div>
 
         <div class="main-content">
             <div id="rootSection">
                 <div class="fixed-header-section">
+                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <span class="search-label">MEMBER 1</span>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 Reset</div>
                     </div>
                     <div class="search-row">
                         <span class="search-label">MEMBER 2</span>
@@ -479,11 +528,16 @@
                             <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 Reset</div>
                     </div>
                     <div class="border-line"></div>
                 </div>
                 <div class="scrollable-content" id="rootTree">
-                    <div style="text-align:center; padding:60px;">Select two members</div>
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                        <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -534,9 +588,12 @@
         let zoomLevel = 1;
 
         // --- CORE FUNCTIONS ---
+        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) { 
             if (!str) return '';
-            return str.replace(/\s*-\s*\d+$/, '').trim(); 
+            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
         }
         
         function getGenNum(gen) { 
@@ -602,6 +659,35 @@
             document.getElementById('saveModalOverlay').style.display = 'none';
             document.getElementById('dropdown1').style.display = 'none';
             document.getElementById('dropdown2').style.display = 'none';
+        }
+
+        // --- RESET FUNCTIONS ---
+        function resetSearchRow(rowNum) {
+            if (rowNum === 1) {
+                member1 = null;
+                document.getElementById('search1').value = '';
+                const dropdown1 = document.getElementById('dropdown1');
+                if (dropdown1) dropdown1.style.display = 'none';
+            } else if (rowNum === 2) {
+                member2 = null;
+                document.getElementById('search2').value = '';
+                const dropdown2 = document.getElementById('dropdown2');
+                if (dropdown2) dropdown2.style.display = 'none';
+            }
+            
+            if (!member1 && !member2) {
+                resetSearch();
+            } else if (member1 && member2) {
+                renderTree();
+            } else {
+                document.getElementById('rootTree').innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                        <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                    </div>
+                `;
+            }
         }
 
         // --- SAVE OPTIONS ---
@@ -805,7 +891,13 @@
             member1 = null; member2 = null;
             document.getElementById('search1').value = '';
             document.getElementById('search2').value = '';
-            document.getElementById('rootTree').innerHTML = '<div style="text-align:center; padding:60px;">Select two members</div>';
+            document.getElementById('rootTree').innerHTML = `
+                <div class="empty-state">
+                    <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                    <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                    <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                </div>
+            `;
             document.getElementById('dropdown1').style.display = 'none';
             document.getElementById('dropdown2').style.display = 'none';
         }
@@ -1098,6 +1190,7 @@
         // Make functions globally available
         window.switchToTableView = switchToTableView;
         window.resetSearch = resetSearch;
+        window.resetSearchRow = resetSearchRow;
         window.exportPDF = exportPDF;
         window.showDashboard = showDashboard;
         window.toggleLeftMenu = toggleLeftMenu;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rizvi family · structured tree (no roses)</title>
+    <title>Rizvi family · structured tree</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -11,6 +11,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+        /* Reset Button Styles - matching file 1 */
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
         /* Gentle pulsing/blinking effect with gold and light green - Header Toggle */
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
@@ -247,10 +266,13 @@
             position: relative;
         }
 
+        /* Updated search section - centered like file 1 */
         .search-section {
             padding: 15px;
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
+            width: 75%;
+            margin: 0 auto;
         }
 
         .search-row {
@@ -645,7 +667,7 @@
     </style>
 </head>
 <body>
-    <!-- ZOOM CONTROLS - outside white container, in black area -->
+    <!-- ZOOM CONTROLS - outside white container -->
     <div class="zoom-controls">
         <div class="zoom-btn" onclick="zoomIn()">+</div>
         <div class="zoom-level" id="zoomLevel">100%</div>
@@ -671,12 +693,13 @@
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="resetIndividual()">🔄 Reset</div>
+            <!-- Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
         </div>
 
         <div class="main-content">
             <div class="center-content">
+                <!-- Updated search section with reset button - centered like file 1 -->
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">SEARCH MEMBER</span>
@@ -684,6 +707,7 @@
                             <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
                     </div>
                 </div>
 
@@ -878,36 +902,28 @@
             return arr;
         }
 
-        // ===== UPDATED renderBox function - NO ROSE ICONS (alive field removed) =====
         function renderBox(person, label, isSiblingOrChild = false) {
             const isFemale = person.gender?.startsWith('F');
             const isSelected = currentIndividual?.name === person.name;
             const mother = person.mother || '—';
             const hasKids = db.some(c => c.father === person.name);
-            // No statusIcon because alive field is deleted
 
             let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}" onclick="handleBoxClick(this)">`;
             html += `<div class="box-header"><span>${label}</span><span>${person.gen || '—'}</span></div>`;
             html += `<div class="box-body">`;
-            
-            // Name without any icon
             html += `<div class="box-row"><span class="box-label">Name :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
             
             if (isSiblingOrChild) {
-                // SIBLING OR CHILD BOX - show Father, Mother, and Spouse (no status)
                 html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
                 html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
                 html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
             } else {
-                // SELECTED, FATHER, ANCESTOR BOXES - show all fields without status
                 html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
                 html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
                 html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
             }
             
-            // Child icon if person has children
             if (hasKids) html += `<div class="child-icon">👪</div>`;
-            
             html += `</div></div>`;
             return html;
         }
@@ -952,21 +968,13 @@
         function renderMembersWithLayout(members, type) {
             if (members.length === 0) return '';
             
-            // If more than 5 members, split by gender
             if (members.length > 5) {
                 const males = members.filter(m => m.gender === 'MALE');
                 const females = members.filter(m => m.gender === 'FEMALE');
                 
                 let html = '';
-                
-                if (males.length > 0) {
-                    html += renderGenderGroup(males, type);
-                }
-                
-                if (females.length > 0) {
-                    html += renderGenderGroup(females, type);
-                }
-                
+                if (males.length > 0) html += renderGenderGroup(males, type);
+                if (females.length > 0) html += renderGenderGroup(females, type);
                 return html;
             }
             
@@ -1011,10 +1019,14 @@
             let html = '<div>';
 
             if (showAncestors) {
-                const ancestors = getAncestors(currentIndividual);
+                let ancestors = getAncestors(currentIndividual);
+                if (ancestors.length > 0) {
+                    ancestors = ancestors.slice(1);
+                }
+                
                 if (ancestors.length) {
                     html += `<div class="section-heading" onclick="toggleSection('ancestors')">`;
-                    html += `<span>🌳 ANCESTORS</span>`;
+                    html += `<span>🌳 ANCESTORS (${ancestors.length})</span>`;
                     html += `<span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!ancestorsCollapsed) {
@@ -1023,7 +1035,8 @@
                             html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
                             if (idx < ancestors.length-1) html += '<div class="v-line"></div>';
                         });
-                        html += '<div class="v-line"></div></div>';
+                        if (ancestors.length > 0) html += '<div class="v-line"></div>';
+                        html += '</div>';
                     }
                 }
             }
@@ -1043,7 +1056,7 @@
                 const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
                 if (siblings.length) {
                     html += `<div class="section-heading" onclick="toggleSection('siblings')">`;
-                    html += `<span>👥 Siblings Of ${displayName(currentIndividual.name)} - (${siblings.length})</span>`;
+                    html += `<span>👥 Siblings Of ${displayName(currentIndividual.name)} (${siblings.length})</span>`;
                     html += `<span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!siblingsCollapsed) {
@@ -1056,7 +1069,7 @@
                 const children = db.filter(c => c.father === currentIndividual.name);
                 if (children.length) {
                     html += `<div class="section-heading" onclick="toggleSection('children')">`;
-                    html += `<span>👶 Children Of ${displayName(currentIndividual.name)} - (${children.length})</span>`;
+                    html += `<span>👶 Children Of ${displayName(currentIndividual.name)} (${children.length})</span>`;
                     html += `<span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!childrenCollapsed) {
@@ -1075,7 +1088,6 @@
             if (member) selectMember(member);
         };
 
-        // Updated zoom functions with proper scrolling
         function zoomIn() { 
             zoomLevel = Math.min(zoomLevel + 0.1, 2); 
             applyZoom(); 
@@ -1096,19 +1108,13 @@
             const content = document.getElementById('treeRoot');
             
             if (container && content) {
-                // Apply scale transform
                 content.style.transform = `scale(${zoomLevel})`;
-                
-                // Set width/height to maintain scrollable area
                 content.style.width = `${100 / zoomLevel}%`;
                 content.style.height = `${100 / zoomLevel}%`;
-                
-                // Update zoom level display
                 document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
             }
         }
 
-        // Save Options Functions
         window.showSaveOptions = function() {
             if (!currentIndividual) {
                 alert('Please select a family member first');
@@ -1146,7 +1152,6 @@
             }
         };
 
-        // Updated PDF function with quality parameter
         async function exportIndividualPDF(quality = 'high') {
             const member = currentIndividual;
             if (!member) return;
@@ -1159,7 +1164,6 @@
             if (!treeElement) return alert('No content to export');
             
             try {
-                // Add header
                 const header = document.createElement('div');
                 header.style.marginBottom = '30px'; 
                 header.style.textAlign = 'center';
@@ -1167,7 +1171,6 @@
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
                 treeElement.insertBefore(header, treeElement.firstChild);
 
-                // Add footer
                 const footer = document.createElement('div');
                 footer.style.marginTop = '30px';
                 footer.style.padding = '15px 20px';
@@ -1187,7 +1190,6 @@
                 `;
                 treeElement.appendChild(footer);
                 
-                // Show loading
                 const loadingMsg = document.createElement('div');
                 loadingMsg.style.position = 'fixed';
                 loadingMsg.style.top = '50%'; 
@@ -1204,19 +1206,16 @@
                 
                 await new Promise(resolve => setTimeout(resolve, 500));
 
-                // Capture with selected scale
                 const canvas = await html2canvas(treeElement, { 
                     scale: scale,
                     backgroundColor: '#ffffff', 
                     logging: false
                 });
                 
-                // Remove header and footer
                 treeElement.removeChild(header);
                 treeElement.removeChild(footer);
                 document.body.removeChild(loadingMsg);
 
-                // Create PDF
                 const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
                 const { jsPDF } = window.jspdf;
                 const w = canvas.width / 2 * 0.264583;
@@ -1232,7 +1231,6 @@
                 const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 pdf.save(`family_${safeName}_${quality}_${Date.now()}.pdf`);
                 
-                // Show file size
                 const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
                 const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
                 alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
@@ -1243,7 +1241,6 @@
             }
         }
 
-        // JPEG export function
         window.exportAsJPEG = async function() {
             const member = currentIndividual;
             if (!member) return;
@@ -1252,7 +1249,6 @@
             if (!treeElement) return alert('No content to export');
             
             try {
-                // Add header
                 const header = document.createElement('div');
                 header.style.marginBottom = '30px'; 
                 header.style.textAlign = 'center';
@@ -1260,7 +1256,6 @@
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
                 treeElement.insertBefore(header, treeElement.firstChild);
 
-                // Add footer
                 const footer = document.createElement('div');
                 footer.style.marginTop = '30px';
                 footer.style.padding = '15px 20px';
@@ -1280,7 +1275,6 @@
                 `;
                 treeElement.appendChild(footer);
                 
-                // Show loading
                 const loadingMsg = document.createElement('div');
                 loadingMsg.style.position = 'fixed';
                 loadingMsg.style.top = '50%'; 
@@ -1297,29 +1291,24 @@
                 
                 await new Promise(resolve => setTimeout(resolve, 500));
 
-                // Capture with good balance
                 const canvas = await html2canvas(treeElement, { 
                     scale: 1.2,
                     backgroundColor: '#ffffff', 
                     logging: false
                 });
                 
-                // Remove header and footer
                 treeElement.removeChild(header);
                 treeElement.removeChild(footer);
                 document.body.removeChild(loadingMsg);
 
-                // Export as JPEG
                 const imgData = canvas.toDataURL('image/jpeg', 0.85);
                 
-                // Download
                 const link = document.createElement('a');
                 const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 link.download = `family_${safeName}_${Date.now()}.jpg`;
                 link.href = imgData;
                 link.click();
                 
-                // Show file size
                 const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
                 const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
                 setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
@@ -1348,23 +1337,16 @@
             }
         };
         
-        // Global click listener to close dropdowns and menus
         document.addEventListener('click', function(e) {
-            // Close search dropdown when clicking outside
             if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
-            
-            // Close toggle menu when clicking outside
             if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) 
                 document.getElementById('toggleMenuPanel')?.classList.remove('show');
-            
-            // Close save modal when clicking outside
             if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
                 document.getElementById('saveOptionsModal').style.display = 'none';
                 document.getElementById('saveModalOverlay').style.display = 'none';
             }
         });
 
-        // Make functions globally available
         window.zoomIn = zoomIn; 
         window.zoomOut = zoomOut; 
         window.resetZoom = resetZoom;

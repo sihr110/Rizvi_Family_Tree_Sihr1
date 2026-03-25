@@ -2,6 +2,7 @@
 <!-- FILE NAME: 29-root-tree-mobile.html    -->
 <!-- Urdu Version - Rizvi Family Root Tree  -->
 <!-- Mobile Optimized - Like File 9         -->
+<!-- LAST UPDATED: 25/03/2026               -->
 <!-- ===================================== -->
 
 <!DOCTYPE html>
@@ -22,6 +23,25 @@
     <script src="33-family-data-urdu.js"></script>
     
     <style>
+        /* CHANGE 1: Reset Button CSS */
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
         /* Gentle pulsing/blinking effect */
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
@@ -140,7 +160,7 @@
 
         .toggle-menu-panel {
             position: absolute;
-            right: 10px; /* RTL adjustment */
+            right: 10px;
             left: auto;
             top: 60px;
             background: white;
@@ -178,7 +198,7 @@
 
         .toggle-menu-item:hover {
             background: #faebcd;
-            transform: translateX(-5px); /* RTL adjustment */
+            transform: translateX(-5px);
         }
 
         .main-content {
@@ -197,10 +217,13 @@
             flex: 1;
         }
 
+        /* CHANGE 2: Fixed header section centered */
         .fixed-header-section {
             padding: 15px 15px 0 15px;
             background: #fffcf8;
             flex-shrink: 0;
+            width: 85%;
+            margin: 0 auto;
         }
 
         .border-line {
@@ -214,7 +237,7 @@
             overflow-x: auto;
             padding: 0 15px 15px 15px;
             -webkit-overflow-scrolling: touch;
-            zoom: 0.5;  /* Same as File 9 */
+            zoom: 0.5;
         }
 
         /* Scrollbar styling for mobile */
@@ -231,6 +254,19 @@
         .scrollable-content::-webkit-scrollbar-thumb {
             background: var(--gold);
             border-radius: 3px;
+        }
+
+        /* Empty State Styles - Same as File 30 */
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 60px;
+            background: var(--light-sage);
+            border: 2px solid var(--border-sage);
+            border-radius: 16px;
+            margin: 20px auto;
+            max-width: 500px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .search-row {
@@ -469,7 +505,7 @@
                 font-size: 16px;
                 position: static;
                 transform: none;
-                margin-right: 10px; /* RTL adjustment */
+                margin-right: 10px;
                 margin-left: 0;
             }
             
@@ -481,6 +517,20 @@
             
             .box {
                 min-width: 240px;
+            }
+            
+            .fixed-header-section {
+                width: 95%;
+            }
+            
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .empty-state {
+                padding: 30px 20px;
+                margin: 20px 15px;
             }
         }
         
@@ -503,23 +553,25 @@
             </div>
         </div>
 
-     <div class="toggle-menu-panel" id="toggleMenuPanel">
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    <div class="toggle-menu-item" onclick="switchToTableView()">📋 جدول میں دیکھیں</div>
-    <div class="toggle-menu-item" onclick="resetSearch()">🔄 دوبارہ ترتیب</div>
-    <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
-    <div class="toggle-menu-item" onclick="showDashboard()">🏠 ڈیش بورڈ</div>
-</div>
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="switchToTableView()">📋 جدول میں دیکھیں</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
+            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
+            <div class="toggle-menu-item" onclick="showDashboard()">🏠 ڈیش بورڈ</div>
+        </div>
 
         <div class="main-content">
             <div id="rootSection">
                 <div class="fixed-header-section">
+                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <span class="search-label">رکن 1</span>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 دوبارہ ترتیب</div>
                     </div>
                     <div class="search-row">
                         <span class="search-label">رکن 2</span>
@@ -527,11 +579,16 @@
                             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 دوبارہ ترتیب</div>
                     </div>
                     <div class="border-line"></div>
                 </div>
                 <div class="scrollable-content" id="rootTree">
-                    <div style="text-align:center; padding:60px; font-family:'Noto Nastaliq Urdu';">دو افراد کو منتخب کریں</div>
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
+                        <div style="font-size:13px; color:#666;">ان کا مشترکہ اصل بزرگ دیکھنے کے لیے اوپر دو افراد تلاش کریں</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -582,9 +639,12 @@
         let zoomLevel = 1;
 
         // --- CORE FUNCTIONS ---
+        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) { 
             if (!str) return '';
-            return str; 
+            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
         }
         
         function getGenNum(gen) { 
@@ -650,6 +710,35 @@
             document.getElementById('saveModalOverlay').style.display = 'none';
             document.getElementById('dropdown1').style.display = 'none';
             document.getElementById('dropdown2').style.display = 'none';
+        }
+
+        // --- RESET FUNCTIONS ---
+        function resetSearchRow(rowNum) {
+            if (rowNum === 1) {
+                member1 = null;
+                document.getElementById('search1').value = '';
+                const dropdown1 = document.getElementById('dropdown1');
+                if (dropdown1) dropdown1.style.display = 'none';
+            } else if (rowNum === 2) {
+                member2 = null;
+                document.getElementById('search2').value = '';
+                const dropdown2 = document.getElementById('dropdown2');
+                if (dropdown2) dropdown2.style.display = 'none';
+            }
+            
+            if (!member1 && !member2) {
+                resetSearch();
+            } else if (member1 && member2) {
+                renderTree();
+            } else {
+                document.getElementById('rootTree').innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
+                        <div style="font-size:13px; color:#666;">ان کا مشترکہ اصل بزرگ دیکھنے کے لیے اوپر دو افراد تلاش کریں</div>
+                    </div>
+                `;
+            }
         }
 
         // --- SAVE OPTIONS ---
@@ -853,7 +942,13 @@
             member1 = null; member2 = null;
             document.getElementById('search1').value = '';
             document.getElementById('search2').value = '';
-            document.getElementById('rootTree').innerHTML = '<div style="text-align:center; padding:60px; font-family:\'Noto Nastaliq Urdu\';">دو افراد کو منتخب کریں</div>';
+            document.getElementById('rootTree').innerHTML = `
+                <div class="empty-state">
+                    <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                    <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
+                    <div style="font-size:13px; color:#666;">ان کا مشترکہ اصل بزرگ دیکھنے کے لیے اوپر دو افراد تلاش کریں</div>
+                </div>
+            `;
             document.getElementById('dropdown1').style.display = 'none';
             document.getElementById('dropdown2').style.display = 'none';
         }
@@ -873,26 +968,17 @@
             if (!treeElement) return alert('کوئی مواد نہیں');
             
             try {
-                // SAVE original zoom (which is 0.5 on mobile)
                 const originalZoom = treeElement.style.zoom;
-                
-                // TEMPORARILY REMOVE the 0.5 zoom for PDF capture
                 treeElement.style.zoom = '1';
-                
-                // Create a clone
                 const clone = treeElement.cloneNode(true);
-                
-                // RESTORE original zoom immediately after cloning
                 treeElement.style.zoom = originalZoom;
                 
-                // Create wrapper with same styling
                 const wrapper = document.createElement('div');
                 wrapper.style.background = 'white';
                 wrapper.style.padding = '20px';
                 wrapper.style.width = 'fit-content';
                 wrapper.style.margin = '0 auto';
                 
-                // Add header
                 const header = document.createElement('div');
                 header.style.marginBottom = '30px'; 
                 header.style.textAlign = 'center';
@@ -903,7 +989,6 @@
                     <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
                 `;
                 
-                // Add footer
                 const footer = document.createElement('div');
                 footer.style.marginTop = '30px';
                 footer.style.padding = '15px 20px';
@@ -926,7 +1011,6 @@
                 wrapper.appendChild(clone);
                 wrapper.appendChild(footer);
                 
-                // Temporarily add to body for capture
                 wrapper.style.position = 'absolute';
                 wrapper.style.left = '-9999px';
                 wrapper.style.top = '0';
@@ -956,7 +1040,6 @@
                     useCORS: true 
                 });
                 
-                // Clean up
                 document.body.removeChild(wrapper);
                 document.body.removeChild(loadingMsg);
 
@@ -975,7 +1058,6 @@
                 const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 pdf.save(`shajra_root_${safeName1}_${safeName2}_${quality}_${Date.now()}.pdf`);
                 
-                // Show file size
                 const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
                 const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
                 alert(`✅ ${qualityText} PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`);
@@ -1091,7 +1173,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeData();
             
-            // Setup search handlers
             const search1 = document.getElementById('search1');
             const search2 = document.getElementById('search2');
             
@@ -1107,7 +1188,6 @@
                 });
             }
             
-            // Global click listener
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.search-wrapper')) {
                     document.getElementById('dropdown1').style.display = 'none';
@@ -1124,7 +1204,6 @@
                 }
             });
             
-            // Check for stored members
             try {
                 const m1 = localStorage.getItem('rootMember1');
                 const m2 = localStorage.getItem('rootMember2');
@@ -1143,9 +1222,9 @@
             }
         });
 
-        // Make functions globally available
         window.switchToTableView = switchToTableView;
         window.resetSearch = resetSearch;
+        window.resetSearchRow = resetSearchRow;
         window.exportPDF = exportPDF;
         window.showDashboard = showDashboard;
         window.toggleLeftMenu = toggleLeftMenu;

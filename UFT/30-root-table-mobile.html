@@ -1,6 +1,6 @@
 <!-- ======================================== -->
 <!-- FILE NAME: 30-root-tree-table-mobile.html-->
-<!-- LAST UPDATED: 19/03/2026                 -->
+<!-- LAST UPDATED: 25/03/2026                 -->
 <!-- ======================================== -->
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
     <meta name="google" content="notranslate">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
-    <title>رضوی خاندان · اصل جدول (موبائل)</title>
+    <title>رضوی خاندان · اصل ٹیبل (موبائل)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -24,6 +24,25 @@
 <!-- ========================================= -->
 
 <style>
+    /* CHANGE 1: Reset Button CSS */
+    .reset-btn {
+        padding: 10px 20px;
+        background: var(--gold);
+        color: var(--dark-blue);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        white-space: nowrap;
+        transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+        background: var(--light-gold);
+        transform: scale(1.02);
+    }
+
     /* ===== GLOBAL RESET & VARIABLES ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -203,10 +222,14 @@
         overflow: hidden; 
         flex: 1; 
     }
+    
+    /* CHANGE 2: Fixed header section centered */
     .fixed-header-section { 
         padding: 15px 15px 0 15px; 
         background: #fffcf8; 
         flex-shrink: 0; 
+        width: 85%;
+        margin: 0 auto;
     }
     .border-line { 
         border-top: 3px solid var(--gold); 
@@ -241,18 +264,24 @@
     
     /* ----- SEARCH SECTION (TWO ROWS) ----- */
     .search-row {
-        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
     }
     .search-label {
         font-weight: 700;
         color: var(--maroon);
         font-size: 13px;
-        margin-bottom: 5px;
         white-space: nowrap;
+        min-width: 80px;
         font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
     }
     .search-wrapper {
         position: relative;
+        flex: 2;
+        min-width: 300px;
     }
     .search-input {
         width: 100%;
@@ -529,6 +558,13 @@
             padding: 10px; 
             font-size: 10px; 
         }
+        .fixed-header-section {
+            width: 95%;
+        }
+        .reset-btn {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
     }
     
     @media screen and (max-width: 380px) {
@@ -544,36 +580,38 @@
 
 </head>
 <body>
-    <!-- ⑩ اصل جدول – موبائل -->
+    <!-- ⑩ اصل ٹیبل – موبائل -->
     <div class="app-container">
         <!-- HEADER - with toggle button only -->
         <div class="app-header">
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
             <div class="header-title">
                 <span class="header-icon">👥</span> 
-                <span>رضوی خاندان - اصل جدول</span>
+                <span>رضوی خاندان - اصل ٹیبل </span>
             </div>
         </div>
 
         <!-- Toggle Menu Panel -->
-    <div class="toggle-menu-panel" id="toggleMenuPanel">
-    <div class="toggle-menu-item" onclick="switchToTree()">🌲 شجرہ دیکھیں</div>
-    <div class="toggle-menu-item" onclick="goToDashboard()">🏠 ڈیش بورڈ</div>
-    <div class="toggle-menu-item" onclick="resetSearch()">🔄 دوبارہ ترتیب</div>
-    <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
-</div>
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item" onclick="switchToTree()">🌲 شجرہ دیکھیں</div>
+            <div class="toggle-menu-item" onclick="goToDashboard()">🏠 ڈیش بورڈ</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
+            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
+        </div>
         
         <!-- main area -->
         <div class="main-content" id="mainContent">
             <div id="rootSection">
-                <!-- fixed header with two search rows -->
+                <!-- fixed header with two search rows and reset buttons -->
                 <div class="fixed-header-section">
+                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <div class="search-label">رکن 1</div>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 دوبارہ ترتیب</div>
                     </div>
                     <div class="search-row">
                         <div class="search-label">رکن 2</div>
@@ -581,6 +619,7 @@
                             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 دوبارہ ترتیب</div>
                     </div>
                     <div class="border-line"></div>
                 </div>
@@ -647,8 +686,12 @@
         // =========================================================================
         // UTILITIES
         // =========================================================================
+        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) {
-            return str ? str : '';
+            if (!str) return '';
+            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
         }
 
         function formatCurrentTime() {
@@ -699,6 +742,37 @@
         window.toggleLeftMenu = function() {
             document.getElementById('toggleMenuPanel').classList.toggle('show');
         };
+
+        // =========================================================================
+        // RESET FUNCTIONS
+        // =========================================================================
+        function resetSearchRow(rowNum) {
+            if (rowNum === 1) {
+                member1 = null;
+                document.getElementById('search1').value = '';
+                const dropdown1 = document.getElementById('dropdown1');
+                if (dropdown1) dropdown1.style.display = 'none';
+            } else if (rowNum === 2) {
+                member2 = null;
+                document.getElementById('search2').value = '';
+                const dropdown2 = document.getElementById('dropdown2');
+                if (dropdown2) dropdown2.style.display = 'none';
+            }
+            
+            if (!member1 && !member2) {
+                resetSearch();
+            } else if (member1 && member2) {
+                renderRootTable();
+            } else {
+                document.getElementById('rootTable').innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
+                        <div style="font-size:13px; color:#666;">ان کا مشترکہ اصل بزرگ دیکھنے کے لیے اوپر دو افراد تلاش کریں</div>
+                    </div>
+                `;
+            }
+        }
 
         // =========================================================================
         // NAVIGATION
@@ -838,7 +912,7 @@
             const path = chain.slice(0, rootIndex + 1).reverse();
             
             let html = `<table class="lineage-table">`;
-            html += `<tr><th>#</th><th>نام</th><th>جنریشن</th></tr>`;
+            html += `<thead><tr><th>#</th><th>نام</th><th>جنریشن</th></tr></thead><tbody>`;
             
             let sno = 1;
             path.forEach((p, index) => {
@@ -858,7 +932,7 @@
                 html += `</tr>`;
             });
             
-            html += `</table>`;
+            html += `</tbody></table>`;
             return html;
         }
 
@@ -1175,6 +1249,7 @@
         window.switchToTree = switchToTree;
         window.goToDashboard = goToDashboard;
         window.resetSearch = resetSearch;
+        window.resetSearchRow = resetSearchRow;
     })();
 </script>
 

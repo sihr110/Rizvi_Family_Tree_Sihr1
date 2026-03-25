@@ -1,6 +1,6 @@
 <!-- ======================================== -->
 <!-- FILE NAME: 24-root-tree-pc.html     -->
-<!-- LAST UPDATED: 19/03/2026                 -->
+<!-- LAST UPDATED: 25/03/2026                 -->
 <!-- ======================================== -->
 
 <!DOCTYPE html>
@@ -21,6 +21,25 @@
     <script src="33-family-data-urdu.js"></script>
     
     <style>
+
+/* CHANGE 1: Reset Button CSS */
+.reset-btn {
+    padding: 10px 20px;
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.reset-btn:hover {
+    background: var(--light-gold);
+    transform: scale(1.02);
+}
 
 /* Gentle pulsing/blinking effect with gold and light green - Header Toggle */
 .left-toggle-btn {
@@ -284,10 +303,13 @@
             flex: 1;
         }
 
+        /* CHANGE 2: Fixed header section centered */
         .fixed-header-section {
             padding: 15px 15px 0 15px;
             background: #fffcf8;
             flex-shrink: 0;
+            width: 85%;
+            margin: 0 auto;
         }
 
         .border-line {
@@ -625,6 +647,17 @@
             line-height: 1.6;
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
+        
+        /* Mobile responsive for reset buttons */
+        @media screen and (max-width: 768px) {
+            .fixed-header-section {
+                width: 95%;
+            }
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -644,14 +677,14 @@
                 <span>رضوی خاندان · اصل شجرہ</span>
             </div>
             <div class="header-actions">
-                <div class="header-btn" onclick="switchToTableView()">📋 جدول</div>
+                <div class="header-btn" onclick="switchToTableView()">📋 ٹیبل</div>
                 <div class="header-btn dashboard" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
             </div>
         </div>
 
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="resetSearch()">🔄 دوبارہ ترتیب</div>
+            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
             <div class="toggle-menu-item" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
         </div>
@@ -659,12 +692,14 @@
         <div class="main-content">
             <div id="rootSection">
                 <div class="fixed-header-section">
+                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <span class="search-label">رکن 1</span>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 دوبارہ ترتیب</div>
                     </div>
                     <div class="search-row">
                         <span class="search-label">رکن 2</span>
@@ -672,6 +707,7 @@
                             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 دوبارہ ترتیب</div>
                     </div>
                     <div class="border-line"></div>
                 </div>
@@ -740,9 +776,12 @@
         let zoomLevel = 1;
 
         // --- CORE FUNCTIONS ---
+        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) { 
             if (!str) return '';
-            return str; 
+            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
         }
         
         function getGenNum(gen) { 
@@ -809,6 +848,41 @@
             document.getElementById('toggleMenuPanel')?.classList.remove('show');
             document.getElementById('saveOptionsModal').style.display = 'none';
             document.getElementById('saveModalOverlay').style.display = 'none';
+        }
+
+        // --- RESET FUNCTIONS ---
+        function resetSearchRow(rowNum) {
+            if (rowNum === 1) {
+                member1 = null;
+                document.getElementById('search1').value = '';
+                const dropdown1 = document.getElementById('dropdown1');
+                if (dropdown1) dropdown1.style.display = 'none';
+            } else if (rowNum === 2) {
+                member2 = null;
+                document.getElementById('search2').value = '';
+                const dropdown2 = document.getElementById('dropdown2');
+                if (dropdown2) dropdown2.style.display = 'none';
+            }
+            
+            // If both are cleared, show welcome screen
+            if (!member1 && !member2) {
+                resetSearch();
+            } else if (member1 && member2) {
+                renderTree();
+            } else {
+                document.getElementById('rootTree').innerHTML = `
+                    <div class="welcome-container">
+                        <div class="welcome-box">
+                            <div class="welcome-icon">🌳</div>
+                            <div class="welcome-title">اصل شجرہ نسب</div>
+                            <div class="welcome-text">
+                                براہ کرم اوپر دیے گئے سرچ باکسز میں دو افراد کا نام تلاش کریں<br>
+                                تاکہ ان کا مشترکہ اصل بزرگ اور رشتے کا فاصلہ دیکھ سکیں۔
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
         }
 
         // --- ZOOM FUNCTIONS ---
@@ -943,13 +1017,13 @@
                 const relation = p.gender === 'Female' ? 'دختر' : 'فرزند';
                 
                 div.innerHTML = `
-                    <div><span class="main-name">${p.name}</span> <span class="gen">(${p.gen || 'نامعلوم'})</span></div>
-                    <div style="font-size:11px; color: #666;">${relation}: ${p.father || '—'}</div>
+                    <div><span class="main-name">${displayName(p.name)}</span> <span class="gen">(${p.gen || 'نامعلوم'})</span></div>
+                    <div style="font-size:11px; color: #666;">${relation}: ${displayName(p.father) || '—'}</div>
                 `;
                 
                 div.onclick = (e) => {
                     e.stopPropagation();
-                    document.getElementById(`search${num}`).value = p.name;
+                    document.getElementById(`search${num}`).value = displayName(p.name);
                     if (num === 1) member1 = p; 
                     else member2 = p;
                     
@@ -969,13 +1043,13 @@
             let html = `<div class="box ${isF ? 'female-box' : ''} ${isSelected ? 'blinking-box' : ''} ${isRoot ? 'root-box' : ''}">`;
             html += `<div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>`;
             html += `<div class="box-body">`;
-            html += `<span class="member-name">${m.name}</span>`;
+            html += `<span class="member-name">${displayName(m.name)}</span>`;
             
             // Father
-            html += `<div class="box-row"><span class="box-label">والد :</span><span class="box-value">${m.father || '—'}</span></div>`;
+            html += `<div class="box-row"><span class="box-label">والد :</span><span class="box-value">${displayName(m.father) || '—'}</span></div>`;
             
             // Mother
-            html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${m.mother || '—'}</span></div>`;
+            html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${displayName(m.mother) || '—'}</span></div>`;
             
             // Spouse
             html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${m.spouse || '—'}</span></div>`;
@@ -1009,12 +1083,12 @@
             let html = `
                 <div class="root-announce">
                     <h2 style="color: var(--maroon); margin-bottom: 15px;">مشترکہ اصل بزرگ</h2>
-                    <h3 style="color: var(--dark-blue); font-size: 24px; margin: 10px 0;">${root.name} - ${root.gen}</h3>
+                    <h3 style="color: var(--dark-blue); font-size: 24px; margin: 10px 0;">${displayName(root.name)} - ${root.gen}</h3>
                     
                     <div class="generation-info">
                         <div class="gap-row">
-                            <div class="gap-item">${member1.name} → اصل <span class="gap-value">${gap1} نسل</span></div>
-                            <div class="gap-item">${member2.name} → اصل <span class="gap-value">${gap2} نسل</span></div>
+                            <div class="gap-item">${displayName(member1.name)} → اصل <span class="gap-value">${gap1} نسل</span></div>
+                            <div class="gap-item">${displayName(member2.name)} → اصل <span class="gap-value">${gap2} نسل</span></div>
                             <div class="gap-item">ان کے درمیان <span class="gap-value highlight">${gap12} نسل</span></div>
                         </div>
                     </div>
@@ -1022,7 +1096,7 @@
                 
                 <div class="paths-container">
                     <div class="path-column">
-                        <h3>${member1.name} کا اصل تک سفر</h3>`;
+                        <h3>${displayName(member1.name)} کا اصل تک سفر</h3>`;
             
             p1.forEach((m, i) => { 
                 html += renderBox(m, 
@@ -1033,7 +1107,7 @@
             });
             
             html += `</div><div class="path-column">
-                        <h3>${member2.name} کا اصل تک سفر</h3>`;
+                        <h3>${displayName(member2.name)} کا اصل تک سفر</h3>`;
             
             p2.forEach((m, i) => { 
                 html += renderBox(m, 
@@ -1092,7 +1166,7 @@
                 header.innerHTML = `
                     <h1 style="color: #d4af37; font-size: 36px; font-family: 'Noto Nastaliq Urdu', serif; margin:0;">رضوی خاندان کا شجرہ نسب</h1>
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">اصل بزرگ کا رشتہ</h2>
-                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${member1.name} ↔ ${member2.name}</h3>
+                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
                 `;
                 
                 treeElement.insertBefore(header, treeElement.firstChild);
@@ -1186,7 +1260,7 @@
                 header.innerHTML = `
                     <h1 style="color: #d4af37; font-size: 36px; font-family: 'Noto Nastaliq Urdu', serif; margin:0;">رضوی خاندان کا شجرہ نسب</h1>
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">اصل بزرگ کا رشتہ</h2>
-                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${member1.name} ↔ ${member2.name}</h3>
+                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
                 `;
                 treeElement.insertBefore(header, treeElement.firstChild);
 
@@ -1298,8 +1372,8 @@
                 if (m1 && m2) {
                     member1 = JSON.parse(m1); 
                     member2 = JSON.parse(m2);
-                    document.getElementById('search1').value = member1.name;
-                    document.getElementById('search2').value = member2.name;
+                    document.getElementById('search1').value = displayName(member1.name);
+                    document.getElementById('search2').value = displayName(member2.name);
                     localStorage.removeItem('rootMember1');
                     localStorage.removeItem('rootMember2');
                     renderTree();
@@ -1311,6 +1385,7 @@
 
         window.switchToTableView = switchToTableView;
         window.resetSearch = resetSearch;
+        window.resetSearchRow = resetSearchRow;
         window.exportPDF = exportPDF;
         window.showDashboard = showDashboard;
         window.toggleLeftMenu = toggleLeftMenu;

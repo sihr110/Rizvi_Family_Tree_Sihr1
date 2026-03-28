@@ -1,5 +1,5 @@
 // English Family Data
-// Saved: 20/03/2026, 9:29:20 pm
+// Saved: 28/3/2026، 8:16:12 PM
 const FAMILY_DATA = [
   {
     "name": "Hazrat Abdul Mutalib",
@@ -7,7 +7,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Hazrat Abdullah",
@@ -15,7 +16,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Bibi Amna (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Hazrat Abu Talib",
@@ -23,7 +25,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Bibi Fatima Bint Asad (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Muhammad Rasool Allah (PBUH)",
@@ -31,7 +34,8 @@ const FAMILY_DATA = [
     "mother": "Bibi Amina bint Wahb (AS)",
     "spouse": "Bibi Khadeja Kubra (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Imam Ali (AS)",
@@ -39,7 +43,8 @@ const FAMILY_DATA = [
     "mother": "Bibi Fatima Bint Asad (AS)",
     "spouse": "Syeda Fatima Zehra (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Fatima Zehra (AS)",
@@ -47,7 +52,8 @@ const FAMILY_DATA = [
     "mother": "Bibi Khadeja Kubra (AS)",
     "spouse": "Imam Ali (AS)",
     "gen": "(Pre-Root)",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Imam E Hasan (AS)",
@@ -55,7 +61,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Fatima Zehra (AS)",
     "spouse": "Bibi Umm Farwa (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Imam Hussain (AS)",
@@ -63,7 +70,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Fatima Zehra (AS)",
     "spouse": "Bibi Shahrbanu (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Bibi Zainab (AS)",
@@ -71,7 +79,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Fatima Zehra (AS)",
     "spouse": "Janab Abdullah Ibn Jafar Tayyar",
     "gen": "(Pre-Root)",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Bibi Umme Khulsoom (AS) - 01",
@@ -79,7 +88,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Fatima Zehra (AS)",
     "spouse": "Janab Aoun Ibn Jafar Tayyar",
     "gen": "(Pre-Root)",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Hazrat Mohsin (AS)",
@@ -87,7 +97,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Fatima Zehra (AS)",
     "spouse": "---",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Imam Ali Zain ul Abideen (AS)",
@@ -95,7 +106,8 @@ const FAMILY_DATA = [
     "mother": "Bibi Shahrbanu (AS)",
     "spouse": "Syeda Fatima bint Imam Hasan (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Imam Muhammad Baqir (AS)",
@@ -103,7 +115,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Fatima bint Imam Hasan (AS)",
     "spouse": "Bibi Umm Farwa (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Imam Jafar Sadiq (AS)",
@@ -111,7 +124,8 @@ const FAMILY_DATA = [
     "mother": "Bibi Umm Farwa (AS)",
     "spouse": "Bibi Hamida Khatoon",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Imam Musa Kazim (AS)",
@@ -119,7 +133,8 @@ const FAMILY_DATA = [
     "mother": "Bibi Hamida Khatoon",
     "spouse": "Bibi Najma Khatoon (AS)",
     "gen": "(Pre-Root)",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Imam Ali Raza (AS)",
@@ -127,7 +142,8 @@ const FAMILY_DATA = [
     "mother": "Bibi Najma Khatoon (AS)",
     "spouse": "Bibi Sabika (or Khayzuran) (AS)",
     "gen": "G-001-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hasan ibn Musa",
@@ -135,7 +151,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hussain - 01",
@@ -143,7 +160,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abbas - 01",
@@ -151,7 +169,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Qasim - 01",
@@ -159,7 +178,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S5",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Jafar - 01",
@@ -167,7 +187,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S6",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abdullaha",
@@ -175,7 +196,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S7",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Isaq",
@@ -183,7 +205,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S8",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Zayd",
@@ -191,7 +214,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S9",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Haroon",
@@ -199,7 +223,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S10",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hamza",
@@ -207,7 +232,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S11",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ismail",
@@ -215,7 +241,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S12",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad",
@@ -223,7 +250,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S13",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ahmed",
@@ -231,7 +259,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S14",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Fazal",
@@ -239,7 +268,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S15",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Suliman",
@@ -247,7 +277,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S16",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ubaid Allah",
@@ -255,7 +286,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S17",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Saleh",
@@ -263,7 +295,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S18",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ibrahim ibn Musa",
@@ -271,7 +304,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-S19",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Fatima Bint Mussa",
@@ -279,7 +313,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Zainab - 01",
@@ -287,7 +322,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Ayesha - 01",
@@ -295,7 +331,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Khadija - 01",
@@ -303,7 +340,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Ruqaya",
@@ -311,7 +349,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D5",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Hakeema",
@@ -319,7 +358,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D6",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Aliya",
@@ -327,7 +367,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D7",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Umm Kulsoom - 02",
@@ -335,7 +376,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D8",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Amina",
@@ -343,7 +385,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D9",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Umm Abeeha",
@@ -351,7 +394,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D10",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Umm Salma",
@@ -359,7 +403,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D11",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Hajar Khatoon",
@@ -367,7 +412,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D12",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Hasna",
@@ -375,7 +421,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D13",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Lubna",
@@ -383,7 +430,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D14",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Bareeha",
@@ -391,7 +439,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D15",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Umm Jafat",
@@ -399,7 +448,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-001-D16",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Imam Mohd Taqi (AS)",
@@ -407,7 +457,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hasan",
@@ -415,7 +466,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hussain - 02",
@@ -423,7 +475,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Jafar - 02",
@@ -431,7 +484,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Naqi",
@@ -439,7 +493,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S5",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Fazal",
@@ -447,7 +502,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S6",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Yaqoob - 01",
@@ -455,7 +511,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S7",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ibrahim Ibn Ali Raza",
@@ -463,7 +520,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-S8",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Ayesha (Fatima) - 02",
@@ -471,7 +529,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-002-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ahmed Mujataba",
@@ -479,7 +538,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohamad",
@@ -487,7 +547,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mahmood",
@@ -495,7 +556,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Tayab",
@@ -503,7 +565,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Musa",
@@ -511,7 +574,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S5",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Yaqoob - 02",
@@ -519,7 +583,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S6",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ibrahim - 01",
@@ -527,7 +592,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S7",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Qutub Ud Din",
@@ -535,7 +601,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S8",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Aziz",
@@ -543,7 +610,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-003-S9",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abdullah - 01",
@@ -551,7 +619,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-004-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali - 01",
@@ -559,7 +628,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-004-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad - 01",
@@ -567,7 +637,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-005-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Haider Shah",
@@ -575,7 +646,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-006-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Murtaza",
@@ -583,7 +655,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-007-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hasan Tirmizi",
@@ -591,7 +664,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-008-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shah Hussain - 01",
@@ -599,7 +673,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-009-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Abbas",
@@ -607,7 +682,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-010-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Amber",
@@ -615,7 +691,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-011-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hussain Akbar",
@@ -623,7 +700,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-012-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mustafa - 01",
@@ -631,7 +709,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-013-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abul Qasim",
@@ -639,7 +718,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-013-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Baqir",
@@ -647,7 +727,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-014-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Qamber - 01",
@@ -655,7 +736,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-014-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abu Jafar",
@@ -663,7 +745,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-015-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Athar",
@@ -671,7 +754,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-016-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Sajjad",
@@ -679,7 +763,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-017-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Imdad Ali",
@@ -687,7 +772,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-018-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mustafa - 02",
@@ -695,7 +781,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-019-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Siraaj",
@@ -703,7 +790,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-020-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shah Hussain Shaheed",
@@ -711,7 +799,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-021-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Badhshah Hussain",
@@ -719,7 +808,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-021-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Badhsha Hussain Shaheed",
@@ -727,7 +817,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-022-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shad Hussain Shaheed",
@@ -735,7 +826,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-022-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Subhan Hussain",
@@ -743,7 +835,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-023-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Imam Ud Din",
@@ -751,7 +844,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-023-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ibrahim - 02",
@@ -759,7 +853,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-024-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Samar Hasnain",
@@ -767,7 +862,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-024-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Farrukh Hussain",
@@ -775,7 +871,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-025-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Sultan Hasnain",
@@ -783,7 +880,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-025-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Khurram",
@@ -791,7 +889,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-026-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Haider",
@@ -799,7 +898,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-026-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abdullah - 02",
@@ -807,7 +907,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-027-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ahmed Hussain",
@@ -815,7 +916,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-027-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali - 02",
@@ -823,7 +925,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-028-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Akhbar Husain",
@@ -831,7 +934,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-028-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Lutf Hussain",
@@ -839,7 +943,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-029-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Hussain",
@@ -847,7 +952,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-029-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ibrahim Hussain - 01",
@@ -855,7 +961,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-030-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Barkat Hussain",
@@ -863,7 +970,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-030-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Khurram Hussain - 01",
@@ -871,7 +979,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-031-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ameer Hussain",
@@ -879,7 +988,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-031-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Rahmat Ullah Hussain",
@@ -887,7 +997,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-032-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Hussain",
@@ -895,7 +1006,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-032-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Khoob Ullah Hussain",
@@ -903,7 +1015,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-033-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ahsan Husain (Raza Hussain)",
@@ -911,7 +1024,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-033-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Doost Mohammad Shaheed",
@@ -919,7 +1033,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-033-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ghulam Hussain",
@@ -927,7 +1042,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-034-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Akbar Ali - 01",
@@ -935,7 +1051,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-034-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Madad Ali",
@@ -943,7 +1060,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-034-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hidayat Ali",
@@ -951,7 +1069,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ansar Hussain - 01",
@@ -959,7 +1078,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shair Ali",
@@ -967,7 +1087,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ghalib Ali",
@@ -975,7 +1096,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hizbar Ali",
@@ -983,7 +1105,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-035-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shamshair Ali",
@@ -991,7 +1114,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-036-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Raza Hussain - 01",
@@ -999,7 +1123,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-036-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mansab Ali",
@@ -1007,7 +1132,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-036-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Atta Hussain",
@@ -1015,7 +1141,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Khurram Hussain - 02",
@@ -1023,7 +1150,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Nawab Ali",
@@ -1031,7 +1159,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Enayat Hussain",
@@ -1039,7 +1168,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-037-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shah Hussain - 02",
@@ -1047,7 +1177,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Akbar Ali - 02",
@@ -1055,7 +1186,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Asghar Ali - 01",
@@ -1063,7 +1195,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Jawwad Ali",
@@ -1071,7 +1204,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Umrao",
@@ -1079,7 +1213,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sharifan",
@@ -1087,7 +1222,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ayyub ul Hasan",
@@ -1095,7 +1231,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Yaqoob Ul Hasan",
@@ -1103,7 +1240,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Tasaduq Fatima",
@@ -1111,7 +1249,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ansar Hussain - 02",
@@ -1119,7 +1258,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abrar Hussain",
@@ -1127,7 +1267,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-038-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Taqi",
@@ -1135,7 +1276,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Naqi",
@@ -1143,7 +1285,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Askari",
@@ -1151,7 +1294,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Mushafi Khatoon",
@@ -1159,7 +1303,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ibrahim Hussain - 02",
@@ -1167,7 +1312,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ashfaq Hussain",
@@ -1175,7 +1321,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syeda Kaneez Sughra Rizvi",
     "gen": "G-039-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Khatoon",
@@ -1183,7 +1330,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syed Abid Hussain",
     "gen": "G-039-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sabra Khatoon",
@@ -1191,7 +1339,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syed Mohammad Taqi Ul Hasan",
     "gen": "G-039-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Abbas",
@@ -1199,7 +1348,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laeeq Rizvi",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Wazarat Hussain",
@@ -1207,7 +1357,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Yawer Hussain",
@@ -1215,7 +1366,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Absar Hussain",
@@ -1223,7 +1375,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shamshad Hussain",
@@ -1231,7 +1384,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Tafazul Hussain",
@@ -1239,7 +1393,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shahid Hussain",
@@ -1247,7 +1402,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Zahid Hussain",
@@ -1255,7 +1411,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S5",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Nafees Fatima",
@@ -1263,7 +1420,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Najam Ul Hasan",
@@ -1271,7 +1429,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Nayar",
@@ -1279,7 +1438,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Sham Ul Hasan",
@@ -1287,7 +1447,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Tanveer Ul Hasan",
@@ -1295,7 +1456,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Shamim Fatima",
@@ -1303,7 +1465,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Tanzeem Fatima",
@@ -1311,7 +1474,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Amanat Hussain",
@@ -1319,7 +1483,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Aley Mohammad",
@@ -1327,7 +1492,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-039-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Athar Hussain (Munney)",
@@ -1335,7 +1501,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syeda Hameeda Khatoon Rizvi",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abbas Hussain (Kaban)",
@@ -1343,7 +1510,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syeda Razia Khatoon Rizvi",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Kubra Khatoon",
@@ -1351,7 +1519,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syed Ibadat Hussain Rizvi",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Mubarak Khatoon",
@@ -1359,7 +1528,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syeds Ghayor Ul Hasan Rizvi",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Wasia Khatoon",
@@ -1367,7 +1537,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syed Waheed Ul Hasan Rizvi",
     "gen": "G-040-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Yamina Khatoon",
@@ -1375,7 +1546,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syed Ali Imam Rizvi",
     "gen": "G-040-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ibadat Hussain",
@@ -1383,7 +1555,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Kaneez Sughra Rizvi",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Wiladat Hussain",
@@ -1391,7 +1564,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Kaneez Sughra Rizvi",
     "spouse": "Syeda Tanveer Fatima",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Risalat Hussain",
@@ -1399,7 +1573,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Kaneez Sughra Rizvi",
     "spouse": "Syeda Laiq Bano Naqvi",
     "gen": "G-040-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Aaliya",
@@ -1407,7 +1582,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Kaneez Sughra Rizvi",
     "spouse": "Syed Izhar Ul Hasan Naqvi",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Razia",
@@ -1415,7 +1591,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Kaneez Sughra Rizvi",
     "spouse": "Syed Abbas Hussain Rizvi",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Wajeha",
@@ -1423,7 +1600,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Kaneez Sughra Rizvi",
     "spouse": "Syed Majid Abbas Abdi",
     "gen": "G-040-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Taqiya",
@@ -1431,7 +1609,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Kaneez Sughra Rizvi",
     "spouse": "---",
     "gen": "G-040-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Naseem Abbas",
@@ -1439,7 +1618,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laeeq Rizvi",
     "spouse": "Syeda Masoom Fatima Rizvi",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Dilawar Abbas (Aleem)",
@@ -1447,7 +1627,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laeeq Rizvi",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Qasir Abbas",
@@ -1455,7 +1636,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laeeq Rizvi",
     "spouse": "Syeda Nighat Rizvi",
     "gen": "G-040-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Manzar Abbas",
@@ -1463,7 +1645,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laeeq Rizvi",
     "spouse": "---",
     "gen": "G-040-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Saeed",
@@ -1471,7 +1654,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laeeq Rizvi",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Aziz Ali",
@@ -1479,7 +1663,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Saeed Abbas (Bachan)",
@@ -1487,7 +1672,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Baqir",
@@ -1495,7 +1681,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Jafar",
@@ -1503,7 +1690,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Masoom Fatima",
@@ -1511,7 +1699,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Naseer Fatima",
@@ -1519,7 +1708,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Najam Fatima",
@@ -1527,7 +1717,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Muslim",
@@ -1535,7 +1726,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Tanveer Fatima",
@@ -1543,7 +1735,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Tafseer Fatima",
@@ -1551,7 +1744,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Tatheer Fatima",
@@ -1559,7 +1753,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Rifat Zehra",
@@ -1567,7 +1762,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Irfan",
@@ -1575,7 +1771,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Zeenat Zehra",
@@ -1583,7 +1780,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Zafar Ul Hassan (Shoaib)",
@@ -1591,7 +1789,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Izhar Ul Hasan",
@@ -1599,7 +1798,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Naseer Ul Hasan",
@@ -1607,23 +1807,26 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Ismat Zehra",
     "father": "Syed Tafazul Hussain",
     "mother": "---",
-    "spouse": "Syeda Ismat Zehra Rizvi",
+    "spouse": "Syed Muhammad Azhar Rizvi",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Azhar",
     "father": "Syed Shahid Hussain",
     "mother": "---",
-    "spouse": "---",
+    "spouse": "Syeda Ismat Zehra Rizvi",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Mazhar",
@@ -1631,7 +1834,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Nazar",
@@ -1639,7 +1843,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Aziz Fatima",
@@ -1647,7 +1852,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Tasneem Fatima",
@@ -1655,7 +1861,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syed Izhar Ul Hasan Rizvi",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Shakeel Fatima",
@@ -1663,7 +1870,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Haider Shakoo",
@@ -1671,7 +1879,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Aala",
@@ -1679,7 +1888,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hasan Mohtaram",
@@ -1687,7 +1897,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hasnain Afreen",
@@ -1695,7 +1906,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Aalam",
@@ -1703,7 +1915,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S5",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hasan Danish",
@@ -1711,7 +1924,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S6",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Dur e Najaf",
@@ -1719,7 +1933,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Koh e Noor",
@@ -1727,7 +1942,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Munaza Fatima",
@@ -1735,7 +1951,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Shadab Rizvi",
@@ -1743,7 +1960,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Shakeel Raza",
@@ -1751,7 +1969,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Aqleem Raza",
@@ -1759,7 +1978,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Talat",
@@ -1767,7 +1987,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Yasmeen",
@@ -1775,7 +1996,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sha Tara",
@@ -1783,7 +2005,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sifat",
@@ -1791,7 +2014,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Mohd Raza",
@@ -1799,7 +2023,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hashim Raza",
@@ -1807,7 +2032,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Seema Batool",
@@ -1815,7 +2041,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Huma Batool",
@@ -1823,7 +2050,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Mohd Ali",
@@ -1831,7 +2059,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohd Kamil",
@@ -1839,7 +2068,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohd Asim",
@@ -1847,7 +2077,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Sumera",
@@ -1855,7 +2086,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Aley Haider",
@@ -1863,7 +2095,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Akbar Hussain",
@@ -1871,7 +2104,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Laiqa Khatoon",
@@ -1879,7 +2113,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Anwari Khatoon",
@@ -1887,14 +2122,16 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-040-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Jaweed Abbas",
     "father": "Syed Saeed Abbas (Bachan)",
     "mother": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Aftab Haider",
@@ -1902,7 +2139,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Haider - 01",
@@ -1910,15 +2148,17 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
-    "name": "Syed Kamran Haider - 01",
+    "name": "Syed Kamran Haider (Haseen)",
     "father": "Syed Ibadat Hussain",
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Dur e Shawar",
@@ -1926,7 +2166,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Shaheen",
@@ -1934,7 +2175,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Zarina",
@@ -1942,7 +2184,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Humma",
@@ -1950,7 +2193,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Nigar",
@@ -1958,47 +2202,53 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D5",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Zafar Iqbal",
     "father": "Syed Wiladat Hussain",
-    "mother": "Syeda Tanveer Fatima",
-    "spouse": "---",
+    "mother": "Syeda Tanveer Fatima Rizvi",
+    "spouse": "Batool Zafar",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Najaf Haider",
     "father": "Syed Wiladat Hussain",
-    "mother": "Syeda Tanveer Fatima",
+    "mother": "Syeda Tanveer Fatima Rizvi",
     "spouse": "Syeda Sabeen Rizvi",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Raza Haider",
     "father": "Syed Wiladat Hussain",
-    "mother": "Syeda Tanveer Fatima",
+    "mother": "Syeda Tanveer Fatima Rizvi",
     "spouse": "Syeda Sarwat Zehra Rizvi",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shamim Haider",
     "father": "Syed Wiladat Hussain",
-    "mother": "Syeda Tanveer Fatima",
+    "mother": "Syeda Tanveer Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Anjum Nighat",
     "father": "Syed Wiladat Hussain",
-    "mother": "Syeda Tanveer Fatima",
+    "mother": "Syeda Tanveer Fatima Rizvi",
     "spouse": "Syed Naseem Haider Rizvi",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Rehan Haider",
@@ -2006,7 +2256,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Uzma Haider",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Imran Haider",
@@ -2014,15 +2265,17 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Mahjabeen",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
-    "name": "Syed Kamran Haider - 02",
+    "name": "Syed Kamran Haider",
     "father": "Syed Risalat Hussain",
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Nadia",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Farhan Haider",
@@ -2030,7 +2283,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syeda Tatheer Zehra Rizvi",
     "gen": "G-041-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Khurram Haider",
@@ -2038,7 +2292,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syeda Sumera Naqvi (Mona)",
     "gen": "G-041-S5",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Zeeshan Haider",
@@ -2046,7 +2301,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syed Dua Rizvi (Dua)",
     "gen": "G-041-S6",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Salman Haider",
@@ -2054,7 +2310,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syeda Tara Zaidi",
     "gen": "G-041-S7",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Adnan Haider",
@@ -2062,7 +2319,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syeda Faryab Zehra Zaidi",
     "gen": "G-041-S8",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Ismat Saba",
@@ -2070,7 +2328,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syed M Ali Afzal Rizvi",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": "Children of : Syeda Ismat Saba   \n\nS1: Aoun Mohammad Rizvi S/o Syed M Ali Afzal Rizvi  \nD1: Hira Ali Rizvi D/o Syed M Ali Afzal Rizvi  \nD2: Areeba Ali Rizvi D/o Syed M Ali Afzal Rizvi"
   },
   {
     "name": "Syeda Talat Saba",
@@ -2078,7 +2337,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syed Abbas Raza Naqvi (Rizwan)",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": "Children of : Syeda Talat Saba   \n\nS1: S. Mohsin Hasan S/o Syed Abbas Raza Naqvi (Rizwan)  \nS2: S. Ahsan Hasan S/o Syed Abbas Raza Naqvi (Rizwan)  \nD1: S. Farwa Abbas D/o Syed Abbas Raza Naqvi (Rizwan)"
   },
   {
     "name": "Syeda Ishrat Saba",
@@ -2086,7 +2346,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syed Iqbal Haider Naqvi (Shahid)",
     "gen": "G-041-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": "Children of : Syeda Ishrat Saba\n\nS1: Kumail Hasan\nS2: Muzammil Hasan\nS3: Murtaza Hasan\n\nD2: Sheherbano Iqbal"
   },
   {
     "name": "Syeda Sarwat Rizvi",
@@ -2094,7 +2355,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syed Zulkifil Raza Naqvi (Ishrat)",
     "gen": "G-041-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": "Children of : Syeda Sarwat Rizvi  \n\nS1: S. Wajeh Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nS2: S. Shaji Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nS3: S. Mohammad Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nS4: S. Ali Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nD1: S. Laila Raza D/o Syed Zulkifil Raza Naqvi (Ishrat)"
   },
   {
     "name": "Syeda Erum Rizvi",
@@ -2102,7 +2364,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Laiq Bano Naqvi",
     "spouse": "Syed M Mehdi Naqvi (Danish)",
     "gen": "G-041-D5",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": "Children of : Syeda Erum Rizvi \n\nS1: S. Baqar Mehdi S/o Syed M Mehdi Naqvi (Danish) \nS2: S. Kazim MehdiSyed M Mehdi Naqvi (Danish) \nS3: S. Hasan Mehdi S/o Syed M Mehdi Naqvi (Danish)"
   },
   {
     "name": "Syed Asif",
@@ -2110,7 +2373,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Salman",
@@ -2118,7 +2382,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Huma",
@@ -2126,7 +2391,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Asma",
@@ -2134,7 +2400,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Naheed",
@@ -2142,7 +2409,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Asad",
@@ -2150,7 +2418,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Nighat Rizvi",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Asfar",
@@ -2158,7 +2427,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Nighat Rizvi",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Qamber - 02",
@@ -2166,7 +2436,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Nighat Rizvi",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Midhat",
@@ -2174,7 +2445,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Nighat Rizvi",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Kamal Haider - 01",
@@ -2182,7 +2454,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Rifat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mudasir Haider",
@@ -2190,7 +2463,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Rifat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Muzzammil Haider",
@@ -2198,7 +2472,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Rifat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hasan Haider",
@@ -2206,7 +2481,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Rifat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Sabeen",
@@ -2214,15 +2490,17 @@ const FAMILY_DATA = [
     "mother": "Syeda Rifat Zehra Rizvi",
     "spouse": "Syed Najaf Haider Rizvi",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": "Children of Syeda Sabeen Rizvi\n\n\nSee  Syed Najaf Haider S/o Syed Wiladat Hussain"
   },
   {
-    "name": "Syeda [unnamed]",
+    "name": "Syeda …...",
     "father": "Syed Muslim",
     "mother": "Syeda Rifat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Abu Talib - 02",
@@ -2230,7 +2508,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Abdullah - 03",
@@ -2238,7 +2517,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Kamal Haider - 02",
@@ -2246,7 +2526,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Jamal Haider",
@@ -2254,7 +2535,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Ifat Zehra",
@@ -2262,7 +2544,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sarwat Zehra",
@@ -2270,7 +2553,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "Syed Raza Haider Rizvi",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Nusrat Zehra",
@@ -2278,7 +2562,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Ali Anjum",
@@ -2286,7 +2571,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "Syed Tabasum Wasi Rizvi",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Ali Azam",
@@ -2294,7 +2580,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Ali Azeem",
@@ -2302,7 +2589,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Ali Moazam",
@@ -2310,7 +2598,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S4",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Qurat ul Aian Arajumand",
@@ -2318,7 +2607,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "Syed Jamil Zaidi",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Qurat ul Aian Tahira",
@@ -2326,7 +2616,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "Syed Farhat Mehdi Zaidi",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Qurat ul Aian Noor",
@@ -2334,7 +2625,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "Syed Altaf Hussain",
     "gen": "G-041-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Qurat ul Aian Saleha",
@@ -2342,7 +2634,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "Syed Waqar Zaidi",
     "gen": "G-041-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Qurat ul Aian Arfa",
@@ -2350,55 +2643,62 @@ const FAMILY_DATA = [
     "mother": "Syeda Tasneem Fatima Rizvi",
     "spouse": "Syed Hashim Raza Rizvi",
     "gen": "G-041-D5",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Imran Rizvi",
     "father": "Syed Muhammad Azhar",
-    "mother": "Syeda Ismat Zehra",
+    "mother": "Syeda Ismat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Kamran Rizvi",
     "father": "Syed Muhammad Azhar",
-    "mother": "Syeda Ismat Zehra",
+    "mother": "Syeda Ismat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed  Muhammad Adnan Haider",
     "father": "Syed Muhammad Azhar",
-    "mother": "Syeda Ismat Zehra",
+    "mother": "Syeda Ismat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Aizaz Aliya",
     "father": "Syed Muhammad Azhar",
-    "mother": "Syeda Ismat Zehra",
+    "mother": "Syeda Ismat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Iram Rizvi",
     "father": "Syed Muhammad Azhar",
-    "mother": "Syeda Ismat Zehra",
+    "mother": "Syeda Ismat Zehra Rizvi",
     "spouse": "Syed Shabi Kazmi",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Hina Rizvi",
     "father": "Syed Muhammad Azhar",
-    "mother": "Syeda Ismat Zehra",
+    "mother": "Syeda Ismat Zehra Rizvi",
     "spouse": "Syed Wasi Hussain Naqvi",
     "gen": "G-041-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": "Children of Syeda Hina Rizvi\n\nS1: S. Kumail Hussain Naqvi\nS2: S. Jari Hussain Naqvi\nD1: S. Abhiya Hussain Naqvi"
   },
   {
     "name": "Syeda Nashq e Zehra",
@@ -2406,7 +2706,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Farah Batool",
@@ -2414,7 +2715,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Samar",
@@ -2422,7 +2724,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Shabbar",
@@ -2430,7 +2733,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-041-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Murtaza Haider",
@@ -2438,7 +2742,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Irtiza Haider",
@@ -2446,15 +2751,17 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Batool Zafar Hyder",
     "father": "Syed Zafar Iqbal",
     "mother": "---",
-    "spouse": "---",
+    "spouse": "Syed Mudasir Haider Rizvi",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Kausar Zafar Hyder",
@@ -2462,7 +2769,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Khadeja Zafar Hyder",
@@ -2470,7 +2778,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Malika Zafar Hyder",
@@ -2478,7 +2787,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ahsan Sajjad",
@@ -2486,7 +2796,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sabeen Rizvi",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hussain Haider - 01",
@@ -2494,7 +2805,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sabeen Rizvi",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Mariyum Najaf",
@@ -2502,7 +2814,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sabeen Rizvi",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Rimsha Najaf",
@@ -2510,7 +2823,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sabeen Rizvi",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sara Najaf",
@@ -2518,7 +2832,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sabeen Rizvi",
     "spouse": "---",
     "gen": "G-042-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Farwah Najaf",
@@ -2526,7 +2841,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sabeen Rizvi",
     "spouse": "---",
     "gen": "G-042-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Khurram Haider",
@@ -2534,7 +2850,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sarwat Zehra Rizvi",
     "spouse": "Syeda Amna Zaidi",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Tabinda Zehra",
@@ -2542,23 +2859,26 @@ const FAMILY_DATA = [
     "mother": "Syeda Sarwat Zehra Rizvi",
     "spouse": "Syed Muntazir Mehdi",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Abbas Haider",
     "father": "Syed Raza Haider",
     "mother": "Syeda Sarwat Zehra Rizvi",
-    "spouse": "Syeda Samana Batool",
+    "spouse": "Syeda Samana Batool Rizvi",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
-    "name": "Syed Muhammad Ali Haider - 01",
+    "name": "Syed Muhammad Ali Haider",
     "father": "Syed Raza Haider",
     "mother": "Syeda Sarwat Zehra Rizvi",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shabbir Haider",
@@ -2566,7 +2886,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Shabbar Haider",
@@ -2574,7 +2895,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Fizza Shamim",
@@ -2582,7 +2904,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Rubab Shamim",
@@ -2590,7 +2913,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Haneen Haider",
@@ -2598,7 +2922,8 @@ const FAMILY_DATA = [
     "mother": "Uzma Haider",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Samana Haider",
@@ -2606,7 +2931,8 @@ const FAMILY_DATA = [
     "mother": "Uzma Haider",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Afifa Haider",
@@ -2614,7 +2940,8 @@ const FAMILY_DATA = [
     "mother": "Uzma Haider",
     "spouse": "---",
     "gen": "G-042-D3",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Masooma Haider",
@@ -2622,23 +2949,26 @@ const FAMILY_DATA = [
     "mother": "Uzma Haider",
     "spouse": "---",
     "gen": "G-042-D4",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Zainab Kamran - 02",
-    "father": "Syed Kamran Haider - 02",
-    "mother": "Nadia",
+    "father": "Syed Kamran Haider",
+    "mother": "Nadia Kamran ",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Hussain Haider - 02",
-    "father": "Syed Kamran Haider - 02",
-    "mother": "Nadia",
+    "father": "Syed Kamran Haider",
+    "mother": "Nadia Kamran ",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Hasnain Haider",
@@ -2646,7 +2976,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tatheer Zehra Rizvi",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Fizza Haider - 02",
@@ -2654,7 +2985,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tatheer Zehra Rizvi",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sakina Haider",
@@ -2662,7 +2994,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sumera Naqvi (Mona)",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Qasim Haider",
@@ -2670,7 +3003,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Sumera Naqvi (Mona)",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Meesam Haider",
@@ -2678,7 +3012,8 @@ const FAMILY_DATA = [
     "mother": "Syed Dua Rizvi (Dua)",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mujtaba Haider",
@@ -2686,7 +3021,8 @@ const FAMILY_DATA = [
     "mother": "Syed Dua Rizvi (Dua)",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Haider - 02",
@@ -2694,7 +3030,8 @@ const FAMILY_DATA = [
     "mother": "Syed Dua Rizvi (Dua)",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Haider - 02",
@@ -2702,7 +3039,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tara Zaidi",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mehdi Haider",
@@ -2710,7 +3048,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tara Zaidi",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Musa Haider",
@@ -2718,7 +3057,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Tara Zaidi",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Abbas Haider",
@@ -2726,7 +3066,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Faryab Zehra Zaidi",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Amna Haider",
@@ -2734,7 +3075,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Faryab Zehra Zaidi",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Khadija Haider - 02",
@@ -2742,7 +3084,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Faryab Zehra Zaidi",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Haider Ali",
@@ -2750,7 +3093,8 @@ const FAMILY_DATA = [
     "mother": "Syed Tabasum Wasi Rizvi",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Benish Fatima",
@@ -2758,7 +3102,8 @@ const FAMILY_DATA = [
     "mother": "Syed Tabasum Wasi Rizvi",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Hamza Rizvi",
@@ -2766,7 +3111,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Johar Rizvi",
@@ -2774,7 +3120,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Arooj Fatima",
@@ -2782,7 +3129,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Ali Raza",
@@ -2790,7 +3138,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Mohammad Ali Abbas",
@@ -2798,7 +3147,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Zoamn Fatima",
@@ -2806,7 +3156,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Yumna Fatima",
@@ -2814,7 +3165,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Faheem",
@@ -2822,7 +3174,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Ibrahim",
@@ -2830,7 +3183,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Ayeza Rizvi",
@@ -2838,7 +3192,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Mohtashim Ali",
@@ -2846,7 +3201,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ahtasham Abbas",
@@ -2854,7 +3210,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Asghar Ali - 02",
@@ -2862,7 +3219,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S3",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Malika Rizvi",
@@ -2870,7 +3228,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Sana Rizvi",
@@ -2878,7 +3237,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Khadija Rizvi",
@@ -2886,7 +3246,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Samana Batool",
@@ -2894,7 +3255,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D2",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Askari Rizvi",
@@ -2902,7 +3264,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ahmed Ali",
@@ -2910,7 +3273,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Hassan Ghazi",
@@ -2918,7 +3282,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ali Gazi",
@@ -2926,7 +3291,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Omama Fatima",
@@ -2934,7 +3300,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Fakhar Abbas",
@@ -2942,7 +3309,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Hoor Zehra",
@@ -2950,7 +3318,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-042-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syeda Mahira Zehra",
@@ -2958,7 +3327,8 @@ const FAMILY_DATA = [
     "mother": "Syeda Amna Zaidi",
     "spouse": "---",
     "gen": "G-043-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Muhammad Mustafa Haider",
@@ -2966,15 +3336,17 @@ const FAMILY_DATA = [
     "mother": "Syeda Amna Zaidi",
     "spouse": "---",
     "gen": "G-043-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Zoha Zehra",
     "father": "Syed Muhammad Abbas Haider",
-    "mother": "Syeda Samana Batool",
+    "mother": "Syeda Samana Batool Rizvi",
     "spouse": "---",
     "gen": "G-043-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   },
   {
     "name": "Syed Mustafa Haider",
@@ -2982,7 +3354,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-043-S1",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syed Ammar Haider",
@@ -2990,7 +3363,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-043-S2",
-    "gender": "MALE"
+    "gender": "MALE",
+    "details": ""
   },
   {
     "name": "Syeda Aaliya Fatima",
@@ -2998,8 +3372,9 @@ const FAMILY_DATA = [
     "mother": "---",
     "spouse": "---",
     "gen": "G-043-D1",
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "details": ""
   }
 ];
 
-const FILE_INFO = { saved_time: "20/03/2026, 9:29:20 pm", total_members: 375 };
+const FILE_INFO = { saved_time: "28/3/2026، 8:16:12 PM", total_members: 375 };

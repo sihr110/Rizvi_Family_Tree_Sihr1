@@ -861,32 +861,45 @@
             return html;
         }
 
-        function renderGenderGroup(genderMembers, type) {
-            const count = genderMembers.length;
-            const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
-            if (count === 1) return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-            else if (count === 2) return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-            else if (count === 3) return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-            else if (count === 4) return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-            else {
-                const firstFour = genderMembers.slice(0, 4);
-                const remaining = genderMembers.slice(4);
-                let remainingClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
-                return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-                        <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-            }
-        }
+function renderGenderGroup(genderMembers, type) {
+    const count = genderMembers.length;
+    const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
+    
+    if (count === 1) 
+        return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    
+    else if (count === 2) 
+        return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    
+    else if (count === 3) 
+        return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    
+    else if (count === 4) 
+        return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    
+    else {
+        // For 5+ boxes: first 4 in grid, remaining in separate row
+        const firstFour = genderMembers.slice(0, 4);
+        const remaining = genderMembers.slice(4);
+        let remainingClass = remaining.length === 1 ? 'one-box' : 
+                            (remaining.length === 2 ? 'two-boxes' : 
+                            (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
+        
+        return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    }
+}
 
         function renderMembersWithLayout(members, type) {
             if (members.length === 0) return '';
-            if (members.length > 5) {
-                const males = members.filter(m => m.gender === 'MALE');
-                const females = members.filter(m => m.gender === 'FEMALE');
-                let html = '';
-                if (males.length > 0) html += renderGenderGroup(males, type);
-                if (females.length > 0) html += renderGenderGroup(females, type);
-                return html;
-            }
+       if (members.length > 4) {
+    const males = members.filter(m => m.gender === 'MALE');
+    const females = members.filter(m => m.gender === 'FEMALE');
+    let html = '';
+    if (males.length > 0) html += renderGenderGroup(males, type);
+    if (females.length > 0) html += renderGenderGroup(females, type);
+    return html;
+}
             const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
             const count = members.length;
             if (count === 1) return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;

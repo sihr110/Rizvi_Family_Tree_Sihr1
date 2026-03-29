@@ -284,12 +284,14 @@
             margin-top: 2px;
         }
 
-        .tree-container {
-            flex: 1;
-            overflow: auto !important;
-            padding: 20px;
-            position: relative;
-        }
+       .tree-container {
+    flex: 1;
+    overflow: auto;
+    padding: 0 15px 15px 15px;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    zoom: 0.5;
+}
 
         /* Scrollbar styling */
         .tree-container::-webkit-scrollbar {

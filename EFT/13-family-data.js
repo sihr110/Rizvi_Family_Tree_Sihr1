@@ -1,5 +1,5 @@
 // English Family Data
-// Saved: 28/3/2026، 8:16:12 PM
+// Saved: 29/3/2026، 3:32:13 PM
 const FAMILY_DATA = [
   {
     "name": "Hazrat Abdul Mutalib",
@@ -2329,7 +2329,7 @@ const FAMILY_DATA = [
     "spouse": "Syed M Ali Afzal Rizvi",
     "gen": "G-041-D1",
     "gender": "FEMALE",
-    "details": "Children of : Syeda Ismat Saba   \n\nS1: Aoun Mohammad Rizvi S/o Syed M Ali Afzal Rizvi  \nD1: Hira Ali Rizvi D/o Syed M Ali Afzal Rizvi  \nD2: Areeba Ali Rizvi D/o Syed M Ali Afzal Rizvi"
+    "details": "Children of : Syeda Ismat Saba   \n\nS1: Syed Aoun Mohammad Rizvi\n\nD1: Syeda Hira Ali Rizvi \nD2: Syeda Areeba Ali Rizvi"
   },
   {
     "name": "Syeda Talat Saba",
@@ -2338,7 +2338,7 @@ const FAMILY_DATA = [
     "spouse": "Syed Abbas Raza Naqvi (Rizwan)",
     "gen": "G-041-D2",
     "gender": "FEMALE",
-    "details": "Children of : Syeda Talat Saba   \n\nS1: S. Mohsin Hasan S/o Syed Abbas Raza Naqvi (Rizwan)  \nS2: S. Ahsan Hasan S/o Syed Abbas Raza Naqvi (Rizwan)  \nD1: S. Farwa Abbas D/o Syed Abbas Raza Naqvi (Rizwan)"
+    "details": "Children of : Syeda Talat Saba   \n\nS1: Syed Mohsin Hasan Naqvi\nS2: Syed Ahsan Hasan Naqvi\n\nD1: Syeda Farwa Abbas Naqvi"
   },
   {
     "name": "Syeda Ishrat Saba",
@@ -2347,7 +2347,7 @@ const FAMILY_DATA = [
     "spouse": "Syed Iqbal Haider Naqvi (Shahid)",
     "gen": "G-041-D3",
     "gender": "FEMALE",
-    "details": "Children of : Syeda Ishrat Saba\n\nS1: Kumail Hasan\nS2: Muzammil Hasan\nS3: Murtaza Hasan\n\nD2: Sheherbano Iqbal"
+    "details": "Children of : Syeda Ishrat Saba\n\nS1: Syed Kumail Hasan Naqvi\nS2: Syed Muzammil Hasan Naqvi\nS3: Syed Murtaza Hasan Naqvi\n\nD2: Syeda Sheherbano Iqbal Naqvi"
   },
   {
     "name": "Syeda Sarwat Rizvi",
@@ -2356,7 +2356,7 @@ const FAMILY_DATA = [
     "spouse": "Syed Zulkifil Raza Naqvi (Ishrat)",
     "gen": "G-041-D4",
     "gender": "FEMALE",
-    "details": "Children of : Syeda Sarwat Rizvi  \n\nS1: S. Wajeh Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nS2: S. Shaji Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nS3: S. Mohammad Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nS4: S. Ali Raza S/o Syed Zulkifil Raza Naqvi (Ishrat)  \nD1: S. Laila Raza D/o Syed Zulkifil Raza Naqvi (Ishrat)"
+    "details": "Children of : Syeda Sarwat Rizvi  \n\nS1: Syed Wajeh Raza Naqvi\nS2: Syed Shaji Raza Naqvi\nS3: Syed Mohammad Raza Naqvi  \nS4: Syed Ali Raza Naqvi\n\nD1: S. Laila Raza Naqvi"
   },
   {
     "name": "Syeda Erum Rizvi",
@@ -2365,7 +2365,7 @@ const FAMILY_DATA = [
     "spouse": "Syed M Mehdi Naqvi (Danish)",
     "gen": "G-041-D5",
     "gender": "FEMALE",
-    "details": "Children of : Syeda Erum Rizvi \n\nS1: S. Baqar Mehdi S/o Syed M Mehdi Naqvi (Danish) \nS2: S. Kazim MehdiSyed M Mehdi Naqvi (Danish) \nS3: S. Hasan Mehdi S/o Syed M Mehdi Naqvi (Danish)"
+    "details": "Children of : Syeda Erum Rizvi \n\nS1: Syed Baqar Mehdi Naqvi\nS2: Syed Kazim Mehdi Naqvi\nS3: Syed Hasan Mehdi Naqvi"
   },
   {
     "name": "Syed Asif",
@@ -2698,7 +2698,7 @@ const FAMILY_DATA = [
     "spouse": "Syed Wasi Hussain Naqvi",
     "gen": "G-041-D3",
     "gender": "FEMALE",
-    "details": "Children of Syeda Hina Rizvi\n\nS1: S. Kumail Hussain Naqvi\nS2: S. Jari Hussain Naqvi\nD1: S. Abhiya Hussain Naqvi"
+    "details": "Children of Syeda Hina Rizvi\n\nS1: Syed Kumail Hussain Naqvi\nS2: Syed Jari Hussain Naqvi\nD1: Syeda Abhiya Hussain Naqvi"
   },
   {
     "name": "Syeda Nashq e Zehra",
@@ -3377,4 +3377,4 @@ const FAMILY_DATA = [
   }
 ];
 
-const FILE_INFO = { saved_time: "28/3/2026، 8:16:12 PM", total_members: 375 };
+const FILE_INFO = { saved_time: "29/3/2026، 3:32:13 PM", total_members: 375 };

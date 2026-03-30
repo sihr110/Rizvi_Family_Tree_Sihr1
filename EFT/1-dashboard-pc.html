@@ -301,57 +301,6 @@
             background: var(--gold);
             color: var(--dark-blue);
         }
-
-/* Mobile responsive - stack cards vertically */
-@media screen and (max-width: 768px) {
-    .top-row {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .bottom-row {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .exit-btn-container {
-        min-width: auto;
-        width: 100%;
-    }
-    
-    .dashboard-card {
-        padding: 20px 15px;
-        min-height: 130px;
-    }
-    
-    .card-icon {
-        font-size: 36px;
-    }
-    
-    .card-title {
-        font-size: 18px;
-    }
-    
-    .card-desc {
-        font-size: 12px;
-    }
-    
-    .app-header {
-        padding: 8px 12px;
-    }
-    
-    .header-title {
-        font-size: 16px;
-    }
-    
-    .status-badge {
-        padding: 5px 10px;
-        font-size: 11px;
-    }
-}
-
-
-
     </style>
 </head>
 <body>
@@ -378,12 +327,6 @@
     </div>
 
 <script>
-
-const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-if (isMobile) {
-    document.getElementById('headerTitle').innerText = 'Rizvi Family (Mobile)';
-}
-
 
 // Check URL parameters on page load
 function checkURLParams() {

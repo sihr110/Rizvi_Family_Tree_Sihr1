@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ==================== EXTERNAL SCRIPTS ==================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rizvi family · structured tree</title>
@@ -11,9 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
-    <!-- ==================== STYLES ==================== -->
     <style>
-        /* Modal Overlay */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -21,8 +18,6 @@
             background: rgba(0,0,0,0.5);
             z-index: 2000;
         }
-        
-        /* Save Options Modal */
         .save-options-modal {
             display: none;
             position: fixed;
@@ -37,7 +32,6 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Reset Button Styles */
         .reset-btn {
             padding: 10px 20px;
             background: var(--gold);
@@ -56,7 +50,6 @@
             transform: scale(1.02);
         }
 
-        /* Gentle pulsing/blinking effect with gold and light green - Header Toggle */
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
         }
@@ -90,7 +83,6 @@
             position: relative;
         }
 
-        /* ZOOM CONTROLS - outside white container */
         .zoom-controls {
             position: absolute;
             top: 30px;
@@ -292,7 +284,6 @@
             position: relative;
         }
 
-        /* Updated search section - centered */
         .search-section {
             padding: 15px;
             background: #fffcf8;
@@ -383,7 +374,6 @@
             position: relative;
         }
 
-        /* Scrollbar styling */
         .tree-container::-webkit-scrollbar {
             width: 12px;
             height: 12px;
@@ -452,7 +442,6 @@
             line-height: 1.6;
         }
 
-        /* Box styles */
         .box {
             border: 2px solid var(--gold);
             border-radius: 12px;
@@ -578,7 +567,6 @@
             background: var(--light-gold);
         }
 
-        /* Children row layouts */
         .children-row {
             display: flex;
             flex-wrap: wrap;
@@ -653,7 +641,31 @@
             background: #faebcd;
         }
 
-        /* Info Modal */
+        .save-options-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            z-index: 4000;
+            min-width: 350px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 3999;
+            display: none;
+        }
+
         .info-modal {
             position: fixed;
             top: 50%;
@@ -740,7 +752,6 @@
     </style>
 </head>
 <body>
-    <!-- ==================== ZOOM CONTROLS ==================== -->
     <div class="zoom-controls">
         <div class="zoom-btn" onclick="zoomIn()">+</div>
         <div class="zoom-level" id="zoomLevel">100%</div>
@@ -748,9 +759,7 @@
         <div class="zoom-btn" onclick="resetZoom()">↺</div>
     </div>
 
-    <!-- ==================== MAIN APP CONTAINER ==================== -->
     <div class="app-container">
-        <!-- ==================== HEADER ==================== -->
         <div class="app-header">
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
             <div class="header-title">
@@ -763,7 +772,6 @@
             </div>
         </div>
 
-        <!-- ==================== TOGGLE MENU PANEL ==================== -->
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 Siblings</div>
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
@@ -772,10 +780,8 @@
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
         </div>
 
-        <!-- ==================== MAIN CONTENT ==================== -->
         <div class="main-content">
             <div class="center-content">
-                <!-- ==================== SEARCH SECTION ==================== -->
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">SEARCH MEMBER</span>
@@ -787,14 +793,12 @@
                     </div>
                 </div>
 
-                <!-- ==================== TREE CONTAINER ==================== -->
                 <div class="tree-container" id="treeContainer">
                     <div class="tree-root-layout" id="treeRoot"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== FOOTER ==================== -->
         <div class="app-footer" id="appFooter">
             Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
         </div>
@@ -802,7 +806,8 @@
 
     <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
 
-    <!-- ==================== SAVE OPTIONS MODAL (COPIED FROM FILE 3) ==================== -->
+    
+    <!-- Save Options Modal -->
     <div class="save-options-modal" id="saveOptionsModal" style="display:none;">
         <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
         
@@ -834,10 +839,12 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL OVERLAY ==================== -->
+    <!-- Overlay -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
-    <!-- ==================== INFO MODAL ==================== -->
+
+
+    
     <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
     <div class="info-modal" id="infoModal">
         <h3>ℹ️ Other Informations</h3>
@@ -845,12 +852,8 @@
         <button onclick="closeInfoModal()">Close</button>
     </div>
 
-    <!-- ==================== DATA SCRIPT ==================== -->
     <script src="13-family-data.js"></script>
-    
-    <!-- ==================== MAIN APPLICATION SCRIPT ==================== -->
     <script>
-        // ==================== GLOBAL VARIABLES ====================
         let db = [];
         let fileInfo = null;
         let currentIndividual = null;
@@ -862,53 +865,12 @@
         let childrenCollapsed = true;
         let ancestorsCollapsed = true;
 
-
-// ==================== MOBILE DETECTION & ZOOM ====================
-const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-function applyMobileZoom() {
-    const container = document.getElementById('treeContainer');
-    if (container && isMobile) {
-        container.style.zoom = '0.5';
-    }
-}
-
-
-        // ==================== HELPER FUNCTIONS ====================
         function displayName(str) {
             if (!str) return '';
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
 
-        function formatCurrentTime() {
-            const d = new Date();
-            const day = d.getDate();
-            const month = d.getMonth() + 1;
-            const year = d.getFullYear();
-            const hours = d.getHours();
-            const minutes = String(d.getMinutes()).padStart(2, '0');
-            const ampm = hours >= 12 ? 'pm' : 'am';
-            const displayHours = hours % 12 || 12;
-            return `${day}/${month}/${year} - ${displayHours}:${minutes}${ampm}`;
-        }
-
-        function findParent(p) { 
-            return p?.father ? db.find(x => x.name === p.father) : null; 
-        }
-        
-        function getAncestors(p) { 
-            let arr = [], cur = p; 
-            while (cur?.father) { 
-                const father = db.find(x => x.name === cur.father); 
-                if (!father) break; 
-                arr.push(father); 
-                cur = father; 
-            } 
-            return arr; 
-        }
-
-        // ==================== INFO MODAL FUNCTIONS ====================
         function showInfoModal(personName) {
             const person = db.find(p => p.name === personName);
             if (!person) return;
@@ -923,7 +885,18 @@ function applyMobileZoom() {
             document.getElementById('infoModalOverlay').style.display = 'none';
         }
 
-        // ==================== RENDER FUNCTIONS ====================
+        function formatCurrentTime() {
+            const d = new Date();
+            const day = d.getDate();
+            const month = d.getMonth() + 1;
+            const year = d.getFullYear();
+            const hours = d.getHours();
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'pm' : 'am';
+            const displayHours = hours % 12 || 12;
+            return `${day}/${month}/${year} - ${displayHours}:${minutes}${ampm}`;
+        }
+
         function renderBox(person, label, isSiblingOrChild = false) {
             const isFemale = person.gender?.startsWith('F');
             const isSelected = currentIndividual?.name === person.name;
@@ -1013,8 +986,6 @@ function applyMobileZoom() {
         function renderTree() {
             if (!currentIndividual) return;
             let html = '<div>';
-            
-            // ==================== ANCESTORS SECTION ====================
             if (showAncestors) {
                 let ancestors = getAncestors(currentIndividual);
                 if (ancestors.length) ancestors = ancestors.slice(1);
@@ -1031,16 +1002,12 @@ function applyMobileZoom() {
                     }
                 }
             }
-            
-            // ==================== FATHER AND SELECTED MEMBER ====================
             const father = findParent(currentIndividual);
             if (father) {
                 html += '<div class="family-group">' + renderBox(father, 'Father', false) + '<div class="v-line"></div>' + renderBox(currentIndividual, 'Selected', false) + '</div>';
             } else {
                 html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
             }
-            
-            // ==================== SIBLINGS SECTION ====================
             if (showSiblings && father) {
                 const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
                 if (siblings.length) {
@@ -1048,8 +1015,6 @@ function applyMobileZoom() {
                     if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
                 }
             }
-            
-            // ==================== DESCENDANTS SECTION ====================
             if (showDescendants) {
                 const children = db.filter(c => c.father === currentIndividual.name);
                 if (children.length) {
@@ -1057,27 +1022,19 @@ function applyMobileZoom() {
                     if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
                 }
             }
-            
             html += '</div>';
             document.getElementById('treeRoot').innerHTML = html;
         }
 
-        // ==================== ZOOM FUNCTIONS ====================
-        function zoomIn() { 
-            zoomLevel = Math.min(zoomLevel + 0.1, 2); 
-            applyZoom(); 
-        }
-        
-        function zoomOut() { 
-            zoomLevel = Math.max(zoomLevel - 0.1, 0.5); 
-            applyZoom(); 
-        }
-        
-        function resetZoom() { 
-            zoomLevel = 1; 
-            applyZoom(); 
-        }
-        
+        window.handleBoxClick = function(el) {
+            const name = el.dataset.name;
+            const member = db.find(m => m.name === name);
+            if (member) selectMember(member);
+        };
+
+        function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2); applyZoom(); }
+        function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
+        function resetZoom() { zoomLevel = 1; applyZoom(); }
         function applyZoom() {
             const content = document.getElementById('treeRoot');
             if (content) {
@@ -1088,7 +1045,6 @@ function applyMobileZoom() {
             }
         }
 
-        // ==================== SAVE FUNCTIONS (COPIED FROM FILE 3) ====================
         window.showSaveOptions = function() {
             if (!currentIndividual) {
                 alert('Please select a family member first');
@@ -1126,190 +1082,170 @@ function applyMobileZoom() {
             }
         };
 
-        // PDF export function
-       async function exportTreePDF(quality = 'high') {
-    if (!currentIndividual) { alert('Please select a member first'); return; }
-    
-    const container = document.getElementById('treeContainer');
-    const originalZoom = container.style.zoom;
-    container.style.zoom = '1';
-    
-    const scale = quality === 'high' ? 2.0 : 1.0;
-    const jpegQuality = quality === 'high' ? 0.95 : 0.6;
-    const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
-    
-    const treeElement = document.getElementById('treeRoot');
-    if (!treeElement) return alert('No content to export');
-    
-    try {
-        const header = document.createElement('div');
-        header.style.marginBottom = '30px'; 
-        header.style.textAlign = 'center';
-        header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-        treeElement.insertBefore(header, treeElement.firstChild);
+        async function exportTreePDF(quality = 'high') {
+            if (!currentIndividual) { alert('Please select a member first'); return; }
+            
+            const scale = quality === 'high' ? 2.0 : 1.0;
+            const jpegQuality = quality === 'high' ? 0.95 : 0.6;
+            const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
+            
+            const treeElement = document.getElementById('treeRoot');
+            if (!treeElement) return alert('No content to export');
+            
+            try {
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px'; 
+                header.style.textAlign = 'center';
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                treeElement.insertBefore(header, treeElement.firstChild);
 
-        const footer = document.createElement('div');
-        footer.style.marginTop = '30px';
-        footer.style.padding = '15px 20px';
-        footer.style.background = '#fcf9f4';
-        footer.style.width = '100%';
-        footer.style.boxSizing = 'border-box';
-        footer.style.fontFamily = "'Inter', sans-serif";
-        footer.style.fontSize = '12px';
-        footer.style.textAlign = 'center';
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
 
-        const timeStr = formatCurrentTime();
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
 
-        footer.innerHTML = `
-            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
-        `;
-        treeElement.appendChild(footer);
-        
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%'; 
-        loadingMsg.style.left = '50%'; 
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000'; 
-        loadingMsg.style.color = 'white'; 
-        loadingMsg.style.padding = '20px 40px'; 
-        loadingMsg.style.borderRadius = '8px'; 
-        loadingMsg.style.zIndex = '9999'; 
-        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-        loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
-        document.body.appendChild(loadingMsg);
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
+                `;
+                treeElement.appendChild(footer);
+                
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%'; 
+                loadingMsg.style.left = '50%'; 
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000'; 
+                loadingMsg.style.color = 'white'; 
+                loadingMsg.style.padding = '20px 40px'; 
+                loadingMsg.style.borderRadius = '8px'; 
+                loadingMsg.style.zIndex = '9999'; 
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
+                document.body.appendChild(loadingMsg);
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
 
-        const canvas = await html2canvas(treeElement, { 
-            scale: scale, 
-            backgroundColor: '#ffffff', 
-            logging: false, 
-            allowTaint: true, 
-            useCORS: true 
-        });
-        
-        treeElement.removeChild(header);
-        treeElement.removeChild(footer);
-        document.body.removeChild(loadingMsg);
-        container.style.zoom = originalZoom;
+                const canvas = await html2canvas(treeElement, { 
+                    scale: scale, 
+                    backgroundColor: '#ffffff', 
+                    logging: false, 
+                    allowTaint: true, 
+                    useCORS: true 
+                });
+                
+                treeElement.removeChild(header);
+                treeElement.removeChild(footer);
+                document.body.removeChild(loadingMsg);
 
-        const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-        const { jsPDF } = window.jspdf;
-        const w = canvas.width / 2 * 0.264583;
-        const h = canvas.height / 2 * 0.264583;
-        const pdf = new jsPDF({ 
-            orientation: w > h ? 'l' : 'p', 
-            unit: 'mm', 
-            format: [w + 40, h + 40] 
-        });
-        
-        pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-        const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        pdf.save(`family_tree_${safeName}_${quality}_${Date.now()}.pdf`);
-        
-        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-        alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
-        
-    } catch (err) {
-        console.error('PDF Error:', err);
-        container.style.zoom = originalZoom;
-        alert('❌ PDF generation failed: ' + err.message);
-    }
-}
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                const { jsPDF } = window.jspdf;
+                const w = canvas.width / 2 * 0.264583;
+                const h = canvas.height / 2 * 0.264583;
+                const pdf = new jsPDF({ 
+                    orientation: w > h ? 'l' : 'p', 
+                    unit: 'mm', 
+                    format: [w + 40, h + 40] 
+                });
+                
+                pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
+                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                pdf.save(`family_tree_${safeName}_${quality}_${Date.now()}.pdf`);
+                
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
+                
+            } catch (err) {
+                console.error('PDF Error:', err);
+                alert('❌ PDF generation failed: ' + err.message);
+            }
+        }
 
-        // JPEG export function
-       window.exportAsJPEG = async function() {
-    if (!currentIndividual) return;
-    
-    const container = document.getElementById('treeContainer');
-    const originalZoom = container.style.zoom;
-    container.style.zoom = '1';
-    
-    const treeElement = document.getElementById('treeRoot');
-    if (!treeElement) return alert('No content to export');
-    
-    try {
-        const header = document.createElement('div');
-        header.style.marginBottom = '30px'; 
-        header.style.textAlign = 'center';
-        header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-        treeElement.insertBefore(header, treeElement.firstChild);
+        window.exportAsJPEG = async function() {
+            if (!currentIndividual) return;
+            
+            const treeElement = document.getElementById('treeRoot');
+            if (!treeElement) return alert('No content to export');
+            
+            try {
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px'; 
+                header.style.textAlign = 'center';
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                treeElement.insertBefore(header, treeElement.firstChild);
 
-        const footer = document.createElement('div');
-        footer.style.marginTop = '30px';
-        footer.style.padding = '15px 20px';
-        footer.style.background = '#fcf9f4';
-        footer.style.width = '100%';
-        footer.style.boxSizing = 'border-box';
-        footer.style.fontFamily = "'Inter', sans-serif";
-        footer.style.fontSize = '12px';
-        footer.style.textAlign = 'center';
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
 
-        const timeStr = formatCurrentTime();
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
-        
-        footer.innerHTML = `
-            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
-        `;
-        treeElement.appendChild(footer);
-        
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%'; 
-        loadingMsg.style.left = '50%'; 
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000'; 
-        loadingMsg.style.color = 'white'; 
-        loadingMsg.style.padding = '20px 40px'; 
-        loadingMsg.style.borderRadius = '8px'; 
-        loadingMsg.style.zIndex = '9999'; 
-        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-        loadingMsg.textContent = '📸 Creating JPEG...';
-        document.body.appendChild(loadingMsg);
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+                
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
+                `;
+                treeElement.appendChild(footer);
+                
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%'; 
+                loadingMsg.style.left = '50%'; 
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000'; 
+                loadingMsg.style.color = 'white'; 
+                loadingMsg.style.padding = '20px 40px'; 
+                loadingMsg.style.borderRadius = '8px'; 
+                loadingMsg.style.zIndex = '9999'; 
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = '📸 Creating JPEG...';
+                document.body.appendChild(loadingMsg);
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
 
-        const canvas = await html2canvas(treeElement, { 
-            scale: 1.2,
-            backgroundColor: '#ffffff', 
-            logging: false
-        });
-        
-        treeElement.removeChild(header);
-        treeElement.removeChild(footer);
-        document.body.removeChild(loadingMsg);
-        container.style.zoom = originalZoom;
+                const canvas = await html2canvas(treeElement, { 
+                    scale: 1.2,
+                    backgroundColor: '#ffffff', 
+                    logging: false
+                });
+                
+                treeElement.removeChild(header);
+                treeElement.removeChild(footer);
+                document.body.removeChild(loadingMsg);
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.85);
-        const link = document.createElement('a');
-        const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        link.download = `family_tree_${safeName}_${Date.now()}.jpg`;
-        link.href = imgData;
-        link.click();
-        
-        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-        setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
-        
-    } catch (err) {
-        console.error('Export Error:', err);
-        container.style.zoom = originalZoom;
-        alert('❌ Failed: ' + err.message);
-    }
-};
-
-        // ==================== UI FUNCTIONS ====================
-        window.handleBoxClick = function(el) {
-            const name = el.dataset.name;
-            const member = db.find(m => m.name === name);
-            if (member) selectMember(member);
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                
+                const link = document.createElement('a');
+                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                link.download = `family_tree_${safeName}_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+                
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
+                
+            } catch (err) {
+                console.error('Export Error:', err);
+                alert('❌ Failed: ' + err.message);
+            }
         };
 
         function closeAllMenus() {
@@ -1320,11 +1256,11 @@ function applyMobileZoom() {
             document.getElementById('saveModalOverlay').style.display = 'none';
             closeInfoModal();
         }
-        
+
         function showDashboard() { 
             window.location.href = '1-dashboard-pc.html'; 
         }
-        
+
         window.showTableView = function() {
             if (currentIndividual) {
                 window.location.href = '3-individual-table-pc.html?member=' + encodeURIComponent(currentIndividual.name);
@@ -1332,11 +1268,11 @@ function applyMobileZoom() {
                 window.location.href = '3-individual-table-pc.html';
             }
         };
-        
+
         window.toggleLeftMenu = () => {
             document.getElementById('toggleMenuPanel').classList.toggle('show');
         };
-        
+
         window.handleToggleMenuClick = function(filter) {
             if (!currentIndividual) return;
             if (filter === 'siblings') { 
@@ -1352,7 +1288,7 @@ function applyMobileZoom() {
             renderTree();
             document.getElementById('toggleMenuPanel').classList.remove('show');
         };
-        
+
         function resetIndividual() {
             document.getElementById('searchInput').value = '';
             currentIndividual = null;
@@ -1362,7 +1298,7 @@ function applyMobileZoom() {
             document.getElementById('treeRoot').innerHTML = `<div class="welcome-container"><div class="welcome-box"><div class="welcome-icon">🌿</div><div class="welcome-title">Rizvi Family Tree</div><div class="welcome-text">Select a family member from the search box above<br>to view their family connections and relationships.</div></div></div>`;
             closeAllMenus();
         }
-        
+
         function selectMember(member) {
             currentIndividual = member;
             document.getElementById('searchInput').value = displayName(member.name);
@@ -1371,7 +1307,7 @@ function applyMobileZoom() {
             window.history.pushState({}, '', url);
             renderTree();
         }
-        
+
         window.toggleSection = function(section) {
             if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
             else if (section === 'children') childrenCollapsed = !childrenCollapsed;
@@ -1379,7 +1315,21 @@ function applyMobileZoom() {
             renderTree();
         };
 
-        // ==================== EVENT LISTENERS ====================
+        function findParent(p) { 
+            return p?.father ? db.find(x => x.name === p.father) : null; 
+        }
+
+        function getAncestors(p) { 
+            let arr = [], cur = p; 
+            while (cur?.father) { 
+                const father = db.find(x => x.name === cur.father); 
+                if (!father) break; 
+                arr.push(father); 
+                cur = father; 
+            } 
+            return arr; 
+        }
+
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.search-wrapper')) {
                 document.getElementById('searchDropdown').style.display = 'none';
@@ -1392,7 +1342,7 @@ function applyMobileZoom() {
                 document.getElementById('saveModalOverlay').style.display = 'none';
             }
         });
-        
+
         document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
             const query = this.value;
             const dropdown = document.getElementById('searchDropdown');
@@ -1415,8 +1365,7 @@ function applyMobileZoom() {
             });
             dropdown.style.display = 'block';
         });
-        
-        // ==================== INITIALIZATION ====================
+
         document.addEventListener('DOMContentLoaded', function() {
             if(typeof FAMILY_DATA !== 'undefined') db = FAMILY_DATA;
             if(typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
@@ -1432,12 +1381,6 @@ function applyMobileZoom() {
             }
         });
 
-
-applyMobileZoom();
-
-
-        
-        // ==================== EXPOSE GLOBAL FUNCTIONS ====================
         window.zoomIn = zoomIn; 
         window.zoomOut = zoomOut; 
         window.resetZoom = resetZoom; 

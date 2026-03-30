@@ -1026,187 +1026,208 @@
         }
 
         // --- PDF EXPORT ---
-        async function exportPDF(quality = 'high') {
-            if (!member1 || !member2) {
-                alert('Please select both members first');
-                return;
-            }
-            
-            const scale = quality === 'high' ? 2.0 : 1.0;
-            const jpegQuality = quality === 'high' ? 0.95 : 0.6;
-            const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
-            
-            const treeElement = document.querySelector('.scrollable-content');
-            if (!treeElement) return alert('No content to export');
-            
-            try {
-                const header = document.createElement('div');
-                header.style.marginBottom = '30px'; 
-                header.style.textAlign = 'center';
-                header.innerHTML = `
-                    <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
-                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
-                `;
-                
-                treeElement.insertBefore(header, treeElement.firstChild);
+       async function exportPDF(quality = 'high') {
+    if (!member1 || !member2) {
+        alert('Please select both members first');
+        return;
+    }
+    
+    const scale = quality === 'high' ? 2.0 : 1.0;
+    const jpegQuality = quality === 'high' ? 0.95 : 0.6;
+    const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
+    
+    const content = document.getElementById('rootTree');
+    if (!content) return alert('No content to export');
+    
+    // Save original styles
+    const originalOverflow = content.style.overflow;
+    const originalHeight = content.style.height;
+    
+    // Temporarily remove overflow restrictions
+    content.style.overflow = 'visible';
+    content.style.height = 'auto';
+    
+    try {
+        const header = document.createElement('div');
+        header.style.marginBottom = '30px'; 
+        header.style.textAlign = 'center';
+        header.innerHTML = `
+            <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
+            <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
+        `;
+        content.insertBefore(header, content.firstChild);
 
-                const footer = document.createElement('div');
-                footer.style.marginTop = '30px';
-                footer.style.padding = '15px 20px';
-                footer.style.background = '#fcf9f4';
-                footer.style.width = '100%';
-                footer.style.boxSizing = 'border-box';
-                footer.style.fontFamily = "'Inter', sans-serif";
-                footer.style.fontSize = '12px';
-                footer.style.textAlign = 'center';
+        const footer = document.createElement('div');
+        footer.style.marginTop = '30px';
+        footer.style.padding = '15px 20px';
+        footer.style.background = '#fcf9f4';
+        footer.style.width = '100%';
+        footer.style.boxSizing = 'border-box';
+        footer.style.fontFamily = "'Inter', sans-serif";
+        footer.style.fontSize = '12px';
+        footer.style.textAlign = 'center';
 
-                const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
+        const timeStr = formatCurrentTime();
+        const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
 
-                footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
-                `;
-                treeElement.appendChild(footer);
-                
-                const loadingMsg = document.createElement('div');
-                loadingMsg.style.position = 'fixed';
-                loadingMsg.style.top = '50%'; 
-                loadingMsg.style.left = '50%'; 
-                loadingMsg.style.transform = 'translate(-50%, -50%)';
-                loadingMsg.style.background = '#5a0000'; 
-                loadingMsg.style.color = 'white'; 
-                loadingMsg.style.padding = '20px 40px'; 
-                loadingMsg.style.borderRadius = '8px'; 
-                loadingMsg.style.zIndex = '9999'; 
-                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-                loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
-                document.body.appendChild(loadingMsg);
-                
-                await new Promise(resolve => setTimeout(resolve, 500));
+        footer.innerHTML = `
+            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
+        `;
+        content.appendChild(footer);
+        
+        const loadingMsg = document.createElement('div');
+        loadingMsg.style.position = 'fixed';
+        loadingMsg.style.top = '50%'; 
+        loadingMsg.style.left = '50%'; 
+        loadingMsg.style.transform = 'translate(-50%, -50%)';
+        loadingMsg.style.background = '#5a0000'; 
+        loadingMsg.style.color = 'white'; 
+        loadingMsg.style.padding = '20px 40px'; 
+        loadingMsg.style.borderRadius = '8px'; 
+        loadingMsg.style.zIndex = '9999'; 
+        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+        loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
+        document.body.appendChild(loadingMsg);
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
 
-                const canvas = await html2canvas(treeElement, { 
-                    scale: scale, 
-                    backgroundColor: '#ffffff', 
-                    logging: false, 
-                    allowTaint: true, 
-                    useCORS: true 
-                });
-                
-                treeElement.removeChild(header);
-                treeElement.removeChild(footer);
-                document.body.removeChild(loadingMsg);
+        const canvas = await html2canvas(content, { 
+            scale: scale, 
+            backgroundColor: '#ffffff', 
+            logging: false, 
+            allowTaint: true, 
+            useCORS: true 
+        });
+        
+        content.removeChild(header);
+        content.removeChild(footer);
+        content.style.overflow = originalOverflow;
+        content.style.height = originalHeight;
+        document.body.removeChild(loadingMsg);
 
-                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-                const { jsPDF } = window.jspdf;
-                const w = canvas.width / 2 * 0.264583;
-                const h = canvas.height / 2 * 0.264583;
-                const pdf = new jsPDF({ 
-                    orientation: w > h ? 'l' : 'p', 
-                    unit: 'mm', 
-                    format: [w + 40, h + 40] 
-                });
-                
-                pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-                const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                pdf.save(`family_root_${safeName1}_${safeName2}_${quality}_${Date.now()}.pdf`);
-                
-                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-                alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
-                
-            } catch (err) {
-                console.error('PDF Error:', err);
-                alert('❌ PDF generation failed: ' + err.message);
-            }
-        }
+        const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+        const { jsPDF } = window.jspdf;
+        const w = canvas.width / 2 * 0.264583;
+        const h = canvas.height / 2 * 0.264583;
+        const pdf = new jsPDF({ 
+            orientation: w > h ? 'l' : 'p', 
+            unit: 'mm', 
+            format: [w + 40, h + 40] 
+        });
+        
+        pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
+        const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        pdf.save(`family_root_${safeName1}_${safeName2}_${quality}_${Date.now()}.pdf`);
+        
+        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+        alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
+        
+    } catch (err) {
+        console.error('PDF Error:', err);
+        content.style.overflow = originalOverflow;
+        content.style.height = originalHeight;
+        alert('❌ PDF generation failed: ' + err.message);
+    }
+}
 
         // --- JPEG EXPORT ---
-        window.exportAsJPEG = async function() {
-            if (!member1 || !member2) {
-                alert('Please select both members first');
-                return;
-            }
-            
-            const treeElement = document.querySelector('.scrollable-content');
-            if (!treeElement) return alert('No content to export');
-            
-            try {
-                const header = document.createElement('div');
-                header.style.marginBottom = '30px'; 
-                header.style.textAlign = 'center';
-                header.innerHTML = `
-                    <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
-                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
-                `;
-                treeElement.insertBefore(header, treeElement.firstChild);
+      window.exportAsJPEG = async function() {
+    if (!member1 || !member2) {
+        alert('Please select both members first');
+        return;
+    }
+    
+    const content = document.getElementById('rootTree');
+    if (!content) return alert('No content to export');
+    
+    const originalOverflow = content.style.overflow;
+    const originalHeight = content.style.height;
+    
+    content.style.overflow = 'visible';
+    content.style.height = 'auto';
+    
+    try {
+        const header = document.createElement('div');
+        header.style.marginBottom = '30px'; 
+        header.style.textAlign = 'center';
+        header.innerHTML = `
+            <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
+            <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
+        `;
+        content.insertBefore(header, content.firstChild);
 
-                const footer = document.createElement('div');
-                footer.style.marginTop = '30px';
-                footer.style.padding = '15px 20px';
-                footer.style.background = '#fcf9f4';
-                footer.style.width = '100%';
-                footer.style.boxSizing = 'border-box';
-                footer.style.fontFamily = "'Inter', sans-serif";
-                footer.style.fontSize = '12px';
-                footer.style.textAlign = 'center';
+        const footer = document.createElement('div');
+        footer.style.marginTop = '30px';
+        footer.style.padding = '15px 20px';
+        footer.style.background = '#fcf9f4';
+        footer.style.width = '100%';
+        footer.style.boxSizing = 'border-box';
+        footer.style.fontFamily = "'Inter', sans-serif";
+        footer.style.fontSize = '12px';
+        footer.style.textAlign = 'center';
 
-                const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
-                
-                footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
-                `;
-                treeElement.appendChild(footer);
-                
-                const loadingMsg = document.createElement('div');
-                loadingMsg.style.position = 'fixed';
-                loadingMsg.style.top = '50%'; 
-                loadingMsg.style.left = '50%'; 
-                loadingMsg.style.transform = 'translate(-50%, -50%)';
-                loadingMsg.style.background = '#5a0000'; 
-                loadingMsg.style.color = 'white'; 
-                loadingMsg.style.padding = '20px 40px'; 
-                loadingMsg.style.borderRadius = '8px'; 
-                loadingMsg.style.zIndex = '9999'; 
-                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-                loadingMsg.textContent = '📸 Creating JPEG...';
-                document.body.appendChild(loadingMsg);
-                
-                await new Promise(resolve => setTimeout(resolve, 500));
+        const timeStr = formatCurrentTime();
+        const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
+        
+        footer.innerHTML = `
+            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
+        `;
+        content.appendChild(footer);
+        
+        const loadingMsg = document.createElement('div');
+        loadingMsg.style.position = 'fixed';
+        loadingMsg.style.top = '50%'; 
+        loadingMsg.style.left = '50%'; 
+        loadingMsg.style.transform = 'translate(-50%, -50%)';
+        loadingMsg.style.background = '#5a0000'; 
+        loadingMsg.style.color = 'white'; 
+        loadingMsg.style.padding = '20px 40px'; 
+        loadingMsg.style.borderRadius = '8px'; 
+        loadingMsg.style.zIndex = '9999'; 
+        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+        loadingMsg.textContent = '📸 Creating JPEG...';
+        document.body.appendChild(loadingMsg);
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
 
-                const canvas = await html2canvas(treeElement, { 
-                    scale: 1.2,
-                    backgroundColor: '#ffffff', 
-                    logging: false
-                });
-                
-                treeElement.removeChild(header);
-                treeElement.removeChild(footer);
-                document.body.removeChild(loadingMsg);
+        const canvas = await html2canvas(content, { 
+            scale: 1.2,
+            backgroundColor: '#ffffff', 
+            logging: false
+        });
+        
+        content.removeChild(header);
+        content.removeChild(footer);
+        content.style.overflow = originalOverflow;
+        content.style.height = originalHeight;
+        document.body.removeChild(loadingMsg);
 
-                const imgData = canvas.toDataURL('image/jpeg', 0.85);
-                
-                const link = document.createElement('a');
-                const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                link.download = `family_root_${safeName1}_${safeName2}_${Date.now()}.jpg`;
-                link.href = imgData;
-                link.click();
-                
-                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-                setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
-                
-            } catch (err) {
-                console.error('Export Error:', err);
-                alert('❌ Failed: ' + err.message);
-            }
-        };
+        const imgData = canvas.toDataURL('image/jpeg', 0.85);
+        
+        const link = document.createElement('a');
+        const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        link.download = `family_root_${safeName1}_${safeName2}_${Date.now()}.jpg`;
+        link.href = imgData;
+        link.click();
+        
+        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+        setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
+        
+    } catch (err) {
+        console.error('Export Error:', err);
+        content.style.overflow = originalOverflow;
+        content.style.height = originalHeight;
+        alert('❌ Failed: ' + err.message);
+    }
+};
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', function() {

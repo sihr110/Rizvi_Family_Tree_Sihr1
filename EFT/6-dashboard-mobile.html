@@ -336,9 +336,9 @@
                 }
             }
 
-            // ==================== UPDATED NAVIGATION LINKS ====================
-            // Navigate to individual tree (NOW uses file 2 - universal)
+            // Navigate to individual tree (7-individual-tree-mobile.html)
             function goToIndividualMobile() {
+                // Ensure data is available
                 if (db.length === 0) {
                     const saved = localStorage.getItem('familyDB');
                     if (saved) {
@@ -348,24 +348,11 @@
                         return;
                     }
                 }
-                window.location.href = '2-individual-tree-pc.html';
+                // same file name as PC version – we assume mobile uses same html
+                window.location.href = '7-individual-tree-mobile.html';
             }
 
-            // Navigate to individual table view (file 3)
-            function goToIndividualTableMobile() {
-                if (db.length === 0) {
-                    const saved = localStorage.getItem('familyDB');
-                    if (saved) {
-                        db = JSON.parse(saved);
-                    } else {
-                        alert('No family data found. Please load data via admin on desktop.');
-                        return;
-                    }
-                }
-                window.location.href = '3-individual-table-pc.html';
-            }
-
-            // Navigate to root tree (NOW uses file 4 - universal)
+            // Navigate to root tree (9-root-tree-mobile.html)
             function goToRootMobile() {
                 if (db.length === 0) {
                     const saved = localStorage.getItem('familyDB');
@@ -376,24 +363,10 @@
                         return;
                     }
                 }
-                window.location.href = '4-root-tree-pc.html';
+                window.location.href = '9-root-tree-mobile.html';
             }
 
-            // Navigate to root table view (file 5)
-            function goToRootTableMobile() {
-                if (db.length === 0) {
-                    const saved = localStorage.getItem('familyDB');
-                    if (saved) {
-                        db = JSON.parse(saved);
-                    } else {
-                        alert('No family data found. Please load data via admin on desktop.');
-                        return;
-                    }
-                }
-                window.location.href = '5-root-table-pc.html';
-            }
-
-            // Render the mobile dashboard (now with 4 cards: Individual Tree, Individual Table, Root Tree, Root Table)
+            // Render the mobile dashboard (no admin card, just individual & root + exit/hard reset)
             function renderMobileDashboard() {
                 const mainContent = document.getElementById('mainContent');
                 if (!mainContent) return;
@@ -403,32 +376,18 @@
 
                 mainContent.innerHTML = `
                     <div class="mobile-dashboard">
-                        <!-- INDIVIDUAL TREE CARD -->
-                        <div class="dashboard-card" id="cardIndividualTree">
-                            <div class="card-icon">🌳</div>
-                            <div class="card-title">Individual Tree</div>
-                            <div class="card-desc">Single member tree view</div>
+                        <!-- INDIVIDUAL CARD -->
+                        <div class="dashboard-card" id="cardIndividual">
+                            <div class="card-icon">👤</div>
+                            <div class="card-title">Individual</div>
+                            <div class="card-desc">Single member search</div>
                         </div>
 
-                        <!-- INDIVIDUAL TABLE CARD -->
-                        <div class="dashboard-card" id="cardIndividualTable">
-                            <div class="card-icon">📊</div>
-                            <div class="card-title">Individual Table</div>
-                            <div class="card-desc">Single member table view</div>
-                        </div>
-
-                        <!-- ROOT TREE CARD -->
-                        <div class="dashboard-card" id="cardRootTree">
+                        <!-- ROOT RELATIVE CARD -->
+                        <div class="dashboard-card" id="cardRoot">
                             <div class="card-icon">👥</div>
-                            <div class="card-title">Root Tree</div>
-                            <div class="card-desc">Two member tree view</div>
-                        </div>
-
-                        <!-- ROOT TABLE CARD -->
-                        <div class="dashboard-card" id="cardRootTable">
-                            <div class="card-icon">📋</div>
-                            <div class="card-title">Root Table</div>
-                            <div class="card-desc">Two member table view</div>
+                            <div class="card-title">Root Relative</div>
+                            <div class="card-desc">Two member connection</div>
                         </div>
 
                         <!-- Action buttons: exit and hard reset -->
@@ -448,10 +407,8 @@
                 `;
 
                 // attach listeners
-                document.getElementById('cardIndividualTree').addEventListener('click', goToIndividualMobile);
-                document.getElementById('cardIndividualTable').addEventListener('click', goToIndividualTableMobile);
-                document.getElementById('cardRootTree').addEventListener('click', goToRootMobile);
-                document.getElementById('cardRootTable').addEventListener('click', goToRootTableMobile);
+                document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
+                document.getElementById('cardRoot').addEventListener('click', goToRootMobile);
                 document.getElementById('exitBtn').addEventListener('click', logoutMobile);
                 document.getElementById('resetBtn').addEventListener('click', hardResetMobile);
             }

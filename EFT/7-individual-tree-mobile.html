@@ -564,19 +564,19 @@
         }
 
         /* Save Options Modal */
-        .save-options-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 12px;
-            padding: 25px;
-            z-index: 4000;
-            min-width: 350px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
+.save-options-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 25px;
+    z-index: 4000;
+    min-width: 350px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
 
         .modal-overlay {
             position: fixed;
@@ -585,7 +585,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.5);
-            z-index: 9999;
+            z-index: 3999;
             display: none;
         }
 
@@ -1034,17 +1034,208 @@ function renderGenderGroup(genderMembers, type) {
             document.getElementById('saveModalOverlay').style.display = 'none';
         };
         
-        window.processSave = function() {
-            const selected = document.querySelector('input[name="saveFormat"]:checked');
-            if (!selected) { alert('Please select a format'); return; }
-            closeSaveModal();
-            if(selected.value === 'pdf-high') exportIndividualPDF('high');
-            else if(selected.value === 'pdf-low') exportIndividualPDF('low');
-            else if(selected.value === 'jpeg') exportAsJPEG();
-        };
+       
+
+
+
+
+
+window.processSave = function() {
+    const selected = document.querySelector('input[name="saveFormat"]:checked');
+    if (!selected) {
+        alert('Please select a format');
+        return;
+    }
+    closeSaveModal();
+    switch(selected.value) {
+        case 'pdf-high':
+            exportTreePDF('high');
+            break;
+        case 'pdf-low':
+            exportTreePDF('low');
+            break;
+        case 'jpeg':
+            exportAsJPEG();
+            break;
+    }
+};
+
+async function exportTreePDF(quality = 'high') {
+    if (!currentIndividual) { alert('Please select a member first'); return; }
+    
+    const treeContainer = document.getElementById('treeContainer');
+    const treeElement = document.getElementById('treeRoot');
+    if (!treeElement) return alert('No content to export');
+    
+    const originalZoom = treeContainer.style.zoom;
+    treeContainer.style.zoom = '1';
+    
+    const scale = quality === 'high' ? 2.0 : 1.0;
+    const jpegQuality = quality === 'high' ? 0.95 : 0.6;
+    const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
+    
+    try {
+        const header = document.createElement('div');
+        header.style.marginBottom = '30px'; 
+        header.style.textAlign = 'center';
+        header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+        treeElement.insertBefore(header, treeElement.firstChild);
+
+        const footer = document.createElement('div');
+        footer.style.marginTop = '30px';
+        footer.style.padding = '15px 20px';
+        footer.style.background = '#fcf9f4';
+        footer.style.width = '100%';
+        footer.style.boxSizing = 'border-box';
+        footer.style.fontFamily = "'Inter', sans-serif";
+        footer.style.fontSize = '12px';
+        footer.style.textAlign = 'center';
+
+        const timeStr = formatCurrentTime();
+        const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+
+        footer.innerHTML = `
+            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
+        `;
+        treeElement.appendChild(footer);
         
-        async function exportIndividualPDF(quality) { alert("PDF export ready - full quality preserved"); }
-        window.exportAsJPEG = async function() { alert("JPEG export ready"); };
+        const loadingMsg = document.createElement('div');
+        loadingMsg.style.position = 'fixed';
+        loadingMsg.style.top = '50%'; 
+        loadingMsg.style.left = '50%'; 
+        loadingMsg.style.transform = 'translate(-50%, -50%)';
+        loadingMsg.style.background = '#5a0000'; 
+        loadingMsg.style.color = 'white'; 
+        loadingMsg.style.padding = '20px 40px'; 
+        loadingMsg.style.borderRadius = '8px'; 
+        loadingMsg.style.zIndex = '9999'; 
+        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+        loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
+        document.body.appendChild(loadingMsg);
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const canvas = await html2canvas(treeElement, { 
+            scale: scale, 
+            backgroundColor: '#ffffff', 
+            logging: false, 
+            allowTaint: true, 
+            useCORS: true 
+        });
+        
+        treeElement.removeChild(header);
+        treeElement.removeChild(footer);
+        document.body.removeChild(loadingMsg);
+        treeContainer.style.zoom = originalZoom;
+
+        const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+        const { jsPDF } = window.jspdf;
+        const w = canvas.width / 2 * 0.264583;
+        const h = canvas.height / 2 * 0.264583;
+        const pdf = new jsPDF({ 
+            orientation: w > h ? 'l' : 'p', 
+            unit: 'mm', 
+            format: [w + 40, h + 40] 
+        });
+        
+        pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
+        const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        pdf.save(`family_tree_${safeName}_${quality}_${Date.now()}.pdf`);
+        
+        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+        alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
+        
+    } catch (err) {
+        console.error('PDF Error:', err);
+        treeContainer.style.zoom = originalZoom;
+        alert('❌ PDF generation failed: ' + err.message);
+    }
+}
+
+window.exportAsJPEG = async function() {
+    if (!currentIndividual) return;
+    
+    const treeContainer = document.getElementById('treeContainer');
+    const treeElement = document.getElementById('treeRoot');
+    if (!treeElement) return alert('No content to export');
+    
+    const originalZoom = treeContainer.style.zoom;
+    treeContainer.style.zoom = '1';
+    
+    try {
+        const header = document.createElement('div');
+        header.style.marginBottom = '30px'; 
+        header.style.textAlign = 'center';
+        header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+        treeElement.insertBefore(header, treeElement.firstChild);
+
+        const footer = document.createElement('div');
+        footer.style.marginTop = '30px';
+        footer.style.padding = '15px 20px';
+        footer.style.background = '#fcf9f4';
+        footer.style.width = '100%';
+        footer.style.boxSizing = 'border-box';
+        footer.style.fontFamily = "'Inter', sans-serif";
+        footer.style.fontSize = '12px';
+        footer.style.textAlign = 'center';
+
+        const timeStr = formatCurrentTime();
+        const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+        
+        footer.innerHTML = `
+            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
+        `;
+        treeElement.appendChild(footer);
+        
+        const loadingMsg = document.createElement('div');
+        loadingMsg.style.position = 'fixed';
+        loadingMsg.style.top = '50%'; 
+        loadingMsg.style.left = '50%'; 
+        loadingMsg.style.transform = 'translate(-50%, -50%)';
+        loadingMsg.style.background = '#5a0000'; 
+        loadingMsg.style.color = 'white'; 
+        loadingMsg.style.padding = '20px 40px'; 
+        loadingMsg.style.borderRadius = '8px'; 
+        loadingMsg.style.zIndex = '9999'; 
+        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+        loadingMsg.textContent = '📸 Creating JPEG...';
+        document.body.appendChild(loadingMsg);
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const canvas = await html2canvas(treeElement, { 
+            scale: 1.2,
+            backgroundColor: '#ffffff', 
+            logging: false
+        });
+        
+        treeElement.removeChild(header);
+        treeElement.removeChild(footer);
+        document.body.removeChild(loadingMsg);
+        treeContainer.style.zoom = originalZoom;
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.85);
+        const link = document.createElement('a');
+        const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        link.download = `family_tree_${safeName}_${Date.now()}.jpg`;
+        link.href = imgData;
+        link.click();
+        
+        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+        setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
+        
+    } catch (err) {
+        console.error('Export Error:', err);
+        treeContainer.style.zoom = originalZoom;
+        alert('❌ Failed: ' + err.message);
+    }
+};
         
         function closeAllMenus() {
             document.getElementById('searchDropdown').style.display = 'none';

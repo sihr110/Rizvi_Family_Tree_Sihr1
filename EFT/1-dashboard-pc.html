@@ -16,6 +16,12 @@
     <script src="13-family-data.js"></script>
     
     <style>
+
+
+const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+if (isMobile) {
+    document.getElementById('headerTitle').innerText = 'Rizvi Family (Mobile)';
+}
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {

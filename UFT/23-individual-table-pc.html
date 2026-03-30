@@ -18,8 +18,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
-        /* CHANGE 1: Reset Button CSS */
-        .reset-btn {
+
+
+/* Fix modal font */
+.save-options-modal,
+.save-options-modal *,
+.save-options-modal label,
+.save-options-modal button,
+.save-options-modal h3,
+.save-options-modal div,
+.save-options-modal span {
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+    direction: rtl;
+    text-align: right;
+}
+
+              .reset-btn {
             padding: 10px 20px;
             background: var(--gold);
             color: var(--dark-blue);
@@ -290,8 +304,7 @@
             position: relative;
         }
 
-        /* CHANGE 2: Search section centered */
-        .search-section {
+              .search-section {
             padding: 15px;
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
@@ -463,42 +476,37 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .section-heading {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--maroon);
-            margin: 0 30% 25px 0;        
-            padding-bottom: 5px;         
-            border-bottom: 2px solid var(--gold);   
-            cursor: pointer;
-            position: relative;
-            max-width: 210px; 
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-        }
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--maroon);
+    margin: 20px 0 25px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gold);
+    cursor: pointer;
+    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+}
 
-        .toggle-icon {
-            position: absolute;
-            right: 165px; 
-            left: auto;
-            font-size: 22px;
-            font-weight: bold;
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: all 0.2s;
-            flex-shrink: 0;
-            font-family: 'Inter', sans-serif;
-            line-height: 1;
-        }
+.toggle-icon {
+    font-size: 22px;
+    font-weight: bold;
+    background: var(--gold);
+    color: var(--dark-blue);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+    flex-shrink: 0;
+    position: static;  /* Change from absolute to static */
+}
 
         .toggle-icon:hover {
             transform: scale(1.1);
@@ -545,8 +553,7 @@
             border-left: none;
         }
 
-        /* Female rows get pink background - males stay white */
-        .family-table tbody tr.female-row {
+             .family-table tbody tr.female-row {
             background-color: var(--light-pink);
         }
         
@@ -797,8 +804,7 @@
             document.head.appendChild(script);
         }
 
-        // CHANGE 6: Fixed displayName to remove ۔01 pattern
-        function displayName(str) {
+              function displayName(str) {
             if (!str) return '';
             // Remove patterns: " - 02", "-02", "۔02", " - 2", "-2", "۔2"
             let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
@@ -886,8 +892,7 @@
             renderTable();
         }
 
-        // CHANGE 5: Fixed toggleSection function
-        window.toggleSection = function(section) {
+              window.toggleSection = function(section) {
             if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
             else if (section === 'children') childrenCollapsed = !childrenCollapsed;
             else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
@@ -1178,81 +1183,112 @@
             }
         }
 
-        window.exportAsJPEG = async function() {
-            if (!currentIndividual) return;
-            
-            const tableElement = document.querySelector('.table-root-layout');
-            if (!tableElement) return alert('کوئی مواد نہیں');
-            
-            try {
-                const header = document.createElement('div');
-                header.style.marginBottom = '30px'; 
-                header.style.textAlign = 'center';
-                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">رضوی خاندان کا ٹیبل</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-                tableElement.insertBefore(header, tableElement.firstChild);
+        
 
-                const footer = document.createElement('div');
-                footer.style.marginTop = '30px';
-                footer.style.padding = '15px 20px';
-                footer.style.background = '#fcf9f4';
-                footer.style.width = '100%';
-                footer.style.boxSizing = 'border-box';
-                footer.style.fontSize = '12px';
-                footer.style.textAlign = 'center';
+window.exportAsJPEG = async function() {
+    if (!currentIndividual) return;
+    
+    const originalElement = document.querySelector('.table-root-layout');
+    if (!originalElement) return alert('کوئی مواد نہیں');
+    
+    // CLONE the element
+    const el = originalElement.cloneNode(true);
+    el.style.transform = 'none';
+    el.style.width = '100%';
+    el.style.height = 'auto';
+    el.style.overflow = 'visible';
+    
+    // Create wrapper
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'absolute';
+    wrapper.style.left = '-9999px';
+    wrapper.style.top = '0';
+    wrapper.style.backgroundColor = 'white';
+    wrapper.style.padding = '20px';
+    wrapper.style.width = 'fit-content';
+    wrapper.style.minWidth = '800px';
+    wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+    document.body.appendChild(wrapper);
+    
+    // Add style tag for Urdu fonts
+    const styleTag = document.createElement('style');
+    styleTag.textContent = `
+        * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important; }
+        .family-table th, .family-table td, .member-name, .box-label, .box-value {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+        }
+        h1, h2, .section-heading {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif !important;
+        }
+        .family-table { direction: rtl; }
+    `;
+    wrapper.appendChild(styleTag);
+    
+    // Add header
+    const header = document.createElement('div');
+    header.style.marginBottom = '30px';
+    header.style.textAlign = 'center';
+    header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا ٹیبل</h1>
+        <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+    wrapper.appendChild(header);
+    wrapper.appendChild(el);
+    
+    // Add footer
+    const footer = document.createElement('div');
+    footer.style.marginTop = '30px';
+    footer.style.padding = '15px 20px';
+    footer.style.background = '#fcf9f4';
+    footer.style.textAlign = 'center';
+    const timeStr = formatCurrentTime();
+    const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+    footer.innerHTML = `<div style="font-family:'Noto Nastaliq Urdu';">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+        <div style="font-family:'Noto Nastaliq Urdu';">آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
+    wrapper.appendChild(footer);
+    
+    const loadingMsg = document.createElement('div');
+    loadingMsg.style.position = 'fixed';
+    loadingMsg.style.top = '50%';
+    loadingMsg.style.left = '50%';
+    loadingMsg.style.transform = 'translate(-50%, -50%)';
+    loadingMsg.style.background = '#5a0000';
+    loadingMsg.style.color = 'white';
+    loadingMsg.style.padding = '20px 40px';
+    loadingMsg.style.borderRadius = '8px';
+    loadingMsg.style.zIndex = '9999';
+    loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
+    document.body.appendChild(loadingMsg);
+    
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    try {
+        const canvas = await html2canvas(wrapper, {
+            scale: 1.2,
+            backgroundColor: '#ffffff',
+            logging: false,
+            windowWidth: wrapper.scrollWidth,
+            windowHeight: wrapper.scrollHeight
+        });
+        
+        const imgData = canvas.toDataURL('image/jpeg', 0.85);
+        
+        const link = document.createElement('a');
+        const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        link.download = `shajra_table_${safeName}_${Date.now()}.jpg`;
+        link.href = imgData;
+        link.click();
+        
+        const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+        setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
+        
+    } catch (err) {
+        console.error('Export Error:', err);
+        alert('❌ JPEG نہیں بن سکی: ' + err.message);
+    } finally {
+        document.body.removeChild(wrapper);
+        document.body.removeChild(loadingMsg);
+    }
+};
 
-                const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-                
-                footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>
-                `;
-                tableElement.appendChild(footer);
-                
-                const loadingMsg = document.createElement('div');
-                loadingMsg.style.position = 'fixed';
-                loadingMsg.style.top = '50%'; 
-                loadingMsg.style.left = '50%'; 
-                loadingMsg.style.transform = 'translate(-50%, -50%)';
-                loadingMsg.style.background = '#5a0000'; 
-                loadingMsg.style.color = 'white'; 
-                loadingMsg.style.padding = '20px 40px'; 
-                loadingMsg.style.borderRadius = '8px'; 
-                loadingMsg.style.zIndex = '9999'; 
-                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-                loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
-                document.body.appendChild(loadingMsg);
-                
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                const canvas = await html2canvas(tableElement, { 
-                    scale: 1.2,
-                    backgroundColor: '#ffffff', 
-                    logging: false
-                });
-                
-                tableElement.removeChild(header);
-                tableElement.removeChild(footer);
-                document.body.removeChild(loadingMsg);
-
-                const imgData = canvas.toDataURL('image/jpeg', 0.85);
-                
-                const link = document.createElement('a');
-                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                link.download = `shajra_table_${safeName}_${Date.now()}.jpg`;
-                link.href = imgData;
-                link.click();
-                
-                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-                setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
-                
-            } catch (err) {
-                console.error('Export Error:', err);
-                alert('❌ JPEG نہیں بن سکی: ' + err.message);
-            }
-        };
 
         function switchToTreeView() {
             if (currentIndividual) {

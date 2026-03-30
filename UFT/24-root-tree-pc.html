@@ -1,6 +1,6 @@
 <!-- ======================================== -->
-<!-- FILE NAME: 24-root-tree-pc.html     -->
-<!-- LAST UPDATED: 25/03/2026                 -->
+<!-- FILE NAME: 24-root-tree-pc.html           -->
+<!-- LAST UPDATED: 30/03/2026 - FIXED         -->
 <!-- ======================================== -->
 
 <!DOCTYPE html>
@@ -648,6 +648,19 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
         
+        /* Fix modal font */
+        .save-options-modal,
+        .save-options-modal *,
+        .save-options-modal label,
+        .save-options-modal button,
+        .save-options-modal h3,
+        .save-options-modal div,
+        .save-options-modal span {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+            direction: rtl;
+            text-align: right;
+        }
+        
         /* Mobile responsive for reset buttons */
         @media screen and (max-width: 768px) {
             .fixed-header-section {
@@ -684,7 +697,6 @@
 
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
             <div class="toggle-menu-item" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
         </div>
@@ -692,7 +704,6 @@
         <div class="main-content">
             <div id="rootSection">
                 <div class="fixed-header-section">
-                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <span class="search-label">رکن 1</span>
                         <div class="search-wrapper">
@@ -734,25 +745,25 @@
     </div>
 
     <!-- Save Options Modal -->
-    <div class="save-options-modal" id="saveOptionsModal" style="display:none;">
-        <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 شجرہ محفوظ کریں</h3>
+    <div class="save-options-modal" id="saveOptionsModal" style="display:none;" dir="rtl">
+        <h3>💾 شجرہ محفوظ کریں</h3>
         
         <div style="margin-bottom:20px;">
-            <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">فارمیٹ منتخب کریں:</div>
+            <div style="font-weight:600; margin-bottom:10px;">فارمیٹ منتخب کریں:</div>
             
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+            <label>
                 <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-left:10px;"> 
                 <span style="font-weight:600;">📑 PDF - ہائی ریزولوشن</span>
                 <span style="display:block; font-size:12px; color:#666; margin-right:25px;">پرنٹ کے لیے بہترین (3-8 MB)</span>
             </label>
             
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+            <label>
                 <input type="radio" name="saveFormat" value="pdf-low" style="margin-left:10px;"> 
                 <span style="font-weight:600;">📑 PDF - لو ریزولوشن</span>
                 <span style="display:block; font-size:12px; color:#666; margin-right:25px;">شیئرنگ کے لیے بہترین (0.5-2 MB)</span>
             </label>
             
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+            <label>
                 <input type="radio" name="saveFormat" value="jpeg" style="margin-left:10px;"> 
                 <span style="font-weight:600;">📸 JPEG تصویر</span>
                 <span style="display:block; font-size:12px; color:#666; margin-right:25px;">یونیورسل فارمیٹ (200-500 KB)</span>
@@ -776,10 +787,8 @@
         let zoomLevel = 1;
 
         // --- CORE FUNCTIONS ---
-        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) { 
             if (!str) return '';
-            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
@@ -864,7 +873,6 @@
                 if (dropdown2) dropdown2.style.display = 'none';
             }
             
-            // If both are cleared, show welcome screen
             if (!member1 && !member2) {
                 resetSearch();
             } else if (member1 && member2) {
@@ -1044,16 +1052,9 @@
             html += `<div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>`;
             html += `<div class="box-body">`;
             html += `<span class="member-name">${displayName(m.name)}</span>`;
-            
-            // Father
             html += `<div class="box-row"><span class="box-label">والد :</span><span class="box-value">${displayName(m.father) || '—'}</span></div>`;
-            
-            // Mother
             html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${displayName(m.mother) || '—'}</span></div>`;
-            
-            // Spouse
             html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${m.spouse || '—'}</span></div>`;
-            
             html += `</div></div>`;
             return html;
         }
@@ -1099,10 +1100,7 @@
                         <h3>${displayName(member1.name)} کا اصل تک سفر</h3>`;
             
             p1.forEach((m, i) => { 
-                html += renderBox(m, 
-                    i === p1.length - 1 ? 'منتخب فرد' : (i === 0 ? 'اصل بزرگ' : 'نسل'), 
-                    i === 0, 
-                    i === p1.length - 1); 
+                html += renderBox(m, i === p1.length - 1 ? 'منتخب فرد' : (i === 0 ? 'اصل بزرگ' : 'نسل'), i === 0, i === p1.length - 1); 
                 if (i < p1.length - 1) html += '<div class="path-connector"></div>'; 
             });
             
@@ -1110,10 +1108,7 @@
                         <h3>${displayName(member2.name)} کا اصل تک سفر</h3>`;
             
             p2.forEach((m, i) => { 
-                html += renderBox(m, 
-                    i === p2.length - 1 ? 'منتخب فرد' : (i === 0 ? 'اصل بزرگ' : 'نسل'), 
-                    i === 0, 
-                    i === p2.length - 1); 
+                html += renderBox(m, i === p2.length - 1 ? 'منتخب فرد' : (i === 0 ? 'اصل بزرگ' : 'نسل'), i === 0, i === p2.length - 1); 
                 if (i < p2.length - 1) html += '<div class="path-connector"></div>'; 
             });
             
@@ -1145,7 +1140,7 @@
             document.getElementById('search2').value = '';
         }
 
-        // --- PDF EXPORT ---
+        // --- PDF EXPORT (FIXED - same approach as file 4) ---
         async function exportPDF(quality = 'high') {
             if (!member1 || !member2) {
                 alert('براہ کرم پہلے دونوں افراد کو منتخب کریں');
@@ -1156,8 +1151,16 @@
             const jpegQuality = quality === 'high' ? 0.95 : 0.6;
             const qualityText = quality === 'high' ? 'ہائی ریزولوشن' : 'لو ریزولوشن';
             
-            const treeElement = document.querySelector('.scrollable-content');
-            if (!treeElement) return alert('کوئی مواد نہیں');
+            const content = document.getElementById('rootTree');
+            if (!content) return alert('کوئی مواد نہیں');
+            
+            // Save original styles
+            const originalOverflow = content.style.overflow;
+            const originalHeight = content.style.height;
+            
+            // Temporarily remove overflow restrictions
+            content.style.overflow = 'visible';
+            content.style.height = 'auto';
             
             try {
                 const header = document.createElement('div');
@@ -1166,10 +1169,9 @@
                 header.innerHTML = `
                     <h1 style="color: #d4af37; font-size: 36px; font-family: 'Noto Nastaliq Urdu', serif; margin:0;">رضوی خاندان کا شجرہ نسب</h1>
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">اصل بزرگ کا رشتہ</h2>
-                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
+                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0; font-family:'Noto Nastaliq Urdu';">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
                 `;
-                
-                treeElement.insertBefore(header, treeElement.firstChild);
+                content.insertBefore(header, content.firstChild);
 
                 const footer = document.createElement('div');
                 footer.style.marginTop = '30px';
@@ -1188,7 +1190,7 @@
                     <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر: عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332</div>
                     <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>
                 `;
-                treeElement.appendChild(footer);
+                content.appendChild(footer);
                 
                 const loadingMsg = document.createElement('div');
                 loadingMsg.style.position = 'fixed';
@@ -1206,7 +1208,7 @@
                 
                 await new Promise(resolve => setTimeout(resolve, 500));
 
-                const canvas = await html2canvas(treeElement, { 
+                const canvas = await html2canvas(content, { 
                     scale: scale, 
                     backgroundColor: '#ffffff', 
                     logging: false, 
@@ -1214,8 +1216,10 @@
                     useCORS: true 
                 });
                 
-                treeElement.removeChild(header);
-                treeElement.removeChild(footer);
+                content.removeChild(header);
+                content.removeChild(footer);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
                 document.body.removeChild(loadingMsg);
 
                 const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
@@ -1239,19 +1243,27 @@
                 
             } catch (err) {
                 console.error('PDF Error:', err);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
                 alert('❌ PDF نہیں بن سکی: ' + err.message);
             }
         }
 
-        // --- JPEG EXPORT ---
+        // --- JPEG EXPORT (FIXED - same approach as file 4) ---
         window.exportAsJPEG = async function() {
             if (!member1 || !member2) {
                 alert('براہ کرم پہلے دونوں افراد کو منتخب کریں');
                 return;
             }
             
-            const treeElement = document.querySelector('.scrollable-content');
-            if (!treeElement) return alert('کوئی مواد نہیں');
+            const content = document.getElementById('rootTree');
+            if (!content) return alert('کوئی مواد نہیں');
+            
+            const originalOverflow = content.style.overflow;
+            const originalHeight = content.style.height;
+            
+            content.style.overflow = 'visible';
+            content.style.height = 'auto';
             
             try {
                 const header = document.createElement('div');
@@ -1260,9 +1272,9 @@
                 header.innerHTML = `
                     <h1 style="color: #d4af37; font-size: 36px; font-family: 'Noto Nastaliq Urdu', serif; margin:0;">رضوی خاندان کا شجرہ نسب</h1>
                     <h2 style="color:#5a0000; font-size:24px; font-family:'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">اصل بزرگ کا رشتہ</h2>
-                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
+                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0; font-family:'Noto Nastaliq Urdu';">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
                 `;
-                treeElement.insertBefore(header, treeElement.firstChild);
+                content.insertBefore(header, content.firstChild);
 
                 const footer = document.createElement('div');
                 footer.style.marginTop = '30px';
@@ -1281,7 +1293,7 @@
                     <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر: عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332</div>
                     <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>
                 `;
-                treeElement.appendChild(footer);
+                content.appendChild(footer);
                 
                 const loadingMsg = document.createElement('div');
                 loadingMsg.style.position = 'fixed';
@@ -1299,14 +1311,16 @@
                 
                 await new Promise(resolve => setTimeout(resolve, 500));
 
-                const canvas = await html2canvas(treeElement, { 
+                const canvas = await html2canvas(content, { 
                     scale: 1.2,
                     backgroundColor: '#ffffff', 
                     logging: false
                 });
                 
-                treeElement.removeChild(header);
-                treeElement.removeChild(footer);
+                content.removeChild(header);
+                content.removeChild(footer);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
                 document.body.removeChild(loadingMsg);
 
                 const imgData = canvas.toDataURL('image/jpeg', 0.85);
@@ -1324,6 +1338,8 @@
                 
             } catch (err) {
                 console.error('Export Error:', err);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
                 alert('❌ JPEG نہیں بن سکی: ' + err.message);
             }
         };

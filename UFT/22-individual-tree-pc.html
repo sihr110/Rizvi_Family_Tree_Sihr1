@@ -687,6 +687,26 @@
             display: none;
         }
 
+/* Fix modal font and text rendering */
+.save-options-modal,
+.save-options-modal *,
+.save-options-modal label,
+.save-options-modal button,
+.save-options-modal h3,
+.save-options-modal div,
+.save-options-modal span {
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+    font-weight: normal;
+    direction: rtl;
+    text-align: right;
+}
+
+.save-options-modal input[type="radio"] {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+
     </style>
 </head>
 <body>
@@ -742,19 +762,30 @@
         </div>
     </div>
 
-    <div class="save-options-modal" id="saveOptionsModal" style="display:none;">
-        <h3>💾 شجرہ محفوظ کریں</h3>
-        <div style="margin-bottom:20px;">
-            <div style="font-weight:600; margin-bottom:10px;">فارمیٹ منتخب کریں:</div>
-            <label><input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - ہائی ریزولوشن</label>
-            <label><input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - لو ریزولوشن</label>
-            <label><input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG تصویر</label>
-        </div>
-        <div style="display:flex; gap:10px; justify-content:center;">
-            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; cursor:pointer;">محفوظ کریں</button>
-            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">منسوخ</button>
-        </div>
+   
+<div class="save-options-modal" id="saveOptionsModal" style="display:none;" dir="rtl">
+    <h3 style="font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">💾 شجرہ محفوظ کریں</h3>
+    <div style="margin-bottom:20px;">
+        <div style="font-weight:600; margin-bottom:10px; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">فارمیٹ منتخب کریں:</div>
+        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
+            <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-left:10px;"> 📑 PDF - ہائی ریزولوشن
+        </label>
+        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
+            <input type="radio" name="saveFormat" value="pdf-low" style="margin-left:10px;"> 📑 PDF - لو ریزولوشن
+        </label>
+        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
+            <input type="radio" name="saveFormat" value="jpeg" style="margin-left:10px;"> 📸 JPEG تصویر
+        </label>
     </div>
+    <div style="display:flex; gap:10px; justify-content:center;">
+        <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">محفوظ کریں</button>
+        <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">منسوخ</button>
+    </div>
+</div>
+
+
+
+
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
     <script src="33-family-data-urdu.js"></script>
@@ -1023,46 +1054,222 @@
             else exportIndividualPDF(s.value === 'pdf-high' ? 'high' : 'low'); 
         };
 
-        async function exportIndividualPDF(quality) {
-            const member = currentIndividual, scale = quality === 'high' ? 2 : 1, el = document.querySelector('.tree-root-layout');
-            if (!member || !el) return alert('کوئی مواد نہیں');
-            try {
-                const header = document.createElement('div'); header.style.marginBottom = '30px'; header.style.textAlign = 'center';
-                header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;font-family:'Playfair Display',serif;">رضوی خاندان کا شجرہ نسب</h1><h2 style="color:#5a0000;font-size:24px;font-family:'Playfair Display',serif;">${displayName(member.name)}</h2>`;
-                const footer = document.createElement('div'); footer.style.marginTop = '30px'; footer.style.padding = '15px'; footer.style.background = '#fcf9f4'; footer.style.textAlign = 'center';
-                const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-                footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div><div>آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>`;
-                el.insertBefore(header, el.firstChild); el.appendChild(footer);
-                const canvas = await html2canvas(el, { scale, backgroundColor: '#ffffff' });
-                el.removeChild(header); el.removeChild(footer);
-                const img = canvas.toDataURL('image/jpeg', 0.95), { jsPDF } = window.jspdf;
-                const w = canvas.width/2*0.264583, hh = canvas.height/2*0.264583;
-                new jsPDF({ orientation: w > hh ? 'l' : 'p', unit: 'mm', format: [w+40, hh+40] }).addImage(img, 'JPEG', 20, 20, w, hh).save(`shajra_${member.name.replace(/[^a-z0-9]/gi,'_')}_${Date.now()}.pdf`);
-                alert('✅ PDF محفوظ ہو گئی');
-            } catch(e) { alert('❌ PDF نہیں بن سکی'); }
-        }
+   
 
-        async function exportAsJPEG() {
-            const member = currentIndividual, el = document.querySelector('.tree-root-layout');
-            if (!member || !el) return alert('کوئی مواد نہیں');
-            try {
-                const header = document.createElement('div'); header.style.marginBottom = '30px'; header.style.textAlign = 'center';
-                header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;font-family:'Playfair Display',serif;">رضوی خاندان کا شجرہ نسب</h1><h2 style="color:#5a0000;font-size:24px;font-family:'Playfair Display',serif;">${displayName(member.name)}</h2>`;
-                const footer = document.createElement('div'); footer.style.marginTop = '30px'; footer.style.padding = '15px'; footer.style.background = '#fcf9f4'; footer.style.textAlign = 'center';
-                const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-                footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div><div>آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
-                el.insertBefore(header, el.firstChild); el.appendChild(footer);
-                const canvas = await html2canvas(el, { scale: 1.2, backgroundColor: '#ffffff' });
-                el.removeChild(header); el.removeChild(footer);
-                const a = document.createElement('a');
-                a.download = `shajra_${member.name.replace(/[^a-z0-9]/gi,'_')}_${Date.now()}.jpg`;
-                a.href = canvas.toDataURL('image/jpeg', 0.85);
-                a.click();
-                alert('✅ JPEG محفوظ ہو گئی');
-            } catch(e) { alert('❌ JPEG نہیں بن سکی'); }
-        }
+async function exportIndividualPDF(quality) {
+    const member = currentIndividual;
+    if (!member) return alert('کوئی مواد نہیں');
+    
+    const scale = quality === 'high' ? 2.0 : 1.0;
+    const jpegQuality = quality === 'high' ? 0.95 : 0.6;
+    const qualityText = quality === 'high' ? 'ہائی ریزولوشن' : 'لو ریزولوشن';
+    
+    const originalElement = document.querySelector('.tree-root-layout');
+    if (!originalElement) return alert('کوئی مواد نہیں');
+    
+    // CLONE the element
+    const el = originalElement.cloneNode(true);
+    el.style.transform = 'none';
+    el.style.width = '100%';
+    el.style.height = 'auto';
+    el.style.overflow = 'visible';
+    
+    // Create wrapper
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'absolute';
+    wrapper.style.left = '-9999px';
+    wrapper.style.top = '0';
+    wrapper.style.backgroundColor = 'white';
+    wrapper.style.padding = '20px';
+    wrapper.style.width = 'fit-content';
+    wrapper.style.minWidth = '800px';
+    wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+    document.body.appendChild(wrapper);
+    
+    // Add style tag for Urdu fonts
+    const styleTag = document.createElement('style');
+    styleTag.textContent = `
+        * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+        .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+        h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+        .box { direction: rtl; text-align: right; }
+    `;
+    wrapper.appendChild(styleTag);
+    
+    // Add header
+    const header = document.createElement('div');
+    header.style.marginBottom = '30px';
+    header.style.textAlign = 'center';
+    header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا شجرہ نسب</h1>
+        <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
+    wrapper.appendChild(header);
+    wrapper.appendChild(el);
+    
+    // Add footer
+    const footer = document.createElement('div');
+    footer.style.marginTop = '30px';
+    footer.style.padding = '15px';
+    footer.style.background = '#fcf9f4';
+    footer.style.textAlign = 'center';
+    const timeStr = formatCurrentTime();
+    const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+    footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+        <div>آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>`;
+    wrapper.appendChild(footer);
+    
+    const loadingMsg = document.createElement('div');
+    loadingMsg.style.position = 'fixed';
+    loadingMsg.style.top = '50%';
+    loadingMsg.style.left = '50%';
+    loadingMsg.style.transform = 'translate(-50%, -50%)';
+    loadingMsg.style.background = '#5a0000';
+    loadingMsg.style.color = 'white';
+    loadingMsg.style.padding = '20px 40px';
+    loadingMsg.style.borderRadius = '8px';
+    loadingMsg.style.zIndex = '9999';
+    loadingMsg.textContent = `📄 PDF بنا رہے ہیں... (${qualityText})`;
+    document.body.appendChild(loadingMsg);
+    
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    try {
+        const canvas = await html2canvas(wrapper, {
+            scale: scale,
+            backgroundColor: '#ffffff',
+            logging: false,
+            windowWidth: wrapper.scrollWidth,
+            windowHeight: wrapper.scrollHeight
+        });
+        
+        const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+        const { jsPDF } = window.jspdf;
+        const w = canvas.width / 2 * 0.264583;
+        const h = canvas.height / 2 * 0.264583;
+        const pdf = new jsPDF({
+            orientation: w > h ? 'l' : 'p',
+            unit: 'mm',
+            format: [w + 40, h + 40]
+        });
+        
+        pdf.addImage(imgData, 'JPEG', 20, 20, w, h);
+        const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        pdf.save(`shajra_${safeName}_${quality}_${Date.now()}.pdf`);
+        
+        const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+        alert(`✅ PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`);
+        
+    } catch (err) {
+        console.error('PDF Error:', err);
+        alert('❌ PDF نہیں بن سکی: ' + err.message);
+    } finally {
+        document.body.removeChild(wrapper);
+        document.body.removeChild(loadingMsg);
+    }
+}
+
+async function exportAsJPEG() {
+    const member = currentIndividual;
+    if (!member) return alert('کوئی مواد نہیں');
+    
+    const originalElement = document.querySelector('.tree-root-layout');
+    if (!originalElement) return alert('کوئی مواد نہیں');
+    
+    // CLONE the element
+    const el = originalElement.cloneNode(true);
+    el.style.transform = 'none';
+    el.style.width = '100%';
+    el.style.height = 'auto';
+    el.style.overflow = 'visible';
+    
+    // Create wrapper
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'absolute';
+    wrapper.style.left = '-9999px';
+    wrapper.style.top = '0';
+    wrapper.style.backgroundColor = 'white';
+    wrapper.style.padding = '20px';
+    wrapper.style.width = 'fit-content';
+    wrapper.style.minWidth = '800px';
+    wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+    document.body.appendChild(wrapper);
+    
+    // Add style tag for Urdu fonts
+    const styleTag = document.createElement('style');
+    styleTag.textContent = `
+        * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+        .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+        h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+        .box { direction: rtl; text-align: right; }
+    `;
+    wrapper.appendChild(styleTag);
+    
+    // Add header
+    const header = document.createElement('div');
+    header.style.marginBottom = '30px';
+    header.style.textAlign = 'center';
+    header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا شجرہ نسب</h1>
+        <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
+    wrapper.appendChild(header);
+    wrapper.appendChild(el);
+    
+    // Add footer
+    const footer = document.createElement('div');
+    footer.style.marginTop = '30px';
+    footer.style.padding = '15px';
+    footer.style.background = '#fcf9f4';
+    footer.style.textAlign = 'center';
+    const timeStr = formatCurrentTime();
+    const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+    footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+        <div>آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
+    wrapper.appendChild(footer);
+    
+    const loadingMsg = document.createElement('div');
+    loadingMsg.style.position = 'fixed';
+    loadingMsg.style.top = '50%';
+    loadingMsg.style.left = '50%';
+    loadingMsg.style.transform = 'translate(-50%, -50%)';
+    loadingMsg.style.background = '#5a0000';
+    loadingMsg.style.color = 'white';
+    loadingMsg.style.padding = '20px 40px';
+    loadingMsg.style.borderRadius = '8px';
+    loadingMsg.style.zIndex = '9999';
+    loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
+    document.body.appendChild(loadingMsg);
+    
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    try {
+        const canvas = await html2canvas(wrapper, {
+            scale: 1.2,
+            backgroundColor: '#ffffff',
+            logging: false,
+            windowWidth: wrapper.scrollWidth,
+            windowHeight: wrapper.scrollHeight
+        });
+        
+        const imgData = canvas.toDataURL('image/jpeg', 0.85);
+        
+        const link = document.createElement('a');
+        const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        link.download = `shajra_${safeName}_${Date.now()}.jpg`;
+        link.href = imgData;
+        link.click();
+        
+        const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+        setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
+        
+    } catch (err) {
+        console.error('Export Error:', err);
+        alert('❌ JPEG نہیں بن سکی: ' + err.message);
+    } finally {
+        document.body.removeChild(wrapper);
+        document.body.removeChild(loadingMsg);
+    }
+}
+
+
+
 
         function switchToTableView() {
             window.location.href = currentIndividual ? `23-individual-table-pc.html?member=${encodeURIComponent(currentIndividual.name)}` : '23-individual-table-pc.html';

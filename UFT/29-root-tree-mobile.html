@@ -1,17 +1,16 @@
 <!-- ===================================== -->
 <!-- FILE NAME: 29-root-tree-mobile.html    -->
 <!-- Urdu Version - Rizvi Family Root Tree  -->
-<!-- Mobile Optimized - Like File 9         -->
-<!-- LAST UPDATED: 25/03/2026               -->
+<!-- EXACT SAME STRUCTURE AS FILE 9        -->
+<!-- LAST UPDATED: 31/03/2026              -->
 <!-- ===================================== -->
 
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
-    <meta name="google" content="notranslate">
     <meta charset="UTF-8">
-    <!-- MOBILE VIEWPORT - initial-scale=0.5 -->
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="google" content="notranslate">
     <title>رضوی خاندان · اصل شجرہ ویو (موبائل)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
@@ -23,17 +22,7 @@
     <script src="33-family-data-urdu.js"></script>
     
     <style>
-
-
-.save-options-modal, 
-.save-options-modal h3, 
-.save-options-modal div, 
-.save-options-modal label, 
-.save-options-modal span, 
-.save-options-modal button {
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
-}
-        /* CHANGE 1: Reset Button CSS */
+        /* Reset Button CSS - SAME AS FILE 9 */
         .reset-btn {
             padding: 10px 20px;
             background: var(--gold);
@@ -52,7 +41,7 @@
             transform: scale(1.02);
         }
 
-        /* Gentle pulsing/blinking effect */
+        /* Gentle pulsing/blinking effect - SAME AS FILE 9 */
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
         }
@@ -206,9 +195,10 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-       .toggle-menu-item:hover {
-    background: #faebcd;
-    transform: translateX(-5px);  }
+        .toggle-menu-item:hover {
+            background: #faebcd;
+            transform: translateX(-5px);
+        }
 
         .main-content {
             flex: 1;
@@ -226,7 +216,7 @@
             flex: 1;
         }
 
-        /* CHANGE 2: Fixed header section centered */
+        /* Fixed header section - SAME AS FILE 9 */
         .fixed-header-section {
             padding: 15px 15px 0 15px;
             background: #fffcf8;
@@ -249,7 +239,7 @@
             zoom: 0.5;
         }
 
-        /* Scrollbar styling for mobile */
+        /* Scrollbar styling */
         .scrollable-content::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -265,7 +255,7 @@
             border-radius: 3px;
         }
 
-        /* Empty State Styles - Same as File 30 */
+        /* Empty State Styles */
         .empty-state {
             text-align: center;
             color: #999;
@@ -344,8 +334,8 @@
 
         .result-item:hover { background: #faebcd; }
 
-        .result-item .main-name { font-weight: 700; color: var(--dark-blue); font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
-        .result-item .gen { color: var(--maroon); font-size: 11px; margin-right: 6px; font-family: 'Inter', sans-serif; }
+        .result-item .main-name { font-weight: 700; color: var(--dark-blue); }
+        .result-item .gen { color: var(--maroon); font-size: 11px; margin-right: 6px; }
 
         .root-announce {
             background: var(--light-sage);
@@ -367,7 +357,6 @@
             gap: 15px; 
             flex-wrap: nowrap; 
             white-space: nowrap; 
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .gap-item {
@@ -379,7 +368,6 @@
             border-radius: 40px;
             border: 1px solid var(--border-sage);
             font-size: 14px;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .gap-value { 
@@ -387,53 +375,43 @@
             background: white; 
             padding: 4px 12px; 
             border-radius: 30px;
-            font-family: 'Inter', sans-serif;
         }
         .gap-value.highlight { background: var(--bronze); color: white; }
 
-   .paths-container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 30px;
-    flex-wrap: wrap;
-    align-items: flex-start;
-}
+        .paths-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
 
-       .path-column {
-    flex: 1;
-    min-width: 300px;
-    max-width: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .path-column { 
+            flex: 1; 
+            min-width: 350px; 
+            max-width: 450px; 
+            text-align: center; 
+        }
+        
+        .path-column h3 { 
+            color: var(--maroon); 
+            margin-bottom: 20px; 
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; 
+            font-size: 18px; 
+        }
 
-     .path-column h3 {
-    color: var(--maroon);
-    margin-bottom: 20px;
-    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
-    font-size: 18px;
-    text-align: center;
-}
-
-    
-.box {
-    border: 2px solid var(--gold);
-    border-radius: 12px;
-    background: white;
-    width: 280px;
-    min-width: 260px;
-    max-width: 320px;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-    margin: 8px auto;
-    display: block;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        .box {
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            background: white;
+            min-width: 280px;
+            max-width: 350px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            margin: 8px auto;
         }
 
         .box:hover { transform: translateY(-3px); }
@@ -461,7 +439,6 @@
             font-weight: 800;
             border-bottom: 1px solid #ddd;
             border-radius: 10px 10px 0 0;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .box-body { padding: 15px; }
@@ -470,22 +447,14 @@
             font-weight: 700; 
             font-size: 18px; 
             display: block; 
-            margin-bottom: 5px;
         }
         .father-name { 
             font-size: 12px; 
             color: #64748b; 
             margin-top: 6px;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .path-connector {
-    width: 3px;
-    height: 25px;
-    background: var(--gold);
-    margin: 8px auto;
-    display: block;
-}
+        .path-connector { width: 3px; height: 25px; background: var(--gold); margin: 5px auto; }
 
         .app-footer {
             background: var(--dark-blue);
@@ -494,10 +463,9 @@
             padding: 8px;
             font-size: 11px;
             border-top: 2px solid var(--gold);
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        /* Save Options Modal for mobile */
+        /* Save Options Modal */
         .save-options-modal {
             position: fixed;
             top: 50%;
@@ -511,7 +479,6 @@
             min-width: 300px;
             max-width: 90vw;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .modal-overlay {
@@ -535,7 +502,6 @@
                 position: static;
                 transform: none;
                 margin-right: 10px;
-                margin-left: 0;
             }
             
             .left-toggle-btn {
@@ -571,7 +537,6 @@
     </style>
 </head>
 <body>
-    <!-- NO ZOOM CONTROLS - mobile uses pinch-to-zoom -->
 
     <div class="app-container">
         <div class="app-header">
@@ -585,7 +550,6 @@
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
             <div class="toggle-menu-item" onclick="switchToTableView()">📋 جدول میں دیکھیں</div>
-            <!-- CHANGE 4: Reset removed from toggle menu -->
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
             <div class="toggle-menu-item" onclick="showDashboard()">🏠 ڈیش بورڈ</div>
         </div>
@@ -593,7 +557,6 @@
         <div class="main-content">
             <div id="rootSection">
                 <div class="fixed-header-section">
-                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <span class="search-label">رکن 1</span>
                         <div class="search-wrapper">
@@ -657,7 +620,6 @@
         </div>
     </div>
 
-    <!-- Overlay -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
     <script>
@@ -668,10 +630,8 @@
         let zoomLevel = 1;
 
         // --- CORE FUNCTIONS ---
-        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) { 
             if (!str) return '';
-            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
@@ -824,8 +784,7 @@
         // --- TREE LOGIC ---
         function findParent(m) { 
             if (!m || !m.father || m.father === '—' || m.father === '---') return null;
-            return db.find(x => x.name === m.father) || 
-                   db.find(x => x.name === m.father);
+            return db.find(x => x.name === m.father);
         }
 
         function getAncestryChain(m) {
@@ -982,7 +941,7 @@
             document.getElementById('dropdown2').style.display = 'none';
         }
 
-        // --- PDF EXPORT WITH QUALITY PARAMETER ---
+        // --- PDF EXPORT ---
         async function exportPDF(quality = 'high') {
             if (!member1 || !member2) {
                 alert('براہ کرم پہلے دونوں افراد کو منتخب کریں');

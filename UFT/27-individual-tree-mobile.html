@@ -371,13 +371,20 @@
             margin-top: 2px;
         }
 
-   .tree-container {
+.tree-container {
     flex: 1;
     overflow: auto !important;
     padding: 20px;
     position: relative;
     display: flex;
     justify-content: center;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.box {
+    width: 280px;
+    flex-shrink: 0;
 }
 
         .tree-container::-webkit-scrollbar {
@@ -406,7 +413,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    width: 100%;
+    width: max-content;  /* ← Add this to allow horizontal scroll */
+    min-width: 100%;
     transform-origin: top center;
 }
 

@@ -60,49 +60,7 @@
             position: relative;
         }
 
-        .zoom-controls {
-            position: absolute;
-            top: 30px;
-            left: 0px;
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 8px;
-            padding: 5px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 2000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
 
-        .zoom-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--gold);
-            background: white;
-            color: var(--dark-blue);
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .zoom-btn:hover {
-            background: var(--gold);
-            color: white;
-        }
-
-        .zoom-level {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 5px;
-            font-family: 'Inter', sans-serif;
-        }
 
         .app-container {
             max-width: 1400px;
@@ -380,12 +338,8 @@
     position: relative;
     display: flex;
     justify-content: center;
-}
+    zoom: 0.5;  }
 
-
-.box {
-    width: 280px;
-  }
 
         .tree-container::-webkit-scrollbar {
             width: 12px;
@@ -726,11 +680,8 @@
                 <span class="header-icon">🌿</span>
                 <span>رضوی خاندان · شجرہ نسب</span>
             </div>
-            <div class="header-actions">
-                <div class="header-btn table-view" onclick="switchToTableView()">📊 جدول</div>
-                <div class="header-btn dashboard" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
-            </div>
-        </div>
+
+       </div>
 
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 بہن بھائی</div>
@@ -738,6 +689,8 @@
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
+<div class="toggle-menu-item" onclick="showTableView()">📊 جدول</div>
+<div class="toggle-menu-item" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
         </div>
 
         <div class="main-content">
@@ -789,13 +742,9 @@
 <script src="33-family-data-urdu.js"></script>
 <script>
 
-
-
-
-
     let db = [], fileInfo = null, currentIndividual = null;
     let showSiblings = true, showDescendants = true, showAncestors = true;
-   let zoomLevel = 0.5, siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
+    let siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
 
     function displayName(str) { 
         if (!str) return '';
@@ -822,7 +771,6 @@
             } else {
                 resetIndividual();
             }
-            setTimeout(() => applyZoom(), 100);
         }
     }
 
@@ -1022,19 +970,6 @@
         if (member) selectMember(member);
     };
 
-    function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2); applyZoom(); }
-    function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
-    function resetZoom() { zoomLevel = 1; applyZoom(); }
-    
-    function applyZoom() { 
-        const c = document.getElementById('treeRoot'); 
-        if (c) { 
-            c.style.transform = `scale(${zoomLevel})`; 
-            c.style.width = `${100/zoomLevel}%`; 
-            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel*100)+'%'; 
-        } 
-    }
-
     window.showSaveOptions = function() { 
         if (!currentIndividual) { alert('براہ کرم پہلے کسی فرد کو منتخب کریں'); return; } 
         document.getElementById('saveOptionsModal').style.display = 'block'; 
@@ -1058,11 +993,6 @@
     async function exportIndividualPDF(quality) {
         const member = currentIndividual;
         if (!member) return alert('کوئی مواد نہیں');
-        
-        const originalZoom = zoomLevel;
-        zoomLevel = 1;
-        applyZoom();
-        await new Promise(resolve => setTimeout(resolve, 200));
         
         const scale = quality === 'high' ? 2.0 : 1.5;
         const jpegQuality = quality === 'high' ? 0.95 : 0.7;
@@ -1174,19 +1104,12 @@
         } finally {
             document.body.removeChild(wrapper);
             document.body.removeChild(loadingMsg);
-            zoomLevel = originalZoom;
-            applyZoom();
         }
     }
 
     async function exportAsJPEG() {
         const member = currentIndividual;
         if (!member) return alert('کوئی مواد نہیں');
-        
-        const originalZoom = zoomLevel;
-        zoomLevel = 1;
-        applyZoom();
-        await new Promise(resolve => setTimeout(resolve, 200));
         
         const originalElement = document.querySelector('.tree-root-layout');
         if (!originalElement) return alert('کوئی مواد نہیں');
@@ -1282,13 +1205,15 @@
         } finally {
             document.body.removeChild(wrapper);
             document.body.removeChild(loadingMsg);
-            zoomLevel = originalZoom;
-            applyZoom();
         }
     }
 
     function switchToTableView() {
         window.location.href = currentIndividual ? `28-individual-table-mobile.html?member=${encodeURIComponent(currentIndividual.name)}` : '28-individual-table-mobile.html';
+    }
+
+    function showTableView() {
+        switchToTableView();
     }
 
     function closeAllMenus() {
@@ -1298,7 +1223,9 @@
         document.getElementById('saveModalOverlay').style.display = 'none';
     }
     
-    function showDashboard() { window.location.href = '26-dashboard-mobile.html'; }
+    function showDashboard() { 
+        window.location.href = '26-dashboard-mobile.html'; 
+    }
     
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
@@ -1306,12 +1233,11 @@
         if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) closeSaveModal();
     });
 
-    window.zoomIn = zoomIn; window.zoomOut = zoomOut; window.resetZoom = resetZoom;
-    window.showDashboard = showDashboard; window.resetIndividual = resetIndividual;
+    window.showDashboard = showDashboard; 
+    window.resetIndividual = resetIndividual;
     window.switchToTableView = switchToTableView;
+    window.showTableView = showTableView;
 </script>
-
-
 
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 

@@ -1142,30 +1142,26 @@ async function exportIndividualPDF(quality) {
         });
         
         const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-        const { jsPDF } = window.jspdf;
-        const w = canvas.width / 2 * 0.264583;
-        const h = canvas.height / 2 * 0.264583;
-        const pdf = new jsPDF({
-            orientation: w > h ? 'l' : 'p',
-            unit: 'mm',
-            format: [w + 40, h + 40]
-        });
         
-        pdf.addImage(imgData, 'JPEG', 20, 20, w, h);
+const { jsPDF } = window.jspdf;
+ const pdf = new jsPDF('l', 'px', [canvas.width, canvas.height]);
+
+        pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
         const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        pdf.save(`shajra_${safeName}_${quality}_${Date.now()}.pdf`);
-        
-        const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
-        alert(`✅ PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`);
+        pdf.save(`shajra_${safeName}_${Date.now()}.pdf`);
         
     } catch (err) {
-        console.error('PDF Error:', err);
+        console.error('Export Error:', err);
         alert('❌ PDF نہیں بن سکی: ' + err.message);
     } finally {
         document.body.removeChild(wrapper);
         document.body.removeChild(loadingMsg);
     }
 }
+
+
+
+
 
 async function exportAsJPEG() {
     const member = currentIndividual;

@@ -206,10 +206,9 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .toggle-menu-item:hover {
-            background: #faebcd;
-            transform: translateX(-5px);
-        }
+       .toggle-menu-item:hover {
+    background: #faebcd;
+    transform: translateX(-5px);  }
 
         .main-content {
             flex: 1;
@@ -392,35 +391,49 @@
         }
         .gap-value.highlight { background: var(--bronze); color: white; }
 
-        .paths-container {
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
+   .paths-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
 
-        .path-column { flex: 1; min-width: 350px; max-width: 450px; text-align: center; }
-        .path-column h3 { 
-            color: var(--maroon); 
-            margin-bottom: 20px; 
-            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; 
-            font-size: 18px; 
-        }
+       .path-column {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .box {
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            background: white;
-            min-width: 280px;
-            max-width: 350px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            margin: 8px auto;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+     .path-column h3 {
+    color: var(--maroon);
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+    
+.box {
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    background: white;
+    width: 280px;
+    min-width: 260px;
+    max-width: 320px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    margin: 8px auto;
+    display: block;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .box:hover { transform: translateY(-3px); }
@@ -466,7 +479,13 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .path-connector { width: 3px; height: 25px; background: var(--gold); margin: 5px auto; }
+        .path-connector {
+    width: 3px;
+    height: 25px;
+    background: var(--gold);
+    margin: 8px auto;
+    display: block;
+}
 
         .app-footer {
             background: var(--dark-blue);

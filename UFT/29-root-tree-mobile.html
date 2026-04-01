@@ -106,6 +106,7 @@
             align-items: center;
             border-bottom: 3px solid var(--gold);
             position: relative;
+            flex-shrink: 0;
         }
 
         .header-title {
@@ -203,6 +204,7 @@
             flex-direction: column;
             overflow: hidden;
             background: #fffcf8;
+            min-height: 0;
         }
 
         #rootSection {
@@ -211,6 +213,7 @@
             height: 100%;
             overflow: hidden;
             flex: 1;
+            min-height: 0;
         }
 
         .fixed-header-section {
@@ -226,14 +229,14 @@
             margin: 20px 0 0 0;
         }
 
-        .scrollable-content {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: auto;
-            padding: 0 15px 15px 15px;
-            -webkit-overflow-scrolling: touch;
-            zoom: 0.5;
-        }
+    .scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 0 15px 30px 15px;  /* Change from 15px to 30px */
+    -webkit-overflow-scrolling: touch;
+    zoom: 0.5;
+}
 
         .scrollable-content::-webkit-scrollbar {
             width: 6px;
@@ -454,6 +457,7 @@
             padding: 8px;
             font-size: 11px;
             border-top: 2px solid var(--gold);
+            flex-shrink: 0;
         }
 
         .save-options-modal {
@@ -611,6 +615,7 @@
 
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
+     
     <script>
         // --- GLOBAL DATA ---
         let db = [];
@@ -664,7 +669,7 @@
             const footer = document.getElementById('appFooter');
             if (!footer) return;
             let timeStr = fileInfo?.saved_time || 'کوئی ٹائم سٹیمپ نہیں';
-            footer.innerHTML = `📅 آخری ترمیم: ${timeStr} | ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332`;
+            footer.innerHTML = `📅 آخری ترمیم: ${timeStr} | ڈویلپر: عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332`;
         }
 
         window.toggleLeftMenu = function() {
@@ -841,6 +846,7 @@
             const gap1 = Math.abs(gen1 - genRoot);
             const gap2 = Math.abs(gen2 - genRoot);
             const gap12 = Math.abs(gen1 - gen2);
+            
             let html = `
                 <div class="root-announce">
                     <h2 style="color: var(--maroon); margin-bottom: 15px;">مشترکہ اصل بزرگ</h2>
@@ -866,7 +872,9 @@
                 html += renderBox(m, i === p2.length - 1 ? 'منتخب فرد' : (i === 0 ? 'اصل بزرگ' : 'نسل'), i === 0, i === p2.length - 1); 
                 if (i < p2.length - 1) html += '<div class="path-connector"></div>'; 
             });
-            document.getElementById('rootTree').innerHTML = html + '</div></div>';
+            html += `</div></div>`;
+            
+            document.getElementById('rootTree').innerHTML = html;
         }
 
         function resetSearch() {
@@ -925,7 +933,7 @@
                 const timeStr = formatCurrentTime();
                 const excelSavedTime = fileInfo ? fileInfo.saved_time : 'کوئی ٹائم سٹیمپ نہیں';
                 footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر : عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر : عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332</div>
                     <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم : ${excelSavedTime} | PDF جنریٹ : ${timeStr}</div>
                 `;
                 wrapper.appendChild(header);
@@ -1019,7 +1027,7 @@
                 const timeStr = formatCurrentTime();
                 const excelSavedTime = fileInfo ? fileInfo.saved_time : 'کوئی ٹائم سٹیمپ نہیں';
                 footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر : عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر : عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332</div>
                     <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم : ${excelSavedTime} | JPEG جنریٹ : ${timeStr}</div>
                 `;
                 wrapper.appendChild(footer);
@@ -1115,5 +1123,8 @@
         window.showDashboard = showDashboard;
         window.toggleLeftMenu = toggleLeftMenu;
     </script>
+
+
+
 </body>
 </html>

@@ -554,14 +554,15 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
         
-        .member-name { 
-            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif; 
-            font-weight: 700; 
-            font-size: 16px; 
-            display: block; 
-            margin-bottom: 8px;
-            color: var(--dark-blue);
-        }
+  .member-name { 
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif; 
+    font-weight: 700; 
+    font-size: 16px; 
+    display: block; 
+    margin-bottom: 8px;
+    color: var(--maroon);
+    text-align: center;
+}
 
         .path-connector { 
             width: 3px; 
@@ -784,7 +785,7 @@
         let db = [];
         let fileInfo = { saved_time: "کوئی ٹائم سٹیمپ نہیں" };
         let member1 = null, member2 = null;
-        let zoomLevel = 1;
+        let zoomLevel = 0.70;
 
         // --- CORE FUNCTIONS ---
         function displayName(str) { 
@@ -1405,6 +1406,7 @@
         window.exportPDF = exportPDF;
         window.showDashboard = showDashboard;
         window.toggleLeftMenu = toggleLeftMenu;
+applyZoom();
     </script>
 </body>
 </html>

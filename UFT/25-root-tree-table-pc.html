@@ -548,7 +548,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
         }
 
         .lineage-table td:first-child,
@@ -557,7 +557,7 @@
             width: 50px;
             min-width: 40px;
             max-width: 60px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
         }
 
         .lineage-table td:nth-child(2),
@@ -573,7 +573,7 @@
             min-width: 80px;
             max-width: 100px;
             white-space: nowrap;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .lineage-table tr:hover td {
@@ -742,13 +742,11 @@
         let fileInfo = typeof FILE_INFO !== 'undefined' ? FILE_INFO : { saved_time: "کوئی ٹائم سٹیمپ نہیں" };
         let member1 = null;
         let member2 = null;
-        let zoomLevel = 1;
+        let zoomLevel = 0.70;
 
         // ==================== HELPER FUNCTIONS ====================
-        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) {
             if (!str) return '';
-            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
@@ -769,6 +767,22 @@
             if (!gen) return 0;
             const match = String(gen).match(/\d+/);
             return match ? parseInt(match[0]) : 0;
+        }
+
+        // ==================== WELCOME BOX HTML ====================
+        function getWelcomeBoxHTML() {
+            return `
+                <div class="welcome-container" style="display: flex; justify-content: center; align-items: center; height: 100%; min-height: 500px;">
+                    <div class="welcome-box" style="text-align: center; max-width: 500px; padding: 40px; background: white; border: 3px solid var(--gold); border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
+                        <div class="welcome-icon" style="font-size: 72px; margin-bottom: 20px; color: var(--gold);">🌳</div>
+                        <div class="welcome-title" style="font-size: 28px; font-weight: 700; color: var(--dark-blue); margin-bottom: 15px; font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;">اصل شجرہ نسب</div>
+                        <div class="welcome-text" style="font-size: 16px; color: #666; margin-bottom: 25px; line-height: 1.6; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
+                            براہ کرم اوپر دیے گئے سرچ باکسز میں دو افراد کا نام تلاش کریں<br>
+                            تاکہ ان کا مشترکہ اصل بزرگ اور رشتے کا فاصلہ دیکھ سکیں۔
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         // ==================== ZOOM FUNCTIONS ====================
@@ -817,15 +831,24 @@
                 if (dropdown2) dropdown2.style.display = 'none';
             }
             
-            // If both are cleared, show welcome message
             if (!member1 && !member2) {
-                document.getElementById('rootTables').innerHTML = '<div style="text-align:center; color:#999; padding:60px; font-family:\'Noto Nastaliq Urdu\';">دونوں افراد کو منتخب کریں تاکہ ان کا مشترکہ جد امجد دیکھ سکیں</div>';
+                document.getElementById('rootTables').innerHTML = getWelcomeBoxHTML();
             } else if (member1 && member2) {
                 renderTables();
             } else {
-                document.getElementById('rootTables').innerHTML = '<div style="text-align:center; color:#999; padding:60px; font-family:\'Noto Nastaliq Urdu\';">دونوں افراد کو منتخب کریں تاکہ ان کا مشترکہ جد امجد دیکھ سکیں</div>';
+                document.getElementById('rootTables').innerHTML = getWelcomeBoxHTML();
             }
         }
+
+        window.resetSearch = function() {
+            member1 = null;
+            member2 = null;
+            document.getElementById('search1').value = '';
+            document.getElementById('search2').value = '';
+            document.getElementById('rootTables').innerHTML = getWelcomeBoxHTML();
+            document.getElementById('dropdown1').style.display = 'none';
+            document.getElementById('dropdown2').style.display = 'none';
+        };
 
         // ==================== SAVE OPTIONS ====================
         window.showSaveOptions = function() {
@@ -1013,7 +1036,7 @@
                     <div class="table-container">
                         <h3>${displayName(member1.name)} کا سلسلہ نسب</h3>
                         <table class="lineage-table">
-                            <tr><th>#</th><th>نام</th><th>نسل</th> </tr>
+                             <thead> <tr><th>#</th><th>نام</th><th>نسل</th></tr> </thead> <tbody>
             `;
             
             path1.forEach((member, index) => {
@@ -1022,20 +1045,21 @@
                 const rowClass = isRoot ? 'root-row' : (isFemale ? 'female-row' : '');
                 
                 html += `<tr class="${rowClass}" onclick="selectMember('${member.name}')">`;
-                html += `<td>${index + 1}</td>`;
-                html += `<td>${displayName(member.name)}${isRoot ? ' (جد امجد)' : ''}</td>`;
-                html += `<td>${member.gen || '—'}</td>`;
-                html += `</tr>`;
+                html += `   <td>${index + 1}</td>`;
+                html += `   <td>${displayName(member.name)}${isRoot ? ' (جد امجد)' : ''}</td>`;
+                html += `   <td>${member.gen || '—'}</td>`;
+                html += ` </tr>`;
             });
             
             html += `
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
                     
-                    <div class="table-container">
-                        <h3>${displayName(member2.name)} کا سلسلہ نسب</h3>
-                        <table class="lineage-table">
-                            <tr><th>#</th><th>نام</th><th>نسل</th> </tr>
+                <div class="table-container">
+                    <h3>${displayName(member2.name)} کا سلسلہ نسب</h3>
+                    <table class="lineage-table">
+                         <thead> <tr><th>#</th><th>نام</th><th>نسل</th></tr> </thead> <tbody>
             `;
             
             path2.forEach((member, index) => {
@@ -1044,16 +1068,17 @@
                 const rowClass = isRoot ? 'root-row' : (isFemale ? 'female-row' : '');
                 
                 html += `<tr class="${rowClass}" onclick="selectMember('${member.name}')">`;
-                html += `<td>${index + 1}</td>`;
-                html += `<td>${displayName(member.name)}${isRoot ? ' (جد امجد)' : ''}</td>`;
-                html += `<td>${member.gen || '—'}</td>`;
-                html += `</tr>`;
+                html += `   <td>${index + 1}</td>`;
+                html += `   <td>${displayName(member.name)}${isRoot ? ' (جد امجد)' : ''}</td>`;
+                html += `   <td>${member.gen || '—'}</td>`;
+                html += ` </tr>`;
             });
             
             html += `
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
             `;
             
             document.getElementById('rootTables').innerHTML = html;
@@ -1067,16 +1092,6 @@
                     window.location.href = `23-individual-table-pc.html?member=${encodeURIComponent(member.name)}`;
                 }
             }
-        };
-
-        window.resetSearch = function() {
-            member1 = null;
-            member2 = null;
-            document.getElementById('search1').value = '';
-            document.getElementById('search2').value = '';
-            document.getElementById('rootTables').innerHTML = '<div style="text-align:center; color:#999; padding:60px; font-family:\'Noto Nastaliq Urdu\';">دونوں افراد کو منتخب کریں تاکہ ان کا مشترکہ جد امجد دیکھ سکیں</div>';
-            document.getElementById('dropdown1').style.display = 'none';
-            document.getElementById('dropdown2').style.display = 'none';
         };
 
         // ==================== PDF EXPORT ====================
@@ -1307,8 +1322,11 @@
                     renderTables();
                 } catch(e) { console.error("Error parsing stored members", e); }
             } else {
-                document.getElementById('rootTables').innerHTML = '<div style="text-align:center; color:#999; padding:60px; font-family:\'Noto Nastaliq Urdu\';">دونوں افراد کو منتخب کریں تاکہ ان کا مشترکہ جد امجد دیکھ سکیں</div>';
+                document.getElementById('rootTables').innerHTML = getWelcomeBoxHTML();
             }
+            
+            // Apply zoom on page load
+            applyZoom();
         });
     </script>
 </body>

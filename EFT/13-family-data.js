@@ -1,6 +1,6 @@
 // Family Data (English property names)
-// Saved: 3/4/2026، 10:25:02 PM
-const FAMILY_DATA_URDU = [
+// Saved: 4/4/2026، 3:46:28 AM
+const FAMILY_DATA = [
   {
     "name": "Hazrat Abdul Mutalib",
     "father": "Hashim ibn Abdul Manaf",
@@ -2330,7 +2330,7 @@ const FAMILY_DATA_URDU = [
     "spouse": "Syed M Ali Afzal Rizvi",
     "gen": "G-041-D1",
     "gender": "FEMALE",
-    "details": "Children of : Syeda Ismat Saba   \n\nS1: Syed Aoun Mohammad Rizvi\n\nD1: Syeda Hira Ali Rizvi \nD2: Syeda Areeba Ali Rizvi"
+    "details": "Children of : Syeda Ismat Saba   \n\nS1: Syed Aoun Mohammad Rizvi (Nomi)\n\nD1: Syeda Hira Ali Rizvi \nD2: Syeda Areeba Ali Rizvi (Fatima)"
   },
   {
     "name": "Syeda Talat Saba",
@@ -2366,7 +2366,7 @@ const FAMILY_DATA_URDU = [
     "spouse": "Syed M Mehdi Naqvi (Danish)",
     "gen": "G-041-D5",
     "gender": "FEMALE",
-    "details": "Children of : Syeda Erum Rizvi \n\nS1: Syed Baqar Mehdi Naqvi\nS2: Syed Kazim Mehdi Naqvi\nS3: Syed Hasan Mehdi Naqvi"
+    "details": "Children of : Syeda Erum Rizvi \n\nS1: Syed Baqar Mehdi Naqvi (Yasir)\nS2: Syed Kazim Mehdi Naqvi\nS3: Syed Hasan Mehdi Naqvi"
   },
   {
     "name": "Syed Asif",
@@ -3378,4 +3378,4 @@ const FAMILY_DATA_URDU = [
   }
 ];
 
-const FILE_INFO = { saved_time: "3/4/2026، 10:25:02 PM", total_members: 375 };
+const FILE_INFO = { saved_time: "4/4/2026، 3:46:28 AM", total_members: 375 };

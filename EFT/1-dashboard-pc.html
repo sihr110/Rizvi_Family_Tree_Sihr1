@@ -114,7 +114,7 @@
 
         .top-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 25px;
         }
 
@@ -527,6 +527,11 @@ function renderDashboardView() {
                     <div class="card-title">Root Relative</div>
                     <div class="card-desc">Two member search</div>
                 </div>
+                <div class="dashboard-card" onclick="window.location.href='100-full-tree-pc.html'">
+                    <div class="card-icon">🌳</div>
+                    <div class="card-title">Full Family Tree</div>
+                    <div class="card-desc">Complete family tree view</div>
+                </div>
                 <div class="dashboard-card admin-card" onclick="goToAdminWithPassword()">
                     <div class="card-icon">⚙️</div>
                     <div class="card-title">Admin Use Only</div>
@@ -534,24 +539,22 @@ function renderDashboardView() {
                     <span class="admin-badge">Restricted - Password Protected</span>
                 </div>
             </div>
-           
+            
             <div class="bottom-row">
                 <div class="exit-btn-container" onclick="logout()">
-                    <span class="exit-btn-icon">🚪</span>
-                    <span class="exit-btn-text">Exit to Login</span>
-                    <span class="exit-btn-subtext">- (Back to main page)</span>
+                    <span>🚪</span>
+                    <span>Exit to Login</span>
+                    <span>- (Back to main page)</span>
                 </div>
-                
                 <div class="exit-btn-container" onclick="hardReset()" style="background: #4169E1;">
-                    <span class="exit-btn-icon">⚠️</span>
-                    <span class="exit-btn-text">Hard Reset</span>
-                    <span class="exit-btn-subtext">- (Delete all data)</span>
+                    <span>⚠️</span>
+                    <span>Hard Reset</span>
+                    <span>- (Delete all data)</span>
                 </div>
             </div>
         </div>
     `;
 }
-
 function renderAdminView() {
     document.getElementById('headerTitle').innerText = 'Admin Control Panel';
     document.getElementById('headerActions').innerHTML = `

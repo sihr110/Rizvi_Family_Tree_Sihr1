@@ -1,6 +1,6 @@
-// English Family Data
-// Saved: 29/3/2026، 3:32:13 PM
-const FAMILY_DATA = [
+// Family Data (English property names)
+// Saved: 3/4/2026، 10:25:02 PM
+const FAMILY_DATA_URDU = [
   {
     "name": "Hazrat Abdul Mutalib",
     "father": "Hashim ibn Abdul Manaf",
@@ -1658,9 +1658,9 @@ const FAMILY_DATA = [
     "details": ""
   },
   {
-    "name": "Syed Aziz Ali",
+    "name": "Syed Aziz Abbas (Az zan)",
     "father": "Syed Mohammad Taqi",
-    "mother": "---",
+    "mother": "Syeda Sabra Khatoon Rizvi",
     "spouse": "---",
     "gen": "G-040-S1",
     "gender": "MALE",
@@ -1669,7 +1669,7 @@ const FAMILY_DATA = [
   {
     "name": "Syed Saeed Abbas (Bachan)",
     "father": "Syed Mohammad Taqi",
-    "mother": "---",
+    "mother": "Syeda Sabra Khatoon Rizvi",
     "spouse": "---",
     "gen": "G-040-S2",
     "gender": "MALE",
@@ -1697,7 +1697,7 @@ const FAMILY_DATA = [
     "name": "Syeda Masoom Fatima",
     "father": "Syed Mohammad Naqi",
     "mother": "---",
-    "spouse": "---",
+    "spouse": "Syed Naseem Abbas Rizvi",
     "gen": "G-040-D1",
     "gender": "FEMALE",
     "details": ""
@@ -1796,7 +1796,7 @@ const FAMILY_DATA = [
     "name": "Syed Izhar Ul Hasan",
     "father": "Syed Tafazul Hussain",
     "mother": "---",
-    "spouse": "---",
+    "spouse": "Syeda Tasneem Fatima Rizvi",
     "gen": "G-040-S2",
     "gender": "MALE",
     "details": ""
@@ -2131,7 +2131,8 @@ const FAMILY_DATA = [
     "mother": "---",
     "gen": "G-041-S1",
     "gender": "MALE",
-    "details": ""
+    "details": "",
+    "spouse": ""
   },
   {
     "name": "Syed Aftab Haider",
@@ -2209,10 +2210,10 @@ const FAMILY_DATA = [
     "name": "Syed Zafar Iqbal",
     "father": "Syed Wiladat Hussain",
     "mother": "Syeda Tanveer Fatima Rizvi",
-    "spouse": "Batool Zafar",
     "gen": "G-041-S1",
     "gender": "MALE",
-    "details": ""
+    "details": "",
+    "spouse": ""
   },
   {
     "name": "Syed Najaf Haider",
@@ -2254,7 +2255,7 @@ const FAMILY_DATA = [
     "name": "Syed Rehan Haider",
     "father": "Syed Risalat Hussain",
     "mother": "Syeda Laiq Bano Naqvi",
-    "spouse": "Uzma Haider",
+    "spouse": "Uzma Jameel",
     "gen": "G-041-S1",
     "gender": "MALE",
     "details": ""
@@ -2263,7 +2264,7 @@ const FAMILY_DATA = [
     "name": "Syed Imran Haider",
     "father": "Syed Risalat Hussain",
     "mother": "Syeda Laiq Bano Naqvi",
-    "spouse": "Mahjabeen",
+    "spouse": "Mahjabeen Mohammad",
     "gen": "G-041-S2",
     "gender": "MALE",
     "details": ""
@@ -2299,7 +2300,7 @@ const FAMILY_DATA = [
     "name": "Syed Zeeshan Haider",
     "father": "Syed Risalat Hussain",
     "mother": "Syeda Laiq Bano Naqvi",
-    "spouse": "Syed Dua Rizvi (Dua)",
+    "spouse": "Syed Kaneez Fatima Rizvi (Dua)",
     "gen": "G-041-S6",
     "gender": "MALE",
     "details": ""
@@ -2369,7 +2370,7 @@ const FAMILY_DATA = [
   },
   {
     "name": "Syed Asif",
-    "father": "Syed Naseem",
+    "father": "Syed Naseem Abbas",
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S1",
@@ -2378,7 +2379,7 @@ const FAMILY_DATA = [
   },
   {
     "name": "Syed Salman",
-    "father": "Syed Naseem",
+    "father": "Syed Naseem Abbas",
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-S2",
@@ -2387,7 +2388,7 @@ const FAMILY_DATA = [
   },
   {
     "name": "Syeda Huma",
-    "father": "Syed Naseem",
+    "father": "Syed Naseem Abbas",
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-D1",
@@ -2396,7 +2397,7 @@ const FAMILY_DATA = [
   },
   {
     "name": "Syeda Asma",
-    "father": "Syed Naseem",
+    "father": "Syed Naseem Abbas",
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-D2",
@@ -2405,7 +2406,7 @@ const FAMILY_DATA = [
   },
   {
     "name": "Syeda Naheed",
-    "father": "Syed Naseem",
+    "father": "Syed Naseem Abbas",
     "mother": "Syeda Masoom Fatima Rizvi",
     "spouse": "---",
     "gen": "G-041-D3",
@@ -2461,7 +2462,7 @@ const FAMILY_DATA = [
     "name": "Syed Mudasir Haider",
     "father": "Syed Muslim",
     "mother": "Syeda Rifat Zehra Rizvi",
-    "spouse": "---",
+    "spouse": "Syeda Batool Zafar Hyder Rizvi",
     "gen": "G-041-S2",
     "gender": "MALE",
     "details": ""
@@ -2857,7 +2858,7 @@ const FAMILY_DATA = [
     "name": "Syeda Tabinda Zehra",
     "father": "Syed Raza Haider",
     "mother": "Syeda Sarwat Zehra Rizvi",
-    "spouse": "Syed Muntazir Mehdi",
+    "spouse": "Syed Muntazir Mehdi Zaidi",
     "gen": "G-042-D1",
     "gender": "FEMALE",
     "details": ""
@@ -3009,7 +3010,7 @@ const FAMILY_DATA = [
   {
     "name": "Syed Meesam Haider",
     "father": "Syed Zeeshan Haider",
-    "mother": "Syed Dua Rizvi (Dua)",
+    "mother": "Syed Kaneez Fatima Rizvi (Dua)",
     "spouse": "---",
     "gen": "G-042-S1",
     "gender": "MALE",
@@ -3018,7 +3019,7 @@ const FAMILY_DATA = [
   {
     "name": "Syed Mujtaba Haider",
     "father": "Syed Zeeshan Haider",
-    "mother": "Syed Dua Rizvi (Dua)",
+    "mother": "Syed Kaneez Fatima Rizvi (Dua)",
     "spouse": "---",
     "gen": "G-042-S2",
     "gender": "MALE",
@@ -3027,7 +3028,7 @@ const FAMILY_DATA = [
   {
     "name": "Syed Ali Haider - 02",
     "father": "Syed Zeeshan Haider",
-    "mother": "Syed Dua Rizvi (Dua)",
+    "mother": "Syed Kaneez Fatima Rizvi (Dua)",
     "spouse": "---",
     "gen": "G-042-S3",
     "gender": "MALE",
@@ -3377,4 +3378,4 @@ const FAMILY_DATA = [
   }
 ];
 
-const FILE_INFO = { saved_time: "29/3/2026، 3:32:13 PM", total_members: 375 };
+const FILE_INFO = { saved_time: "3/4/2026، 10:25:02 PM", total_members: 375 };

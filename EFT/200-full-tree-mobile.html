@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi Family · Full Tree (Mobile)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -34,8 +34,6 @@
             padding: 10px;
         }
 
-        /* NO ZOOM CONTROLS - removed for mobile */
-
         .app-container {
             position: relative;
             max-width: 100%;
@@ -49,35 +47,71 @@
             overflow: hidden;
         }
 
-    .app-header {
-    background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-    color: var(--gold);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 3px solid var(--gold);
-    flex-shrink: 0;
-    position: relative;
-}
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            flex-shrink: 0;
+            position: relative;
+        }
 
 .left-toggle-btn {
     position: absolute;
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.header-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 900;
+    background: var(--gold);
+    color: var(--dark-blue);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin: 0 auto;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+animation: gentle-blink 1.5s infinite;
 }
 
+.left-toggle-btn:hover {
+    background: var(--light-gold);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.left-toggle-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+
+@keyframes gentle-blink {
+    0% { opacity: 1; background: var(--gold); }
+    50% { opacity: 0.7; background: #90EE90; }
+    100% { opacity: 1; background: var(--gold); }
+}
+
+
+
+.left-toggle-btn.active {
+    background: var(--green);
+    color: white;
+}
+
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto;
+        }
 
         .header-icon {
             background: var(--gold);
@@ -88,18 +122,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-       
-        @keyframes gentle-blink {
-            0% { opacity: 1; background: var(--gold); }
-            50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
-            100% { opacity: 1; background: var(--gold); }
-        }
-
-        .left-toggle-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.1);
         }
 
         .toggle-menu-panel {
@@ -115,7 +137,7 @@
             gap: 10px;
             z-index: 1999;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            min-width: 220px;
+            min-width: 200px;
         }
 
         .toggle-menu-panel.show {
@@ -123,7 +145,7 @@
         }
 
         .toggle-menu-item {
-            padding: 12px 18px;
+            padding: 10px 15px;
             border-radius: 8px;
             font-weight: 600;
             font-size: 14px;
@@ -143,42 +165,141 @@
             transform: translateX(5px);
         }
 
-        .toggle-menu-item.active {
-            background: #d4edda !important;
-            border-color: var(--dark-green) !important;
-            color: var(--dark-blue);
+    .search-section {
+    padding: 15px;
+    background: #fffcf8;
+    border-bottom: 2px solid var(--gold);
+    width: 95%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: nowrap;
         }
 
-        /* NO header-actions - removed for mobile */
+        .search-label {
+            font-weight: 700;
+            color: var(--maroon);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 40px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        .reset-btn-header {
+            flex-shrink: 0;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold);
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 0 0 12px 12px;
+            max-height: 250px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        .result-item:hover {
+            background: #faebcd;
+        }
+
+        .result-item .main-name {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: 14px;
+        }
+
+        .result-item .gen {
+            color: var(--maroon);
+            font-size: 11px;
+            margin-left: 8px;
+        }
+
+        .result-item .father-name {
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .reset-btn-header {
+            padding: 8px 16px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        .reset-btn-header:hover {
+            background: var(--light-gold);
+        }
 
         .tree-wrapper {
             flex: 1;
             overflow: auto;
             background: #fffcf8;
+            -webkit-overflow-scrolling: touch;
         }
 
         .tree-wrapper::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
         }
 
         .tree-wrapper::-webkit-scrollbar-track {
             background: #f1f1f1;
-            border-radius: 6px;
+            border-radius: 4px;
         }
 
         .tree-wrapper::-webkit-scrollbar-thumb {
             background: var(--gold);
-            border-radius: 6px;
+            border-radius: 4px;
         }
 
         .tree-container {
-            padding: 0 15px 15px 15px;
+            padding: 20px 15px;
             min-width: max-content;
             min-height: 100%;
             display: flex;
             justify-content: center;
-            transition: transform 0.1s ease;
             zoom: 0.5;
         }
 
@@ -358,107 +479,9 @@
             color: var(--gold);
             text-align: center;
             padding: 8px;
-            font-size: 11px;
+            font-size: 10px;
             border-top: 2px solid var(--gold);
             flex-shrink: 0;
-        }
-
-        .search-section {
-            padding: 15px;
-            background: #fffcf8;
-            border-bottom: 2px solid var(--gold);
-            width: 85%;
-            margin: 0 auto;
-        }
-
-        .search-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .search-label {
-            font-weight: 700;
-            color: var(--maroon);
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 2px solid #cbd5e1;
-            border-radius: 4px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: var(--gold);
-        }
-
-        .search-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 0 0 4px 4px;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .result-item {
-            padding: 12px 15px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-            transition: background 0.2s;
-        }
-
-        .result-item:hover {
-            background: #faebcd;
-        }
-
-        .result-item .main-name {
-            font-weight: 700;
-            color: var(--dark-blue);
-            font-size: 14px;
-        }
-
-        .result-item .gen {
-            color: var(--maroon);
-            font-size: 12px;
-            margin-left: 8px;
-        }
-
-        .result-item .father-name {
-            font-size: 11px;
-            color: #666;
-            margin-top: 2px;
-        }
-
-        .reset-btn-header {
-            padding: 8px 18px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .reset-btn-header:hover {
-            background: var(--light-gold);
         }
 
         .save-options-modal {
@@ -471,7 +494,7 @@
             border-radius: 12px;
             padding: 25px;
             z-index: 4000;
-            min-width: 350px;
+            min-width: 300px;
             display: none;
         }
 
@@ -521,19 +544,18 @@
             border: 3px solid var(--gold);
             border-radius: 12px;
             padding: 20px;
-            min-width: 300px;
-            max-width: 450px;
+            min-width: 280px;
+            max-width: 400px;
             z-index: 10000;
             display: none;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             font-family: 'Inter', sans-serif;
-            zoom: 0.5;
         }
 
         .info-modal h3 {
             color: var(--maroon);
             font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-size: 18px;
             margin: 0 0 8px 0;
             padding: 0 0 8px 0;
             border-bottom: 2px solid var(--gold);
@@ -541,13 +563,13 @@
 
         .info-modal p {
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.5;
             margin: 12px 0 0 0;
             white-space: pre-wrap;
             word-break: break-word;
             color: #333;
-            max-height: 300px;
+            max-height: 250px;
             overflow-y: auto;
         }
 
@@ -568,18 +590,12 @@
             background: var(--light-gold);
         }
 
-        /* Mobile responsive adjustments */
         @media screen and (max-width: 480px) {
             .app-header {
                 padding: 8px 10px;
             }
             .header-title {
-                font-size: 16px;
-            }
-            .left-toggle-btn {
-                width: 34px;
-                height: 34px;
-                font-size: 18px;
+                font-size: 15px;
             }
             .tree-box {
                 width: 260px;
@@ -587,7 +603,10 @@
             }
             .reset-btn-header {
                 padding: 6px 12px;
-                font-size: 12px;
+                font-size: 11px;
+            }
+            .search-label {
+                font-size: 10px;
             }
         }
 
@@ -622,14 +641,13 @@
                 max-width: 100%;
             }
             .tree-container {
-                transform: scale(1) !important;
+                zoom: 1 !important;
                 padding: 10px !important;
                 margin: 0 !important;
                 display: block;
                 width: 100%;
                 min-width: auto;
                 max-width: none;
-                zoom: 1;
             }
             .tree {
                 width: 100%;
@@ -650,19 +668,6 @@
                 width: 250px !important;
                 min-width: 200px !important;
             }
-            body, .app-container, .tree-wrapper, .tree-container, .tree {
-                width: auto !important;
-                min-width: 100% !important;
-                max-width: none !important;
-                overflow-x: visible !important;
-            }
-            .root-level, .children-level {
-                flex-wrap: nowrap !important;
-                display: flex !important;
-                flex-direction: row !important;
-                width: max-content !important;
-                min-width: 100% !important;
-            }
         }
     </style>
 </head>
@@ -675,26 +680,25 @@
                 <span class="header-icon">🌳</span>
                 <span>Rizvi Family · Full Tree</span>
             </div>
-
-
-<div class="toggle-menu-panel" id="toggleMenuPanel">
-    <div class="toggle-menu-item" onclick="goToDashboard()">🏠 Dashboard</div>
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    <div class="toggle-menu-item" onclick="showSaveModal()">💾 Save Tree</div>
-    <div class="toggle-menu-item" onclick="resetToRoot()">🔄 Reset Tree</div>
-</div>
-
-
-   <div class="search-section">
-    <div class="search-row">
-        <span class="search-label">SEARCH MEMBER</span>
-        <div class="search-wrapper">
-            <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off">
-            <div id="searchDropdown" class="search-dropdown"></div>
         </div>
-        <div class="reset-btn-header" id="resetRootBtn">🔄 Reset</div>
-    </div>
-</div>
+
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item" onclick="goToDashboard()">🏠 Dashboard</div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="showSaveModal()">💾 Save Tree</div>
+            <div class="toggle-menu-item" onclick="resetToRoot()">🔄 Reset Tree</div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-row">
+                <span class="search-label">SEARCH</span>
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Type member name..." autocomplete="off">
+                    <div id="searchDropdown" class="search-dropdown"></div>
+                </div>
+                <div class="reset-btn-header" id="resetRootBtn">Reset</div>
+            </div>
+        </div>
 
         <div class="tree-wrapper" id="treeWrapper">
             <div class="tree-container" id="treeContainer">
@@ -737,7 +741,6 @@
 
     <script>
         let familyDB = [];
-        let zoomLevel = 1;
         let currentSelectedBox = null;
         let memberElements = new Map();
 
@@ -931,7 +934,7 @@
                 results.forEach(m => {
                     const div = document.createElement('div');
                     div.className = 'result-item';
-                    div.innerHTML = `<div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div><div class="result-father">👨 Father: ${displayName(m.father) || 'Unknown'}</div>`;
+                    div.innerHTML = `<div class="main-name">${displayName(m.name)} <span class="gen">${m.gen || ''}</span></div><div class="father-name">👨 Father: ${displayName(m.father) || 'Unknown'}</div>`;
                     div.onclick = () => { 
                         jumpToMember(m.name); 
                         dropdown.style.display = 'none'; 
@@ -992,14 +995,14 @@
 
                 const canvas = await html2canvas(treeContainer, {
                     useCORS: true,
-                    scale: 1,
+                    scale: 2,
                     backgroundColor: '#fffcf8',
                     width: treeContainer.scrollWidth,
                     height: treeContainer.scrollHeight,
                     logging: false
                 });
 
-                const imgData = canvas.toDataURL('image/jpeg', 0.7);
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
 
                 if (selectedFormat === 'jpeg') {
                     const link = document.createElement('a');
@@ -1022,12 +1025,23 @@
         }
 
         function goToDashboard() { 
-            window.location.href = '6-dashboard-mobile.html'; 
+            window.location.href = '1-dashboard-pc.html'; 
         }
         
-        function toggleLeftMenu() {
-            document.getElementById('toggleMenuPanel').classList.toggle('show');
-        }
+      function toggleLeftMenu() {
+    document.getElementById('toggleMenuPanel').classList.toggle('show');
+}
+
+document.addEventListener('click', function(event) {
+    var panel = document.getElementById('toggleMenuPanel');
+    var btn = document.querySelector('.left-toggle-btn');
+    
+    if (panel.classList.contains('show') && 
+        !panel.contains(event.target) && 
+        !btn.contains(event.target)) {
+        panel.classList.remove('show');
+    }
+});
         
         function init() {
             if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) { 

@@ -269,14 +269,14 @@
         <!-- Language Selection + Password Section (Initially Visible) -->
         <div id="loginSection">
             <div class="section-label">SELECT LANGUAGE</div>
-            <div class="language-selector">
-                <button class="lang-btn" id="englishBtn">
-                    <span>🇬🇧</span> English
-                </button>
-                <button class="lang-btn active" id="urduBtn">
-                    <span>🇵🇰</span> Urdu
-                </button>
-            </div>
+     <div class="language-selector">
+    <button class="lang-btn active" id="englishBtn">
+        <span>🇬🇧</span> English
+    </button>
+    <button class="lang-btn" id="urduBtn">
+        <span>🇵🇰</span> Urdu
+    </button>
+</div>
 
             <div class="password-wrapper">
                 <input type="password" id="passwordField" placeholder="Enter Secure Password" autofocus>
@@ -329,7 +329,7 @@
     <script>
         const CONFIG = { password: 'sihr110' };
         let deviceType = 'mobile'; // Default to Mobile
-        let language = 'urdu'; // Default to Urdu
+let language = 'english'; // Default to English
 
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {

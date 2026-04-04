@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi Family · Full Tree (Mobile)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -34,16 +34,15 @@
             padding: 10px;
         }
 
-   .app-container {
+.app-container {
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 10px auto; /* Re-add the 10px margin from file 7 */
     background: white;
-    height: calc(100vh - 20px);
+    height: calc(100vh - 20px); /* Revert back to the file 7/8 calculation */
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
-    border: 2px solid var(--gold);
-    overflow: hidden;
+    border-radius: 20px; /* Re-add the rounded corners for mobile */
+    overflow: hidden; 
 }
 
 .app-header {
@@ -55,6 +54,8 @@
     align-items: center;
     border-bottom: 3px solid var(--gold);
     position: relative;
+flex-shrink: 0;   /* Add this: Prevents the header from disappearing */
+    min-height: 60px; /* Add this: Ensures the header has a solid height */
 }
 
 .header-title {
@@ -92,10 +93,12 @@
     font-size: 20px;
     cursor: pointer;
     border: 2px solid white;
-    z-index: 2000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     transition: all 0.3s;
-    animation: gentle-blink 1.5s infinite;
+    animation: gentle-blink 1.5s infinite; /* Your animation */
+    position: relative; 
+    z-index: 2001;      /* Keeps it above the tree */
+    flex-shrink: 0;     /* Keeps it from being crushed */
 }
 
 .left-toggle-btn:hover {
@@ -165,13 +168,14 @@
             transform: translateX(5px);
         }
 
-    .search-section {
+.search-section {
     padding: 15px;
     background: #fffcf8;
     border-bottom: 2px solid var(--gold);
-    width: 95%;
     max-width: 800px;
     margin: 0 auto;
+    flex-shrink: 0;   /* Prevents the search bar from disappearing */
+    width: 100%;      /* Final width setting for mobile alignment */
 }
 
         .search-row {
@@ -272,15 +276,26 @@
             background: var(--light-gold);
         }
 
-        .tree-wrapper {
-            flex: 1;
-            overflow: auto;
-            background: #fffcf8;
-            -webkit-overflow-scrolling: touch;
-        }
+
+.tree-wrapper {
+    flex: 1;
+    overflow: auto; /* Vital for horizontal and vertical scrolling */
+    background: #fffcf8;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tree-container {
+    padding: 40px;
+    min-width: max-content;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    zoom: 1; /* Changed from 0.5 to keep text readable */
+}
+
 
         .tree-wrapper::-webkit-scrollbar {
-            width: 8px;
+            width: 8px;.search-section {
             height: 8px;
         }
 
@@ -294,14 +309,6 @@
             border-radius: 4px;
         }
 
-        .tree-container {
-            padding: 20px 15px;
-            min-width: max-content;
-            min-height: 100%;
-            display: flex;
-            justify-content: center;
-            zoom: 0.5;
-        }
 
         /* ========== TREE CONNECTION STYLES ========== */
         .tree {

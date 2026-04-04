@@ -54,8 +54,6 @@
     align-items: center;
     border-bottom: 3px solid var(--gold);
     position: relative;
-flex-shrink: 0;   /* Add this: Prevents the header from disappearing */
-    min-height: 60px; /* Add this: Ensures the header has a solid height */
 }
 
 .header-title {
@@ -93,12 +91,14 @@ flex-shrink: 0;   /* Add this: Prevents the header from disappearing */
     font-size: 20px;
     cursor: pointer;
     border: 2px solid white;
+    z-index: 2000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     transition: all 0.3s;
-    animation: gentle-blink 1.5s infinite; /* Your animation */
-    position: relative; 
-    z-index: 2001;      /* Keeps it above the tree */
-    flex-shrink: 0;     /* Keeps it from being crushed */
+    animation: gentle-blink 1.5s infinite;
+
+position: relative; /* Ensure it stays in the flow of the header */
+    z-index: 2001;
+    flex-shrink: 0;
 }
 
 .left-toggle-btn:hover {
@@ -168,14 +168,13 @@ flex-shrink: 0;   /* Add this: Prevents the header from disappearing */
             transform: translateX(5px);
         }
 
-.search-section {
+    .search-section {
     padding: 15px;
     background: #fffcf8;
     border-bottom: 2px solid var(--gold);
+    width: 95%;
     max-width: 800px;
     margin: 0 auto;
-    flex-shrink: 0;   /* Prevents the search bar from disappearing */
-    width: 100%;      /* Final width setting for mobile alignment */
 }
 
         .search-row {
@@ -285,17 +284,21 @@ flex-shrink: 0;   /* Add this: Prevents the header from disappearing */
 }
 
 .tree-container {
-    padding: 40px;
-    min-width: max-content;
+    padding: 20px 15px;
     min-height: 100%;
     display: flex;
     justify-content: center;
-    zoom: 1; /* Changed from 0.5 to keep text readable */
+    zoom: 0.5;
 }
 
 
+
+
+
+
+
         .tree-wrapper::-webkit-scrollbar {
-            width: 8px;.search-section {
+            width: 8px;
             height: 8px;
         }
 

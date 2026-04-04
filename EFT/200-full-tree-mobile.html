@@ -36,8 +36,7 @@
 
 .app-container {
     max-width: 1400px;
-    margin: 10px auto; /* Re-add the 10px margin from file 7 */
-    background: white;
+    margin: 0 auto;     background: white;
     height: calc(100vh - 20px); /* Revert back to the file 7/8 calculation */
     display: flex;
     flex-direction: column;
@@ -285,11 +284,13 @@ position: relative; /* Ensure it stays in the flow of the header */
 
 .tree-container {
     padding: 20px 15px;
+    min-width: max-content; /* Vital: This forces the canvas to expand to fit all data */
     min-height: 100%;
     display: flex;
     justify-content: center;
-    zoom: 0.5;
+    zoom: 0.5; /* Matches file 7 zoom for mobile readability */
 }
+
 
 
 

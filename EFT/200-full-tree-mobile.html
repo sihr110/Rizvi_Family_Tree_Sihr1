@@ -36,15 +36,13 @@
 
 .app-container {
     max-width: 1400px;
-    margin: 0 auto;
-    background: white;
-    height: calc(100vh - 20px);
+    margin: 0 auto;     background: white;
+    height: calc(100vh - 20px); /* Revert back to the file 7/8 calculation */
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
-    overflow: hidden;
+    border-radius: 20px; /* Re-add the rounded corners for mobile */
+    overflow: hidden; 
 }
-
 
 .app-header {
     background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
@@ -286,6 +284,7 @@ position: relative; /* Ensure it stays in the flow of the header */
 
 .tree-container {
     padding: 20px 15px;
+    min-width: max-content; /* Vital: This forces the canvas to expand to fit all data */
     min-height: 100%;
     display: flex;
     justify-content: center;
@@ -293,7 +292,13 @@ position: relative; /* Ensure it stays in the flow of the header */
 }
 
 
-       .tree-wrapper::-webkit-scrollbar {
+
+
+
+
+
+
+        .tree-wrapper::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
@@ -616,75 +621,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             }
         }
 
-
-/* FIX: Keep header visible on mobile while tree scrolls */
-
-
-
-
-/* Change from 768px to 1024px */
-@media screen and (max-width: 1024px) {
-    body {
-        padding: 0;
-        margin: 0;
-        background: #1a1a1a;
-    }
-    
-    .app-container {
-        margin: 0;
-        border-radius: 0;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .app-header {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-        width: 100%;
-        flex-shrink: 0;
-    }
-    
-    .search-section {
-        flex-shrink: 0;
-    }
-    
-    .tree-wrapper {
-        flex: 1;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .tree-container {
-        zoom: 0.5;
-        padding: 20px 10px;
-        display: block;
-    }
-    
-    /* Prevent boxes from wrapping - keep horizontal layout */
-    .root-level {
-        flex-wrap: nowrap !important;
-        justify-content: flex-start !important;
-        gap: 30px;
-    }
-    
-    .children-level {
-        flex-wrap: nowrap !important;
-        justify-content: flex-start !important;
-        gap: 50px;
-    }
-    
-    .footer {
-        flex-shrink: 0;
-    }
-}
-
-
-
-
         @media print {
             @page {
                 size: auto;
@@ -744,6 +680,34 @@ position: relative; /* Ensure it stays in the flow of the header */
                 min-width: 200px !important;
             }
         }
+
+
+/* Minimal fix - only make header visible on mobile */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 0;
+        overflow: auto;
+    }
+    
+    .app-container {
+        margin: 0;
+        border-radius: 0;
+        height: 100vh;
+    }
+    
+    .app-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .tree-wrapper {
+        overflow: auto;
+    }
+}
+
+
+
     </style>
 </head>
 <body>

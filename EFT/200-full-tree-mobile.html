@@ -2,17 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi Family · Full Tree (Mobile)</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="13-family-data.js"></script>
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
             --maroon: #5a0000;
             --dark-blue: #0f172a;
@@ -24,109 +21,91 @@
             --pink-border: #fb7185;
             --connector: #b8860b;
         }
-
-body {
+        body {
             font-family: 'Inter', sans-serif;
-            background: #fffcf8; /* Changed from #1a1a1a to white */
+            background: #fffcf8;
             height: auto;
             overflow: visible;
             margin: 0;
             padding: 10px;
         }
-.app-container {
-    max-width: 1400px;
-    margin: 0 auto;     
-background: white;
-    min-height: 100vh;      
-display: block;    
-border-radius: 20px; 
-}
-
-.app-header {
-    background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-    color: var(--gold);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid var(--gold);
-    
-    position: sticky;
-    top: 0;
-    z-index: 2000;
-}
-
-.header-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.header-icon {
-    background: var(--gold);
-    color: var(--dark-blue);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.left-toggle-btn {
-    background: var(--gold);
-    color: var(--dark-blue);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    cursor: pointer;
-    border: 2px solid white;
-    z-index: 2000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s;
-    animation: gentle-blink 1.5s infinite;
-
-position: relative; /* Ensure it stays in the flow of the header */
-    z-index: 2001;
-    flex-shrink: 0;
-}
-
-.left-toggle-btn:hover {
-    background: var(--light-gold);
-    transform: scale(1.1);
-}
-
-@keyframes gentle-blink {
-    0% { opacity: 1; background: var(--gold); }
-    50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
-    100% { opacity: 1; background: var(--gold); }
-}
-
-
-
-
-
-.left-toggle-btn:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-
-
-.left-toggle-btn.active {
-    background: var(--green);
-    color: white;
-}
-
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            display: block;
+            border-radius: 20px;
+        }
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+        }
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .left-toggle-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            animation: gentle-blink 1.5s infinite;
+            position: relative;
+            z-index: 2001;
+            flex-shrink: 0;
+        }
+        .left-toggle-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
+        @keyframes gentle-blink {
+            0% { opacity: 1; background: var(--gold); }
+            50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
+            100% { opacity: 1; background: var(--gold); }
+        }
+        .left-toggle-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        .left-toggle-btn.active {
+            background: var(--green);
+            color: white;
+        }
         .toggle-menu-panel {
             position: absolute;
             left: 10px;
@@ -142,11 +121,9 @@ position: relative; /* Ensure it stays in the flow of the header */
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             min-width: 200px;
         }
-
         .toggle-menu-panel.show {
             display: flex;
         }
-
         .toggle-menu-item {
             padding: 10px 15px;
             border-radius: 8px;
@@ -162,43 +139,36 @@ position: relative; /* Ensure it stays in the flow of the header */
             gap: 10px;
             transition: all 0.2s;
         }
-
         .toggle-menu-item:hover {
             background: #faebcd;
             transform: translateX(5px);
         }
-
-.search-section {
-    padding: 15px;
-    background: #fffcf8;
-    border-bottom: 2px solid var(--gold);
-    width: 100%;
-    
-    position: sticky;
-    top: 60px; 
-    z-index: 1999;
-}
-
+        .search-section {
+            padding: 15px;
+            background: #fffcf8;
+            border-bottom: 2px solid var(--gold);
+            width: 100%;
+            position: sticky;
+            top: 60px;
+            z-index: 1999;
+        }
         .search-row {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: nowrap;
         }
-
         .search-label {
             font-weight: 700;
             color: var(--maroon);
             font-size: 12px;
             white-space: nowrap;
         }
-
         .search-wrapper {
             position: relative;
             flex: 1;
             min-width: 0;
         }
-
         .search-input {
             width: 100%;
             padding: 10px 12px;
@@ -208,59 +178,50 @@ position: relative; /* Ensure it stays in the flow of the header */
             outline: none;
             background: white;
         }
-
         .reset-btn-header {
             flex-shrink: 0;
         }
-
         .search-input:focus {
             border-color: var(--gold);
         }
-
- .search-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 2px solid var(--gold);
-    border-radius: 0 0 12px 12px;
-    max-height: 250px;
-    overflow-y: auto;
-    display: none;
-    z-index: 3000; /* Increased to stay on top */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 0 0 12px 12px;
+            max-height: 250px;
+            overflow-y: auto;
+            display: none;
+            z-index: 3000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
         .result-item {
             padding: 10px 15px;
             cursor: pointer;
             border-bottom: 1px solid #eee;
             transition: background 0.2s;
         }
-
         .result-item:hover {
             background: #faebcd;
         }
-
         .result-item .main-name {
             font-weight: 700;
             color: var(--dark-blue);
             font-size: 14px;
         }
-
         .result-item .gen {
             color: var(--maroon);
             font-size: 11px;
             margin-left: 8px;
         }
-
         .result-item .father-name {
             font-size: 11px;
             color: #666;
             margin-top: 2px;
         }
-
         .reset-btn-header {
             padding: 8px 16px;
             background: var(--gold);
@@ -272,60 +233,42 @@ position: relative; /* Ensure it stays in the flow of the header */
             white-space: nowrap;
             font-size: 13px;
         }
-
         .reset-btn-header:hover {
             background: var(--light-gold);
         }
-
-
-.tree-wrapper {
-    overflow-x: auto;
-    overflow-y: auto;
-    background: #fffcf8;
-    height: calc(100vh - 130px);
-    min-height: 500px;
-}
-
-.tree-container {
-    padding: 20px 15px;
-    min-width: max-content; /* Vital: This forces the canvas to expand to fit all data */
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    zoom: 0.5; /* Matches file 7 zoom for mobile readability */
-}
-
-
-
-
-
-
-
-
+        .tree-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            background: #fffcf8;
+            height: calc(100vh - 130px);
+            min-height: 500px;
+        }
+        .tree-container {
+            padding: 20px 15px;
+            min-width: max-content;
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            zoom: 0.5;
+        }
         .tree-wrapper::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-
         .tree-wrapper::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 4px;
         }
-
         .tree-wrapper::-webkit-scrollbar-thumb {
             background: var(--gold);
             border-radius: 4px;
         }
-
-
-        /* ========== TREE CONNECTION STYLES ========== */
         .tree {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
         }
-
         .root-level {
             display: flex;
             justify-content: center;
@@ -333,14 +276,12 @@ position: relative; /* Ensure it stays in the flow of the header */
             flex-wrap: wrap;
             gap: 30px;
         }
-
         .parent-down-line {
             width: 2px;
             height: 25px;
             background: #b8860b;
             margin: 0 auto;
         }
-
         .children-level {
             display: flex;
             justify-content: center;
@@ -350,21 +291,18 @@ position: relative; /* Ensure it stays in the flow of the header */
             margin-top: 0;
             padding-top: 0;
         }
-
         .child-node {
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
         }
-
         .child-vertical-line {
             width: 2px;
             height: 20px;
             background: #b8860b;
             margin: 0 auto;
         }
-
         .sibling-bar {
             display: flex;
             justify-content: center;
@@ -372,14 +310,11 @@ position: relative; /* Ensure it stays in the flow of the header */
             padding: 0;
             width: 100%;
         }
-
         .sibling-bar-line {
             height: 2px;
             background: #b8860b;
             width: 100%;
         }
-
-        /* ========== BOX STYLES ========== */
         .tree-box {
             border: 2px solid var(--gold);
             border-radius: 12px;
@@ -393,29 +328,24 @@ position: relative; /* Ensure it stays in the flow of the header */
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             transition: all 0.2s;
         }
-
         .tree-box:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
-
         .tree-box.female {
             background: var(--light-pink);
             border-color: var(--pink-border);
         }
-
         .tree-box.selected {
             animation: gentleBeat 2.2s infinite;
             border-width: 4px;
             z-index: 10;
         }
-
         @keyframes gentleBeat {
             0% { border-color: #2e7d32; background: #ffffff; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
             50% { border-color: #4caf50; background: #c8e6c9; transform: scale(1.05); box-shadow: 0 0 25px rgba(76,175,80,0.6); }
             100% { border-color: #2e7d32; background: #ffffff; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
         }
-
         .box-header {
             display: flex;
             justify-content: space-between;
@@ -425,34 +355,28 @@ position: relative; /* Ensure it stays in the flow of the header */
             border-bottom: 2px solid var(--gold);
             border-radius: 10px 10px 0 0;
         }
-
         .tree-box.female .box-header {
             background: #ffe0e6;
         }
-
         .tree-box.selected .box-header {
             background: white !important;
         }
-
         .box-body {
             padding: 12px;
             min-height: 110px;
         }
-
         .member-name {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 15px;
             color: var(--dark-blue);
         }
-
         .info-text {
             font-size: 12px;
             margin-top: 6px;
             color: #333;
             line-height: 1.4;
         }
-
         .info-text .label {
             font-weight: 700;
             color: var(--maroon);
@@ -460,7 +384,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             min-width: 55px;
             font-size: 12px;
         }
-
         .gen-badge {
             background: #e0e0e0;
             padding: 2px 8px;
@@ -469,26 +392,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             font-weight: 600;
             color: var(--maroon);
         }
-
-        .info-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .info-icon:hover {
-            background: var(--light-gold);
-            transform: scale(1.1);
-        }
-
         .footer {
             background: var(--dark-blue);
             color: var(--gold);
@@ -498,7 +401,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             border-top: 2px solid var(--gold);
             flex-shrink: 0;
         }
-
         .save-options-modal {
             position: fixed;
             top: 50%;
@@ -512,7 +414,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             min-width: 300px;
             display: none;
         }
-
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -523,7 +424,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             z-index: 3999;
             display: none;
         }
-
         .loading-msg {
             position: fixed;
             top: 50%;
@@ -538,7 +438,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             display: none;
             white-space: nowrap;
         }
-
         .info-modal-overlay {
             position: fixed;
             top: 0;
@@ -549,7 +448,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             z-index: 9999;
             display: none;
         }
-
         .info-modal {
             position: fixed;
             top: 50%;
@@ -566,7 +464,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             font-family: 'Inter', sans-serif;
         }
-
         .info-modal h3 {
             color: var(--maroon);
             font-family: 'Playfair Display', serif;
@@ -575,7 +472,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             padding: 0 0 8px 0;
             border-bottom: 2px solid var(--gold);
         }
-
         .info-modal p {
             font-family: 'Inter', sans-serif;
             font-size: 13px;
@@ -587,7 +483,6 @@ position: relative; /* Ensure it stays in the flow of the header */
             max-height: 250px;
             overflow-y: auto;
         }
-
         .info-modal button {
             margin-top: 20px;
             padding: 8px 20px;
@@ -600,556 +495,411 @@ position: relative; /* Ensure it stays in the flow of the header */
             width: 100%;
             transition: all 0.2s;
         }
-
         .info-modal button:hover {
             background: var(--light-gold);
         }
-
         @media screen and (max-width: 480px) {
-            .app-header {
-                padding: 8px 10px;
-            }
-            .header-title {
-                font-size: 15px;
-            }
-            .tree-box {
-                width: 260px;
-                min-width: 240px;
-            }
-            .reset-btn-header {
-                padding: 6px 12px;
-                font-size: 11px;
-            }
-            .search-label {
-                font-size: 10px;
-            }
+            .app-header { padding: 8px 10px; }
+            .header-title { font-size: 15px; }
+            .tree-box { width: 260px; min-width: 240px; }
+            .reset-btn-header { padding: 6px 12px; font-size: 11px; }
+            .search-label { font-size: 10px; }
         }
-
         @media print {
-            @page {
-                size: auto;
-                margin: 5mm;
-            }
-            
-            .app-header, .footer, .save-options-modal, .modal-overlay, .loading-msg, .reset-btn-header, .left-toggle-btn, .toggle-menu-panel, .search-section {
-                display: none !important;
-            }
-            body {
-    height: auto !important;
-    overflow: visible !important;
-    margin: 0;
-    padding: 0;
-}
-
-.app-container {
-    height: auto !important;
-    display: block !important; /* Removes the flex-box restriction */
-    min-height: 100vh;
-}
-            .tree-wrapper {
-                overflow: visible !important;
-                height: auto !important;
-                display: block;
-                max-width: 100%;
-            }
-            .tree-container {
-                zoom: 1 !important;
-                padding: 10px !important;
-                margin: 0 !important;
-                display: block;
-                width: 100%;
-                min-width: auto;
-                max-width: none;
-            }
-            .tree {
-                width: 100%;
-                max-width: none;
-            }
-            .root-level {
-                flex-wrap: nowrap !important;
-                justify-content: flex-start !important;
-                gap: 20px !important;
-            }
-            .children-level {
-                flex-wrap: nowrap !important;
-                gap: 20px !important;
-            }
-            .tree-box {
-                break-inside: avoid;
-                page-break-inside: avoid;
-                width: 250px !important;
-                min-width: 200px !important;
-            }
+            .app-header, .footer, .save-options-modal, .modal-overlay, .loading-msg, .reset-btn-header, .left-toggle-btn, .toggle-menu-panel, .search-section { display: none !important; }
+            body { height: auto !important; overflow: visible !important; margin: 0; padding: 0; }
+            .app-container { height: auto !important; display: block !important; min-height: 100vh; }
+            .tree-wrapper { overflow: visible !important; height: auto !important; display: block; max-width: 100%; }
+            .tree-container { zoom: 1 !important; padding: 10px !important; margin: 0 !important; display: block; width: 100%; min-width: auto; max-width: none; }
+            .tree { width: 100%; max-width: none; }
+            .root-level { flex-wrap: nowrap !important; justify-content: flex-start !important; gap: 20px !important; }
+            .children-level { flex-wrap: nowrap !important; gap: 20px !important; }
+            .tree-box { break-inside: avoid; page-break-inside: avoid; width: 250px !important; min-width: 200px !important; }
         }
-
-
-@media screen and (max-width: 768px) {
-    body {
-        height: auto !important;
-        overflow: visible !important;
-    }
-    
-    .app-container {
-        margin: 0;
-        border-radius: 0;
-        height: auto !important;
-        display: block !important;
-        overflow: visible !important;
-    }
-    
-    .app-header {
-        position: sticky;
-        top: 0;
-        z-index: 2000;
-        background: #0f172a;
-    }
-    
-    .search-section {
-        position: sticky;
-        top: 60px; 
-        z-index: 1999;
-        background: #fffcf8;
-    }
-}
-
-
-
+        @media screen and (max-width: 768px) {
+            body { height: auto !important; overflow: visible !important; }
+            .app-container { margin: 0; border-radius: 0; height: auto !important; display: block !important; overflow: visible !important; }
+            .app-header { position: sticky; top: 0; z-index: 2000; background: #0f172a; }
+            .search-section { position: sticky; top: 60px; z-index: 1999; background: #fffcf8; }
+        }
     </style>
 </head>
 <body>
-
-
 <div class="app-container">
-  <div class="app-header">
-    <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
-    <div class="header-title">
-        <span class="header-icon">🌳</span>
-        <span>Rizvi Family · Full Tree</span>
+    <div class="app-header">
+        <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
+        <div class="header-title">
+            <span class="header-icon">🌳</span>
+            <span>Rizvi Family · Full Tree</span>
+        </div>
+    </div>
+    <div class="toggle-menu-panel" id="toggleMenuPanel">
+        <div class="toggle-menu-item" onclick="goToDashboard()">🏠 Dashboard</div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="toggle-menu-item" onclick="showSaveModal()">💾 Save Tree</div>
+    </div>
+    <div class="search-section">
+        <div class="search-row">
+            <span class="search-label">SEARCH</span>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Type member name..." autocomplete="off">
+                <div id="searchDropdown" class="search-dropdown"></div>
+            </div>
+            <div class="reset-btn-header" id="resetRootBtn">Reset</div>
+        </div>
+    </div>
+    <div class="tree-wrapper" id="treeWrapper">
+        <div class="tree-container" id="treeContainer">
+            <div id="treeRoot">Loading family tree...</div>
+        </div>
+    </div>
+    <div class="footer">
+        Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
     </div>
 </div>
-
-        <div class="toggle-menu-panel" id="toggleMenuPanel">
-            <div class="toggle-menu-item" onclick="goToDashboard()">🏠 Dashboard</div>
-            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="showSaveModal()">💾 Save Tree</div>
-                    </div>
-
-        <div class="search-section">
-            <div class="search-row">
-                <span class="search-label">SEARCH</span>
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Type member name..." autocomplete="off">
-                    <div id="searchDropdown" class="search-dropdown"></div>
-                </div>
-                <div class="reset-btn-header" id="resetRootBtn">Reset</div>
-            </div>
-        </div>
-
-        <div class="tree-wrapper" id="treeWrapper">
-            <div class="tree-container" id="treeContainer">
-                <div id="treeRoot">Loading family tree...</div>
-            </div>
-        </div>
-
-        <div class="footer">
-            Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
-        </div>
+<div class="save-options-modal" id="saveModal">
+    <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
+    <div style="margin-bottom:20px;">
+        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+            <input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - High Resolution
+        </label>
+        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+            <input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - Low Resolution
+        </label>
+        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+            <input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG Image
+        </label>
     </div>
-
-    <div class="save-options-modal" id="saveModal">
-        <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
-        <div style="margin-bottom:20px;">
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - High Resolution
-            </label>
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - Low Resolution
-            </label>
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG Image
-            </label>
-        </div>
-        <div style="display:flex; gap:10px;">
-            <button onclick="processSave()" style="flex:2; padding:12px; background:#2e7d32; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Save</button>
-            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
-        </div>
+    <div style="display:flex; gap:10px;">
+        <button onclick="processSave()" style="flex:2; padding:12px; background:#2e7d32; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Save</button>
+        <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
     </div>
-    <div class="modal-overlay" id="modalOverlay" onclick="closeSaveModal()"></div>
-    <div class="loading-msg" id="loadingMsg">📄 Generating file, please wait...</div>
+</div>
+<div class="modal-overlay" id="modalOverlay" onclick="closeSaveModal()"></div>
+<div class="loading-msg" id="loadingMsg">📄 Generating file, please wait...</div>
+<div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+<div class="info-modal" id="infoModal">
+    <h3>ℹ️ Other Informations</h3>
+    <p id="infoModalText"></p>
+    <button onclick="closeInfoModal()">Close</button>
+</div>
+<script>
+    let familyDB = [];
+    let currentSelectedBox = null;
+    let memberElements = new Map();
 
-    <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
-    <div class="info-modal" id="infoModal">
-        <h3>ℹ️ Other Informations</h3>
-        <p id="infoModalText"></p>
-        <button onclick="closeInfoModal()">Close</button>
-    </div>
+    function displayName(str) {
+        if (!str) return '';
+        return str.replace(/[\s-\.۔]*\d+$/, '').trim();
+    }
 
-    <script>
-        let familyDB = [];
-        let currentSelectedBox = null;
-        let memberElements = new Map();
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+    }
 
-        function displayName(str) {
-            if (!str) return '';
-            return str.replace(/[\s-\.۔]*\d+$/, '').trim();
-        }
+    function showInfoModal(memberName) {
+        const member = familyDB.find(m => m.name === memberName);
+        if (!member) return;
+        const detailsText = member.details && member.details.trim() !== '' && member.details !== '—' 
+            ? member.details : 'No additional information available.';
+        document.getElementById('infoModalText').innerHTML = escapeHtml(detailsText);
+        document.getElementById('infoModal').style.display = 'block';
+        document.getElementById('infoModalOverlay').style.display = 'block';
+    }
 
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
-        }
+    function closeInfoModal() {
+        document.getElementById('infoModal').style.display = 'none';
+        document.getElementById('infoModalOverlay').style.display = 'none';
+    }
 
-        function showInfoModal(memberName) {
-            const member = familyDB.find(m => m.name === memberName);
-            if (!member) return;
-            const detailsText = member.details && member.details.trim() !== '' && member.details !== '—' 
-                ? member.details : 'No additional information available.';
-            
-            document.getElementById('infoModalText').innerHTML = escapeHtml(detailsText);
-            document.getElementById('infoModal').style.display = 'block';
-            document.getElementById('infoModalOverlay').style.display = 'block';
-        }
+    function extractGenNumber(genStr) {
+        if (!genStr) return 999;
+        const match = genStr.match(/\d+/);
+        return match ? parseInt(match[0]) : 999;
+    }
 
-        function closeInfoModal() {
-            document.getElementById('infoModal').style.display = 'none';
-            document.getElementById('infoModalOverlay').style.display = 'none';
-        }
-
-        function extractGenNumber(genStr) {
-            if (!genStr) return 999;
-            const match = genStr.match(/\d+/);
-            return match ? parseInt(match[0]) : 999;
-        }
-
-        function buildTreeStructure() {
-            const childrenMap = new Map();
-            const allNames = new Set();
-            familyDB.forEach(m => allNames.add(m.name));
-            
-            familyDB.forEach(m => {
-                if (m.father && m.father !== '---' && m.father !== '' && m.father !== '—') {
-                    if (allNames.has(m.father)) {
-                        if (!childrenMap.has(m.father)) childrenMap.set(m.father, []);
-                        childrenMap.get(m.father).push(m);
-                    }
+    function buildTreeStructure() {
+        const childrenMap = new Map();
+        const allNames = new Set();
+        familyDB.forEach(m => allNames.add(m.name));
+        familyDB.forEach(m => {
+            if (m.father && m.father !== '---' && m.father !== '' && m.father !== '—') {
+                if (allNames.has(m.father)) {
+                    if (!childrenMap.has(m.father)) childrenMap.set(m.father, []);
+                    childrenMap.get(m.father).push(m);
                 }
-            });
-            
-            for (let [father, children] of childrenMap) {
-                children.sort((a, b) => {
-                    const genA = a.gen || '';
-                    const genB = b.gen || '';
-                    const matchA = genA.match(/([SD])(\d+)/);
-                    const matchB = genB.match(/([SD])(\d+)/);
-                    
-                    if (matchA && matchB) {
-                        const typeA = matchA[1];
-                        const typeB = matchB[1];
-                        const numA = parseInt(matchA[2], 10);
-                        const numB = parseInt(matchB[2], 10);
-                        if (typeA !== typeB) return typeA === 'S' ? -1 : 1;
-                        return numA - numB;
-                    }
-                    const genNumA = extractGenNumber(a.gen);
-                    const genNumB = extractGenNumber(b.gen);
-                    if (genNumA !== genNumB) return genNumA - genNumB;
-                    return a.name.localeCompare(b.name);
-                });
             }
-            
-            const roots = familyDB.filter(m => {
-                if (!m.father || m.father === '---' || m.father === '' || m.father === '—') return true;
-                return !allNames.has(m.father);
+        });
+        for (let [father, children] of childrenMap) {
+            children.sort((a, b) => {
+                const genA = a.gen || '';
+                const genB = b.gen || '';
+                const matchA = genA.match(/([SD])(\d+)/);
+                const matchB = genB.match(/([SD])(\d+)/);
+                if (matchA && matchB) {
+                    const typeA = matchA[1];
+                    const typeB = matchB[1];
+                    const numA = parseInt(matchA[2], 10);
+                    const numB = parseInt(matchB[2], 10);
+                    if (typeA !== typeB) return typeA === 'S' ? -1 : 1;
+                    return numA - numB;
+                }
+                const genNumA = extractGenNumber(a.gen);
+                const genNumB = extractGenNumber(b.gen);
+                if (genNumA !== genNumB) return genNumA - genNumB;
+                return a.name.localeCompare(b.name);
             });
-            
-            return { roots, childrenMap };
         }
+        const roots = familyDB.filter(m => {
+            if (!m.father || m.father === '---' || m.father === '' || m.father === '—') return true;
+            return !allNames.has(m.father);
+        });
+        return { roots, childrenMap };
+    }
 
-        function renderTreeNode(parent, childrenMap, isRoot = false) {
-            const children = childrenMap.get(parent.name) || [];
-            if (children.length === 0) {
-                return `<div class="child-node">${!isRoot ? '<div class="child-vertical-line"></div>' : ''}${renderBox(parent)}</div>`;
-            }
-            let childrenHtml = '';
-            for (const child of children) childrenHtml += renderTreeNode(child, childrenMap, false);
-            return `<div class="child-node">${!isRoot ? '<div class="child-vertical-line"></div>' : ''}${renderBox(parent)}<div class="parent-down-line"></div><div class="sibling-bar"><div class="sibling-bar-line"></div></div><div class="children-level">${childrenHtml}</div></div>`;
+    function renderTreeNode(parent, childrenMap, isRoot = false) {
+        const children = childrenMap.get(parent.name) || [];
+        if (children.length === 0) {
+            return `<div class="child-node">${!isRoot ? '<div class="child-vertical-line"></div>' : ''}${renderBox(parent)}</div>`;
         }
+        let childrenHtml = '';
+        for (const child of children) childrenHtml += renderTreeNode(child, childrenMap, false);
+        return `<div class="child-node">${!isRoot ? '<div class="child-vertical-line"></div>' : ''}${renderBox(parent)}<div class="parent-down-line"></div><div class="sibling-bar"><div class="sibling-bar-line"></div></div><div class="children-level">${childrenHtml}</div></div>`;
+    }
 
-        function renderBox(member) {
-            const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
-            const father = member.father && member.father !== '---' && member.father !== '—' ? member.father : '—';
-            const mother = member.mother && member.mother !== '---' && member.mother !== '—' ? member.mother : '—';
-            const spouse = member.spouse && member.spouse !== '---' && member.spouse !== '—' ? member.spouse : '—';
-            const hasDetails = member.details && member.details.trim() !== '' && member.details !== '—';
-            const safeName = member.name.replace(/'/g, "\\'");
-            const femaleClass = isFemale ? 'female' : '';
-            
-            return `
-                <div class="tree-box ${femaleClass}" data-name="${member.name}">
-                    <div class="box-header">
-                        <span class="member-name">${isFemale ? '👩' : '👨'} ${displayName(member.name)}</span>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <span class="gen-badge">${member.gen || '—'}</span>
-                            ${hasDetails ? `<div class="info-icon" onclick="event.stopPropagation(); showInfoModal('${safeName}')">ℹ️</div>` : ''}
-                        </div>
+    function renderBox(member) {
+        const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
+        const father = member.father && member.father !== '---' && member.father !== '—' ? member.father : '—';
+        const mother = member.mother && member.mother !== '---' && member.mother !== '—' ? member.mother : '—';
+        const spouse = member.spouse && member.spouse !== '---' && member.spouse !== '—' ? member.spouse : '—';
+        const femaleClass = isFemale ? 'female' : '';
+        const leftText = currentSelectedBox && currentSelectedBox.getAttribute('data-name') === member.name ? 'Selected' : 'Rizvi Family';
+        return `
+            <div class="tree-box ${femaleClass}" data-name="${member.name}">
+                <div class="box-body" style="padding: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; color: var(--maroon);">${leftText}</span>
+                        <span style="background: #e0e0e0; padding: 2px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">${member.gen || '—'}</span>
                     </div>
-                    <div class="box-body">
-                        <div class="info-text"><span class="label">📌 Father:</span> ${displayName(father)}</div>
-                        <div class="info-text"><span class="label">👩 Mother:</span> ${displayName(mother)}</div>
-                        <div class="info-text"><span class="label">💍 Spouse:</span> ${displayName(spouse)}</div>
-                    </div>
+                    <div style="border-bottom: 2px solid var(--gold); margin: 10px 0 12px 0;"></div>
+                    <div><span style="font-weight: 700;">Name:</span> ${displayName(member.name)}</div>
+                    <div><span style="font-weight: 700;">Father:</span> ${displayName(father)}</div>
+                    <div><span style="font-weight: 700;">Mother:</span> ${displayName(mother)}</div>
+                    <div><span style="font-weight: 700;">Spouse:</span> ${displayName(spouse)}</div>
                 </div>
-            `;
-        }
-
-       
-
-
-function renderFullTree() {
-    // Show welcome message instead of blank canvas
-    document.getElementById('treeRoot').innerHTML = `
-        <div style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
-            <div style="font-size: 64px; margin-bottom: 20px;">🌳</div>
-            <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to Rizvi Family Tree</h2>
-            <p style="color: #555; margin-bottom: 25px; line-height: 1.6;">Enter a family member's name in the search box above to explore the complete family tree.</p>
-            <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block;">
-                <span style="font-size: 18px;">🔍</span> <strong>Type any name</strong> — then select from dropdown
             </div>
-        </div>
-    `;
-    memberElements.clear();
+        `;
+    }
+
+    function renderFullTree() {
+        document.getElementById('treeRoot').innerHTML = `
+            <div style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
+                <div style="font-size: 64px; margin-bottom: 20px;">🌳</div>
+                <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to Rizvi Family Tree</h2>
+                <p style="color: #555; margin-bottom: 25px; line-height: 1.6;">Enter a family member's name in the search box above to explore the complete family tree.</p>
+                <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block;">
+                    <span style="font-size: 18px;">🔍</span> <strong>Type any name</strong> — then select from dropdown
+                </div>
+            </div>
+        `;
+        memberElements.clear();
+        if (currentSelectedBox) {
+            currentSelectedBox.classList.remove('selected');
+            currentSelectedBox = null;
+        }
+    }
+
+    function setupSearch() {
+        const input = document.getElementById('searchInput');
+        const dropdown = document.getElementById('searchDropdown');
+        input.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            if (query.length < 2) { 
+                dropdown.style.display = 'none'; 
+                return; 
+            }
+            const results = familyDB.filter(m => 
+                m.name.toLowerCase().includes(query) || 
+                (m.father && m.father.toLowerCase().includes(query))
+            ).slice(0, 15);
+            if (results.length === 0) { 
+                dropdown.style.display = 'none'; 
+                return; 
+            }
+            dropdown.innerHTML = '';
+            results.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `
+                    <div class="main-name">${displayName(m.name)} <span class="gen">${m.gen || ''}</span></div>
+                    <div class="father-name">👨 Father: ${displayName(m.father) || 'Unknown'}</div>
+                `;
+                div.onclick = () => { 
+                    dropdown.style.display = 'none'; 
+                    input.value = displayName(m.name); 
+                    input.blur(); 
+                    drawFullTreeOnDemand(); 
+                    setTimeout(() => {
+                        jumpToMember(m.name);
+                    }, 100);
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block'; 
+        });
+        document.addEventListener('click', (e) => {
+            if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display = 'none';
+        });
+    }
+
+    function drawFullTreeOnDemand() {
+        const { roots, childrenMap } = buildTreeStructure();
+        let html = '';
+        roots.forEach(root => {
+            html += `<div class="root-node">${renderTreeNode(root, childrenMap, true)}</div>`;
+        });
+        const container = document.getElementById('treeRoot');
+        container.innerHTML = html;
+        memberElements.clear();
+        container.querySelectorAll('.tree-box').forEach(box => {
+            const name = box.getAttribute('data-name');
+            memberElements.set(name, box);
+            box.onclick = () => selectBox(box);
+        });
+    }
+
+    function resetToRoot() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchDropdown').style.display = 'none';
+        renderFullTree();
+        if (currentSelectedBox) {
+            currentSelectedBox.classList.remove('selected');
+            currentSelectedBox = null;
+        }
+        document.getElementById('treeWrapper').scrollTop = 0;
+    }
+function selectBox(box) {
     if (currentSelectedBox) {
         currentSelectedBox.classList.remove('selected');
-        currentSelectedBox = null;
     }
+    box.classList.add('selected');
+    currentSelectedBox = box;
+    drawFullTreeOnDemand();
 }
 
-
-
-function setupSearch() {
-            const input = document.getElementById('searchInput');
-            const dropdown = document.getElementById('searchDropdown');
-            
-            input.addEventListener('input', function() {
-                const query = this.value.trim().toLowerCase();
-                if (query.length < 2) { 
-                    dropdown.style.display = 'none'; 
-                    return; 
-                }
-
-                // Filter through your database
-                const results = familyDB.filter(m => 
-                    m.name.toLowerCase().includes(query) || 
-                    (m.father && m.father.toLowerCase().includes(query))
-                ).slice(0, 15);
-
-                if (results.length === 0) { 
-                    dropdown.style.display = 'none'; 
-                    return; 
-                }
-
-                dropdown.innerHTML = '';
-                results.forEach(m => {
-                    const div = document.createElement('div');
-                    div.className = 'result-item';
-                    div.innerHTML = `
-                        <div class="main-name">${displayName(m.name)} <span class="gen">${m.gen || ''}</span></div>
-                        <div class="father-name">👨 Father: ${displayName(m.father) || 'Unknown'}</div>
-                    `;
-                    div.onclick = () => { 
-                        dropdown.style.display = 'none'; 
-                        input.value = displayName(m.name); 
-                        input.blur(); 
-                        
-                        // 1. FILL THE BLANK CANVAS
-                        // We draw all records now so the search target actually exists in the HTML
-                        drawFullTreeOnDemand(); 
-                        
-                        // 2. JUMP & BLINK
-                        // We wait 100ms for the browser to finish drawing the boxes
-                        setTimeout(() => {
-                            jumpToMember(m.name);
-                        }, 100);
-                    };
-                    dropdown.appendChild(div);
-                });
-
-                dropdown.style.display = 'block'; 
-            });
-
-            // Close dropdown if clicking elsewhere
-            document.addEventListener('click', (e) => {
-                if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display = 'none';
-            });
+    function jumpToMember(name) {
+        const element = memberElements.get(name);
+        if (!element) { alert(`⚠️ Member "${displayName(name)}" not visible.`); return; }
+        if (currentSelectedBox) {
+            currentSelectedBox.classList.remove('selected');
         }
-
-        // Helper function that builds the tree and maps the boxes
-        function drawFullTreeOnDemand() {
-            const { roots, childrenMap } = buildTreeStructure();
-            let html = '';
-            roots.forEach(root => {
-                html += `<div class="root-node">${renderTreeNode(root, childrenMap, true)}</div>`;
-            });
-            const container = document.getElementById('treeRoot');
-            container.innerHTML = html;
-
-            // Map the boxes so the Jump function can find them
-            memberElements.clear();
-            container.querySelectorAll('.tree-box').forEach(box => {
-                const name = box.getAttribute('data-name');
-                memberElements.set(name, box);
-                box.onclick = () => selectBox(box);
-            });
-        }
-
-
-function resetToRoot() {
-    // Clear search input
-    document.getElementById('searchInput').value = '';
-    // Hide dropdown
-    document.getElementById('searchDropdown').style.display = 'none';
-    // Show welcome message
-    renderFullTree();
-    // Clear any selected box
-    if (currentSelectedBox) {
-        currentSelectedBox.classList.remove('selected');
-        currentSelectedBox = null;
+        element.classList.add('selected');
+        currentSelectedBox = element;
+        element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
     }
-    // Scroll to top
-    document.getElementById('treeWrapper').scrollTop = 0;
-}
 
-
-        
-        function selectBox(box) {
-            if (currentSelectedBox) {
-                currentSelectedBox.classList.remove('selected');
-            }
-            box.classList.add('selected');
-            currentSelectedBox = box;
-        }
-        
-        
-
-        function jumpToMember(name) {
-            const element = memberElements.get(name);
-            if (!element) { alert(`⚠️ Member "${displayName(name)}" not visible.`); return; }
-            if (currentSelectedBox) {
-                currentSelectedBox.classList.remove('selected');
-            }
-            element.classList.add('selected');
-            currentSelectedBox = element;
-            element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-        }
-
-        function showSaveModal() { 
-            document.getElementById('saveModal').style.display = 'block'; 
-            document.getElementById('modalOverlay').style.display = 'block'; 
-        }
-        
-        function closeSaveModal() { 
-            document.getElementById('saveModal').style.display = 'none'; 
-            document.getElementById('modalOverlay').style.display = 'none'; 
-        }
-        
-        function showLoading(text) { 
-            const msg = document.getElementById('loadingMsg'); 
-            msg.textContent = text; 
-            msg.style.display = 'block'; 
-        }
-        
-        function hideLoading() { 
-            document.getElementById('loadingMsg').style.display = 'none'; 
-        }
-        
-        async function processSave() {
-            const selectedFormat = document.querySelector('input[name="saveFormat"]:checked').value;
-            closeSaveModal();
-            showLoading('Optimizing tree for export...');
-
-            const treeContainer = document.getElementById('treeContainer');
-            const originalZoom = treeContainer.style.zoom;
-            treeContainer.style.zoom = '1';
-
-            try {
-                await new Promise(r => setTimeout(r, 500));
-
-                const canvas = await html2canvas(treeContainer, {
-                    useCORS: true,
-                    scale: 2,
-                    backgroundColor: '#fffcf8',
-                    width: treeContainer.scrollWidth,
-                    height: treeContainer.scrollHeight,
-                    logging: false
-                });
-
-                const imgData = canvas.toDataURL('image/jpeg', 0.85);
-
-                if (selectedFormat === 'jpeg') {
-                    const link = document.createElement('a');
-                    link.download = `Rizvi-Family-Tree.jpg`;
-                    link.href = imgData;
-                    link.click();
-                } else {
-                    const { jsPDF } = window.jspdf;
-                    const pdf = new jsPDF(canvas.width > canvas.height ? 'l' : 'p', 'px', [canvas.width, canvas.height]);
-                    pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
-                    pdf.save(`Rizvi-Family-Tree.pdf`);
-                }
-            } catch (error) {
-                console.error("Export Error:", error);
-                alert("Export failed. Please try using Ctrl+P and select 'Save as PDF'.");
-            } finally {
-                treeContainer.style.zoom = originalZoom;
-                hideLoading();
-            }
-        }
-
-        function goToDashboard() { 
-            window.location.href = '6-dashboard-mobile.html'; 
-        }
-        
-      function toggleLeftMenu() {
-    document.getElementById('toggleMenuPanel').classList.toggle('show');
-}
-
-document.addEventListener('click', function(event) {
-    var panel = document.getElementById('toggleMenuPanel');
-    var btn = document.querySelector('.left-toggle-btn');
+    function showSaveModal() { 
+        document.getElementById('saveModal').style.display = 'block'; 
+        document.getElementById('modalOverlay').style.display = 'block'; 
+    }
     
-    if (panel.classList.contains('show') && 
-        !panel.contains(event.target) && 
-        !btn.contains(event.target)) {
-        panel.classList.remove('show');
+    function closeSaveModal() { 
+        document.getElementById('saveModal').style.display = 'none'; 
+        document.getElementById('modalOverlay').style.display = 'none'; 
     }
-});
-        
-function init() {
-    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) { 
-        familyDB = FAMILY_DATA; 
-    } else { 
-        const saved = localStorage.getItem('familyDB'); 
-        if (saved) familyDB = JSON.parse(saved); 
+    
+    function showLoading(text) { 
+        const msg = document.getElementById('loadingMsg'); 
+        msg.textContent = text; 
+        msg.style.display = 'block'; 
     }
-    if (!familyDB.length) { 
-        document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>'; 
-        return; 
+    
+    function hideLoading() { 
+        document.getElementById('loadingMsg').style.display = 'none'; 
     }
-    // Show welcome message on load (not the full tree)
-    renderFullTree();
-    setupSearch();
-    document.getElementById('resetRootBtn').onclick = resetToRoot;
-    // Don't auto-scroll to root - show welcome instead
-}
-        document.addEventListener('DOMContentLoaded', init);
-        window.goToDashboard = goToDashboard;
-        window.showSaveModal = showSaveModal;
-        window.closeSaveModal = closeSaveModal;
-        window.processSave = processSave;
-        window.showInfoModal = showInfoModal;
-        window.closeInfoModal = closeInfoModal;
-        window.toggleLeftMenu = toggleLeftMenu;
-        window.resetToRoot = resetToRoot;
-    </script>
+    
+    async function processSave() {
+        const selectedFormat = document.querySelector('input[name="saveFormat"]:checked').value;
+        closeSaveModal();
+        showLoading('Optimizing tree for export...');
+        const treeContainer = document.getElementById('treeContainer');
+        const originalZoom = treeContainer.style.zoom;
+        treeContainer.style.zoom = '1';
+        try {
+            await new Promise(r => setTimeout(r, 500));
+            const canvas = await html2canvas(treeContainer, {
+                useCORS: true,
+                scale: 2,
+                backgroundColor: '#fffcf8',
+                width: treeContainer.scrollWidth,
+                height: treeContainer.scrollHeight,
+                logging: false
+            });
+            const imgData = canvas.toDataURL('image/jpeg', 0.85);
+            if (selectedFormat === 'jpeg') {
+                const link = document.createElement('a');
+                link.download = `Rizvi-Family-Tree.jpg`;
+                link.href = imgData;
+                link.click();
+            } else {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF(canvas.width > canvas.height ? 'l' : 'p', 'px', [canvas.width, canvas.height]);
+                pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
+                pdf.save(`Rizvi-Family-Tree.pdf`);
+            }
+        } catch (error) {
+            console.error("Export Error:", error);
+            alert("Export failed. Please try using Ctrl+P and select 'Save as PDF'.");
+        } finally {
+            treeContainer.style.zoom = originalZoom;
+            hideLoading();
+        }
+    }
+
+    function goToDashboard() { 
+        window.location.href = '6-dashboard-mobile.html'; 
+    }
+    
+    function toggleLeftMenu() {
+        document.getElementById('toggleMenuPanel').classList.toggle('show');
+    }
+
+    document.addEventListener('click', function(event) {
+        var panel = document.getElementById('toggleMenuPanel');
+        var btn = document.querySelector('.left-toggle-btn');
+        if (panel.classList.contains('show') && 
+            !panel.contains(event.target) && 
+            !btn.contains(event.target)) {
+            panel.classList.remove('show');
+        }
+    });
+    
+    function init() {
+        if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) { 
+            familyDB = FAMILY_DATA; 
+        } else { 
+            const saved = localStorage.getItem('familyDB'); 
+            if (saved) familyDB = JSON.parse(saved); 
+        }
+        if (!familyDB.length) { 
+            document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>'; 
+            return; 
+        }
+        renderFullTree();
+        setupSearch();
+        document.getElementById('resetRootBtn').onclick = resetToRoot;
+    }
+    
+    document.addEventListener('DOMContentLoaded', init);
+    window.goToDashboard = goToDashboard;
+    window.showSaveModal = showSaveModal;
+    window.closeSaveModal = closeSaveModal;
+    window.processSave = processSave;
+    window.showInfoModal = showInfoModal;
+    window.closeInfoModal = closeInfoModal;
+    window.toggleLeftMenu = toggleLeftMenu;
+    window.resetToRoot = resetToRoot;
+</script>
 </body>
 </html>

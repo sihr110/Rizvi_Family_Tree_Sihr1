@@ -683,24 +683,21 @@ position: relative; /* Ensure it stays in the flow of the header */
         }
 
 
-/* Minimal fix - only make header visible on mobile */
-/* Fix header - make it fixed at top */
+
 @media screen and (max-width: 768px) {
     body {
-        padding: 0;
-        margin: 0;
+        height: 100vh;
         overflow: hidden;
-        position: relative;
     }
     
-    .app-container {
-        margin: 0;
-        border-radius: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
+.app-container {
+    margin: 0;
+    border-radius: 0;
+    height: calc(100vh - 20px); /* This accounts for the 10px body padding */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
     
     .app-header {
         position: relative;

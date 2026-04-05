@@ -9,6 +9,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="13-family-data.js"></script>
     <style>
+
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    color: var(--dark-blue);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.info-icon:hover {
+    background: var(--light-gold);
+    transform: scale(1.1);
+}
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --maroon: #5a0000;
@@ -577,6 +597,17 @@
 </div>
 <div class="modal-overlay" id="modalOverlay" onclick="closeSaveModal()"></div>
 <div class="loading-msg" id="loadingMsg">📄 Generating file, please wait...</div>
+
+<div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+<div class="info-modal" id="infoModal">
+    <h3>ℹ️ Other Informations</h3>
+    <p id="infoModalText"></p>
+    <button onclick="closeInfoModal()">Close</button>
+</div>
+
+
+
+
 <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
 <div class="info-modal" id="infoModal">
     <h3>ℹ️ Other Informations</h3>
@@ -669,28 +700,35 @@
     }
 
     function renderBox(member) {
-        const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
-        const father = member.father && member.father !== '---' && member.father !== '—' ? member.father : '—';
-        const mother = member.mother && member.mother !== '---' && member.mother !== '—' ? member.mother : '—';
-        const spouse = member.spouse && member.spouse !== '---' && member.spouse !== '—' ? member.spouse : '—';
-        const femaleClass = isFemale ? 'female' : '';
-        const leftText = currentSelectedBox && currentSelectedBox.getAttribute('data-name') === member.name ? 'Selected' : 'Rizvi Family';
-        return `
-            <div class="tree-box ${femaleClass}" data-name="${member.name}">
-                <div class="box-body" style="padding: 12px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: 700; color: var(--maroon);">${leftText}</span>
-                        <span style="background: #e0e0e0; padding: 2px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">${member.gen || '—'}</span>
-                    </div>
-                    <div style="border-bottom: 2px solid var(--gold); margin: 10px 0 12px 0;"></div>
-                    <div><span style="font-weight: 700;">Name:</span> ${displayName(member.name)}</div>
-                    <div><span style="font-weight: 700;">Father:</span> ${displayName(father)}</div>
-                    <div><span style="font-weight: 700;">Mother:</span> ${displayName(mother)}</div>
-                    <div><span style="font-weight: 700;">Spouse:</span> ${displayName(spouse)}</div>
+    const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
+    const father = member.father && member.father !== '---' && member.father !== '—' ? member.father : '—';
+    const mother = member.mother && member.mother !== '---' && member.mother !== '—' ? member.mother : '—';
+    const spouse = member.spouse && member.spouse !== '---' && member.spouse !== '—' ? member.spouse : '—';
+    const hasDetails = member.details && member.details.trim() !== '' && member.details !== '—';
+    const safeName = member.name.replace(/'/g, "\\'");
+    const femaleClass = isFemale ? 'female' : '';
+    
+    return `
+        <div class="tree-box ${femaleClass}" data-name="${member.name}">
+            <div class="box-body" style="padding: 12px;">
+                <!-- Header with LEFT | CENTER | RIGHT layout -->
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 700; color: var(--maroon);">Rizvi Family</span>
+                    
+                    ${hasDetails ? `<span class="info-icon" onclick="event.stopPropagation(); showInfoModal('${safeName}')">ℹ️</span>` : '<span style="width: 24px;"></span>'}
+                    
+                    <span style="background: #e0e0e0; padding: 2px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">${member.gen || '—'}</span>
                 </div>
+                
+                <div style="border-bottom: 2px solid var(--gold); margin: 10px 0 12px 0;"></div>
+                <div><span style="font-weight: 700;">Name:</span> ${displayName(member.name)}</div>
+                <div><span style="font-weight: 700;">Father:</span> ${displayName(father)}</div>
+                <div><span style="font-weight: 700;">Mother:</span> ${displayName(mother)}</div>
+                <div><span style="font-weight: 700;">Spouse:</span> ${displayName(spouse)}</div>
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
     function renderFullTree() {
         document.getElementById('treeRoot').innerHTML = `

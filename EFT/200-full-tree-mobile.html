@@ -25,24 +25,21 @@
             --connector: #b8860b;
         }
 
-        body {
+body {
             font-family: 'Inter', sans-serif;
-            background: #1a1a1a;
-            height: 100vh;
-            overflow: hidden;
+            background: #fffcf8; /* Changed from #1a1a1a to white */
+            height: auto;
+            overflow: visible;
             margin: 0;
             padding: 10px;
         }
-
 .app-container {
     max-width: 1400px;
     margin: 0 auto;     
 background: white;
-    height: calc(100vh - 20px); /* Revert back to the file 7/8 calculation */
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px; /* Re-add the rounded corners for mobile */
-    overflow: hidden; 
+    min-height: 100vh;      
+display: block;    
+border-radius: 20px; 
 }
 
 .app-header {
@@ -53,7 +50,10 @@ background: white;
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid var(--gold);
-    position: relative;
+    
+    position: sticky;
+    top: 0;
+    z-index: 2000;
 }
 
 .header-title {
@@ -168,13 +168,15 @@ position: relative; /* Ensure it stays in the flow of the header */
             transform: translateX(5px);
         }
 
-    .search-section {
+.search-section {
     padding: 15px;
     background: #fffcf8;
     border-bottom: 2px solid var(--gold);
-    width: 95%;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    
+    position: sticky;
+    top: 60px; 
+    z-index: 1999;
 }
 
         .search-row {
@@ -215,20 +217,20 @@ position: relative; /* Ensure it stays in the flow of the header */
             border-color: var(--gold);
         }
 
-        .search-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 0 0 12px 12px;
-            max-height: 250px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+ .search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid var(--gold);
+    border-radius: 0 0 12px 12px;
+    max-height: 250px;
+    overflow-y: auto;
+    display: none;
+    z-index: 3000; /* Increased to stay on top */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
 
         .result-item {
             padding: 10px 15px;
@@ -277,10 +279,11 @@ position: relative; /* Ensure it stays in the flow of the header */
 
 
 .tree-wrapper {
-    flex: 1;
-    overflow: auto; /* Vital for horizontal and vertical scrolling */
+    overflow-x: auto;
+    overflow-y: auto;
     background: #fffcf8;
-    -webkit-overflow-scrolling: touch;
+    height: calc(100vh - 130px);
+    min-height: 500px;
 }
 
 .tree-container {
@@ -632,20 +635,17 @@ position: relative; /* Ensure it stays in the flow of the header */
                 display: none !important;
             }
             body {
-                height: auto !important;
-                overflow: visible !important;
-                background: white;
-                padding: 0;
-                margin: 0;
-                width: 100%;
-            }
-            .app-container {
-                height: auto !important;
-                overflow: visible !important;
-                border: none;
-                display: block;
-                max-width: 100%;
-            }
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    height: auto !important;
+    display: block !important; /* Removes the flex-box restriction */
+    min-height: 100vh;
+}
             .tree-wrapper {
                 overflow: visible !important;
                 height: auto !important;
@@ -683,42 +683,35 @@ position: relative; /* Ensure it stays in the flow of the header */
         }
 
 
-
 @media screen and (max-width: 768px) {
     body {
-        height: 100vh;
-        overflow: hidden;
+        height: auto !important;
+        overflow: visible !important;
     }
     
-.app-container {
-    margin: 0;
-    border-radius: 0;
-    height: calc(100vh - 20px); /* This accounts for the 10px body padding */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
+    .app-container {
+        margin: 0;
+        border-radius: 0;
+        height: auto !important;
+        display: block !important;
+        overflow: visible !important;
+    }
     
     .app-header {
-        position: relative;
-        flex-shrink: 0;
-        z-index: 100;
+        position: sticky;
+        top: 0;
+        z-index: 2000;
+        background: #0f172a;
     }
     
     .search-section {
-        flex-shrink: 0;
-    }
-    
-    .tree-wrapper {
-        flex: 1;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .footer {
-        flex-shrink: 0;
+        position: sticky;
+        top: 60px; 
+        z-index: 1999;
+        background: #fffcf8;
     }
 }
+
 
 
     </style>
@@ -909,43 +902,124 @@ position: relative; /* Ensure it stays in the flow of the header */
             `;
         }
 
-        function renderFullTree() {
-            if (!familyDB.length) {
-                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data loaded.</div>';
-                return;
-            }
-            const { roots, childrenMap } = buildTreeStructure();
-            if (roots.length === 0) {
-                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No root ancestors found.</div>';
-                return;
-            }
-            let html = `<div class="tree"><div class="root-level" id="rootLevelContainer">`;
-            for (const root of roots) {
-                const children = childrenMap.get(root.name) || [];
-                if (children.length === 0) {
-                    html += `<div class="child-node root-node">${renderBox(root)}</div>`;
-                } else {
-                    html += `<div class="child-node root-node">${renderBox(root)}<div class="parent-down-line"></div><div class="sibling-bar"><div class="sibling-bar-line"></div></div><div class="children-level">`;
-                    for (const child of children) html += renderTreeNode(child, childrenMap, false);
-                    html += `</div></div>`;
-                }
-            }
-            html += `</div></div>`;
-            document.getElementById('treeRoot').innerHTML = html;
+       
+
+
+function renderFullTree() {
+    // Show welcome message instead of blank canvas
+    document.getElementById('treeRoot').innerHTML = `
+        <div style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
+            <div style="font-size: 64px; margin-bottom: 20px;">🌳</div>
+            <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to Rizvi Family Tree</h2>
+            <p style="color: #555; margin-bottom: 25px; line-height: 1.6;">Enter a family member's name in the search box above to explore the complete family tree.</p>
+            <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block;">
+                <span style="font-size: 18px;">🔍</span> <strong>Type any name</strong> — then select from dropdown
+            </div>
+        </div>
+    `;
+    memberElements.clear();
+    if (currentSelectedBox) {
+        currentSelectedBox.classList.remove('selected');
+        currentSelectedBox = null;
+    }
+}
+
+
+
+function setupSearch() {
+            const input = document.getElementById('searchInput');
+            const dropdown = document.getElementById('searchDropdown');
             
-            memberElements.clear();
-            document.querySelectorAll('.tree-box').forEach(box => {
-                const name = box.getAttribute('data-name');
-                if (name) {
-                    memberElements.set(name, box);
-                    box.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('info-icon')) return;
-                        e.stopPropagation();
-                        selectBox(box);
-                    });
+            input.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                if (query.length < 2) { 
+                    dropdown.style.display = 'none'; 
+                    return; 
                 }
+
+                // Filter through your database
+                const results = familyDB.filter(m => 
+                    m.name.toLowerCase().includes(query) || 
+                    (m.father && m.father.toLowerCase().includes(query))
+                ).slice(0, 15);
+
+                if (results.length === 0) { 
+                    dropdown.style.display = 'none'; 
+                    return; 
+                }
+
+                dropdown.innerHTML = '';
+                results.forEach(m => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerHTML = `
+                        <div class="main-name">${displayName(m.name)} <span class="gen">${m.gen || ''}</span></div>
+                        <div class="father-name">👨 Father: ${displayName(m.father) || 'Unknown'}</div>
+                    `;
+                    div.onclick = () => { 
+                        dropdown.style.display = 'none'; 
+                        input.value = displayName(m.name); 
+                        input.blur(); 
+                        
+                        // 1. FILL THE BLANK CANVAS
+                        // We draw all records now so the search target actually exists in the HTML
+                        drawFullTreeOnDemand(); 
+                        
+                        // 2. JUMP & BLINK
+                        // We wait 100ms for the browser to finish drawing the boxes
+                        setTimeout(() => {
+                            jumpToMember(m.name);
+                        }, 100);
+                    };
+                    dropdown.appendChild(div);
+                });
+
+                dropdown.style.display = 'block'; 
+            });
+
+            // Close dropdown if clicking elsewhere
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display = 'none';
             });
         }
+
+        // Helper function that builds the tree and maps the boxes
+        function drawFullTreeOnDemand() {
+            const { roots, childrenMap } = buildTreeStructure();
+            let html = '';
+            roots.forEach(root => {
+                html += `<div class="root-node">${renderTreeNode(root, childrenMap, true)}</div>`;
+            });
+            const container = document.getElementById('treeRoot');
+            container.innerHTML = html;
+
+            // Map the boxes so the Jump function can find them
+            memberElements.clear();
+            container.querySelectorAll('.tree-box').forEach(box => {
+                const name = box.getAttribute('data-name');
+                memberElements.set(name, box);
+                box.onclick = () => selectBox(box);
+            });
+        }
+
+
+function resetToRoot() {
+    // Clear search input
+    document.getElementById('searchInput').value = '';
+    // Hide dropdown
+    document.getElementById('searchDropdown').style.display = 'none';
+    // Show welcome message
+    renderFullTree();
+    // Clear any selected box
+    if (currentSelectedBox) {
+        currentSelectedBox.classList.remove('selected');
+        currentSelectedBox = null;
+    }
+    // Scroll to top
+    document.getElementById('treeWrapper').scrollTop = 0;
+}
+
+
         
         function selectBox(box) {
             if (currentSelectedBox) {
@@ -955,53 +1029,8 @@ position: relative; /* Ensure it stays in the flow of the header */
             currentSelectedBox = box;
         }
         
-        function scrollRootIntoView() {
-            setTimeout(() => {
-                const rootNodes = document.querySelectorAll('.root-node');
-                if (rootNodes.length > 0) {
-                    rootNodes[0].scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' });
-                }
-            }, 100);
-        }
-
-        function resetToRoot() {
-            if (currentSelectedBox) {
-                currentSelectedBox.classList.remove('selected');
-                currentSelectedBox = null;
-            }
-            document.getElementById('searchInput').value = '';
-            renderFullTree();
-            scrollRootIntoView();
-        }
-
-        function setupSearch() {
-            const input = document.getElementById('searchInput');
-            const dropdown = document.getElementById('searchDropdown');
-            input.addEventListener('input', function() {
-                const query = this.value.trim().toLowerCase();
-                if (query.length < 2) { dropdown.style.display = 'none'; return; }
-                const results = familyDB.filter(m => m.name.toLowerCase().includes(query) || (m.father && m.father.toLowerCase().includes(query))).slice(0, 15);
-                if (results.length === 0) { dropdown.style.display = 'none'; return; }
-                dropdown.innerHTML = '';
-                results.forEach(m => {
-                    const div = document.createElement('div');
-                    div.className = 'result-item';
-                    div.innerHTML = `<div class="main-name">${displayName(m.name)} <span class="gen">${m.gen || ''}</span></div><div class="father-name">👨 Father: ${displayName(m.father) || 'Unknown'}</div>`;
-                    div.onclick = () => { 
-                        jumpToMember(m.name); 
-                        dropdown.style.display = 'none'; 
-                        input.value = displayName(m.name); 
-                        input.blur(); 
-                    };
-                    dropdown.appendChild(div);
-                });
-                dropdown.style.display = 'block';
-            });
-            document.addEventListener('click', (e) => {
-                if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display = 'none';
-            });
-        }
         
+
         function jumpToMember(name) {
             const element = memberElements.get(name);
             if (!element) { alert(`⚠️ Member "${displayName(name)}" not visible.`); return; }
@@ -1095,23 +1124,23 @@ document.addEventListener('click', function(event) {
     }
 });
         
-        function init() {
-            if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) { 
-                familyDB = FAMILY_DATA; 
-            } else { 
-                const saved = localStorage.getItem('familyDB'); 
-                if (saved) familyDB = JSON.parse(saved); 
-            }
-            if (!familyDB.length) { 
-                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>'; 
-                return; 
-            }
-            renderFullTree();
-            setupSearch();
-            document.getElementById('resetRootBtn').onclick = resetToRoot;
-            scrollRootIntoView();
-        }
-        
+function init() {
+    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) { 
+        familyDB = FAMILY_DATA; 
+    } else { 
+        const saved = localStorage.getItem('familyDB'); 
+        if (saved) familyDB = JSON.parse(saved); 
+    }
+    if (!familyDB.length) { 
+        document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>'; 
+        return; 
+    }
+    // Show welcome message on load (not the full tree)
+    renderFullTree();
+    setupSearch();
+    document.getElementById('resetRootBtn').onclick = resetToRoot;
+    // Don't auto-scroll to root - show welcome instead
+}
         document.addEventListener('DOMContentLoaded', init);
         window.goToDashboard = goToDashboard;
         window.showSaveModal = showSaveModal;

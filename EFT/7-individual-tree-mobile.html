@@ -590,20 +590,23 @@
         }
 
         /* Info Modal */
-.info-modal {
-    position: fixed;
-    background: white;
-    border: 3px solid var(--gold);
-    border-radius: 12px;
-    padding: 10px;
-    width: 200px;
-    max-width: 200px;
-    z-index: 10000;
-    display: none;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-}
+        .info-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 300px;
+            max-width: 450px;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            font-family: 'Inter', sans-serif;
+            zoom: 0.5;
+        }
 
         .info-modal h3 {
             color: var(--maroon);
@@ -784,7 +787,7 @@
     <div class="info-modal" id="infoModal">
         <h3>ℹ️ Other Informations</h3>
         <p id="infoModalText"></p>
-        <button onclick="window.closeInfoModal()">Close</button>
+        <button onclick="closeInfoModal()">Close</button>
     </div>
 
     <script src="13-family-data.js"></script>
@@ -808,29 +811,26 @@
 
    
 
-function showInfoModal(personName, event) {
+function showInfoModal(personName) {
     const person = db.find(p => p.name === personName);
     if (!person) return;
     const detailsText = person.details && person.details.trim() !== '' ? person.details : 'No additional information available.';
     document.getElementById('infoModalText').innerText = detailsText;
     
     const modal = document.getElementById('infoModal');
-    const iconRect = event.target.getBoundingClientRect();
-    const zoom = 0.5;
-    
     modal.style.position = 'fixed';
-    modal.style.top = (iconRect.bottom + 5) + 'px';
-modal.style.left = iconRect.left + 'px';
-    modal.style.transform = 'none';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    
     modal.style.display = 'block';
     document.getElementById('infoModalOverlay').style.display = 'block';
 }
 
-
-window.closeInfoModal = function() {
-    document.getElementById('infoModal').style.display = 'none';
-    document.getElementById('infoModalOverlay').style.display = 'none';
-};
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.getElementById('infoModalOverlay').style.display = 'none';
+        }
 
         function renderBox(person, label, isSiblingOrChild = false) {
             const isFemale = person.gender?.startsWith('F');
@@ -845,7 +845,7 @@ window.closeInfoModal = function() {
             html += `<span style="font-weight: 700; color: var(--dark-blue);">${label}</span>`;
             
             if (hasDetails) {
-               html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}', event)">ℹ️</div>`;
+               html += `<div class="details-icon" style="cursor: pointer;" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
             } else {
                 html += `<div style="width: 20px;"></div>`;
             }

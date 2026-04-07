@@ -41,21 +41,23 @@
             --pink-border: #fb7185;
             --connector: #b8860b;
         }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #fffcf8;
-            height: auto;
-            overflow: visible;
-            margin: 0;
-            padding: 10px;
-        }
-        .app-container {
+    body {
+    font-family: 'Inter', sans-serif;
+    background: #fffcf8;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px;
+}
+            .app-container {
             max-width: 1400px;
             margin: 0 auto;
             background: white;
-            min-height: 100vh;
-            display: block;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
             border-radius: 20px;
+            overflow: hidden;
         }
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
@@ -65,8 +67,6 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 3px solid var(--gold);
-            position: sticky;
-            top: 0;
             z-index: 2000;
         }
         .header-title {
@@ -168,8 +168,6 @@
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
             width: 100%;
-            position: sticky;
-            top: 60px;
             z-index: 1999;
         }
         .search-row {
@@ -256,20 +254,20 @@
         .reset-btn-header:hover {
             background: var(--light-gold);
         }
-        .tree-wrapper {
-            overflow-x: auto;
-            overflow-y: auto;
-            background: #fffcf8;
-            height: calc(100vh - 130px);
-            min-height: 500px;
-        }
+   .tree-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    background: #fffcf8;
+    flex: 1;
+}
         .tree-container {
             padding: 20px 15px;
             min-width: max-content;
             min-height: 100%;
             display: flex;
             justify-content: center;
-            zoom: 0.5;
+            transform: scale(0.5);
+            transform-origin: top center;
         }
         .tree-wrapper::-webkit-scrollbar {
             width: 8px;
@@ -536,12 +534,38 @@
             .children-level { flex-wrap: nowrap !important; gap: 20px !important; }
             .tree-box { break-inside: avoid; page-break-inside: avoid; width: 250px !important; min-width: 200px !important; }
         }
-        @media screen and (max-width: 768px) {
-            body { height: auto !important; overflow: visible !important; }
-            .app-container { margin: 0; border-radius: 0; height: auto !important; display: block !important; overflow: visible !important; }
-            .app-header { position: sticky; top: 0; z-index: 2000; background: #0f172a; }
-            .search-section { position: sticky; top: 60px; z-index: 1999; background: #fffcf8; }
-        }
+   @media screen and (max-width: 768px) {
+    .app-header { z-index: 2000; background: #0f172a; }
+    .search-section { z-index: 1999; background: #fffcf8; }
+}
+
+/* Simple mode for Show Details OFF */
+.tree-box.simple-mode {
+    text-align: center;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+}
+
+.tree-box.simple-mode .member-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--dark-blue);
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Active state for toggle button */
+.toggle-menu-item.active {
+    background: var(--green) !important;
+    border-color: var(--dark-green) !important;
+    color: white !important;
+}
+
     </style>
 </head>
 <body>
@@ -557,6 +581,8 @@
         <div class="toggle-menu-item" onclick="goToDashboard()">🏠 Dashboard</div>
         <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
         <div class="toggle-menu-item" onclick="showSaveModal()">💾 Save Tree</div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="toggle-menu-item" id="showDetailsToggle" onclick="toggleShowDetails()">📋 Show Details</div>
     </div>
     <div class="search-section">
         <div class="search-row">
@@ -618,6 +644,8 @@
     let familyDB = [];
     let currentSelectedBox = null;
     let memberElements = new Map();
+
+let showDetails = false;
 
     function displayName(str) {
         if (!str) return '';
@@ -699,27 +727,33 @@
         return `<div class="child-node">${!isRoot ? '<div class="child-vertical-line"></div>' : ''}${renderBox(parent)}<div class="parent-down-line"></div><div class="sibling-bar"><div class="sibling-bar-line"></div></div><div class="children-level">${childrenHtml}</div></div>`;
     }
 
-    function renderBox(member) {
+   function renderBox(member) {
     const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
+    const femaleClass = isFemale ? 'female' : '';
+    
+    if (!showDetails) {
+        const fullName = displayName(member.name);
+        return `
+            <div class="tree-box ${femaleClass} simple-mode" data-name="${member.name}">
+                <div class="member-name">${fullName}</div>
+            </div>
+        `;
+    }
+    
     const father = member.father && member.father !== '---' && member.father !== '—' ? member.father : '—';
     const mother = member.mother && member.mother !== '---' && member.mother !== '—' ? member.mother : '—';
     const spouse = member.spouse && member.spouse !== '---' && member.spouse !== '—' ? member.spouse : '—';
     const hasDetails = member.details && member.details.trim() !== '' && member.details !== '—';
     const safeName = member.name.replace(/'/g, "\\'");
-    const femaleClass = isFemale ? 'female' : '';
     
     return `
         <div class="tree-box ${femaleClass}" data-name="${member.name}">
             <div class="box-body" style="padding: 12px;">
-                <!-- Header with LEFT | CENTER | RIGHT layout -->
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-weight: 700; color: var(--maroon);">Rizvi Family</span>
-                    
                     ${hasDetails ? `<span class="info-icon" onclick="event.stopPropagation(); showInfoModal('${safeName}')">ℹ️</span>` : '<span style="width: 24px;"></span>'}
-                    
                     <span style="background: #e0e0e0; padding: 2px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">${member.gen || '—'}</span>
                 </div>
-                
                 <div style="border-bottom: 2px solid var(--gold); margin: 10px 0 12px 0;"></div>
                 <div><span style="font-weight: 700;">Name:</span> ${displayName(member.name)}</div>
                 <div><span style="font-weight: 700;">Father:</span> ${displayName(father)}</div>
@@ -826,16 +860,22 @@ function selectBox(box) {
     drawFullTreeOnDemand();
 }
 
-    function jumpToMember(name) {
-        const element = memberElements.get(name);
-        if (!element) { alert(`⚠️ Member "${displayName(name)}" not visible.`); return; }
-        if (currentSelectedBox) {
-            currentSelectedBox.classList.remove('selected');
-        }
-        element.classList.add('selected');
-        currentSelectedBox = element;
-        element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+ function jumpToMember(name) {
+    const element = memberElements.get(name);
+    if (!element) { alert(`⚠️ Member "${displayName(name)}" not visible.`); return; }
+    if (currentSelectedBox) {
+        currentSelectedBox.classList.remove('selected');
     }
+    element.classList.add('selected');
+    currentSelectedBox = element;
+    
+    // Simple scrollIntoView - let the browser handle it
+    element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center'
+    });
+}
 
     function showSaveModal() { 
         document.getElementById('saveModal').style.display = 'block'; 
@@ -913,6 +953,30 @@ function selectBox(box) {
         }
     });
     
+
+function toggleShowDetails() {
+    showDetails = !showDetails;
+    const toggleBtn = document.getElementById('showDetailsToggle');
+    if (showDetails) {
+        toggleBtn.classList.add('active');
+        toggleBtn.innerHTML = '📋 Hide Details';
+    } else {
+        toggleBtn.classList.remove('active');
+        toggleBtn.innerHTML = '📋 Show Details';
+    }
+    
+    const selectedName = currentSelectedBox ? currentSelectedBox.getAttribute('data-name') : null;
+    drawFullTreeOnDemand();
+    
+    if (selectedName && memberElements.has(selectedName)) {
+        const element = memberElements.get(selectedName);
+        element.classList.add('selected');
+        currentSelectedBox = element;
+        element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+    }
+}
+
+
     function init() {
         if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) { 
             familyDB = FAMILY_DATA; 
@@ -927,6 +991,7 @@ function selectBox(box) {
         renderFullTree();
         setupSearch();
         document.getElementById('resetRootBtn').onclick = resetToRoot;
+document.getElementById('showDetailsToggle').classList.remove('active');
     }
     
     document.addEventListener('DOMContentLoaded', init);
@@ -938,6 +1003,8 @@ function selectBox(box) {
     window.closeInfoModal = closeInfoModal;
     window.toggleLeftMenu = toggleLeftMenu;
     window.resetToRoot = resetToRoot;
+    window.toggleShowDetails = toggleShowDetails;
+
 </script>
 </body>
 </html>

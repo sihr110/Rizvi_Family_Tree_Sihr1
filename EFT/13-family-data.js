@@ -1,6 +1,6 @@
 // Family Data
 // Source: Data English.xlsx
-// Saved: 14/04/2026, 2:18:51 am
+// Saved: 14/04/2026, 2:47:23 am
 
 const FAMILY_DATA = [
   {
@@ -1051,7 +1051,7 @@ const FAMILY_DATA = [
     name: "Syed Aley Haider -01",
     father: "Syed Yaoob Ali",
     mother: "",
-    spouse: "Syeda Qudsia Sultani (Begum)",
+    spouse: "Syeda Qudsia Sultana (Begum)",
     gen: "G-037-S2",
     gender: "MALE",
     details: ""
@@ -1086,7 +1086,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Arshad",
     father: "Syed Aley Haider -01",
-    mother: "Syeda Qudsia Sultani (Begum)",
+    mother: "Syeda Qudsia Sultana Rizvi (Begum)",
     spouse: "Syeda Rozi Rizvi",
     gen: "G-038-S1",
     gender: "MALE",
@@ -1095,7 +1095,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Shaheen Sultana",
     father: "Syed Aley Haider -01",
-    mother: "",
+    mother: "Syeda Qudsia Sultana Rizvi (Begum)",
     spouse: "Syed Nazim Rizvi",
     gen: "G-038-D1",
     gender: "FEMALE",
@@ -1104,7 +1104,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Mahjabeen (Jabina)",
     father: "Syed Aley Haider -01",
-    mother: "",
+    mother: "Syeda Qudsia Sultana Rizvi (Begum)",
     spouse: "Syed Akram Rizvi (Raja)",
     gen: "G-038-D2",
     gender: "FEMALE",
@@ -1113,7 +1113,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Darkhasha (Raqshi)",
     father: "Syed Aley Haider -01",
-    mother: "",
+    mother: "Syeda Qudsia Sultana Rizvi (Begum)",
     spouse: "Syed",
     gen: "G-038-D3",
     gender: "FEMALE",
@@ -1122,7 +1122,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Fauzia",
     father: "Syed Aley Haider -01",
-    mother: "",
+    mother: "Syeda Qudsia Sultana Rizvi (Begum)",
     spouse: "Syed Kazim",
     gen: "G-038-D4",
     gender: "FEMALE",
@@ -2398,10 +2398,10 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qudsia Sultana",
+    name: "Syeda Qudsia Sultana (Begum)",
     father: "Syed Ali Ausat",
     mother: "",
-    spouse: "",
+    spouse: "Syed Aley Haider Rizvi",
     gen: "G-040-S2",
     gender: "FEMALE",
     details: ""
@@ -4210,7 +4210,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "14/04/2026, 2:18:51 am", 
+    saved_time: "14/04/2026, 2:47:23 am", 
     total_members: 467,
     comments_count: 7
 };

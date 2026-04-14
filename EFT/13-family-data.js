@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 14/04/2026, 8:13:17 pm
+// Saved: 14/04/2026, 9:05:36 pm
 // Total members (after removing * entries): 502
 
 const FAMILY_DATA = [
@@ -3257,10 +3257,10 @@ const FAMILY_DATA = [
     name: "Syeda Fariha Fatima",
     father: "Syed Muhammad Imran Rizvi",
     mother: "Syeda Ghazala Rizvi",
-    spouse: "",
+    spouse: "Syed Ahmad Raza Rizvi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Fariha Fatima\n\nS1 - Syed  …..\nD1 - Syeda Farwa Rizvi"
   },
   {
     name: "Syed Musa Rizvi",
@@ -4526,8 +4526,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "14/04/2026, 8:13:17 pm", 
+    saved_time: "14/04/2026, 9:05:36 pm", 
     total_members: 502,
-    comments_count: 9,
+    comments_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

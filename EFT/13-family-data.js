@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 14/04/2026, 9:05:36 pm
-// Total members (after removing * entries): 502
+// Saved: 15/04/2026, 10:06:44 pm
+// Total members (after removing * entries): 524
 
 const FAMILY_DATA = [
   {
@@ -1661,7 +1661,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Ali Sajasd",
+    name: "Syed Ali Sajjad",
     father: "Syed Shabbar Hasan",
     mother: "",
     spouse: "",
@@ -1699,7 +1699,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Salman -02",
     father: "Syed Ali Ibad",
-    mother: "",
+    mother: "Syeda Izhar Fatima (Chandni)",
     spouse: "",
     gen: "G-038-S1",
     gender: "MALE",
@@ -1708,7 +1708,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Imran",
     father: "Syed Ali Ibad",
-    mother: "",
+    mother: "Syeda Izhar Fatima (Chandni)",
     spouse: "",
     gen: "G-038-S2",
     gender: "MALE",
@@ -1717,7 +1717,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Rifat",
     father: "Syed Ali Ibad",
-    mother: "",
+    mother: "Syeda Izhar Fatima (Chandni)",
     spouse: "",
     gen: "G-038-D1",
     gender: "FEMALE",
@@ -1726,7 +1726,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Lubna -02",
     father: "Syed Ali Ibad",
-    mother: "",
+    mother: "Syeda Izhar Fatima (Chandni)",
     spouse: "",
     gen: "G-038-D2",
     gender: "FEMALE",
@@ -1735,7 +1735,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Rozi",
     father: "Syed Ali Ibad",
-    mother: "",
+    mother: "Syeda Izhar Fatima (Chandni)",
     spouse: "Syed Mohammad Arshad Rizvi",
     gen: "G-038-D3",
     gender: "FEMALE",
@@ -1744,9 +1744,207 @@ const FAMILY_DATA = [
   {
     name: "Syeda Saba",
     father: "Syed Ali Ibad",
+    mother: "Syeda Izhar Fatima (Chandni)",
+    spouse: "",
+    gen: "G-038-D4",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Idrees",
+    father: "Syed Ameer Hasan",
+    mother: "",
+    spouse: "",
+    gen: "G-037-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Musa Raza",
+    father: "Syed Ameer Hasan",
+    mother: "",
+    spouse: "",
+    gen: "G-037-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Essa",
+    father: "Syed Ameer Hasan",
+    mother: "",
+    spouse: "",
+    gen: "G-037-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda (Achi)",
+    father: "Syed Ameer Hasan",
+    mother: "",
+    spouse: "",
+    gen: "G-037-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Zardar Fatima (Jaddo)",
+    father: "Syed Ameer Hasan",
+    mother: "",
+    spouse: "",
+    gen: "G-037-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 02 ?",
+    father: "Syed Ameer Hasan",
+    mother: "",
+    spouse: "",
+    gen: "G-037-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Masoom Ali",
+    father: "Syed Musa Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-038-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Ali Raza",
+    father: "Syed Musa Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-038-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Hasan Raza",
+    father: "Syed Musa Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-038-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 05 ?",
+    father: "Syed Musa Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Shanaz",
+    father: "Syed Musa Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Mahnaz",
+    father: "Syed Musa Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 06 ?",
+    father: "Syed Musa Raza",
     mother: "",
     spouse: "",
     gen: "G-038-D4",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 07 ?",
+    father: "Syed Musa Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D5",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Sheeba",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Bushra",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Shamona",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Adela",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D4",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 08 ?",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D5",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 09 ?",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D6",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 10 ?",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D7",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda - 11 ?",
+    father: "Syed Essa",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D8",
     gender: "FEMALE",
     details: ""
   },
@@ -2201,7 +2399,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Muslim",
+    name: "Syed Mohammad Mulim",
     father: "Syed Wazarat Hussain -01",
     mother: "",
     spouse: "",
@@ -2238,7 +2436,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Kamal Haider - 01",
-    father: "Syed Muslim",
+    father: "Syed Mohammad Mulim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "",
     gen: "G-041-S1",
@@ -2247,7 +2445,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Mudasir Haider",
-    father: "Syed Muslim",
+    father: "Syed Mohammad Mulim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "Syeda Batool Zafar Hyder Rizvi",
     gen: "G-041-S2",
@@ -2256,7 +2454,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Muzzammil Haider",
-    father: "Syed Muslim",
+    father: "Syed Mohammad Mulim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "",
     gen: "G-041-S3",
@@ -2265,7 +2463,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Hasan Haider",
-    father: "Syed Muslim",
+    father: "Syed Mohammad Mulim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "",
     gen: "G-041-S4",
@@ -2274,7 +2472,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Sabeen",
-    father: "Syed Muslim",
+    father: "Syed Mohammad Mulim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "Syed Najaf Haider Rizvi",
     gen: "G-041-D1",
@@ -2282,8 +2480,8 @@ const FAMILY_DATA = [
     details: "Children of Syeda Sabeen Rizvi\n\n\nSee  Syed Najaf Haider S/o Syed Wiladat Hussain"
   },
   {
-    name: "Syeda - ? -02",
-    father: "Syed Muslim",
+    name: "Syeda - ? -03",
+    father: "Syed Mohammad Mulim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "",
     gen: "G-041-D2",
@@ -2453,7 +2651,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda - ? -03",
+    name: "Syeda - ? -04",
     father: "Syed Madad Ali",
     mother: "",
     spouse: "",
@@ -2570,7 +2768,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Khakashan",
+    name: "Syeda Khakshan -02",
     father: "Syed Asrar Hussain",
     mother: "",
     spouse: "",
@@ -3695,7 +3893,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Khakshan",
+    name: "Syeda Khakshan -01",
     father: "Syed Aley Mohammad",
     mother: "",
     spouse: "",
@@ -4526,8 +4724,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "14/04/2026, 9:05:36 pm", 
-    total_members: 502,
+    saved_time: "15/04/2026, 10:06:44 pm", 
+    total_members: 524,
     comments_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

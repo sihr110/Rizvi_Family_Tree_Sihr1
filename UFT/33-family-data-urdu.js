@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 15/04/2026, 2:02:48 am
-// Total members (after removing * entries): 502
+// Saved: 15/04/2026, 10:10:57 pm
+// Total members (after removing * entries): 524
 
 const FAMILY_DATA_URDU = [
   {
@@ -1301,7 +1301,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید معصوم علی",
+    name: "سید معصوم علی -01",
     father: "سید جمال",
     mother: "",
     spouse: "",
@@ -1320,7 +1320,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید امجد علی",
-    father: "سید معصوم علی",
+    father: "سید معصوم علی -01",
     mother: "",
     spouse: "",
     gen: "G-034-S1",
@@ -1329,7 +1329,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید مہربان علی",
-    father: "سید معصوم علی",
+    father: "سید معصوم علی -01",
     mother: "",
     spouse: "",
     gen: "G-034-S2",
@@ -1338,7 +1338,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید قربان علی",
-    father: "سید معصوم علی",
+    father: "سید معصوم علی -01",
     mother: "",
     spouse: "",
     gen: "G-034-S3",
@@ -1347,7 +1347,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید فضل علی",
-    father: "سید معصوم علی",
+    father: "سید معصوم علی -01",
     mother: "",
     spouse: "",
     gen: "G-034-S4",
@@ -1356,7 +1356,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ معصومہ (مان بی بی)",
-    father: "سید معصوم علی",
+    father: "سید معصوم علی -01",
     mother: "",
     spouse: "",
     gen: "G-034-D1",
@@ -1589,7 +1589,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ لطف النسا",
+    name: "سیدہ لطف النساء",
     father: "سید مہربان علی",
     mother: "",
     spouse: "",
@@ -1598,7 +1598,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ تمعز النسا",
+    name: "سیدہ تَمیز النساء",
     father: "سید مہربان علی",
     mother: "",
     spouse: "",
@@ -1607,7 +1607,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید شبر حسن",
+    name: "سید شبّر حسن",
     father: "سید عترت حسین",
     mother: "",
     spouse: "",
@@ -1643,7 +1643,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ اعجاز فاطمہ -02",
+    name: "سیدہ اعجاز فاطمہ",
     father: "سید عترت حسین",
     mother: "",
     spouse: "",
@@ -1653,7 +1653,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید علی عباد",
-    father: "سید شبر حسن",
+    father: "سید شبّر حسن",
     mother: "",
     spouse: "",
     gen: "G-037-S1",
@@ -1661,8 +1661,8 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید علی سجاد",
-    father: "سید شبر حسن",
+    name: "سید علی سجّاد",
+    father: "سید شبّر حسن",
     mother: "",
     spouse: "",
     gen: "G-037-S2",
@@ -1671,7 +1671,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ واجدہ",
-    father: "سید شبر حسن",
+    father: "سید شبّر حسن",
     mother: "",
     spouse: "",
     gen: "G-037-D1",
@@ -1680,7 +1680,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ ساجدہ",
-    father: "سید شبر حسن",
+    father: "سید شبّر حسن",
     mother: "",
     spouse: "",
     gen: "G-037-D2",
@@ -1689,7 +1689,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ بی بی -02",
-    father: "سید شبر حسن",
+    father: "سید شبّر حسن",
     mother: "",
     spouse: "",
     gen: "G-037-D3",
@@ -1751,6 +1751,204 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
+    name: "سید ادریس",
+    father: "سید امیر حسن",
+    mother: "",
+    spouse: "",
+    gen: "G-037-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید موسیٰ رضا",
+    father: "سید امیر حسن",
+    mother: "",
+    spouse: "",
+    gen: "G-037-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید عیسیٰ",
+    father: "سید امیر حسن",
+    mother: "",
+    spouse: "",
+    gen: "G-037-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ (اچھی)",
+    father: "سید امیر حسن",
+    mother: "",
+    spouse: "",
+    gen: "G-037-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ زردار فاطمہ (جڈّو)",
+    father: "سید امیر حسن",
+    mother: "",
+    spouse: "",
+    gen: "G-037-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 02 ?",
+    father: "سید امیر حسن",
+    mother: "",
+    spouse: "",
+    gen: "G-037-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید معصوم علی -02",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید علی رضا",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید حسن رضا",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 05 ?",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ شہناز",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ مہناز",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 06 ?",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D4",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 07 ?",
+    father: "سید موسیٰ رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D5",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ شيبہ",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ بشریٰ",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ شمونہ",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ عدیله",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D4",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 08 ?",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D5",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 09 ?",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D6",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 10 ?",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D7",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ - 11 ?",
+    father: "سید عیسیٰ",
+    mother: "",
+    spouse: "",
+    gen: "G-038-D8",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "سید مرتضیٰ حسین",
     father: "سید اصغر حسین",
     mother: "",
@@ -1796,7 +1994,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید حسن مسنیٰ",
+    name: "سید حسن مُثَنّٰی",
     father: "سید مرتضیٰ حسین",
     mother: "",
     spouse: "",
@@ -2030,7 +2228,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ عمراو",
+    name: "سیدہ امراؤ",
     father: "سید نواب علی",
     mother: "",
     spouse: "",
@@ -2201,7 +2399,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید مسلم",
+    name: "سید  محمدمسلم",
     father: "سید وزارت حسین -01",
     mother: "",
     spouse: "",
@@ -2238,7 +2436,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید کمال حیدر - 01",
-    father: "سید مسلم",
+    father: "سید  محمدمسلم",
     mother: "سیدہ رفعت زہرا رضوی",
     spouse: "",
     gen: "G-041-S1",
@@ -2247,7 +2445,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید مدثر حیدر",
-    father: "سید مسلم",
+    father: "سید  محمدمسلم",
     mother: "سیدہ رفعت زہرا رضوی",
     spouse: "سیدہ بتول ظفر حیدر رضوی",
     gen: "G-041-S2",
@@ -2256,7 +2454,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید مزمل حیدر",
-    father: "سید مسلم",
+    father: "سید  محمدمسلم",
     mother: "سیدہ رفعت زہرا رضوی",
     spouse: "",
     gen: "G-041-S3",
@@ -2265,7 +2463,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید حسن حیدر",
-    father: "سید مسلم",
+    father: "سید  محمدمسلم",
     mother: "سیدہ رفعت زہرا رضوی",
     spouse: "",
     gen: "G-041-S4",
@@ -2274,7 +2472,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ ثمین (صدف)",
-    father: "سید مسلم",
+    father: "سید  محمدمسلم",
     mother: "سیدہ رفعت زہرا رضوی",
     spouse: "سید نجف حیدر رضوی",
     gen: "G-041-D1",
@@ -2283,7 +2481,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ - ? -02",
-    father: "سید مسلم",
+    father: "سید  محمدمسلم",
     mother: "سیدہ رفعت زہرا رضوی",
     spouse: "",
     gen: "G-041-D2",
@@ -2303,7 +2501,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ رفعت زہرا",
     father: "سید یاور حسین",
     mother: "",
-    spouse: "",
+    spouse: "سید  محمدمسلم",
     gen: "G-040-D1",
     gender: "FEMALE",
     details: ""
@@ -4526,8 +4724,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "15/04/2026, 2:02:48 am", 
-    total_members: 502,
+    saved_time: "15/04/2026, 10:10:57 pm", 
+    total_members: 524,
     comments_count: 9,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

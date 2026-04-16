@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 15/04/2026, 10:10:57 pm
+// Saved: 16/04/2026, 4:22:19 pm
 // Total members (after removing * entries): 524
 
 const FAMILY_DATA_URDU = [
@@ -2004,7 +2004,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید نظیرالحسن",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-S1",
@@ -2013,7 +2013,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید علی حسین -02",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-S2",
@@ -2022,7 +2022,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید محمد علی -01",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-S3",
@@ -2031,7 +2031,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید نصیر حسین",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-S4",
@@ -2040,7 +2040,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ ٓآمرہ خاتون",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-D1",
@@ -2049,7 +2049,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ نبی بانو",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-D2",
@@ -2058,7 +2058,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ حمیدہ خاتون",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-D3",
@@ -2067,7 +2067,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ عتیق",
-    father: "سید علی مستحسن",
+    father: "سید علی مصتحسن",
     mother: "",
     spouse: "",
     gen: "G-038-D4",
@@ -2301,7 +2301,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید آصف",
-    father: "سید نعیم عباس",
+    father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-S1",
@@ -2310,7 +2310,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید سلمان -03",
-    father: "سید نعیم عباس",
+    father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-S2",
@@ -2319,7 +2319,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ ھما",
-    father: "سید نعیم عباس",
+    father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-D1",
@@ -2328,7 +2328,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ اسماء",
-    father: "سید نعیم عباس",
+    father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-D2",
@@ -2337,7 +2337,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ ناہید",
-    father: "سید نعیم عباس",
+    father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-D3",
@@ -4605,7 +4605,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید محمد حسنین حیدر",
-    father: "سید فرحان حیدر",
+    father: "سید فرحان حیدر -01",
     mother: "سیدہ تطہیر زہرا رضوی",
     spouse: "",
     gen: "G-042-S1",
@@ -4614,7 +4614,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ فضہ حیدر - 02",
-    father: "سید فرحان حیدر",
+    father: "سید فرحان حیدر -01",
     mother: "سیدہ تطہیر زہرا رضوی",
     spouse: "",
     gen: "G-042-D1",
@@ -4640,8 +4640,8 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید معصومہ حیدر",
-    father: "سید زیشان حیدر",
+    name: "سید میثم حیدر",
+    father: "سید ذیشان حیدر",
     mother: "سیدہ کنیز فاطمہ رضوی (دعا)",
     spouse: "",
     gen: "G-042-S1",
@@ -4650,7 +4650,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید مجتبیٰ حیدر",
-    father: "سید زیشان حیدر",
+    father: "سید ذیشان حیدر",
     mother: "سیدہ کنیز فاطمہ رضوی (دعا)",
     spouse: "",
     gen: "G-042-S2",
@@ -4659,7 +4659,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید علی حیدر - 02",
-    father: "سید زیشان حیدر",
+    father: "سید ذیشان حیدر",
     mother: "سیدہ کنیز فاطمہ رضوی (دعا)",
     spouse: "",
     gen: "G-042-S3",
@@ -4724,7 +4724,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "15/04/2026, 10:10:57 pm", 
+    saved_time: "16/04/2026, 4:22:19 pm", 
     total_members: 524,
     comments_count: 9,
     sheets_merged: ["Main","1","2","3","4","5"]

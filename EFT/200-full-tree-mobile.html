@@ -493,6 +493,33 @@ transform: scale(0.5);
             .app-header, .footer, .save-options-modal, .modal-overlay, .toggle-dropdown-menu { display: none !important; }
             .tree-container { transform: scale(1) !important; padding: 20px; }
         }
+
+/* Toast notification */
+.fullscreen-toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 9999;
+    pointer-events: none;
+    animation: toastFadeInOut 1.5s ease forwards;
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+}
+
+@keyframes toastFadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
     </style>
 </head>
 <body>
@@ -508,7 +535,8 @@ transform: scale(0.5);
                 <div id="searchDropdown" class="search-dropdown"></div>
             </div>
             <button class="reset-btn-header" id="resetRootBtn">Reset</button>
-            <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
+                        <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
+            <button id="fullScreenBtn" style="background:transparent; border:none; color:var(--gold); font-size:20px; cursor:pointer; padding:6px 10px;">⛶</button>
         </div>
 
         <div id="toggleDropdownMenu" class="toggle-dropdown-menu">
@@ -555,8 +583,12 @@ transform: scale(0.5);
         let expandedState = new Map();
         let showAllMode = true;
         let lastSelectedMemberName = null;
+        let fullScreenMode = false;
+        
 
-        function displayName(str) {
+
+
+function displayName(str) {
             if (!str) return '';
             return str.replace(/[\s-\.۔]*\d+$/, '').trim();
         }
@@ -746,30 +778,14 @@ transform: scale(0.5);
             lastSelectedMemberName = box.getAttribute('data-name');
         }
 
-     function centerNode(element) {
-            const wrapper = document.getElementById('treeWrapper');
+        function centerNode(element) {
+            const wrapper = document.querySelector('.tree-wrapper');
             if (!wrapper || !element) return;
-
-            // Get the current scale from the container's transform style
-            const container = document.getElementById('treeContainer');
-            const style = window.getComputedStyle(container);
-            const matrix = new DOMMatrixReadOnly(style.transform);
-            const scale = matrix.a || 0.5; // Default to 0.5 if matrix is unavailable
-
-            // Calculate coordinates relative to the tree-container
-            const rect = element.getBoundingClientRect();
             const wrapperRect = wrapper.getBoundingClientRect();
-
-            // Calculate the target scroll positions
-            // We factor in the visual scale to ensure the box lands in the dead center
-            const scrollLeft = wrapper.scrollLeft + (rect.left - wrapperRect.left) - (wrapperRect.width / 2) + (rect.width / 2);
-            const scrollTop = wrapper.scrollTop + (rect.top - wrapperRect.top) - (wrapperRect.height / 2) + (rect.height / 2);
-
-            wrapper.scrollTo({
-                left: scrollLeft,
-                top: scrollTop,
-                behavior: 'smooth'
-            });
+            const elementRect = element.getBoundingClientRect();
+            const scrollLeft = wrapper.scrollLeft + (elementRect.left - wrapperRect.left) - (wrapperRect.width / 2) + (elementRect.width / 2);
+            const scrollTop = wrapper.scrollTop + (elementRect.top - wrapperRect.top) - (wrapperRect.height / 2) + (elementRect.height / 2);
+            wrapper.scrollTo({ left: scrollLeft, top: scrollTop, behavior: 'smooth' });
         }
 
         function updateOpenCounter() {
@@ -909,6 +925,39 @@ transform: scale(0.5);
         function showLoading(t) { const m = document.getElementById('loadingMsg'); m.textContent = t; m.style.display = 'block'; }
         function hideLoading() { document.getElementById('loadingMsg').style.display = 'none'; }
 
+
+
+        function showToast(message) {
+            const existingToast = document.querySelector('.fullscreen-toast');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'fullscreen-toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 1500);
+        }
+
+
+        function toggleFullScreenMode() {
+            const treeContainer = document.getElementById('treeContainer');
+            
+            if (!fullScreenMode) {
+                treeContainer.style.transform = 'scale(1)';
+                treeContainer.style.padding = '10px';
+                fullScreenMode = true;
+                showToast('⛶ Full Screen ON');
+            } else {
+                treeContainer.style.transform = 'scale(0.5)';
+                treeContainer.style.padding = '40px';
+                fullScreenMode = false;
+                showToast('🗗 Full Screen OFF');
+            }
+        }
+
         async function processSave() {
             const fmt = document.querySelector('input[name="saveFormat"]:checked').value;
             closeSaveModal();
@@ -942,7 +991,7 @@ transform: scale(0.5);
         }
 
         function goToDashboard() {
-           window.location.href = '6-dashboard-mobile.html';
+            alert("📊 Dashboard feature coming soon.");
         }
 
         function init() {
@@ -979,7 +1028,7 @@ transform: scale(0.5);
                     closeDropdownMenu(); 
                 };
             }
-            
+            document.getElementById('fullScreenBtn').onclick = toggleFullScreenMode;
             setShowAllMode(true);
         }
 

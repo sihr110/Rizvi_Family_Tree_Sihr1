@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 17/04/2026, 4:33:03 pm
-// Total members (after removing * entries): 525
+// Saved: 18/04/2026, 4:29:22 am
+// Total members (after removing * entries): 534
 
 const FAMILY_DATA = [
   {
@@ -680,7 +680,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Muhammad Abbas",
+    name: "Syed Muhammad Abbas - 01",
     father: "Syed Shah Hussain - 01",
     mother: "",
     spouse: "",
@@ -690,7 +690,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Amber",
-    father: "Syed Muhammad Abbas",
+    father: "Syed Muhammad Abbas - 01",
     mother: "",
     spouse: "",
     gen: "G-011-S1",
@@ -1814,7 +1814,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Ali Raza",
+    name: "Syed Ali Raza -01",
     father: "Syed Musa Raza",
     mother: "",
     spouse: "",
@@ -2276,7 +2276,7 @@ const FAMILY_DATA = [
     name: "Syed Dilawar Abbas (Aleem)",
     father: "Syed Ali Abbas",
     mother: "Syeda Laeeq Rizvi",
-    spouse: "",
+    spouse: "Fakhra Khatoon",
     gen: "G-040-S2",
     gender: "MALE",
     details: ""
@@ -2350,6 +2350,60 @@ const FAMILY_DATA = [
     mother: "Syeda Masoom Fatima Rizvi",
     spouse: "",
     gen: "G-041-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Nasir Abbas",
+    father: "Syed Dilawar Abbas (Aleem)",
+    mother: "Fakhra Khatoon",
+    spouse: "Syeda Nabiya Rizvi",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Faizan Abbas",
+    father: "Syed Dilawar Abbas (Aleem)",
+    mother: "Fakhra Khatoon",
+    spouse: "Syeda Fiza Rizvi",
+    gen: "G-041-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Muhammad Abbas -02",
+    father: "Syed Dilawar Abbas (Aleem)",
+    mother: "Fakhra Khatoon",
+    spouse: "",
+    gen: "G-041-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Ali Raza -02",
+    father: "Syed Dilawar Abbas (Aleem)",
+    mother: "Fakhra Khatoon",
+    spouse: "Quratulain",
+    gen: "G-041-S4",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Erum Zehra",
+    father: "Syed Dilawar Abbas (Aleem)",
+    mother: "Fakhra Khatoon",
+    spouse: "Syed Kazim Raza Rizvi",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Farwa Rizvi",
+    father: "Syed Faizan Abbas",
+    mother: "Syeda Fiza Rizvi",
+    spouse: "",
+    gen: "",
     gender: "FEMALE",
     details: ""
   },
@@ -3164,7 +3218,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qurat ul Aian Tahira (Pappi)",
+    name: "Syeda Qurat ul Aian Tahira (Puppi)",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi",
     spouse: "Syed Farhat Mehdi Zaidi",
@@ -3920,7 +3974,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Mohammad Samar",
+    name: "Syed Mohammad Samar Haider",
     father: "Syed Aley Haider -02",
     mother: "",
     spouse: "",
@@ -3929,12 +3983,39 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Mohammad Shabbar",
+    name: "Syed Mohammad Shabbar Haider",
     father: "Syed Aley Haider -02",
     mother: "",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Shehar Bano",
+    father: "Syed Aley Haider -02",
+    mother: "",
+    spouse: "Baqar Ali",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Batool Fatima",
+    father: "Syed Aley Haider -02",
+    mother: "",
+    spouse: "Syed Ammar Moosa Rizvi",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Bushra Fatima",
+    father: "Syed Aley Haider -02",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D3",
+    gender: "FEMALE",
     details: ""
   },
   {
@@ -4733,8 +4814,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "17/04/2026, 4:33:03 pm", 
-    total_members: 525,
+    saved_time: "18/04/2026, 4:29:22 am", 
+    total_members: 534,
     comments_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

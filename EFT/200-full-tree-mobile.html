@@ -942,15 +942,21 @@ function displayName(str) {
         }
 
 
-        function toggleFullScreenMode() {
+            function toggleFullScreenMode() {
             const treeContainer = document.getElementById('treeContainer');
             
             if (!fullScreenMode) {
+                // Request browser fullscreen
+                document.documentElement.requestFullscreen();
+                // Scale tree to fill area
                 treeContainer.style.transform = 'scale(1)';
                 treeContainer.style.padding = '10px';
                 fullScreenMode = true;
                 showToast('⛶ Full Screen ON');
             } else {
+                // Exit browser fullscreen
+                document.exitFullscreen();
+                // Return tree to normal
                 treeContainer.style.transform = 'scale(0.5)';
                 treeContainer.style.padding = '40px';
                 fullScreenMode = false;

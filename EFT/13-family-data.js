@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 16/04/2026, 8:17:21 pm
-// Total members (after removing * entries): 524
+// Saved: 17/04/2026, 4:33:03 pm
+// Total members (after removing * entries): 525
 
 const FAMILY_DATA = [
   {
@@ -2255,6 +2255,15 @@ const FAMILY_DATA = [
     details: ""
   },
   {
+    name: "Syeda Narjis Khatoon",
+    father: "Syed Akbar Ali - 02",
+    mother: "",
+    spouse: "",
+    gen: "G-039-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "Syed Naseem Abbas",
     father: "Syed Ali Abbas",
     mother: "Syeda Laeeq Rizvi",
@@ -3155,7 +3164,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qurat ul Aian Tahira",
+    name: "Syeda Qurat ul Aian Tahira (Pappi)",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi",
     spouse: "Syed Farhat Mehdi Zaidi",
@@ -3164,7 +3173,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qurat ul Aian Noor",
+    name: "Syeda Qurat ul Aian Noor (Munni)",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi",
     spouse: "Syed Altaf Hussain",
@@ -3173,7 +3182,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qurat ul Aian Saleha",
+    name: "Syeda Qurat ul Aian Saleha (Farah)",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi",
     spouse: "Syed Waqar Zaidi",
@@ -3182,7 +3191,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qurat ul Aian Arfa",
+    name: "Syeda Qurat ul Aian Arfa (Kiran)",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi",
     spouse: "Syed Hashim Raza Rizvi",
@@ -3458,7 +3467,7 @@ const FAMILY_DATA = [
     spouse: "Syed Ahmad Raza Rizvi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Fariha Fatima\n\nS1 - Syed  …..\nD1 - Syeda Farwa Rizvi"
+    details: "Children of Syeda Fariha Fatima\n\nS1 - Syed Afnan Ahmad Rizvi\nD1 - Syeda Farwa Rizvi"
   },
   {
     name: "Syed Musa Rizvi",
@@ -4724,8 +4733,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "16/04/2026, 8:17:21 pm", 
-    total_members: 524,
+    saved_time: "17/04/2026, 4:33:03 pm", 
+    total_members: 525,
     comments_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

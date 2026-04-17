@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 16/04/2026, 4:22:19 pm
-// Total members (after removing * entries): 524
+// Saved: 17/04/2026, 4:34:34 pm
+// Total members (after removing * entries): 525
 
 const FAMILY_DATA_URDU = [
   {
@@ -2255,6 +2255,15 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
+    name: "سیدہ  نرجس خاتون",
+    father: "سید اکبر علی - 02",
+    mother: "",
+    spouse: "",
+    gen: "G-039-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "سید نسیم عباس",
     father: "سید علی عباس",
     mother: "سیدہ لئیق رضوی",
@@ -2300,7 +2309,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید آصف",
+    name: "سید آصف رضا",
     father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
@@ -2309,7 +2318,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید سلمان -03",
+    name: "سید سلمان رضا",
     father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
@@ -2318,7 +2327,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ ھما",
+    name: "سیدہ ہما",
     father: "سید نسیم عباس",
     mother: "سیدہ معصوم فاطمہ رضوی",
     spouse: "",
@@ -3155,7 +3164,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ قرت العین طاہرہ",
+    name: "سیدہ قرت العین طاہرہ (پپی)",
     father: "سید اظہر الحسن",
     mother: "سیدہ تسنیم فاطمہ رضوی",
     spouse: "سید فرحت مہدی زیدی",
@@ -3164,7 +3173,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ قرت العین نور",
+    name: "سیدہ قرت العین نور (منی)",
     father: "سید اظہر الحسن",
     mother: "سیدہ تسنیم فاطمہ رضوی",
     spouse: "سید الطاف حسین",
@@ -3173,7 +3182,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ قرت العین صالحہ",
+    name: "سیدہ قرت العین صالحہ (ٖفرح)",
     father: "سید اظہر الحسن",
     mother: "سیدہ تسنیم فاطمہ رضوی",
     spouse: "سید وقار زیدی",
@@ -3182,7 +3191,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ قرت العین عارفہ",
+    name: "سیدہ قرت العین عارفہ (کرن)",
     father: "سید اظہر الحسن",
     mother: "سیدہ تسنیم فاطمہ رضوی",
     spouse: "سید ہاشم رضا رضوی",
@@ -3458,7 +3467,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید احمد رضا رضوی",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "اولاد: سیدہ فریحہ فاطمہ\n1-سید …\n2-سیدہ فروہ رضوی"
+    details: "اولاد: سیدہ فریحہ فاطمہ\n1-سید  افنان احمد  رضوی\n2-سیدہ فروہ رضوی"
   },
   {
     name: "سید موسیٰ رضوی",
@@ -4724,8 +4733,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "16/04/2026, 4:22:19 pm", 
-    total_members: 524,
+    saved_time: "17/04/2026, 4:34:34 pm", 
+    total_members: 525,
     comments_count: 9,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

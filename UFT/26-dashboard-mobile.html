@@ -305,53 +305,40 @@
         let fileInfo = null;
 
         // ==================== INITIALIZATION ====================
-        function initializeData() {
-            // First check if we have data in localStorage
-            const saved = localStorage.getItem('familyDB');
-            if (saved) {
-                try {
-                    db = JSON.parse(saved);
-                    updateHeaderStatus();
-                    
-                    const savedInfo = localStorage.getItem('fileInfo');
-                    if (savedInfo) {
-                        fileInfo = JSON.parse(savedInfo);
-                    }
-                    renderDashboard();
-                    return;
-                } catch (e) {
-                    console.error('Error parsing saved data:', e);
-                }
-            }
+        
 
-            // If no cached data, auto-load from 33-family-data-urdu.js
-            autoLoadFromJS();
-        }
-
-        function autoLoadFromJS() {
-            if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
-                try {
-                    db = FAMILY_DATA_URDU;
-                    localStorage.setItem('familyDB', JSON.stringify(db));
-                    
-                    if (typeof FILE_INFO !== 'undefined') {
-                        fileInfo = FILE_INFO;
-                        localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                        console.log('✅ ٹائم سٹیمپ محفوظ:', FILE_INFO.saved_time);
-                    }
-                    
-                    updateHeaderStatus();
-                    renderDashboard();
-                    showToast('✅ ڈیٹا خودکار لوڈ ہو گیا');
-                } catch (err) {
-                    console.error('Error:', err);
-                    showToast('❌ ڈیٹا لوڈ کرنے میں خرابی');
-                }
-            } else {
-                console.warn('⚠️ FAMILY_DATA_URDU not found or empty');
-                renderDashboard();
+function initializeData() {
+    // STEP 1: Auto hard reset - clear everything
+    localStorage.removeItem('familyDB');
+    localStorage.removeItem('fileInfo');
+    localStorage.removeItem('tableViewMember');
+    localStorage.removeItem('tableViewFilters');
+    db = [];
+    
+    // STEP 2: Auto load fresh from 33-family-data-urdu.js
+    if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
+        try {
+            db = FAMILY_DATA_URDU;
+            localStorage.setItem('familyDB', JSON.stringify(db));
+            
+            if (typeof FILE_INFO !== 'undefined') {
+                fileInfo = FILE_INFO;
+                localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
+                console.log('✅ Timestamp saved:', FILE_INFO.saved_time);
             }
+            
+            console.log(`✅ Auto-loaded ${db.length} members from 33-family-data-urdu.js`);
+        } catch (err) {
+            console.error('Error loading from JS:', err);
         }
+    } else {
+        console.warn('⚠️ FAMILY_DATA_URDU not found. Make sure 33-family-data-urdu.js is loaded.');
+    }
+    
+    updateHeaderStatus();
+    renderDashboard();
+}
+
 
         function updateHeaderStatus() {
             const count = db.length || 0;
@@ -468,29 +455,19 @@
             }
         }
 
-        function hardReset() {
-            if (confirm('🚨 انتباہ: تمام ڈیٹا مستقل طور پر حذف ہو جائے گا۔ کیا آپ کو یقین ہے؟')) {
-                // Clear all localStorage items
-                localStorage.removeItem('familyDB');
-                localStorage.removeItem('fileInfo');
-                localStorage.removeItem('tableViewMember');
-                localStorage.removeItem('tableViewFilters');
-                
-                // Reset database
-                db = [];
-                
-                // Update header
-                updateHeaderStatus();
-                
-                // Re-render dashboard
-                renderDashboard();
-                
-                showToast('✅ تمام ڈیٹا صاف کر دیا گیا');
-                
-                // Try to auto-load again
-                autoLoadFromJS();
-            }
-        }
+function hardReset() {
+    if (confirm('🚨 انتباہ: تمام ڈیٹا مستقل طور پر حذف ہو جائے گا۔ کیا آپ کو یقین ہے؟')) {
+        localStorage.removeItem('familyDB');
+        localStorage.removeItem('fileInfo');
+        localStorage.removeItem('tableViewMember');
+        localStorage.removeItem('tableViewFilters');
+        db = [];
+        initializeData();
+        updateHeaderStatus();
+        renderDashboard();
+        showToast('✅ تمام ڈیٹا صاف کر دیا گیا اور دوبارہ لوڈ ہو گیا');
+    }
+}
 
         // ==================== ANIMATION STYLES ====================
         const style = document.createElement('style');

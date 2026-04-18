@@ -388,20 +388,14 @@ function hardReset() {
     const confirmation = confirm("🚨 انتباہ: یہ عمل براؤزر سے تمام خاندانی ڈیٹا کو مستقل طور پر حذف کر دے گا۔ کیا آپ کو یقین ہے؟");
     
     if (confirmation) {
-        // Clear all localStorage items
         localStorage.removeItem('familyDB');
         localStorage.removeItem('fileInfo');
         localStorage.removeItem('tableViewMember');
         localStorage.removeItem('tableViewFilters');
-        
-        // Reset the database variable
         db = [];
-        isAdminAuthenticated = false;
-        
-        // Update header status
+        initializeData();
         updateHeaderStatus();
         
-        // Update the UI based on current view
         if (currentView === 'admin') {
             renderAdminView();
         } else {
@@ -409,9 +403,6 @@ function hardReset() {
         }
         
         alert("✅ تمام ڈیٹا براؤزر اسٹوریج سے صاف کر دیا گیا ہے۔");
-        
-        // Try to auto-load again
-        autoLoadFromJS();
     }
 }
 
@@ -635,77 +626,24 @@ function renderAdminView() {
     `;
 }
 
-// Auto-load from 33-family-data-urdu.js on PC
-function autoLoadFromJS() {
-    console.log('Checking for Urdu data...');
-    console.log('FAMILY_DATA_URDU exists?', typeof FAMILY_DATA_URDU !== 'undefined');
-    
-    // Check if FAMILY_DATA_URDU is available (from 33-family-data-urdu.js)
-    if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
-        try {
-            // Save the family members data (already includes all fields)
-            db = FAMILY_DATA_URDU;
-            localStorage.setItem('familyDB', JSON.stringify(db));
-            
-            // Save the file info (timestamp) to localStorage
-            if (typeof FILE_INFO !== 'undefined') {
-                localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                console.log('✅ ٹائم سٹیمپ محفوظ:', FILE_INFO.saved_time);
-                console.log('✅ کل اراکین:', FILE_INFO.total_members);
-            }
-            
-            updateHeaderStatus();
-            console.log(`✅ ${db.length} اراکین کا ڈیٹا خودکار طور پر لوڈ ہو گیا`);
-            
-            // Force a UI update
-            if (currentView === 'dashboard') {
-                renderDashboardView();
-            } else if (currentView === 'admin') {
-                renderAdminView();
-            }
-            
-        } catch (err) {
-            console.error('خرابی:', err);
-        }
-    } else {
-        console.warn('⚠️ FAMILY_DATA_URDU not found or empty');
-    }
-}
-
-// Initialize on page load
 function initializeData() {
-    console.log('Initializing data...');
+    localStorage.removeItem('familyDB');
+    localStorage.removeItem('fileInfo');
+    localStorage.removeItem('tableViewMember');
+    localStorage.removeItem('tableViewFilters');
+    db = [];
     
-    // First check if we have data in localStorage (from previous session)
-    const saved = localStorage.getItem('familyDB');
-    if (saved) {
-        try {
-            db = JSON.parse(saved);
-            updateHeaderStatus();
-            console.log(`📋 Loaded ${db.length} members from localStorage`);
-            
-            // Also load fileInfo if available
-            const savedInfo = localStorage.getItem('fileInfo');
-            if (savedInfo) {
-                console.log('📅 کیشڈ ٹائم سٹیمپ:', JSON.parse(savedInfo).saved_time);
-            }
-            
-            // Update the UI
-            if (currentView === 'dashboard') {
-                renderDashboardView();
-            } else if (currentView === 'admin') {
-                renderAdminView();
-            }
-            return;
-        } catch (e) {
-            console.error('Error parsing saved data:', e);
+    if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
+        db = FAMILY_DATA_URDU;
+        localStorage.setItem('familyDB', JSON.stringify(db));
+        if (typeof FILE_INFO !== 'undefined') {
+            localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
         }
+        console.log(`✅ Auto-loaded ${db.length} members from 33-family-data-urdu.js`);
     }
-
-    // If no cached data, auto-load from 33-family-data-urdu.js
-    console.log('No cached data, auto-loading from 33-family-data-urdu.js...');
-    autoLoadFromJS();
+    updateHeaderStatus();
 }
+    
 
 // Check for hash on page load (FOR BACK TO ADMIN BUTTON)
 function checkHash() {
@@ -739,6 +677,7 @@ function checkHash() {
 
 // Initialize everything
 initializeData();
+renderDashboardView();
 checkURLParams();
 checkHash();
 

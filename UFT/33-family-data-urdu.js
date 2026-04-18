@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 17/04/2026, 4:34:34 pm
-// Total members (after removing * entries): 525
+// Saved: 18/04/2026, 7:54:12 pm
+// Total members (after removing * entries): 528
 
 const FAMILY_DATA_URDU = [
   {
@@ -2624,7 +2624,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ نجم فاطمہ",
+    name: "سیدہ نجم فاطمہ (نجو)",
     father: "سید محمد نقی",
     mother: "",
     spouse: "",
@@ -3443,7 +3443,7 @@ const FAMILY_DATA_URDU = [
     details: "اولاد: سیدہ حنا رضوی\n\n01-سید کمیل حسین نقوی\n02-سید جاری حسین نقوی\n03-سیدہ ابہیا حسین نقوی"
   },
   {
-    name: "سید فرحان حیدر -02",
+    name: "سید فرحان حیدر",
     father: "سید محمد عمران رضوی",
     mother: "سیدہ غزالہ رضوی",
     spouse: "",
@@ -3506,7 +3506,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید شم الحسن",
+    name: "سید شمس الحسن",
     father: "سید یعقوب الحسن",
     mother: "",
     spouse: "",
@@ -3705,7 +3705,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید محمد رضا",
-    father: "سید شم الحسن",
+    father: "سید شمس الحسن",
     mother: "",
     spouse: "",
     gen: "G-040-S1",
@@ -3714,7 +3714,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید ہاشم رضا",
-    father: "سید شم الحسن",
+    father: "سید شمس الحسن",
     mother: "",
     spouse: "",
     gen: "G-040-S2",
@@ -3723,7 +3723,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ سیما بتول",
-    father: "سید شم الحسن",
+    father: "سید شمس الحسن",
     mother: "",
     spouse: "",
     gen: "G-040-D1",
@@ -3732,7 +3732,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ ھما بتول",
-    father: "سید شم الحسن",
+    father: "سید شمس الحسن",
     mother: "",
     spouse: "",
     gen: "G-040-D2",
@@ -3929,12 +3929,39 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید محمد شبر",
+    name: "سید محمد شجر",
     father: "سید آل حیدر -02",
     mother: "",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ شہر بانو",
+    father: "سید آل حیدر -02",
+    mother: "",
+    spouse: "باقرعلی",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید بتول فاطمہ",
+    father: "سید آل حیدر -02",
+    mother: "",
+    spouse: "سید عمار موسی رضوی",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید بشریٰ فاطمہ",
+    father: "سید آل حیدر -02",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D3",
+    gender: "FEMALE",
     details: ""
   },
   {
@@ -4469,7 +4496,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید فرحان حیدر -01",
+    name: "سید محمد فرحان حیدر",
     father: "سید رسالت حسین",
     mother: "سیدہ لئیق بانو نقوی",
     spouse: "سیدہ تطہیر زہرا رضوی",
@@ -4614,7 +4641,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید محمد حسنین حیدر",
-    father: "سید فرحان حیدر -01",
+    father: "سید محمد فرحان حیدر",
     mother: "سیدہ تطہیر زہرا رضوی",
     spouse: "",
     gen: "G-042-S1",
@@ -4623,7 +4650,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ فضہ حیدر - 02",
-    father: "سید فرحان حیدر -01",
+    father: "سید محمد فرحان حیدر",
     mother: "سیدہ تطہیر زہرا رضوی",
     spouse: "",
     gen: "G-042-D1",
@@ -4733,8 +4760,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "17/04/2026, 4:34:34 pm", 
-    total_members: 525,
+    saved_time: "18/04/2026, 7:54:12 pm", 
+    total_members: 528,
     comments_count: 9,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

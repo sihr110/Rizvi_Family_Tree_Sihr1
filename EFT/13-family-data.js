@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 18/04/2026, 4:29:22 am
+// Saved: 18/04/2026, 7:42:53 pm
 // Total members (after removing * entries): 534
 
 const FAMILY_DATA = [
@@ -2678,7 +2678,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Najam Fatima",
+    name: "Syeda Najam Fatima (Najjo)",
     father: "Syed Mohammad Naqi",
     mother: "",
     spouse: "",
@@ -3497,7 +3497,7 @@ const FAMILY_DATA = [
     details: "Children of Syeda Hina Rizvi\n\nS1: Syed Kumail Hussain Naqvi\nS2: Syed Jari Hussain Naqvi\nD1: Syeda Abhiya Hussain Naqvi"
   },
   {
-    name: "Syed Farhan Haider -02",
+    name: "Syed Farhan Haider",
     father: "Syed Muhammad Imran Rizvi",
     mother: "Syeda Ghazala Rizvi",
     spouse: "",
@@ -4550,7 +4550,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Farhan Haider -01",
+    name: "Syed Mohammad Farhan Haider",
     father: "Syed Risalat Hussain",
     mother: "Syeda Laiq Bano Naqvi",
     spouse: "Syeda Tatheer Zehra Rizvi",
@@ -4694,8 +4694,8 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Muhammad Hasnain Haider",
-    father: "Syed Farhan Haider -01",
+    name: "Syed Mohammad Hasnain Haider",
+    father: "Syed Mohammad Farhan Haider",
     mother: "Syeda Tatheer Zehra Rizvi",
     spouse: "",
     gen: "G-042-S1",
@@ -4704,7 +4704,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Fizza Haider - 02",
-    father: "Syed Farhan Haider -01",
+    father: "Syed Mohammad Farhan Haider",
     mother: "Syeda Tatheer Zehra Rizvi",
     spouse: "",
     gen: "G-042-D1",
@@ -4814,7 +4814,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "18/04/2026, 4:29:22 am", 
+    saved_time: "18/04/2026, 7:42:53 pm", 
     total_members: 534,
     comments_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]

@@ -56,10 +56,12 @@
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
             color: var(--gold);
-            padding: 10px 20px;
+            padding: 0 12px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: space-between;
+            position: relative;
+            gap: 0;
             border-bottom: 3px solid var(--gold);
             flex-shrink: 0;
             flex-wrap: wrap;
@@ -74,18 +76,21 @@
             font-size: 28px;
             cursor: pointer;
             line-height: 1;
-            padding: 0;
+            padding: 12px 0;
         }
 
         .header-title {
-            flex-shrink: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
             font-family: 'Playfair Display', serif;
             font-size: 18px;
             font-weight: 900;
             display: flex;
             align-items: center;
             gap: 8px;
-            white-space: nowrap;
+            padding: 12px 0;
         }
 
         .header-icon {
@@ -99,28 +104,48 @@
             justify-content: center;
         }
 
+        .counter-wrapper {
+            margin-left: auto;
+            padding: 12px 0;
+        }
+
+        #fullScreenBtn {
+            padding: 12px 0;
+        }
+
         .search-section {
-            flex: 2;
-            min-width: 200px;
+            order: 3;
+            flex: 0 0 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            padding: 8px 0;
+            border-top: 2px solid var(--gold);
+            background: white;
             position: relative;
         }
 
         .search-input {
-            width: 100%;
+            width: 220px;
             padding: 8px 15px;
             border: 2px solid var(--gold);
             border-radius: 40px;
             font-size: 14px;
             outline: none;
             background: white;
+            margin: 0;
         }
 
+    
         .search-dropdown {
             position: absolute;
             top: 100%;
-            left: 0;
-            width: 100%;
-            min-width: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 220px;
+            min-width: auto;
             background: white;
             border: 2px solid var(--gold);
             border-radius: 12px;
@@ -128,7 +153,7 @@
             overflow-y: auto;
             display: none;
             z-index: 3000;
-            margin-top: 5px;
+            margin-top: 4px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
@@ -155,7 +180,10 @@
         }
 
         .reset-btn-header {
-            padding: 8px 20px;
+            width: 70px;
+            margin: 0;
+            padding: 8px 0;
+            text-align: center;
             background: var(--gold);
             color: var(--dark-blue);
             border: none;
@@ -547,7 +575,7 @@ transform: scale(0.5);
             <div class="menu-item" onclick="showSaveModal(); closeDropdownMenu();">
                 <span>💾 Save Tree</span>
             </div>
-            <div class="menu-item" onclick="goToDashboard(); closeDropdownMenu();">
+            <div class="menu-item" onclick="window.location.href='6-dashboard-mobile.html'; closeDropdownMenu();">
                 <span>🏠 Dashboard</span>
             </div>
         </div>
@@ -942,7 +970,7 @@ function displayName(str) {
         }
 
 
-            function toggleFullScreenMode() {
+        function toggleFullScreenMode() {
             const treeContainer = document.getElementById('treeContainer');
             
             if (!fullScreenMode) {
@@ -962,6 +990,8 @@ function displayName(str) {
                 fullScreenMode = false;
                 showToast('🗗 Full Screen OFF');
             }
+            // Hide search dropdown when toggling fullscreen
+            document.getElementById('searchDropdown').style.display = 'none';
         }
 
         async function processSave() {

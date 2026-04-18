@@ -3983,7 +3983,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Mohammad Shabbar Haider",
+    name: "Syed Mohammad Shajar Haider",
     father: "Syed Aley Haider -02",
     mother: "",
     spouse: "",

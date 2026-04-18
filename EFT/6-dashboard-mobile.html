@@ -239,28 +239,19 @@
         (function() {
             let db = [];
 
-            function loadFromStorageOrFallback() {
-                const saved = localStorage.getItem('familyDB');
-                if (saved) {
-                    try {
-                        db = JSON.parse(saved);
-                    } catch (e) {
-                        db = [];
-                    }
-                } else {
-                    if (typeof FAMILY_DATA !== 'undefined' && Array.isArray(FAMILY_DATA) && FAMILY_DATA.length > 0) {
-                        db = FAMILY_DATA;
-                        localStorage.setItem('familyDB', JSON.stringify(db));
-                        if (typeof FILE_INFO !== 'undefined') {
-                            localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                        }
-                    } else {
-                        db = [];
-                    }
-                }
-                updateHeaderCounter();
-            }
-
+        function loadFromStorageOrFallback() {
+    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
+        db = FAMILY_DATA;
+        localStorage.setItem('familyDB', JSON.stringify(db));
+        if (typeof FILE_INFO !== 'undefined') {
+            localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
+        }
+        console.log(`✅ Auto-loaded ${db.length} members from 13-family-data.js`);
+    } else {
+        db = [];
+    }
+    updateHeaderCounter();
+}   
             function updateHeaderCounter() {
                 const count = db.length;
                 const statusEl = document.getElementById('headerStatus');
@@ -269,25 +260,19 @@
                 }
             }
 
-            function hardResetMobile() {
-                const confirmation = confirm("🚨 WARNING: This will permanently delete ALL family data from this browser. Are you sure?");
-                if (confirmation) {
-                    localStorage.removeItem('familyDB');
-                    localStorage.removeItem('fileInfo');
-                    localStorage.removeItem('tableViewMember');
-                    localStorage.removeItem('tableViewFilters');
-                    db = [];
-                    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
-                        db = FAMILY_DATA;
-                        localStorage.setItem('familyDB', JSON.stringify(db));
-                        if (typeof FILE_INFO !== 'undefined') {
-                            localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                        }
-                    }
-                    updateHeaderCounter();
-                    alert("✅ All data cleared and reloaded from built‑in source (if available).");
-                }
-            }
+function hardResetMobile() {
+    const confirmation = confirm("🚨 WARNING: This will permanently delete ALL family data from this browser. Are you sure?");
+    if (confirmation) {
+        localStorage.removeItem('familyDB');
+        localStorage.removeItem('fileInfo');
+        localStorage.removeItem('tableViewMember');
+        localStorage.removeItem('tableViewFilters');
+        db = [];
+        loadFromStorageOrFallback();
+        updateHeaderCounter();
+        alert("✅ All data cleared and reloaded from 13-family-data.js.");
+    }
+}
 
             function logoutMobile() {
                 if (confirm('Are you sure you want to exit and return to the login page?')) {

@@ -390,8 +390,7 @@ function hardReset() {
         
         alert("✅ All data has been cleared from browser storage.");
         
-        autoLoadFromJS();
-    }
+           }
 }
 
 function goToAdminWithPassword() {
@@ -507,10 +506,42 @@ function goToDashboard() {
     renderDashboardView();
 }
 
+
 function renderDashboardView() {
+    // STEP 1: Auto hard reset - clear everything
+    localStorage.removeItem('familyDB');
+    localStorage.removeItem('fileInfo');
+    localStorage.removeItem('tableViewMember');
+    localStorage.removeItem('tableViewFilters');
+    db = [];
+    
+    // STEP 2: Auto load fresh from 13-family-data.js
+    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
+        try {
+            db = FAMILY_DATA;
+            localStorage.setItem('familyDB', JSON.stringify(db));
+            
+            if (typeof FILE_INFO !== 'undefined') {
+                localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
+                console.log('✅ Timestamp saved:', FILE_INFO.saved_time);
+                console.log('✅ Total members:', FILE_INFO.total_members);
+            }
+            
+            console.log(`✅ Auto-loaded ${db.length} members from 13-family-data.js`);
+        } catch (err) {
+            console.error('Error loading from JS:', err);
+        }
+    } else {
+        console.warn('⚠️ FAMILY_DATA not found. Make sure 13-family-data.js is loaded.');
+    }
+    
+    // STEP 3: Update header with new count
+    updateHeaderStatus();
+    
+    // STEP 4: Render the dashboard UI
     document.getElementById('headerTitle').innerText = 'Rizvi Family Dashboard (PC)';
     document.getElementById('headerActions').innerHTML = `
-        <span class="status-badge" id="headerStatus">📊 Total member records: ${db.length || (localStorage.getItem('familyDB') ? JSON.parse(localStorage.getItem('familyDB')).length : 0)}</span>
+        <span class="status-badge" id="headerStatus">📊 Total member records: ${db.length}</span>
     `;
     
     const mainContent = document.getElementById('mainContent');
@@ -555,6 +586,9 @@ function renderDashboardView() {
         </div>
     `;
 }
+
+
+
 function renderAdminView() {
     document.getElementById('headerTitle').innerText = 'Admin Control Panel';
     document.getElementById('headerActions').innerHTML = `
@@ -608,26 +642,6 @@ function renderAdminView() {
     `;
 }
 
-function autoLoadFromJS() {
-    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
-        try {
-            db = FAMILY_DATA;
-            localStorage.setItem('familyDB', JSON.stringify(db));
-            
-            if (typeof FILE_INFO !== 'undefined') {
-                localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                console.log('✅ Timestamp saved:', FILE_INFO.saved_time);
-                console.log('✅ Total members:', FILE_INFO.total_members);
-            }
-            
-            updateHeaderStatus();
-            console.log(`✅ Auto-loaded ${db.length} members`);
-            
-        } catch (err) {
-            console.error('Error:', err);
-        }
-    }
-}
 
 function initializeData() {
     const saved = localStorage.getItem('familyDB');
@@ -646,8 +660,7 @@ function initializeData() {
         }
     }
 
-    autoLoadFromJS();
-}
+    }
 
 function checkHash() {
     const urlParams = new URLSearchParams(window.location.search);

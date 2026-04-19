@@ -53,84 +53,134 @@
             overflow: hidden;
         }
 
-        .app-header {
-            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-            color: var(--gold);
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 3px solid var(--gold);
-            flex-shrink: 0;
-            flex-wrap: wrap;
-        }
+     
+/* Updated Header Styles to match File 7 structure */
+.app-header {
+    background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+    color: var(--gold);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Space between toggle and counter */
+    align-items: center;
+    border-bottom: 3px solid var(--gold);
+    position: relative;
+    height: 60px; /* Fixed height for better alignment */
+}
 
-        #toggleMenuBtn {
-            width: 32px;
-            flex-shrink: 0;
-            background: transparent;
-            border: none;
-            color: var(--gold);
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0;
-        }
+/* Circular Toggle Button like File 7 */
+#toggleMenuBtn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    border: 2px solid white;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    line-height: 1;
+    padding: 0;
+}
 
-        .header-title {
-            flex-shrink: 0;
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
+#toggleMenuBtn:hover {
+    background: var(--light-gold);
+    transform: scale(1.1);
+}
 
-        .header-icon {
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* Centered Title like File 7 */
+.header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute; /* Essential for centering */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
 
-        .search-section {
-            flex: 2;
-            min-width: 200px;
-            position: relative;
-        }
+.header-icon {
+    background: var(--gold);
+    color: var(--dark-blue);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .search-input {
-            width: 100%;
-            padding: 8px 15px;
-            border: 2px solid var(--gold);
-            border-radius: 40px;
-            font-size: 14px;
-            outline: none;
-            background: white;
-        }
+/* Counter Wrapper moved to the right */
+.counter-wrapper {
+    background: #d4af3720;
+    padding: 6px 14px;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}
 
-        .search-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            min-width: 280px;
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            max-height: 280px;
-            overflow-y: auto;
-            display: none;
-            z-index: 3000;
-            margin-top: 5px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+
+
+
+
+
+
+
+
+ 
+
+    
+
+
+
+
+
+/* Rectangular Search Bar (Matches File 7) */
+.search-input-file7 {
+    width: 100%;
+    height: 45px;
+    padding: 0 15px;
+    border: 2px solid #cbd5e1; /* Initial grey border */
+    border-radius: 4px;        /* Rectangular corners */
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    background: white;
+}
+
+.search-input-file7:focus {
+    border-color: var(--gold); /* Turns gold on click */
+}
+
+/* Updated Dropdown to match rectangular input width */
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 3000; /* High z-index to stay above tree nodes */
+    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
 
         .result-item {
             padding: 10px 15px;
@@ -169,18 +219,7 @@
             background: var(--light-gold);
         }
 
-        .counter-wrapper {
-            background: #d4af3720;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
+  
            .tree-wrapper {
             flex: 1;
             overflow: auto;
@@ -496,25 +535,32 @@ transform: scale(0.5);
     </style>
 </head>
 <body>
-    <div class="app-container">
+
+<div class="app-container">
         <div class="app-header">
             <button id="toggleMenuBtn">☰</button>
+            
             <div class="header-title">
                 <span class="header-icon">🌳</span>
                 <span>Rizvi Family · Full Tree</span>
             </div>
-            <div class="search-section">
-                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search any member..." autocomplete="off">
-                <div id="searchDropdown" class="search-dropdown"></div>
-            </div>
-            <button class="reset-btn-header" id="resetRootBtn">Reset</button>
+            
             <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
         </div>
 
-        <div id="toggleDropdownMenu" class="toggle-dropdown-menu">
+<div class="search-wrapper" style="width: 85%; margin: 15px auto; display: flex; align-items: center; gap: 10px;">
+            <span style="font-weight: 700; font-size: 14px; color: var(--dark-blue); white-space: nowrap;">SEARCH MEMBER:</span>
+            <div style="flex: 1; position: relative;">
+                <input type="text" id="searchInput" class="search-input-file7" placeholder="" autocomplete="off">
+                <div id="searchDropdown" class="search-dropdown"></div>
+            </div>
+            <button class="reset-btn-header" id="resetRootBtn" style="height: 45px; padding: 0 15px; background: var(--gold); color: var(--dark-blue); border: none; border-radius: 4px; font-weight: 600; cursor: pointer;">Reset</button>
+        </div>
+
+        <div class="toggle-dropdown-menu" id="toggleDropdownMenu">
             <div class="menu-item" id="showAllMenuItem">
-                <span>📂 Show All (full details)</span>
-                <span id="showAllToggleSwitch" class="toggle-switch active"></span>
+                <span>Detailed View</span>
+                <div class="toggle-switch active" id="showAllToggleSwitch"></div>
             </div>
             <div class="menu-item" onclick="showSaveModal(); closeDropdownMenu();">
                 <span>💾 Save Tree</span>
@@ -524,7 +570,7 @@ transform: scale(0.5);
             </div>
         </div>
 
-        <div class="tree-wrapper" id="treeWrapper">
+      <div class="tree-wrapper" id="treeWrapper">
             <div class="tree-container" id="treeContainer">
                 <div id="treeRoot"></div>
             </div>

@@ -56,12 +56,10 @@
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
             color: var(--gold);
-            padding: 0 12px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            position: relative;
-	    gap: 0;
+            gap: 15px;
             border-bottom: 3px solid var(--gold);
             flex-shrink: 0;
             flex-wrap: wrap;
@@ -76,23 +74,19 @@
             font-size: 28px;
             cursor: pointer;
             line-height: 1;
-            padding: 12px 0;
+            padding: 0;
         }
 
-.header-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;                    /* ← ADD THIS ONE LINE */
-    white-space: nowrap;
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 0;
-}
+        .header-title {
+            flex-shrink: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
 
         .header-icon {
             background: var(--gold);
@@ -105,72 +99,28 @@
             justify-content: center;
         }
 
-        .counter-wrapper {
-            margin-left: auto;
-            padding: 12px 0;
-        }
-
-        #fullScreenBtn {
-            padding: 12px 0;
-        }
-
-     
-        /* ROW 2 WRAPPER - centers search + reset together */
-        .search-row-wrapper {
-            order: 3;
-            flex: 0 0 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin: 0;
-            padding: 8px 0;
-            border-top: 2px solid var(--gold);
-            background: white;
-        }
-
         .search-section {
+            flex: 2;
+            min-width: 200px;
             position: relative;
-            margin: 0;
-            padding: 0;
         }
 
-           .search-input {
-            width: 380px;
-            padding: 10px 18px;
+        .search-input {
+            width: 100%;
+            padding: 8px 15px;
             border: 2px solid var(--gold);
             border-radius: 40px;
-            font-size: 16px;
+            font-size: 14px;
             outline: none;
             background: white;
-            margin: 0;
-        }
-
-        .reset-btn-header {
-            width: 70px;
-            margin: 0;
-            padding: 8px 0;
-            text-align: center;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .reset-btn-header:hover {
-            background: var(--light-gold);
         }
 
         .search-dropdown {
             position: absolute;
             top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 320px;
-            min-width: auto;
+            left: 0;
+            width: 100%;
+            min-width: 280px;
             background: white;
             border: 2px solid var(--gold);
             border-radius: 12px;
@@ -178,9 +128,10 @@
             overflow-y: auto;
             display: none;
             z-index: 3000;
-            margin-top: 4px;
+            margin-top: 5px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+
         .result-item {
             padding: 10px 15px;
             cursor: pointer;
@@ -203,7 +154,20 @@
             margin-top: 2px;
         }
 
+        .reset-btn-header {
+            padding: 8px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+        }
 
+        .reset-btn-header:hover {
+            background: var(--light-gold);
+        }
 
         .counter-wrapper {
             background: #d4af3720;
@@ -529,33 +493,6 @@ transform: scale(1);
             .app-header, .footer, .save-options-modal, .modal-overlay, .toggle-dropdown-menu { display: none !important; }
             .tree-container { transform: scale(1) !important; padding: 20px; }
         }
-
-/* Toast notification */
-.fullscreen-toast {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 40px;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 9999;
-    pointer-events: none;
-    animation: toastFadeInOut 1.5s ease forwards;
-    white-space: nowrap;
-    font-family: 'Inter', sans-serif;
-}
-
-@keyframes toastFadeInOut {
-    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-}
-
     </style>
 </head>
 <body>
@@ -566,15 +503,12 @@ transform: scale(1);
                 <span class="header-icon">🌳</span>
                 <span>Rizvi Family · Full Tree</span>
             </div>
-                        <div class="search-row-wrapper">
-                <div class="search-section">
-                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search any member..." autocomplete="off">
-                    <div id="searchDropdown" class="search-dropdown"></div>
-                </div>
-                <button class="reset-btn-header" id="resetRootBtn">Reset</button>
+            <div class="search-section">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search any member..." autocomplete="off">
+                <div id="searchDropdown" class="search-dropdown"></div>
             </div>
-                        <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
-            <button id="fullScreenBtn" style="background:transparent; border:none; color:var(--gold); font-size:20px; cursor:pointer; padding:6px 10px;">⛶</button>
+            <button class="reset-btn-header" id="resetRootBtn">Reset</button>
+            <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
         </div>
 
         <div id="toggleDropdownMenu" class="toggle-dropdown-menu">
@@ -585,7 +519,7 @@ transform: scale(1);
             <div class="menu-item" onclick="showSaveModal(); closeDropdownMenu();">
                 <span>💾 Save Tree</span>
             </div>
-            <div class="menu-item" onclick="window.location.href='6-dashboard-mobile.html'; closeDropdownMenu();">
+            <div class="menu-item" onclick="goToDashboard(); closeDropdownMenu();">
                 <span>🏠 Dashboard</span>
             </div>
         </div>
@@ -621,12 +555,8 @@ transform: scale(1);
         let expandedState = new Map();
         let showAllMode = true;
         let lastSelectedMemberName = null;
-        let fullScreenMode = false;
-        
 
-
-
-function displayName(str) {
+        function displayName(str) {
             if (!str) return '';
             return str.replace(/[\s-\.۔]*\d+$/, '').trim();
         }
@@ -816,14 +746,30 @@ function displayName(str) {
             lastSelectedMemberName = box.getAttribute('data-name');
         }
 
-        function centerNode(element) {
-            const wrapper = document.querySelector('.tree-wrapper');
+     function centerNode(element) {
+            const wrapper = document.getElementById('treeWrapper');
             if (!wrapper || !element) return;
+
+            // Get the current scale from the container's transform style
+            const container = document.getElementById('treeContainer');
+            const style = window.getComputedStyle(container);
+            const matrix = new DOMMatrixReadOnly(style.transform);
+            const scale = matrix.a || 0.5; // Default to 0.5 if matrix is unavailable
+
+            // Calculate coordinates relative to the tree-container
+            const rect = element.getBoundingClientRect();
             const wrapperRect = wrapper.getBoundingClientRect();
-            const elementRect = element.getBoundingClientRect();
-            const scrollLeft = wrapper.scrollLeft + (elementRect.left - wrapperRect.left) - (wrapperRect.width / 2) + (elementRect.width / 2);
-            const scrollTop = wrapper.scrollTop + (elementRect.top - wrapperRect.top) - (wrapperRect.height / 2) + (elementRect.height / 2);
-            wrapper.scrollTo({ left: scrollLeft, top: scrollTop, behavior: 'smooth' });
+
+            // Calculate the target scroll positions
+            // We factor in the visual scale to ensure the box lands in the dead center
+            const scrollLeft = wrapper.scrollLeft + (rect.left - wrapperRect.left) - (wrapperRect.width / 2) + (rect.width / 2);
+            const scrollTop = wrapper.scrollTop + (rect.top - wrapperRect.top) - (wrapperRect.height / 2) + (rect.height / 2);
+
+            wrapper.scrollTo({
+                left: scrollLeft,
+                top: scrollTop,
+                behavior: 'smooth'
+            });
         }
 
         function updateOpenCounter() {
@@ -963,47 +909,6 @@ function displayName(str) {
         function showLoading(t) { const m = document.getElementById('loadingMsg'); m.textContent = t; m.style.display = 'block'; }
         function hideLoading() { document.getElementById('loadingMsg').style.display = 'none'; }
 
-
-
-        function showToast(message) {
-            const existingToast = document.querySelector('.fullscreen-toast');
-            if (existingToast) existingToast.remove();
-            
-            const toast = document.createElement('div');
-            toast.className = 'fullscreen-toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                if (toast.parentNode) toast.remove();
-            }, 1500);
-        }
-
-
-        function toggleFullScreenMode() {
-            const treeContainer = document.getElementById('treeContainer');
-            
-            if (!fullScreenMode) {
-                // Request browser fullscreen
-                document.documentElement.requestFullscreen();
-                // Scale tree to fill area
-                treeContainer.style.transform = 'scale(1)';
-                treeContainer.style.padding = '10px';
-                fullScreenMode = true;
-                showToast('⛶ Full Screen ON');
-            } else {
-                // Exit browser fullscreen
-                document.exitFullscreen();
-                // Return tree to normal
-                treeContainer.style.transform = 'scale(0.5)';
-                treeContainer.style.padding = '40px';
-                fullScreenMode = false;
-                showToast('🗗 Full Screen OFF');
-            }
-            // Hide search dropdown when toggling fullscreen
-            document.getElementById('searchDropdown').style.display = 'none';
-        }
-
         async function processSave() {
             const fmt = document.querySelector('input[name="saveFormat"]:checked').value;
             closeSaveModal();
@@ -1037,7 +942,7 @@ function displayName(str) {
         }
 
         function goToDashboard() {
-            alert("📊 Dashboard feature coming soon.");
+           window.location.href = '6-dashboard-mobile.html';
         }
 
         function init() {
@@ -1074,7 +979,7 @@ function displayName(str) {
                     closeDropdownMenu(); 
                 };
             }
-            document.getElementById('fullScreenBtn').onclick = toggleFullScreenMode;
+            
             setShowAllMode(true);
         }
 

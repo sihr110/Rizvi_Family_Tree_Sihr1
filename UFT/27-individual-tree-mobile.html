@@ -15,6 +15,102 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+
+.details-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    background: var(--gold);
+    color: var(--dark-blue);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.details-icon:hover {
+    background: var(--light-gold);
+    transform: scale(1.1);
+}
+
+
+
+.info-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: none;
+}
+
+.info-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 260px;
+    max-width: 340px;
+    width: 85%;
+    z-index: 10000;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    text-align: right;
+}
+
+.info-modal h3 {
+    color: var(--maroon);
+    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 3px 0;
+    padding: 0 0 6px 0;
+    border-bottom: 2px solid var(--gold);
+}
+
+.info-modal p {
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    margin: 8px 0 2px 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #2d2d2d;
+    max-height: 220px;
+    overflow-y: auto;
+    background: #fef9e6;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border-right: 3px solid var(--gold);
+}
+
+.info-modal button {
+    margin-top: 10px;
+    padding: 6px 15px;
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    font-size: 11px;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.info-modal button:hover {
+    background: var(--light-gold);
+}
         .reset-btn {
             padding: 10px 20px;
             background: var(--gold);
@@ -757,6 +853,23 @@
         return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'شام':'صبح'}`;
     }
 
+
+function showInfoModal(personName) {
+    const person = db.find(p => p.name === personName);
+    if (!person) return;
+    let detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
+    // Convert literal \n to <br> tags for HTML display
+    detailsText = detailsText.replace(/\\n/g, '<br>');
+    document.getElementById('infoModalText').innerHTML = detailsText;
+    document.getElementById('infoModal').style.display = 'block';
+    document.getElementById('infoModalOverlay').style.display = 'block';
+}
+
+function closeInfoModal() {
+    document.getElementById('infoModal').style.display = 'none';
+    document.getElementById('infoModalOverlay').style.display = 'none';
+}
+
     function loadData() {
         if (typeof FAMILY_DATA_URDU !== 'undefined') {
             db = FAMILY_DATA_URDU;
@@ -863,7 +976,16 @@
         const hasKids = db.some(c => c.father === person.name);
 
         let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}" onclick="handleBoxClick(this)">`;
-        html += `<div class="box-header"><span>${label}</span><span>${person.gen || '—'}</span></div>`;
+        const hasDetails = person.details && person.details !== '' && person.details !== '—';
+html += `<div class="box-header" style="display: flex; justify-content: space-between; align-items: center;">`;
+html += `<span>${label}</span>`;
+if (hasDetails) {
+    html += `<div class="details-icon" style="cursor: pointer;" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
+} else {
+    html += `<div style="width: 20px;"></div>`;
+}
+html += `<span>${person.gen || '—'}</span>`;
+html += `</div>`;
         html += `<div class="box-body">`;
         html += `<div class="box-row"><span class="box-label">نام :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
         
@@ -1240,6 +1362,13 @@
 </script>
 
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
+
+<div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+<div class="info-modal" id="infoModal" style="display:none;">
+    <h3>ℹ️ اضافی معلومات</h3>
+    <p id="infoModalText"></p>
+    <button onclick="closeInfoModal()">بند کریں</button>
+</div>
 
    </body>
 </html>

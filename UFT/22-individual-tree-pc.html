@@ -371,14 +371,14 @@
             margin-top: 2px;
         }
 
-   .tree-container {
-    flex: 1;
-    overflow: auto !important;
-    padding: 20px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
+        .tree-container {
+            flex: 1;
+            overflow: auto !important;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
 
         .tree-container::-webkit-scrollbar {
             width: 12px;
@@ -399,25 +399,21 @@
             background: var(--dark-blue);
         }
 
+        .tree-root-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            transform-origin: top center;
+        }
 
-/* Fix horizontal centering when zoomed */
-.tree-root-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    transform-origin: top center;
-}
-
-
-/* Ensure family groups are centered */
-.family-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
+        .family-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
 
         .welcome-container {
             display: flex;
@@ -479,23 +475,22 @@
             gap: 12px;
         }
 
-        
-  .toggle-icon {
-    font-size: 22px;
-    font-weight: bold;
-    background: var(--gold);
-    color: var(--dark-blue);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: all 0.2s;
-    flex-shrink: 0;
-    line-height: 1;
-}
+        .toggle-icon {
+            font-size: 22px;
+            font-weight: bold;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
 
         .toggle-icon:hover {
             transform: scale(1.1);
@@ -539,6 +534,7 @@
         .box-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 8px 12px;
             background: #f8fafc;
             border-bottom: 1px solid #ddd;
@@ -687,26 +683,113 @@
             display: none;
         }
 
-/* Fix modal font and text rendering */
-.save-options-modal,
-.save-options-modal *,
-.save-options-modal label,
-.save-options-modal button,
-.save-options-modal h3,
-.save-options-modal div,
-.save-options-modal span {
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
-    font-weight: normal;
-    direction: rtl;
-    text-align: right;
+        .info-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 300px;
+            max-width: 450px;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            text-align: right;
+        }
+
+        .info-modal h3 {
+            color: var(--maroon);
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 20px;
+            margin: 0 0 8px 0;
+            padding: 0 0 8px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+
+ .info-modal p {
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 12px 0 0 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+    max-height: 250px;
+    overflow-y: auto;
+    background: #fef9e6;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border-right: 3px solid var(--gold);
 }
 
-.save-options-modal input[type="radio"] {
-    margin-left: 10px;
-    margin-right: 0;
-}
+        .info-modal button {
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.2s;
+        }
 
+        .info-modal button:hover {
+            background: var(--light-gold);
+        }
 
+        .info-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        .details-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .details-icon:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
+
+        .save-options-modal,
+        .save-options-modal *,
+        .save-options-modal label,
+        .save-options-modal button,
+        .save-options-modal h3,
+        .save-options-modal div,
+        .save-options-modal span {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+            font-weight: normal;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .save-options-modal input[type="radio"] {
+            margin-left: 10px;
+            margin-right: 0;
+        }
     </style>
 </head>
 <body>
@@ -725,7 +808,7 @@
                 <span>رضوی خاندان · شجرہ نسب</span>
             </div>
             <div class="header-actions">
-                <div class="header-btn table-view" onclick="switchToTableView()">📊 جدول</div>
+                <div class="header-btn table-view" onclick="switchToTableView()">📊 ٹیبل</div>
                 <div class="header-btn dashboard" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
             </div>
         </div>
@@ -735,7 +818,7 @@
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
+            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 فائل محفوظ کریں</div>
         </div>
 
         <div class="main-content">
@@ -758,522 +841,550 @@
         </div>
 
         <div class="app-footer">
-            ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332
+            ڈویلپر: عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332
         </div>
     </div>
 
-   
-<div class="save-options-modal" id="saveOptionsModal" style="display:none;" dir="rtl">
-    <h3 style="font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">💾 شجرہ محفوظ کریں</h3>
-    <div style="margin-bottom:20px;">
-        <div style="font-weight:600; margin-bottom:10px; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">فارمیٹ منتخب کریں:</div>
-        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
-            <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-left:10px;"> 📑 PDF - ہائی ریزولوشن
-        </label>
-        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
-            <input type="radio" name="saveFormat" value="pdf-low" style="margin-left:10px;"> 📑 PDF - لو ریزولوشن
-        </label>
-        <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
-            <input type="radio" name="saveFormat" value="jpeg" style="margin-left:10px;"> 📸 JPEG تصویر
-        </label>
+    <div class="save-options-modal" id="saveOptionsModal" style="display:none;" dir="rtl">
+        <h3 style="font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">💾 شجرہ محفوظ کریں</h3>
+        <div style="margin-bottom:20px;">
+            <div style="font-weight:600; margin-bottom:10px; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">فارمیٹ منتخب کریں:</div>
+            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
+                <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-left:10px;"> 📑 PDF - ہائی ریزولوشن
+            </label>
+            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
+                <input type="radio" name="saveFormat" value="pdf-low" style="margin-left:10px;"> 📑 PDF - لو ریزولوشن
+            </label>
+            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">
+                <input type="radio" name="saveFormat" value="jpeg" style="margin-left:10px;"> 📸 JPEG تصویر
+            </label>
+        </div>
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">محفوظ کریں</button>
+            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">منسوخ</button>
+        </div>
     </div>
-    <div style="display:flex; gap:10px; justify-content:center;">
-        <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">محفوظ کریں</button>
-        <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer; font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;">منسوخ</button>
-    </div>
-</div>
-
-
-
 
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
+    <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+    <div class="info-modal" id="infoModal">
+        <h3>ℹ️ اضافی معلومات</h3>
+        <p id="infoModalText"></p>
+        <button onclick="closeInfoModal()">بند کریں</button>
+    </div>
 
     <script src="33-family-data-urdu.js"></script>
     
+    <script>
+        let db = [], fileInfo = null, currentIndividual = null;
+        let showSiblings = true, showDescendants = true, showAncestors = true;
+        let zoomLevel = 0.7, siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
 
-<script>
-    let db = [], fileInfo = null, currentIndividual = null;
-    let showSiblings = true, showDescendants = true, showAncestors = true;
-    let zoomLevel = 0.7, siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
-
-    function displayName(str) { 
-        if (!str) return '';
-        // Remove patterns: " - 02", "-02", "۔02", " - 2", "-2", "۔2", and any trailing numbers
-        let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
-        return cleaned;
-    }
-
-    function formatCurrentTime() {
-        const d = new Date();
-        return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'شام':'صبح'}`;
-    }
-
-    function loadData() {
-        if (typeof FAMILY_DATA_URDU !== 'undefined') {
-            db = FAMILY_DATA_URDU;
-            fileInfo = FILE_INFO || null;
-            const urlParams = new URLSearchParams(window.location.search);
-            const memberName = urlParams.get('member');
-            if (memberName) {
-                setTimeout(() => {
-                    const member = db.find(m => m.name === decodeURIComponent(memberName));
-                    if (member) selectMember(member);
-                }, 500);
-            } else {
-                resetIndividual();
-            }
-            setTimeout(() => applyZoom(), 100);
+        function displayName(str) { 
+            if (!str) return '';
+            let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
+            return cleaned;
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', loadData);
+        function formatCurrentTime() {
+            const d = new Date();
+            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'شام':'صبح'}`;
+        }
 
-    window.toggleLeftMenu = () => document.getElementById('toggleMenuPanel').classList.toggle('show');
+function showInfoModal(personName) {
+    const person = db.find(p => p.name === personName);
+    if (!person) return;
+    let detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
+    detailsText = detailsText.replace(/\\n/g, '<br>');
+    document.getElementById('infoModalText').innerHTML = detailsText;
+    document.getElementById('infoModal').style.display = 'block';
+    document.getElementById('infoModalOverlay').style.display = 'block';
+}
 
-    window.handleToggleMenuClick = function(filter) {
-        if (!currentIndividual) return;
-        if (filter === 'siblings') { showSiblings = !showSiblings; document.getElementById('toggleSiblings').classList.toggle('active', showSiblings); }
-        else if (filter === 'descendants') { showDescendants = !showDescendants; document.getElementById('toggleDescendants').classList.toggle('active', showDescendants); }
-        else if (filter === 'ancestors') { showAncestors = !showAncestors; document.getElementById('toggleAncestors').classList.toggle('active', showAncestors); }
-        renderTree();
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    };
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.getElementById('infoModalOverlay').style.display = 'none';
+        }
 
-    function resetIndividual() {
-        document.getElementById('searchInput').value = '';
-        currentIndividual = null;
-        const url = new URL(window.location);
-        url.searchParams.delete('member');
-        window.history.pushState({}, '', url);
-        document.getElementById('treeRoot').innerHTML = `
-            <div class="welcome-container">
-                <div class="welcome-box">
-                    <div class="welcome-icon">🌿</div>
-                    <div class="welcome-title">رضوی خاندان · شجرہ نسب</div>
-                    <div class="welcome-text">
-                        براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>
-                        تاکہ ان کے خاندانی روابط شجرہ کی شکل میں دیکھ سکیں۔
+        function loadData() {
+            if (typeof FAMILY_DATA_URDU !== 'undefined') {
+                db = FAMILY_DATA_URDU;
+                fileInfo = FILE_INFO || null;
+                const urlParams = new URLSearchParams(window.location.search);
+                const memberName = urlParams.get('member');
+                if (memberName) {
+                    setTimeout(() => {
+                        const member = db.find(m => m.name === decodeURIComponent(memberName));
+                        if (member) selectMember(member);
+                    }, 500);
+                } else {
+                    resetIndividual();
+                }
+                setTimeout(() => applyZoom(), 100);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        window.toggleLeftMenu = () => document.getElementById('toggleMenuPanel').classList.toggle('show');
+
+        window.handleToggleMenuClick = function(filter) {
+            if (!currentIndividual) return;
+            if (filter === 'siblings') { showSiblings = !showSiblings; document.getElementById('toggleSiblings').classList.toggle('active', showSiblings); }
+            else if (filter === 'descendants') { showDescendants = !showDescendants; document.getElementById('toggleDescendants').classList.toggle('active', showDescendants); }
+            else if (filter === 'ancestors') { showAncestors = !showAncestors; document.getElementById('toggleAncestors').classList.toggle('active', showAncestors); }
+            renderTree();
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        };
+
+        function resetIndividual() {
+            document.getElementById('searchInput').value = '';
+            currentIndividual = null;
+            const url = new URL(window.location);
+            url.searchParams.delete('member');
+            window.history.pushState({}, '', url);
+            document.getElementById('treeRoot').innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">رضوی خاندان · شجرہ نسب</div>
+                        <div class="welcome-text">
+                            براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام منتخب کریں<br>
+                            تاکہ ان کے خاندانی روابط شجرہ کی شکل میں دیکھ سکیں۔
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        closeAllMenus();
-    }
+            `;
+            closeAllMenus();
+        }
 
-    document.getElementById('searchInput')?.addEventListener('keyup', function() {
-        const query = this.value;
-        const dropdown = document.getElementById('searchDropdown');
-        if (query.length < 2) { dropdown.style.display = 'none'; return; }
-        const results = db.filter(m => m.name.includes(query)).slice(0, 8);
-        dropdown.innerHTML = '';
-        results.forEach(member => {
-            const div = document.createElement('div');
-            div.className = 'result-item';
-            div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen || ''}</span>
-                <div class="father-name">والد: ${displayName(member.father) || '—'}</div></div>`;
-            div.onclick = () => { selectMember(member); dropdown.style.display = 'none'; this.value = displayName(member.name); };
-            dropdown.appendChild(div);
+        document.getElementById('searchInput')?.addEventListener('keyup', function() {
+            const query = this.value;
+            const dropdown = document.getElementById('searchDropdown');
+            if (query.length < 2) { dropdown.style.display = 'none'; return; }
+            const results = db.filter(m => m.name.includes(query)).slice(0, 8);
+            dropdown.innerHTML = '';
+            results.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen || ''}</span>
+                    <div class="father-name">والد: ${displayName(member.father) || '—'}</div></div>`;
+                div.onclick = () => { selectMember(member); dropdown.style.display = 'none'; this.value = displayName(member.name); };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
         });
-        dropdown.style.display = 'block';
-    });
 
-    function selectMember(member) {
-        currentIndividual = member;
-        document.getElementById('searchInput').value = displayName(member.name);
-        const url = new URL(window.location);
-        url.searchParams.set('member', encodeURIComponent(member.name));
-        window.history.pushState({}, '', url);
-        renderTree();
-    }
-
-    window.toggleSection = function(section) {
-        if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
-        else if (section === 'children') childrenCollapsed = !childrenCollapsed;
-        else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
-        renderTree();
-    };
-
-    function findParent(p) { 
-        return p?.father && p.father !== '—' ? db.find(x => x.name === p.father) : null; 
-    }
-    
-    function getAncestors(p) {
-        let arr = [], cur = p;
-        while (cur?.father && cur.father !== '—') {
-            const father = db.find(x => x.name === cur.father);
-            if (!father) break;
-            arr.push(father);
-            cur = father;
+        function selectMember(member) {
+            currentIndividual = member;
+            document.getElementById('searchInput').value = displayName(member.name);
+            const url = new URL(window.location);
+            url.searchParams.set('member', encodeURIComponent(member.name));
+            window.history.pushState({}, '', url);
+            renderTree();
         }
-        return arr;
-    }
 
-    function renderBox(person, label, isSiblingOrChild = false) {
-        const isFemale = person.gender === 'FEMALE';
-        const isSelected = currentIndividual?.name === person.name;
-        const mother = person.mother || '—';
-        const hasKids = db.some(c => c.father === person.name);
+        window.toggleSection = function(section) {
+            if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
+            else if (section === 'children') childrenCollapsed = !childrenCollapsed;
+            else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
+            renderTree();
+        };
 
-        let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}" onclick="handleBoxClick(this)">`;
-        html += `<div class="box-header"><span>${label}</span><span>${person.gen || '—'}</span></div>`;
-        html += `<div class="box-body">`;
-        html += `<div class="box-row"><span class="box-label">نام :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
-        
-        if (isSiblingOrChild) {
-            html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${mother}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
-        } else {
-            html += `<div class="box-row"><span class="box-label">والد :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${mother}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
-        }
-        if (hasKids) html += `<div class="child-icon">👪</div>`;
-        html += `</div></div>`;
-        return html;
-    }
-
-    function renderGenderGroup(genderMembers, type) {
-        const count = genderMembers.length;
-        const getLabel = (m) => type === 'sibling' ? (m.gender === 'FEMALE' ? 'بہن' : 'بھائی') : (m.gender === 'FEMALE' ? 'بیٹی' : 'بیٹا');
-        
-        if (count === 1) return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        if (count === 2) return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        if (count === 3) return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        if (count === 4) return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        
-        const firstFour = genderMembers.slice(0, 4);
-        const remaining = genderMembers.slice(4);
-        let remainingClass = remaining.length === 1 ? 'one-box' : remaining.length === 2 ? 'two-boxes' : remaining.length === 3 ? 'three-boxes' : 'remaining-center';
-        return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-                <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    }
-
-    function renderMembersWithLayout(members, type) {
-        if (!members.length) return '';
-        
-        if (members.length > 5) {
-            const males = members.filter(m => m.gender !== 'FEMALE');
-            const females = members.filter(m => m.gender === 'FEMALE');
-            return (males.length ? renderGenderGroup(males, type) : '') + (females.length ? renderGenderGroup(females, type) : '');
+        function findParent(p) { 
+            return p?.father && p.father !== '—' ? db.find(x => x.name === p.father) : null; 
         }
         
-        const getLabel = (m) => type === 'sibling' ? (m.gender === 'FEMALE' ? 'بہن' : 'بھائی') : (m.gender === 'FEMALE' ? 'بیٹی' : 'بیٹا');
-        const count = members.length;
-        if (count === 1) return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        if (count === 2) return `<div class="children-row two-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        if (count === 3) return `<div class="children-row three-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        if (count === 4) return `<div class="children-row four-in-row">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        
-        const firstFour = members.slice(0, 4);
-        const remaining = members.slice(4);
-        let remainingClass = remaining.length === 1 ? 'one-box' : remaining.length === 2 ? 'two-boxes' : remaining.length === 3 ? 'three-boxes' : 'remaining-center';
-        return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-                <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    }
+        function getAncestors(p) {
+            let arr = [], cur = p;
+            while (cur?.father && cur.father !== '—') {
+                const father = db.find(x => x.name === cur.father);
+                if (!father) break;
+                arr.push(father);
+                cur = father;
+            }
+            return arr;
+        }
 
-    function renderTree() {
-        if (!currentIndividual) return;
-        let html = '<div>';
-        
-        if (showAncestors) {
-            let ancestors = getAncestors(currentIndividual);
-            if (ancestors.length) {
-                html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span><span>🌳 آباؤ اجداد (${ancestors.length})</span></div>`;
-                if (!ancestorsCollapsed) {
-                    html += '<div class="family-group">';
-                    [...ancestors].reverse().forEach((a, idx) => {
-                        html += renderBox(a, idx === 0 ? 'قدیم ترین' : 'آبا', false);
-                        if (idx < ancestors.length-1) html += '<div class="v-line"></div>';
-                    });
-                    if (ancestors.length) html += '<div class="v-line"></div></div>';
+        function renderBox(person, label, isSiblingOrChild = false) {
+            const isFemale = person.gender === 'FEMALE';
+            const isSelected = currentIndividual?.name === person.name;
+            const mother = person.mother || '—';
+            const hasKids = db.some(c => c.father === person.name);
+            const hasDetails = person.details && person.details !== '' && person.details !== '—';
+
+            let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}">`;
+            
+            html += `<div class="box-header" style="display: flex; justify-content: space-between; align-items: center;">`;
+            html += `<span>${label}</span>`;
+            
+            if (hasDetails) {
+                html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
+            } else {
+                html += `<div style="width: 20px;"></div>`;
+            }
+            
+            html += `<span>${person.gen || '—'}</span>`;
+            html += `</div>`;
+            
+            html += `<div class="box-body" onclick="handleBoxClick(this.parentElement)">`;
+            html += `<div class="box-row"><span class="box-label">نام :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
+            
+            if (isSiblingOrChild) {
+                html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${mother}</span></div>`;
+                html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+            } else {
+                html += `<div class="box-row"><span class="box-label">والد :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
+                html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${mother}</span></div>`;
+                html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+            }
+            
+            if (hasKids) html += `<div class="child-icon">👪</div>`;
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderGenderGroup(genderMembers, type) {
+            const count = genderMembers.length;
+            const getLabel = (m) => type === 'sibling' ? (m.gender === 'FEMALE' ? 'بہن' : 'بھائی') : (m.gender === 'FEMALE' ? 'بیٹی' : 'بیٹا');
+            
+            if (count === 1) return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            if (count === 2) return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            if (count === 3) return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            if (count === 4) return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            
+            const firstFour = genderMembers.slice(0, 4);
+            const remaining = genderMembers.slice(4);
+            let remainingClass = remaining.length === 1 ? 'one-box' : remaining.length === 2 ? 'two-boxes' : remaining.length === 3 ? 'three-boxes' : 'remaining-center';
+            return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                    <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+        }
+
+        function renderMembersWithLayout(members, type) {
+            if (!members.length) return '';
+            
+            if (members.length > 5) {
+                const males = members.filter(m => m.gender !== 'FEMALE');
+                const females = members.filter(m => m.gender === 'FEMALE');
+                return (males.length ? renderGenderGroup(males, type) : '') + (females.length ? renderGenderGroup(females, type) : '');
+            }
+            
+            const getLabel = (m) => type === 'sibling' ? (m.gender === 'FEMALE' ? 'بہن' : 'بھائی') : (m.gender === 'FEMALE' ? 'بیٹی' : 'بیٹا');
+            const count = members.length;
+            if (count === 1) return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            if (count === 2) return `<div class="children-row two-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            if (count === 3) return `<div class="children-row three-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            if (count === 4) return `<div class="children-row four-in-row">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            
+            const firstFour = members.slice(0, 4);
+            const remaining = members.slice(4);
+            let remainingClass = remaining.length === 1 ? 'one-box' : remaining.length === 2 ? 'two-boxes' : remaining.length === 3 ? 'three-boxes' : 'remaining-center';
+            return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                    <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+        }
+
+        function renderTree() {
+            if (!currentIndividual) return;
+            let html = '<div>';
+            
+            if (showAncestors) {
+                let ancestors = getAncestors(currentIndividual);
+                if (ancestors.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span><span>🌳 آباؤ اجداد (${ancestors.length})</span></div>`;
+                    if (!ancestorsCollapsed) {
+                        html += '<div class="family-group">';
+                        [...ancestors].reverse().forEach((a, idx) => {
+                            html += renderBox(a, idx === 0 ? 'قدیم ترین' : 'آبا', false);
+                            if (idx < ancestors.length-1) html += '<div class="v-line"></div>';
+                        });
+                        if (ancestors.length) html += '<div class="v-line"></div></div>';
+                    }
                 }
             }
+            
+            const father = findParent(currentIndividual);
+            if (father) {
+                html += `<div class="family-group">${renderBox(father, 'والد', false)}<div class="v-line"></div>${renderBox(currentIndividual, 'فرد', false)}</div>`;
+            } else {
+                html += `<div class="family-group">${renderBox(currentIndividual, 'فرد', false)}</div>`;
+            }
+            
+            if (showSiblings && father) {
+                const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
+                if (siblings.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('siblings')"><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span><span>👥 بہن بھائی (${siblings.length})</span></div>`;
+                    if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
+                }
+            }
+            
+            if (showDescendants) {
+                const children = db.filter(c => c.father === currentIndividual.name);
+                if (children.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('children')"><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span><span>👶 اولاد (${children.length})</span></div>`;
+                    if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
+                }
+            }
+            
+            html += '</div>';
+            document.getElementById('treeRoot').innerHTML = html;
         }
+
+        window.handleBoxClick = function(el) {
+            const member = db.find(m => m.name === el.dataset.name);
+            if (member) selectMember(member);
+        };
+
+        function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2); applyZoom(); }
+        function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
+        function resetZoom() { zoomLevel = 1; applyZoom(); }
         
-        const father = findParent(currentIndividual);
-        if (father) {
-            html += `<div class="family-group">${renderBox(father, 'والد', false)}<div class="v-line"></div>${renderBox(currentIndividual, 'فرد', false)}</div>`;
-        } else {
-            html += `<div class="family-group">${renderBox(currentIndividual, 'فرد', false)}</div>`;
+        function applyZoom() { 
+            const c = document.getElementById('treeRoot'); 
+            if (c) { 
+                c.style.transform = `scale(${zoomLevel})`; 
+                c.style.width = `${100/zoomLevel}%`; 
+                document.getElementById('zoomLevel').textContent = Math.round(zoomLevel*100)+'%'; 
+            } 
         }
+
+        window.showSaveOptions = function() { 
+            if (!currentIndividual) { alert('براہ کرم پہلے کسی فرد کو منتخب کریں'); return; } 
+            document.getElementById('saveOptionsModal').style.display = 'block'; 
+            document.getElementById('saveModalOverlay').style.display = 'block'; 
+            document.getElementById('toggleMenuPanel').classList.remove('show'); 
+        };
         
-        if (showSiblings && father) {
-            const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
-            if (siblings.length) {
-                html += `<div class="section-heading" onclick="toggleSection('siblings')"><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span><span>👥 بہن بھائی (${siblings.length})</span></div>`;
-                if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
+        window.closeSaveModal = function() { 
+            document.getElementById('saveOptionsModal').style.display = 'none'; 
+            document.getElementById('saveModalOverlay').style.display = 'none'; 
+        };
+        
+        window.processSave = function() { 
+            const s = document.querySelector('input[name="saveFormat"]:checked'); 
+            if (!s) { alert('براہ کرم فارمیٹ منتخب کریں'); return; } 
+            closeSaveModal(); 
+            if (s.value === 'jpeg') exportAsJPEG(); 
+            else exportIndividualPDF(s.value === 'pdf-high' ? 'high' : 'low'); 
+        };
+
+        async function exportIndividualPDF(quality) {
+            const member = currentIndividual;
+            if (!member) return alert('کوئی مواد نہیں');
+            
+            const scale = quality === 'high' ? 2.0 : 1.0;
+            const jpegQuality = quality === 'high' ? 0.95 : 0.6;
+            const qualityText = quality === 'high' ? 'ہائی ریزولوشن' : 'لو ریزولوشن';
+            
+            const originalElement = document.querySelector('.tree-root-layout');
+            if (!originalElement) return alert('کوئی مواد نہیں');
+            
+            const el = originalElement.cloneNode(true);
+            el.style.transform = 'none';
+            el.style.width = '100%';
+            el.style.height = 'auto';
+            el.style.overflow = 'visible';
+            
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '-9999px';
+            wrapper.style.top = '0';
+            wrapper.style.backgroundColor = 'white';
+            wrapper.style.padding = '20px';
+            wrapper.style.width = 'fit-content';
+            wrapper.style.minWidth = '800px';
+            wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            document.body.appendChild(wrapper);
+            
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+                .box { direction: rtl; text-align: right; }
+            `;
+            wrapper.appendChild(styleTag);
+            
+            const header = document.createElement('div');
+            header.style.marginBottom = '30px';
+            header.style.textAlign = 'center';
+            header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا شجرہ نسب</h1>
+                <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
+            wrapper.appendChild(header);
+            wrapper.appendChild(el);
+            
+            const footer = document.createElement('div');
+            footer.style.marginTop = '30px';
+            footer.style.padding = '15px';
+            footer.style.background = '#fcf9f4';
+            footer.style.textAlign = 'center';
+            const timeStr = formatCurrentTime();
+            const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+            footer.innerHTML = `<div>ڈویلپر: عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332</div>
+                <div>آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>`;
+            wrapper.appendChild(footer);
+            
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.position = 'fixed';
+            loadingMsg.style.top = '50%';
+            loadingMsg.style.left = '50%';
+            loadingMsg.style.transform = 'translate(-50%, -50%)';
+            loadingMsg.style.background = '#5a0000';
+            loadingMsg.style.color = 'white';
+            loadingMsg.style.padding = '20px 40px';
+            loadingMsg.style.borderRadius = '8px';
+            loadingMsg.style.zIndex = '9999';
+            loadingMsg.textContent = `📄 PDF بنا رہے ہیں... (${qualityText})`;
+            document.body.appendChild(loadingMsg);
+            
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            try {
+                const canvas = await html2canvas(wrapper, {
+                    scale: scale,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                });
+                
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('l', 'px', [canvas.width, canvas.height]);
+
+                pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+                const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                pdf.save(`shajra_${safeName}_${Date.now()}.pdf`);
+                
+            } catch (err) {
+                console.error('Export Error:', err);
+                alert('❌ PDF نہیں بن سکی: ' + err.message);
+            } finally {
+                document.body.removeChild(wrapper);
+                document.body.removeChild(loadingMsg);
             }
         }
-        
-        if (showDescendants) {
-            const children = db.filter(c => c.father === currentIndividual.name);
-            if (children.length) {
-                html += `<div class="section-heading" onclick="toggleSection('children')"><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span><span>👶 اولاد (${children.length})</span></div>`;
-                if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
+
+        async function exportAsJPEG() {
+            const member = currentIndividual;
+            if (!member) return alert('کوئی مواد نہیں');
+            
+            const originalElement = document.querySelector('.tree-root-layout');
+            if (!originalElement) return alert('کوئی مواد نہیں');
+            
+            const el = originalElement.cloneNode(true);
+            el.style.transform = 'none';
+            el.style.width = '100%';
+            el.style.height = 'auto';
+            el.style.overflow = 'visible';
+            
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '-9999px';
+            wrapper.style.top = '0';
+            wrapper.style.backgroundColor = 'white';
+            wrapper.style.padding = '20px';
+            wrapper.style.width = 'fit-content';
+            wrapper.style.minWidth = '800px';
+            wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            document.body.appendChild(wrapper);
+            
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+                .box { direction: rtl; text-align: right; }
+            `;
+            wrapper.appendChild(styleTag);
+            
+            const header = document.createElement('div');
+            header.style.marginBottom = '30px';
+            header.style.textAlign = 'center';
+            header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا شجرہ نسب</h1>
+                <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
+            wrapper.appendChild(header);
+            wrapper.appendChild(el);
+            
+            const footer = document.createElement('div');
+            footer.style.marginTop = '30px';
+            footer.style.padding = '15px';
+            footer.style.background = '#fcf9f4';
+            footer.style.textAlign = 'center';
+            const timeStr = formatCurrentTime();
+            const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+            footer.innerHTML = `<div>ڈویلپر: عمران حیدر ابن سید رسالت حسین رضوی | 6010-787-0332</div>
+                <div>آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
+            wrapper.appendChild(footer);
+            
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.position = 'fixed';
+            loadingMsg.style.top = '50%';
+            loadingMsg.style.left = '50%';
+            loadingMsg.style.transform = 'translate(-50%, -50%)';
+            loadingMsg.style.background = '#5a0000';
+            loadingMsg.style.color = 'white';
+            loadingMsg.style.padding = '20px 40px';
+            loadingMsg.style.borderRadius = '8px';
+            loadingMsg.style.zIndex = '9999';
+            loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
+            document.body.appendChild(loadingMsg);
+            
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            try {
+                const canvas = await html2canvas(wrapper, {
+                    scale: 1.2,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                });
+                
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                
+                const link = document.createElement('a');
+                const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                link.download = `shajra_${safeName}_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+                
+                const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
+                
+            } catch (err) {
+                console.error('Export Error:', err);
+                alert('❌ JPEG نہیں بن سکی: ' + err.message);
+            } finally {
+                document.body.removeChild(wrapper);
+                document.body.removeChild(loadingMsg);
             }
         }
-        
-        html += '</div>';
-        document.getElementById('treeRoot').innerHTML = html;
-    }
 
-    window.handleBoxClick = function(el) {
-        const member = db.find(m => m.name === el.dataset.name);
-        if (member) selectMember(member);
-    };
-
-    function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2); applyZoom(); }
-    function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
-    function resetZoom() { zoomLevel = 1; applyZoom(); }
-    
-    function applyZoom() { 
-        const c = document.getElementById('treeRoot'); 
-        if (c) { 
-            c.style.transform = `scale(${zoomLevel})`; 
-            c.style.width = `${100/zoomLevel}%`; 
-            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel*100)+'%'; 
-        } 
-    }
-
-    window.showSaveOptions = function() { 
-        if (!currentIndividual) { alert('براہ کرم پہلے کسی فرد کو منتخب کریں'); return; } 
-        document.getElementById('saveOptionsModal').style.display = 'block'; 
-        document.getElementById('saveModalOverlay').style.display = 'block'; 
-        document.getElementById('toggleMenuPanel').classList.remove('show'); 
-    };
-    
-    window.closeSaveModal = function() { 
-        document.getElementById('saveOptionsModal').style.display = 'none'; 
-        document.getElementById('saveModalOverlay').style.display = 'none'; 
-    };
-    
-    window.processSave = function() { 
-        const s = document.querySelector('input[name="saveFormat"]:checked'); 
-        if (!s) { alert('براہ کرم فارمیٹ منتخب کریں'); return; } 
-        closeSaveModal(); 
-        if (s.value === 'jpeg') exportAsJPEG(); 
-        else exportIndividualPDF(s.value === 'pdf-high' ? 'high' : 'low'); 
-    };
-
-    async function exportIndividualPDF(quality) {
-        const member = currentIndividual;
-        if (!member) return alert('کوئی مواد نہیں');
-        
-        const scale = quality === 'high' ? 2.0 : 1.0;
-        const jpegQuality = quality === 'high' ? 0.95 : 0.6;
-        const qualityText = quality === 'high' ? 'ہائی ریزولوشن' : 'لو ریزولوشن';
-        
-        const originalElement = document.querySelector('.tree-root-layout');
-        if (!originalElement) return alert('کوئی مواد نہیں');
-        
-        const el = originalElement.cloneNode(true);
-        el.style.transform = 'none';
-        el.style.width = '100%';
-        el.style.height = 'auto';
-        el.style.overflow = 'visible';
-        
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'absolute';
-        wrapper.style.left = '-9999px';
-        wrapper.style.top = '0';
-        wrapper.style.backgroundColor = 'white';
-        wrapper.style.padding = '20px';
-        wrapper.style.width = 'fit-content';
-        wrapper.style.minWidth = '800px';
-        wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
-        document.body.appendChild(wrapper);
-        
-        const styleTag = document.createElement('style');
-        styleTag.textContent = `
-            * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
-            .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
-            h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
-            .box { direction: rtl; text-align: right; }
-        `;
-        wrapper.appendChild(styleTag);
-        
-        const header = document.createElement('div');
-        header.style.marginBottom = '30px';
-        header.style.textAlign = 'center';
-        header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا شجرہ نسب</h1>
-            <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
-        wrapper.appendChild(header);
-        wrapper.appendChild(el);
-        
-        const footer = document.createElement('div');
-        footer.style.marginTop = '30px';
-        footer.style.padding = '15px';
-        footer.style.background = '#fcf9f4';
-        footer.style.textAlign = 'center';
-        const timeStr = formatCurrentTime();
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-        footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-            <div>آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>`;
-        wrapper.appendChild(footer);
-        
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%';
-        loadingMsg.style.left = '50%';
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000';
-        loadingMsg.style.color = 'white';
-        loadingMsg.style.padding = '20px 40px';
-        loadingMsg.style.borderRadius = '8px';
-        loadingMsg.style.zIndex = '9999';
-        loadingMsg.textContent = `📄 PDF بنا رہے ہیں... (${qualityText})`;
-        document.body.appendChild(loadingMsg);
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        try {
-            const canvas = await html2canvas(wrapper, {
-                scale: scale,
-                backgroundColor: '#ffffff',
-                logging: false,
-                windowWidth: wrapper.scrollWidth,
-                windowHeight: wrapper.scrollHeight
-            });
-            
-            const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-            
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('l', 'px', [canvas.width, canvas.height]);
-
-            pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-            const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            pdf.save(`shajra_${safeName}_${Date.now()}.pdf`);
-            
-        } catch (err) {
-            console.error('Export Error:', err);
-            alert('❌ PDF نہیں بن سکی: ' + err.message);
-        } finally {
-            document.body.removeChild(wrapper);
-            document.body.removeChild(loadingMsg);
+        function switchToTableView() {
+            window.location.href = currentIndividual ? `23-individual-table-pc.html?member=${encodeURIComponent(currentIndividual.name)}` : '23-individual-table-pc.html';
         }
-    }
 
-    async function exportAsJPEG() {
-        const member = currentIndividual;
-        if (!member) return alert('کوئی مواد نہیں');
-        
-        const originalElement = document.querySelector('.tree-root-layout');
-        if (!originalElement) return alert('کوئی مواد نہیں');
-        
-        const el = originalElement.cloneNode(true);
-        el.style.transform = 'none';
-        el.style.width = '100%';
-        el.style.height = 'auto';
-        el.style.overflow = 'visible';
-        
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'absolute';
-        wrapper.style.left = '-9999px';
-        wrapper.style.top = '0';
-        wrapper.style.backgroundColor = 'white';
-        wrapper.style.padding = '20px';
-        wrapper.style.width = 'fit-content';
-        wrapper.style.minWidth = '800px';
-        wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
-        document.body.appendChild(wrapper);
-        
-        const styleTag = document.createElement('style');
-        styleTag.textContent = `
-            * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
-            .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
-            h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
-            .box { direction: rtl; text-align: right; }
-        `;
-        wrapper.appendChild(styleTag);
-        
-        const header = document.createElement('div');
-        header.style.marginBottom = '30px';
-        header.style.textAlign = 'center';
-        header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا شجرہ نسب</h1>
-            <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(member.name)}</h2>`;
-        wrapper.appendChild(header);
-        wrapper.appendChild(el);
-        
-        const footer = document.createElement('div');
-        footer.style.marginTop = '30px';
-        footer.style.padding = '15px';
-        footer.style.background = '#fcf9f4';
-        footer.style.textAlign = 'center';
-        const timeStr = formatCurrentTime();
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-        footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-            <div>آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
-        wrapper.appendChild(footer);
-        
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%';
-        loadingMsg.style.left = '50%';
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000';
-        loadingMsg.style.color = 'white';
-        loadingMsg.style.padding = '20px 40px';
-        loadingMsg.style.borderRadius = '8px';
-        loadingMsg.style.zIndex = '9999';
-        loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
-        document.body.appendChild(loadingMsg);
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        try {
-            const canvas = await html2canvas(wrapper, {
-                scale: 1.2,
-                backgroundColor: '#ffffff',
-                logging: false,
-                windowWidth: wrapper.scrollWidth,
-                windowHeight: wrapper.scrollHeight
-            });
-            
-            const imgData = canvas.toDataURL('image/jpeg', 0.85);
-            
-            const link = document.createElement('a');
-            const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            link.download = `shajra_${safeName}_${Date.now()}.jpg`;
-            link.href = imgData;
-            link.click();
-            
-            const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
-            setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
-            
-        } catch (err) {
-            console.error('Export Error:', err);
-            alert('❌ JPEG نہیں بن سکی: ' + err.message);
-        } finally {
-            document.body.removeChild(wrapper);
-            document.body.removeChild(loadingMsg);
+        function closeAllMenus() {
+            document.getElementById('searchDropdown').style.display = 'none';
+            document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
         }
-    }
+        
+        function showDashboard() { window.location.href = '21-dashboard-pc.html'; }
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
+            if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) closeSaveModal();
+        });
 
-    function switchToTableView() {
-        window.location.href = currentIndividual ? `23-individual-table-pc.html?member=${encodeURIComponent(currentIndividual.name)}` : '23-individual-table-pc.html';
-    }
-
-    function closeAllMenus() {
-        document.getElementById('searchDropdown').style.display = 'none';
-        document.getElementById('toggleMenuPanel')?.classList.remove('show');
-        document.getElementById('saveOptionsModal').style.display = 'none';
-        document.getElementById('saveModalOverlay').style.display = 'none';
-    }
-    
-    function showDashboard() { window.location.href = '21-dashboard-pc.html'; }
-    
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
-        if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) document.getElementById('toggleMenuPanel')?.classList.remove('show');
-        if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) closeSaveModal();
-    });
-
-    window.zoomIn = zoomIn; window.zoomOut = zoomOut; window.resetZoom = resetZoom;
-    window.showDashboard = showDashboard; window.resetIndividual = resetIndividual;
-    window.switchToTableView = switchToTableView;
-</script>
-
-
-
+        window.zoomIn = zoomIn; window.zoomOut = zoomOut; window.resetZoom = resetZoom;
+        window.showDashboard = showDashboard; window.resetIndividual = resetIndividual;
+        window.switchToTableView = switchToTableView;
+        window.showInfoModal = showInfoModal;
+        window.closeInfoModal = closeInfoModal;
+    </script>
 </body>
 </html>

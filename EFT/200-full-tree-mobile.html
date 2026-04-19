@@ -10,6 +10,20 @@
     <script src="13-family-data.js"></script>
 
     <style>
+
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    .search-reset-row {
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
         * {
             margin: 0;
             padding: 0;
@@ -496,70 +510,29 @@
             .tree-container { transform: scale(1) !important; padding: 20px; }
         }
 
-        /* Mobile header: Row 1 = menu + title + counter, Row 2 = search + reset centered */
-        @media screen and (max-width: 700px) {
-            .app-header {
-                padding-top: 50px;
-                padding-bottom: 15px;
-                justify-content: center;
-            }
-            
-            #toggleMenuBtn {
-                position: absolute;
-                top: 12px;
-                left: 15px;
-            }
-            
-            .header-title {
-                position: absolute;
-                top: 12px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 16px;
-                white-space: nowrap;
-            }
-            
-            .counter-wrapper {
-                position: absolute;
-                top: 12px;
-                right: 15px;
-            }
-            
-            .search-reset-row {
-                order: 1;
-                width: 100%;
-                justify-content: center;
-                margin-top: 5px;
-            }
-            
-            .search-section {
-                min-width: 180px;
-            }
-            
-            .reset-btn-header {
-                padding: 8px 16px;
-            }
-        }
-    </style>
+            </style>
 </head>
 <body>
     <div class="app-container">
-        <div class="app-header">
-            <button id="toggleMenuBtn">☰</button>
-            <div class="header-title">
-                <span class="header-icon">🌳</span>
-                <span>Rizvi Family · Full Tree</span>
-            </div>
-            <div class="search-reset-row">
-                <div class="search-section">
-                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search any member..." autocomplete="off">
-                    <div id="searchDropdown" class="search-dropdown"></div>
-                </div>
-                <button class="reset-btn-header" id="resetRootBtn">Reset</button>
-            </div>
-            <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
-        </div>
+       
 
+<div class="app-header">
+    <div class="header-top-row">
+        <button id="toggleMenuBtn">☰</button>
+        <div class="header-title">
+            <span class="header-icon">🌳</span>
+            <span>Rizvi Family · Full Tree</span>
+        </div>
+        <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
+    </div>
+    <div class="search-reset-row">
+        <div class="search-section">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search any member..." autocomplete="off">
+            <div id="searchDropdown" class="search-dropdown"></div>
+        </div>
+        <button class="reset-btn-header" id="resetRootBtn">Reset</button>
+    </div>
+</div>
         <div id="toggleDropdownMenu" class="toggle-dropdown-menu">
             <div class="menu-item" id="showAllMenuItem">
                 <span>📂 Show All (full details)</span>

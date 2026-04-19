@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 18/04/2026, 7:54:12 pm
-// Total members (after removing * entries): 528
+// Saved: 19/04/2026, 5:52:12 pm
+// Total members (after removing * entries): 538
 
 const FAMILY_DATA_URDU = [
   {
@@ -680,7 +680,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید محمد عباس",
+    name: "سید محمد عباس -01",
     father: "سید شاہ حسین - 01",
     mother: "",
     spouse: "",
@@ -690,7 +690,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید عنبر",
-    father: "سید محمد عباس",
+    father: "سید محمد عباس -01",
     mother: "",
     spouse: "",
     gen: "G-011-S1",
@@ -2248,7 +2248,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید علی عباس",
     father: "سید اکبر علی - 02",
-    mother: "سیدہ لئیق رضوی",
+    mother: "سیدہ لئیق فاطمہ رضوی",
     spouse: "",
     gen: "G-039-S1",
     gender: "MALE",
@@ -2266,7 +2266,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید نسیم عباس",
     father: "سید علی عباس",
-    mother: "سیدہ لئیق رضوی",
+    mother: "سیدہ لئیق فاطمہ رضوی",
     spouse: "سیدہ معصوم فاطمہ رضوی",
     gen: "G-040-S1",
     gender: "MALE",
@@ -2275,8 +2275,8 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید دلاور عباس (علیم)",
     father: "سید علی عباس",
-    mother: "سیدہ لئیق رضوی",
-    spouse: "",
+    mother: "سیدہ لئیق فاطمہ رضوی",
+    spouse: "سیدہ فاخرہ  خاتون  جعفری",
     gen: "G-040-S2",
     gender: "MALE",
     details: ""
@@ -2284,7 +2284,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید قاصر عباس",
     father: "سید علی عباس",
-    mother: "سیدہ لئیق رضوی",
+    mother: "سیدہ لئیق فاطمہ رضوی",
     spouse: "سیدہ نگہت رضوی",
     gen: "G-040-S3",
     gender: "MALE",
@@ -2293,7 +2293,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید منظر عباس",
     father: "سید علی عباس",
-    mother: "سیدہ لئیق رضوی",
+    mother: "سیدہ لئیق فاطمہ رضوی",
     spouse: "",
     gen: "G-040-S4",
     gender: "MALE",
@@ -2302,7 +2302,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ سعید",
     father: "سید علی عباس",
-    mother: "سیدہ لئیق رضوی",
+    mother: "سیدہ لئیق فاطمہ رضوی",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
@@ -2354,6 +2354,51 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
+    name: "سید ناصر عباس",
+    father: "سید دلاور عباس (علیم)",
+    mother: "سیدہ فاخرہ  خاتون  جعفری",
+    spouse: "سیدہ نبیا رضوی",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید فیضان عباس",
+    father: "سید دلاور عباس (علیم)",
+    mother: "سیدہ فاخرہ  خاتون  جعفری",
+    spouse: "سیدہ  فضا رضوی",
+    gen: "G-041-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید محمد عباس -02",
+    father: "سید دلاور عباس (علیم)",
+    mother: "سیدہ فاخرہ  خاتون  جعفری",
+    spouse: "",
+    gen: "G-041-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید علی  رضا",
+    father: "سید دلاور عباس (علیم)",
+    mother: "سیدہ فاخرہ  خاتون  جعفری",
+    spouse: "قرت العین",
+    gen: "G-041-S4",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ رارم زہرا",
+    father: "سید دلاور عباس (علیم)",
+    mother: "سیدہ فاخرہ  خاتون  جعفری",
+    spouse: "سید کاظم  رضا  رضوی",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "سید اسد",
     father: "سید قاصر عباس",
     mother: "سیدہ نگہت رضوی",
@@ -2386,6 +2431,51 @@ const FAMILY_DATA_URDU = [
     mother: "سیدہ نگہت رضوی",
     spouse: "",
     gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید داش عباس",
+    father: "سید منظر عباس",
+    mother: "سیدہ رخسانہ زہرا",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید رضا عباس",
+    father: "سید منظر عباس",
+    mother: "سیدہ رخسانہ زہرا",
+    spouse: "",
+    gen: "G-041-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ فضہ زہرا",
+    father: "سید منظر عباس",
+    mother: "سیدہ رخسانہ زہرا",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ فاریہ زہرا",
+    father: "سید منظر عباس",
+    mother: "سیدہ رخسانہ زہرا",
+    spouse: "",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ وانیہ زہرا",
+    father: "سید منظر عباس",
+    mother: "سیدہ رخسانہ زہرا",
+    spouse: "",
+    gen: "G-041-D3",
     gender: "FEMALE",
     details: ""
   },
@@ -4259,7 +4349,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید نعیم حیدر رضوی",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "اولاد  سیدہ انجم نگہت\n\n1- سید محمد رضوی"
   },
   {
     name: "سید مرتضیٰ حیدر",
@@ -4760,8 +4850,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "18/04/2026, 7:54:12 pm", 
-    total_members: 528,
-    comments_count: 9,
+    saved_time: "19/04/2026, 5:52:12 pm", 
+    total_members: 538,
+    comments_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

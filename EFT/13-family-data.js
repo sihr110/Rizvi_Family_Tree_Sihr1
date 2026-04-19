@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
-// Source: Data English.xlsx
-// Saved: 19/04/2026, 8:31:10 pm
-// Total members (after removing * entries): 539
+// Source: A-Data English.xlsx
+// Saved: 19/04/2026, 9:24:38 pm
+// Total members: 539
 
 const FAMILY_DATA = [
   {
@@ -3512,7 +3512,7 @@ const FAMILY_DATA = [
     spouse: "Syed Asrar Hussain Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Aizaz Aliya  (Shabnam)\n\nD1- Syeda Kisa Fatima Zaidi"
+    details: "Children of Syeda Aizaz Aliya  (Shabnam)\\n\\nD1- Syeda Kisa Fatima Zaidi"
   },
   {
     name: "Syeda Iram Rizvi",
@@ -3521,7 +3521,7 @@ const FAMILY_DATA = [
     spouse: "Syed Shabih Haider Kazmi",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Children of Syeda Iram Rizvi\n\nS1- Syed Murtaza Kazmi\nS2- Syed Hamza Kazmi\n\nD1- Syeda Fizza Kazmi"
+    details: "Children of Syeda Iram Rizvi\\n\\nS1- Syed Murtaza Kazmi\\nS2- Syed Hamza Kazmi\\nD1- Syeda Fizza Kazmi"
   },
   {
     name: "Syeda Hina Rizvi",
@@ -3530,7 +3530,7 @@ const FAMILY_DATA = [
     spouse: "Syed Wasi Hussain Naqvi",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: "Children of Syeda Hina Rizvi\n\nS1: Syed Kumail Hussain Naqvi\nS2: Syed Jari Hussain Naqvi\nD1: Syeda Abhiya Hussain Naqvi"
+    details: "Children of Syeda Hina Rizvi\\n\\nS1: Syed Kumail Hussain Naqvi\\nS2: Syed Jari Hussain Naqvi\\nD1: Syeda Abhiya Hussain Naqvi"
   },
   {
     name: "Syed Farhan Haider",
@@ -3557,7 +3557,7 @@ const FAMILY_DATA = [
     spouse: "Syed Ahmad Raza Rizvi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Fariha Fatima\n\nS1 - Syed Afnan Ahmad Rizvi\nD1 - Syeda Farwa Rizvi"
+    details: "Children of Syeda Fariha Fatima\\n\\nS1 - Syed Afnan Ahmad Rizvi\\nD1 - Syeda Farwa Rizvi"
   },
   {
     name: "Syed Musa Rizvi",
@@ -4358,7 +4358,7 @@ const FAMILY_DATA = [
     spouse: "Syed Naseem Haider Rizvi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Sihr:\nChildren of Syeda Anjum Nighat\n\n1- Syed Mohammad Rizvi"
+    details: "Children of Syeda Anjum Nighat\\n 1- Syed Mohammad Rizvi"
   },
   {
     name: "Syed Murtaza Haider",
@@ -4646,7 +4646,7 @@ const FAMILY_DATA = [
     spouse: "Syed M Ali Afzal Rizvi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Children of : Syeda Ismat Saba   \n\nS1: Syed Aoun Mohammad Rizvi (Nomi)\n\nD1: Syeda Hira Ali Rizvi \nD2: Syeda Areeba Ali Rizvi (Fatima)"
+    details: "Children of : Syeda Ismat Saba   \\n\\nS1: Syed Aoun Mohammad Rizvi (Nomi)\\n\\nD1: Syeda Hira Ali Rizvi \\nD2: Syeda Areeba Ali Rizvi (Fatima)"
   },
   {
     name: "Syeda Talat Saba",
@@ -4655,7 +4655,7 @@ const FAMILY_DATA = [
     spouse: "Syed Abbas Raza Naqvi (Rizwan)",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Children of : Syeda Talat Saba   \n\nS1: Syed Mohsin Hasan Naqvi\nS2: Syed Ahsan Hasan Naqvi\n\nD1: Syeda Farwa Abbas Naqvi"
+    details: "Children of : Syeda Talat Saba   \\n\\nS1: Syed Mohsin Hasan Naqvi\\nS2: Syed Ahsan Hasan Naqvi\\n\\nD1: Syeda Farwa Abbas Naqvi"
   },
   {
     name: "Syeda Ishrat Saba",
@@ -4664,7 +4664,7 @@ const FAMILY_DATA = [
     spouse: "Syed Iqbal Haider Naqvi (Shahid)",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: "Children of : Syeda Ishrat Saba\n\nS1: Syed Kumail Hasan Naqvi\nS2: Syed Muzammil Hasan Naqvi\nS3: Syed Murtaza Hasan Naqvi\n\nD2: Syeda Sheherbano Iqbal Naqvi"
+    details: "Children of : Syeda Ishrat Saba\\n\\nS1: Syed Kumail Hasan Naqvi\\nS2: Syed Muzammil Hasan Naqvi\\nS3: Syed Murtaza Hasan Naqvi\\n\\nD2: Syeda Sheherbano Iqbal Naqvi"
   },
   {
     name: "Syeda Sarwat Rizvi",
@@ -4673,7 +4673,7 @@ const FAMILY_DATA = [
     spouse: "Syed Zulkifil Raza Naqvi (Ishrat)",
     gen: "G-041-D4",
     gender: "FEMALE",
-    details: "Children of : Syeda Sarwat Rizvi  \n\nS1: Syed Wajeh Raza Naqvi\nS2: Syed Shaji Raza Naqvi\nS3: Syed Mohammad Raza Naqvi  \nS4: Syed Ali Raza Naqvi\n\nD1: S. Laila Raza Naqvi"
+    details: "Children of : Syeda Sarwat Rizvi  \\n\\nS1: Syed Wajeh Raza Naqvi\\nS2: Syed Shaji Raza Naqvi\\nS3: Syed Mohammad Raza Naqvi  \\nS4: Syed Ali Raza Naqvi\\n\\nD1: S. Laila Raza Naqvi"
   },
   {
     name: "Syeda Erum Rizvi",
@@ -4682,7 +4682,7 @@ const FAMILY_DATA = [
     spouse: "Syed M Mehdi Naqvi (Danish)",
     gen: "G-041-D5",
     gender: "FEMALE",
-    details: "Children of : Syeda Erum Rizvi \n\nS1: Syed Baqar Mehdi Naqvi (Yasir)\nS2: Syed Kazim Mehdi Naqvi\nS3: Syed Hasan Mehdi Naqvi"
+    details: "Children of : Syeda Erum Rizvi \\n\\nS1: Syed Baqar Mehdi Naqvi (Yasir)\\nS2: Syed Kazim Mehdi Naqvi\\nS3: Syed Hasan Mehdi Naqvi"
   },
   {
     name: "Syeda Haneen Haider",
@@ -4858,9 +4858,9 @@ const FAMILY_DATA = [
 ];
 
 const FILE_INFO = { 
-    source_file: "Data English.xlsx",
-    saved_time: "19/04/2026, 8:31:10 pm", 
+    source_file: "A-Data English.xlsx",
+    saved_time: "19/04/2026, 9:24:38 pm", 
     total_members: 539,
-    comments_count: 10,
+    details_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

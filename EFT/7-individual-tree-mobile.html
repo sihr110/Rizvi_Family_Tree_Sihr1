@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <!-- MOBILE VIEWPORT: initial-scale=0.5 exactly like original file 7 -->
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes">
     <title>Rizvi family · structured tree (mobile)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -284,13 +284,14 @@
             margin-top: 2px;
         }
 
-       .tree-container {
+.tree-container {
     flex: 1;
-    overflow: auto;
+    overflow-x: auto; /* Enable horizontal movement */
+    overflow-y: auto; /* Enable vertical movement */
     padding: 0 15px 15px 15px;
     position: relative;
     -webkit-overflow-scrolling: touch;
-    zoom: 0.5;
+    zoom: 0.50; /* Your desired zoom */
 }
 
         /* Scrollbar styling */
@@ -313,15 +314,15 @@
             background: var(--dark-blue);
         }
 
-        .tree-root-layout {
-            transform-origin: top left;
-            transition: transform 0.1s;
-            min-width: 100%;
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.tree-root-layout {
+    display: inline-flex;
+    flex-direction: column;
+    /* align-items: center; <-- Remove or comment this out */
+    min-width: 100%; 
+    transform-origin: top center;
+    transition: transform 0.1s;
+    padding: 20px; /* Gives extra room for the scroll */
+}
 
         .welcome-container {
             display: flex;
@@ -498,13 +499,14 @@
             margin: 0 auto 10px auto;
         }
 
-        .children-row.four-in-row {
-            display: grid;
-            grid-template-columns: repeat(4, auto);
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
+     .children-row.four-in-row {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: max-content; /* Forces the row to respect the width of 4 boxes */
+}
 
         .children-row.one-box,
         .children-row.two-boxes,

@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 18/04/2026, 7:42:53 pm
-// Total members (after removing * entries): 534
+// Saved: 19/04/2026, 5:28:56 pm
+// Total members (after removing * entries): 539
 
 const FAMILY_DATA = [
   {
@@ -1027,15 +1027,6 @@ const FAMILY_DATA = [
     mother: "",
     spouse: "",
     gen: "G-037-S2",
-    gender: "MALE",
-    details: ""
-  },
-  {
-    name: "Syed Shah Hussain - 02",
-    father: "Syed Khurram Hussain - 02",
-    mother: "",
-    spouse: "",
-    gen: "G-038-S1",
     gender: "MALE",
     details: ""
   },
@@ -2266,7 +2257,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Naseem Abbas",
     father: "Syed Ali Abbas",
-    mother: "Syeda Laeeq Rizvi",
+    mother: "Syeda Laieeq Fatima Rizvi",
     spouse: "Syeda Masoom Fatima Rizvi",
     gen: "G-040-S1",
     gender: "MALE",
@@ -2275,8 +2266,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Dilawar Abbas (Aleem)",
     father: "Syed Ali Abbas",
-    mother: "Syeda Laeeq Rizvi",
-    spouse: "Fakhra Khatoon",
+    mother: "Syeda Laieeq Fatima Rizvi",
+    spouse: "Syeda Fakhra Khatoon Jaffary",
     gen: "G-040-S2",
     gender: "MALE",
     details: ""
@@ -2284,7 +2275,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Qasir Abbas",
     father: "Syed Ali Abbas",
-    mother: "Syeda Laeeq Rizvi",
+    mother: "Syeda Laieeq Fatima Rizvi",
     spouse: "Syeda Nighat Rizvi",
     gen: "G-040-S3",
     gender: "MALE",
@@ -2293,8 +2284,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Manzar Abbas",
     father: "Syed Ali Abbas",
-    mother: "Syeda Laeeq Rizvi",
-    spouse: "",
+    mother: "Syeda Laieeq Fatima Rizvi",
+    spouse: "Syeda Rukhsana Zehra",
     gen: "G-040-S4",
     gender: "MALE",
     details: ""
@@ -2302,7 +2293,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Saeed",
     father: "Syed Ali Abbas",
-    mother: "Syeda Laeeq Rizvi",
+    mother: "Syeda Laieeq Fatima Rizvi",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
@@ -2356,7 +2347,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Nasir Abbas",
     father: "Syed Dilawar Abbas (Aleem)",
-    mother: "Fakhra Khatoon",
+    mother: "Syeda Fakhra Khatoon Jaffary",
     spouse: "Syeda Nabiya Rizvi",
     gen: "G-041-S1",
     gender: "MALE",
@@ -2365,8 +2356,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Faizan Abbas",
     father: "Syed Dilawar Abbas (Aleem)",
-    mother: "Fakhra Khatoon",
-    spouse: "Syeda Fiza Rizvi",
+    mother: "Syeda Fakhra Khatoon Jaffary",
+    spouse: "Syeda Fizza Zehra Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -2374,7 +2365,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Muhammad Abbas -02",
     father: "Syed Dilawar Abbas (Aleem)",
-    mother: "Fakhra Khatoon",
+    mother: "Syeda Fakhra Khatoon Jaffary",
     spouse: "",
     gen: "G-041-S3",
     gender: "MALE",
@@ -2383,7 +2374,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Raza -02",
     father: "Syed Dilawar Abbas (Aleem)",
-    mother: "Fakhra Khatoon",
+    mother: "Syeda Fakhra Khatoon Jaffary",
     spouse: "Quratulain",
     gen: "G-041-S4",
     gender: "MALE",
@@ -2392,7 +2383,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Erum Zehra",
     father: "Syed Dilawar Abbas (Aleem)",
-    mother: "Fakhra Khatoon",
+    mother: "Syeda Fakhra Khatoon Jaffary",
     spouse: "Syed Kazim Raza Rizvi",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -2440,6 +2431,51 @@ const FAMILY_DATA = [
     mother: "Syeda Nighat Rizvi",
     spouse: "",
     gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Danish Abbas",
+    father: "Syed Manzar Abbas",
+    mother: "Syeda Rukhsana Zehra",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Raza Abbas",
+    father: "Syed Manzar Abbas",
+    mother: "Syeda Rukhsana Zehra",
+    spouse: "",
+    gen: "G-041-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Fizza Zehra",
+    father: "Syed Manzar Abbas",
+    mother: "Syeda Rukhsana Zehra",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda fariya Zehra",
+    father: "Syed Manzar Abbas",
+    mother: "Syeda Rukhsana Zehra",
+    spouse: "",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Waniya Zehr",
+    father: "Syed Manzar Abbas",
+    mother: "Syeda Rukhsana Zehra",
+    spouse: "",
+    gen: "G-041-D3",
     gender: "FEMALE",
     details: ""
   },
@@ -2540,7 +2576,7 @@ const FAMILY_DATA = [
     spouse: "Syed Najaf Haider Rizvi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Sabeen Rizvi\n\n\nSee  Syed Najaf Haider S/o Syed Wiladat Hussain"
+    details: ""
   },
   {
     name: "Syeda - ? -03",
@@ -4019,6 +4055,15 @@ const FAMILY_DATA = [
     details: ""
   },
   {
+    name: "Syed Shah Hussain - 02",
+    father: "Syed Khurram Hussain - 02",
+    mother: "",
+    spouse: "",
+    gen: "G-038-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
     name: "Syed Ibrahim Hussain - 02",
     father: "Syed Shah Hussain - 02",
     mother: "",
@@ -4313,7 +4358,7 @@ const FAMILY_DATA = [
     spouse: "Syed Naseem Haider Rizvi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Sihr:\nChildren of Syeda Anjum Nighat\n\n1- Syed Mohammad Rizvi"
   },
   {
     name: "Syed Murtaza Haider",
@@ -4433,15 +4478,6 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Tabinda Zehra",
-    father: "Syed Raza Haider",
-    mother: "Syeda Sarwat Zehra Rizvi",
-    spouse: "Syed Muntazir Mehdi Zaidi",
-    gen: "G-042-D1",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
     name: "Syed Muhammad Abbas Haider",
     father: "Syed Raza Haider",
     mother: "Syeda Sarwat Zehra Rizvi",
@@ -4457,6 +4493,42 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-042-S3",
     gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Tabinda Zehra",
+    father: "Syed Raza Haider",
+    mother: "Syeda Sarwat Zehra Rizvi",
+    spouse: "Syed Muntazir Mehdi Zaidi",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Mahira Zehra",
+    father: "Syed Muhammad Khurram Haider",
+    mother: "Syeda Amna Zaidi",
+    spouse: "",
+    gen: "G-043-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Muhammad Mustafa Haider",
+    father: "Syed Muhammad Khurram Haider",
+    mother: "Syeda Amna Zaidi",
+    spouse: "",
+    gen: "G-043-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Zoha Zehra",
+    father: "Syed Muhammad Abbas Haider",
+    mother: "Syeda Samana Batool Rizvi",
+    spouse: "",
+    gen: "G-043-D1",
+    gender: "FEMALE",
     details: ""
   },
   {
@@ -4492,33 +4564,6 @@ const FAMILY_DATA = [
     mother: "",
     spouse: "",
     gen: "G-042-D2",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
-    name: "Syeda Mahira Zehra",
-    father: "Syed Muhammad Khurram Haider",
-    mother: "Syeda Amna Zaidi",
-    spouse: "",
-    gen: "G-043-D1",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
-    name: "Syed Muhammad Mustafa Haider",
-    father: "Syed Muhammad Khurram Haider",
-    mother: "Syeda Amna Zaidi",
-    spouse: "",
-    gen: "G-043-S1",
-    gender: "MALE",
-    details: ""
-  },
-  {
-    name: "Syeda Zoha Zehra",
-    father: "Syed Muhammad Abbas Haider",
-    mother: "Syeda Samana Batool Rizvi",
-    spouse: "",
-    gen: "G-043-D1",
     gender: "FEMALE",
     details: ""
   },
@@ -4676,21 +4721,21 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Zainab Kamran - 02",
-    father: "Syed Kamran Haider",
-    mother: "Nadia Kamran",
-    spouse: "",
-    gen: "G-042-D1",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
     name: "Syed Hussain Haider - 02",
     father: "Syed Kamran Haider",
     mother: "Nadia Kamran",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Zainab Kamran - 02",
+    father: "Syed Kamran Haider",
+    mother: "Nadia Kamran",
+    spouse: "",
+    gen: "G-042-D1",
+    gender: "FEMALE",
     details: ""
   },
   {
@@ -4712,21 +4757,21 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Sakina Haider",
-    father: "Syed Khurram Haider",
-    mother: "Syeda Sumera Naqvi (Mona)",
-    spouse: "",
-    gen: "G-042-D1",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
     name: "Syed Qasim Haider",
     father: "Syed Khurram Haider",
     mother: "Syeda Sumera Naqvi (Mona)",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Sakina Haider",
+    father: "Syed Khurram Haider",
+    mother: "Syeda Sumera Naqvi (Mona)",
+    spouse: "",
+    gen: "G-042-D1",
+    gender: "FEMALE",
     details: ""
   },
   {
@@ -4814,8 +4859,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "18/04/2026, 7:42:53 pm", 
-    total_members: 534,
+    saved_time: "19/04/2026, 5:28:56 pm", 
+    total_members: 539,
     comments_count: 10,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

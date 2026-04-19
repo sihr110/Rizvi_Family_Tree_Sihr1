@@ -11,24 +11,7 @@
 
     <style>
 
-.header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
 
-.search-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.search-row .search-section {
-    min-width: 200px;
-}
         * {
             margin: 0;
             padding: 0;
@@ -47,6 +30,8 @@
         }
 
         body {
+
+
             font-family: 'Inter', sans-serif;
             background: #1a1a1a;
             height: 100vh;
@@ -74,12 +59,10 @@
             padding: 10px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 15px;
             border-bottom: 3px solid var(--gold);
             flex-shrink: 0;
             flex-wrap: wrap;
-            position: relative;
         }
 
         #toggleMenuBtn {
@@ -116,15 +99,8 @@
             justify-content: center;
         }
 
-        .search-reset-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 2;
-            justify-content: center;
-        }
-
         .search-section {
+            flex: 2;
             min-width: 200px;
             position: relative;
         }
@@ -205,7 +181,7 @@
             gap: 5px;
         }
 
-        .tree-wrapper {
+           .tree-wrapper {
             flex: 1;
             overflow: auto;
             background: #fffcf8;
@@ -225,15 +201,16 @@
             border-radius: 6px;
         }
 
-  .tree-container {
+     .tree-container {
     padding: 40px;
     min-width: max-content;
     min-height: 100%;
     display: flex;
     justify-content: center;
-    zoom: 1;
+transform: scale(0.5);
     transform-origin: top center;
 }
+
 
         .tree {
             display: flex;
@@ -510,30 +487,30 @@
             border-top: 2px solid var(--gold);
         }
 
+     
+
         @media print {
             .app-header, .footer, .save-options-modal, .modal-overlay, .toggle-dropdown-menu { display: none !important; }
             .tree-container { transform: scale(1) !important; padding: 20px; }
         }
-
-            </style>
+    </style>
 </head>
 <body>
     <div class="app-container">
-       
-<div class="app-header">
-    <div class="header-row">
-        <button id="toggleMenuBtn">☰</button>
-        <div class="header-title">Rizvi Family · Full Tree</div>
-        <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
-    </div>
-    <div class="search-row">
-        <div class="search-section">
-            <input type="text" id="searchInput" placeholder="🔍 Search...">
+        <div class="app-header">
+            <button id="toggleMenuBtn">☰</button>
+            <div class="header-title">
+                <span class="header-icon">🌳</span>
+                <span>Rizvi Family · Full Tree</span>
+            </div>
+            <div class="search-section">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search any member..." autocomplete="off">
+                <div id="searchDropdown" class="search-dropdown"></div>
+            </div>
+            <button class="reset-btn-header" id="resetRootBtn">Reset</button>
+            <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
         </div>
-        <button class="reset-btn-header" id="resetRootBtn">Reset</button>
 
-         </div>
-</div>
         <div id="toggleDropdownMenu" class="toggle-dropdown-menu">
             <div class="menu-item" id="showAllMenuItem">
                 <span>📂 Show All (full details)</span>
@@ -570,7 +547,8 @@
     <div class="modal-overlay" id="modalOverlay" onclick="closeSaveModal()"></div>
     <div class="loading-msg" id="loadingMsg">📄 Generating file, please wait...</div>
 
-    <script>
+  
+<script>
         let familyDB = [];
         let currentSelectedBox = null;
         let memberElements = new Map();
@@ -591,9 +569,8 @@
         function showInfoModal(memberName) {
             const member = familyDB.find(m => m.name === memberName);
             if (!member) return;
-            let detailsText = member.details && member.details.trim() !== '' && member.details !== '—' 
+            const detailsText = member.details && member.details.trim() !== '' && member.details !== '—' 
                 ? member.details : 'No additional information available.';
-            detailsText = detailsText.replace(/\\n/g, '<br>');
             
             let overlay = document.getElementById('infoModalOverlay');
             let modal = document.getElementById('infoModal');
@@ -604,13 +581,13 @@
                 document.body.appendChild(overlay);
                 modal = document.createElement('div');
                 modal.id = 'infoModal';
-                modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:16px;min-width:260px;max-width:340px;width:85%;z-index:10000;display:none;font-family:Inter,sans-serif';
+                modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Inter,sans-serif';
                 document.body.appendChild(modal);
             }
             modal.innerHTML = `
-                <h3 style="color:#5a0000;font-family:Playfair Display;font-size:16px;margin:0 0 3px 0;padding:0 0 6px 0;border-bottom:2px solid #d4af37;">ℹ️ Other Informations</h3>
-                <p style="font-size:11px;line-height:1.5;margin:8px 0 2px 0;white-space:pre-wrap;word-break:break-word;color:#2d2d2d;max-height:220px;overflow-y:auto;background:#fef9e6;padding:8px 10px;border-radius:8px;border-left:3px solid #d4af37;">${escapeHtml(detailsText)}</p>
-                <button onclick="closeInfoModal()" style="margin-top:10px;padding:6px 15px;background:#d4af37;border:none;border-radius:30px;cursor:pointer;font-weight:600;font-size:11px;width:100%;">Close</button>
+                <h3 style="color:#5a0000;font-family:Playfair Display;margin-bottom:12px;">ℹ️ Other Informations</h3>
+                <p style="font-size:14px;line-height:1.5;white-space:pre-wrap;max-height:300px;overflow-y:auto;">${escapeHtml(detailsText)}</p>
+                <button onclick="closeInfoModal()" style="margin-top:20px;padding:8px 20px;background:#d4af37;border:none;border-radius:6px;cursor:pointer;">Close</button>
             `;
             modal.style.display = 'block';
             overlay.style.display = 'block';
@@ -769,18 +746,22 @@
             lastSelectedMemberName = box.getAttribute('data-name');
         }
 
-        function centerNode(element) {
+     function centerNode(element) {
             const wrapper = document.getElementById('treeWrapper');
             if (!wrapper || !element) return;
 
+            // Get the current scale from the container's transform style
             const container = document.getElementById('treeContainer');
             const style = window.getComputedStyle(container);
             const matrix = new DOMMatrixReadOnly(style.transform);
-            const scale = matrix.a || 1;
+            const scale = matrix.a || 0.5; // Default to 0.5 if matrix is unavailable
 
+            // Calculate coordinates relative to the tree-container
             const rect = element.getBoundingClientRect();
             const wrapperRect = wrapper.getBoundingClientRect();
 
+            // Calculate the target scroll positions
+            // We factor in the visual scale to ensure the box lands in the dead center
             const scrollLeft = wrapper.scrollLeft + (rect.left - wrapperRect.left) - (wrapperRect.width / 2) + (rect.width / 2);
             const scrollTop = wrapper.scrollTop + (rect.top - wrapperRect.top) - (wrapperRect.height / 2) + (rect.height / 2);
 
@@ -1014,5 +995,6 @@
         window.closeDropdownMenu = closeDropdownMenu;
         window.centerNode = centerNode;
     </script>
+
 </body>
 </html>

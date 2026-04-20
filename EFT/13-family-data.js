@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 21/04/2026, 2:20:22 am
+// Saved: 21/04/2026, 2:28:25 am
 // Total members: 550
 
 const FAMILY_DATA = [
@@ -2360,7 +2360,7 @@ const FAMILY_DATA = [
     spouse: "Syed Salman Jaffery",
     gen: "G-041-D4",
     gender: "FEMALE",
-    details: "Kiran children:"
+    details: "Kiran children:\\n\\nKiran ko uss k Jaffar mamoo nay godh lay liya tha."
   },
   {
     name: "Muhammad Akbar",
@@ -4958,7 +4958,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "21/04/2026, 2:20:22 am", 
+    saved_time: "21/04/2026, 2:28:25 am", 
     total_members: 550,
     details_count: 39,
     sheets_merged: ["Main","1","2","3","4","5"]

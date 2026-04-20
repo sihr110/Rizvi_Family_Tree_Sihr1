@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 21/04/2026, 1:09:20 am
-// Total members: 548
+// Saved: 21/04/2026, 1:58:36 am
+// Total members: 550
 
 const FAMILY_DATA = [
   {
@@ -2321,28 +2321,46 @@ const FAMILY_DATA = [
     name: "Syeda Huma",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
-    spouse: "",
+    spouse: "Syed Hassan Abid Rizvi (Shano)",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Huma  children:\\n\\nS1: Syed Zaka Rizvi\\nS2: Syed Jari Abid Rizvi \\n\\nD1: Syeda Joham Rizvi"
   },
   {
     name: "Syeda Asma",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
-    spouse: "",
+    spouse: "Syed Ahmed Rizvi (Kamran)",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: ""
+    details: "Asma children:"
   },
   {
     name: "Syeda Naheed",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
-    spouse: "",
+    spouse: "Syed Zafer Zaidi",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: ""
+    details: "Naheed children:\\n\\nS1: Syed Izan Zaidi \\nS2: Syed Irtaza Zaidi \\n\\nD1: Syeda Minhal Zaidi\\nD2: Syeda Aliza Zaidi"
+  },
+  {
+    name: "Syeda Farha Zehra",
+    father: "Syed Hassan Abbas (Naseem)",
+    mother: "Syeda Masoom Fatima Rizvi",
+    spouse: "Syed Monis Zaidi",
+    gen: "G-041-D4",
+    gender: "FEMALE",
+    details: "Farha children:\\n\\nS1: Syed Asghar Zaidi\\n\\nD1: Syeda Shah E Zehra Zaidi"
+  },
+  {
+    name: "Syeda Kiran Zehra",
+    father: "Syed Hassan Abbas (Naseem)",
+    mother: "Syeda Masoom Fatima Rizvi",
+    spouse: "Syed Salman Jaffery",
+    gen: "G-041-D4",
+    gender: "FEMALE",
+    details: "Kiran children:"
   },
   {
     name: "Muhammad Akbar",
@@ -4940,8 +4958,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "21/04/2026, 1:09:20 am", 
-    total_members: 548,
-    details_count: 34,
+    saved_time: "21/04/2026, 1:58:36 am", 
+    total_members: 550,
+    details_count: 39,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

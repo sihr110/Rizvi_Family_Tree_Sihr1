@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 20/04/2026, 8:10:33 pm
-// Total members: 542
+// Saved: 20/04/2026, 10:57:51 pm
+// Total members: 546
 
 const FAMILY_DATA = [
   {
@@ -2699,10 +2699,46 @@ const FAMILY_DATA = [
     name: "Syed Jaweed Abbas",
     father: "Syed Saeed Abbas (Bachan)",
     mother: "",
-    spouse: "",
+    spouse: "Nargis Fatima",
     gen: "G-041-S1",
     gender: "MALE",
     details: "Jaweed ko uss k walid k doo mamoo zad  - Abbas (Kaban) aur un ki wife (doosey mamoo ki beti) Razia ney godh lay liya tha (Bachan, Kaban & Razia) + Root Badhsha Hussain Shaheed - G-022-S1"
+  },
+  {
+    name: "Syed Atta Abbas",
+    father: "Syed Jaweed Abbas",
+    mother: "Nargis Fatima",
+    spouse: "",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Kabeer Abbas",
+    father: "Syed Jaweed Abbas",
+    mother: "Nargis Fatima",
+    spouse: "",
+    gen: "G-042-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Khizer Abbas",
+    father: "Syed Jaweed Abbas",
+    mother: "Nargis Fatima",
+    spouse: "",
+    gen: "G-042-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Inshall Abbas",
+    father: "Syed Jaweed Abbas",
+    mother: "Nargis Fatima",
+    spouse: "",
+    gen: "G-042-S4",
+    gender: "MALE",
+    details: ""
   },
   {
     name: "Syed Mohammad Baqir",
@@ -4886,8 +4922,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "20/04/2026, 8:10:33 pm", 
-    total_members: 542,
+    saved_time: "20/04/2026, 10:57:51 pm", 
+    total_members: 546,
     details_count: 33,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

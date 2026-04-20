@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 20/04/2026, 10:57:51 pm
-// Total members: 546
+// Saved: 21/04/2026, 1:09:20 am
+// Total members: 548
 
 const FAMILY_DATA = [
   {
@@ -2312,10 +2312,10 @@ const FAMILY_DATA = [
     name: "Syed Salman Raza",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
-    spouse: "",
+    spouse: "Syeda Marukh Zehra Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: ""
+    details: "Salman married Marukh daugher of Mamoo Baqir - Both Root is Syed Nawab Ali - G-037-S1"
   },
   {
     name: "Syeda Huma",
@@ -2349,7 +2349,7 @@ const FAMILY_DATA = [
     father: "Syed Asif Raza",
     mother: "Syeda Nabi Fatima Naqvi (Afsheen)",
     spouse: "",
-    gen: "G-041-S1",
+    gen: "G-042-S1",
     gender: "MALE",
     details: ""
   },
@@ -2358,7 +2358,7 @@ const FAMILY_DATA = [
     father: "Syed Asif Raza",
     mother: "Syeda Nabi Fatima Naqvi (Afsheen)",
     spouse: "",
-    gen: "G-041-D1",
+    gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
   },
@@ -2367,7 +2367,25 @@ const FAMILY_DATA = [
     father: "Syed Asif Raza",
     mother: "Syeda Nabi Fatima Naqvi (Afsheen)",
     spouse: "",
-    gen: "G-041-D2",
+    gen: "G-042-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Muhammad Wali",
+    father: "Syed Salman Raza",
+    mother: "Syeda Marukh Zehra Rizvi",
+    spouse: "",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Kiswa Fatima",
+    father: "Syed Salman Raza",
+    mother: "Syeda Marukh Zehra Rizvi",
+    spouse: "",
+    gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
   },
@@ -2421,7 +2439,7 @@ const FAMILY_DATA = [
     father: "Syed Faizan Abbas",
     mother: "Syeda Fizza Zehra Rizvi",
     spouse: "",
-    gen: "",
+    gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
   },
@@ -3023,7 +3041,7 @@ const FAMILY_DATA = [
     name: "Syed Shahid Hussain",
     father: "Syed Ayyub ul Hasan",
     mother: "",
-    spouse: "",
+    spouse: "Syeda Narjis Khatoon Rizvi",
     gen: "G-039-S4",
     gender: "MALE",
     details: ""
@@ -3059,7 +3077,7 @@ const FAMILY_DATA = [
     name: "Syed Izhar Ul Hasan",
     father: "Syed Tafazul Hussain",
     mother: "Syeda Rabab Fatima Rizvi",
-    spouse: "Syeda Tasneem Fatima Rizvi",
+    spouse: "Syeda Tasneem Fatima Rizvi (Tas so)",
     gen: "G-040-S2",
     gender: "MALE",
     details: "Izhar married Tasneem Chacha Shahid daugher - both Root is Ayyub ul Hasan - G-038-S1"
@@ -3274,7 +3292,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Anjum",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Tabasum Wasi Rizvi",
     gen: "G-041-S1",
     gender: "MALE",
@@ -3283,7 +3301,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Azam",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
@@ -3292,8 +3310,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Azeem",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
-    spouse: "",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
+    spouse: "Syeda Narjis Taqvi",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
@@ -3301,7 +3319,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Moazam",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "",
     gen: "G-041-S4",
     gender: "MALE",
@@ -3310,7 +3328,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Qurat ul Aian Arajumand",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Jamil Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -3319,7 +3337,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Qurat ul Aian Tahira (Puppi)",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Farhat Mehdi Zaidi",
     gen: "G-041-D2",
     gender: "FEMALE",
@@ -3328,7 +3346,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Qurat ul Aian Noor (Munni)",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Altaf Hussain",
     gen: "G-041-D3",
     gender: "FEMALE",
@@ -3337,7 +3355,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Qurat ul Aian Saleha (Farah)",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Waqar Zaidi",
     gen: "G-041-D4",
     gender: "FEMALE",
@@ -3346,7 +3364,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Qurat ul Aian Arfa (Kiran)",
     father: "Syed Izhar Ul Hasan",
-    mother: "Syeda Tasneem Fatima Rizvi",
+    mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Hashim Raza Rizvi",
     gen: "G-041-D5",
     gender: "FEMALE",
@@ -3400,7 +3418,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Raza",
     father: "Syed Mohammad Ali Azeem",
-    mother: "",
+    mother: "Syeda Narjis Taqvi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3409,7 +3427,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Abbas",
     father: "Syed Mohammad Ali Azeem",
-    mother: "",
+    mother: "Syeda Narjis Taqvi",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3418,7 +3436,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Zoamn Fatima",
     father: "Syed Mohammad Ali Azeem",
-    mother: "",
+    mother: "Syeda Narjis Taqvi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3427,7 +3445,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Yumna Fatima",
     father: "Syed Mohammad Ali Azeem",
-    mother: "",
+    mother: "Syeda Narjis Taqvi",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -3490,7 +3508,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Muhammad Azhar",
     father: "Syed Shahid Hussain",
-    mother: "Syeda Narjis Khatoon",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "Syeda Ismat Zehra Rizvi (Malka)",
     gen: "G-040-S1",
     gender: "MALE",
@@ -3499,7 +3517,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Muhammad Mazhar",
     father: "Syed Shahid Hussain",
-    mother: "Syeda Narjis Khatoon",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-040-S2",
     gender: "MALE",
@@ -3508,7 +3526,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Muhammad Nazar",
     father: "Syed Shahid Hussain",
-    mother: "Syeda Narjis Khatoon",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-040-S3",
     gender: "MALE",
@@ -3517,25 +3535,25 @@ const FAMILY_DATA = [
   {
     name: "Syeda Aziz Fatima",
     father: "Syed Shahid Hussain",
-    mother: "Syeda Narjis Khatoon",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
     details: ""
   },
   {
-    name: "Syeda Tasneem Fatima",
+    name: "Syeda Tasneem Fatima (Tas so)",
     father: "Syed Shahid Hussain",
-    mother: "Syeda Narjis Khatoon",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "Syed Izhar Ul Hasan Rizvi",
     gen: "G-040-D2",
     gender: "FEMALE",
     details: "Tasneem married Izhar Taya Tafasul son - both Root is Ayyub ul Hasan - G-038-S1"
   },
   {
-    name: "Syeda Shakeel Fatima",
+    name: "Syeda Shakeel Fatima (Sak ko)",
     father: "Syed Shahid Hussain",
-    mother: "Syeda Narjis Khatoon",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-040-D3",
     gender: "FEMALE",
@@ -3544,7 +3562,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Muhammad Imran Rizvi",
     father: "Syed Muhammad Azhar",
-    mother: "Syeda Ismat Zehra (Malka)",
+    mother: "Syeda Ismat Zehra Rizvi (Malka)",
     spouse: "Syeda Ghazala Rizvi",
     gen: "G-041-S1",
     gender: "MALE",
@@ -3553,8 +3571,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Muhammad Kamran Rizvi",
     father: "Syed Muhammad Azhar",
-    mother: "Syeda Ismat Zehra (Malka)",
-    spouse: "Syeda Mahreen Rizvi",
+    mother: "Syeda Ismat Zehra Rizvi (Malka)",
+    spouse: "Syeda Mahreen Rizvi (Moon)",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -3562,7 +3580,7 @@ const FAMILY_DATA = [
   {
     name: "Syed  Muhammad Adnan Haider",
     father: "Syed Muhammad Azhar",
-    mother: "Syeda Ismat Zehra (Malka)",
+    mother: "Syeda Ismat Zehra Rizvi (Malka)",
     spouse: "",
     gen: "G-041-S3",
     gender: "MALE",
@@ -3571,7 +3589,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Aizaz Aliya  (Shabnam)",
     father: "Syed Muhammad Azhar",
-    mother: "Syeda Ismat Zehra (Malka)",
+    mother: "Syeda Ismat Zehra Rizvi (Malka)",
     spouse: "Syed Asrar Hussain Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -3580,7 +3598,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Iram Rizvi",
     father: "Syed Muhammad Azhar",
-    mother: "Syeda Ismat Zehra (Malka)",
+    mother: "Syeda Ismat Zehra Rizvi (Malka)",
     spouse: "Syed Shabih Haider Kazmi",
     gen: "G-041-D2",
     gender: "FEMALE",
@@ -3589,7 +3607,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Hina Rizvi",
     father: "Syed Muhammad Azhar",
-    mother: "Syeda Ismat Zehra (Malka)",
+    mother: "Syeda Ismat Zehra Rizvi (Malka)",
     spouse: "Syed Wasi Hussain Naqvi",
     gen: "G-041-D3",
     gender: "FEMALE",
@@ -3625,7 +3643,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Musa Rizvi",
     father: "Syed Muhammad Kamran Rizvi",
-    mother: "Syeda Mahreen Rizvi",
+    mother: "Syeda Mahreen Rizvi (Moon)",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3634,7 +3652,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Tanzeel Rizvi",
     father: "Syed Muhammad Kamran Rizvi",
-    mother: "Syeda Mahreen Rizvi",
+    mother: "Syeda Mahreen Rizvi (Moon)",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -4922,8 +4940,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "20/04/2026, 10:57:51 pm", 
-    total_members: 546,
-    details_count: 33,
+    saved_time: "21/04/2026, 1:09:20 am", 
+    total_members: 548,
+    details_count: 34,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

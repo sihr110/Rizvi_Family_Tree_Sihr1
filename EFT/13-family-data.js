@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 21/04/2026, 1:58:36 am
+// Saved: 21/04/2026, 2:20:22 am
 // Total members: 550
 
 const FAMILY_DATA = [
@@ -2318,7 +2318,7 @@ const FAMILY_DATA = [
     details: "Salman married Marukh daugher of Mamoo Baqir - Both Root is Syed Nawab Ali - G-037-S1"
   },
   {
-    name: "Syeda Huma",
+    name: "Syeda Huma Zehra",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
     spouse: "Syed Hassan Abid Rizvi (Shano)",
@@ -2327,7 +2327,7 @@ const FAMILY_DATA = [
     details: "Huma  children:\\n\\nS1: Syed Zaka Rizvi\\nS2: Syed Jari Abid Rizvi \\n\\nD1: Syeda Joham Rizvi"
   },
   {
-    name: "Syeda Asma",
+    name: "Syeda Asma Zehra",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
     spouse: "Syed Ahmed Rizvi (Kamran)",
@@ -2336,7 +2336,7 @@ const FAMILY_DATA = [
     details: "Asma children:"
   },
   {
-    name: "Syeda Naheed",
+    name: "Syeda Naheed Fatima",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
     spouse: "Syed Zafer Zaidi",
@@ -4958,7 +4958,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "21/04/2026, 1:58:36 am", 
+    saved_time: "21/04/2026, 2:20:22 am", 
     total_members: 550,
     details_count: 39,
     sheets_merged: ["Main","1","2","3","4","5"]

@@ -2360,7 +2360,7 @@ const FAMILY_DATA = [
     spouse: "Syed Salman Jaffery",
     gen: "G-041-D4",
     gender: "FEMALE",
-    details: "Kiran children:\\n\\nKiran ko uss k Jaffar mamoo nay godh lay liya tha."
+    details: "Kiran children:\\n\\nKiran (Twin sister of Farha) ko uss k Jaffar mamoo nay godh lay liya tha."
   },
   {
     name: "Muhammad Akbar",

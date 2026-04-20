@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 20/04/2026, 1:59:12 am
+// Saved: 20/04/2026, 5:09:45 pm
 // Total members: 542
 
 const FAMILY_DATA = [
@@ -2261,7 +2261,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Masoom Fatima Rizvi",
     gen: "G-040-S1",
     gender: "MALE",
-    details: ""
+    details: "Naseem married Masoom - Khala Zad + 3 Gen before Grand father Nawab Ali"
   },
   {
     name: "Syed Dilawar Abbas (Aleem)",
@@ -2303,7 +2303,7 @@ const FAMILY_DATA = [
     name: "Syed Asif Raza",
     father: "Syed Hassan Abbas (Naseem)",
     mother: "Syeda Masoom Fatima Rizvi",
-    spouse: "Syeda Nabi Fatima (Afsheen)",
+    spouse: "Syeda Nabi Fatima Naqvi (Afsheen)",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
@@ -2347,7 +2347,7 @@ const FAMILY_DATA = [
   {
     name: "Muhammad Akbar",
     father: "Syed Asif Raza",
-    mother: "Syeda Nabi Fatima (Afsheen)",
+    mother: "Syeda Nabi Fatima Naqvi (Afsheen)",
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
@@ -2356,7 +2356,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Hooriya Fatima",
     father: "Syed Asif Raza",
-    mother: "Syeda Nabi Fatima (Afsheen)",
+    mother: "Syeda Nabi Fatima Naqvi (Afsheen)",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -2365,7 +2365,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Hiba Fatima",
     father: "Syed Asif Raza",
-    mother: "Syeda Nabi Fatima (Afsheen)",
+    mother: "Syeda Nabi Fatima Naqvi (Afsheen)",
     spouse: "",
     gen: "G-041-D2",
     gender: "FEMALE",
@@ -2387,7 +2387,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Fizza Zehra Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: ""
+    details: "Faizan married Fizza daugher of Manzar Chacha"
   },
   {
     name: "Syed Muhammad Abbas -02",
@@ -2419,7 +2419,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Farwa Rizvi",
     father: "Syed Faizan Abbas",
-    mother: "Syeda Fiza Rizvi",
+    mother: "Syeda Fizza Zehra Rizvi",
     spouse: "",
     gen: "",
     gender: "FEMALE",
@@ -2486,7 +2486,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Fizza married Faizan son of Taya - Dilawar (Aleem)"
   },
   {
     name: "Syeda Fariya Zehra",
@@ -2702,7 +2702,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
-    details: ""
+    details: "Jaweed ko uss k walid k doo mamoo zad  - Abbas (Kaban) aur un ki wife (doosey mamoo ki beti) Razia ney godh lay liya tha (Bachan, Kaban & Razia - common root 19 gen before Badshah Hussain Shaheed)"
   },
   {
     name: "Syed Mohammad Baqir",
@@ -2726,10 +2726,10 @@ const FAMILY_DATA = [
     name: "Syeda Masoom Fatima",
     father: "Syed Mohammad Naqi",
     mother: "",
-    spouse: "Syed Naseem Abbas Rizvi",
+    spouse: "Syed Hassan Abbas (Naseem)",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Masoom married Naseem - Khala Zad + 3 Gen before Grand father Nawab Ali"
   },
   {
     name: "Syeda Naseer Fatima",
@@ -4886,8 +4886,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "20/04/2026, 1:59:12 am", 
+    saved_time: "20/04/2026, 5:09:45 pm", 
     total_members: 542,
-    details_count: 10,
+    details_count: 15,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

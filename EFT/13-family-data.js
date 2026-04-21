@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 21/04/2026, 2:28:25 am
+// Saved: 21/04/2026, 3:23:28 pm
 // Total members: 550
 
 const FAMILY_DATA = [
@@ -2360,7 +2360,7 @@ const FAMILY_DATA = [
     spouse: "Syed Salman Jaffery",
     gen: "G-041-D4",
     gender: "FEMALE",
-    details: "Kiran children:\\n\\nKiran (Twin sister of Farha) ko uss k Jaffar mamoo nay godh lay liya tha."
+    details: "Kiran children:\\n\\nKiran (twin sister of Farha) ko uss k Jaffar mamoo nay godh lay liya tha."
   },
   {
     name: "Muhammad Akbar",
@@ -2732,17 +2732,17 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Jaweed Abbas",
+    name: "Syed Jawaid Abbas",
     father: "Syed Saeed Abbas (Bachan)",
     mother: "",
     spouse: "Nargis Fatima",
     gen: "G-041-S1",
     gender: "MALE",
-    details: "Jaweed ko uss k walid k doo mamoo zad  - Abbas (Kaban) aur un ki wife (doosey mamoo ki beti) Razia ney godh lay liya tha (Bachan, Kaban & Razia) + Root Badhsha Hussain Shaheed - G-022-S1"
+    details: "Jawaid ko uss k walid k doo mamoo zad  - Abbas (Kaban) aur un ki wife (doosey mamoo ki beti) Razia ney godh lay liya tha\\n(Bachan, Kaban & Razia) + Root Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Atta Abbas",
-    father: "Syed Jaweed Abbas",
+    father: "Syed Jawaid Abbas",
     mother: "Nargis Fatima",
     spouse: "",
     gen: "G-042-S1",
@@ -2751,7 +2751,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Kabeer Abbas",
-    father: "Syed Jaweed Abbas",
+    father: "Syed Jawaid Abbas",
     mother: "Nargis Fatima",
     spouse: "",
     gen: "G-042-S2",
@@ -2760,7 +2760,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Khizer Abbas",
-    father: "Syed Jaweed Abbas",
+    father: "Syed Jawaid Abbas",
     mother: "Nargis Fatima",
     spouse: "",
     gen: "G-042-S3",
@@ -2769,7 +2769,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Inshall Abbas",
-    father: "Syed Jaweed Abbas",
+    father: "Syed Jawaid Abbas",
     mother: "Nargis Fatima",
     spouse: "",
     gen: "G-042-S4",
@@ -4958,7 +4958,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "21/04/2026, 2:28:25 am", 
+    saved_time: "21/04/2026, 3:23:28 pm", 
     total_members: 550,
     details_count: 39,
     sheets_merged: ["Main","1","2","3","4","5"]

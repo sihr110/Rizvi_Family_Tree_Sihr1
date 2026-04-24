@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 24/04/2026, 7:54:10 pm
-// Total members: 550
+// Saved: 24/04/2026, 8:25:55 pm
+// Total members: 553
 
 const FAMILY_DATA = [
   {
@@ -2897,7 +2897,7 @@ const FAMILY_DATA = [
     name: "Syed Asrar Hussain",
     father: "Syed Ali Ausat",
     mother: "",
-    spouse: "",
+    spouse: "Syeda Narjis Khatoon Rizvi",
     gen: "G-040-S1",
     gender: "MALE",
     details: ""
@@ -2932,7 +2932,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Waseem Raza",
     father: "Syed Asrar Hussain",
-    mother: "",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
@@ -2941,7 +2941,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Nadeem Raza (Sarwar)",
     father: "Syed Asrar Hussain",
-    mother: "",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
@@ -2950,7 +2950,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Adnan Raza",
     father: "Syed Asrar Hussain",
-    mother: "",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-041-S3",
     gender: "MALE",
@@ -2959,7 +2959,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Rehan Raza",
     father: "Syed Asrar Hussain",
-    mother: "",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-041-S4",
     gender: "MALE",
@@ -2968,7 +2968,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Khakshan -02",
     father: "Syed Asrar Hussain",
-    mother: "",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -2977,9 +2977,36 @@ const FAMILY_DATA = [
   {
     name: "Syeda Shazia",
     father: "Syed Asrar Hussain",
-    mother: "",
+    mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
     gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Ali Shanawar",
+    father: "Syed Nadeem Raza (Sarwar)",
+    mother: "",
+    spouse: "Syeda Fatima Maryam",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Ali Jee",
+    father: "Syed Nadeem Raza (Sarwar)",
+    mother: "",
+    spouse: "",
+    gen: "G-042-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Sukena Batool",
+    father: "Syed Nadeem Raza (Sarwar)",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
   },
@@ -4958,8 +4985,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "24/04/2026, 7:54:10 pm", 
-    total_members: 550,
+    saved_time: "24/04/2026, 8:25:55 pm", 
+    total_members: 553,
     details_count: 47,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

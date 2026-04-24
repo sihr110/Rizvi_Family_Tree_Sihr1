@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 24/04/2026, 6:15:24 pm
+// Saved: 24/04/2026, 7:54:10 pm
 // Total members: 550
 
 const FAMILY_DATA = [
@@ -4322,7 +4322,7 @@ const FAMILY_DATA = [
     spouse: "Syed Abbas Hussain Rizvi",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: "Syeda Razia married with her Taya Syed Ibrahim son Syed Abbas (Kaban) + both Root is Syed Shah Hussain - G-038-S1"
+    details: "Syeda Razia married with her Taya Syed Ibrahim's son, Syed Abbas (Kaban) + both Root is Syed Shah Hussain - G-038-S1"
   },
   {
     name: "Syeda Wajeha",
@@ -4457,7 +4457,7 @@ const FAMILY_DATA = [
     spouse: "Syed Naseem Haider Rizvi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Anjum Nighat\\n 1- Syed Mohammad Rizvi"
+    details: "Children of Syeda Anjum Nighat\\n\\n 1- Syed Mohammad Rizvi"
   },
   {
     name: "Syed Murtaza Haider",
@@ -4958,7 +4958,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "24/04/2026, 6:15:24 pm", 
+    saved_time: "24/04/2026, 7:54:10 pm", 
     total_members: 550,
     details_count: 47,
     sheets_merged: ["Main","1","2","3","4","5"]

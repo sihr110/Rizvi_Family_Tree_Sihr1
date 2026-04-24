@@ -687,43 +687,42 @@
             return str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
         }
 
-        function showInfoModal(memberName) {
-            const member = familyDB.find(m => m.name === memberName);
-            if (!member) return;
+    function showInfoModal(memberName) {
+    const member = familyDB.find(m => m.name === memberName);
+    if (!member) return;
+    let detailsText = member.details && member.details.trim() !== '' ? member.details : 'No additional information available.';
+    detailsText = detailsText.replace(/\\n/g, '<br>');
+    
+    let overlay = document.getElementById('infoModalOverlay');
+    let modal = document.getElementById('infoModal');
+    
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'infoModalOverlay';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:none';
+        document.body.appendChild(overlay);
+        
+        modal = document.createElement('div');
+        modal.id = 'infoModal';
+        modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Inter,sans-serif';
+        document.body.appendChild(modal);
+    }
+    
+    modal.innerHTML = `
+        <h3 style="color:#5a0000;font-family:Playfair Display;font-size:20px;margin:0 0 8px 0;padding:0 0 8px 0;border-bottom:2px solid #d4af37;">ℹ️ Other Informations</h3>
+        <p style="font-size:14px;line-height:1.5;margin:12px 0 0 0;white-space:pre-wrap;word-break:break-word;color:#333;max-height:300px;overflow-y:auto;">${detailsText}</p>
+        <button onclick="closeInfoModal()" style="margin-top:20px;padding:8px 20px;background:#d4af37;color:#0f172a;border:none;border-radius:6px;cursor:pointer;font-weight:600;width:100%;">Close</button>
+    `;
+    
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+    
+    window.closeInfoModal = function() {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+    };
+}    
 
-            const detailsText = member.details && member.details.trim() !== '' && member.details !== '—'
-                ? member.details
-                : 'No additional information available.';
-
-            let overlay = document.getElementById('infoModalOverlay');
-            let modal = document.getElementById('infoModal');
-
-            if (!overlay) {
-                overlay = document.createElement('div');
-                overlay.id = 'infoModalOverlay';
-                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:none';
-                document.body.appendChild(overlay);
-
-                modal = document.createElement('div');
-                modal.id = 'infoModal';
-                modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Inter,sans-serif';
-                document.body.appendChild(modal);
-            }
-
-            modal.innerHTML = `
-                <h3 style="color:#5a0000;font-family:Playfair Display;font-size:20px;margin:0 0 8px 0;padding:0 0 8px 0;border-bottom:2px solid #d4af37;">ℹ️ Other Informations</h3>
-                <p style="font-size:14px;line-height:1.5;margin:12px 0 0 0;white-space:pre-wrap;word-break:break-word;color:#333;max-height:300px;overflow-y:auto;">${escapeHtml(detailsText)}</p>
-                <button onclick="closeInfoModal()" style="margin-top:20px;padding:8px 20px;background:#d4af37;color:#0f172a;border:none;border-radius:6px;cursor:pointer;font-weight:600;width:100%;">Close</button>
-            `;
-
-            modal.style.display = 'block';
-            overlay.style.display = 'block';
-
-            window.closeInfoModal = function() {
-                modal.style.display = 'none';
-                overlay.style.display = 'none';
-            };
-        }
 
         function extractGenNumber(genStr) {
             if (!genStr) return 999;

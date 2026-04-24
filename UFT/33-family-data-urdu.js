@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 24/04/2026, 5:23:16 pm
-// Total members: 550
+// Saved: 24/04/2026, 8:32:47 pm
+// Total members: 553
 
 const FAMILY_DATA_URDU = [
   {
@@ -2897,7 +2897,7 @@ const FAMILY_DATA_URDU = [
     name: "سید اسرار حسین",
     father: "سید علی اوسط",
     mother: "",
-    spouse: "",
+    spouse: "سیدہ نرجس خاتون رضوی",
     gen: "G-040-S1",
     gender: "MALE",
     details: ""
@@ -2932,7 +2932,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید وسیم رضا",
     father: "سید اسرار حسین",
-    mother: "",
+    mother: "سیدہ نرجس خاتون رضوی",
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
@@ -2941,7 +2941,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید ندیم رضا (سرور)",
     father: "سید اسرار حسین",
-    mother: "",
+    mother: "سیدہ نرجس خاتون رضوی",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
@@ -2950,7 +2950,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید عدنان رضا",
     father: "سید اسرار حسین",
-    mother: "",
+    mother: "سیدہ نرجس خاتون رضوی",
     spouse: "",
     gen: "G-041-S3",
     gender: "MALE",
@@ -2959,7 +2959,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید ریحان رضا",
     father: "سید اسرار حسین",
-    mother: "",
+    mother: "سیدہ نرجس خاتون رضوی",
     spouse: "",
     gen: "G-041-S4",
     gender: "MALE",
@@ -2968,7 +2968,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ کہکشاں -02",
     father: "سید اسرار حسین",
-    mother: "",
+    mother: "سیدہ نرجس خاتون رضوی",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -2977,9 +2977,36 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ شازیہ",
     father: "سید اسرار حسین",
-    mother: "",
+    mother: "سیدہ نرجس خاتون رضوی",
     spouse: "",
     gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید علی شناور",
+    father: "سید ندیم رضا (سرور)",
+    mother: "",
+    spouse: "سیدہ مریم فاطمہ",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید علی جی",
+    father: "سید ندیم رضا (سرور)",
+    mother: "",
+    spouse: "",
+    gen: "G-042-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ سُکینہ بتول",
+    father: "سید ندیم رضا (سرور)",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
   },
@@ -4214,7 +4241,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سیدہ راضیہ خاتون رضوی",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "سید عباس (کبن) کی شادی چچا اشفاق کی بیٹی سیدہ  راضیہ سے ہوئی + دونوں کی جڑ شاہ حسین ہیں - G-038-S1\\n\\nعباس (کبن) اور ان کی اہلیہ راضیہ نے اپنی پُھوپھی سیدہ صابرہ خاتون کے بہٹے سید سعید عباس رضوی (بچھن) کے بیٹے سید جاوید عباس رضوی G-042-S1 کو گود لے لیا تھا"
+    details: "سید عباس (کبن) کی شادی چچا سید اشفاق کی بیٹی سیدہ راضیہ سے ہوئی + دونوں کی جڑ سید شاہ حسین ہیں - G-038-S1\\n\\nسید عباس (کبن) اور ان کی اہلیہ سیدہ راضیہ نے اپنی پُھوپھی سیدہ صابرہ خاتون کے بہٹے سید سعید عباس رضوی (بچھن) کے بیٹے سید جاوید عباس رضوی G-042-S1 کو گود لے لیا تھا"
   },
   {
     name: "سیدہ کبریٰ خاتون",
@@ -4958,8 +4985,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "24/04/2026, 5:23:16 pm", 
-    total_members: 550,
+    saved_time: "24/04/2026, 8:32:47 pm", 
+    total_members: 553,
     details_count: 47,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

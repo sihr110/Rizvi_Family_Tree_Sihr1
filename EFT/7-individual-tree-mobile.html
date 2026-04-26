@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <!-- MOBILE VIEWPORT: initial-scale=0.5 exactly like original file 7 -->
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi family · structured tree (mobile)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -116,22 +116,22 @@
 
         /* REMOVED: header-actions and header-btn - Table View & Dashboard moved to toggle menu */
 
-        .left-toggle-btn {
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            border: 2px solid white;
-            z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
+.left-toggle-btn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid white;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
 
         .left-toggle-btn:hover {
             background: var(--light-gold);
@@ -284,14 +284,13 @@
             margin-top: 2px;
         }
 
-.tree-container {
+       .tree-container {
     flex: 1;
-    overflow-x: auto; /* Enable horizontal movement */
-    overflow-y: auto; /* Enable vertical movement */
+    overflow: auto;
     padding: 0 15px 15px 15px;
     position: relative;
     -webkit-overflow-scrolling: touch;
-    zoom: 0.50; /* Your desired zoom */
+    zoom: 0.5;
 }
 
         /* Scrollbar styling */
@@ -314,15 +313,15 @@
             background: var(--dark-blue);
         }
 
-.tree-root-layout {
-    display: inline-flex;
-    flex-direction: column;
-    /* align-items: center; <-- Remove or comment this out */
-    min-width: 100%; 
-    transform-origin: top center;
-    transition: transform 0.1s;
-    padding: 20px; /* Gives extra room for the scroll */
-}
+        .tree-root-layout {
+            transform-origin: top left;
+            transition: transform 0.1s;
+            min-width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .welcome-container {
             display: flex;
@@ -499,14 +498,13 @@
             margin: 0 auto 10px auto;
         }
 
-     .children-row.four-in-row {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    width: max-content; /* Forces the row to respect the width of 4 boxes */
-}
+        .children-row.four-in-row {
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
 
         .children-row.one-box,
         .children-row.two-boxes,
@@ -716,7 +714,8 @@
 
     <div class="app-container">
         <div class="app-header">
-            <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
+<div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>        
+
             <div class="header-title">
                 <span class="header-icon">🌿</span>
                 <span>Rizvi family · structured tree</span>
@@ -731,9 +730,12 @@
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
             <!-- Table View and Dashboard added to toggle menu (moved from header) -->
             <div class="toggle-menu-item" onclick="showTableView()">📊 Table View</div>
-            <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
+            
+<div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
+          
+<div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
         </div>
 
         <div class="main-content">
@@ -742,7 +744,9 @@
                     <div class="search-row">
                         <span class="search-label">SEARCH MEMBER</span>
                         <div class="search-wrapper">
-                            <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off">
+
+
+<input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>

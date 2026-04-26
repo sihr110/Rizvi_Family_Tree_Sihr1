@@ -116,20 +116,25 @@
             width: 100%;
         }
 
-        .dashboard-card {
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 16px;
-            padding: 16px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.15s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
+
+.dashboard-card {
+    background: white;
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+
 
         .dashboard-card:active {
             transform: scale(0.98);
@@ -365,7 +370,17 @@ function hardResetMobile() {
                     </div>
                 `;
 
-                document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
+
+
+const individualCard = document.getElementById('cardIndividual');
+individualCard.addEventListener('click', goToIndividualMobile);
+individualCard.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    goToIndividualMobile();
+});
+
+
+
                 document.getElementById('cardRoot').addEventListener('click', goToRootMobile);
                 document.getElementById('cardFullTree').addEventListener('click', goToFullTreeMobile);
                 document.getElementById('exitBtn').addEventListener('click', logoutMobile);

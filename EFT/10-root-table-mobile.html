@@ -569,7 +569,7 @@
         <!-- Toggle Menu Panel -->
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div class="toggle-menu-item" onclick="switchToTree()">🌲 Show Tree</div>
-            <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+            <div class="toggle-menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
 
             <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
 
@@ -584,7 +584,7 @@
                     <div class="search-row">
                         <div class="search-label">MEMBER 1</div>
                         <div class="search-wrapper">
-                            <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
+                            <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetSearchRow(1)">🔄 Reset</div>
@@ -592,7 +592,7 @@
                     <div class="search-row">
                         <div class="search-label">MEMBER 2</div>
                         <div class="search-wrapper">
-                            <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
+                            <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetSearchRow(2)">🔄 Reset</div>

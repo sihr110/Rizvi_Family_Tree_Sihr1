@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 24/04/2026, 8:25:55 pm
+// Saved: 26/04/2026, 2:41:10 am
 // Total members: 553
 
 const FAMILY_DATA = [
@@ -2033,7 +2033,7 @@ const FAMILY_DATA = [
     name: "Syeda Amra Khatoon",
     father: "Syed Ali Mustahsan",
     mother: "",
-    spouse: "",
+    spouse: "Syed Izhar",
     gen: "G-038-D1",
     gender: "FEMALE",
     details: ""
@@ -4241,7 +4241,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Razia Khatoon Rizvi",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Kaban married Razia - Chacha Ashfa ki beti  + both Root is Shah Hussain - G-038-S1"
+    details: "Syed Abbas (Kaban) married with his Chacha Syed Ashfaq's daughter Syeda Razia,  + both Root is Syed Shah Hussain - G-038-S1\\n\\nThey had two children - both died in their childhood\\n\\nThey adopted their Phopho Syeda Sabra's grandson (Syed Saeed [Bachan]'s son Syed Jawaid Abbas  G-042-S1 )"
   },
   {
     name: "Syeda Kubra Khatoon",
@@ -4313,7 +4313,7 @@ const FAMILY_DATA = [
     spouse: "1- Syeda Kubra Khatoon\n2- Syeda",
     gen: "G-040-S1",
     gender: "MALE",
-    details: ""
+    details: "Syed Ibadat remarried after death of his first wife:\\n1- Wife 1: His taya Syed Ibrahim's daugher Syeda Kubra - no child\\n2- Wife 2: Syeda .."
   },
   {
     name: "Syed Wiladat Hussain",
@@ -4349,7 +4349,7 @@ const FAMILY_DATA = [
     spouse: "Syed Abbas Hussain Rizvi",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: "Syeda Razia married with her Taya Syed Ibrahim's son, Syed Abbas (Kaban) + both Root is Syed Shah Hussain - G-038-S1"
+    details: "Syeda Razia married with her Taya Syed Ibrahim's son, Syed Abbas (Kaban) + both Root is Syed Shah Hussain - G-038-S1\\n\\nThey had two children - both died in their childhood\\n\\nThey adopted their Phopho Syeda Sabra's grandson (Syed Saeed [Bachan]'s son Syed Jawaid Abbas  G-042-S1 )"
   },
   {
     name: "Syeda Wajeha",
@@ -4985,8 +4985,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "24/04/2026, 8:25:55 pm", 
+    saved_time: "26/04/2026, 2:41:10 am", 
     total_members: 553,
-    details_count: 47,
+    details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

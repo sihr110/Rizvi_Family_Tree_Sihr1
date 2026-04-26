@@ -132,22 +132,22 @@
             font-size: 16px;
         }
 
-        .left-toggle-btn {
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            border: 2px solid white;
-            z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
+.left-toggle-btn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid white;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
 
         .left-toggle-btn:hover {
             background: var(--light-gold);
@@ -458,11 +458,10 @@
                 margin-left: 10px;
             }
             
-            .left-toggle-btn {
-                width: 34px;
-                height: 34px;
-                font-size: 18px;
-            }
+     .left-toggle-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+}
             
             .box {
                 min-width: 240px;
@@ -495,7 +494,7 @@
 
     <div class="app-container">
         <div class="app-header">
-            <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
+            <div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>
             <div class="header-title">
                 <span class="header-icon">👥</span>
                 <span>Rizvi Family - Root Tree View</span>
@@ -505,9 +504,10 @@
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
             <div class="toggle-menu-item" onclick="switchToTableView()">📋 Switch to Table</div>
-            <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
-            <!-- CHANGE 4: Reset removed from toggle menu -->
-            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
+            <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+
+            <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
+
         </div>
 
         <div class="main-content">

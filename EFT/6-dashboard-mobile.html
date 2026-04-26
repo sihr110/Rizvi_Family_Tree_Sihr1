@@ -117,6 +117,7 @@
         }
 
 
+
 .dashboard-card {
     background: white;
     border: 2px solid var(--gold);
@@ -132,8 +133,9 @@
     width: 100%;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
 }
-
 
 
         .dashboard-card:active {
@@ -372,12 +374,7 @@ function hardResetMobile() {
 
 
 
-const individualCard = document.getElementById('cardIndividual');
-individualCard.addEventListener('click', goToIndividualMobile);
-individualCard.addEventListener('touchstart', function(e) {
-    e.preventDefault();
-    goToIndividualMobile();
-});
+document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
 
 
 

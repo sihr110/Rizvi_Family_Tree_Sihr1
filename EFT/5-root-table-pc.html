@@ -186,7 +186,7 @@
             border: 2px solid white;
             z-index: 2000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
+            animation: gentle-blink 1.5s infinite;
         }
 
         .left-toggle-btn:hover {
@@ -712,12 +712,12 @@
             <div class="header-actions" id="headerActions"></div>
         </div>
 
-        <div class="toggle-menu-panel" id="toggleMenuPanel">
-            <div class="toggle-menu-item" onclick="switchToTreeView()">🌲 Switch to Tree View</div>
-            <!-- CHANGE 4: Reset removed from toggle menu -->
-            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
-            <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
-        </div>
+   <div class="toggle-menu-panel" id="toggleMenuPanel">
+    <div class="toggle-menu-item" onclick="switchToTreeView()">🌲 Switch to Tree View</div>
+    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+    <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+    <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
+</div>
 
         <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
 

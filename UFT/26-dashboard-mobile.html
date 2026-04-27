@@ -15,8 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="33-family-data-urdu.js"></script>
     
-   
-
 <style>
     * {
         margin: 0;
@@ -264,7 +262,6 @@
     }
 </style>
 
-
 </head>
 <body>
     <div class="app-container">
@@ -305,40 +302,45 @@
         let fileInfo = null;
 
         // ==================== INITIALIZATION ====================
-        
-
-function initializeData() {
-    // STEP 1: Auto hard reset - clear everything
-    localStorage.removeItem('familyDB');
-    localStorage.removeItem('fileInfo');
-    localStorage.removeItem('tableViewMember');
-    localStorage.removeItem('tableViewFilters');
-    db = [];
-    
-    // STEP 2: Auto load fresh from 33-family-data-urdu.js
-    if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
-        try {
-            db = FAMILY_DATA_URDU;
-            localStorage.setItem('familyDB', JSON.stringify(db));
+        function initializeData() {
+            // STEP 1: Auto hard reset - clear everything
+            localStorage.removeItem('familyDB');
+            localStorage.removeItem('fileInfo');
+            localStorage.removeItem('tableViewMember');
+            localStorage.removeItem('tableViewFilters');
+            db = [];
             
-            if (typeof FILE_INFO !== 'undefined') {
-                fileInfo = FILE_INFO;
-                localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                console.log('✅ Timestamp saved:', FILE_INFO.saved_time);
+            // STEP 2: Auto load fresh from 33-family-data-urdu.js
+            if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
+                try {
+                    db = FAMILY_DATA_URDU;
+                    localStorage.setItem('familyDB', JSON.stringify(db));
+                    
+                    if (typeof FILE_INFO !== 'undefined') {
+                        fileInfo = FILE_INFO;
+                        localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
+                        console.log('✅ Timestamp saved:', FILE_INFO.saved_time);
+                    }
+                    
+                    console.log(`✅ Auto-loaded ${db.length} members from 33-family-data-urdu.js`);
+                } catch (err) {
+                    console.error('Error loading from JS:', err);
+                }
+            } else {
+                console.warn('⚠️ FAMILY_DATA_URDU not found. Make sure 33-family-data-urdu.js is loaded.');
+                // Try to load from localStorage as fallback
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    try {
+                        db = JSON.parse(saved);
+                        console.log(`✅ Loaded ${db.length} members from localStorage`);
+                    } catch(e) { console.error(e); }
+                }
             }
             
-            console.log(`✅ Auto-loaded ${db.length} members from 33-family-data-urdu.js`);
-        } catch (err) {
-            console.error('Error loading from JS:', err);
+            updateHeaderStatus();
+            renderDashboard();
         }
-    } else {
-        console.warn('⚠️ FAMILY_DATA_URDU not found. Make sure 33-family-data-urdu.js is loaded.');
-    }
-    
-    updateHeaderStatus();
-    renderDashboard();
-}
-
 
         function updateHeaderStatus() {
             const count = db.length || 0;
@@ -363,6 +365,13 @@ function initializeData() {
                         <div class="card-icon">👥</div>
                         <div class="card-title">جڑ رشتہ دار</div>
                         <div class="card-desc">دو افراد کے درمیان تعلق معلوم کریں</div>
+                    </div>
+                    
+                    <!-- Full Family Tree Card - NEW -->
+                    <div class="dashboard-card" onclick="goToFullTree()">
+                        <div class="card-icon">🌳</div>
+                        <div class="card-title">مکمل شجرہ</div>
+                        <div class="card-desc">خاندان کا مکمل شجرہ دیکھیں</div>
                     </div>
                     
                     <!-- Action Buttons -->
@@ -406,6 +415,20 @@ function initializeData() {
                 }
             }
             window.location.href = '29-root-tree-mobile.html';
+        }
+
+        // NEW: Go to Full Family Tree (Urdu version)
+        function goToFullTree() {
+            if (db.length === 0) {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else {
+                    showToast('❌ براہ کرم پہلے ڈیٹا لوڈ کریں');
+                    return;
+                }
+            }
+            window.location.href = '200U-full-tree-mobile.html';
         }
 
         // ==================== UTILITY FUNCTIONS ====================
@@ -455,19 +478,19 @@ function initializeData() {
             }
         }
 
-function hardReset() {
-    if (confirm('🚨 انتباہ: تمام ڈیٹا مستقل طور پر حذف ہو جائے گا۔ کیا آپ کو یقین ہے؟')) {
-        localStorage.removeItem('familyDB');
-        localStorage.removeItem('fileInfo');
-        localStorage.removeItem('tableViewMember');
-        localStorage.removeItem('tableViewFilters');
-        db = [];
-        initializeData();
-        updateHeaderStatus();
-        renderDashboard();
-        showToast('✅ تمام ڈیٹا صاف کر دیا گیا اور دوبارہ لوڈ ہو گیا');
-    }
-}
+        function hardReset() {
+            if (confirm('🚨 انتباہ: تمام ڈیٹا مستقل طور پر حذف ہو جائے گا۔ کیا آپ کو یقین ہے؟')) {
+                localStorage.removeItem('familyDB');
+                localStorage.removeItem('fileInfo');
+                localStorage.removeItem('tableViewMember');
+                localStorage.removeItem('tableViewFilters');
+                db = [];
+                initializeData();
+                updateHeaderStatus();
+                renderDashboard();
+                showToast('✅ تمام ڈیٹا صاف کر دیا گیا اور دوبارہ لوڈ ہو گیا');
+            }
+        }
 
         // ==================== ANIMATION STYLES ====================
         const style = document.createElement('style');
@@ -491,6 +514,7 @@ function hardReset() {
         // Make functions globally available
         window.goToIndividual = goToIndividual;
         window.goToRoot = goToRoot;
+        window.goToFullTree = goToFullTree;
         window.logout = logout;
         window.hardReset = hardReset;
     </script>

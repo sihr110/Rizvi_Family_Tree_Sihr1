@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <meta name="google" content="notranslate">
-    <title>رضوی خاندان · اصل شجرہ ویو (موبائل)</title>
+    <title>رضوی خاندان · جڑ تک شجرہ ویو (موبائل)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -134,43 +134,44 @@
             font-size: 16px;
         }
 
-        .left-toggle-btn {
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            border: 2px solid white;
-            z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
+.left-toggle-btn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid white;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
 
         .left-toggle-btn:hover {
             background: var(--light-gold);
             transform: scale(1.1);
         }
 
-        .toggle-menu-panel {
-            position: absolute;
-            left: 10px;
-            top: 60px;
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 12px;
-            padding: 15px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            min-width: 220px;
-        }
+.toggle-menu-panel {
+    position: absolute;
+    right: 10px;
+    left: auto;
+    top: 60px;
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 15px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    min-width: 220px;
+}
 
         .toggle-menu-panel.show {
             display: flex;
@@ -193,10 +194,10 @@
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .toggle-menu-item:hover {
-            background: #faebcd;
-            transform: translateX(5px);
-        }
+    .toggle-menu-item:hover {
+    background: #faebcd;
+    transform: translateX(-5px);
+}
 
         .main-content {
             flex: 1;
@@ -534,25 +535,25 @@
 
     <div class="app-container">
         <div class="app-header">
-            <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
+            <div class="left-toggle-btn" onclick="toggleLeftMenu()">فہرست</div>
             <div class="header-title">
                 <span class="header-icon">👥</span>
-                <span>رضوی خاندان - اصل شجرہ ویو</span>
+                <span>رضوی خاندان - جڑ تک شجرہ ویو</span>
             </div>
         </div>
 
-        <div class="toggle-menu-panel" id="toggleMenuPanel">
-            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="switchToTableView()">📋 جدول میں دیکھیں</div>
-            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 محفوظ کریں</div>
-            <div class="toggle-menu-item" onclick="showDashboard()">🏠 ڈیش بورڈ</div>
-        </div>
+ <!-- Toggle Menu Panel -->
+    <div class="toggle-menu-panel" id="toggleMenuPanel">
+    <div class="toggle-menu-item" onclick="switchToTableView()">📋 ٹیبل ویو میں دیکھیں</div>
+    <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 مرکزی صفحہ</div>
+    <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 محفوظ کریں</div>
+</div>
 
         <div class="main-content">
             <div id="rootSection">
                 <div class="fixed-header-section">
                     <div class="search-row">
-                        <span class="search-label">رکن 1</span>
+                        <span class="search-label">فرد 1</span>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
@@ -560,7 +561,7 @@
                         <div class="reset-btn" onclick="resetSearchRow(1)">🔄 دوبارہ ترتیب</div>
                     </div>
                     <div class="search-row">
-                        <span class="search-label">رکن 2</span>
+                        <span class="search-label">فرد 2</span>
                         <div class="search-wrapper">
                             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
@@ -573,7 +574,7 @@
                     <div class="empty-state">
                         <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
                         <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
-                        <div style="font-size:13px; color:#666;">ان کا مشترکہ اصل بزرگ دیکھنے کے لیے اوپر دو افراد تلاش کریں</div>
+                        <div style="font-size:13px; color:#666;">ان کا مشترکہ جڑ بزرگ دیکھنے کے لیے اوپر دو افراد منتخب کریں</div>
                     </div>
                 </div>
             </div>
@@ -706,7 +707,7 @@
                     <div class="empty-state">
                         <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
                         <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
-                        <div style="font-size:13px; color:#666;">ان کا مشترکہ اصل بزرگ دیکھنے کے لیے اوپر دو افراد تلاش کریں</div>
+                        <div style="font-size:13px; color:#666;">ان کا مشترکہ جڑ بزرگ دیکھنے کے لیے اوپر دو افراد منتخب کریں</div>
                     </div>
                 `;
             }
@@ -825,7 +826,7 @@
                 <div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>
                 <div class="box-body">
                     <span class="member-name">${displayName(m.name)}</span>
-                    <div class="father-name">${isF ? 'دختر' : 'فرزند'}: ${displayName(m.father)} | والدہ: ${motherName}</div>
+                    <div class="father-name">${isF ? 'دختر' : 'فرزند'}: ${displayName(m.father)} و ${motherName}</div>
                 </div></div>`;
         }
 
@@ -849,27 +850,27 @@
             
             let html = `
                 <div class="root-announce">
-                    <h2 style="color: var(--maroon); margin-bottom: 15px;">مشترکہ اصل بزرگ</h2>
+                    <h2 style="color: var(--maroon); margin-bottom: 15px;">مشترکہ جڑ بزرگ</h2>
                     <h3 style="color: var(--dark-blue); font-size: 24px; margin: 10px 0;">${displayName(root.name)} - ${root.gen}</h3>
                     <div class="generation-info">
                         <div class="gap-row">
-                            <div class="gap-item">${displayName(member1.name)} → اصل <span class="gap-value">${gap1} نسل</span></div>
-                            <div class="gap-item">${displayName(member2.name)} → اصل <span class="gap-value">${gap2} نسل</span></div>
+                            <div class="gap-item">${displayName(member1.name)} → جڑ <span class="gap-value">${gap1} نسل</span></div>
+                            <div class="gap-item">${displayName(member2.name)} → جڑ <span class="gap-value">${gap2} نسل</span></div>
                             <div class="gap-item">ان کے درمیان <span class="gap-value highlight">${gap12} نسل</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="paths-container">
                     <div class="path-column">
-                        <h3>${displayName(member1.name)} کا اصل تک سفر</h3>`;
+                        <h3>${displayName(member1.name)} کا جڑ تک سفر</h3>`;
             p1.forEach((m, i) => { 
-                html += renderBox(m, i === p1.length - 1 ? 'منتخب فرد' : (i === 0 ? 'اصل بزرگ' : 'نسل'), i === 0, i === p1.length - 1); 
+                html += renderBox(m, i === p1.length - 1 ? 'منتخب فرد' : (i === 0 ? 'جڑ بزرگ' : 'نسل'), i === 0, i === p1.length - 1); 
                 if (i < p1.length - 1) html += '<div class="path-connector"></div>'; 
             });
             html += `</div><div class="path-column">
-                        <h3>${displayName(member2.name)} کا اصل تک سفر</h3>`;
+                        <h3>${displayName(member2.name)} کا جڑ تک سفر</h3>`;
             p2.forEach((m, i) => { 
-                html += renderBox(m, i === p2.length - 1 ? 'منتخب فرد' : (i === 0 ? 'اصل بزرگ' : 'نسل'), i === 0, i === p2.length - 1); 
+                html += renderBox(m, i === p2.length - 1 ? 'منتخب فرد' : (i === 0 ? 'جڑ بزرگ' : 'نسل'), i === 0, i === p2.length - 1); 
                 if (i < p2.length - 1) html += '<div class="path-connector"></div>'; 
             });
             html += `</div></div>`;
@@ -885,7 +886,7 @@
                 <div class="empty-state">
                     <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
                     <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
-                    <div style="font-size:13px; color:#666;">ان کا مشترکہ اصل بزرگ دیکھنے کے لیے اوپر دو افراد تلاش کریں</div>
+                    <div style="font-size:13px; color:#666;">ان کا مشترکہ جڑ بزرگ دیکھنے کے لیے اوپر دو افراد منتخب کریں</div>
                 </div>
             `;
             document.getElementById('dropdown1').style.display = 'none';
@@ -918,7 +919,7 @@
                 header.style.width = '100%';
                 header.innerHTML = `
                     <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:0;">رضوی خاندان کا شجرہ</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">اصل بزرگ کا رشتہ</h2>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">جڑ بزرگ کا رشتہ</h2>
                     <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
                 `;
                 const footer = document.createElement('div');
@@ -1010,7 +1011,7 @@
                 header.style.textAlign = 'center';
                 header.innerHTML = `
                     <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:0;">رضوی خاندان کا شجرہ</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">اصل بزرگ کا رشتہ</h2>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', 'Noto Nastaliq Urdu', serif; margin:10px 0 0 0;">جڑ بزرگ کا رشتہ</h2>
                     <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
                 `;
                 wrapper.appendChild(header);

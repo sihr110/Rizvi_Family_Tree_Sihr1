@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <title>رضوی خاندان · مکمل شجرہ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="33-family-data-urdu.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --maroon: #5a0000;
+            --dark-blue: #0f172a;
+            --gold: #d4af37;
+            --light-gold: #f1d279;
+            --green: #2e7d32;
+            --light-pink: #ffe4e9;
+            --pink-border: #fb7185;
+            --connector: #b8860b;
+        }
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            background: #1a1a1a;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            width: 90%;
+            margin: 0 auto;
+            background: white;
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+        }
+
+        .header-title {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-toggle-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            flex-shrink: 0;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .left-toggle-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.05);
+        }
+
+
+.left-toggle-btn {
+    animation: gentle-blink 1.5s infinite;
+}
+
+@keyframes gentle-blink {
+    0% { opacity: 1; background: var(--gold); }
+    50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
+    100% { opacity: 1; background: var(--gold); }
+}
+
+
+
+        .counter-badge {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .search-section {
+            padding: 15px;
+            background: #fffcf8;
+            border-bottom: 2px solid var(--gold);
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-label {
+            font-weight: 700;
+            color: var(--maroon);
+            font-size: 13px;
+            white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold);
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 0 0 4px 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
+        .result-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .result-item:hover {
+            background: #faebcd;
+        }
+
+        .result-name {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: 14px;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .result-father {
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .toggle-menu-panel {
+            position: absolute;
+            right: 10px;
+            top: 60px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 220px;
+        }
+
+        .toggle-menu-panel.show {
+            display: flex;
+        }
+
+        .toggle-menu-item {
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .toggle-menu-item:hover {
+            background: #faebcd;
+            transform: translateX(5px);
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 22px;
+            background: #ccc;
+            border-radius: 22px;
+            display: inline-block;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .toggle-switch.active {
+            background: var(--green);
+        }
+
+        .toggle-switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: 0.2s;
+        }
+
+        .toggle-switch.active::after {
+            left: 23px;
+        }
+
+        .tree-wrapper {
+            flex: 1;
+            overflow: auto;
+            background: #fffcf8;
+            position: relative;
+        }
+
+        .tree-wrapper::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 6px;
+        }
+
+        .tree-container {
+            padding: 40px;
+            min-width: max-content;
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            transform: scale(0.5);
+            transform-origin: top center;
+        }
+
+        .tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .root-level {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5px;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .parent-down-line {
+            width: 2px;
+            height: 25px;
+            background: #b8860b;
+            margin: 0 auto;
+        }
+
+        .children-level {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 50px;
+            position: relative;
+        }
+
+        .child-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .sibling-bar {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .sibling-bar-line {
+            height: 2px;
+            background: #b8860b;
+            width: 100%;
+        }
+
+        .tree-box {
+            width: 260px;
+            background: white;
+            border: 2px solid var(--maroon);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.1s ease;
+            cursor: pointer;
+        }
+
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            background: rgba(0,0,0,0.02);
+        }
+
+        .gen-text {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--maroon);
+            flex: 1;
+            text-align: center;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .expand-btn {
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expand-btn:hover {
+            background: var(--light-gold);
+        }
+
+        .tree-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .tree-box.female {
+            background: var(--light-pink);
+            border-color: var(--pink-border);
+        }
+
+        .tree-box.female .box-header {
+            background: #ffe0e6;
+        }
+
+        .tree-box.selected {
+            animation: gentleBeat 2.2s infinite;
+            border-width: 4px;
+            z-index: 10;
+        }
+
+        @keyframes gentleBeat {
+            0% { border-color: #2e7d32; transform: scale(1.02); }
+            50% { border-color: #4caf50; background: #c8e6c9; transform: scale(1.05); }
+            100% { border-color: #2e7d32; transform: scale(1.02); }
+        }
+
+        .box-body {
+            padding: 8px 10px;
+            min-height: 110px;
+        }
+
+        .member-name {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+
+        .info-text {
+            font-size: 10px;
+            margin-top: 4px;
+            color: #333;
+            line-height: 1.3;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .info-text .label-col {
+            font-weight: 700;
+            color: var(--maroon);
+            display: inline-block;
+            width: 55px;
+            font-size: 10px;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .info-icon:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
+
+        .hidden-children {
+            display: none !important;
+        }
+
+        .save-options-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            z-index: 4000;
+            min-width: 320px;
+            display: none;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 3999;
+            display: none;
+        }
+
+        .loading-msg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #5a0000;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            z-index: 5000;
+            font-weight: 600;
+            display: none;
+            white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        .footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
+            font-family: 'Noto Nastaliq Urdu', sans-serif;
+        }
+
+        @media print {
+            .app-header, .footer, .save-options-modal, .modal-overlay { display: none !important; }
+            .tree-container { transform: scale(1) !important; padding: 20px; }
+        }
+
+        @media screen and (max-width: 480px) {
+            .left-toggle-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            .header-title {
+                font-size: 14px;
+            }
+            .header-title span {
+                display: none;
+            }
+            .header-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            .tree-box {
+                width: 220px;
+            }
+            .search-row {
+                gap: 8px;
+            }
+            .search-label {
+                font-size: 11px;
+            }
+            .reset-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <div class="left-toggle-btn" onclick="toggleLeftMenu()">فہرست</div>
+            <div class="header-title">
+                <span class="header-icon">🌳</span>
+                <span>رضوی خاندان · مکمل شجرہ</span>
+            </div>
+            <div class="counter-badge" id="openCount">📂 0</div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-row">
+                <span class="search-label">رکن تلاش کریں</span>
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="نام لکھیں..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                    <div id="searchDropdown" class="search-dropdown"></div>
+                </div>
+                <div class="reset-btn" onclick="resetToRoot()">🔄 دوبارہ شروع</div>
+            </div>
+        </div>
+
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item" id="showAllMenuItem">
+                <span>📂 مکمل تفصیل دکھائیں</span>
+                <span id="showAllToggleSwitch" class="toggle-switch active"></span>
+            </div>
+            <div class="toggle-menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white;">🏠 مرکزی صفحہ</div>
+            <div class="toggle-menu-item" onclick="showSaveModal()" style="background: #d4af37; color: black;">💾 محفوظ کریں</div>
+        </div>
+
+        <div class="tree-wrapper" id="treeWrapper">
+            <div class="tree-container" id="treeContainer">
+                <div id="treeRoot"></div>
+            </div>
+        </div>
+
+        <div class="footer">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 0332-787-6010</div>
+    </div>
+
+    <div class="save-options-modal" id="saveModal">
+        <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 شجرہ محفوظ کریں</h3>
+        <div style="margin-bottom:20px;">
+            <label style="display:block; margin-bottom:15px;"><input type="radio" name="saveFormat" value="pdf-high" checked> 📑 پی ڈی ایف - ہائی ریزولوشن</label>
+            <label style="display:block; margin-bottom:15px;"><input type="radio" name="saveFormat" value="pdf-low"> 📑 پی ڈی ایف - لو ریزولوشن</label>
+            <label style="display:block;"><input type="radio" name="saveFormat" value="jpeg"> 📸 جے پی ای جی تصویر</label>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button onclick="processSave()" style="flex:2; padding:12px; background:#2e7d32; color:white; border:none; border-radius:6px; cursor:pointer;">محفوظ کریں</button>
+            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">منسوخ</button>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalOverlay" onclick="closeSaveModal()"></div>
+    <div class="loading-msg" id="loadingMsg">📄 فائل تیار ہو رہی ہے، براہ کرم انتظار کریں...</div>
+
+    <script>
+        let familyDB = [];
+        let currentSelectedBox = null;
+        let memberElements = new Map();
+        let expandedState = new Map();
+        let showAllMode = true;
+        let lastSelectedMemberName = null;
+
+        function displayName(str) {
+            if (!str) return '';
+            return str.replace(/[\s-\.۔]*\d+$/, '').trim();
+        }
+
+        function showInfoModal(memberName) {
+            const member = familyDB.find(m => m.name === memberName);
+            if (!member) return;
+            let detailsText = member.details && member.details.trim() !== '' ? member.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
+            detailsText = detailsText.replace(/\\n/g, '<br>');
+            
+            let overlay = document.getElementById('infoModalOverlay');
+            let modal = document.getElementById('infoModal');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'infoModalOverlay';
+                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:none';
+                document.body.appendChild(overlay);
+                modal = document.createElement('div');
+                modal.id = 'infoModal';
+                modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Noto Nastaliq Urdu,sans-serif';
+                document.body.appendChild(modal);
+            }
+            modal.innerHTML = `
+                <h3 style="color:#5a0000;font-family:Playfair Display;margin-bottom:12px;">ℹ️ دیگر معلومات</h3>
+                <p style="font-size:14px;line-height:1.5;margin:10px 0;white-space:pre-wrap;word-break:break-word;color:#2d2d2d;max-height:300px;overflow-y:auto;background:#fef9e6;padding:12px;border-radius:8px;border-left:3px solid #d4af37;">${detailsText}</p>
+                <button onclick="closeInfoModal()" style="margin-top:15px;padding:8px 20px;background:#d4af37;border:none;border-radius:6px;cursor:pointer;font-weight:600;">بند کریں</button>
+            `;
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+            window.closeInfoModal = () => { modal.style.display = 'none'; overlay.style.display = 'none'; };
+        }
+
+        function buildChildrenMap() {
+            const childrenMap = new Map();
+            const allNames = new Set(familyDB.map(m => m.name));
+            familyDB.forEach(m => {
+                if (m.father && m.father !== '---' && m.father !== '' && m.father !== '—' && allNames.has(m.father)) {
+                    if (!childrenMap.has(m.father)) childrenMap.set(m.father, []);
+                    childrenMap.get(m.father).push(m);
+                }
+            });
+            for (let [father, children] of childrenMap) {
+                children.sort((a, b) => {
+                    const genA = a.gen || '';
+                    const genB = b.gen || '';
+                    const matchA = genA.match(/([SD])(\d+)/);
+                    const matchB = genB.match(/([SD])(\d+)/);
+                    if (matchA && matchB) {
+                        if (matchA[1] !== matchB[1]) return matchA[1] === 'S' ? -1 : 1;
+                        return parseInt(matchA[2]) - parseInt(matchB[2]);
+                    }
+                    return (a.gen || '').localeCompare(b.gen || '') || a.name.localeCompare(b.name);
+                });
+            }
+            const roots = familyDB.filter(m => !m.father || m.father === '---' || m.father === '' || m.father === '—' || !allNames.has(m.father));
+            return { childrenMap, roots };
+        }
+
+        function renderBox(member) {
+            const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
+            const safeName = member.name.replace(/'/g, "\\'");
+            const { childrenMap } = buildChildrenMap();
+            const hasChildren = childrenMap.has(member.name);
+            const isExpanded = expandedState.get(member.name) || false;
+            let genDisplay = member.gen || '—';
+            if (genDisplay.includes('-')) {
+                const parts = genDisplay.split('-');
+                genDisplay = 'نسل-' + parts.slice(1).join('-');
+            }
+
+            if (showAllMode) {
+                return `
+                    <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
+                        <div class="box-header">
+                            <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '−' : '+'}</button>` : ''}</div>
+                            <div class="gen-text">${genDisplay}</div>
+                            <div style="width: 30px; text-align:right;">${member.details ? `<span class="info-icon" onclick="showInfoModal('${safeName}')">ℹ️</span>` : ''}</div>
+                        </div>
+                        <div class="box-body">
+                            <div class="member-name">${displayName(member.name)}</div>
+                            <div class="info-text"><span class="label-col">والد:</span> ${displayName(member.father) || '—'}</div>
+                            <div class="info-text"><span class="label-col">والدہ:</span> ${displayName(member.mother) || '—'}</div>
+                            <div class="info-text"><span class="label-col">ہمشیرہ:</span> ${displayName(member.spouse) || '—'}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
+                        <div class="box-header">
+                            <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '−' : '+'}</button>` : ''}</div>
+                            <div class="gen-text">${genDisplay}</div>
+                            <div style="width: 30px;"></div>
+                        </div>
+                        <div class="box-body" style="text-align:center; min-height:50px;">
+                            <div class="member-name" style="border-bottom:none; margin-bottom:0;">${displayName(member.name)}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderTreeNode(parent, childrenMap, visited = new Set()) {
+            if (visited.has(parent.name)) return '';
+            const newVisited = new Set(visited);
+            newVisited.add(parent.name);
+            const children = childrenMap.get(parent.name) || [];
+            const isExpanded = expandedState.get(parent.name) || false;
+            let childrenHtml = '';
+            if (isExpanded) {
+                for (const child of children) {
+                    childrenHtml += renderTreeNode(child, childrenMap, newVisited);
+                }
+            }
+            const hiddenClass = isExpanded ? '' : 'hidden-children';
+            return `
+                <div class="child-node">
+                    ${renderBox(parent)}
+                    <div class="parent-down-line"></div>
+                    <div class="sibling-bar"><div class="sibling-bar-line"></div></div>
+                    <div class="children-level ${hiddenClass}">
+                        ${childrenHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function drawFullTreeAndCenter(centerMemberName = null) {
+            if (!familyDB.length) {
+                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ کوئی ڈیٹا موجود نہیں۔</div>';
+                return;
+            }
+            const { childrenMap, roots } = buildChildrenMap();
+            let html = '<div class="tree"><div class="root-level">';
+            for (const root of roots) {
+                const rootChildren = childrenMap.get(root.name) || [];
+                if (rootChildren.length === 0) {
+                    html += `<div class="child-node root-node">${renderBox(root)}</div>`;
+                } else {
+                    html += `<div class="child-node root-node">${renderBox(root)}<div class="parent-down-line"></div><div class="sibling-bar"><div class="sibling-bar-line"></div></div><div class="children-level">`;
+                    for (const child of rootChildren) {
+                        html += renderTreeNode(child, childrenMap, new Set([root.name]));
+                    }
+                    html += `</div></div>`;
+                }
+            }
+            html += `</div></div>`;
+            document.getElementById('treeRoot').innerHTML = html;
+            memberElements.clear();
+            document.querySelectorAll('.tree-box').forEach(box => {
+                const name = box.getAttribute('data-name');
+                if (name) {
+                    memberElements.set(name, box);
+                    box.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('info-icon')) return;
+                        if (e.target.classList.contains('expand-btn')) return;
+                        e.stopPropagation();
+                        selectBox(box);
+                        lastSelectedMemberName = name;
+                    });
+                }
+            });
+            
+            const memberToCenter = centerMemberName || lastSelectedMemberName;
+            if (memberToCenter) {
+                const box = memberElements.get(memberToCenter);
+                if (box) {
+                    selectBox(box);
+                    setTimeout(() => centerNode(box), 50);
+                }
+            }
+        }
+
+        function drawFullTree() {
+            drawFullTreeAndCenter(null);
+        }
+
+        function selectBox(box) {
+            if (currentSelectedBox) currentSelectedBox.classList.remove('selected');
+            box.classList.add('selected');
+            currentSelectedBox = box;
+            lastSelectedMemberName = box.getAttribute('data-name');
+        }
+
+        function centerNode(element) {
+            const wrapper = document.getElementById('treeWrapper');
+            if (!wrapper || !element) return;
+            const container = document.getElementById('treeContainer');
+            const style = window.getComputedStyle(container);
+            const matrix = new DOMMatrixReadOnly(style.transform);
+            const scale = matrix.a || 0.5;
+            const rect = element.getBoundingClientRect();
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const scrollLeft = wrapper.scrollLeft + (rect.left - wrapperRect.left) - (wrapperRect.width / 2) + (rect.width / 2);
+            const scrollTop = wrapper.scrollTop + (rect.top - wrapperRect.top) - (wrapperRect.height / 2) + (rect.height / 2);
+            wrapper.scrollTo({ left: scrollLeft, top: scrollTop, behavior: 'smooth' });
+        }
+
+        function updateOpenCounter() {
+            const openCount = Array.from(expandedState.values()).filter(v => v === true).length;
+            document.getElementById('openCount').innerHTML = `📂 ${openCount}`;
+        }
+
+        function toggleExpand(memberName, event) {
+            if (event) event.stopPropagation();
+            const current = expandedState.get(memberName) || false;
+            expandedState.set(memberName, !current);
+            drawFullTreeAndCenter(memberName);
+            updateOpenCounter();
+        }
+
+        function getAncestors(name) {
+            const ancestors = [];
+            let current = name;
+            let maxLoop = 50;
+            while (maxLoop-- > 0) {
+                const member = familyDB.find(m => m.name === current);
+                if (!member || !member.father || member.father === '---' || member.father === '—') break;
+                ancestors.push(member.father);
+                current = member.father;
+            }
+            return ancestors;
+        }
+
+        function jumpToMember(name) {
+            const ancestors = getAncestors(name);
+            for (let anc of ancestors) expandedState.set(anc, true);
+            expandedState.set(name, true);
+            drawFullTreeAndCenter(name);
+            updateOpenCounter();
+            document.getElementById('searchInput').value = displayName(name);
+            document.getElementById('searchDropdown').style.display = 'none';
+        }
+
+        function resetToRoot() {
+            if (currentSelectedBox) currentSelectedBox.classList.remove('selected');
+            currentSelectedBox = null;
+            lastSelectedMemberName = null;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchDropdown').style.display = 'none';
+            expandedState.clear();
+            renderFullTree();
+            updateOpenCounter();
+        }
+
+        function renderFullTree() {
+            document.getElementById('treeRoot').innerHTML = `
+                <div style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">🌳</div>
+                    <h2 style="color: var(--maroon); font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; margin-bottom: 15px;">رضوی خاندان کے شجرہ میں خوش آمدید</h2>
+                    <p style="color: #555; margin-bottom: 25px; line-height: 1.6;">اوپر دیئے گئے سرچ باکس میں خاندان کے کسی فرد کا نام لکھیں اور مکمل شجرہ دیکھیں۔</p>
+                    <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block;">
+                        <span style="font-size: 18px;">🔍</span> <strong>کوئی بھی نام لکھیں — پھر ڈراپ ڈاؤن سے انتخاب کریں</strong>
+                    </div>
+                </div>
+            `;
+            memberElements.clear();
+            if (currentSelectedBox) {
+                currentSelectedBox.classList.remove('selected');
+                currentSelectedBox = null;
+            }
+        }
+
+        function setupSearch() {
+            const input = document.getElementById('searchInput');
+            const dropdown = document.getElementById('searchDropdown');
+            
+            input.addEventListener('input', function() {
+                const q = this.value.trim().toLowerCase();
+                if (q.length < 2) { dropdown.style.display = 'none'; return; }
+                const results = familyDB.filter(m => m.name.toLowerCase().includes(q)).slice(0, 15);
+                if (!results.length) { dropdown.style.display = 'none'; return; }
+                dropdown.innerHTML = '';
+                results.forEach(m => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerHTML = `<div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div><div class="result-father">👨 والد: ${displayName(m.father) || 'نامعلوم'}</div>`;
+                    div.onclick = (function(memberName) {
+                        return function() { jumpToMember(memberName); dropdown.style.display = 'none'; input.blur(); };
+                    })(m.name);
+                    dropdown.appendChild(div);
+                });
+                dropdown.style.display = 'block';
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
+
+        function setShowAllMode(enabled) {
+            showAllMode = enabled;
+            const toggleSwitch = document.getElementById('showAllToggleSwitch');
+            if (toggleSwitch) {
+                if (showAllMode) toggleSwitch.classList.add('active');
+                else toggleSwitch.classList.remove('active');
+            }
+            if (familyDB.length) {
+                const hasTree = document.getElementById('treeRoot').innerHTML.includes('tree-box');
+                if (hasTree && lastSelectedMemberName) drawFullTreeAndCenter(lastSelectedMemberName);
+                else if (hasTree && currentSelectedBox) drawFullTreeAndCenter(currentSelectedBox.getAttribute('data-name'));
+                else if (hasTree) drawFullTree();
+                else renderFullTree();
+            }
+        }
+
+        function closeDropdownMenu() { document.getElementById('toggleMenuPanel').classList.remove('show'); }
+        function showSaveModal() { document.getElementById('saveModal').style.display = 'block'; document.getElementById('modalOverlay').style.display = 'block'; }
+        function closeSaveModal() { document.getElementById('saveModal').style.display = 'none'; document.getElementById('modalOverlay').style.display = 'none'; }
+        function showLoading(t) { const m = document.getElementById('loadingMsg'); m.textContent = t; m.style.display = 'block'; }
+        function hideLoading() { document.getElementById('loadingMsg').style.display = 'none'; }
+
+        async function processSave() {
+            const fmt = document.querySelector('input[name="saveFormat"]:checked').value;
+            closeSaveModal();
+            showLoading('شجرہ تیار کیا جا رہا ہے...');
+            const treeContainer = document.getElementById('treeContainer');
+            const originalTransform = treeContainer.style.transform;
+            try {
+                treeContainer.style.transform = 'none';
+                await new Promise(r => setTimeout(r, 300));
+                const canvas = await html2canvas(treeContainer, { scale: fmt === 'pdf-high' ? 2 : 1, backgroundColor: '#fffcf8', logging: false });
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                if (fmt === 'jpeg') {
+                    const link = document.createElement('a');
+                    link.download = 'Rizvi-Family-Tree-Urdu.jpg';
+                    link.href = imgData;
+                    link.click();
+                } else {
+                    const { jsPDF } = window.jspdf;
+                    const orientation = canvas.width > canvas.height ? 'l' : 'p';
+                    const pdf = new jsPDF(orientation, 'px', [canvas.width, canvas.height]);
+                    pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
+                    pdf.save('Rizvi-Family-Tree-Urdu.pdf');
+                }
+            } catch (error) {
+                alert("شجرہ بہت بڑا ہے۔ براہ کرم 'Ctrl+P' استعمال کریں اور 'Save as PDF' منتخب کریں۔");
+            } finally {
+                treeContainer.style.transform = originalTransform;
+                hideLoading();
+            }
+        }
+
+        function goToDashboard() { window.location.href = '26-dashboard-mobile.html'; }
+
+        function init() {
+            if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length) {
+                familyDB = FAMILY_DATA_URDU;
+            } else {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) familyDB = JSON.parse(saved);
+            }
+            if (!familyDB.length) {
+                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ کوئی ڈیٹا موجود نہیں۔ براہ کرم پہلے ڈیٹا لوڈ کریں۔</div>';
+                return;
+            }
+            renderFullTree();
+            setupSearch();
+            
+            window.toggleLeftMenu = function() { document.getElementById('toggleMenuPanel').classList.toggle('show'); };
+            document.addEventListener('click', function(e) {
+                const menu = document.getElementById('toggleMenuPanel');
+                const toggleBtn = document.querySelector('.left-toggle-btn');
+                if (menu && toggleBtn && !toggleBtn.contains(e.target) && !menu.contains(e.target)) menu.classList.remove('show');
+            });
+            
+            const showAllItem = document.getElementById('showAllMenuItem');
+            if (showAllItem) {
+                showAllItem.onclick = (e) => { e.stopPropagation(); setShowAllMode(!showAllMode); closeDropdownMenu(); };
+            }
+            setShowAllMode(true);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+        window.toggleExpand = toggleExpand;
+        window.showInfoModal = showInfoModal;
+        window.resetToRoot = resetToRoot;
+        window.showSaveModal = showSaveModal;
+        window.closeSaveModal = closeSaveModal;
+        window.processSave = processSave;
+        window.goToDashboard = goToDashboard;
+        window.centerNode = centerNode;
+    </script>
+</body>
+</html>

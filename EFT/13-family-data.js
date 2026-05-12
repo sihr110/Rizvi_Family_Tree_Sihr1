@@ -2239,8 +2239,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Abbas",
     father: "Syed Akbar Ali - 02",
-    mother: "Syeda Laeeq Rizvi",
-    spouse: "",
+    mother: "",
+    spouse: "Syeda Laeeq Rizvi",
     gen: "G-039-S1",
     gender: "MALE",
     details: ""

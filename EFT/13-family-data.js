@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 26/04/2026, 2:41:10 am
+// Saved: 12/05/2026, 5:40:00 pm
 // Total members: 553
 
 const FAMILY_DATA = [
@@ -2276,7 +2276,7 @@ const FAMILY_DATA = [
     name: "Syed Qasir Abbas",
     father: "Syed Ali Abbas",
     mother: "Syeda Laieeq Fatima Rizvi",
-    spouse: "Syeda Nighat Rizvi",
+    spouse: "Syeda Nighat Parveen Rizvi",
     gen: "G-040-S3",
     gender: "MALE",
     details: ""
@@ -2464,7 +2464,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Asad",
     father: "Syed Qasir Abbas",
-    mother: "Syeda Nighat Rizvi",
+    mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
@@ -2473,7 +2473,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Asfar",
     father: "Syed Qasir Abbas",
-    mother: "Syeda Nighat Rizvi",
+    mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
@@ -2482,7 +2482,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Qamber - 02",
     father: "Syed Qasir Abbas",
-    mother: "Syeda Nighat Rizvi",
+    mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-S3",
     gender: "MALE",
@@ -2491,7 +2491,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Midhat",
     father: "Syed Qasir Abbas",
-    mother: "Syeda Nighat Rizvi",
+    mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -3371,7 +3371,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qurat ul Aian Arajumand",
+    name: "Syeda Qurat ul Aian Arjumand",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Jamil Zaidi",
@@ -4985,7 +4985,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "26/04/2026, 2:41:10 am", 
+    saved_time: "12/05/2026, 5:40:00 pm", 
     total_members: 553,
     details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]

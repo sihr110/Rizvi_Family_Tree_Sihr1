@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 12/05/2026, 5:46:03 pm
+// Saved: 12/05/2026, 6:32:07 pm
 // Total members: 553
 
 const FAMILY_DATA = [
@@ -2273,7 +2273,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Qasir Abbas",
+    name: "Syed Qaiser Abbas",
     father: "Syed Ali Abbas",
     mother: "Syeda Laieeq Fatima Rizvi",
     spouse: "Syeda Nighat Parveen Rizvi",
@@ -2463,7 +2463,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Asad",
-    father: "Syed Qasir Abbas",
+    father: "Syed Qaiser Abbas",
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-S1",
@@ -2472,7 +2472,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Asfar",
-    father: "Syed Qasir Abbas",
+    father: "Syed Qaiser Abbas",
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-S2",
@@ -2481,7 +2481,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Qamber - 02",
-    father: "Syed Qasir Abbas",
+    father: "Syed Qaiser Abbas",
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-S3",
@@ -2490,7 +2490,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Midhat",
-    father: "Syed Qasir Abbas",
+    father: "Syed Qaiser Abbas",
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-D1",
@@ -4985,7 +4985,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "12/05/2026, 5:46:03 pm", 
+    saved_time: "12/05/2026, 6:32:07 pm", 
     total_members: 553,
     details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]

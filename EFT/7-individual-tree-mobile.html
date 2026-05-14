@@ -1084,28 +1084,33 @@ window.processSave = function() {
     }
 };
 
+
 async function exportTreePDF(quality = 'high') {
     if (!currentIndividual) { alert('Please select a member first'); return; }
     
     const treeContainer = document.getElementById('treeContainer');
-    const treeElement = document.getElementById('treeRoot');
-    if (!treeElement) return alert('No content to export');
+    const treeRoot = document.getElementById('treeRoot');
     
+    // Store original styles
     const originalZoom = treeContainer.style.zoom;
-    treeContainer.style.zoom = '1';
-    
-    const scale = quality === 'high' ? 2.0 : 1.0;
-    const jpegQuality = quality === 'high' ? 0.95 : 0.6;
-    const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
-    
+    const originalOverflow = treeContainer.style.overflow;
+    const originalHeight = treeContainer.style.height;
+
     try {
+        // Prepare for capture: Set zoom to 1 and let container expand
+        treeContainer.style.zoom = '1';
+        treeContainer.style.overflow = 'visible';
+        treeContainer.style.height = 'auto';
+
+        // Add Header
         const header = document.createElement('div');
         header.style.marginBottom = '30px'; 
         header.style.textAlign = 'center';
         header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
             <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-        treeElement.insertBefore(header, treeElement.firstChild);
+        treeRoot.insertBefore(header, treeRoot.firstChild);
 
+        // Add Footer
         const footer = document.createElement('div');
         footer.style.marginTop = '30px';
         footer.style.padding = '15px 20px';
@@ -1123,8 +1128,9 @@ async function exportTreePDF(quality = 'high') {
             <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
             <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
         `;
-        treeElement.appendChild(footer);
+        treeRoot.appendChild(footer);
         
+        // Force delay for browser to recalculate layout at zoom 1
         const loadingMsg = document.createElement('div');
         loadingMsg.style.position = 'fixed';
         loadingMsg.style.top = '50%'; 
@@ -1136,28 +1142,36 @@ async function exportTreePDF(quality = 'high') {
         loadingMsg.style.borderRadius = '8px'; 
         loadingMsg.style.zIndex = '9999'; 
         loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-        loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
+        loadingMsg.textContent = `📄 Creating ${quality === 'high' ? 'High Resolution' : 'Low Resolution'} PDF...`;
         document.body.appendChild(loadingMsg);
         
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 600));
 
-        const canvas = await html2canvas(treeElement, { 
+        const scale = quality === 'high' ? 2.0 : 1.0;
+        const jpegQuality = quality === 'high' ? 0.95 : 0.7;
+        const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
+        
+        // Capture the ROOT (the content) not the CONTAINER (the scrollbox)
+        const canvas = await html2canvas(treeRoot, { 
             scale: scale, 
-            backgroundColor: '#ffffff', 
-            logging: false, 
-            allowTaint: true, 
-            useCORS: true 
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            logging: false,
+            scrollY: -window.scrollY,
+            windowWidth: treeRoot.scrollWidth,
+            windowHeight: treeRoot.scrollHeight
         });
         
-        treeElement.removeChild(header);
-        treeElement.removeChild(footer);
+        // Remove temporary elements
+        treeRoot.removeChild(header);
+        treeRoot.removeChild(footer);
         document.body.removeChild(loadingMsg);
-        treeContainer.style.zoom = originalZoom;
 
         const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
         const { jsPDF } = window.jspdf;
-        const w = canvas.width / 2 * 0.264583;
-        const h = canvas.height / 2 * 0.264583;
+        const w = canvas.width * (0.264583 / scale);
+        const h = canvas.height * (0.264583 / scale);
+        
         const pdf = new jsPDF({ 
             orientation: w > h ? 'l' : 'p', 
             unit: 'mm', 
@@ -1174,29 +1188,44 @@ async function exportTreePDF(quality = 'high') {
         
     } catch (err) {
         console.error('PDF Error:', err);
-        treeContainer.style.zoom = originalZoom;
         alert('❌ PDF generation failed: ' + err.message);
+    } finally {
+        // ALWAYS revert back to mobile zoom 0.5 and original styles
+        treeContainer.style.zoom = '0.5';
+        treeContainer.style.overflow = originalOverflow;
+        treeContainer.style.height = originalHeight;
     }
 }
 
 window.exportAsJPEG = async function() {
-    if (!currentIndividual) return;
+    if (!currentIndividual) {
+        alert('Please select a member first');
+        return;
+    }
     
     const treeContainer = document.getElementById('treeContainer');
-    const treeElement = document.getElementById('treeRoot');
-    if (!treeElement) return alert('No content to export');
+    const treeRoot = document.getElementById('treeRoot');
     
+    // Store original styles
     const originalZoom = treeContainer.style.zoom;
-    treeContainer.style.zoom = '1';
-    
+    const originalOverflow = treeContainer.style.overflow;
+    const originalHeight = treeContainer.style.height;
+
     try {
+        // Prepare for capture: Set zoom to 1 and let container expand
+        treeContainer.style.zoom = '1';
+        treeContainer.style.overflow = 'visible';
+        treeContainer.style.height = 'auto';
+
+        // Add Header
         const header = document.createElement('div');
         header.style.marginBottom = '30px'; 
         header.style.textAlign = 'center';
         header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
             <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-        treeElement.insertBefore(header, treeElement.firstChild);
+        treeRoot.insertBefore(header, treeRoot.firstChild);
 
+        // Add Footer
         const footer = document.createElement('div');
         footer.style.marginTop = '30px';
         footer.style.padding = '15px 20px';
@@ -1214,8 +1243,9 @@ window.exportAsJPEG = async function() {
             <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
             <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
         `;
-        treeElement.appendChild(footer);
+        treeRoot.appendChild(footer);
         
+        // Loading message
         const loadingMsg = document.createElement('div');
         loadingMsg.style.position = 'fixed';
         loadingMsg.style.top = '50%'; 
@@ -1230,18 +1260,21 @@ window.exportAsJPEG = async function() {
         loadingMsg.textContent = '📸 Creating JPEG...';
         document.body.appendChild(loadingMsg);
         
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 600));
 
-        const canvas = await html2canvas(treeElement, { 
+        const canvas = await html2canvas(treeRoot, { 
             scale: 1.2,
             backgroundColor: '#ffffff', 
-            logging: false
+            logging: false,
+            scrollY: -window.scrollY,
+            windowWidth: treeRoot.scrollWidth,
+            windowHeight: treeRoot.scrollHeight
         });
         
-        treeElement.removeChild(header);
-        treeElement.removeChild(footer);
+        // Remove temporary elements
+        treeRoot.removeChild(header);
+        treeRoot.removeChild(footer);
         document.body.removeChild(loadingMsg);
-        treeContainer.style.zoom = originalZoom;
 
         const imgData = canvas.toDataURL('image/jpeg', 0.85);
         const link = document.createElement('a');
@@ -1255,11 +1288,21 @@ window.exportAsJPEG = async function() {
         setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
         
     } catch (err) {
-        console.error('Export Error:', err);
-        treeContainer.style.zoom = originalZoom;
-        alert('❌ Failed: ' + err.message);
+        console.error('JPEG Export Error:', err);
+        alert('❌ JPEG generation failed: ' + err.message);
+    } finally {
+        // ALWAYS revert back to mobile zoom 0.5 and original styles
+        treeContainer.style.zoom = '0.5';
+        treeContainer.style.overflow = originalOverflow;
+        treeContainer.style.height = originalHeight;
     }
 };
+
+
+
+
+
+
         
         function closeAllMenus() {
             document.getElementById('searchDropdown').style.display = 'none';

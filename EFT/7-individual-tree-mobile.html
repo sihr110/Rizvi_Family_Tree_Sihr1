@@ -1244,11 +1244,6 @@ async function exportTreePDF(quality = 'high') {
 
 
 
-
-
-
-
-
 window.exportAsJPEG = async function() {
     if (!currentIndividual) {
         alert('Please select a member first');
@@ -1257,22 +1252,44 @@ window.exportAsJPEG = async function() {
     
     const treeContainer = document.getElementById('treeContainer');
     const treeRoot = document.getElementById('treeRoot');
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalContainerZoom = treeContainer.style.zoom;
+    const originalContainerOverflow = treeContainer.style.overflow;
+    const originalContainerHeight = treeContainer.style.height;
+    const originalRootMinWidth = treeRoot.style.minWidth;
     
-    // Store original styles
-    const originalZoom = treeContainer.style.zoom;
-    const originalOverflow = treeContainer.style.overflow;
-    const originalHeight = treeContainer.style.height;
-
     try {
-        // Prepare for capture: Set zoom to 1 and let container expand
+        // 1. Remove ALL constraints
+        document.body.style.overflow = 'visible';
         treeContainer.style.zoom = '1';
         treeContainer.style.overflow = 'visible';
         treeContainer.style.height = 'auto';
-
+        
+        // 2. Calculate required width
+        let maxBoxesInRow = 0;
+        const rows = treeRoot.querySelectorAll('.children-row');
+        rows.forEach(row => {
+            const boxCount = row.querySelectorAll('.box').length;
+            if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
+        });
+        
+        const familyGroups = treeRoot.querySelectorAll('.family-group');
+        familyGroups.forEach(group => {
+            const boxCount = group.querySelectorAll('.box').length;
+            if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
+        });
+        
+        if (maxBoxesInRow < 1) maxBoxesInRow = 1;
+        const requiredWidth = (maxBoxesInRow * 290) + 100;
+        treeRoot.style.minWidth = requiredWidth + 'px';
+        
+        console.log(`📐 JPEG: Setting min-width to ${requiredWidth}px`);
+        
         // Add Header
         const header = document.createElement('div');
         header.style.marginBottom = '30px'; 
         header.style.textAlign = 'center';
+        header.style.width = '100%';
         header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
             <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
         treeRoot.insertBefore(header, treeRoot.firstChild);
@@ -1297,6 +1314,9 @@ window.exportAsJPEG = async function() {
         `;
         treeRoot.appendChild(footer);
         
+        // Wait for DOM update
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
         // Loading message
         const loadingMsg = document.createElement('div');
         loadingMsg.style.position = 'fixed';
@@ -1312,15 +1332,23 @@ window.exportAsJPEG = async function() {
         loadingMsg.textContent = '📸 Creating JPEG...';
         document.body.appendChild(loadingMsg);
         
-        await new Promise(resolve => setTimeout(resolve, 600));
+        await new Promise(resolve => setTimeout(resolve, 100));
 
+        // Capture FULL tree with explicit dimensions
         const canvas = await html2canvas(treeRoot, { 
-            scale: 1.2,
+            scale: 1.5,
             backgroundColor: '#ffffff', 
             logging: false,
-            scrollY: -window.scrollY,
+            width: treeRoot.scrollWidth,
+            height: treeRoot.scrollHeight,
             windowWidth: treeRoot.scrollWidth,
-            windowHeight: treeRoot.scrollHeight
+            windowHeight: treeRoot.scrollHeight,
+            onclone: (clonedDoc, element) => {
+                const clonedRoot = clonedDoc.getElementById('treeRoot');
+                if (clonedRoot) {
+                    clonedRoot.style.minWidth = requiredWidth + 'px';
+                }
+            }
         });
         
         // Remove temporary elements
@@ -1328,7 +1356,7 @@ window.exportAsJPEG = async function() {
         treeRoot.removeChild(footer);
         document.body.removeChild(loadingMsg);
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.85);
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const link = document.createElement('a');
         const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
         link.download = `family_tree_${safeName}_${Date.now()}.jpg`;
@@ -1343,13 +1371,14 @@ window.exportAsJPEG = async function() {
         console.error('JPEG Export Error:', err);
         alert('❌ JPEG generation failed: ' + err.message);
     } finally {
-        // ALWAYS revert back to mobile zoom 0.5 and original styles
+        // ALWAYS revert back to mobile zoom 0.5
+        document.body.style.overflow = originalBodyOverflow;
         treeContainer.style.zoom = '0.5';
-        treeContainer.style.overflow = originalOverflow;
-        treeContainer.style.height = originalHeight;
+        treeContainer.style.overflow = originalContainerOverflow;
+        treeContainer.style.height = originalContainerHeight;
+        treeRoot.style.minWidth = originalRootMinWidth;
     }
 };
-
 
 
 

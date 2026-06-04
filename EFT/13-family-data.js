@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 13/05/2026, 2:27:58 am
-// Total members: 553
+// Saved: 04/06/2026, 8:09:33 pm
+// Total members: 561
 
 const FAMILY_DATA = [
   {
@@ -455,15 +455,6 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Imam Mohd Taqi (AS)",
-    father: "Imam Ali Raza (AS)",
-    mother: "",
-    spouse: "",
-    gen: "G-002-S1",
-    gender: "MALE",
-    details: ""
-  },
-  {
     name: "Syed Ibrahim Ibn Ali Raza",
     father: "Imam Ali Raza (AS)",
     mother: "",
@@ -532,6 +523,87 @@ const FAMILY_DATA = [
     mother: "",
     spouse: "",
     gen: "G-002-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Imam Mohd Taqi (AS)",
+    father: "Imam Ali Raza (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-002-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Abul-Hasan Ali al-Hadi (al-Naqi)",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Abu Ahmad Musa al-Mubarqa",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Abu Ahmad Husayn",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Abu Musa Imran",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S4",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Fatimah",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Khadijah",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Umm-e Kulthoom",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Hakimah",
+    father: "Imam Mohd Taqi (AS)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D4",
     gender: "FEMALE",
     details: ""
   },
@@ -3338,7 +3410,7 @@ const FAMILY_DATA = [
     name: "Syed Mohammad Ali Anjum",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
-    spouse: "Syed Tabasum Wasi Rizvi",
+    spouse: "Syed Tabasum Zehra Rizvi",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
@@ -3347,7 +3419,7 @@ const FAMILY_DATA = [
     name: "Syed Mohammad Ali Azam",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
-    spouse: "",
+    spouse: "Syeda Rizwana Zaidi",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -3365,7 +3437,7 @@ const FAMILY_DATA = [
     name: "Syed Mohammad Ali Moazam",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
-    spouse: "",
+    spouse: "Syeda Beena Rizvi",
     gen: "G-041-S4",
     gender: "MALE",
     details: ""
@@ -3374,7 +3446,7 @@ const FAMILY_DATA = [
     name: "Syeda Qurat ul Aian Arjumand",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
-    spouse: "Syed Jamil Zaidi",
+    spouse: "Syed Jamil Abbas Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
     details: ""
@@ -3392,7 +3464,7 @@ const FAMILY_DATA = [
     name: "Syeda Qurat ul Aian Noor (Munni)",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
-    spouse: "Syed Altaf Hussain",
+    spouse: "Syed Altaf Haider Rizvi",
     gen: "G-041-D3",
     gender: "FEMALE",
     details: ""
@@ -3418,7 +3490,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Haider Ali",
     father: "Syed Mohammad Ali Anjum",
-    mother: "Syed Tabasum Wasi Rizvi",
+    mother: "Syed Tabasum Zehra Rizvi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3427,8 +3499,8 @@ const FAMILY_DATA = [
   {
     name: "Syeda Benish Fatima",
     father: "Syed Mohammad Ali Anjum",
-    mother: "Syed Tabasum Wasi Rizvi",
-    spouse: "",
+    mother: "Syed Tabasum Zehra Rizvi",
+    spouse: "Syed Jamal Zaidi",
     gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
@@ -3436,7 +3508,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Hamza Rizvi",
     father: "Syed Mohammad Ali Azam",
-    mother: "",
+    mother: "Syeda Rizwana Zaidi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3445,16 +3517,16 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Johar Rizvi",
     father: "Syed Mohammad Ali Azam",
-    mother: "",
+    mother: "Syeda Rizwana Zaidi",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
     details: ""
   },
   {
-    name: "Syeda Arooj Fatima",
+    name: "Syeda Uruj Fatima",
     father: "Syed Mohammad Ali Azam",
-    mother: "",
+    mother: "Syeda Rizwana Zaidi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3482,7 +3554,7 @@ const FAMILY_DATA = [
     name: "Syeda Zoamn Fatima",
     father: "Syed Mohammad Ali Azeem",
     mother: "Syeda Narjis Taqvi",
-    spouse: "",
+    spouse: "Syed Sajjad Jaffary",
     gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
@@ -4985,8 +5057,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "13/05/2026, 2:27:58 am", 
-    total_members: 553,
+    saved_time: "04/06/2026, 8:09:33 pm", 
+    total_members: 561,
     details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

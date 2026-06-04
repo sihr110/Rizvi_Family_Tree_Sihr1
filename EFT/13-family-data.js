@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 04/06/2026, 8:09:33 pm
+// Saved: 04/06/2026, 8:30:58 pm
 // Total members: 561
 
 const FAMILY_DATA = [
@@ -3668,7 +3668,7 @@ const FAMILY_DATA = [
     details: "SyedaTasneem married Taya Tafasul's son  Syed Izhar - both Root is Syed Ayyub ul Hasan - G-03"
   },
   {
-    name: "Syeda Shakeel Fatima (Sak ko)",
+    name: "Syeda Shakeel Fatima (Shak ko)",
     father: "Syed Shahid Hussain",
     mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
@@ -5057,7 +5057,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "04/06/2026, 8:09:33 pm", 
+    saved_time: "04/06/2026, 8:30:58 pm", 
     total_members: 561,
     details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]

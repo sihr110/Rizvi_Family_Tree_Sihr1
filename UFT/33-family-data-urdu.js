@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 04/06/2026, 8:23:11 pm
+// Saved: 05/06/2026, 3:49:41 pm
 // Total members: 553
 
 const FAMILY_DATA_URDU = [
@@ -3356,7 +3356,7 @@ const FAMILY_DATA_URDU = [
     name: "سید محمد علی عظیم",
     father: "سید اظہر الحسن",
     mother: "سیدہ تسنیم فاطمہ رضوی",
-    spouse: "سیدہ نرجس تقوی",
+    spouse: "سیدہ نرجس  رضوی",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
@@ -3463,7 +3463,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید محمد علی رضا",
     father: "سید محمد علی عظیم",
-    mother: "سیدہ نرجس تقوی",
+    mother: "سیدہ نرجس  رضوی",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3472,7 +3472,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید محمد علی عباس",
     father: "سید محمد علی عظیم",
-    mother: "سیدہ نرجس تقوی",
+    mother: "سیدہ نرجس  رضوی",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3481,7 +3481,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ زومن فاطمہ",
     father: "سید محمد علی عظیم",
-    mother: "سیدہ نرجس تقوی",
+    mother: "سیدہ نرجس  رضوی",
     spouse: "سید سجاد  جعفری",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3490,7 +3490,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ یمنیٰ فاطمہ",
     father: "سید محمد علی عظیم",
-    mother: "سیدہ نرجس تقوی",
+    mother: "سیدہ نرجس  رضوی",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -4985,7 +4985,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "04/06/2026, 8:23:11 pm", 
+    saved_time: "05/06/2026, 3:49:41 pm", 
     total_members: 553,
     details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]

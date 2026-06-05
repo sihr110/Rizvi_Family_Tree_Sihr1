@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 04/06/2026, 8:30:58 pm
+// Saved: 05/06/2026, 3:49:57 pm
 // Total members: 561
 
 const FAMILY_DATA = [
@@ -3428,7 +3428,7 @@ const FAMILY_DATA = [
     name: "Syed Mohammad Ali Azeem",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
-    spouse: "Syeda Narjis Taqvi",
+    spouse: "Syeda Narjis Rizvi",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
@@ -3535,7 +3535,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Raza",
     father: "Syed Mohammad Ali Azeem",
-    mother: "Syeda Narjis Taqvi",
+    mother: "Syeda Narjis Rizvi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3544,7 +3544,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Ali Abbas",
     father: "Syed Mohammad Ali Azeem",
-    mother: "Syeda Narjis Taqvi",
+    mother: "Syeda Narjis Rizvi",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3553,7 +3553,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Zoamn Fatima",
     father: "Syed Mohammad Ali Azeem",
-    mother: "Syeda Narjis Taqvi",
+    mother: "Syeda Narjis Rizvi",
     spouse: "Syed Sajjad Jaffary",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3562,7 +3562,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Yumna Fatima",
     father: "Syed Mohammad Ali Azeem",
-    mother: "Syeda Narjis Taqvi",
+    mother: "Syeda Narjis Rizvi",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -5057,7 +5057,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "04/06/2026, 8:30:58 pm", 
+    saved_time: "05/06/2026, 3:49:57 pm", 
     total_members: 561,
     details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]

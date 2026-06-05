@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 05/06/2026, 3:49:41 pm
+// Saved: 05/06/2026, 4:48:24 pm
 // Total members: 553
 
 const FAMILY_DATA_URDU = [
@@ -144,7 +144,7 @@ const FAMILY_DATA_URDU = [
     father: "امام موسیٰ کاظم (ع)",
     mother: "بی بی نجمہ خاتون (ع)",
     spouse: "بی بی سبیکہ (ع)",
-    gen: "P-009-S1",
+    gen: "P-001-S1",
     gender: "MALE",
     details: ""
   },
@@ -4985,7 +4985,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "05/06/2026, 3:49:41 pm", 
+    saved_time: "05/06/2026, 4:48:24 pm", 
     total_members: 553,
     details_count: 48,
     sheets_merged: ["Main","1","2","3","4","5"]

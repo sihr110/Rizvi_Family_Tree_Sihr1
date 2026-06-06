@@ -3449,7 +3449,7 @@ const FAMILY_DATA = [
     spouse: "Syed Jamil Abbas Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Qurat ul Aian Arjumand:\\n\\nS1- Syed Muhammad Mohsin Zaidi\\nS2- Syed Muhammad Hassan Zaidi\\n\\nD1- Syeda Anam Zehra Zaidi\\nD1- Syeda Munazzah Fatima Zaidi"
+    details: "Children of Syeda Qurat ul Aian Arjumand:\\n\\nS1- Syed Muhammad Mohsin Zaidi\\nS2- Syed Muhammad Hassan Zaidi\\n\\nD1- Syeda Anam Zehra Zaidi\\nD2- Syeda Munazzah Fatima Zaidi"
   },
   {
     name: "Syeda Qurat ul Aian Tahira (Pappi)",

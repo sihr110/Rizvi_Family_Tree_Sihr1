@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/06/2026 16:59
-// Total members: 561
+// Saved: 06/06/2026 23:46
+// Total members: 564
 
 const FAMILY_DATA = [
   {
@@ -3527,7 +3527,7 @@ const FAMILY_DATA = [
     name: "Syeda Uruj Fatima",
     father: "Syed Mohammad Ali Azam",
     mother: "Syeda Rizwana Zaidi",
-    spouse: "",
+    spouse: "Syed Fahad Zaidi",
     gen: "G-042-D1",
     gender: "FEMALE",
     details: ""
@@ -3563,7 +3563,7 @@ const FAMILY_DATA = [
     name: "Syeda Yumna Fatima",
     father: "Syed Mohammad Ali Azeem",
     mother: "Syeda Narjis Rizvi",
-    spouse: "",
+    spouse: "Syed Ali Hasan Jaffary",
     gen: "G-042-D2",
     gender: "FEMALE",
     details: ""
@@ -4004,10 +4004,10 @@ const FAMILY_DATA = [
     name: "Syed Hashim Raza",
     father: "Syed Sham Ul Hasan",
     mother: "",
-    spouse: "",
+    spouse: "Syeda Qurat ul Aian Arfa (Kiran)",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Syed Hashim Raza married Syeda Arfa (Kiran)  - both Root is Syed Enayat Hussain - G-037-S1"
+    details: "Syed Hashim Raza married Syeda Arfa (Kiran) - both Root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syeda Seema Batool",
@@ -4062,6 +4062,33 @@ const FAMILY_DATA = [
     gen: "G-040-D1",
     gender: "FEMALE",
     details: ""
+  },
+  {
+    name: "Syed Kazim Raza",
+    father: "Syed Hashim Raza",
+    mother: "Syeda Qurat ul Aian Arfa (Kiran)",
+    spouse: "Syeda Zainab Raza Rizvi",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Bilal Raza",
+    father: "Syed Hashim Raza",
+    mother: "Syeda Qurat ul Aian Arfa (Kiran)",
+    spouse: "",
+    gen: "G-041-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Zainab Fatima",
+    father: "Syed Hashim Raza",
+    mother: "Syeda Qurat ul Aian Arfa (Kiran)",
+    spouse: "Syed Aun Abbas Zaidi",
+    gen: "G-041-D1",
+    gender: "MALE",
+    details: "Syeda Zainab married, Syed Aun Abbas Zaidi, her phophi's son &  Syed Shams ul Hassan k nawasay yani Hashim k bhanjay hain"
   },
   {
     name: "Syed Abrar Hussain",
@@ -5057,8 +5084,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/06/2026 16:59", 
-    total_members: 561,
-    details_count: 52,
+    saved_time: "06/06/2026 23:46", 
+    total_members: 564,
+    details_count: 53,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

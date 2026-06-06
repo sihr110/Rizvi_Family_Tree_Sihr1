@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/06/2026 16:33
+// Saved: 06/06/2026 16:59
 // Total members: 561
 
 const FAMILY_DATA = [
@@ -3449,7 +3449,7 @@ const FAMILY_DATA = [
     spouse: "Syed Jamil Abbas Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Qurat ul Aian Arjumand\\n\\nD1- Syeda Anam Zehra Zaidi"
+    details: "Children of Syeda Qurat ul Aian Arjumand:\\n\\nS1- Syed Muhammad Mohsin Zaidi\\nS2- Syed Muhammad Hassan Zaidi\\n\\nD1- Syeda Anam Zehra Zaidi\\nD1- Syeda Munazzah Fatima Zaidi"
   },
   {
     name: "Syeda Qurat ul Aian Tahira (Pappi)",
@@ -5057,7 +5057,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/06/2026 16:33", 
+    saved_time: "06/06/2026 16:59", 
     total_members: 561,
     details_count: 52,
     sheets_merged: ["Main","1","2","3","4","5"]

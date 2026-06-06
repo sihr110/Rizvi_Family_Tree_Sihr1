@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 05/06/2026, 4:48:24 pm
+// Saved: 06/06/2026, 8:40:40 pm
 // Total members: 553
 
 const FAMILY_DATA_URDU = [
@@ -3125,7 +3125,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سیدہ تسنیم فاطمہ رضوی",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "اظہار  کی شادی چچا شاہد کی بیٹی تسنیم سے ہوئی - دونوں کی جڑ ایوب الحسن ہے - G-038-S1"
+    details: "سید اظہار  کی شادی چچا سید شاہد کی بیٹی سیدہ تسنیم سے ہوئی - دونوں کی جڑ سید ایوب الحسن ہے - G-038-S1"
   },
   {
     name: "سید نصیر الحسن",
@@ -3143,7 +3143,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید محمد اظہر رضوی",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: "ملکہ کی شادی چچا شاہد کے بیٹے اظہر سے ہوئی - دونوں کی جڑ ایوب الحسن ہے - G-038-S1"
+    details: "سیدہ ملکہ کی شادی چچا سید شاہد کے بیٹے سید اظہر سے ہوئی - دونوں کی جڑ سید ایوب الحسن ہے - G-038-S1"
   },
   {
     name: "سید ابو طالب - 02",
@@ -3197,7 +3197,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید رضا حیدر رضوی",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "ثروت کی شادی رضا سے ہوئی + دونوں کی جڑ خوب اللہ حسین ہے - G-033-S1"
+    details: "سیدہ ثروت کی شادی سید رضا سے ہوئی + دونوں کی جڑ سید خوب اللہ حسین ہے - G-033-S1"
   },
   {
     name: "سیدہ نصرت زہرا",
@@ -3377,7 +3377,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید جمیل عباس زیدی",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ قرت العین ارجمند کے بچّے\\n\\nD1- سیدہ انعم زہرا زیدی"
   },
   {
     name: "سیدہ قرت العین طاہرہ (پپی)",
@@ -3419,10 +3419,10 @@ const FAMILY_DATA_URDU = [
     name: "سید حیدر علی",
     father: "سید محمد علی انجم",
     mother: "سید تبسم  زہرا رضوی",
-    spouse: "",
+    spouse: "سیدہ انعم زہرا زیدی",
     gen: "G-042-S1",
     gender: "MALE",
-    details: ""
+    details: "سید حیدر علی کی شادی پھوپھی سیدہ قرت العین ارجمند رضوی کی بیٹی سیدہ انعم زہرا زیدی سے ہوئی"
   },
   {
     name: "سیدہ بنش فاطمہ",
@@ -3526,7 +3526,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید مصطفیٰ حیدر",
     father: "سید حیدر علی",
-    mother: "",
+    mother: "سیدہ انعم زہرا زیدی",
     spouse: "",
     gen: "G-043-S1",
     gender: "MALE",
@@ -3535,7 +3535,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید عمار حیدر",
     father: "سید حیدر علی",
-    mother: "",
+    mother: "سیدہ انعم زہرا زیدی",
     spouse: "",
     gen: "G-043-S2",
     gender: "MALE",
@@ -3544,7 +3544,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ عالیہ فاطمہ",
     father: "سید حیدر علی",
-    mother: "",
+    mother: "سیدہ انعم زہرا زیدی",
     spouse: "",
     gen: "G-043-D1",
     gender: "FEMALE",
@@ -4985,8 +4985,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "05/06/2026, 4:48:24 pm", 
+    saved_time: "06/06/2026, 8:40:40 pm", 
     total_members: 553,
-    details_count: 48,
+    details_count: 50,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

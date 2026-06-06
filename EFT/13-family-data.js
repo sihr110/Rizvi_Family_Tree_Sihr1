@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 05/06/2026, 4:47:36 pm
+// Saved: 06/06/2026, 6:25:27 pm
 // Total members: 561
 
 const FAMILY_DATA = [
@@ -2387,7 +2387,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Marukh Zehra Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: "Syed Salman married Syeda Marukh daugher of Mamoo Syed Syed Baqir Rizvi - Both Root is Syed Nawab Ali - G-037-S1"
+    details: "Syed Salman married Syeda Marukh daugher of Mamoo Syed Baqir Rizvi - Both Root is Syed Nawab Ali - G-037-S1"
   },
   {
     name: "Syeda Huma Zehra",
@@ -2981,7 +2981,7 @@ const FAMILY_DATA = [
     spouse: "Syed Aley Haider Rizvi",
     gen: "G-040-S2",
     gender: "FEMALE",
-    details: "Syeda Qudsia married Syed Aley Haider+ both Root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
+    details: "Syeda Qudsia married Syed Aley Haider + both Root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
   },
   {
     name: "Syeda Kishwar Jahan",
@@ -3197,7 +3197,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Tasneem Fatima Rizvi (Tas so)",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Izhar married Tasneem Chacha Shahid daugher - both Root is Ayyub ul Hasan - G-038-S1"
+    details: "Syed Izhar married Syeda Tasneem, Chacha Syed Shahid's daugher - both Root is Syed Ayyub ul Hasan - G-038-S1"
   },
   {
     name: "Syed Naseer Ul Hasan",
@@ -3215,7 +3215,7 @@ const FAMILY_DATA = [
     spouse: "Syed Muhammad Azhar Rizvi",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: "Malka married Azhar Chacha Shahid son - both Root is Ayyub ul Hasan - G-038-S1"
+    details: "Syeda Malka married Syed Azhar, Chacha Syed Shahid's son - both Root is Syed Ayyub ul Hasan - G-038-S1"
   },
   {
     name: "Syed Abu Talib - 02",
@@ -3269,7 +3269,7 @@ const FAMILY_DATA = [
     spouse: "Syed Raza Haider Rizvi",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Sarwat married Raza + both Root is Khoob Ullah Hussain - G-033-S1"
+    details: "Syeda Sarwat married Syed Raza + both Root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syeda Nusrat Zehra",
@@ -3341,7 +3341,7 @@ const FAMILY_DATA = [
     spouse: "Syed Muhammad Abbas Haider Rizvi",
     gen: "G-042-D2",
     gender: "FEMALE",
-    details: "Samana married Abbas Phopho Sarwat son + Root is Khoob Ullah Hussain - G-033-S1"
+    details: "Syeda Samana married Syed Abbas, Phopho Syeda Sarwat's son + Root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syed Askari Rizvi",
@@ -3452,7 +3452,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Qurat ul Aian Tahira (Puppi)",
+    name: "Syeda Qurat ul Aian Tahira (Pappi)",
     father: "Syed Izhar Ul Hasan",
     mother: "Syeda Tasneem Fatima Rizvi (Tas so)",
     spouse: "Syed Farhat Mehdi Zaidi",
@@ -3485,7 +3485,7 @@ const FAMILY_DATA = [
     spouse: "Syed Hashim Raza Rizvi",
     gen: "G-041-D5",
     gender: "FEMALE",
-    details: ""
+    details: "Syeda Arfa (Kiran) married Syed Hashim Raza - both Root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syed Haider Ali",
@@ -4007,7 +4007,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-040-S2",
     gender: "MALE",
-    details: ""
+    details: "Syed Hashim Raza married Syeda Arfa (Kiran)  - both Root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syeda Seema Batool",
@@ -5057,8 +5057,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "05/06/2026, 4:47:36 pm", 
+    saved_time: "06/06/2026, 6:25:27 pm", 
     total_members: 561,
-    details_count: 48,
+    details_count: 50,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

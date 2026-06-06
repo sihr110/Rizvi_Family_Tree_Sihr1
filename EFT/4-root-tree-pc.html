@@ -428,16 +428,17 @@
         .result-item .main-name { font-weight: 700; color: var(--dark-blue); }
         .result-item .gen { color: var(--maroon); font-size: 11px; margin-left: 6px; }
 
-        .root-announce {
-            background: var(--light-sage);
-            padding: 20px 30px;
-            border-radius: 30px;
-            margin: 20px auto;
-            text-align: center;
-            border: 2px solid var(--border-sage);
-            width: fit-content;
-            max-width: 900px;
-        }
+    .root-announce {
+    background: var(--light-sage);
+    padding: 20px 30px;
+    border-radius: 30px;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid var(--border-sage);
+    width: 90%;
+    max-width: 1000px;
+    min-width: 700px;
+}
 
         .generation-info { background: white; border-radius: 20px; padding: 15px; margin-top: 15px; }
 
@@ -987,7 +988,7 @@
                 
                 <div class="paths-container">
                     <div class="path-column">
-                        <h3>${displayName(member1.name)}'s Path to Root</h3>`;
+                        <h3>${displayName(member1.name)}'s Root</h3>`;
             
             p1.forEach((m, i) => { 
                 html += renderBox(m, i === p1.length - 1 ? 'Selected' : (i === 0 ? 'Root' : 'Gen'), i === 0, i === p1.length - 1); 
@@ -995,7 +996,7 @@
             });
             
             html += `</div><div class="path-column">
-                        <h3>${displayName(member2.name)}'s Path to Root</h3>`;
+                        <h3>${displayName(member2.name)}'s Root</h3>`;
             
             p2.forEach((m, i) => { 
                 html += renderBox(m, i === p2.length - 1 ? 'Selected' : (i === 0 ? 'Root' : 'Gen'), i === 0, i === p2.length - 1); 

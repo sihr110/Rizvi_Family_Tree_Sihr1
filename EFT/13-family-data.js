@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/06/2026, 6:25:27 pm
+// Saved: 06/06/2026, 8:38:55 pm
 // Total members: 561
 
 const FAMILY_DATA = [
@@ -3341,7 +3341,7 @@ const FAMILY_DATA = [
     spouse: "Syed Muhammad Abbas Haider Rizvi",
     gen: "G-042-D2",
     gender: "FEMALE",
-    details: "Syeda Samana married Syed Abbas, Phopho Syeda Sarwat's son + Root is Syed Khoob Ullah Hussain - G-033-S1"
+    details: "Syeda Samana married Syed Abbas, Phophi Syeda Sarwat's son + Root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syed Askari Rizvi",
@@ -3449,7 +3449,7 @@ const FAMILY_DATA = [
     spouse: "Syed Jamil Abbas Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Qurat ul Aian Arjumand\\n\\nD1- Syeda Anam Zehra Zaidi"
   },
   {
     name: "Syeda Qurat ul Aian Tahira (Pappi)",
@@ -3491,10 +3491,10 @@ const FAMILY_DATA = [
     name: "Syed Haider Ali",
     father: "Syed Mohammad Ali Anjum",
     mother: "Syed Tabasum Zehra Rizvi",
-    spouse: "",
+    spouse: "Syeda Anam Zehra Zaidi",
     gen: "G-042-S1",
     gender: "MALE",
-    details: ""
+    details: "Syed Haider Ali married, Syeda Anum Zehra Zaidi, daugher of Phophi Syeda Qurat ul Aian Arjumand"
   },
   {
     name: "Syeda Benish Fatima",
@@ -3571,7 +3571,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Faheem",
     father: "Syed Mohammad Ali Moazam",
-    mother: "",
+    mother: "Syeda Beena Rizvi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3580,7 +3580,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Ibrahim",
     father: "Syed Mohammad Ali Moazam",
-    mother: "",
+    mother: "Syeda Beena Rizvi",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3589,7 +3589,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Ayeza Rizvi",
     father: "Syed Mohammad Ali Moazam",
-    mother: "",
+    mother: "Syeda Beena Rizvi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3598,7 +3598,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mustafa Haider",
     father: "Syed Haider Ali",
-    mother: "",
+    mother: "Syeda Anam Zehra Zaidi",
     spouse: "",
     gen: "G-043-S1",
     gender: "MALE",
@@ -3607,7 +3607,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ammar Haider",
     father: "Syed Haider Ali",
-    mother: "",
+    mother: "Syeda Anam Zehra Zaidi",
     spouse: "",
     gen: "G-043-S2",
     gender: "MALE",
@@ -3616,7 +3616,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Aaliya Fatima",
     father: "Syed Haider Ali",
-    mother: "",
+    mother: "Syeda Anam Zehra Zaidi",
     spouse: "",
     gen: "G-043-D1",
     gender: "FEMALE",
@@ -5057,8 +5057,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/06/2026, 6:25:27 pm", 
+    saved_time: "06/06/2026, 8:38:55 pm", 
     total_members: 561,
-    details_count: 50,
+    details_count: 52,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

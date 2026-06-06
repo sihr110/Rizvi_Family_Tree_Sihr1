@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 06/06/2026, 8:40:40 pm
+// Saved: 6/6/26 17:09
 // Total members: 553
 
 const FAMILY_DATA_URDU = [
@@ -3377,7 +3377,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید جمیل عباس زیدی",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "سیدہ قرت العین ارجمند کے بچّے\\n\\nD1- سیدہ انعم زہرا زیدی"
+    details: "سیدہ قرت العین ارجمند کی اولاد:\\n\\nS1- سید محمد محسن زیدی\\nS2- سید محمد حسن زیدی\\n\\nD1- سیدہ انعم زہرا زیدی\\nD2- سیدہ منزہ فاطمہ زیدی"
   },
   {
     name: "سیدہ قرت العین طاہرہ (پپی)",
@@ -3638,7 +3638,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید اسرار حسین زیدی",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "سیدہ اعزاز عالیہ (شبنم) کے بچّے\\n\\nD1- سیدہ کسا فاطمہ زیدی"
+    details: "سیدہ اعزاز عالیہ (شبنم)  کی اولاد:\\n\\nD1- سیدہ کسا فاطمہ زیدی"
   },
   {
     name: "سیدہ ارم رضوی -01",
@@ -3647,7 +3647,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید شبیہ حیدر کاظمی",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "سیدہ ارم رضوی کے بچّے\\n\\nS1- سید مرتضیٰ کاظمی\\nS2- سید حمزہ کاظمی\\nD1- سیدہ فضا کاظمی"
+    details: "سیدہ ارم رضوی کی اولاد:\\n\\nS1- سید مرتضیٰ کاظمی\\nS2- سید حمزہ کاظمی\\nD1- سیدہ فضا کاظمی"
   },
   {
     name: "سیدہ حنا رضوی",
@@ -3656,7 +3656,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید واسی حسین نقوی",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: "سیدہ حنا رضوی کے بچّے\\n\\nS1: سید کمیل حسین نقوی\\nS2: سید جاری حسین نقوی\\nD1: سیدہ ابھیہ حسین نقوی"
+    details: "سیدہ حنا رضوی کی اولاد:\\n\\nS1: سید کمیل حسین نقوی\\nS2: سید جاری حسین نقوی\\nD1: سیدہ ابھیہ حسین نقوی"
   },
   {
     name: "سید فرحان حیدر",
@@ -3683,7 +3683,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید احمد رضا رضوی",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "سیدہ فریحہ فاطمہ کے بچّے\\n\\nS1 - سید افنان احمد رضوی\\nD1 - سیدہ فروہ رضوی"
+    details: "سیدہ فریحہ فاطمہ کی اولاد:\\n\\nS1 - سید افنان احمد رضوی\\nD1 - سیدہ فروہ رضوی"
   },
   {
     name: "سید موسیٰ رضوی",
@@ -4985,7 +4985,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "06/06/2026, 8:40:40 pm", 
+    saved_time: "6/6/26 17:09", 
     total_members: 553,
     details_count: 50,
     sheets_merged: ["Main","1","2","3","4","5"]

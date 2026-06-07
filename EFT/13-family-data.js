@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/07/2026 10:11
+// Saved: 06/07/2026 10:28
 // Total members: 564
 
 const FAMILY_DATA = [
@@ -3476,7 +3476,7 @@ const FAMILY_DATA = [
     spouse: "Syed Waqar Zaidi",
     gen: "G-041-D4",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Qurat ul Aian Saleha (Farah):\\n\\nS1- Syed Zain Abbas Zaidi\\nS2- Syed Hussain Abbas Zaidi"
   },
   {
     name: "Syeda Qurat ul Aian Arfa (Kiran)",
@@ -3485,7 +3485,7 @@ const FAMILY_DATA = [
     spouse: "Syed Hashim Raza Rizvi",
     gen: "G-041-D5",
     gender: "FEMALE",
-    details: "Syeda Arfa (Kiran) married Syed Hashim Raza - both Root is Syed Enayat Hussain - G-037-S1"
+    details: "Syeda Qurat ul Aian Arfa (Kiran)) married Syed Hashim Raza - both Root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syed Haider Ali",
@@ -3710,7 +3710,7 @@ const FAMILY_DATA = [
     spouse: "Syed Asrar Hussain Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Aizaz Aliya  (Shabnam)\\n\\nD1- Syeda Kisa Fatima Zaidi"
+    details: "Children of Syeda Aizaz Aliya  (Shabnam):\\n\\nD1- Syeda Kisa Fatima Zaidi"
   },
   {
     name: "Syeda Iram Rizvi",
@@ -3719,7 +3719,7 @@ const FAMILY_DATA = [
     spouse: "Syed Shabih Haider Kazmi",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Children of Syeda Iram Rizvi\\n\\nS1- Syed Murtaza Kazmi\\nS2- Syed Hamza Kazmi\\nD1- Syeda Fizza Kazmi"
+    details: "Children of Syeda Iram Rizvi:\\n\\nS1- Syed Murtaza Kazmi\\nS2- Syed Hamza Kazmi\\nD1- Syeda Fizza Kazmi"
   },
   {
     name: "Syeda Hina Rizvi",
@@ -3728,7 +3728,7 @@ const FAMILY_DATA = [
     spouse: "Syed Wasi Hussain Naqvi",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: "Children of Syeda Hina Rizvi\\n\\nS1: Syed Kumail Hussain Naqvi\\nS2: Syed Jari Hussain Naqvi\\nD1: Syeda Abhiya Hussain Naqvi"
+    details: "Children of Syeda Hina Rizvi:\\n\\nS1: Syed Kumail Hussain Naqvi\\nS2: Syed Jari Hussain Naqvi\\nD1: Syeda Abhiya Hussain Naqvi"
   },
   {
     name: "Syed Farhan Haider",
@@ -3755,7 +3755,7 @@ const FAMILY_DATA = [
     spouse: "Syed Ahmad Raza Rizvi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Fariha Fatima\\n\\nS1 - Syed Afnan Ahmad Rizvi\\nD1 - Syeda Farwa Rizvi"
+    details: "Children of Syeda Fariha Fatima:\\n\\nS1 - Syed Afnan Ahmad Rizvi\\nD1 - Syeda Farwa Rizvi"
   },
   {
     name: "Syed Musa Rizvi",
@@ -4007,7 +4007,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Qurat ul Aian Arfa (Kiran)",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Syed Hashim Raza married Syeda Arfa (Kiran) - both Root is Syed Enayat Hussain - G-037-S1"
+    details: "Syed Hashim Raza married Syeda Qurat ul Aian Arfa (Kiran) - both Root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syeda Seema Batool",
@@ -4088,7 +4088,7 @@ const FAMILY_DATA = [
     spouse: "Syed Aun Abbas Zaidi",
     gen: "G-041-D1",
     gender: "MALE",
-    details: "Syeda Zainab married, Syed Aun Abbas Zaidi, her phophi's son &  Syed Shams ul Hassan k nawasay yani Hashim k bhanjay hain"
+    details: "Syeda Zainab married, Syed Aun Abbas Zaidi, her phophi's son &  Syed Shams ul Hassan k nawasay - Hashim k bhanjay hain"
   },
   {
     name: "Syed Abrar Hussain",
@@ -5084,8 +5084,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/07/2026 10:11", 
+    saved_time: "06/07/2026 10:28", 
     total_members: 564,
-    details_count: 54,
+    details_count: 55,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

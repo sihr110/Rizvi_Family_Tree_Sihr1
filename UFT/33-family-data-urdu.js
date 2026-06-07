@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/6/26 23:45
+// Saved: 6/7/26 10:06
 // Total members: 556
 
 const FAMILY_DATA_URDU = [
@@ -3431,7 +3431,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید  جمال زیدی",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ بنش فاطمہ کی اولاد:\\n\\nS1- سید دانیال رضا زیدی\\n\\nD1- سیدہ اریبعہ فاطمہ زیدی\\nD2- سیدہ سارہ بتول زیدی"
   },
   {
     name: "سید حمزہ رضوی",
@@ -5012,8 +5012,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/6/26 23:45", 
+    saved_time: "6/7/26 10:06", 
     total_members: 556,
-    details_count: 52,
+    details_count: 53,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

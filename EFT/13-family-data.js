@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/06/2026 23:46
+// Saved: 06/07/2026 10:11
 // Total members: 564
 
 const FAMILY_DATA = [
@@ -3503,7 +3503,7 @@ const FAMILY_DATA = [
     spouse: "Syed Jamal Zaidi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Benish Fatima:\\n\\nS1- Syed Daniyal Raza Zaidi\\n\\nD1- Syeda Abeera Fatima Zaidi\\nD2- Syeda Sara Batool Zaidi"
   },
   {
     name: "Syed Hamza Rizvi",
@@ -3794,7 +3794,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Sham Ul Hasan",
+    name: "Syed Shams Ul Hassan",
     father: "Syed Yaqoob Ul Hasan",
     mother: "",
     spouse: "",
@@ -3993,7 +3993,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Mohd Raza",
-    father: "Syed Sham Ul Hasan",
+    father: "Syed Shams Ul Hassan",
     mother: "",
     spouse: "",
     gen: "G-040-S1",
@@ -4002,7 +4002,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Hashim Raza",
-    father: "Syed Sham Ul Hasan",
+    father: "Syed Shams Ul Hassan",
     mother: "",
     spouse: "Syeda Qurat ul Aian Arfa (Kiran)",
     gen: "G-040-S2",
@@ -4011,7 +4011,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Seema Batool",
-    father: "Syed Sham Ul Hasan",
+    father: "Syed Shams Ul Hassan",
     mother: "",
     spouse: "",
     gen: "G-040-D1",
@@ -4020,7 +4020,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Huma Batool",
-    father: "Syed Sham Ul Hasan",
+    father: "Syed Shams Ul Hassan",
     mother: "",
     spouse: "",
     gen: "G-040-D2",
@@ -5084,8 +5084,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/06/2026 23:46", 
+    saved_time: "06/07/2026 10:11", 
     total_members: 564,
-    details_count: 53,
+    details_count: 54,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

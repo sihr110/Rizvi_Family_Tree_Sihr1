@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/7/26 10:06
+// Saved: 6/7/26 10:22
 // Total members: 556
 
 const FAMILY_DATA_URDU = [
@@ -3404,7 +3404,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید وقار زیدی",
     gen: "G-041-D4",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ قرت العین صالحہ (ٖفرح) کی اولاد:\\n\\nS1- سید زین عباس زیدی\\nS2- سید حسین عباس زیدی"
   },
   {
     name: "سیدہ قرت العین عارفہ (کرن)",
@@ -3413,7 +3413,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید ہاشم رضا رضوی",
     gen: "G-041-D5",
     gender: "FEMALE",
-    details: "سیدہ عارفہ (کرن) کی شادی سید ھاشم سے ہوئی + دونوں کی جڑ سید عنایت حسین ہیں  - G-037-S1"
+    details: "سیدہ قرت العین عارفہ (کرن) کی شادی سید ھاشم سے ہوئی + دونوں کی جڑ سید عنایت حسین ہیں  - G-037-S1"
   },
   {
     name: "سید حیدر علی",
@@ -5012,8 +5012,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/7/26 10:06", 
+    saved_time: "6/7/26 10:22", 
     total_members: 556,
-    details_count: 53,
+    details_count: 54,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

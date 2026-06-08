@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/7/26 10:22
-// Total members: 556
+// Saved: 6/8/26 23:55
+// Total members: 568
 
 const FAMILY_DATA_URDU = [
   {
@@ -455,16 +455,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "امام محمد تقی (ع)",
-    father: "امام علی رضا (ع)",
-    mother: "",
-    spouse: "",
-    gen: "G-002-S1",
-    gender: "MALE",
-    details: ""
-  },
-  {
-    name: "سید حسن",
+    name: "سید ابراہیم ابن علی رضا",
     father: "امام علی رضا (ع)",
     mother: "",
     spouse: "",
@@ -473,7 +464,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید حسین - 02",
+    name: "سید حسن",
     father: "امام علی رضا (ع)",
     mother: "",
     spouse: "",
@@ -482,7 +473,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید جعفر - 02",
+    name: "سید حسین - 02",
     father: "امام علی رضا (ع)",
     mother: "",
     spouse: "",
@@ -491,7 +482,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید علی نقی",
+    name: "سید جعفر - 02",
     father: "امام علی رضا (ع)",
     mother: "",
     spouse: "",
@@ -500,7 +491,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید فضل -02",
+    name: "سید علی نقی",
     father: "امام علی رضا (ع)",
     mother: "",
     spouse: "",
@@ -509,7 +500,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید یعقوب - 01",
+    name: "سید فضل -02",
     father: "امام علی رضا (ع)",
     mother: "",
     spouse: "",
@@ -518,7 +509,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید ابراہیم ابن علی رضا",
+    name: "سید یعقوب - 01",
     father: "امام علی رضا (ع)",
     mother: "",
     spouse: "",
@@ -532,6 +523,87 @@ const FAMILY_DATA_URDU = [
     mother: "",
     spouse: "",
     gen: "G-002-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "امام محمد تقی (ع)",
+    father: "امام علی رضا (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-002-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید ابو الحسن علی الہادی (النقی)",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید ابو احمد موسیٰ المبرقع",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید ابو احمد حسین",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید ابو موسیٰ عمران",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-S4",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ فاطمہ",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ خدیجہ",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ ام کلثوم",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ حکیمہ",
+    father: "امام محمد تقی (ع)",
+    mother: "",
+    spouse: "",
+    gen: "G-003-D4",
     gender: "FEMALE",
     details: ""
   },
@@ -954,7 +1026,7 @@ const FAMILY_DATA_URDU = [
     father: "سید خوب اللہ حسین",
     mother: "",
     spouse: "",
-    gen: "G-033-S1",
+    gen: "G-034-S1",
     gender: "MALE",
     details: ""
   },
@@ -3377,7 +3449,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید جمیل عباس زیدی",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "سیدہ قرت العین ارجمند کی اولاد:\\n\\nS1- سید محمد محسن زیدی\\nS2- سید محمد حسن زیدی\\n\\nD1- سیدہ انعم زہرا زیدی\\nD2- سیدہ منزہ فاطمہ زیدی"
+    details: "سیدہ قرة العین عرفہ ارجمند کی اولاد:\\n\\n\\nS1:  سید محمد محسن زیدی \\nS2: سید محمد حسن زیدی\\n\\n\\nD1: سیدہ انعم زہرا زیدی \\nD2: سیدہ منزہ فاطمہ زیدی"
   },
   {
     name: "سیدہ قرت العین طاہرہ (پپی)",
@@ -3386,7 +3458,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید فرحت مہدی زیدی",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ قرة العین طاہرہ (پیپی)کی اولاد:\\n\\nS1: سید محمد علی مہدی زیدی\\nS2: سید محمد شجاع مہدی زیدی\\nS3: سید محمد ذکی مہدی زیدی\\nS4: سید محمد کمیل مہدی زیدی\\nS5: سید محمد تقی مہدی زیدی"
   },
   {
     name: "سیدہ قرت العین نور (منی)",
@@ -3395,7 +3467,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید الطاف حیدر رضوی",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ قرت العین نور (منی) کی اولاد:\\n\\nS1: سید سجاد حیدر\\nS2: سید حماد حیدر\\n\\nD1: سیدہ زہرا حیدر\\nD2: سیدہ زہا حیدر"
   },
   {
     name: "سیدہ قرت العین صالحہ (ٖفرح)",
@@ -3872,7 +3944,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-040-S1",
     gender: "MALE",
-    details: ""
+    details: "سید شکیل رضا کی شادی چچا سید شمس الحسن کی بیٹی سیدہ ہما بتول رضوی سے ہوئی - دونوں کی جڑ سید یعقوب الحسن ہیں - G-038-S2"
   },
   {
     name: "سید اقلیم رضا",
@@ -3902,7 +3974,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ شاہ تارا",
+    name: "سیدہ شاہ تارا (پارو)",
     father: "سید محمد نیر",
     mother: "",
     spouse: "",
@@ -3935,16 +4007,16 @@ const FAMILY_DATA_URDU = [
     spouse: "سیدہ قرت العین عارفہ رضوی (کرن)",
     gen: "G-040-S2",
     gender: "MALE",
-    details: ""
+    details: "سید ہاشم رضا کی شادی سیدہ قرت العین عارفہ (کرن) سے ہوئی - دونوں کی جڑ سید عنایت حسین ہیں - G-037-S1"
   },
   {
-    name: "سیدہ سیما بتول",
+    name: "سیدہ زہرا فراز ( سیما بتول)",
     father: "سید شمس الحسن",
     mother: "",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ زہرا فراز ( سیما بتول) کی اولاد:\\n\\nS1 - سید قمر عباس \\nS2 - سید عون عباس\\nS3 - سید غضنفر عباس"
   },
   {
     name: "سیدہ ھما بتول",
@@ -3953,7 +4025,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ ہما بتول کی شادی تایا سید محمد نیر کے بیٹے سید شکیل رضا رضوی سے ہوئی - دونوں کی جڑ سید یعقوب الحسن ہیں - G-038-S2"
   },
   {
     name: "سید محمد علی-02",
@@ -3992,9 +4064,45 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
+    name: "کمیل رضا",
+    father: "سید شکیل رضا",
+    mother: "سیدہ ہما بتول رضوی",
+    spouse: "سیدہ مالکہ بتول رضوی",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: "کمیل رضا رضوی کی شادی مالکہ بتول رضوی بنت سید ابوطالب رضوی سے ہوئی"
+  },
+  {
+    name: "سارہ رضا رضوی",
+    father: "سید شکیل رضا",
+    mother: "سیدہ ہما بتول رضوی",
+    spouse: "سید عمار زیدی",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید محمد حیدر رضا",
+    father: "سید محمد رضا",
+    mother: "عذرا رضا",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ مریم فاطمہ",
+    father: "سید محمد رضا",
+    mother: "عذرا رضا",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "سید کاظم رضا",
     father: "سید ہاشم رضا",
-    mother: "سیدہ قرت العین عارفہ رضوی (کرن)",
+    mother: "سیدہ قرة العین عرفہ رضوی (کیرن)",
     spouse: "سیدہ زینب رضا رضوی",
     gen: "G-041-S1",
     gender: "MALE",
@@ -4003,7 +4111,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید بلال رضا",
     father: "سید ہاشم رضا",
-    mother: "سیدہ قرت العین عارفہ رضوی (کرن)",
+    mother: "سیدہ قرة العین عرفہ رضوی (کیرن)",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
@@ -4012,11 +4120,11 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ زینب فاطمہ",
     father: "سید ہاشم رضا",
-    mother: "سیدہ قرت العین عارفہ رضوی (کرن)",
-    spouse: "سہد عون عباس زیدی",
+    mother: "سیدہ قرة العین عرفہ رضوی (کیرن)",
+    spouse: "سید عون عباس زیدی",
     gen: "G-041-D1",
-    gender: "MALE",
-    details: "سیدہ زینب کی شادی پھوپھی کے بیٹے سید عون عباس زیدی سے ہوئی، جو سید شمس الحسن کے نواسے، یعنی ہاشم کے بھانجے ہیں۔"
+    gender: "FEMALE",
+    details: "سیدہ زینب کی شادی (پھوپھی سیدہ سیمہ بتول کے بیٹے) سید عون عباس زیدی سے ہوئی ہے۔ (یہ سید شمس الحسن کے نواسے اور ہاشم کے بھانجے ہیں)۔"
   },
   {
     name: "سید ابرار حسین",
@@ -4631,22 +4739,13 @@ const FAMILY_DATA_URDU = [
     details: "سید خرم کی شادی خالہ سیدہ عفت رضوی کی بیٹی سیدہ آمنہ سے ہوئی"
   },
   {
-    name: "سیدہ تابندہ",
-    father: "سید رضا حیدر",
-    mother: "سیدہ ثروت زہرا رضوی",
-    spouse: "سید منتظر مہدی زیدی",
-    gen: "G-042-D1",
-    gender: "FEMALE",
-    details: "سید عباس کی شادی ماموں سید عبداللہ کی بیٹی سیدہ ثمانہ سے ہوئی + دونوں کی جڑ سید خوب اللہ حسین ہیں - G-033-S1"
-  },
-  {
     name: "سید محمد عباس حیدر -01",
     father: "سید رضا حیدر",
     mother: "سیدہ ثروت زہرا رضوی",
     spouse: "سیدہ ثمانہ بتول رضوی",
     gen: "G-042-S2",
     gender: "MALE",
-    details: ""
+    details: "سید عباس کی شادی ماموں سید عبداللہ کی بیٹی سیدہ ثمانہ سے ہوئی + دونوں کی جڑ سید خوب اللہ حسین ہیں - G-033-S1"
   },
   {
     name: "سید محمد علی حیدر",
@@ -4655,6 +4754,15 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-042-S3",
     gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ تابندہ",
+    father: "سید رضا حیدر",
+    mother: "سیدہ ثروت زہرا رضوی",
+    spouse: "سید منتظر مہدی زیدی",
+    gen: "G-042-D1",
+    gender: "FEMALE",
     details: "سیدہ تابندہ کی شادی خالہ سیدہ عفت کے بیٹے سید منتظر سے ہوئی"
   },
   {
@@ -5012,8 +5120,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/7/26 10:22", 
-    total_members: 556,
-    details_count: 54,
+    saved_time: "6/8/26 23:55", 
+    total_members: 568,
+    details_count: 61,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

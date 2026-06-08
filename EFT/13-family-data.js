@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/08/2026 20:37
+// Saved: 06/08/2026 22:35
 // Total members: 568
 
 const FAMILY_DATA = [
@@ -3467,7 +3467,7 @@ const FAMILY_DATA = [
     spouse: "Syed Altaf Haider Rizvi",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: "Children of Syeda Qurat ul Aian Arjumand:\\n\\nS1: Syed Sajjad Haider\\nS2: Syed Hammad Haider \\n\\nD1: Syeda Zahrah Haider \\nD2: Syeda Zoha Haider"
+    details: "Children of Syeda Qurat ul Aian Noor (Munni):\\n\\nS1: Syed Sajjad Haider\\nS2: Syed Hammad Haider \\n\\nD1: Syeda Zahrah Haider \\nD2: Syeda Zoha Haider"
   },
   {
     name: "Syeda Qurat ul Aian Saleha (Farah)",
@@ -3974,7 +3974,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Sha Tara",
+    name: "Syeda Sha Tara (Paro)",
     father: "Syed Mohammad Nayar",
     mother: "",
     spouse: "",
@@ -5120,7 +5120,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/08/2026 20:37", 
+    saved_time: "06/08/2026 22:35", 
     total_members: 568,
     details_count: 61,
     sheets_merged: ["Main","1","2","3","4","5"]

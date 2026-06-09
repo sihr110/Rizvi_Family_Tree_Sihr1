@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Rizvi Family Tree - Single Family Entry</title>
+  <title>Rizvi Family Tree - Edit ANY Row</title>
   <style>
     * {
       margin: 0;
@@ -146,6 +146,17 @@
     .btn-primary:active {
       background: #1e643a;
       transform: scale(0.97);
+    }
+
+    .btn-edit {
+      background: #d4891a;
+      color: white;
+    }
+
+    .btn-edit.edit-mode-active {
+      background: #f5c542 !important;
+      color: #1e3c2c !important;
+      box-shadow: 0 0 0 2px white, 0 0 0 4px #f5c542;
     }
 
     .btn-copy {
@@ -326,6 +337,25 @@
       margin-left: 28px;
       margin-top: 4px;
     }
+
+    .dropdown-button {
+      width: 100%;
+      padding: 10px 12px;
+      background: white;
+      border: 1px solid #cfdfe8;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .edit-mode-row {
+      background: #fff8e7;
+    }
   </style>
 </head>
 <body>
@@ -346,7 +376,10 @@
   </div>
   <div class="form-container">
     <div class="toolbar">
-      <button id="addRowBtn" class="btn btn-primary">➕ Add New Member</button>
+      <div style="display: flex; gap: 12px;">
+        <button id="addRowBtn" class="btn btn-primary">➕ Add New Member</button>
+        <button id="editDataBtn" class="btn btn-edit">✏️ Edit Data</button>
+      </div>
       <div>
         <button id="copyBtn" class="btn btn-copy">📋 Copy for Whatsapp</button>
         <span id="rowCount" class="stats">0 members</span>
@@ -380,11 +413,8 @@
   let currentLang = 'en';
   let familyFather = "";
   let familyMother = "";
-
-  const headerTranslations = {
-    en: { name: 'Name', father: 'Father', mother: 'Mother', spouse: 'Spouse', gen: 'Gen', gender: 'Gender', detail: 'Details' },
-    ur: { name: 'نام', father: 'والد', mother: 'والدہ', spouse: 'شریک حیات', gen: 'نسل', gender: 'جنس', detail: 'تفصیلات' }
-  };
+  let editMode = false;
+  let activeMobilePanel = null;
 
   function generateId() { return Date.now() + '-' + Math.random().toString(36).substring(2, 10); }
   function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'); }); }
@@ -406,8 +436,15 @@
 
   function findPerson(name) { if (!name) return null; return mainData.find(p => p.name.toLowerCase() === name.toLowerCase()); }
   function getSpouse(name) { let p = findPerson(name); return p ? (p.spouse || "") : ""; }
-  function getParentDisplay(p) { if (!p) return ""; if (p.father) return "S/o " + p.father; if (p.mother) return "D/o " + p.mother; return ""; }
-  function getAllNames() { return mainData.map(p => p.name); }
+  
+  function getParentLine(person) {
+    if (!person) return "";
+    if (person.father) return "S/o " + person.father;
+    return "";
+  }
+
+  function getAllMaleMembers() { return mainData.filter(p => p.gender === "Male"); }
+  function getAllMembers() { return mainData; }
 
   function extractGenNumber(gen) {
     if (!gen) return 0;
@@ -419,14 +456,11 @@
     if (!fatherName) return "";
     let father = findPerson(fatherName);
     if (!father || !father.gen) return "";
-    
     let match = father.gen.match(/(G-\d+)/);
     if (!match) return "";
-    
     let nextGenNumber = parseInt(match[1].split('-')[1]) + 1;
     let nextGenPrefix = "G-" + String(nextGenNumber).padStart(3, '0');
     let suffix = childGender === 'Male' ? 'S' : 'D';
-    
     return nextGenPrefix + "-" + suffix + sequenceNumber;
   }
 
@@ -455,8 +489,6 @@
     };
   }
 
-  let activeMobilePanel = null;
-  
   function closeMobileDropdown() {
     if (activeMobilePanel && activeMobilePanel.parentNode) {
       activeMobilePanel.parentNode.removeChild(activeMobilePanel);
@@ -464,20 +496,13 @@
     activeMobilePanel = null;
   }
 
-  function updateFamily(selected, isFatherField) {
+  function updateFamilyFromFather(selected) {
     let firstRow = rows[0];
-    if (isFatherField) {
-      firstRow.father = selected.name;
-      firstRow.mother = getSpouse(selected.name);
-      firstRow.spouse = "";
-    } else {
-      firstRow.mother = selected.name;
-      firstRow.father = getSpouse(selected.name);
-      firstRow.spouse = "";
-    }
+    firstRow.father = selected.name;
+    firstRow.mother = getSpouse(selected.name);
+    firstRow.spouse = "";
     firstRow._fatherEn = firstRow.father;
     firstRow._motherEn = firstRow.mother;
-    firstRow._spouseEn = firstRow.spouse;
     
     familyFather = firstRow.father;
     familyMother = firstRow.mother;
@@ -487,17 +512,15 @@
       rows[i].mother = familyMother;
       rows[i]._fatherEn = familyFather;
       rows[i]._motherEn = familyMother;
-      
       if (familyFather) {
         let maxNum = getMaxChildNumber(familyFather, rows[i].gender, rows[i]);
         rows[i].gen = generateGenWithSequence(familyFather, rows[i].gender, maxNum + 1);
       }
     }
-    
     renderTable();
   }
 
-  function openMobileDropdown(isFatherField) {
+  function openFatherDropdown() {
     if (activeMobilePanel) closeMobileDropdown();
     const overlay = document.createElement('div');
     overlay.className = 'mobile-dropdown-overlay';
@@ -505,14 +528,13 @@
     panelDiv.className = 'mobile-dropdown-panel';
     const header = document.createElement('div');
     header.className = 'dropdown-header';
-    header.innerHTML = `<span>${isFatherField ? (currentLang === 'en' ? '👨 Select Father' : '👨 انتخاب والد') : (currentLang === 'en' ? '👩 Select Mother' : '👩 انتخاب والدہ')}</span>
-                        <button class="close-dropdown">✕</button>`;
+    header.innerHTML = `<span>👨 Select Father (Male only)</span><button class="close-dropdown">✕</button>`;
     panelDiv.appendChild(header);
     const searchDiv = document.createElement('div');
     searchDiv.className = 'dropdown-search-mobile';
     const searchInput = document.createElement('input');
     searchInput.type = 'search';
-    searchInput.placeholder = currentLang === 'en' ? '🔍 Search name...' : '🔍 نام تلاش کریں...';
+    searchInput.placeholder = '🔍 Search father name...';
     searchDiv.appendChild(searchInput);
     panelDiv.appendChild(searchDiv);
     const listContainer = document.createElement('div');
@@ -522,30 +544,27 @@
     document.body.appendChild(overlay);
     activeMobilePanel = overlay;
 
+    const maleMembers = getAllMaleMembers();
+
     function renderOptions(filterText = '') {
       listContainer.innerHTML = '';
-      let filtered = getAllNames();
-      if (filterText.trim()) filtered = filtered.filter(n => n.toLowerCase().includes(filterText.toLowerCase()));
+      let filtered = maleMembers.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()));
       if (filtered.length === 0) {
         const emptyMsg = document.createElement('div');
         emptyMsg.className = 'mobile-option';
-        emptyMsg.style.color = 'gray';
-        emptyMsg.innerHTML = '<div class="option-name">❌ کوئی نتیجہ نہیں</div>';
+        emptyMsg.innerHTML = '<div class="option-name">❌ No male members found</div>';
         listContainer.appendChild(emptyMsg);
         return;
       }
-      for (let name of filtered) {
-        const person = findPerson(name);
-        if (!person) continue;
+      for (let person of filtered) {
         const optionDiv = document.createElement('div');
         optionDiv.className = 'mobile-option';
-        const icon = person.gender === 'Male' ? '👨' : '👩';
-        const parentLine = getParentDisplay(person);
+        const parentLine = getParentLine(person);
         optionDiv.innerHTML = `
-          <div class="option-name">${icon} <strong>${escapeHtml(person.name)}</strong> ${person.gen ? '(' + person.gen + ')' : ''}</div>
+          <div class="option-name">👨 <strong>${escapeHtml(person.name)}</strong> ${person.gen ? '(' + person.gen + ')' : ''}</div>
           ${parentLine ? `<div class="option-parent">${escapeHtml(parentLine)}</div>` : ''}
         `;
-        optionDiv.onclick = () => { updateFamily(person, isFatherField); closeMobileDropdown(); };
+        optionDiv.onclick = () => { updateFamilyFromFather(person); closeMobileDropdown(); };
         listContainer.appendChild(optionDiv);
       }
     }
@@ -555,68 +574,140 @@
     overlay.onclick = (e) => { if (e.target === overlay) closeMobileDropdown(); };
   }
 
-  function attachMobileDropdown(cellElement, currentVal, isFatherField) {
+  function attachFatherDropdown(cellElement, currentVal) {
     cellElement.innerHTML = '';
     const wrapper = document.createElement('div');
     wrapper.style.position = 'relative';
     wrapper.style.width = '100%';
     const triggerBtn = document.createElement('button');
-    triggerBtn.style.width = '100%';
-    triggerBtn.style.padding = '10px 12px';
-    triggerBtn.style.background = 'white';
-    triggerBtn.style.border = '1px solid #cfdfe8';
-    triggerBtn.style.borderRadius = '12px';
-    triggerBtn.style.fontSize = '0.85rem';
-    triggerBtn.style.textAlign = 'left';
-    triggerBtn.style.cursor = 'pointer';
-    triggerBtn.style.fontFamily = 'inherit';
-    triggerBtn.style.display = 'flex';
-    triggerBtn.style.justifyContent = 'space-between';
-    triggerBtn.style.alignItems = 'center';
-    
-    let displayText = currentVal;
-    if (!displayText) {
-      if (currentLang === 'en') {
-        displayText = isFatherField ? '▼ Select Father' : '▼ Select Mother';
-      } else {
-        displayText = isFatherField ? '▼ منتخب کریں' : '▼ منتخب کریں';
-      }
-    }
-    
+    triggerBtn.className = 'dropdown-button';
+    let displayText = currentVal || '▼ Select Father (Male)';
     triggerBtn.innerHTML = `<span>${escapeHtml(displayText)}</span> <span style="color:#2a7f49;">▼</span>`;
     wrapper.appendChild(triggerBtn);
     cellElement.appendChild(wrapper);
-    triggerBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openMobileDropdown(isFatherField); };
+    triggerBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openFatherDropdown(); };
+  }
+
+  // NAME search dropdown - auto populates ALL fields (Father, Mother, Spouse, Gen, Gender, Details)
+  function openNameSearchDropdown(currentRow, buttonElement, nameInputElement) {
+    if (!editMode) return;
+    if (activeMobilePanel) closeMobileDropdown();
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-dropdown-overlay';
+    const panelDiv = document.createElement('div');
+    panelDiv.className = 'mobile-dropdown-panel';
+    const header = document.createElement('div');
+    header.className = 'dropdown-header';
+    header.innerHTML = `<span>🔍 Select member to edit</span><button class="close-dropdown">✕</button>`;
+    panelDiv.appendChild(header);
+    const searchDiv = document.createElement('div');
+    searchDiv.className = 'dropdown-search-mobile';
+    const searchInput = document.createElement('input');
+    searchInput.type = 'search';
+    searchInput.placeholder = '🔍 Search name...';
+    searchDiv.appendChild(searchInput);
+    panelDiv.appendChild(searchDiv);
+    const listContainer = document.createElement('div');
+    listContainer.className = 'dropdown-list';
+    panelDiv.appendChild(listContainer);
+    overlay.appendChild(panelDiv);
+    document.body.appendChild(overlay);
+    activeMobilePanel = overlay;
+
+    const allMembers = getAllMembers();
+
+    function renderOptions(filterText = '') {
+      listContainer.innerHTML = '';
+      let filtered = allMembers.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()));
+      if (filtered.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'mobile-option';
+        emptyMsg.innerHTML = '<div class="option-name">❌ No members found</div>';
+        listContainer.appendChild(emptyMsg);
+        return;
+      }
+      for (let person of filtered) {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'mobile-option';
+        const icon = person.gender === 'Male' ? '👨' : '👩';
+        const parentLine = getParentLine(person);
+        optionDiv.innerHTML = `
+          <div class="option-name">${icon} <strong>${escapeHtml(person.name)}</strong> ${person.gen ? '(' + person.gen + ')' : ''}</div>
+          ${parentLine ? `<div class="option-parent">${escapeHtml(parentLine)}</div>` : ''}
+        `;
+        optionDiv.onclick = () => {
+          // Populate ALL fields for THIS row
+          currentRow.name = person.name;
+          currentRow.father = person.father || "";
+          currentRow.mother = person.mother || "";
+          currentRow.spouse = person.spouse || "";
+          currentRow.gen = person.gen || "";
+          currentRow.gender = person.gender;
+          currentRow.detail = person.detail || "";
+          currentRow._nameEn = person.name;
+          currentRow._fatherEn = person.father || "";
+          currentRow._motherEn = person.mother || "";
+          currentRow._spouseEn = person.spouse || "";
+          currentRow._detailEn = person.detail || "";
+          
+          if (buttonElement) {
+            buttonElement.innerHTML = `<span>${escapeHtml(person.name)}</span> <span style="color:#2a7f49;">▼</span>`;
+          }
+          if (nameInputElement) {
+            nameInputElement.value = person.name;
+          }
+          
+          closeMobileDropdown();
+          renderTable();
+        };
+        listContainer.appendChild(optionDiv);
+      }
+    }
+    renderOptions('');
+    searchInput.oninput = (e) => renderOptions(e.target.value);
+    header.querySelector('.close-dropdown').onclick = () => closeMobileDropdown();
+    overlay.onclick = (e) => { if (e.target === overlay) closeMobileDropdown(); };
+  }
+
+  function attachNameEditDropdown(cellElement, currentRow) {
+    cellElement.innerHTML = '';
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.width = '100%';
+    const triggerBtn = document.createElement('button');
+    triggerBtn.className = 'dropdown-button';
+    let displayText = currentRow.name || '▼ Select Member to Edit';
+    triggerBtn.innerHTML = `<span>${escapeHtml(displayText)}</span> <span style="color:#2a7f49;">▼</span>`;
+    wrapper.appendChild(triggerBtn);
+    cellElement.appendChild(wrapper);
+    triggerBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openNameSearchDropdown(currentRow, triggerBtn, null); };
   }
 
   function onEdit(row, field, val) {
     if (field === 'name') row.name = val;
+    if (field === 'father') row.father = val;
+    if (field === 'mother') row.mother = val;
     if (field === 'spouse') row.spouse = val;
     if (field === 'detail') row.detail = val;
-    if (field === 'gen') {
-      row.gen = val.toUpperCase();
-      return;
-    }
-    if (currentLang === 'en') {
-      if (field === 'name') row._nameEn = val;
-      if (field === 'spouse') row._spouseEn = val;
-      if (field === 'detail') row._detailEn = val;
-    }
+    if (field === 'gen') row.gen = val.toUpperCase();
+    if (field === 'name') row._nameEn = val;
+    if (field === 'father') row._fatherEn = val;
+    if (field === 'mother') row._motherEn = val;
+    if (field === 'spouse') row._spouseEn = val;
+    if (field === 'detail') row._detailEn = val;
     renderTable();
   }
 
   function addMember() {
     if (!familyFather && !familyMother && (!rows[0].father && !rows[0].mother)) {
-      alert("First select Father or Mother from dropdown");
+      alert("First select Father from dropdown");
       return;
     }
     let newRow = createEmptyRow(true);
-    
     if (familyFather) {
       let maxNum = getMaxChildNumber(familyFather, newRow.gender);
       newRow.gen = generateGenWithSequence(familyFather, newRow.gender, maxNum + 1);
     }
-    
     rows.push(newRow);
     renderTable();
     setTimeout(() => { const wrapper = document.querySelector('.table-wrapper'); if (wrapper) wrapper.scrollTop = wrapper.scrollHeight; }, 50);
@@ -624,23 +715,16 @@
 
   function deleteRow(idx) {
     if (rows.length === 1) { alert("Cannot delete last member. Refresh to reset."); return; }
-    if (confirm("Delete this member?")) { 
-      rows.splice(idx, 1);
-      renderTable(); 
-    }
+    if (confirm("Delete this member?")) { rows.splice(idx, 1); renderTable(); }
   }
 
   function changeGender(row, newGender) {
     if (row.gender === newGender) return;
-    
-    let oldGender = row.gender;
     row.gender = newGender;
-    
     if (row.father) {
       let maxNum = getMaxChildNumber(row.father, newGender, row);
       row.gen = generateGenWithSequence(row.father, newGender, maxNum + 1);
     }
-    
     renderTable();
   }
 
@@ -658,12 +742,14 @@
     const statusSpan = document.getElementById('onlineStatus');
     const originalText = statusSpan.innerText;
     statusSpan.innerText = 'Translating...';
+    
     for (let row of rows) {
       if (row._nameEn === undefined) row._nameEn = row.name || "";
       if (row._fatherEn === undefined) row._fatherEn = row.father || "";
       if (row._motherEn === undefined) row._motherEn = row.mother || "";
       if (row._spouseEn === undefined) row._spouseEn = row.spouse || "";
       if (row._detailEn === undefined) row._detailEn = row.detail || "";
+      
       if (target === 'ur') {
         row.name = await translateText(row._nameEn, 'ur');
         row.father = await translateText(row._fatherEn, 'ur');
@@ -679,13 +765,14 @@
       }
     }
     currentLang = target;
-    document.getElementById('thName').innerText = headerTranslations[target].name;
-    document.getElementById('thFather').innerText = headerTranslations[target].father;
-    document.getElementById('thMother').innerText = headerTranslations[target].mother;
-    document.getElementById('thSpouse').innerText = headerTranslations[target].spouse;
-    document.getElementById('thGen').innerText = headerTranslations[target].gen;
-    document.getElementById('thGender').innerText = headerTranslations[target].gender;
-    document.getElementById('thDetail').innerText = headerTranslations[target].detail;
+    document.getElementById('thName').innerText = 'Name';
+    document.getElementById('thFather').innerText = 'Father';
+    document.getElementById('thMother').innerText = 'Mother';
+    document.getElementById('thSpouse').innerText = 'Spouse';
+    document.getElementById('thGen').innerText = 'Gen';
+    document.getElementById('thGender').innerText = 'Gender';
+    document.getElementById('thDetail').innerText = 'Details';
+    
     renderTable();
     statusSpan.innerText = originalText;
   }
@@ -698,55 +785,112 @@
       const isFirst = (i === 0);
       const tr = tbody.insertRow();
       
+      if (editMode) {
+        tr.style.background = '#fff8e7';
+      }
+      
+      // Name column
       const tdName = tr.insertCell(0);
-      const nameInp = document.createElement('input');
-      nameInp.value = m.name || '';
-      nameInp.placeholder = currentLang === 'en' ? 'Name' : 'نام';
-      nameInp.onchange = ((r) => (e) => onEdit(r, 'name', e.target.value))(m);
-      tdName.appendChild(nameInp);
+      if (editMode) {
+        attachNameEditDropdown(tdName, m);
+      } else {
+        const nameInp = document.createElement('input');
+        nameInp.value = m.name || '';
+        nameInp.placeholder = 'Name';
+        nameInp.onchange = ((r) => (e) => onEdit(r, 'name', e.target.value))(m);
+        tdName.appendChild(nameInp);
+      }
       
+      // Father column - in edit mode: manual text input (auto-filled from Name selection, then editable)
       const tdFather = tr.insertCell(1);
-      if (isFirst) attachMobileDropdown(tdFather, m.father, true);
-      else { const inp = document.createElement('input'); inp.value = m.father || ''; inp.readOnly = true; inp.style.background = '#f5f7fa'; tdFather.appendChild(inp); }
+      if (editMode) {
+        const fatherInp = document.createElement('input');
+        fatherInp.value = m.father || '';
+        fatherInp.placeholder = 'Father';
+        fatherInp.onchange = ((r) => (e) => onEdit(r, 'father', e.target.value))(m);
+        tdFather.appendChild(fatherInp);
+      } else if (isFirst) {
+        attachFatherDropdown(tdFather, m.father);
+      } else {
+        const inp = document.createElement('input');
+        inp.value = m.father || '';
+        inp.readOnly = true;
+        inp.style.background = '#f5f7fa';
+        tdFather.appendChild(inp);
+      }
       
+      // Mother column - in edit mode: manual text input (auto-filled from Name selection, then editable)
       const tdMother = tr.insertCell(2);
-      if (isFirst) attachMobileDropdown(tdMother, m.mother, false);
-      else { const inp = document.createElement('input'); inp.value = m.mother || ''; inp.readOnly = true; inp.style.background = '#f5f7fa'; tdMother.appendChild(inp); }
+      if (editMode) {
+        const motherInp = document.createElement('input');
+        motherInp.value = m.mother || '';
+        motherInp.placeholder = 'Mother';
+        motherInp.onchange = ((r) => (e) => onEdit(r, 'mother', e.target.value))(m);
+        tdMother.appendChild(motherInp);
+      } else {
+        const motherInp = document.createElement('input');
+        motherInp.value = m.mother || '';
+        motherInp.readOnly = true;
+        motherInp.style.background = '#f5f7fa';
+        tdMother.appendChild(motherInp);
+      }
       
+      // Spouse column
       const tdSpouse = tr.insertCell(3);
       const spouseInp = document.createElement('input');
       spouseInp.value = m.spouse || '';
-      spouseInp.placeholder = currentLang === 'en' ? 'Spouse' : 'شریک حیات';
-      spouseInp.onchange = ((r) => (e) => onEdit(r, 'spouse', e.target.value))(m);
+      spouseInp.placeholder = 'Spouse';
+      if (editMode) {
+        spouseInp.onchange = ((r) => (e) => onEdit(r, 'spouse', e.target.value))(m);
+      } else {
+        spouseInp.readOnly = true;
+        spouseInp.style.background = '#f5f7fa';
+      }
       tdSpouse.appendChild(spouseInp);
       
+      // Gen column
       const tdGen = tr.insertCell(4);
       const genInp = document.createElement('input');
       genInp.value = m.gen || '';
-      genInp.placeholder = currentLang === 'en' ? 'G-XXX-S/D#' : 'نسل نمبر';
-      genInp.style.background = '#fffef0';
+      genInp.placeholder = 'G-XXX-S/D#';
       genInp.style.fontWeight = 'bold';
-      genInp.style.fontFamily = 'monospace';
-      genInp.removeAttribute('readonly');
-      genInp.onchange = ((r) => (e) => onEdit(r, 'gen', e.target.value))(m);
+      if (editMode) {
+        genInp.onchange = ((r) => (e) => onEdit(r, 'gen', e.target.value))(m);
+      } else {
+        genInp.readOnly = true;
+        genInp.style.background = '#f5f7fa';
+      }
       tdGen.appendChild(genInp);
       
+      // Gender column
       const tdGender = tr.insertCell(5);
       const sel = document.createElement('select');
-      const optM = document.createElement('option'); optM.value = 'Male'; optM.text = currentLang === 'en' ? '👨 Male' : '👨 مرد';
-      const optF = document.createElement('option'); optF.value = 'Female'; optF.text = currentLang === 'en' ? '👩 Female' : '👩 عورت';
+      const optM = document.createElement('option'); optM.value = 'Male'; optM.text = '👨 Male';
+      const optF = document.createElement('option'); optF.value = 'Female'; optF.text = '👩 Female';
       sel.appendChild(optM); sel.appendChild(optF);
       sel.value = m.gender;
-      sel.onchange = ((r) => (e) => changeGender(r, e.target.value))(m);
+      if (editMode) {
+        sel.onchange = ((r) => (e) => changeGender(r, e.target.value))(m);
+      } else {
+        sel.disabled = true;
+        sel.style.background = '#f5f7fa';
+      }
       tdGender.appendChild(sel);
       
+      // Details column
       const tdDetail = tr.insertCell(6);
       const detailInp = document.createElement('input');
       detailInp.value = m.detail || '';
-      detailInp.placeholder = currentLang === 'en' ? 'Details' : 'تفصیلات';
-      detailInp.onchange = ((r) => (e) => onEdit(r, 'detail', e.target.value))(m);
+      detailInp.placeholder = 'Details';
+      if (editMode) {
+        detailInp.onchange = ((r) => (e) => onEdit(r, 'detail', e.target.value))(m);
+      } else {
+        detailInp.readOnly = true;
+        detailInp.style.background = '#f5f7fa';
+      }
       tdDetail.appendChild(detailInp);
       
+      // Delete button
       const tdAction = tr.insertCell(7);
       const delBtn = document.createElement('button');
       delBtn.innerHTML = '🗑️';
@@ -760,8 +904,23 @@
   function copyTable() {
     if (!rows.length) return alert('No data');
     let txt = "🌳 RIZVI FAMILY TREE 🌳\n\nName\tFather\tMother\tSpouse\tGen\tGender\tDetail\n";
-    for (let r of rows) txt += (r.name || '—') + '\t' + (r.father || '—') + '\t' + (r.mother || '—') + '\t' + (r.spouse || '—') + '\t' + (r.gen || '—') + '\t' + (r.gender || '—') + '\t' + (r.detail || '—') + '\n';
+    for (let r of rows) {
+      txt += (r.name || '—') + '\t' + (r.father || '—') + '\t' + (r.mother || '—') + '\t' + (r.spouse || '—') + '\t' + (r.gen || '—') + '\t' + (r.gender || '—') + '\t' + (r.detail || '—') + '\n';
+    }
     navigator.clipboard.writeText(txt).then(() => alert('Copied!')).catch(() => alert('Press Ctrl+C'));
+  }
+
+  function toggleEditMode() {
+    if (editMode) {
+      editMode = false;
+      document.getElementById('editDataBtn').classList.remove('edit-mode-active');
+      document.getElementById('editDataBtn').textContent = '✏️ Edit Data';
+    } else {
+      editMode = true;
+      document.getElementById('editDataBtn').classList.add('edit-mode-active');
+      document.getElementById('editDataBtn').textContent = '🟡 Edit Data';
+    }
+    renderTable();
   }
 
   function init() {
@@ -770,21 +929,13 @@
     familyFather = "";
     familyMother = "";
     currentLang = 'en';
-    document.getElementById('thName').innerText = 'Name';
-    document.getElementById('thFather').innerText = 'Father';
-    document.getElementById('thMother').innerText = 'Mother';
-    document.getElementById('thSpouse').innerText = 'Spouse';
-    document.getElementById('thGen').innerText = 'Gen';
-    document.getElementById('thGender').innerText = 'Gender';
-    document.getElementById('thDetail').innerText = 'Details';
     renderTable();
-    const dot = document.querySelector('.online-dot');
-    if (dot) dot.style.backgroundColor = '#2ecc71';
     document.getElementById('onlineStatus').innerText = 'Online';
   }
 
   document.getElementById('addRowBtn').onclick = addMember;
   document.getElementById('copyBtn').onclick = copyTable;
+  document.getElementById('editDataBtn').onclick = toggleEditMode;
   document.getElementById('btnEnglish').onclick = () => { translateAll('en'); document.getElementById('btnEnglish').classList.add('active'); document.getElementById('btnUrdu').classList.remove('active'); };
   document.getElementById('btnUrdu').onclick = () => { translateAll('ur'); document.getElementById('btnUrdu').classList.add('active'); document.getElementById('btnEnglish').classList.remove('active'); };
   init();

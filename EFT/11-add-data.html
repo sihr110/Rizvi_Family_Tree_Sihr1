@@ -2,122 +2,336 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Rizvi Family Tree - Single Family Entry</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       background: linear-gradient(145deg, #e9eef3 0%, #dce3ec 100%);
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      padding: 2rem 1.5rem;
+      font-family: 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+      padding: 1rem;
       color: #1a2c3e;
     }
+
     .family-card {
       max-width: 1400px;
       margin: 0 auto;
       background: #ffffff;
-      border-radius: 2rem;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
       overflow: hidden;
     }
+
     .tree-header {
       background: linear-gradient(135deg, #1e3c2c 0%, #2a5a3a 100%);
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
       color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.75rem;
     }
+
     .header-title h1 {
       font-weight: 600;
-      font-size: 1.6rem;
+      font-size: 1.3rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
-    .header-title h1::before { content: "🌳"; font-size: 1.6rem; }
-    .header-title p { opacity: 0.8; font-size: 0.75rem; margin-top: 4px; }
-    .translation-control {
+
+    .header-title h1::before {
+      content: "🌳";
+      font-size: 1.4rem;
+    }
+
+    .header-title p {
+      opacity: 0.8;
+      font-size: 0.7rem;
+      margin-top: 2px;
+    }
+
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       background: rgba(255,255,255,0.15);
+      padding: 6px 16px;
       border-radius: 50px;
-      padding: 6px 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
     }
-    .lang-dropdown {
-      background: white;
+
+    .lang-btn {
+      background: transparent;
       border: none;
-      padding: 8px 16px;
-      border-radius: 40px;
-      font-weight: 600;
+      font-size: 1.2rem;
+      font-weight: 700;
       cursor: pointer;
-      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 40px;
+      transition: 0.2s;
       font-family: inherit;
-      color: #1e3c2c;
+      color: white;
+      opacity: 0.7;
     }
-    .form-container { padding: 1.8rem 2rem 2rem 2rem; }
-    .info-banner {
-      background: #eef2fa;
-      border-radius: 12px;
-      padding: 10px 16px;
-      margin-bottom: 1rem;
+
+    .lang-btn.active {
+      background: white;
+      color: #1e3c2c;
+      opacity: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .online-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #2ecc71;
+      box-shadow: 0 0 5px #2ecc71;
+      display: inline-block;
+      margin-right: 6px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.5; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .status-text {
+      font-size: 0.75rem;
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.85rem;
-      color: #2c5a6e;
-      border-left: 4px solid #2a7f49;
+      gap: 5px;
+      background: rgba(0,0,0,0.3);
+      padding: 4px 12px;
+      border-radius: 30px;
     }
+
+    .form-container {
+      padding: 1.2rem 1rem 1.5rem 1rem;
+    }
+
     .toolbar {
       display: flex;
-      gap: 1rem;
-      margin: 1rem 0 1.5rem 0;
+      gap: 0.8rem;
+      margin: 0.5rem 0 1rem 0;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
     }
+
     .btn {
-      padding: 10px 24px;
+      padding: 10px 20px;
       border-radius: 60px;
       font-weight: 700;
       cursor: pointer;
       border: none;
       transition: 0.2s;
+      font-size: 0.85rem;
+      touch-action: manipulation;
     }
-    .btn-primary { background: #2a7f49; color: white; }
-    .btn-primary:hover { background: #1e643a; }
-    .btn-copy { background: #1e3c2c; color: white; }
-    .stats { background: #ddeeff; padding: 4px 12px; border-radius: 40px; font-size: 0.8rem; }
-    .table-wrapper { overflow-x: auto; border-radius: 1rem; border: 1px solid #e2edf2; background: white; margin-top: 1rem; }
-    .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 1000px; }
-    .data-table th { background: #f0f6f0; padding: 12px 10px; text-align: left; font-weight: 700; color: #1a4b2a; border-bottom: 2px solid #cbe0ce; }
-    .data-table td { padding: 8px 10px; border-bottom: 1px solid #e9ede8; vertical-align: middle; }
-    .data-table input, .data-table select { width: 100%; padding: 8px 10px; border: 1px solid #cfdfe8; border-radius: 8px; font-size: 0.85rem; font-family: inherit; }
-    .data-table input:focus, .data-table select:focus { outline: none; border-color: #2a7f49; }
-    .data-table input[readonly] { background: #f5f7fa; color: #4a627a; cursor: default; }
-    .delete-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 4px 8px; border-radius: 6px; color: #c0392b; }
-    .delete-btn:hover { background: #fee2e2; }
-    .dropdown-wrapper { position: relative; width: 100%; }
-    .dropdown-trigger {
-      width: 100%; padding: 8px 28px 8px 10px; border: 1px solid #cfdfe8; border-radius: 8px;
-      font-size: 0.85rem; background: white; cursor: pointer; text-align: left;
+
+    .btn-primary {
+      background: #2a7f49;
+      color: white;
     }
-    .dropdown-arrow { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #2a7f49; }
-    .dropdown-panel {
-      position: fixed; background: white; border-radius: 0.75rem; box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      max-height: 350px; overflow-y: auto; z-index: 10000; border: 1px solid #cbdde6; display: none; min-width: 350px; width: 400px;
+
+    .btn-primary:active {
+      background: #1e643a;
+      transform: scale(0.97);
     }
-    .dropdown-panel.open { display: block; }
-    .dropdown-search-box { padding: 8px; border-bottom: 1px solid #e2edf2; position: sticky; top: 0; background: white; }
-    .dropdown-search-box input { width: 100%; padding: 10px 12px; border: 1px solid #cfdfe8; border-radius: 30px; font-size: 0.9rem; }
-    .dropdown-option { padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #eff3f8; }
-    .dropdown-option:hover { background: #eef6ef; }
-    .dropdown-option-name { font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
-    .dropdown-option-parent { font-size: 0.75rem; color: #5f7a6e; margin-top: 2px; margin-left: 24px; }
-    .translation-status { background: #f0f0f0; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; }
+
+    .btn-copy {
+      background: #1e3c2c;
+      color: white;
+    }
+
+    .stats {
+      background: #ddeeff;
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 1rem;
+      border: 1px solid #e2edf2;
+      background: white;
+      margin-top: 0.8rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      min-width: 900px;
+    }
+
+.data-table th {
+  background: #f0f6f0;
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 700;
+  color: #1a4b2a;
+  border-bottom: 2px solid #cbe0ce;
+  font-size: 0.8rem;
+}
+
+    .data-table td {
+      padding: 8px 6px;
+      border-bottom: 1px solid #e9ede8;
+      vertical-align: middle;
+    }
+
+    .data-table input,
+    .data-table select {
+      width: 100%;
+      padding: 10px 10px;
+      border: 1px solid #cfdfe8;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      background: white;
+      touch-action: manipulation;
+    }
+
+    .data-table input:focus,
+    .data-table select:focus {
+      outline: none;
+      border-color: #2a7f49;
+      box-shadow: 0 0 0 2px rgba(42, 127, 73, 0.2);
+    }
+
+    .data-table input[readonly] {
+      background: #f5f7fa;
+      color: #4a627a;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      padding: 6px 10px;
+      border-radius: 30px;
+      color: #c0392b;
+      touch-action: manipulation;
+    }
+
+    .delete-btn:active {
+      background: #fee2e2;
+    }
+
+    /* Mobile bottom sheet dropdown */
+    .mobile-dropdown-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 20000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      backdrop-filter: blur(3px);
+    }
+
+    .mobile-dropdown-panel {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 28px 28px 0 0;
+      max-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.2);
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .dropdown-header {
+      padding: 18px 16px 12px;
+      border-bottom: 1px solid #e2edf2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: white;
+      border-radius: 28px 28px 0 0;
+    }
+
+    .close-dropdown {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 0 8px;
+      color: #2a7f49;
+    }
+
+    .dropdown-search-mobile {
+      padding: 12px 16px;
+      background: white;
+      border-bottom: 1px solid #eef2f5;
+    }
+
+    .dropdown-search-mobile input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #cfdfe8;
+      border-radius: 40px;
+      font-size: 1rem;
+      background: #fafcfd;
+    }
+
+    .dropdown-list {
+      overflow-y: auto;
+      flex: 1;
+      padding: 8px 0 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .mobile-option {
+      padding: 14px 18px;
+      border-bottom: 1px solid #f0f4f8;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .mobile-option:active {
+      background: #eef6ef;
+    }
+
+    .option-name {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .option-parent {
+      font-size: 0.75rem;
+      color: #5f7a6e;
+      margin-left: 28px;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
@@ -125,22 +339,18 @@
   <div class="tree-header">
     <div class="header-title">
       <h1>Rizvi Family Tree Manager</h1>
-      <p style="font-size: 0.85rem; margin-top: 4px; opacity: 0.9; padding-left: 6ch;">Designed by Imran Haider</p>
+     <p style="font-size: 0.85rem; margin-top: 4px; opacity: 0.9; padding-left: 6ch;">Designed by Imran Haider</p>
     </div>
-    <div class="translation-control">
-      <span>🌐 Translate:</span>
-      <select id="langSelect" class="lang-dropdown">
-        <option value="en">English</option>
-        <option value="ur">اردو</option>
-      </select>
-      <span id="translationStatus" class="translation-status">● Online</span>
+    <div class="lang-switch">
+      <button id="btnEnglish" class="lang-btn active">E</button>
+      <button id="btnUrdu" class="lang-btn">U</button>
+      <div class="status-text">
+        <span class="online-dot"></span>
+        <span id="onlineStatus">Online</span>
+      </div>
     </div>
   </div>
   <div class="form-container">
-    <div class="info-banner">
-      <span>🏠</span>
-      <span><strong>Single Family Mode:</strong> First row only has dropdowns. Select Mother → fills Father (her father) + Spouse (her spouse). Select Father → fills Mother (his wife).</span>
-    </div>
     <div class="toolbar">
       <button id="addRowBtn" class="btn btn-primary">➕ Add New Member</button>
       <div>
@@ -150,30 +360,75 @@
     </div>
     <div class="table-wrapper">
       <table class="data-table" id="familyTable">
-        <thead><tr><th>Name</th><th>Father</th><th>Mother</th><th>Spouse</th><th>Gen</th><th>Gender</th><th>Details</th><th></th></tr></thead>
+        <thead id="tableHeader">
+          <tr>
+            <th id="thName">Name</th>
+            <th id="thFather">Father</th>
+            <th id="thMother">Mother</th>
+            <th id="thSpouse">Spouse</th>
+            <th id="thGen">Gen</th>
+            <th id="thGender">Gender</th>
+            <th id="thDetail">Details</th>
+            <th></th>
+          </tr>
+        </thead>
         <tbody id="tableBody"></tbody>
-    
+      </table>
     </div>
   </div>
 </div>
 
+<!-- EXTERNAL JS FILE - KEPT INTACT -->
 <script src="13-family-data.js"></script>
+
 <script>
-  let mainData = [];
-  let rows = [];
-  let currentLang = 'en';
+  // ======================== GLOBAL STATE ========================
+  let mainData = [];        // loaded from external FAMILY_DATA
+  let rows = [];            // editable rows
+  let currentLang = 'en';   // 'en' or 'ur'
   let familyFather = "";
   let familyMother = "";
 
+  // Header translations (English and Urdu)
+  const headerTranslations = {
+    en: {
+      name: 'Name',
+      father: 'Father',
+      mother: 'Mother',
+      spouse: 'Spouse',
+      gen: 'Gen',
+      gender: 'Gender',
+      detail: 'Details'
+    },
+    ur: {
+      name: 'نام',
+      father: 'والد',
+      mother: 'والدہ',
+      spouse: 'شریک حیات',
+      gen: 'نسل',
+      gender: 'جنس',
+      detail: 'تفصیلات'
+    }
+  };
+
+  // Helper functions
   function generateId() { return Date.now() + '-' + Math.random().toString(36).substring(2, 10); }
   function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'); }); }
 
+  // Load external family data
   function loadMainData() {
-    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) {
+    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA && FAMILY_DATA.length) {
       mainData = FAMILY_DATA.map(p => ({
         name: p.name, father: p.father || "", mother: p.mother || "", spouse: p.spouse || "",
         gen: p.gen || "", gender: p.gender === "MALE" ? "Male" : "Female", detail: p.details || ""
       }));
+    } else {
+      // Fallback demo data if external file missing
+      mainData = [
+        { name: "Syed Rizvi", father: "", mother: "", spouse: "Mrs. Rizvi", gen: "G-001", gender: "Male", detail: "Founder" },
+        { name: "Ahmed Rizvi", father: "Syed Rizvi", mother: "Mrs. Rizvi", spouse: "Fatima", gen: "G-002-S1", gender: "Male", detail: "" },
+        { name: "Zara Rizvi", father: "Syed Rizvi", mother: "Mrs. Rizvi", spouse: "", gen: "G-002-D1", gender: "Female", detail: "" }
+      ];
     }
   }
 
@@ -227,116 +482,137 @@
     };
   }
 
-  let activePanel = null;
-  function closePanel() { if (activePanel && activePanel.parentNode) { activePanel.parentNode.removeChild(activePanel); } activePanel = null; }
+  // ======================== MOBILE DROPDOWN (BOTTOM SHEET) ========================
+  let activeMobilePanel = null;
+  function closeMobileDropdown() {
+    if (activeMobilePanel && activeMobilePanel.parentNode) {
+      activeMobilePanel.parentNode.removeChild(activeMobilePanel);
+    }
+    activeMobilePanel = null;
+  }
 
-  function updateFamily(selected, isFatherField) {
-    let firstRow = rows[0];
-    if (isFatherField) {
-      firstRow.father = selected.name;
-      firstRow.mother = getSpouse(selected.name);
-      firstRow.spouse = "";
+function updateFamily(selected, isFatherField) {
+  let firstRow = rows[0];
+  if (isFatherField) {
+    firstRow.father = selected.name;
+    firstRow.mother = getSpouse(selected.name);
+    firstRow.spouse = "";
+  } else {
+    firstRow.mother = selected.name;
+    firstRow.father = getSpouse(selected.name);  // Changed: get spouse instead of father
+    firstRow.spouse = "";                         // Changed: clear spouse
+  }
+  firstRow._fatherEn = firstRow.father;
+  firstRow._motherEn = firstRow.mother;
+  firstRow._spouseEn = firstRow.spouse;
+  if (firstRow.father) firstRow.gen = generateGen(firstRow.father, firstRow.gender);
+  familyFather = firstRow.father;
+  familyMother = firstRow.mother;
+  for (let i = 1; i < rows.length; i++) {
+    rows[i].father = familyFather;
+    rows[i].mother = familyMother;
+    rows[i]._fatherEn = familyFather;
+    rows[i]._motherEn = familyMother;
+    if (familyFather) rows[i].gen = generateGen(familyFather, rows[i].gender);
+  }
+  renderTable();
+}
+
+
+  function openMobileDropdown(isFatherField) {
+    if (activeMobilePanel) closeMobileDropdown();
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-dropdown-overlay';
+    const panelDiv = document.createElement('div');
+    panelDiv.className = 'mobile-dropdown-panel';
+    const header = document.createElement('div');
+    header.className = 'dropdown-header';
+    header.innerHTML = `<span>${isFatherField ? (currentLang === 'en' ? '👨 Select Father' : '👨 انتخاب والد') : (currentLang === 'en' ? '👩 Select Mother' : '👩 انتخاب والدہ')}</span>
+                        <button class="close-dropdown">✕</button>`;
+    panelDiv.appendChild(header);
+    const searchDiv = document.createElement('div');
+    searchDiv.className = 'dropdown-search-mobile';
+    const searchInput = document.createElement('input');
+    searchInput.type = 'search';
+    searchInput.placeholder = currentLang === 'en' ? '🔍 Search name...' : '🔍 نام تلاش کریں...';
+    searchDiv.appendChild(searchInput);
+    panelDiv.appendChild(searchDiv);
+    const listContainer = document.createElement('div');
+    listContainer.className = 'dropdown-list';
+    panelDiv.appendChild(listContainer);
+    overlay.appendChild(panelDiv);
+    document.body.appendChild(overlay);
+    activeMobilePanel = overlay;
+
+    function renderOptions(filterText = '') {
+      listContainer.innerHTML = '';
+      let filtered = getAllNames();
+      if (filterText.trim()) filtered = filtered.filter(n => n.toLowerCase().includes(filterText.toLowerCase()));
+      if (filtered.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'mobile-option';
+        emptyMsg.style.color = 'gray';
+        emptyMsg.innerHTML = '<div class="option-name">❌ کوئی نتیجہ نہیں</div>';
+        listContainer.appendChild(emptyMsg);
+        return;
+      }
+      for (let name of filtered) {
+        const person = findPerson(name);
+        if (!person) continue;
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'mobile-option';
+        const icon = person.gender === 'Male' ? '👨' : '👩';
+        const parentLine = getParentDisplay(person);
+        optionDiv.innerHTML = `
+          <div class="option-name">${icon} <strong>${escapeHtml(person.name)}</strong> ${person.gen ? '(' + person.gen + ')' : ''}</div>
+          ${parentLine ? `<div class="option-parent">${escapeHtml(parentLine)}</div>` : ''}
+        `;
+        optionDiv.onclick = () => { updateFamily(person, isFatherField); closeMobileDropdown(); };
+        listContainer.appendChild(optionDiv);
+      }
+    }
+    renderOptions('');
+    searchInput.oninput = (e) => renderOptions(e.target.value);
+    header.querySelector('.close-dropdown').onclick = () => closeMobileDropdown();
+    overlay.onclick = (e) => { if (e.target === overlay) closeMobileDropdown(); };
+  }
+
+function attachMobileDropdown(cellElement, currentVal, isFatherField) {
+  cellElement.innerHTML = '';
+  const wrapper = document.createElement('div');
+  wrapper.style.position = 'relative';
+  wrapper.style.width = '100%';
+  const triggerBtn = document.createElement('button');
+  triggerBtn.style.width = '100%';
+  triggerBtn.style.padding = '10px 12px';
+  triggerBtn.style.background = 'white';
+  triggerBtn.style.border = '1px solid #cfdfe8';
+  triggerBtn.style.borderRadius = '12px';
+  triggerBtn.style.fontSize = '0.85rem';
+  triggerBtn.style.textAlign = 'left';
+  triggerBtn.style.cursor = 'pointer';
+  triggerBtn.style.fontFamily = 'inherit';
+  triggerBtn.style.display = 'flex';
+  triggerBtn.style.justifyContent = 'space-between';
+  triggerBtn.style.alignItems = 'center';
+  
+  // FIXED: Show correct language text
+  let displayText = currentVal;
+  if (!displayText) {
+    if (currentLang === 'en') {
+      displayText = isFatherField ? '▼ Select Father' : '▼ Select Mother';
     } else {
-      firstRow.mother = selected.name;
-      firstRow.father = getFather(selected.name);
-      firstRow.spouse = getSpouse(selected.name);
+      displayText = isFatherField ? '▼ منتخب کریں' : '▼ منتخب کریں';
     }
-    firstRow._fatherEn = firstRow.father;
-    firstRow._motherEn = firstRow.mother;
-    firstRow._spouseEn = firstRow.spouse;
-    if (firstRow.father) firstRow.gen = generateGen(firstRow.father, firstRow.gender);
-    familyFather = firstRow.father;
-    familyMother = firstRow.mother;
-    for (let i = 1; i < rows.length; i++) {
-      rows[i].father = familyFather;
-      rows[i].mother = familyMother;
-      rows[i]._fatherEn = familyFather;
-      rows[i]._motherEn = familyMother;
-      if (familyFather) rows[i].gen = generateGen(familyFather, rows[i].gender);
-    }
-    renderTable();
   }
+  
+  triggerBtn.innerHTML = `<span>${escapeHtml(displayText)}</span> <span style="color:#2a7f49;">▼</span>`;
+  wrapper.appendChild(triggerBtn);
+  cellElement.appendChild(wrapper);
+  triggerBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openMobileDropdown(isFatherField); };
+}
 
-  function createDropdown(cell, currentVal, isFatherField) {
-    cell.innerHTML = '';
-    let wrapper = document.createElement('div');
-    wrapper.className = 'dropdown-wrapper';
-    let btn = document.createElement('button');
-    btn.className = 'dropdown-trigger';
-    btn.textContent = currentVal || '▼ Select';
-    let arrow = document.createElement('span');
-    arrow.className = 'dropdown-arrow';
-    arrow.textContent = '▼';
-    wrapper.appendChild(btn);
-    wrapper.appendChild(arrow);
-    
-    btn.onclick = function(e) {
-      e.stopPropagation();
-      if (activePanel) { closePanel(); return; }
-      
-      let panel = document.createElement('div');
-      panel.className = 'dropdown-panel';
-      activePanel = panel;
-      
-      let searchDiv = document.createElement('div');
-      searchDiv.className = 'dropdown-search-box';
-      let searchInput = document.createElement('input');
-      searchInput.placeholder = '🔍 Search name...';
-      searchDiv.appendChild(searchInput);
-      panel.appendChild(searchDiv);
-      
-      function renderList(filter) {
-        let old = panel.querySelectorAll('.dropdown-option');
-        old.forEach(el => el.remove());
-        let filtered = getAllNames();
-        if (filter && filter.trim()) filtered = filtered.filter(n => n.toLowerCase().includes(filter.toLowerCase()));
-        if (!filtered.length) {
-          let empty = document.createElement('div');
-          empty.className = 'dropdown-option';
-          empty.textContent = 'No matches';
-          empty.style.color = 'gray';
-          panel.appendChild(empty);
-          return;
-        }
-        for (let name of filtered) {
-          let person = findPerson(name);
-          if (!person) continue;
-          let opt = document.createElement('div');
-          opt.className = 'dropdown-option';
-          let icon = person.gender === 'Male' ? '👨' : '👩';
-          let parentLine = getParentDisplay(person);
-          opt.innerHTML = '<div class="dropdown-option-name">' + icon + ' <strong>' + escapeHtml(person.name) + '</strong> ' + (person.gen ? '(' + person.gen + ')' : '') + '</div>' +
-            (parentLine ? '<div class="dropdown-option-parent">' + escapeHtml(parentLine) + '</div>' : '');
-          opt.onclick = function() { updateFamily(person, isFatherField); closePanel(); };
-          panel.appendChild(opt);
-        }
-      }
-      
-      renderList('');
-      
-      searchInput.onclick = function(e) { e.stopPropagation(); };
-      searchInput.oninput = function() { renderList(this.value); };
-      
-      document.body.appendChild(panel);
-      let rect = btn.getBoundingClientRect();
-      panel.style.position = 'fixed';
-      panel.style.top = (rect.bottom + window.scrollY) + 'px';
-      panel.style.left = rect.left + 'px';
-      panel.style.width = '400px';
-      panel.classList.add('open');
-      
-      function outsideClick(ev) {
-        if (!wrapper.contains(ev.target) && activePanel && !activePanel.contains(ev.target)) {
-          closePanel();
-          document.removeEventListener('click', outsideClick);
-        }
-      }
-      setTimeout(() => document.addEventListener('click', outsideClick), 100);
-    };
-    
-    cell.appendChild(wrapper);
-  }
-
+  // ======================== DATA OPERATIONS ========================
   function onEdit(row, field, val) {
     if (field === 'name') row.name = val;
     if (field === 'spouse') row.spouse = val;
@@ -358,7 +634,7 @@
     if (familyFather) newRow.gen = generateGen(familyFather, newRow.gender);
     rows.push(newRow);
     renderTable();
-    document.querySelector('.table-wrapper').scrollTop = 1e9;
+    setTimeout(() => { const wrapper = document.querySelector('.table-wrapper'); if (wrapper) wrapper.scrollTop = wrapper.scrollHeight; }, 50);
   }
 
   function deleteRow(idx) {
@@ -372,34 +648,21 @@
     renderTable();
   }
 
-
-
-
-
-async function translateText(text, target) {
-  if (!text) return text;
-  try {
-    // Using Google Translate's free endpoint
-    let res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${target}&dt=t&q=${encodeURIComponent(text)}`);
-    let data = await res.json();
-    if (data && data[0]) {
-      // Extract translated text from Google's response format
-      let translated = data[0].map(item => item[0]).join('');
-      return translated;
-    }
-    return text;
-  } catch(e) {
-    console.error("Translation error:", e);
-    return text;
+  // ======================== TRANSLATION (Google Translate API) ========================
+  async function translateText(text, target) {
+    if (!text) return text;
+    try {
+      const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${target}&dt=t&q=${encodeURIComponent(text)}`);
+      const data = await res.json();
+      if (data && data[0]) return data[0].map(item => item[0]).join('');
+      return text;
+    } catch(e) { return text; }
   }
-}
-
-
-
 
   async function translateAll(target) {
-    let status = document.getElementById('translationStatus');
-    status.innerHTML = '⏳ Translating...';
+    const statusSpan = document.getElementById('onlineStatus');
+    const originalText = statusSpan.innerText;
+    statusSpan.innerText = 'Translating...';
     for (let row of rows) {
       if (row._nameEn === undefined) row._nameEn = row.name || "";
       if (row._fatherEn === undefined) row._fatherEn = row.father || "";
@@ -421,61 +684,78 @@ async function translateText(text, target) {
       }
     }
     currentLang = target;
+    // Update table headers
+    document.getElementById('thName').innerText = headerTranslations[target].name;
+    document.getElementById('thFather').innerText = headerTranslations[target].father;
+    document.getElementById('thMother').innerText = headerTranslations[target].mother;
+    document.getElementById('thSpouse').innerText = headerTranslations[target].spouse;
+    document.getElementById('thGen').innerText = headerTranslations[target].gen;
+    document.getElementById('thGender').innerText = headerTranslations[target].gender;
+    document.getElementById('thDetail').innerText = headerTranslations[target].detail;
     renderTable();
-    status.innerHTML = target === 'en' ? '● English' : '● اردو';
+    statusSpan.innerText = originalText;
   }
 
+  // ======================== RENDER TABLE ========================
   function renderTable() {
-    let tbody = document.getElementById('tableBody');
+    const tbody = document.getElementById('tableBody');
     tbody.innerHTML = '';
     for (let i = 0; i < rows.length; i++) {
-      let m = rows[i];
-      let isFirst = (i === 0);
-      let tr = tbody.insertRow();
-      let tdName = tr.insertCell(0);
-      let nameInp = document.createElement('input');
+      const m = rows[i];
+      const isFirst = (i === 0);
+      const tr = tbody.insertRow();
+      // Name
+      const tdName = tr.insertCell(0);
+      const nameInp = document.createElement('input');
       nameInp.value = m.name || '';
       nameInp.placeholder = currentLang === 'en' ? 'Name' : 'نام';
-      nameInp.onchange = (function(r) { return function(e) { onEdit(r, 'name', e.target.value); }; })(m);
+      nameInp.onchange = ((r) => (e) => onEdit(r, 'name', e.target.value))(m);
       tdName.appendChild(nameInp);
-      let tdFather = tr.insertCell(1);
-      if (isFirst) { createDropdown(tdFather, m.father, true); }
-      else { let inp = document.createElement('input'); inp.value = m.father || ''; inp.readOnly = true; inp.style.background = '#f5f7fa'; tdFather.appendChild(inp); }
-      let tdMother = tr.insertCell(2);
-      if (isFirst) { createDropdown(tdMother, m.mother, false); }
-      else { let inp = document.createElement('input'); inp.value = m.mother || ''; inp.readOnly = true; inp.style.background = '#f5f7fa'; tdMother.appendChild(inp); }
-      let tdSpouse = tr.insertCell(3);
-      let spouseInp = document.createElement('input');
+      // Father
+      const tdFather = tr.insertCell(1);
+      if (isFirst) attachMobileDropdown(tdFather, m.father, true);
+      else { const inp = document.createElement('input'); inp.value = m.father || ''; inp.readOnly = true; inp.style.background = '#f5f7fa'; tdFather.appendChild(inp); }
+      // Mother
+      const tdMother = tr.insertCell(2);
+      if (isFirst) attachMobileDropdown(tdMother, m.mother, false);
+      else { const inp = document.createElement('input'); inp.value = m.mother || ''; inp.readOnly = true; inp.style.background = '#f5f7fa'; tdMother.appendChild(inp); }
+      // Spouse
+      const tdSpouse = tr.insertCell(3);
+      const spouseInp = document.createElement('input');
       spouseInp.value = m.spouse || '';
       spouseInp.placeholder = currentLang === 'en' ? 'Spouse' : 'شریک حیات';
-      spouseInp.onchange = (function(r) { return function(e) { onEdit(r, 'spouse', e.target.value); }; })(m);
+      spouseInp.onchange = ((r) => (e) => onEdit(r, 'spouse', e.target.value))(m);
       tdSpouse.appendChild(spouseInp);
-      let tdGen = tr.insertCell(4);
-      let genInp = document.createElement('input');
+      // Gen
+      const tdGen = tr.insertCell(4);
+      const genInp = document.createElement('input');
       genInp.value = m.gen || '';
       genInp.readOnly = true;
       genInp.style.background = '#f5f7fa';
       genInp.style.fontWeight = 'bold';
       tdGen.appendChild(genInp);
-      let tdGender = tr.insertCell(5);
-      let sel = document.createElement('select');
-      let optM = document.createElement('option'); optM.value = 'Male'; optM.text = '👨 Male';
-      let optF = document.createElement('option'); optF.value = 'Female'; optF.text = '👩 Female';
+      // Gender
+      const tdGender = tr.insertCell(5);
+      const sel = document.createElement('select');
+      const optM = document.createElement('option'); optM.value = 'Male'; optM.text = currentLang === 'en' ? '👨 Male' : '👨 مرد';
+      const optF = document.createElement('option'); optF.value = 'Female'; optF.text = currentLang === 'en' ? '👩 Female' : '👩 عورت';
       sel.appendChild(optM); sel.appendChild(optF);
       sel.value = m.gender;
-      sel.onchange = (function(r) { return function(e) { changeGender(r, e.target.value); }; })(m);
+      sel.onchange = ((r) => (e) => changeGender(r, e.target.value))(m);
       tdGender.appendChild(sel);
-      let tdDetail = tr.insertCell(6);
-      let detailInp = document.createElement('input');
+      // Detail
+      const tdDetail = tr.insertCell(6);
+      const detailInp = document.createElement('input');
       detailInp.value = m.detail || '';
       detailInp.placeholder = currentLang === 'en' ? 'Details' : 'تفصیلات';
-      detailInp.onchange = (function(r) { return function(e) { onEdit(r, 'detail', e.target.value); }; })(m);
+      detailInp.onchange = ((r) => (e) => onEdit(r, 'detail', e.target.value))(m);
       tdDetail.appendChild(detailInp);
-      let tdAction = tr.insertCell(7);
-      let delBtn = document.createElement('button');
+      // Delete
+      const tdAction = tr.insertCell(7);
+      const delBtn = document.createElement('button');
       delBtn.innerHTML = '🗑️';
       delBtn.className = 'delete-btn';
-      delBtn.onclick = (function(idx) { return function() { deleteRow(idx); }; })(i);
+      delBtn.onclick = ((idx) => () => deleteRow(idx))(i);
       tdAction.appendChild(delBtn);
     }
     document.getElementById('rowCount').innerHTML = rows.length + ' members';
@@ -488,19 +768,31 @@ async function translateText(text, target) {
     navigator.clipboard.writeText(txt).then(() => alert('Copied!')).catch(() => alert('Press Ctrl+C'));
   }
 
-  document.getElementById('addRowBtn').onclick = addMember;
-  document.getElementById('copyBtn').onclick = copyTable;
-  document.getElementById('langSelect').onchange = function(e) { translateAll(e.target.value); };
-
+  // ======================== INITIALIZATION ========================
   function init() {
     loadMainData();
     rows = [createEmptyRow(false)];
     familyFather = "";
     familyMother = "";
     currentLang = 'en';
-    document.getElementById('langSelect').value = 'en';
+    document.getElementById('thName').innerText = 'Name';
+    document.getElementById('thFather').innerText = 'Father';
+    document.getElementById('thMother').innerText = 'Mother';
+    document.getElementById('thSpouse').innerText = 'Spouse';
+    document.getElementById('thGen').innerText = 'Gen';
+    document.getElementById('thGender').innerText = 'Gender';
+    document.getElementById('thDetail').innerText = 'Details';
     renderTable();
+    // Set online green dot active
+    const dot = document.querySelector('.online-dot');
+    if (dot) dot.style.backgroundColor = '#2ecc71';
+    document.getElementById('onlineStatus').innerText = 'Online';
   }
+
+  document.getElementById('addRowBtn').onclick = addMember;
+  document.getElementById('copyBtn').onclick = copyTable;
+  document.getElementById('btnEnglish').onclick = () => { translateAll('en'); document.getElementById('btnEnglish').classList.add('active'); document.getElementById('btnUrdu').classList.remove('active'); };
+  document.getElementById('btnUrdu').onclick = () => { translateAll('ur'); document.getElementById('btnUrdu').classList.add('active'); document.getElementById('btnEnglish').classList.remove('active'); };
   init();
 </script>
 </body>

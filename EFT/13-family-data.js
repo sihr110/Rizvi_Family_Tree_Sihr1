@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/08/2026 22:35
+// Saved: 06/11/2026 19:00
 // Total members: 568
 
 const FAMILY_DATA = [
@@ -356,7 +356,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Hakeema",
+    name: "Syeda Hakeema -01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -599,7 +599,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Hakimah",
+    name: "Syeda Hakeema -02",
     father: "Imam Mohd Taqi (AS)",
     mother: "",
     spouse: "",
@@ -3962,7 +3962,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Talat:\\n\\nS1: Syed Faizan Zaidi \\nS2: Syed Salman Zaidi \\nD1:Syeda Fatima"
   },
   {
     name: "Syeda Yasmeen",
@@ -3971,7 +3971,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Yasmeen:\\n\\nS1: Syed Murtaza Zaidi \\nD1: Syeda Feddak Zaidi"
   },
   {
     name: "Syeda Sha Tara (Paro)",
@@ -3980,7 +3980,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-040-D3",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Sha Tara:\\n\\nS1: Syed Saadi Zaidi \\nS2: Syed Faizi Zaidi \\nD1: Syeda Geti ara Zaidi"
   },
   {
     name: "Syeda Sifat",
@@ -3989,7 +3989,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-040-D4",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Sifat:\\n\\nS1: Syed Mohammad Ali Kazmi\\nD1: Syeda Saman Kazmi"
   },
   {
     name: "Syed Muhmmad Raza",
@@ -5120,8 +5120,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/08/2026 22:35", 
+    saved_time: "06/11/2026 19:00", 
     total_members: 568,
-    details_count: 61,
+    details_count: 65,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

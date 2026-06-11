@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/8/26 23:55
+// Saved: 6/11/26 19:00
 // Total members: 568
 
 const FAMILY_DATA_URDU = [
@@ -356,7 +356,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ حکیمہ",
+    name: "سیدہ حکیمہ - 01",
     father: "امام موسیٰ کاظم (ع)",
     mother: "",
     spouse: "",
@@ -599,7 +599,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ حکیمہ",
+    name: "سیدہ حکیمہ -02",
     father: "امام محمد تقی (ع)",
     mother: "",
     spouse: "",
@@ -3962,7 +3962,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ طلعت کی اولاد: \\n\\nS1: سید فیضان زیدی \\nS2: سید سلمان زیدی \\nD1: سیدہ فاطمہ"
   },
   {
     name: "سیدہ یاسمین",
@@ -3971,7 +3971,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ یاسمین کی اولاد: \\n\\nS1: سید مرتضیٰ زیدی \\nD1: سیدہ فدک زیدی"
   },
   {
     name: "سیدہ شاہ تارا (پارو)",
@@ -3980,7 +3980,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-040-D3",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ شاہ تارہ کی اولاد: \\n\\nS1: سید سعدی زیدی \\nS2: سید فیضی زیدی \\nD1: سیدہ گیتی آرا زیدی"
   },
   {
     name: "سیدہ صفت",
@@ -3989,7 +3989,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-040-D4",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ صفت کی اولاد:\\n\\nS1: سید محمد علی کاظمی \\nD1: سیدہ سامان کاظمی"
   },
   {
     name: "سید محمد رضا",
@@ -5120,8 +5120,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/8/26 23:55", 
+    saved_time: "6/11/26 19:00", 
     total_members: 568,
-    details_count: 61,
+    details_count: 65,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

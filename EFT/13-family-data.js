@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/11/2026 19:00
+// Saved: 06/12/2026 20:47
 // Total members: 568
 
 const FAMILY_DATA = [
@@ -1523,7 +1523,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Qudsia Sultana (Begum)",
     gen: "G-037-S2",
     gender: "MALE",
-    details: "Syed Aley Haider married Syeda Qudsia+ both Root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
+    details: "Syed Aley Haider married Syeda Qudsia+ Their both root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
   },
   {
     name: "Syeda Tauqeer Fatima",
@@ -1559,7 +1559,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Rozi Rizvi",
     gen: "G-038-S1",
     gender: "MALE",
-    details: "Syed Arshad married Syeda Rozi+ both Root is Syed Measum Ali - G-033-S1"
+    details: "Syed Arshad married Syeda Rozi+ Their both root is Syed Measum Ali - G-033-S1"
   },
   {
     name: "Syeda Shaheen Sultana",
@@ -1721,7 +1721,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Izhar Fatima Rizvi (Chandni)",
     gen: "G-037-S1",
     gender: "MALE",
-    details: "Syed Ali Ibad married Syeda Izhar Fatima (Chandni)+ both Root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
+    details: "Syed Ali Ibad married Syeda Izhar Fatima (Chandni)+ Their both root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
   },
   {
     name: "Syed Ali Sajjad",
@@ -1802,7 +1802,7 @@ const FAMILY_DATA = [
     spouse: "Syed Mohammad Arshad Rizvi",
     gen: "G-038-D3",
     gender: "FEMALE",
-    details: "Syeda Rozi married Syed Arshad+ both Root is Syed Measum Ali - G-033-S1"
+    details: "Syeda Rozi married Syed Arshad+ Their both root is Syed Measum Ali - G-033-S1"
   },
   {
     name: "Syeda Saba",
@@ -2333,7 +2333,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Masoom Fatima Rizvi",
     gen: "G-040-S1",
     gender: "MALE",
-    details: "Naseem married Masoom - Khala Zad + both Root is Syed Nawab Ali - G-037-S1"
+    details: "Syed Naseem married Syeda Masoom - Khala Zad + Their both root is Syed Nawab Ali - G-037-S1"
   },
   {
     name: "Syed Dilawar Abbas (Aleem)",
@@ -2387,7 +2387,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Marukh Zehra Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: "Syed Salman married Syeda Marukh daugher of Mamoo Syed Baqir Rizvi - Both Root is Syed Nawab Ali - G-037-S1"
+    details: "Syed Salman married Syeda Marukh daugher of Mamoo Syed Baqir Rizvi - Their both root is Syed Nawab Ali - G-037-S1"
   },
   {
     name: "Syeda Huma Zehra",
@@ -2495,7 +2495,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Fizza Zehra Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: "Syed Faizan married Syed Fizza daugher of Chacha Syeda Manzar + both Root is Syed Ali Abbas - G-039-S1"
+    details: "Syed Faizan married Syed Fizza daugher of Chacha Syeda Manzar + Their both root is Syed Ali Abbas - G-039-S1"
   },
   {
     name: "Syed Muhammad Abbas -02",
@@ -2594,7 +2594,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Syeda Fizza married Syed Faizan son of Taya - Syed Dilawar (Aleem) + both Root is Syed Ali Abbas - G-039-S1"
+    details: "Syeda Fizza married Syed Faizan son of Taya - Syed Dilawar (Aleem) + Their both root is Syed Ali Abbas - G-039-S1"
   },
   {
     name: "Syeda Fariya Zehra",
@@ -2648,7 +2648,7 @@ const FAMILY_DATA = [
     spouse: "Syed Wiladat Hussain Rizvi",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: "Syeda Tanveer married Syed Wiladat + both Root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syeda Tanveer married Syed Wiladat + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syeda Tafseer Fatima -02",
@@ -2684,7 +2684,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Batool Zafar Hyder Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: "Syed Mudasir married Syeda Batool (Phopi Syeda Tanveer ki pooti ) + both Root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syed Mudasir married Syeda Batool (Phopi Syeda Tanveer ki pooti ) + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Muzzammil Haider",
@@ -2720,7 +2720,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Syeda Sabeen married Syed Najaf (Phopi Syeda Tanveer's son ) + both Root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syeda Sabeen married Syed Najaf (Phopi Syeda Tanveer's son ) + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Irfan",
@@ -2810,7 +2810,7 @@ const FAMILY_DATA = [
     spouse: "Nargis Fatima",
     gen: "G-041-S1",
     gender: "MALE",
-    details: "Syed Jawaid ko uss k walid k doo mamoo zad  - Syed Abbas (Kaban) aur un ki wife (doosey mamoo ki beti) Syeda Razia ney godh lay liya tha\\n(Bachan, Kaban & Razia) + Root Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syed Jawaid was adopted by his father cousins (walid k doo mamoo zad)  - Syed Abbas (Kaban) and his wife (doosey mamoo ki beti) Syeda Razia\\n(Bachan, Kaban & Razia) + Their root Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Atta Abbas",
@@ -2873,7 +2873,7 @@ const FAMILY_DATA = [
     spouse: "Syed Hassan Abbas (Naseem)",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: "Syeda Masoom married Syed Naseem - Khala Zad + both Root is Syed Nawab Ali - G-037-S1"
+    details: "Syeda Masoom married Syed Naseem - Khala Zad + Their both root is Syed Nawab Ali - G-037-S1"
   },
   {
     name: "Syeda Naseer Fatima",
@@ -2981,7 +2981,7 @@ const FAMILY_DATA = [
     spouse: "Syed Aley Haider Rizvi",
     gen: "G-040-S2",
     gender: "FEMALE",
-    details: "Syeda Qudsia married Syed Aley Haider + both Root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
+    details: "Syeda Qudsia married Syed Aley Haider + Their both root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
   },
   {
     name: "Syeda Kishwar Jahan",
@@ -3197,7 +3197,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Tasneem Fatima Rizvi (Tas so)",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Syed Izhar married Syeda Tasneem, Chacha Syed Shahid's daugher - both Root is Syed Ayyub ul Hasan - G-038-S1"
+    details: "Syed Izhar married Syeda Tasneem, Chacha Syed Shahid's daugher - Their both root is Syed Ayyub ul Hasan - G-038-S1"
   },
   {
     name: "Syed Naseer Ul Hasan",
@@ -3215,7 +3215,7 @@ const FAMILY_DATA = [
     spouse: "Syed Muhammad Azhar Rizvi",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: "Syeda Malka married Syed Azhar, Chacha Syed Shahid's son - both Root is Syed Ayyub ul Hasan - G-038-S1"
+    details: "Syeda Malka married Syed Azhar, Chacha Syed Shahid's son - Their both root is Syed Ayyub ul Hasan - G-038-S1"
   },
   {
     name: "Syed Abu Talib - 02",
@@ -3269,7 +3269,7 @@ const FAMILY_DATA = [
     spouse: "Syed Raza Haider Rizvi",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Syeda Sarwat married Syed Raza + both Root is Syed Khoob Ullah Hussain - G-033-S1"
+    details: "Syeda Sarwat married Syed Raza + Their both root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syeda Nusrat Zehra",
@@ -3311,10 +3311,10 @@ const FAMILY_DATA = [
     name: "Syeda Malika Rizvi",
     father: "Syed Abu Talib - 02",
     mother: "",
-    spouse: "",
+    spouse: "Syed Kumail Raza Rizvi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Syeda Malika Rizvi married Syed Kumail Raza Rizvi + Their both root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syeda Sana Rizvi",
@@ -3341,7 +3341,7 @@ const FAMILY_DATA = [
     spouse: "Syed Muhammad Abbas Haider Rizvi",
     gen: "G-042-D2",
     gender: "FEMALE",
-    details: "Syeda Samana married Syed Abbas, Phophi Syeda Sarwat's son + Root is Syed Khoob Ullah Hussain - G-033-S1"
+    details: "Syeda Samana married Syed Abbas, Phophi Syeda Sarwat's son + Their both root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syed Askari Rizvi",
@@ -3458,7 +3458,7 @@ const FAMILY_DATA = [
     spouse: "Syed Farhat Mehdi Zaidi",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Children of Syeda Qurat ul Aian Tahira (Pappi):\\n\\nS1: Syed Muhammad Ali Mehdi Zaidi\\nS2:  Syed M. Shujah Mehdi Zaidi\\nS3: Syed Muhammad zaki Mehdi \\nS4:  Syed Muhammad Kumail Mehdi Zaidi\\nS5:  Syed Muhammad Taqi Mehdi Zaidi"
+    details: "Children of Syeda Qurat ul Aian Tahira (Pappi):\\n\\nS1: Syed Muhammad Ali Mehdi Zaidi\\nS2:  Syed M. Shujah Mehdi Zaidi\\nS3: Syed Muhammad Zaki Mehdi \\nS4:  Syed Muhammad Kumail Mehdi Zaidi\\nS5:  Syed Muhammad Taqi Mehdi Zaidi"
   },
   {
     name: "Syeda Qurat ul Aian Noor (Munni)",
@@ -3485,7 +3485,7 @@ const FAMILY_DATA = [
     spouse: "Syed Hashim Raza Rizvi",
     gen: "G-041-D5",
     gender: "FEMALE",
-    details: "Syeda Qurat ul Aian Arfa (Kiran)) married Syed Hashim Raza - both Root is Syed Enayat Hussain - G-037-S1"
+    details: "Syeda Qurat ul Aian Arfa (Kiran)) married Syed Hashim Raza - Their both root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syed Haider Ali",
@@ -3629,7 +3629,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Ismat Zehra Rizvi (Malka)",
     gen: "G-040-S1",
     gender: "MALE",
-    details: "Syed Muhammad Azhar married Syeda Ismat Zehra Rizvi (Malka) + both Root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
+    details: "Syed Muhammad Azhar married Syeda Ismat Zehra Rizvi (Malka) + Their both root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
   },
   {
     name: "Syed Muhammad Mazhar",
@@ -3665,7 +3665,7 @@ const FAMILY_DATA = [
     spouse: "Syed Izhar Ul Hasan Rizvi",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: "SyedaTasneem married Taya Tafasul's son  Syed Izhar - both Root is Syed Ayyub ul Hasan - G-03"
+    details: "SyedaTasneem married Taya Tafasul's son  Syed Izhar - Their both root is Syed Ayyub ul Hasan - G-03"
   },
   {
     name: "Syeda Shakeel Fatima (Shak ko)",
@@ -3944,7 +3944,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Huma Batool Rizvi",
     gen: "G-040-S1",
     gender: "MALE",
-    details: "Syed Shakeel Raza married chacha Syed Shams Ul Hassan's daughter, Syeda Huma Batool Rizvi - both Root is Syed Yaqoob Ul Hasan - G-038-S2"
+    details: "Syed Shakeel Raza married chacha Syed Shams Ul Hassan's daughter, Syeda Huma Batool Rizvi - Their both root is Syed Yaqoob Ul Hasan - G-038-S2"
   },
   {
     name: "Syed Aqleem Raza",
@@ -4007,7 +4007,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Qurat ul Aian Arfa Rizvi (Kiran)",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Syed Hashim Raza married Syeda Qurat ul Aian Arfa (Kiran) - both Root is Syed Enayat Hussain - G-037-S1"
+    details: "Syed Hashim Raza married Syeda Qurat ul Aian Arfa (Kiran) - Their both root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Syeda Zehra Faraz (Seema Batool)",
@@ -4025,7 +4025,7 @@ const FAMILY_DATA = [
     spouse: "Syed Shakeel Raza Rizvi",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: "Syeda Huma Batool married taya Syed Mohammad Nayar k betey, Syed Shakeel Raza Rizvi  - both Root is Syed Yaqoob Ul Hasan - G-038-S2"
+    details: "Syeda Huma Batool married taya Syed Mohammad Nayar k betey, Syed Shakeel Raza Rizvi  - Their both root is Syed Yaqoob Ul Hasan - G-038-S2"
   },
   {
     name: "Syed Mohd Ali",
@@ -4070,7 +4070,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Malika Batool Rizvi",
     gen: "G-041-S1",
     gender: "MALE",
-    details: "Kumail Raza Rizvi married Malika Batool Rizvi daughter of Syed Abutalib Rizvi"
+    details: "Kumail Raza Rizvi married Malika Batool Rizvi + Their both root is Syed Enayat Hussain - G-037-S1"
   },
   {
     name: "Sarah Raza Rizvi",
@@ -4178,7 +4178,7 @@ const FAMILY_DATA = [
     spouse: "Syed Ali Ibad Rizvi",
     gen: "G-039-D1",
     gender: "FEMALE",
-    details: "Syeda Izhar Fatima (Chandni) married Syed Ali Ibad+ both Root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
+    details: "Syeda Izhar Fatima (Chandni) married Syed Ali Ibad+ Their both root is Syed Ibrahim Ibn Ali Raza - G-002-S2"
   },
   {
     name: "Syeda Israr Fatima",
@@ -4376,7 +4376,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Razia Khatoon Rizvi",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Syed Abbas (Kaban) married with his Chacha Syed Ashfaq's daughter Syeda Razia,  + both Root is Syed Shah Hussain - G-038-S1\\n\\nThey had two children - both died in their childhood\\n\\nThey adopted their Phopho Syeda Sabra's grandson (Syed Saeed [Bachan]'s son Syed Jawaid Abbas  G-042-S1 )"
+    details: "Syed Abbas (Kaban) married with his Chacha Syed Ashfaq's daughter Syeda Razia,  + Their both root is Syed Shah Hussain - G-038-S1\\n\\nThey had two children - both died in their childhood\\n\\nThey adopted their Phopho Syeda Sabra's grandson (Syed Saeed [Bachan]'s son Syed Jawaid Abbas  G-042-S1 )"
   },
   {
     name: "Syeda Kubra Khatoon",
@@ -4457,7 +4457,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Tanveer Fatima Rizvi",
     gen: "G-040-S2",
     gender: "MALE",
-    details: "Syed Wiladat married Syeda Tanveer + both Root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syed Wiladat married Syeda Tanveer + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Risalat Hussain",
@@ -4484,7 +4484,7 @@ const FAMILY_DATA = [
     spouse: "Syed Abbas Hussain Rizvi",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: "Syeda Razia married with her Taya Syed Ibrahim's son, Syed Abbas (Kaban) + both Root is Syed Shah Hussain - G-038-S1\\n\\nThey had two children - both died in their childhood\\n\\nThey adopted their Phopho Syeda Sabra's grandson (Syed Saeed [Bachan]'s son Syed Jawaid Abbas  G-042-S1 )"
+    details: "Syeda Razia married with her Taya Syed Ibrahim's son, Syed Abbas (Kaban) + Their both root is Syed Shah Hussain - G-038-S1\\n\\nThey had two children - both died in their childhood\\n\\nThey adopted their Phopho Syeda Sabra's grandson (Syed Saeed [Bachan]'s son Syed Jawaid Abbas  G-042-S1 )"
   },
   {
     name: "Syeda Wajeha",
@@ -4592,7 +4592,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Sabeen Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: "Syed Najaf married with his mamoo Syed Muslim daugher Syeda Sabeen + both Root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syed Najaf married with his mamoo Syed Muslim daugher Syeda Sabeen + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Raza Haider",
@@ -4601,7 +4601,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Sarwat Zehra Rizvi",
     gen: "G-041-S3",
     gender: "MALE",
-    details: "Syed Raza married Syeda Sarwat + both Root is Syed Khoob Ullah Hussain - G-033-S1"
+    details: "Syed Raza married Syeda Sarwat + Their both root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syed Shamim Haider",
@@ -4646,7 +4646,7 @@ const FAMILY_DATA = [
     spouse: "Syed Mudasir Haider Rizvi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "Syeda Batool married (her Walid Syed Zafar's mamoo Syed Muslim's son) Syed Mudasir + both Root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syeda Batool married (her Walid Syed Zafar's mamoo Syed Muslim's son) Syed Mudasir + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syeda Kausar Zafar Hyder",
@@ -4745,7 +4745,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Samana Batool Rizvi",
     gen: "G-042-S2",
     gender: "MALE",
-    details: "Syed Abbas married  (Mamoo  Syeda Abdullah Rizvi's daugher)  Syeda Samana + both  Syed Root is Khoob Ullah Hussain - G-033-S1"
+    details: "Syed Abbas married  (Mamoo  Syeda Abdullah Rizvi's daugher)  Syeda Samana + Their both  root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syed Muhammad Ali Haider",
@@ -5120,8 +5120,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/11/2026 19:00", 
+    saved_time: "06/12/2026 20:47", 
     total_members: 568,
-    details_count: 65,
+    details_count: 66,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

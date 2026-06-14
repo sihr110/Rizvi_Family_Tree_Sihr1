@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/14/2026 12:13
+// Saved: 06/14/2026 19:00
 // Total members: 571
 
 const FAMILY_DATA = [
@@ -3113,7 +3113,7 @@ const FAMILY_DATA = [
     name: "Syed Yaqoob Ul Hasan",
     father: "Syed Enayat Hussain",
     mother: "",
-    spouse: "",
+    spouse: "Syeda Ajaz Fatima Rizvi",
     gen: "G-038-S2",
     gender: "MALE",
     details: ""
@@ -3149,7 +3149,7 @@ const FAMILY_DATA = [
     name: "Syed Tafazul Hussain",
     father: "Syed Ayyub ul Hasan",
     mother: "",
-    spouse: "",
+    spouse: "Syeda Rabab Fatima (Rabban)",
     gen: "G-039-S3",
     gender: "MALE",
     details: ""
@@ -3182,7 +3182,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Zafar Ul Hassan (Shoaib)",
+    name: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     father: "Syed Tafazul Hussain",
     mother: "Syeda Rabab Fatima Rizvi",
     spouse: "",
@@ -3219,7 +3219,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Abu Talib - 02",
-    father: "Syed Zafar Ul Hassan (Shoaib)",
+    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     mother: "",
     spouse: "",
     gen: "G-041-S1",
@@ -3228,7 +3228,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Abdullah - 06",
-    father: "Syed Zafar Ul Hassan (Shoaib)",
+    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     mother: "",
     spouse: "",
     gen: "G-041-S2",
@@ -3237,7 +3237,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Kamal Haider - 02",
-    father: "Syed Zafar Ul Hassan (Shoaib)",
+    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     mother: "",
     spouse: "",
     gen: "G-041-S3",
@@ -3246,7 +3246,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Jamal Haider",
-    father: "Syed Zafar Ul Hassan (Shoaib)",
+    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     mother: "",
     spouse: "",
     gen: "G-041-S4",
@@ -3255,7 +3255,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Ifat Zehra",
-    father: "Syed Zafar Ul Hassan (Shoaib)",
+    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     mother: "",
     spouse: "",
     gen: "G-041-D1",
@@ -3264,7 +3264,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Sarwat Zehra",
-    father: "Syed Zafar Ul Hassan (Shoaib)",
+    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     mother: "",
     spouse: "Syed Raza Haider Rizvi",
     gen: "G-041-D2",
@@ -3273,7 +3273,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Nusrat Zehra",
-    father: "Syed Zafar Ul Hassan (Shoaib)",
+    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
     mother: "",
     spouse: "",
     gen: "G-041-D3",
@@ -3778,7 +3778,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Najam Ul Hasan",
     father: "Syed Yaqoob Ul Hasan",
-    mother: "",
+    mother: "Syeda Ajaz Fatima Rizvi",
     spouse: "",
     gen: "G-039-S1",
     gender: "MALE",
@@ -3787,8 +3787,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Nayar",
     father: "Syed Yaqoob Ul Hasan",
-    mother: "",
-    spouse: "",
+    mother: "Syeda Ajaz Fatima Rizvi",
+    spouse: "Syeda Narjis Begum Rizvi",
     gen: "G-039-S2",
     gender: "MALE",
     details: ""
@@ -3796,7 +3796,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Shams Ul Hassan",
     father: "Syed Yaqoob Ul Hasan",
-    mother: "",
+    mother: "Syeda Ajaz Fatima Rizvi",
     spouse: "",
     gen: "G-039-S3",
     gender: "MALE",
@@ -3805,8 +3805,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Tanveer Ul Hasan",
     father: "Syed Yaqoob Ul Hasan",
-    mother: "",
-    spouse: "",
+    mother: "Syeda Ajaz Fatima Rizvi",
+    spouse: "Syeda Nafeesa Begum Rizvi",
     gen: "G-039-S4",
     gender: "MALE",
     details: ""
@@ -3814,7 +3814,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Shamim Fatima",
     father: "Syed Yaqoob Ul Hasan",
-    mother: "",
+    mother: "Syeda Ajaz Fatima Rizvi",
     spouse: "",
     gen: "G-039-D1",
     gender: "FEMALE",
@@ -3823,7 +3823,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Tanzeem Fatima",
     father: "Syed Yaqoob Ul Hasan",
-    mother: "",
+    mother: "Syeda Ajaz Fatima Rizvi",
     spouse: "",
     gen: "G-039-D2",
     gender: "FEMALE",
@@ -3940,7 +3940,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Shakeel Raza",
     father: "Syed Mohammad Nayar",
-    mother: "",
+    mother: "Syeda Narjis Begum Rizvi",
     spouse: "Syeda Huma Batool Rizvi",
     gen: "G-040-S1",
     gender: "MALE",
@@ -3949,7 +3949,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Aqleem Raza",
     father: "Syed Mohammad Nayar",
-    mother: "",
+    mother: "Syeda Narjis Begum Rizvi",
     spouse: "",
     gen: "G-040-S2",
     gender: "MALE",
@@ -3958,7 +3958,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Talat",
     father: "Syed Mohammad Nayar",
-    mother: "",
+    mother: "Syeda Narjis Begum Rizvi",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
@@ -3967,7 +3967,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Yasmeen",
     father: "Syed Mohammad Nayar",
-    mother: "",
+    mother: "Syeda Narjis Begum Rizvi",
     spouse: "",
     gen: "G-040-D2",
     gender: "FEMALE",
@@ -3976,7 +3976,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Sha Tara (Paro)",
     father: "Syed Mohammad Nayar",
-    mother: "",
+    mother: "Syeda Narjis Begum Rizvi",
     spouse: "",
     gen: "G-040-D3",
     gender: "FEMALE",
@@ -3985,7 +3985,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Sifat",
     father: "Syed Mohammad Nayar",
-    mother: "",
+    mother: "Syeda Narjis Begum Rizvi",
     spouse: "",
     gen: "G-040-D4",
     gender: "FEMALE",
@@ -4030,7 +4030,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohd Ali",
     father: "Syed Tanveer Ul Hasan",
-    mother: "",
+    mother: "Syeda Nafeesa Begum Rizvi",
     spouse: "",
     gen: "G-040-S1",
     gender: "MALE",
@@ -4039,7 +4039,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohd Kamil",
     father: "Syed Tanveer Ul Hasan",
-    mother: "",
+    mother: "Syeda Nafeesa Begum Rizvi",
     spouse: "",
     gen: "G-040-S2",
     gender: "MALE",
@@ -4048,7 +4048,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohd Asim",
     father: "Syed Tanveer Ul Hasan",
-    mother: "",
+    mother: "Syeda Nafeesa Begum Rizvi",
     spouse: "",
     gen: "G-040-S3",
     gender: "MALE",
@@ -4057,7 +4057,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Sumera Fatima",
     father: "Syed Tanveer Ul Hasan",
-    mother: "",
+    mother: "Syeda Nafeesa Begum Rizvi",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
@@ -4238,7 +4238,7 @@ const FAMILY_DATA = [
     name: "Syeda Ajaz Fatima",
     father: "Syed Ansar Hussain - 02",
     mother: "",
-    spouse: "",
+    spouse: "Syed Yaqoob Ul Hasan Rizvi",
     gen: "G-039-D1",
     gender: "FEMALE",
     details: ""
@@ -4256,7 +4256,7 @@ const FAMILY_DATA = [
     name: "Syeda Razia Khatoon",
     father: "Syed Ansar Hussain - 02",
     mother: "",
-    spouse: "",
+    spouse: "Syed Mohammad Azghar Abdi",
     gen: "G-039-D3",
     gender: "FEMALE",
     details: ""
@@ -5147,7 +5147,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/14/2026 12:13", 
+    saved_time: "06/14/2026 19:00", 
     total_members: 571,
     details_count: 66,
     sheets_merged: ["Main","1","2","3","4","5"]

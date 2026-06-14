@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/12/26 19:37
-// Total members: 568
+// Saved: 6/14/26 12:12
+// Total members: 571
 
 const FAMILY_DATA_URDU = [
   {
@@ -3839,7 +3839,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید علی علیٰ",
+    name: "سید علی اعلیٰ",
     father: "سید نجم الحسن",
     mother: "",
     spouse: "",
@@ -4078,6 +4078,33 @@ const FAMILY_DATA_URDU = [
     mother: "سیدہ ہما بتول رضوی",
     spouse: "سید عمار زیدی",
     gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید طارق رضوی",
+    father: "سید اقلیم رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ مائرہ رضوی",
+    father: "سید اقلیم رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ عنایہ رضوی",
+    father: "سید اقلیم رضا",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D2",
     gender: "FEMALE",
     details: ""
   },
@@ -5120,8 +5147,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/12/26 19:37", 
-    total_members: 568,
+    saved_time: "6/14/26 12:12", 
+    total_members: 571,
     details_count: 66,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

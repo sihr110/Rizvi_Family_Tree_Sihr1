@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/12/2026 20:47
-// Total members: 568
+// Saved: 06/14/2026 12:13
+// Total members: 571
 
 const FAMILY_DATA = [
   {
@@ -4016,7 +4016,7 @@ const FAMILY_DATA = [
     spouse: "Syed Ghulam Abbas Zaidi",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Seema Batool:\\n\\nS1: Qammar Abbas Syed\\nS2: Aun Abbas Syed \\nS3: Ghazanfar Abbas Syed"
+    details: "Children of Syeda Seema Batool:\\n\\nS1: Syed Qammar Abbas Zaidi\\nS2: Syed Aun Abbas Syed Zaidi\\nS3: Ghazanfar Abbas Syed"
   },
   {
     name: "Syeda Huma Batool",
@@ -4073,11 +4073,38 @@ const FAMILY_DATA = [
     details: "Kumail Raza Rizvi married Malika Batool Rizvi + Their both root is Syed Enayat Hussain - G-037-S1"
   },
   {
-    name: "Sarah Raza Rizvi",
+    name: "Sarah Raza",
     father: "Syed Shakeel Raza",
     mother: "Syeda Huma Batool Rizvi",
     spouse: "Syed Ammar Zaidi",
     gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Tareq Rizvi",
+    father: "Syed Aqleem Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Myra Rizvi",
+    father: "Syed Aqleem Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Anaya Rizvi",
+    father: "Syed Aqleem Raza",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D2",
     gender: "FEMALE",
     details: ""
   },
@@ -5120,8 +5147,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/12/2026 20:47", 
-    total_members: 568,
+    saved_time: "06/14/2026 12:13", 
+    total_members: 571,
     details_count: 66,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

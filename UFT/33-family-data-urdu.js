@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/14/26 12:12
+// Saved: 6/14/26 19:00
 // Total members: 571
 
 const FAMILY_DATA_URDU = [
@@ -3113,7 +3113,7 @@ const FAMILY_DATA_URDU = [
     name: "سید یعقوب الحسن",
     father: "سید عنایت حسین",
     mother: "",
-    spouse: "",
+    spouse: "سیدہ اعجاز فاطمہ رضوی",
     gen: "G-038-S2",
     gender: "MALE",
     details: ""
@@ -3182,7 +3182,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید ظفر الحسن (شعیب)",
+    name: "سید ظفر الحسن (شعیب / شارب)",
     father: "سید تفصیل حسین",
     mother: "سیدہ رباب فاطمہ رضوی",
     spouse: "",
@@ -3219,7 +3219,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید ابو طالب - 02",
-    father: "سید ظفر الحسن (شعیب)",
+    father: "سید ظفر الحسن (شعیب / شارب)",
     mother: "",
     spouse: "",
     gen: "G-041-S1",
@@ -3228,7 +3228,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید عبداللہ - 06",
-    father: "سید ظفر الحسن (شعیب)",
+    father: "سید ظفر الحسن (شعیب / شارب)",
     mother: "",
     spouse: "",
     gen: "G-041-S2",
@@ -3237,7 +3237,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید کمال حیدر - 02",
-    father: "سید ظفر الحسن (شعیب)",
+    father: "سید ظفر الحسن (شعیب / شارب)",
     mother: "",
     spouse: "",
     gen: "G-041-S3",
@@ -3246,7 +3246,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید جمال حیدر",
-    father: "سید ظفر الحسن (شعیب)",
+    father: "سید ظفر الحسن (شعیب / شارب)",
     mother: "",
     spouse: "",
     gen: "G-041-S4",
@@ -3255,7 +3255,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ عفت زہرا",
-    father: "سید ظفر الحسن (شعیب)",
+    father: "سید ظفر الحسن (شعیب / شارب)",
     mother: "",
     spouse: "",
     gen: "G-041-D1",
@@ -3264,7 +3264,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ ثروت زہرا",
-    father: "سید ظفر الحسن (شعیب)",
+    father: "سید ظفر الحسن (شعیب / شارب)",
     mother: "",
     spouse: "سید رضا حیدر رضوی",
     gen: "G-041-D2",
@@ -3273,7 +3273,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ نصرت زہرا",
-    father: "سید ظفر الحسن (شعیب)",
+    father: "سید ظفر الحسن (شعیب / شارب)",
     mother: "",
     spouse: "",
     gen: "G-041-D3",
@@ -3778,7 +3778,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید نجم الحسن",
     father: "سید یعقوب الحسن",
-    mother: "",
+    mother: "سیدہ اعجاز فاطمہ رضوی",
     spouse: "",
     gen: "G-039-S1",
     gender: "MALE",
@@ -3787,8 +3787,8 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید محمد نیر",
     father: "سید یعقوب الحسن",
-    mother: "",
-    spouse: "",
+    mother: "سیدہ اعجاز فاطمہ رضوی",
+    spouse: "سیدہ نرجس بیگم رضوی",
     gen: "G-039-S2",
     gender: "MALE",
     details: ""
@@ -3796,7 +3796,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید شمس الحسن",
     father: "سید یعقوب الحسن",
-    mother: "",
+    mother: "سیدہ اعجاز فاطمہ رضوی",
     spouse: "",
     gen: "G-039-S3",
     gender: "MALE",
@@ -3805,8 +3805,8 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید تنویر الحسن",
     father: "سید یعقوب الحسن",
-    mother: "",
-    spouse: "",
+    mother: "سیدہ اعجاز فاطمہ رضوی",
+    spouse: "سیدہ نفیسہ بیگم رضوی",
     gen: "G-039-S4",
     gender: "MALE",
     details: ""
@@ -3814,7 +3814,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ شمیم فاطمہ",
     father: "سید یعقوب الحسن",
-    mother: "",
+    mother: "سیدہ اعجاز فاطمہ رضوی",
     spouse: "",
     gen: "G-039-D1",
     gender: "FEMALE",
@@ -3823,7 +3823,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ تنزیم فاطمہ",
     father: "سید یعقوب الحسن",
-    mother: "",
+    mother: "سیدہ اعجاز فاطمہ رضوی",
     spouse: "",
     gen: "G-039-D2",
     gender: "FEMALE",
@@ -3940,8 +3940,8 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید شکیل رضا",
     father: "سید محمد نیر",
-    mother: "",
-    spouse: "",
+    mother: "سیدہ نرجس بیگم رضوی",
+    spouse: "سیدہ ہما بتول رضوی",
     gen: "G-040-S1",
     gender: "MALE",
     details: "سید شکیل رضا کی شادی چچا سید شمس الحسن کی بیٹی سیدہ ہما بتول رضوی سے ہوئی - دونوں کی جڑ سید یعقوب الحسن ہیں - G-038-S2"
@@ -3949,7 +3949,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید اقلیم رضا",
     father: "سید محمد نیر",
-    mother: "",
+    mother: "سیدہ نرجس بیگم رضوی",
     spouse: "",
     gen: "G-040-S2",
     gender: "MALE",
@@ -3958,7 +3958,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ طلعت",
     father: "سید محمد نیر",
-    mother: "",
+    mother: "سیدہ نرجس بیگم رضوی",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
@@ -3967,7 +3967,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ یاسمین",
     father: "سید محمد نیر",
-    mother: "",
+    mother: "سیدہ نرجس بیگم رضوی",
     spouse: "",
     gen: "G-040-D2",
     gender: "FEMALE",
@@ -3976,7 +3976,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ شاہ تارا (پارو)",
     father: "سید محمد نیر",
-    mother: "",
+    mother: "سیدہ نرجس بیگم رضوی",
     spouse: "",
     gen: "G-040-D3",
     gender: "FEMALE",
@@ -3985,7 +3985,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ صفت",
     father: "سید محمد نیر",
-    mother: "",
+    mother: "سیدہ نرجس بیگم رضوی",
     spouse: "",
     gen: "G-040-D4",
     gender: "FEMALE",
@@ -4030,7 +4030,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید محمد علی-02",
     father: "سید تنویر الحسن",
-    mother: "",
+    mother: "سیدہ نفیسہ بیگم رضوی",
     spouse: "",
     gen: "G-040-S1",
     gender: "MALE",
@@ -4039,7 +4039,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید محمد کامل",
     father: "سید تنویر الحسن",
-    mother: "",
+    mother: "سیدہ نفیسہ بیگم رضوی",
     spouse: "",
     gen: "G-040-S2",
     gender: "MALE",
@@ -4048,7 +4048,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید محمد عاصم",
     father: "سید تنویر الحسن",
-    mother: "",
+    mother: "سیدہ نفیسہ بیگم رضوی",
     spouse: "",
     gen: "G-040-S3",
     gender: "MALE",
@@ -4057,7 +4057,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ ثمرہ فاطمہ",
     father: "سید تنویر الحسن",
-    mother: "",
+    mother: "سیدہ نفیسہ بیگم رضوی",
     spouse: "",
     gen: "G-040-D1",
     gender: "FEMALE",
@@ -4073,7 +4073,7 @@ const FAMILY_DATA_URDU = [
     details: "سید کمیل رضا رضوی نے سیدہ ملکہ بتول رضوی سے شادی کی + دونوں کی جڑ سید عنایت حسین ہیں - G-037-S1"
   },
   {
-    name: "سارہ رضا رضوی",
+    name: "سارہ رضا",
     father: "سید شکیل رضا",
     mother: "سیدہ ہما بتول رضوی",
     spouse: "سید عمار زیدی",
@@ -4238,7 +4238,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ اعجاز فاطمہ -01",
     father: "سید انصار حسین - 02",
     mother: "",
-    spouse: "",
+    spouse: "سید یعقوب الحسن رضوی",
     gen: "G-039-D1",
     gender: "FEMALE",
     details: ""
@@ -4256,7 +4256,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ راضیہ خاتون",
     father: "سید انصار حسین - 02",
     mother: "",
-    spouse: "",
+    spouse: "سید محمد اضغر عابدی",
     gen: "G-039-D3",
     gender: "FEMALE",
     details: ""
@@ -5147,7 +5147,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/14/26 12:12", 
+    saved_time: "6/14/26 19:00", 
     total_members: 571,
     details_count: 66,
     sheets_merged: ["Main","1","2","3","4","5"]

@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/14/2026 19:00
+// Saved: 06/15/2026 20:25
 // Total members: 571
 
 const FAMILY_DATA = [
@@ -144,7 +144,7 @@ const FAMILY_DATA = [
     father: "Imam Musa Kazim (AS)",
     mother: "Bibi Najma Khatoon (AS)",
     spouse: "Bibi Sabika (or Khayzuran) (AS)",
-    gen: "P-001-S1",
+    gen: "G-001-S1",
     gender: "MALE",
     details: ""
   },
@@ -248,7 +248,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Mohammad",
+    name: "Syed Mohammad - 01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -617,7 +617,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Mohamad",
+    name: "Syed Mohammad - 02",
     father: "Syed Ibrahim Ibn Ali Raza",
     mother: "",
     spouse: "",
@@ -707,7 +707,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Muhammad - 01",
+    name: "Syed Mohammad - 03",
     father: "Syed Ali - 01",
     mother: "",
     spouse: "",
@@ -717,7 +717,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Haider Shah",
-    father: "Syed Muhammad - 01",
+    father: "Syed Mohammad - 03",
     mother: "",
     spouse: "",
     gen: "G-006-S1",
@@ -3116,7 +3116,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Ajaz Fatima Rizvi",
     gen: "G-038-S2",
     gender: "MALE",
-    details: ""
+    details: "Syed Yaqoob Ul Hasan married Syeda Ajaz Fatima + Their both root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syeda Tasaduq Fatima",
@@ -3182,7 +3182,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    name: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     father: "Syed Tafazul Hussain",
     mother: "Syeda Rabab Fatima Rizvi",
     spouse: "",
@@ -3219,7 +3219,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Abu Talib - 02",
-    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "",
     spouse: "",
     gen: "G-041-S1",
@@ -3228,7 +3228,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Abdullah - 06",
-    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "",
     spouse: "",
     gen: "G-041-S2",
@@ -3237,7 +3237,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Kamal Haider - 02",
-    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "",
     spouse: "",
     gen: "G-041-S3",
@@ -3246,7 +3246,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Jamal Haider",
-    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "",
     spouse: "",
     gen: "G-041-S4",
@@ -3255,16 +3255,16 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Ifat Zehra",
-    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Ifat Zehra:\\n\\nS1- Syed Muntazir Mehdi Zaidi\\n\\nD1- Syeda Amna Zaidi"
   },
   {
     name: "Syeda Sarwat Zehra",
-    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "",
     spouse: "Syed Raza Haider Rizvi",
     gen: "G-041-D2",
@@ -3273,7 +3273,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Nusrat Zehra",
-    father: "Syed Zafar Ul Hassan (Shoaib & Sharib)",
+    father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "",
     spouse: "",
     gen: "G-041-D3",
@@ -4241,7 +4241,7 @@ const FAMILY_DATA = [
     spouse: "Syed Yaqoob Ul Hasan Rizvi",
     gen: "G-039-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Syeda Ajaz Fatima married Syed Yaqoob Ul Hasan Rizvi + Their both root is Syed Khoob Ullah Hussain - G-033-S1"
   },
   {
     name: "Syeda Rabab Fatima",
@@ -5147,8 +5147,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/14/2026 19:00", 
+    saved_time: "06/15/2026 20:25", 
     total_members: 571,
-    details_count: 66,
+    details_count: 69,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

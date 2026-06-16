@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/14/26 19:00
+// Saved: 6/15/26 19:34
 // Total members: 571
 
 const FAMILY_DATA_URDU = [
@@ -3116,7 +3116,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سیدہ اعجاز فاطمہ رضوی",
     gen: "G-038-S2",
     gender: "MALE",
-    details: ""
+    details: "سید یعقوب الحسن کی شادی  سیدہ اعجاز فاطمہ سے ہوئی + دونوں کی جڑ  سید خوب اللہ حسین - G-033-S1"
   },
   {
     name: "سیدہ تصدق فاطمہ",
@@ -3182,7 +3182,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید ظفر الحسن (شعیب / شارب)",
+    name: "سید ظفر الحسن - شارب (شعیب)",
     father: "سید تفصیل حسین",
     mother: "سیدہ رباب فاطمہ رضوی",
     spouse: "",
@@ -3219,7 +3219,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید ابو طالب - 02",
-    father: "سید ظفر الحسن (شعیب / شارب)",
+    father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "",
     spouse: "",
     gen: "G-041-S1",
@@ -3228,7 +3228,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید عبداللہ - 06",
-    father: "سید ظفر الحسن (شعیب / شارب)",
+    father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "",
     spouse: "",
     gen: "G-041-S2",
@@ -3237,7 +3237,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید کمال حیدر - 02",
-    father: "سید ظفر الحسن (شعیب / شارب)",
+    father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "",
     spouse: "",
     gen: "G-041-S3",
@@ -3246,7 +3246,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سید جمال حیدر",
-    father: "سید ظفر الحسن (شعیب / شارب)",
+    father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "",
     spouse: "",
     gen: "G-041-S4",
@@ -3255,16 +3255,16 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ عفت زہرا",
-    father: "سید ظفر الحسن (شعیب / شارب)",
+    father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ عفت زہرا کی اولاد:\\n\\nS1: سید منتظر مہدی زیدی\\nD1: سیدہ آمنہ زیدی"
   },
   {
     name: "سیدہ ثروت زہرا",
-    father: "سید ظفر الحسن (شعیب / شارب)",
+    father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "",
     spouse: "سید رضا حیدر رضوی",
     gen: "G-041-D2",
@@ -3273,7 +3273,7 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ نصرت زہرا",
-    father: "سید ظفر الحسن (شعیب / شارب)",
+    father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "",
     spouse: "",
     gen: "G-041-D3",
@@ -4241,7 +4241,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید یعقوب الحسن رضوی",
     gen: "G-039-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ اعجاز فاطمہ کی شادی سید یعقوب الحسن سے ہوئی + دونوں کی جڑ  سید خوب اللہ حسین - G-033-S1"
   },
   {
     name: "سیدہ رباب فاطمہ",
@@ -5147,8 +5147,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/14/26 19:00", 
+    saved_time: "6/15/26 19:34", 
     total_members: 571,
-    details_count: 66,
+    details_count: 69,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

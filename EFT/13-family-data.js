@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/15/2026 20:25
+// Saved: 06/18/2026 11:17
 // Total members: 571
 
 const FAMILY_DATA = [
@@ -194,7 +194,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Abdullaha -01",
+    name: "Syed Abdullah - 01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -221,7 +221,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Haroon -01",
+    name: "Syed Haroon - 01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -230,7 +230,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Hamza -01",
+    name: "Syed Hamza - 01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -266,7 +266,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Fazal -01",
+    name: "Syed Fazal - 01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -311,7 +311,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Fatima Bint Mussa",
+    name: "Syeda Fatima Bint Musa",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -356,7 +356,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Hakeema -01",
+    name: "Syeda Hakeema - 01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -428,7 +428,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Lubna -01",
+    name: "Syeda Lubna - 01",
     father: "Imam Musa Kazim (AS)",
     mother: "",
     spouse: "",
@@ -500,7 +500,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Fazal -02",
+    name: "Syed Fazal - 02",
     father: "Imam Ali Raza (AS)",
     mother: "",
     spouse: "",
@@ -599,7 +599,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Hakeema -02",
+    name: "Syeda Hakeema - 02",
     father: "Imam Mohd Taqi (AS)",
     mother: "",
     spouse: "",
@@ -2210,7 +2210,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Ali Hussain -01",
+    name: "Syed Ali Hussain - 01",
     father: "Syed Ameer Hussain",
     mother: "",
     spouse: "",
@@ -2220,7 +2220,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Ahsan Husain (Raza Hussain)",
-    father: "Syed Ali Hussain -01",
+    father: "Syed Ali Hussain - 01",
     mother: "",
     spouse: "",
     gen: "G-033-S1",
@@ -2498,7 +2498,7 @@ const FAMILY_DATA = [
     details: "Syed Faizan married Syed Fizza daugher of Chacha Syeda Manzar + Their both root is Syed Ali Abbas - G-039-S1"
   },
   {
-    name: "Syed Muhammad Abbas -02",
+    name: "Syed Muhammad Abbas - 02",
     father: "Syed Dilawar Abbas (Aleem)",
     mother: "Syeda Fakhra Khatoon Jaffary",
     spouse: "",
@@ -2507,7 +2507,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Ali Raza -02",
+    name: "Syed Ali Raza - 02",
     father: "Syed Dilawar Abbas (Aleem)",
     mother: "Syeda Fakhra Khatoon Jaffary",
     spouse: "Quratulain",
@@ -2615,7 +2615,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Wazarat Hussain -01",
+    name: "Syed Wazarat Hussain - 01",
     father: "Syed Asghar Ali - 01",
     mother: "",
     spouse: "",
@@ -2634,7 +2634,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Mohammad Mulim",
-    father: "Syed Wazarat Hussain -01",
+    father: "Syed Wazarat Hussain - 01",
     mother: "",
     spouse: "",
     gen: "G-040-S1",
@@ -2642,8 +2642,8 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Tanveer Fatima -02",
-    father: "Syed Wazarat Hussain -01",
+    name: "Syeda Tanveer Fatima - 02",
+    father: "Syed Wazarat Hussain - 01",
     mother: "",
     spouse: "Syed Wiladat Hussain Rizvi",
     gen: "G-040-D1",
@@ -2651,8 +2651,8 @@ const FAMILY_DATA = [
     details: "Syeda Tanveer married Syed Wiladat + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
-    name: "Syeda Tafseer Fatima -02",
-    father: "Syed Wazarat Hussain -01",
+    name: "Syeda Tafseer Fatima - 02",
+    father: "Syed Wazarat Hussain - 01",
     mother: "",
     spouse: "",
     gen: "G-040-D2",
@@ -2661,7 +2661,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Tatheer Fatima",
-    father: "Syed Wazarat Hussain -01",
+    father: "Syed Wazarat Hussain - 01",
     mother: "",
     spouse: "",
     gen: "G-040-D3",
@@ -2714,7 +2714,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda - ? -03",
+    name: "Syeda - ? - 03",
     father: "Syed Mohammad Mulim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "",
@@ -2921,7 +2921,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda - ? -04",
+    name: "Syeda - ? - 04",
     father: "Syed Madad Ali",
     mother: "",
     spouse: "",
@@ -3038,7 +3038,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Khakshan -02",
+    name: "Syeda Khakshan - 02",
     father: "Syed Asrar Hussain",
     mother: "Syeda Narjis Khatoon Rizvi",
     spouse: "",
@@ -4190,7 +4190,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Wazarat Hussain -02",
+    name: "Syed Wazarat Hussain - 02",
     father: "Syed Abrar Hussain",
     mother: "",
     spouse: "",
@@ -4262,7 +4262,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Aley Haider -02",
+    name: "Syed Aley Haider - 02",
     father: "Syed Aley Mohammad",
     mother: "",
     spouse: "",
@@ -4280,7 +4280,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Khakshan -01",
+    name: "Syeda Khakshan - 01",
     father: "Syed Aley Mohammad",
     mother: "",
     spouse: "",
@@ -4299,7 +4299,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Mohammad Samar Haider",
-    father: "Syed Aley Haider -02",
+    father: "Syed Aley Haider - 02",
     mother: "",
     spouse: "",
     gen: "G-041-S1",
@@ -4308,7 +4308,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syed Mohammad Shajar Haider",
-    father: "Syed Aley Haider -02",
+    father: "Syed Aley Haider - 02",
     mother: "",
     spouse: "",
     gen: "G-041-S2",
@@ -4317,7 +4317,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Shehar Bano",
-    father: "Syed Aley Haider -02",
+    father: "Syed Aley Haider - 02",
     mother: "",
     spouse: "Baqar Ali",
     gen: "G-041-D1",
@@ -4326,7 +4326,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Batool Fatima",
-    father: "Syed Aley Haider -02",
+    father: "Syed Aley Haider - 02",
     mother: "",
     spouse: "Syed Ammar Moosa Rizvi",
     gen: "G-041-D2",
@@ -4335,7 +4335,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Bushra Fatima",
-    father: "Syed Aley Haider -02",
+    father: "Syed Aley Haider - 02",
     mother: "",
     spouse: "",
     gen: "G-041-D3",
@@ -5147,7 +5147,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/15/2026 20:25", 
+    saved_time: "06/18/2026 11:17", 
     total_members: 571,
     details_count: 69,
     sheets_merged: ["Main","1","2","3","4","5"]

@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    <title>Family Tree</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0ebe4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        :root {
+            --gold: #d4af37;
+            --dark-blue: #0f172a;
+            --light-gold: #f1d279;
+            --maroon: #5a0000;
+            --green: #2e7d32;
+        }
+
+        /* === MENU PANEL - OUTSIDE zoomed wrapper, positioned fixed === */
+        .menu-panel {
+            position: fixed;
+            left: 20px;
+            top: 55px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 12px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-width: 180px;
+        }
+
+        .menu-panel.show {
+            display: flex;
+        }
+
+        .menu-item {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .menu-item:hover {
+            background: #faebcd;
+            transform: translateX(5px);
+        }
+
+        .menu-item.dashboard {
+            background: #6495ED;
+            color: white;
+            border-color: #6495ED;
+        }
+
+        .menu-item.dashboard:hover {
+            background: #4a7fd4;
+        }
+
+        .menu-item.save {
+            background: var(--gold);
+            color: var(--dark-blue);
+            border-color: var(--gold);
+        }
+
+        .menu-item.save:hover {
+            background: var(--light-gold);
+        }
+
+        /* === ENTIRE PAGE WRAPPER - ZOOM 0.5 === */
+        .app-wrapper {
+            width: 100%;
+            max-width: 210mm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            zoom: 0.5;
+            transform-origin: top center;
+        }
+
+        /* === HEADER WITH MENU BUTTON === */
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            width: 100%;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+
+        .menu-toggle-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .menu-toggle-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.05);
+        }
+
+        .menu-toggle-btn:active {
+            transform: scale(0.95);
+        }
+
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-spacer {
+            width: 80px;
+        }
+
+        /* === CONTROLS === */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            align-items: center;
+            background: #fffcf8;
+            padding: 12px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            flex-direction: column;
+            align-items: stretch;
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
+        .controls .row1 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            align-items: center;
+            width: 100%;
+        }
+        .controls .row2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            align-items: center;
+            width: 100%;
+            margin-top: 4px;
+        }
+        .controls label {
+            font-weight: 600;
+            color: #3d2b1a;
+            font-size: 14px;
+        }
+        .controls select {
+            padding: 6px 14px;
+            border: 1.5px solid #b8a088;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #faf6f0;
+            color: #2d1f13;
+            min-width: 200px;
+            flex: 1;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+        }
+        .controls .search-wrapper {
+            position: relative;
+            flex: 2;
+            min-width: 200px;
+        }
+        .controls .search-box {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+        }
+        .controls .search-box input {
+            padding: 6px 14px;
+            border: 1.5px solid #b8a088;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #faf6f0;
+            color: #2d1f13;
+            width: 100%;
+            min-width: 120px;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+        }
+        .controls .search-box input:focus {
+            outline: none;
+            border-color: #8b7355;
+            box-shadow: 0 0 0 2px rgba(139, 115, 85, 0.2);
+        }
+        .controls .search-box button {
+            padding: 6px 14px;
+            background: #8b7355;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+        }
+        .controls .search-box button:hover {
+            background: #6b5a48;
+        }
+        .controls .search-box .clear-btn {
+            background: #999;
+        }
+        .controls .search-box .clear-btn:hover {
+            background: #777;
+        }
+        .controls .stats {
+            font-size: 13px;
+            color: #6b5a48;
+            white-space: nowrap;
+        }
+        .controls .error-msg {
+            color: #a94442;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* === SEARCH DROPDOWN === */
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #b8a088;
+            border-radius: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            margin-top: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .search-dropdown .result-item {
+            padding: 8px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0ebe4;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-dropdown .result-item:hover {
+            background: #faebcd;
+        }
+        .search-dropdown .result-item .main-name {
+            font-weight: 600;
+            color: #1a3a5c;
+        }
+        .search-dropdown .result-item .gen {
+            font-size: 11px;
+            color: #6b5a48;
+        }
+        .search-dropdown .result-item .father-name {
+            font-size: 11px;
+            color: #6b5a48;
+        }
+        .search-dropdown .no-result {
+            padding: 12px 14px;
+            color: #999;
+            text-align: center;
+        }
+
+        /* === PAGE === */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: #fffcf8;
+            padding: 8mm 10mm;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            overflow: visible;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        /* === PAGE HEADER === */
+        .page-header {
+            text-align: center;
+            border-bottom: 2px solid #b8a088;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            flex-shrink: 0;
+        }
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #3d2b1a;
+            font-family: 'DM Serif Display', 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+        .page-header .ref {
+            font-size: 13px;
+            color: #6b5a48;
+            margin-top: 4px;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-weight: 700;
+        }
+        .page-header .ref .page-link {
+            color: #2e7d32;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .page-header .ref .page-link:hover {
+            color: #cc0000;
+        }
+        .page-header .search-result-info {
+            font-size: 13px;
+            color: #2e7d32;
+            margin-top: 4px;
+            font-weight: 600;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+        }
+
+        /* === COLUMN POSITION CONTROLS === */
+        :root {
+            --col-tree-width: 30px;
+            --col-name-width: 46ch;
+            --col-gen-width: 16ch;
+            --col-page-width: 15ch;
+            --heading-offset: 4ch;
+        }
+
+        /* === COLUMN HEADERS === */
+        .col-headers {
+            display: grid;
+            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
+            font-family: 'DM Serif Display', 'Georgia', serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #5a0000;
+            letter-spacing: 0.5px;
+            padding: 4px 0 6px 0;
+            border-bottom: 2px solid #b8a088;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+        }
+        .col-headers .col-tree {
+            text-align: left;
+        }
+        .col-headers .col-name {
+            text-align: left;
+            padding-left: var(--heading-offset);
+        }
+        .col-headers .col-gen {
+            text-align: left;
+            padding-left: var(--heading-offset);
+        }
+        .col-headers .col-page {
+            text-align: left;
+            padding-left: var(--heading-offset);
+        }
+
+        /* === TREE ROWS === */
+        .tree-container {
+            font-family: 'Roboto Mono', 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 2.0;
+            padding: 2px 0;
+            color: #1a1a1a;
+            width: 100%;
+            overflow: visible;
+            direction: ltr;
+            text-align: left;
+            flex: 1;
+        }
+        .tree-row {
+            display: grid;
+            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
+            align-items: center;
+        }
+        .tree-row .tree-chars {
+            color: #6b5a48;
+            text-align: left;
+        }
+        .tree-row .tree-name {
+            text-align: left;
+        }
+        .tree-row .tree-gen {
+            text-align: left;
+        }
+        .tree-row .tree-page {
+            text-align: left;
+        }
+
+        /* === TREE STYLES === */
+        .tree-container .father-red {
+            color: #cc0000;
+            font-weight: 900;
+        }
+        .tree-container .father-normal {
+            color: #000;
+            font-weight: 700;
+        }
+        .tree-container .child-name {
+            color: #1a3a5c;
+            font-weight: 600;
+        }
+        .tree-container .child-name.female {
+            color: #FF1493;
+            font-weight: 700;
+        }
+        .tree-container .father-red.female {
+            color: #FF1493;
+            font-weight: 900;
+        }
+        .tree-container .father-normal.female {
+            color: #FF1493;
+            font-weight: 700;
+        }
+        .tree-container .continue-arrow {
+            color: #2e7d32;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .tree-container .continue-arrow:hover {
+            color: #cc0000;
+            text-decoration: underline;
+        }
+        .tree-container .highlight {
+            background: #ffeb3b;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        /* === PAGE FOOTER === */
+        .page-footer {
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 2px solid #b8a088;
+            text-align: center;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            flex-shrink: 0;
+        }
+        .page-footer .family-name {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-style: italic;
+            font-size: 14px;
+            color: #3d2b1a;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .page-footer .developer {
+            font-size: 11px;
+            color: #6b5a48;
+            margin-top: 2px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .page-footer .developer strong {
+            color: #3d2b1a;
+            font-weight: 600;
+        }
+
+        /* === NO DATA === */
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b5a48;
+            font-size: 18px;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+        }
+        .no-data .error {
+            color: #a94442;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* === SAVE OPTIONS MODAL === */
+        .save-options-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            z-index: 4000;
+            min-width: 350px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: none;
+        }
+        .save-options-modal h3 {
+            color: var(--maroon);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .save-options-modal .option-label {
+            display: block;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .save-options-modal .option-label input {
+            margin-right: 10px;
+        }
+        .save-options-modal .option-label .label-title {
+            font-weight: 600;
+        }
+        .save-options-modal .option-label .label-desc {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-left: 25px;
+        }
+        .save-options-modal .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .save-options-modal .modal-actions .save-btn {
+            flex: 2;
+            padding: 12px;
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .save-options-modal .modal-actions .cancel-btn {
+            flex: 1;
+            padding: 12px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 3999;
+            display: none;
+        }
+
+        /* === PRINT === */
+        @media print {
+            body { background: #fff; padding: 0; }
+            .controls { display: none !important; }
+            .menu-toggle-btn { display: none !important; }
+            .menu-panel { display: none !important; }
+            .page {
+                width: 100%;
+                min-height: 100vh;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 8mm 10mm;
+                margin: 0;
+                page-break-after: always;
+            }
+            .app-wrapper { zoom: 1 !important; }
+            .tree-container { font-size: 11px; line-height: 1.8; }
+        }
+
+        /* === RESPONSIVE === */
+        @media screen and (max-width: 800px) {
+            body { padding: 8px; }
+            .controls { padding: 10px 12px; gap: 8px; }
+            .controls select { min-width: auto; width: 100%; font-size: 13px; }
+            .controls .search-wrapper { width: 100%; }
+            .controls .search-box input { min-width: auto; font-size: 13px; }
+            .controls .stats { font-size: 12px; text-align: center; }
+            .controls .row1, .controls .row2 { flex-direction: column; align-items: stretch; }
+            .page {
+                width: 210mm;
+                min-height: 297mm;
+                padding: 6mm 8mm;
+            }
+            .col-headers { font-size: 11px; }
+            .tree-container { font-size: 11px; line-height: 1.8; }
+            .page-footer .developer { font-size: 10px; }
+            .header-title { font-size: 16px; }
+            .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
+            .menu-panel { left: 15px; top: 50px; min-width: 150px; }
+            .menu-item { font-size: 12px; padding: 8px 14px; }
+            .header-spacer { width: 60px; }
+            :root {
+                --col-tree-width: 25px;
+                --col-name-width: 32ch;
+                --col-gen-width: 12ch;
+                --col-page-width: 12ch;
+                --heading-offset: 2ch;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .menu-panel { left: 10px; top: 45px; min-width: 130px; }
+            .menu-item { font-size: 11px; padding: 6px 12px; }
+            .menu-toggle-btn { padding: 4px 10px; font-size: 11px; }
+            .header-title { font-size: 14px; }
+            .header-spacer { width: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === MENU PANEL - OUTSIDE zoomed wrapper (FIXED) === -->
+    <div class="menu-panel" id="menuPanel">
+        <div class="menu-item dashboard" onclick="goToDashboard()">🏠 Dashboard</div>
+        <div class="menu-item save" onclick="showSaveOptions()">💾 Save</div>
+    </div>
+
+    <!-- === ENTIRE PAGE WRAPPER - ZOOM 0.5 === -->
+    <div class="app-wrapper">
+
+        <!-- === HEADER WITH MENU BUTTON === -->
+        <div class="app-header">
+            <div class="menu-toggle-btn" onclick="toggleMenu()">☰ MENU</div>
+            <div class="header-title">
+                <span class="header-icon">🌿</span>
+                <span>Family Tree</span>
+            </div>
+            <div class="header-spacer"></div>
+        </div>
+
+        <!-- === CONTROLS === -->
+        <div class="controls">
+            <div class="row1">
+                <label for="pageSelect">📄 Page:</label>
+                <select id="pageSelect" onchange="renderPage()"></select>
+                <span class="stats" id="stats"></span>
+                <span class="error-msg" id="errorMsg"></span>
+            </div>
+            <div class="row2">
+                <div class="search-wrapper">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="🔍 Search by name..." autocomplete="off" />
+                        <button onclick="searchMember()">Search</button>
+                        <button class="clear-btn" onclick="clearSearch()">Reset</button>
+                    </div>
+                    <div class="search-dropdown" id="searchDropdown"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- === PAGE CONTENT === -->
+        <div class="page" id="pageContainer">
+            <div class="no-data">Loading family data...</div>
+        </div>
+
+    </div>
+
+    <!-- === SAVE OPTIONS MODAL === -->
+    <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
+    <div class="save-options-modal" id="saveOptionsModal">
+        <h3>💾 Save Family Tree</h3>
+        <div style="margin-bottom:20px;">
+            <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">Select Format:</div>
+            <label class="option-label">
+                <input type="radio" name="saveFormat" value="pdf-high" checked />
+                <span class="label-title">📑 PDF - High Resolution</span>
+                <span class="label-desc">Best for printing, larger file (3-8 MB)</span>
+            </label>
+            <label class="option-label">
+                <input type="radio" name="saveFormat" value="pdf-low" />
+                <span class="label-title">📑 PDF - Low Resolution</span>
+                <span class="label-desc">Good for sharing, smaller file (0.5-2 MB)</span>
+            </label>
+            <label class="option-label">
+                <input type="radio" name="saveFormat" value="jpeg" />
+                <span class="label-title">📸 JPEG Image</span>
+                <span class="label-desc">Universal format, very small file (200-500 KB)</span>
+            </label>
+        </div>
+        <div class="modal-actions">
+            <button class="save-btn" onclick="processSave()">Save</button>
+            <button class="cancel-btn" onclick="closeSaveModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="13-family-data.js"></script>
+
+    <script>
+        function displayName(str) {
+            if (!str) return '';
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            cleaned = cleaned.replace(/-\d+$/, '').trim();
+            return cleaned;
+        }
+
+        let globalMap = {};
+        let globalPersonMap = {};
+        let rootToPageMap = {};
+        let db = [];
+        let cachedPages = [];
+        let familyData = null;
+        let currentPageIndex = 0;
+
+        // === MENU FUNCTIONS ===
+        function toggleMenu() {
+            document.getElementById('menuPanel').classList.toggle('show');
+        }
+
+        function goToDashboard() {
+            window.location.href = '6-dashboard-mobile.html';
+        }
+
+        function showSaveOptions() {
+            document.getElementById('saveOptionsModal').style.display = 'block';
+            document.getElementById('saveModalOverlay').style.display = 'block';
+            document.getElementById('menuPanel').classList.remove('show');
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
+
+        // === SAVE FUNCTIONS ===
+        function processSave() {
+            const selected = document.querySelector('input[name="saveFormat"]:checked');
+            if (!selected) {
+                alert('Please select a format');
+                return;
+            }
+            closeSaveModal();
+            switch(selected.value) {
+                case 'pdf-high':
+                    exportTreePDF('high');
+                    break;
+                case 'pdf-low':
+                    exportTreePDF('low');
+                    break;
+                case 'jpeg':
+                    exportAsJPEG();
+                    break;
+            }
+        }
+
+        function formatCurrentTime() {
+            const d = new Date();
+            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}${d.getHours()>=12?'pm':'am'}`;
+        }
+
+        function exportTreePDF(quality) {
+            const page = document.getElementById('pageContainer');
+            const wrapper = document.querySelector('.app-wrapper');
+            const originalZoom = wrapper.style.zoom;
+            
+            wrapper.style.zoom = '1';
+            
+            const scale = quality === 'high' ? 2.0 : 1.0;
+            const jpegQuality = quality === 'high' ? 0.95 : 0.7;
+            
+            html2canvas(page, {
+                scale: scale,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                const { jsPDF } = window.jspdf;
+                const w = canvas.width * (0.264583 / scale);
+                const h = canvas.height * (0.264583 / scale);
+                const pdf = new jsPDF({
+                    orientation: w > h ? 'l' : 'p',
+                    unit: 'mm',
+                    format: [w + 40, h + 40]
+                });
+                pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
+                pdf.save(`family_tree_page_${Date.now()}.pdf`);
+                wrapper.style.zoom = originalZoom || '0.5';
+            }).catch(err => {
+                alert('❌ PDF generation failed: ' + err.message);
+                wrapper.style.zoom = originalZoom || '0.5';
+            });
+        }
+
+        function exportAsJPEG() {
+            const page = document.getElementById('pageContainer');
+            const wrapper = document.querySelector('.app-wrapper');
+            const originalZoom = wrapper.style.zoom;
+            
+            wrapper.style.zoom = '1';
+            
+            html2canvas(page, {
+                scale: 1.5,
+                backgroundColor: '#ffffff',
+                logging: false
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                const link = document.createElement('a');
+                link.download = `family_tree_page_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+                wrapper.style.zoom = originalZoom || '0.5';
+            }).catch(err => {
+                alert('❌ JPEG generation failed: ' + err.message);
+                wrapper.style.zoom = originalZoom || '0.5';
+            });
+        }
+
+        // === FAMILY TREE FUNCTIONS ===
+        function buildFamilyMap(data) {
+            const map = {};
+            const personMap = {};
+
+            data.forEach(p => {
+                const key = p.name.trim();
+                personMap[key] = p;
+                map[key] = [];
+            });
+
+            data.forEach(p => {
+                const fatherName = p.father ? p.father.trim() : '';
+                if (fatherName !== '') {
+                    if (map[fatherName]) {
+                        if (!map[fatherName].includes(p.name.trim())) {
+                            map[fatherName].push(p.name.trim());
+                        }
+                    } else {
+                        map[fatherName] = [p.name.trim()];
+                    }
+                }
+            });
+
+            globalMap = map;
+            globalPersonMap = personMap;
+            db = data;
+            return { map, personMap };
+        }
+
+        function findRoots(data, map) {
+            const allNames = new Set(data.map(p => p.name.trim()));
+            const roots = [];
+
+            data.forEach(p => {
+                const fatherName = p.father ? p.father.trim() : '';
+                if (fatherName === '' || !allNames.has(fatherName)) {
+                    if (!roots.includes(p.name.trim())) {
+                        roots.push(p.name.trim());
+                    }
+                }
+            });
+
+            return roots.length > 0 ? roots : [data[0].name.trim()];
+        }
+
+        function getChildren(name, map) {
+            return map[name] || [];
+        }
+
+        function hasChildren(name, map) {
+            return getChildren(name, map).length > 0;
+        }
+
+        function getActualFather(name, personMap) {
+            const person = personMap[name];
+            if (person && person.father && person.father.trim() !== '') {
+                return person.father.trim();
+            }
+            return null;
+        }
+
+        function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
+            const person = personMap[name];
+            const children = getChildren(name, map);
+            const isFather = hasChildren(name, map);
+            const isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
+            
+            let rows = [];
+            let fatherClass = (isFather ? 'father-red' : 'father-normal') + (isFemale ? ' female' : '');
+
+            const rootNameDisplay = displayName(name);
+            const rootGen = (person && person.gen ? person.gen : '');
+            let rootPagePart = '';
+            if (splitChildren && splitChildren.includes(name)) {
+                const actualPageIndex = rootToPageMap[name];
+                rootPagePart = actualPageIndex !== undefined ? 
+                    '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
+            }
+
+            rows.push({
+                tree: '',
+                name: '<span class="' + fatherClass + '">' + rootNameDisplay + '</span>',
+                gen: rootGen,
+                page: rootPagePart
+            });
+
+            if (isFather && children.length > 0) {
+                children.forEach((child, index) => {
+                    const isLast = index === children.length - 1;
+                    const childPerson = personMap[child];
+                    const childDisplay = displayName(child);
+                    const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
+                    const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
+                    
+                    let treeChars = isLast ? '└──' : '├──';
+                    
+                    let childPagePart = '';
+                    if (splitChildren && splitChildren.includes(child)) {
+                        const actualPageIndex = rootToPageMap[child];
+                        childPagePart = actualPageIndex !== undefined ? 
+                            '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
+                    }
+
+                    let childClass = 'child-name' + (childIsFemale ? ' female' : '');
+                    
+                    rows.push({
+                        tree: treeChars,
+                        name: '<span class="' + childClass + '">' + childDisplay + '</span>',
+                        gen: childGen,
+                        page: childPagePart
+                    });
+                });
+            }
+            return rows;
+        }
+
+        function generatePages(data) {
+            const { map, personMap } = buildFamilyMap(data);
+            const pages = [];
+            const processed = new Set();
+            const roots = findRoots(data, map);
+
+            const queue = [];
+
+            roots.forEach(root => {
+                if (!processed.has(root)) {
+                    processed.add(root);
+                    queue.push(root);
+                }
+            });
+
+            for (const [parent, children] of Object.entries(map)) {
+                if (children.length > 0 && !processed.has(parent)) {
+                    const hasParent = data.some(p => p.name.trim() === parent && p.father && p.father.trim() !== '');
+                    if (hasParent) {
+                        processed.add(parent);
+                        queue.push(parent);
+                    }
+                }
+            }
+
+            while (queue.length > 0) {
+                const currentRoot = queue.shift();
+                const children = getChildren(currentRoot, map);
+
+                const childrenWithChildren = [];
+                children.forEach(child => {
+                    const childChildren = getChildren(child, map);
+                    if (childChildren.length > 0) {
+                        childrenWithChildren.push(child);
+                    }
+                });
+
+                const actualFather = getActualFather(currentRoot, personMap);
+
+                pages.push({
+                    root: currentRoot,
+                    lines: [],
+                    splitChildren: childrenWithChildren,
+                    parentPage: actualFather,
+                    hasChildren: hasChildren(currentRoot, map),
+                    rootPerson: personMap[currentRoot]
+                });
+
+                childrenWithChildren.forEach(child => {
+                    if (!processed.has(child)) {
+                        processed.add(child);
+                        queue.push(child);
+                    }
+                });
+            }
+
+            rootToPageMap = {};
+            pages.forEach((page, index) => {
+                rootToPageMap[page.root] = index;
+            });
+
+            pages.forEach((page, index) => {
+                page.lines = renderPageContent(
+                    page.root,
+                    map,
+                    personMap,
+                    page.splitChildren,
+                    index,
+                    rootToPageMap
+                );
+            });
+
+            return pages;
+        }
+
+        function goToPage(pageIndex) {
+            if (pageIndex < 0 || pageIndex >= cachedPages.length) return;
+            const select = document.getElementById('pageSelect');
+            select.value = pageIndex;
+            renderPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
+            const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
+
+            let fatherPageDisplay = '(Root)';
+            if (parentPage) {
+                const idx = rootToPageMap[parentPage];
+                if (idx !== undefined) {
+                    fatherPageDisplay = ' ' + displayName(parentPage) + ' → <span style="color:#cc0000; font-weight:900; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">Page ' + (idx + 1) + '</span>';
+                } else {
+                    fatherPageDisplay = displayName(parentPage);
+                }
+            }
+
+            let html = '';
+
+            html += `
+                <div class="page-header">
+                    <h1>🌳 Family Tree</h1>
+                    <div class="ref" style="font-weight:700; font-size:14px;">
+                        Continues from: → ${fatherPageDisplay}
+                    </div>
+                    ${highlightName ? `<div class="search-result-info">🔍 Showing: <b>${highlightName}</b></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="col-headers">
+                    <span class="col-tree"></span>
+                    <span class="col-name">Name</span>
+                    <span class="col-gen">Generation</span>
+                    <span class="col-page">Continue</span>
+                </div>
+            `;
+
+            html += `<div class="tree-container">`;
+            if (lines && lines.length > 0) {
+                lines.forEach(row => {
+                    let nameHtml = row.name;
+                    let genHtml = row.gen;
+                    let pageHtml = row.page;
+                    
+                    if (highlightName) {
+                        const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        nameHtml = nameHtml.replace(new RegExp(escaped, 'gi'), match => {
+                            return '<span class="highlight">' + match + '</span>';
+                        });
+                    }
+                    
+                    html += `<div class="tree-row">`;
+                    html += `<span class="tree-chars">${row.tree}</span>`;
+                    html += `<span class="tree-name">${nameHtml}</span>`;
+                    html += `<span class="tree-gen">${genHtml}</span>`;
+                    html += `<span class="tree-page">${pageHtml}</span>`;
+                    html += `</div>`;
+                });
+            } else {
+                html += 'No data available for ' + displayName(root);
+            }
+            html += `</div>`;
+
+            html += `
+                <div class="page-footer">
+                    <div class="family-name">${displayName(root)} Family</div>
+                    <div class="developer">
+                        Developer: <strong>Imran Haider</strong> S/o <strong>Syed Risalat Hussain Rizvi</strong> | 0332-787-6010
+                    </div>
+                </div>
+            `;
+
+            return html;
+        }
+
+        function findMemberPage(memberName) {
+            const searchLower = memberName.trim().toLowerCase();
+            if (!searchLower) return -1;
+
+            for (let i = 0; i < cachedPages.length; i++) {
+                const page = cachedPages[i];
+                if (page.root.toLowerCase() === searchLower) {
+                    return i;
+                }
+            }
+
+            for (let i = 0; i < cachedPages.length; i++) {
+                const page = cachedPages[i];
+                if (page.root.toLowerCase().includes(searchLower)) {
+                    return i;
+                }
+                const children = getChildren(page.root, globalMap);
+                for (let child of children) {
+                    if (child.toLowerCase().includes(searchLower)) {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        function searchMember() {
+            const input = document.getElementById('searchInput');
+            const query = input.value.trim();
+            if (!query) {
+                renderPage();
+                return;
+            }
+
+            const pageIndex = findMemberPage(query);
+            if (pageIndex === -1) {
+                document.getElementById('errorMsg').textContent = '⚠️ Member not found: "' + query + '"';
+                return;
+            }
+
+            document.getElementById('errorMsg').textContent = '';
+            const select = document.getElementById('pageSelect');
+            select.value = pageIndex;
+            renderPage(query);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('errorMsg').textContent = '';
+            document.getElementById('searchDropdown').style.display = 'none';
+            renderPage();
+        }
+
+        // === SEARCH DROPDOWN ===
+        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+            const query = this.value;
+            const dropdown = document.getElementById('searchDropdown');
+            if (query.length < 2) { 
+                dropdown.style.display = 'none'; 
+                return; 
+            }
+            
+            const results = db.filter(m => 
+                m.name.toLowerCase().includes(query.toLowerCase())
+            ).slice(0, 8);
+            
+            dropdown.innerHTML = '';
+            if (results.length === 0) {
+                dropdown.innerHTML = '<div class="no-result">No results found</div>';
+                dropdown.style.display = 'block';
+                return;
+            }
+            
+            results.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                
+                let pageIdx = -1;
+                for (let i = 0; i < cachedPages.length; i++) {
+                    if (cachedPages[i].root === member.name) {
+                        pageIdx = i;
+                        break;
+                    }
+                    const children = getChildren(cachedPages[i].root, globalMap);
+                    if (children.includes(member.name)) {
+                        pageIdx = i;
+                        break;
+                    }
+                }
+                
+                const pageDisplay = pageIdx >= 0 ? ` · Page ${pageIdx + 1}` : '';
+                const genderPrefix = member.gender?.startsWith('F') ? 'D/o' : 'S/o';
+                
+                div.innerHTML = `
+                    <div>
+                        <span class="main-name">${displayName(member.name)}</span>
+                        <span class="gen">${member.gen || ''}</span>
+                        <span style="font-size:11px;color:#2e7d32;">${pageDisplay}</span>
+                        <div class="father-name">${genderPrefix} ${displayName(member.father) || '—'}</div>
+                    </div>
+                `;
+                div.onclick = () => { 
+                    let targetPage = -1;
+                    for (let i = 0; i < cachedPages.length; i++) {
+                        if (cachedPages[i].root === member.name) {
+                            targetPage = i;
+                            break;
+                        }
+                        const children = getChildren(cachedPages[i].root, globalMap);
+                        if (children.includes(member.name)) {
+                            targetPage = i;
+                            break;
+                        }
+                    }
+                    if (targetPage >= 0) {
+                        const select = document.getElementById('pageSelect');
+                        select.value = targetPage;
+                        renderPage(displayName(member.name));
+                        dropdown.style.display = 'none';
+                        this.value = displayName(member.name);
+                    }
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+            if (!e.target.closest('.menu-panel') && !e.target.closest('.menu-toggle-btn')) {
+                document.getElementById('menuPanel').classList.remove('show');
+            }
+        });
+
+        // === RENDER FUNCTIONS ===
+        function renderAllPages() {
+            const container = document.getElementById('pageContainer');
+            const select = document.getElementById('pageSelect');
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (typeof FAMILY_DATA === 'undefined') {
+                container.innerHTML =
+                    `<div class="no-data">⚠️ Data not loaded!<div class="error">Make sure <strong>13-family-data.js</strong> is in the same folder.</div></div>`;
+                errorMsg.textContent = '⚠️ Data not loaded!';
+                return;
+            }
+
+            familyData = FAMILY_DATA;
+            buildFamilyMap(familyData);
+
+            try {
+                cachedPages = generatePages(familyData);
+
+                document.getElementById('stats').textContent =
+                    `Total: ${familyData.length} members · ${cachedPages.length} pages`;
+
+                select.innerHTML = '';
+                if (cachedPages.length === 0) {
+                    select.innerHTML = '<option value="">No pages</option>';
+                    container.innerHTML = `<div class="no-data">No pages could be generated.</div>`;
+                    return;
+                }
+
+                cachedPages.forEach((page, i) => {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    const childCount = page.splitChildren ? page.splitChildren.length : 0;
+                    const hasChildrenText = page.hasChildren ? ' 👨‍👧‍👦' : '';
+                    option.textContent = `Page ${i+1}: ${displayName(page.root)}${hasChildrenText} (${childCount} to continue)`;
+                    select.appendChild(option);
+                });
+
+                errorMsg.textContent = '';
+                renderPage();
+            } catch (e) {
+                container.innerHTML = `<div class="no-data">⚠️ Error: ${e.message}</div>`;
+                errorMsg.textContent = '⚠️ Error: ' + e.message;
+                console.error(e);
+            }
+        }
+
+        function renderPage(highlightName = null) {
+            const select = document.getElementById('pageSelect');
+            const container = document.getElementById('pageContainer');
+            const pageIndex = parseInt(select.value);
+
+            if (isNaN(pageIndex) || pageIndex < 0 || pageIndex >= cachedPages.length) {
+                container.innerHTML = `<div class="no-data">Please select a page.</div>`;
+                return;
+            }
+
+            currentPageIndex = pageIndex;
+
+            try {
+                const html = renderPageHTML(cachedPages[pageIndex], pageIndex, cachedPages.length, highlightName);
+                container.innerHTML = html;
+            } catch (e) {
+                container.innerHTML = `<div class="no-data">⚠️ Error loading page: ${e.message}</div>`;
+                console.error(e);
+            }
+        }
+
+        // === INIT ===
+        window.onload = function() {
+            if (typeof FAMILY_DATA !== 'undefined') {
+                renderAllPages();
+            } else {
+                const checkData = setInterval(function() {
+                    if (typeof FAMILY_DATA !== 'undefined') {
+                        clearInterval(checkData);
+                        renderAllPages();
+                    }
+                }, 100);
+
+                setTimeout(function() {
+                    clearInterval(checkData);
+                    if (typeof FAMILY_DATA === 'undefined') {
+                        document.getElementById('pageContainer').innerHTML = `
+                            <div class="no-data">⏳ Loading data...<div class="error">Make sure <strong>13-family-data.js</strong> is in the same folder.</div></div>
+                        `;
+                    }
+                }, 5000);
+            }
+        };
+    </script>
+
+</body>
+</html>

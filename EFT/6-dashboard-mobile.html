@@ -116,27 +116,24 @@
             width: 100%;
         }
 
-
-
-.dashboard-card {
-    background: white;
-    border: 2px solid var(--gold);
-    border-radius: 16px;
-    padding: 16px 12px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
+        .dashboard-card {
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
         .dashboard-card:active {
             transform: scale(0.98);
@@ -219,6 +216,122 @@
         #fileInput {
             display: none;
         }
+
+        /* === TREE OPTION MODAL === */
+        .tree-option-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .tree-option-overlay.show {
+            display: flex;
+        }
+
+        .tree-option-modal {
+            background: white;
+            border-radius: 20px;
+            border: 3px solid var(--gold);
+            max-width: 400px;
+            width: 100%;
+            padding: 28px 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlideUp 0.3s ease;
+        }
+
+        @keyframes modalSlideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .tree-option-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--maroon);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .tree-option-modal .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .tree-option-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            background: white;
+        }
+
+        .tree-option-btn:active {
+            transform: scale(0.97);
+        }
+
+        .tree-option-btn .icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .tree-option-btn .info {
+            flex: 1;
+        }
+
+        .tree-option-btn .info .title {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: 15px;
+        }
+
+        .tree-option-btn .info .desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .tree-option-btn .arrow {
+            color: var(--gold);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tree-option-btn:hover {
+            background: #faebcd;
+        }
+
+        .tree-option-close {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            color: #999;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .tree-option-close:hover {
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -242,23 +355,52 @@
         </div>
     </div>
 
+    <!-- TREE OPTION MODAL -->
+    <div class="tree-option-overlay" id="treeOptionOverlay">
+        <div class="tree-option-modal">
+            <h2>🌳 Full Family Tree</h2>
+            <p class="subtitle">Choose how you want to view the tree</p>
+
+            <div class="tree-option-btn" id="optionVisualTree">
+                <span class="icon">🎨</span>
+                <div class="info">
+                    <div class="title">Visual Tree</div>
+                    <div class="desc">Interactive graphical tree with expandable branches</div>
+                </div>
+                <span class="arrow">→</span>
+            </div>
+
+            <div class="tree-option-btn" id="optionTextView">
+                <span class="icon">📄</span>
+                <div class="info">
+                    <div class="title">Text Tree View</div>
+                    <div class="desc">Clean text-based tree with paginated view</div>
+                </div>
+                <span class="arrow">→</span>
+            </div>
+
+            <button class="tree-option-close" id="treeOptionClose">Cancel</button>
+        </div>
+    </div>
+
     <script>
         (function() {
             let db = [];
 
-        function loadFromStorageOrFallback() {
-    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
-        db = FAMILY_DATA;
-        localStorage.setItem('familyDB', JSON.stringify(db));
-        if (typeof FILE_INFO !== 'undefined') {
-            localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-        }
-        console.log(`✅ Auto-loaded ${db.length} members from 13-family-data.js`);
-    } else {
-        db = [];
-    }
-    updateHeaderCounter();
-}   
+            function loadFromStorageOrFallback() {
+                if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
+                    db = FAMILY_DATA;
+                    localStorage.setItem('familyDB', JSON.stringify(db));
+                    if (typeof FILE_INFO !== 'undefined') {
+                        localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
+                    }
+                    console.log(`✅ Auto-loaded ${db.length} members from 13-family-data.js`);
+                } else {
+                    db = [];
+                }
+                updateHeaderCounter();
+            }
+
             function updateHeaderCounter() {
                 const count = db.length;
                 const statusEl = document.getElementById('headerStatus');
@@ -267,19 +409,19 @@
                 }
             }
 
-function hardResetMobile() {
-    const confirmation = confirm("🚨 WARNING: This will permanently delete ALL family data from this browser. Are you sure?");
-    if (confirmation) {
-        localStorage.removeItem('familyDB');
-        localStorage.removeItem('fileInfo');
-        localStorage.removeItem('tableViewMember');
-        localStorage.removeItem('tableViewFilters');
-        db = [];
-        loadFromStorageOrFallback();
-        updateHeaderCounter();
-        alert("✅ All data cleared and reloaded from 13-family-data.js.");
-    }
-}
+            function hardResetMobile() {
+                const confirmation = confirm("🚨 WARNING: This will permanently delete ALL family data from this browser. Are you sure?");
+                if (confirmation) {
+                    localStorage.removeItem('familyDB');
+                    localStorage.removeItem('fileInfo');
+                    localStorage.removeItem('tableViewMember');
+                    localStorage.removeItem('tableViewFilters');
+                    db = [];
+                    loadFromStorageOrFallback();
+                    updateHeaderCounter();
+                    alert("✅ All data cleared and reloaded from 13-family-data.js.");
+                }
+            }
 
             function logoutMobile() {
                 if (confirm('Are you sure you want to exit and return to the login page?')) {
@@ -318,7 +460,17 @@ function hardResetMobile() {
                 window.location.href = '9-root-tree-mobile.html';
             }
 
-            function goToFullTreeMobile() {
+            // === FULL TREE OPTIONS ===
+            function openTreeOptions() {
+                document.getElementById('treeOptionOverlay').classList.add('show');
+            }
+
+            function closeTreeOptions() {
+                document.getElementById('treeOptionOverlay').classList.remove('show');
+            }
+
+            function goToVisualTree() {
+                closeTreeOptions();
                 if (db.length === 0) {
                     const saved = localStorage.getItem('familyDB');
                     if (saved) {
@@ -329,6 +481,20 @@ function hardResetMobile() {
                     }
                 }
                 window.location.href = '200-full-tree-mobile.html';
+            }
+
+            function goToTextView() {
+                closeTreeOptions();
+                if (db.length === 0) {
+                    const saved = localStorage.getItem('familyDB');
+                    if (saved) {
+                        db = JSON.parse(saved);
+                    } else {
+                        alert('No family data found. Please load data via admin on desktop.');
+                        return;
+                    }
+                }
+                window.location.href = 'FT-1.html';
             }
 
             function renderMobileDashboard() {
@@ -372,18 +538,50 @@ function hardResetMobile() {
                     </div>
                 `;
 
-
-
-document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
-
-
-
+                document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
                 document.getElementById('cardRoot').addEventListener('click', goToRootMobile);
-                document.getElementById('cardFullTree').addEventListener('click', goToFullTreeMobile);
+                document.getElementById('cardFullTree').addEventListener('click', openTreeOptions);
                 document.getElementById('exitBtn').addEventListener('click', logoutMobile);
                 document.getElementById('resetBtn').addEventListener('click', hardResetMobile);
             }
 
+            // === SETUP MODAL EVENTS ===
+            function setupModalEvents() {
+                const overlay = document.getElementById('treeOptionOverlay');
+                const closeBtn = document.getElementById('treeOptionClose');
+                const visualBtn = document.getElementById('optionVisualTree');
+                const textBtn = document.getElementById('optionTextView');
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeTreeOptions);
+                }
+
+                if (visualBtn) {
+                    visualBtn.addEventListener('click', goToVisualTree);
+                }
+
+                if (textBtn) {
+                    textBtn.addEventListener('click', goToTextView);
+                }
+
+                // Close on overlay click
+                if (overlay) {
+                    overlay.addEventListener('click', function(e) {
+                        if (e.target === overlay) {
+                            closeTreeOptions();
+                        }
+                    });
+                }
+
+                // Close on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        closeTreeOptions();
+                    }
+                });
+            }
+
+            // === INIT ===
             document.addEventListener('DOMContentLoaded', function() {
                 const fileInput = document.getElementById('fileInput');
                 if (fileInput) {
@@ -415,6 +613,8 @@ document.getElementById('cardIndividual').addEventListener('click', goToIndividu
                         reader.readAsArrayBuffer(file);
                     };
                 }
+
+                setupModalEvents();
             });
 
             loadFromStorageOrFallback();
@@ -434,6 +634,12 @@ document.getElementById('cardIndividual').addEventListener('click', goToIndividu
                     updateHeaderCounter();
                 }
             });
+
+            // Expose functions for inline onclick use (if needed)
+            window.openTreeOptions = openTreeOptions;
+            window.closeTreeOptions = closeTreeOptions;
+            window.goToVisualTree = goToVisualTree;
+            window.goToTextView = goToTextView;
         })();
     </script>
 </body>

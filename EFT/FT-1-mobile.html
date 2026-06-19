@@ -189,6 +189,19 @@
             transform: scale(0.95);
         }
 
+
+@keyframes gentle-blink {
+    0% { opacity: 1; background: var(--gold); }
+    50% { opacity: 0.7; background: #90EE90; transform: scale(1.05); }
+    100% { opacity: 1; background: var(--gold); }
+}
+
+.menu-toggle-btn {
+    animation: gentle-blink 1.5s infinite;
+}
+
+
+
         .header-title {
             font-family: 'Playfair Display', serif;
             font-size: 20px;
@@ -214,20 +227,21 @@
         }
 
         /* === CONTROLS === */
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 20px;
-            align-items: center;
-            background: #fffcf8;
-            padding: 12px 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            flex-direction: column;
-            align-items: stretch;
-            border-left: 2px solid var(--gold);
-            border-right: 2px solid var(--gold);
-        }
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    align-items: center;
+    background: #fffcf8;
+    padding: 12px 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    border-left: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    
+}
         .controls .row1 {
             display: flex;
             flex-wrap: wrap;
@@ -259,22 +273,21 @@
             align-items: center;
             width: 100%;
         }
-        .controls .search-box input {
-            padding: 6px 14px;
-            border: 1.5px solid #b8a088;
-            border-radius: 6px;
-            font-size: 14px;
-            background: #faf6f0;
-            color: #2d1f13;
-            width: 100%;
-            min-width: 120px;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
-        }
-        .controls .search-box input:focus {
-            outline: none;
-            border-color: #8b7355;
-            box-shadow: 0 0 0 2px rgba(139, 115, 85, 0.2);
-        }
+ .controls .search-box input {
+    padding: 10px 15px;
+    border: 2px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+    color: #2d1f13;
+    width: 100%;
+    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
+   .controls .search-box input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
         .controls .search-box button {
             padding: 6px 14px;
             background: #8b7355;
@@ -290,12 +303,37 @@
         .controls .search-box button:hover {
             background: #6b5a48;
         }
-        .controls .search-box .clear-btn {
-            background: #999;
-        }
-        .controls .search-box .clear-btn:hover {
-            background: #777;
-        }
+
+.controls .search-box .clear-btn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
+.controls .search-box .clear-btn:hover {
+    background: var(--light-gold);
+}
+
+
+.search-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.search-label {
+    font-weight: 700;
+    color: var(--maroon);
+    font-size: 13px;
+    white-space: nowrap;
+}
         .controls .stats {
             font-size: 13px;
             color: #6b5a48;
@@ -367,8 +405,7 @@
             flex-direction: column;
             border-left: 2px solid var(--gold);
             border-right: 2px solid var(--gold);
-            border-bottom: 2px solid var(--gold);
-        }
+                   }
 
         /* === PAGE HEADER === */
         .page-header {
@@ -718,21 +755,26 @@
         </div>
 
         <!-- === CONTROLS (Page dropdown REMOVED) === -->
-        <div class="controls">
-            <div class="row1">
-                <span class="stats" id="stats"></span>
-                <span class="error-msg" id="errorMsg"></span>
-            </div>
-            <div class="row2">
-                <div class="search-wrapper">
-      <div class="search-box">
-    <input type="text" id="searchInput" placeholder="🔍 Search by name..." autocomplete="off" />
-    <button class="clear-btn" onclick="clearSearch()">Reset</button>
-</div>
-                    <div class="search-dropdown" id="searchDropdown"></div>
+
+
+<div class="controls">
+    <div style="width:85%; margin:0 auto;">
+        <div class="search-row">
+            <span class="search-label">SEARCH MEMBER</span>
+            <div class="search-wrapper">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Type name..." autocomplete="off" />
+                    <button class="clear-btn" onclick="clearSearch()">🔄 Reset</button>
                 </div>
+                <div class="search-dropdown" id="searchDropdown"></div>
             </div>
         </div>
+    </div>
+    <div style="width:85%; margin:0 auto; text-align:center; border-bottom: 2px solid var(--gold); padding-bottom: 12px;">
+        <span class="stats" id="stats"></span>
+        <span class="error-msg" id="errorMsg"></span>
+    </div>
+</div>
 
         <!-- === PAGE CONTENT === -->
         <div class="page" id="pageContainer">

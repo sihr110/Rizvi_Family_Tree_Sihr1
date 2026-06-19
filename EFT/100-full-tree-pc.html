@@ -2,20 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Rizvi Family · Full Tree</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <title>Rizvi Family · Mobile Tree</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="13-family-data.js"></script>
 
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+
+.manning-connector-single {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 0;
+}
+.manning-line-down {
+    width: 3px;
+    height: 25px;
+    background: var(--gold);
+}
+.manning-arrow-down {
+    color: var(--gold);
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: -5px;
+}
+
+.manning-connector-multi {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+.manning-line-down-multi {
+    width: 3px;
+    height: 20px;
+    background: var(--gold);
+}
+.manning-horizontal-line {
+    width: 100%;
+    height: 3px;
+    background: var(--gold);
+}
+.manning-lines-to-children {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+.manning-line-to-child {
+    width: 3px;
+    height: 15px;
+    background: var(--gold);
+}
+.manning-arrows-down-multi {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --maroon: #5a0000;
@@ -37,44 +87,6 @@
             padding: 10px;
         }
 
-        .zoom-controls {
-            position: absolute;
-            top: 30px;
-            right: 0px;
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 8px;
-            padding: 5px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 2000;
-        }
-
-        .zoom-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--gold);
-            background: white;
-            cursor: pointer;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .zoom-btn:hover {
-            background: var(--gold);
-            color: white;
-        }
-
-        .zoom-level {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 0;
-        }
-
         .app-container {
             max-width: 1400px;
             width: 90%;
@@ -88,43 +100,28 @@
             overflow: hidden;
         }
 
+        /* HEADER - like file 7 */
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
             color: var(--gold);
             padding: 10px 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
             border-bottom: 3px solid var(--gold);
-            flex-shrink: 0;
-            margin-left: 0px;
-            margin-right: 0px;
-        }
-
-        #toggleMenuBtn {
-            width: 28px;
-            flex-shrink: 0;
-            background: transparent;
-            border: none;
-            color: var(--gold);
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0;
-            margin-left: 0px;
-            margin-right: 15px;
+            position: relative;
         }
 
         .header-title {
-            width: 300px;
-            flex-shrink: 0;
             font-family: 'Playfair Display', serif;
             font-size: 20px;
             font-weight: 900;
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-left: 0px;
-            margin-right: 15px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .header-icon {
@@ -138,38 +135,118 @@
             justify-content: center;
         }
 
-        .search-section {
-            width: 370px;
+        .left-toggle-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
             flex-shrink: 0;
+	    animation: gentle-blink 1.5s infinite;
+        }
+
+        .left-toggle-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.05);
+        }
+
+
+@keyframes gentle-blink {
+    0% { opacity: 1; background: var(--gold); }
+    50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
+    100% { opacity: 1; background: var(--gold); }
+}
+
+        .counter-badge {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* SEARCH SECTION - 2nd row like file 7 */
+        .search-section {
+            padding: 15px;
+            background: #fffcf8;
+            border-bottom: 2px solid var(--gold);
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-label {
+            font-weight: 700;
+            color: var(--maroon);
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .search-wrapper {
             position: relative;
-            margin-left: 100px;
-            margin-right: 15px;
+            flex: 1;
         }
 
         .search-input {
             width: 100%;
-            padding: 8px 15px;
-            border: 2px solid var(--gold);
-            border-radius: 40px;
+            padding: 10px 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
             font-size: 14px;
             outline: none;
-            background: white;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold);
         }
 
         .search-dropdown {
             position: absolute;
             top: 100%;
             left: 0;
-            width: 100%;
-            min-width: 320px;
+            right: 0;
             background: white;
             border: 2px solid var(--gold);
-            border-radius: 12px;
+            border-radius: 0 0 4px 4px;
             max-height: 300px;
             overflow-y: auto;
             display: none;
-            z-index: 3000;
-            margin-top: 5px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
         }
 
         .result-item {
@@ -185,73 +262,94 @@
         .result-name {
             font-weight: 700;
             color: var(--dark-blue);
+            font-size: 14px;
         }
 
         .result-father {
             font-size: 11px;
             color: #666;
+            margin-top: 2px;
         }
 
-        .reset-btn-header {
-            width: 80px;
-            flex-shrink: 0;
-            padding: 8px 0;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-            text-align: center;
-            margin-left: 0px;
-            margin-right: 15px;
+        /* TOGGLE MENU PANEL */
+        .toggle-menu-panel {
+            position: absolute;
+            left: 10px;
+            top: 60px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 220px;
         }
 
-        .reset-btn-header:hover {
-            background: var(--light-gold);
-        }
-
-        .counter-wrapper {
-            width: 50px;
-            flex-shrink: 0;
-            background: #d4af3720;
-            padding: 6px 0;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            margin-left: 130px;
-            margin-right: 15px;
-        }
-
-        .header-btn.dashboard {
-            width: 150px;
-            flex-shrink: 0;
-            padding: 8px 0;
-            background: #2e7d32;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            text-align: center;
-            margin-left: 40px;
-            margin-right: 0px;
-        }
-
-        .header-btn.dashboard:hover {
-            background: var(--gold);
-            color: var(--dark-blue);
-        }
-
-        .header-actions {
+        .toggle-menu-panel.show {
             display: flex;
         }
 
+        .toggle-menu-item {
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .toggle-menu-item:hover {
+            background: #faebcd;
+            transform: translateX(5px);
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 22px;
+            background: #ccc;
+            border-radius: 22px;
+            display: inline-block;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .toggle-switch.active {
+            background: var(--green);
+        }
+
+        .toggle-switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: 0.2s;
+        }
+
+        .toggle-switch.active::after {
+            left: 23px;
+        }
+
+        /* TREE CONTENT */
         .tree-wrapper {
             flex: 1;
             overflow: auto;
             background: #fffcf8;
+            position: relative;
         }
 
         .tree-wrapper::-webkit-scrollbar {
@@ -275,7 +373,8 @@
             min-height: 100%;
             display: flex;
             justify-content: center;
-            transition: transform 0.1s ease;
+            transform: scale(0.5);
+            transform-origin: top center;
         }
 
         .tree {
@@ -315,13 +414,6 @@
             position: relative;
         }
 
-        .child-vertical-line {
-            width: 2px;
-            height: 20px;
-            background: #b8860b;
-            margin: 0 auto;
-        }
-
         .sibling-bar {
             display: flex;
             justify-content: center;
@@ -341,6 +433,8 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.1s ease;
+            cursor: pointer;
         }
 
         .box-header {
@@ -370,17 +464,13 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 18px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            line-height: 1;
         }
 
-        .label-col {
-            font-weight: 600;
-            color: var(--dark-blue);
-            width: 65px;
-            display: inline-block;
+        .expand-btn:hover {
+            background: var(--light-gold);
         }
 
         .tree-box:hover {
@@ -393,6 +483,10 @@
             border-color: var(--pink-border);
         }
 
+        .tree-box.female .box-header {
+            background: #ffe0e6;
+        }
+
         .tree-box.selected {
             animation: gentleBeat 2.2s infinite;
             border-width: 4px;
@@ -400,40 +494,30 @@
         }
 
         @keyframes gentleBeat {
-            0% {
-                border-color: #2e7d32;
-                transform: scale(1.02);
-            }
-            50% {
-                border-color: #4caf50;
-                background: #c8e6c9;
-                transform: scale(1.05);
-            }
-            100% {
-                border-color: #2e7d32;
-                transform: scale(1.02);
-            }
-        }
-
-        .tree-box.female .box-header {
-            background: #ffe0e6;
+            0% { border-color: #2e7d32; transform: scale(1.02); }
+            50% { border-color: #4caf50; background: #c8e6c9; transform: scale(1.05); }
+            100% { border-color: #2e7d32; transform: scale(1.02); }
         }
 
         .box-body {
-            padding: 6px 8px;
-            min-height: 80px;
+            padding: 8px 10px;
+            min-height: 90px;
         }
 
         .member-name {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 13px;
             color: var(--dark-blue);
+            text-align: center;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
         }
 
         .info-text {
-            font-size: 9px;
-            margin-top: 3px;
+            font-size: 10px;
+            margin-top: 4px;
             color: #333;
             line-height: 1.3;
         }
@@ -442,17 +526,8 @@
             font-weight: 700;
             color: var(--maroon);
             display: inline-block;
-            width: 60px;
-            font-size: 9px;
-        }
-
-        .gen-badge {
-            background: #e0e0e0;
-            padding: 1px 5px;
-            border-radius: 20px;
-            font-size: 8px;
-            font-weight: 600;
-            color: var(--maroon);
+            width: 55px;
+            font-size: 10px;
         }
 
         .info-icon {
@@ -461,10 +536,10 @@
             justify-content: center;
             background: var(--gold);
             color: var(--dark-blue);
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            font-size: 10px;
+            font-size: 11px;
             cursor: pointer;
         }
 
@@ -473,30 +548,8 @@
             transform: scale(1.1);
         }
 
-        .expand-controls {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            margin: 2px 0;
-        }
-
-        .expand-btn:hover {
-            background: var(--light-gold);
-        }
-
-        .pipe {
-            color: var(--connector);
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .footer {
-            background: var(--dark-blue);
-            color: var(--gold);
-            text-align: center;
-            padding: 8px;
-            font-size: 11px;
-            border-top: 2px solid var(--gold);
+        .hidden-children {
+            display: none !important;
         }
 
         .save-options-modal {
@@ -509,7 +562,7 @@
             border-radius: 12px;
             padding: 25px;
             z-index: 4000;
-            min-width: 350px;
+            min-width: 320px;
             display: none;
         }
 
@@ -531,7 +584,7 @@
             transform: translate(-50%, -50%);
             background: #5a0000;
             color: white;
-            padding: 20px 40px;
+            padding: 15px 30px;
             border-radius: 8px;
             z-index: 5000;
             font-weight: 600;
@@ -539,419 +592,410 @@
             white-space: nowrap;
         }
 
-        .hidden-children {
-            display: none !important;
-        }
-
-        .performance-alert {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #fff3cd;
-            color: #856404;
-            padding: 12px 20px;
-            border: 2px solid #ffeeba;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 9999;
-            display: none;
-            font-size: 14px;
-            font-weight: 600;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .performance-alert button {
-            background: #856404;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
+        .footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
         }
 
         @media print {
-            .zoom-controls,
-            .app-header,
-            .footer,
-            .save-options-modal,
-            .modal-overlay,
-            .loading-msg,
-            .header-actions,
-            .reset-btn-header {
-                display: none !important;
-            }
+            .app-header, .footer, .save-options-modal, .modal-overlay { display: none !important; }
+            .tree-container { transform: scale(1) !important; padding: 20px; }
+        }
 
-            .app-container, .tree-wrapper { 
-                border: none !important; 
-                width: 100% !important; 
-                height: auto !important; 
-                overflow: visible !important; 
-                display: block !important; 
-                position: relative !important;
+        @media screen and (max-width: 480px) {
+            .left-toggle-btn {
+                padding: 6px 12px;
+                font-size: 12px;
             }
-
-            .tree-container { 
-                transform: scale(1) !important; 
-                width: max-content !important; 
-                min-width: 100% !important;
-                display: block !important; 
-                visibility: visible !important;
-                opacity: 1 !important;
-                padding: 100px !important; 
-                margin: 0 !important;
+            .header-title {
+                font-size: 14px;
+            }
+            .header-title span {
+                display: none;
+            }
+            .header-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
             }
         }
+
+
+.parent-line { display: flex; justify-content: center; }
+.parent-vertical-line { width: 3px; height: 20px; background: var(--gold); }
+.single-arrow { text-align: center; color: var(--gold); font-size: 16px; margin: -5px 0 5px 0; }
+.children-row { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+.horizontal-bar { width: 100%; height: 3px; background: var(--gold); margin: 5px 0; }
+.children-with-lines { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+.child-line-group { display: flex; flex-direction: column; align-items: center; }
+.child-vertical-line { width: 3px; height: 15px; background: var(--gold); }
+.child-arrow { color: var(--gold); font-size: 14px; font-weight: bold; margin-top: -3px; }
+
+
     </style>
-
-
 </head>
 <body>
-    <div class="zoom-controls">
-        <div class="zoom-btn" onclick="zoomIn()">+</div>
-        <div class="zoom-level" id="zoomLevel">100%</div>
-        <div class="zoom-btn" onclick="zoomOut()">-</div>
-        <div class="zoom-btn" onclick="resetZoom()">↺</div>
-    </div>
-
     <div class="app-container">
-
-
+        <!-- HEADER - 3 columns: MENU, Title, Counter -->
         <div class="app-header">
-            <button id="toggleMenuBtn">☰</button>
+            <div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>
             <div class="header-title">
                 <span class="header-icon">🌳</span>
                 <span>Rizvi Family · Full Tree</span>
             </div>
-            <div id="toggleDropdown" style="display: none; position: absolute; top: 50px; left: 0; background: white; border: 2px solid var(--gold); border-radius: 8px; padding: 10px; min-width: 150px; z-index: 3000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                <button onclick="showSaveModal(); window.closeToggleDropdown();" style="width: 100%; padding: 8px; background: #5a0000; color: var(--gold); border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">💾 Save Tree</button>
-            </div>
-            <div class="search-section">
-                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search any member..." autocomplete="off">
-                <div id="searchDropdown" class="search-dropdown"></div>
-            </div>
-            <button class="reset-btn-header" id="resetRootBtn">🔄 Reset</button>
-            <span class="counter-wrapper">📂 <span id="openCount">0</span></span>
-            <div class="header-actions">
-                <div class="header-btn dashboard" onclick="goToDashboard()">🏠 Dashboard</div>
+            <div class="counter-badge" id="openCount">📂 0</div>
+        </div>
+
+        <!-- SEARCH SECTION - 2nd row -->
+        <div class="search-section">
+            <div class="search-row">
+                <span class="search-label">SEARCH MEMBER</span>
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                    <div id="searchDropdown" class="search-dropdown"></div>
+                </div>
+                <div class="reset-btn" onclick="resetToRoot()">🔄 Reset</div>
             </div>
         </div>
 
+        <!-- TOGGLE MENU PANEL -->
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item" id="showAllMenuItem">
+                <span>📂 Show All (full details)</span>
+                <span id="showAllToggleSwitch" class="toggle-switch active"></span>
+            </div>
+            <div class="toggle-menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+            <div class="toggle-menu-item" onclick="showSaveModal()" style="background: #d4af37; color: black;">💾 Save File</div>
+        </div>
 
+        <!-- TREE CONTENT -->
         <div class="tree-wrapper" id="treeWrapper">
             <div class="tree-container" id="treeContainer">
-                <div id="treeRoot">Loading family tree...</div>
+                <div id="treeRoot"></div>
             </div>
         </div>
 
         <div class="footer">Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
     </div>
 
+    <!-- SAVE MODAL -->
     <div class="save-options-modal" id="saveModal">
         <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
         <div style="margin-bottom:20px;">
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - High Resolution
-            </label>
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - Low Resolution
-            </label>
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG Image
-            </label>
+            <label style="display:block; margin-bottom:15px;"><input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - High Resolution</label>
+            <label style="display:block; margin-bottom:15px;"><input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - Low Resolution</label>
+            <label style="display:block;"><input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG Image</label>
         </div>
         <div style="display:flex; gap:10px;">
-            <button onclick="processSave()" style="flex:2; padding:12px; background:#2e7d32; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Save</button>
+            <button onclick="processSave()" style="flex:2; padding:12px; background:#2e7d32; color:white; border:none; border-radius:6px; cursor:pointer;">Save</button>
             <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
         </div>
     </div>
-
     <div class="modal-overlay" id="modalOverlay" onclick="closeSaveModal()"></div>
     <div class="loading-msg" id="loadingMsg">📄 Generating file, please wait...</div>
 
+    <script src="13-family-data.js"></script>
     <script>
         let familyDB = [];
-        let zoomLevel = 1;
         let currentSelectedBox = null;
         let memberElements = new Map();
         let expandedState = new Map();
+        let showAllMode = true;
+        let lastSelectedMemberName = null;
 
         function displayName(str) {
             if (!str) return '';
             return str.replace(/[\s-\.۔]*\d+$/, '').trim();
         }
 
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+        function showInfoModal(memberName) {
+            const member = familyDB.find(m => m.name === memberName);
+            if (!member) return;
+            let detailsText = member.details && member.details.trim() !== '' ? member.details : 'No additional information available.';
+            detailsText = detailsText.replace(/\\n/g, '<br>');
+            
+            let overlay = document.getElementById('infoModalOverlay');
+            let modal = document.getElementById('infoModal');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'infoModalOverlay';
+                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:none';
+                document.body.appendChild(overlay);
+                modal = document.createElement('div');
+                modal.id = 'infoModal';
+                modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Inter,sans-serif';
+                document.body.appendChild(modal);
+            }
+            modal.innerHTML = `
+                <h3 style="color:#5a0000;font-family:Playfair Display;margin-bottom:12px;">ℹ️ Other Informations</h3>
+                <p style="font-size:14px;line-height:1.5;margin:10px 0;white-space:pre-wrap;word-break:break-word;color:#2d2d2d;max-height:300px;overflow-y:auto;background:#fef9e6;padding:12px;border-radius:8px;border-left:3px solid #d4af37;">${detailsText}</p>
+                <button onclick="closeInfoModal()" style="margin-top:15px;padding:8px 20px;background:#d4af37;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Close</button>
+            `;
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+            window.closeInfoModal = () => { modal.style.display = 'none'; overlay.style.display = 'none'; };
         }
 
-    function showInfoModal(memberName) {
-    const member = familyDB.find(m => m.name === memberName);
-    if (!member) return;
-    let detailsText = member.details && member.details.trim() !== '' ? member.details : 'No additional information available.';
-    detailsText = detailsText.replace(/\\n/g, '<br>');
-    
-    let overlay = document.getElementById('infoModalOverlay');
-    let modal = document.getElementById('infoModal');
-    
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'infoModalOverlay';
-        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:none';
-        document.body.appendChild(overlay);
-        
-        modal = document.createElement('div');
-        modal.id = 'infoModal';
-        modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Inter,sans-serif';
-        document.body.appendChild(modal);
-    }
-    
-    modal.innerHTML = `
-        <h3 style="color:#5a0000;font-family:Playfair Display;font-size:20px;margin:0 0 8px 0;padding:0 0 8px 0;border-bottom:2px solid #d4af37;">ℹ️ Other Informations</h3>
-        <p style="font-size:14px;line-height:1.5;margin:12px 0 0 0;white-space:pre-wrap;word-break:break-word;color:#333;max-height:300px;overflow-y:auto;">${detailsText}</p>
-        <button onclick="closeInfoModal()" style="margin-top:20px;padding:8px 20px;background:#d4af37;color:#0f172a;border:none;border-radius:6px;cursor:pointer;font-weight:600;width:100%;">Close</button>
-    `;
-    
-    modal.style.display = 'block';
-    overlay.style.display = 'block';
-    
-    window.closeInfoModal = function() {
-        modal.style.display = 'none';
-        overlay.style.display = 'none';
-    };
-}    
-
-
-        function extractGenNumber(genStr) {
-            if (!genStr) return 999;
-            const match = genStr.match(/\d+/);
-            return match ? parseInt(match[0]) : 999;
-        }
-
-        function buildTreeStructure() {
+        function buildChildrenMap() {
             const childrenMap = new Map();
-            const allNames = new Set();
-
-            familyDB.forEach(m => allNames.add(m.name));
-
+            const allNames = new Set(familyDB.map(m => m.name));
             familyDB.forEach(m => {
-                if (m.father && m.father !== '---' && m.father !== '' && m.father !== '—') {
-                    if (allNames.has(m.father)) {
-                        if (!childrenMap.has(m.father)) childrenMap.set(m.father, []);
-                        childrenMap.get(m.father).push(m);
-                    }
+                if (m.father && m.father !== '---' && m.father !== '' && m.father !== '—' && allNames.has(m.father)) {
+                    if (!childrenMap.has(m.father)) childrenMap.set(m.father, []);
+                    childrenMap.get(m.father).push(m);
                 }
             });
-
             for (let [father, children] of childrenMap) {
                 children.sort((a, b) => {
                     const genA = a.gen || '';
                     const genB = b.gen || '';
                     const matchA = genA.match(/([SD])(\d+)/);
                     const matchB = genB.match(/([SD])(\d+)/);
-
                     if (matchA && matchB) {
-                        const typeA = matchA[1];
-                        const typeB = matchB[1];
-                        const numA = parseInt(matchA[2], 10);
-                        const numB = parseInt(matchB[2], 10);
-
-                        if (typeA !== typeB) return typeA === 'S' ? -1 : 1;
-                        return numA - numB;
+                        if (matchA[1] !== matchB[1]) return matchA[1] === 'S' ? -1 : 1;
+                        return parseInt(matchA[2]) - parseInt(matchB[2]);
                     }
-
-                    const genNumA = extractGenNumber(a.gen);
-                    const genNumB = extractGenNumber(b.gen);
-
-                    if (genNumA !== genNumB) return genNumA - genNumB;
-                    return a.name.localeCompare(b.name);
+                    return (a.gen || '').localeCompare(b.gen || '') || a.name.localeCompare(b.name);
                 });
             }
+            const roots = familyDB.filter(m => !m.father || m.father === '---' || m.father === '' || m.father === '—' || !allNames.has(m.father));
+            return { childrenMap, roots };
+        }
 
-            const roots = familyDB.filter(m => {
-                if (!m.father || m.father === '---' || m.father === '' || m.father === '—') return true;
-                return !allNames.has(m.father);
+        function renderBox(member) {
+            const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
+            const safeName = member.name.replace(/'/g, "\\'");
+            const { childrenMap } = buildChildrenMap();
+            const hasChildren = childrenMap.has(member.name);
+            const isExpanded = expandedState.get(member.name) || false;
+            let genDisplay = member.gen || '—';
+            if (genDisplay.includes('-')) {
+                const parts = genDisplay.split('-');
+                genDisplay = 'Gen-' + parts.slice(1).join('-');
+            }
+
+            if (showAllMode) {
+                return `
+                    <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
+                        <div class="box-header">
+                            <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}</div>
+                            <div class="gen-text">${genDisplay}</div>
+                            <div style="width: 30px; text-align:right;">${member.details ? `<span class="info-icon" onclick="showInfoModal('${safeName}')">ℹ️</span>` : ''}</div>
+                        </div>
+                        <div class="box-body">
+                            <div class="member-name">${displayName(member.name)}</div>
+                            <div class="info-text"><span class="label-col">Father:</span> ${displayName(member.father) || '—'}</div>
+                            <div class="info-text"><span class="label-col">Mother:</span> ${displayName(member.mother) || '—'}</div>
+                            <div class="info-text"><span class="label-col">Spouse:</span> ${displayName(member.spouse) || '—'}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
+                        <div class="box-header">
+                            <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}</div>
+                            <div class="gen-text">${genDisplay}</div>
+                            <div style="width: 30px;"></div>
+                        </div>
+                        <div class="box-body" style="text-align:center; min-height:50px;">
+                            <div class="member-name" style="border-bottom:none; margin-bottom:0;">${displayName(member.name)}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+
+function renderTreeNode(parent, childrenMap, visited = new Set()) {
+    if (visited.has(parent.name)) return '';
+    const newVisited = new Set(visited);
+    newVisited.add(parent.name);
+    const children = childrenMap.get(parent.name) || [];
+    const isExpanded = expandedState.get(parent.name) || false;
+    
+    if (!isExpanded || children.length === 0) {
+        return `<div class="child-node">${renderBox(parent)}</div>`;
+    }
+    
+    let html = `<div class="child-node">${renderBox(parent)}`;
+    html += `<div class="parent-line"><div class="parent-vertical-line"></div></div>`;
+    
+    if (children.length === 1) {
+        html += `<div class="single-arrow">▼</div>`;
+        html += `<div class="children-row">${children.map(child => renderTreeNode(child, childrenMap, newVisited)).join('')}</div>`;
+    } else {
+        html += `<div class="horizontal-bar"></div>`;
+        html += `<div class="children-with-lines">`;
+        for (let child of children) {
+            html += `<div class="child-line-group"><div class="child-vertical-line"></div><div class="child-arrow">▼</div>${renderTreeNode(child, childrenMap, newVisited)}</div>`;
+        }
+        html += `</div>`;
+    }
+    
+    html += `</div>`;
+    return html;
+}
+
+
+function drawFullTreeAndCenter(centerMemberName = null) {
+    if (!familyDB.length) {
+        document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
+        return;
+    }
+    const { childrenMap, roots } = buildChildrenMap();
+    let html = '<div class="tree"><div class="root-level">';
+    
+    for (const root of roots) {
+        const rootChildren = childrenMap.get(root.name) || [];
+        if (rootChildren.length === 0) {
+            html += `<div class="child-node root-node">${renderBox(root)}</div>`;
+        } else if (rootChildren.length === 1) {
+            html += `<div class="child-node root-node">${renderBox(root)}<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div><div class="children-level">`;
+            for (const child of rootChildren) {
+                html += renderTreeNode(child, childrenMap, new Set([root.name]));
+            }
+            html += `</div></div>`;
+        } else {
+            let gapStyle = '';
+            if (rootChildren.length === 2) gapStyle = 'gap: 200px;';
+            else if (rootChildren.length === 3) gapStyle = 'gap: 100px;';
+            else gapStyle = 'gap: 60px;';
+            
+            html += `<div class="child-node root-node">${renderBox(root)}<div class="manning-connector-multi"><div class="manning-line-down-multi"></div><div class="manning-horizontal-line"></div><div class="manning-lines-to-children" style="${gapStyle} justify-content: center;">${Array(rootChildren.length).fill('<div class="manning-line-to-child"></div>').join('')}</div><div class="manning-arrows-down-multi" style="${gapStyle} justify-content: center;">${Array(rootChildren.length).fill('▼').join('')}</div></div><div class="children-level" style="display: flex; justify-content: center; gap: 50px; flex-wrap: wrap;">`;
+            for (const child of rootChildren) {
+                html += `<div class="child-node-wrapper">${renderTreeNode(child, childrenMap, new Set([root.name]))}</div>`;
+            }
+            html += `</div></div>`;
+        }
+    }
+    
+    html += `</div></div>`;
+    document.getElementById('treeRoot').innerHTML = html;
+    
+    memberElements.clear();
+    document.querySelectorAll('.tree-box').forEach(box => {
+        const name = box.getAttribute('data-name');
+        if (name) {
+            memberElements.set(name, box);
+            box.addEventListener('click', (e) => {
+                if (e.target.classList.contains('info-icon')) return;
+                if (e.target.classList.contains('expand-btn')) return;
+                e.stopPropagation();
+                selectBox(box);
+                lastSelectedMemberName = name;
             });
+        }
+    });
+    
+    const memberToCenter = centerMemberName || lastSelectedMemberName;
+    if (memberToCenter) {
+        const box = memberElements.get(memberToCenter);
+        if (box) {
+            selectBox(box);
+            setTimeout(() => centerNode(box), 50);
+        }
+    }
+}
 
-            return { roots, childrenMap };
+
+
+
+        function drawFullTree() {
+            drawFullTreeAndCenter(null);
+        }
+
+        function selectBox(box) {
+            if (currentSelectedBox) currentSelectedBox.classList.remove('selected');
+            box.classList.add('selected');
+            currentSelectedBox = box;
+            lastSelectedMemberName = box.getAttribute('data-name');
+        }
+
+        function centerNode(element) {
+            const wrapper = document.getElementById('treeWrapper');
+            if (!wrapper || !element) return;
+            const container = document.getElementById('treeContainer');
+            const style = window.getComputedStyle(container);
+            const matrix = new DOMMatrixReadOnly(style.transform);
+            const scale = matrix.a || 0.5;
+            const rect = element.getBoundingClientRect();
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const scrollLeft = wrapper.scrollLeft + (rect.left - wrapperRect.left) - (wrapperRect.width / 2) + (rect.width / 2);
+            const scrollTop = wrapper.scrollTop + (rect.top - wrapperRect.top) - (wrapperRect.height / 2) + (rect.height / 2);
+            wrapper.scrollTo({ left: scrollLeft, top: scrollTop, behavior: 'smooth' });
+        }
+
+        function updateOpenCounter() {
+            const openCount = Array.from(expandedState.values()).filter(v => v === true).length;
+            document.getElementById('openCount').innerHTML = `📂 ${openCount}`;
+        }
+
+        function toggleExpand(memberName, event) {
+            if (event) event.stopPropagation();
+            const current = expandedState.get(memberName) || false;
+            expandedState.set(memberName, !current);
+            drawFullTreeAndCenter(memberName);
+            updateOpenCounter();
         }
 
         function getAncestors(name) {
             const ancestors = [];
             let current = name;
             let maxLoop = 50;
-            let count = 0;
-
-            while (count < maxLoop) {
+            while (maxLoop-- > 0) {
                 const member = familyDB.find(m => m.name === current);
                 if (!member || !member.father || member.father === '---' || member.father === '—') break;
                 ancestors.push(member.father);
                 current = member.father;
-                count++;
             }
-
             return ancestors;
         }
 
-       function toggleExpand(memberName, event) {
-    if (event) event.stopPropagation();
-
-    const currentState = expandedState.get(memberName) || false;
-    expandedState.set(memberName, !currentState);
-
-    // --- Performance Monitor Start ---
-    const openCount = Array.from(expandedState.values()).filter(val => val === true).length;
-    const alertBox = document.getElementById('perfAlert');
-    
-    // If more than 100 branches are open, show a warning
-    if (openCount > 100) {
-        if (!alertBox) {
-            const div = document.createElement('div');
-            div.id = 'perfAlert';
-            div.className = 'performance-alert';
-            div.innerHTML = `
-                ⚠️ Many branches are open. Close some to keep the tree fast! 
-                <button onclick="resetToRoot()">Reset All</button>
-                <button onclick="this.parentElement.style.display='none'" style="background:#ccc; color:#333;">Hide</button>
-            `;
-            document.body.appendChild(div);
-            div.style.display = 'flex';
+     function jumpToMember(name) {
+    const ancestors = getAncestors(name);
+    for (let anc of ancestors) expandedState.set(anc, true);
+    expandedState.set(name, true);
+    // Also expand all parents in the chain
+    let current = name;
+    while (current) {
+        const member = familyDB.find(m => m.name === current);
+        if (member && member.father && member.father !== '---') {
+            expandedState.set(member.father, true);
+            current = member.father;
         } else {
-            alertBox.style.display = 'flex';
+            break;
         }
-    } else if (alertBox) {
-        alertBox.style.display = 'none';
     }
-    // --- Performance Monitor End ---
-
-    drawFullTreeOnDemand();
+    drawFullTreeAndCenter(name);
     updateOpenCounter();
-    setTimeout(() => {
-        const clickedBox = document.querySelector(`.tree-box[data-name="${memberName.replace(/'/g, "\\'")}"]`);
-        if (clickedBox) {
-            clickedBox.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-            selectBox(clickedBox);
-        }
-    }, 150);
+    document.getElementById('searchInput').value = displayName(name);
+    document.getElementById('searchDropdown').style.display = 'none';
 }
 
-function renderBox(member) {
-    const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
-    const safeName = member.name.replace(/'/g, "\\'");
-    const { childrenMap } = buildTreeStructure();
-    const hasChildren = childrenMap.has(member.name);
-    const isExpanded = expandedState.get(member.name) || false;
-
-    // Formatting Gen number
-    let genDisplay = member.gen || '—';
-    if (genDisplay.includes('-')) {
-        const parts = genDisplay.split('-');
-        genDisplay = 'Gen-' + parts.slice(1).join('-');
-    }
-
-    return `
-        <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
-            <div class="box-header">
-                <div style="width: 30px;">
-                    ${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}
-                </div>
-                <div class="gen-text">${genDisplay}</div>
-                <div style="width: 30px; text-align: right;">
-                    ${member.details ? `<span class="info-icon" onclick="showInfoModal('${safeName}')">ℹ️</span>` : ''}
-                </div>
-            </div>
-            <div class="box-body" style="padding: 12px 10px; text-align: left;">
-                <div class="member-name" style="text-align: center; margin-bottom: 12px; font-weight: 700; font-size: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">
-                    ${displayName(member.name)}
-                </div>
-                <div class="info-text"><span class="label-col">Father:</span> ${displayName(member.father)}</div>
-                <div class="info-text"><span class="label-col">Mother:</span> ${displayName(member.mother)}</div>
-                <div class="info-text"><span class="label-col">Spouse:</span> ${displayName(member.spouse)}</div>
-            </div>
-        </div>`;
-}
-
-function renderTreeNode(parent, childrenMap, depth = 0, visited = new Set()) {
-    const children = childrenMap.get(parent.name) || [];
-    const isExpanded = expandedState.get(parent.name) || false;
-    
-    if (visited.has(parent.name)) return '';
-    const newVisited = new Set(visited);
-    newVisited.add(parent.name);
-    
-    let childrenHtml = '';
-    if (isExpanded) { 
-        for (const child of children) {
-            childrenHtml += renderTreeNode(child, childrenMap, depth + 1, newVisited);
-        }
-    }
-    
-    const hiddenClass = isExpanded ? '' : 'hidden-children';
-    
-    return `
-        <div class="child-node">
-            ${renderBox(parent)}
-            <div class="parent-down-line"></div>
-            <div class="sibling-bar"><div class="sibling-bar-line"></div></div>
-            <div class="children-level ${hiddenClass}">
-                ${childrenHtml}
-            </div>
-        </div>`;
-}
-
-        function drawFullTreeOnDemand() {
-            if (!familyDB.length) {
-                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
-                return;
-            }
-
-            const { roots, childrenMap } = buildTreeStructure();
-            let html = '<div class="tree"><div class="root-level">';
-
-            for (const root of roots) {
-                const children = childrenMap.get(root.name) || [];
-
-                if (children.length === 0) {
-                    html += `<div class="child-node root-node">${renderBox(root)}</div>`;
-                } else {
-                    html += `<div class="child-node root-node">${renderBox(root)}<div class="parent-down-line"></div><div class="sibling-bar"><div class="sibling-bar-line"></div></div><div class="children-level">`;
-
-                    for (const child of children) {
-                        html += renderTreeNode(child, childrenMap, 1, new Set([root.name]));
-                    }
-
-                    html += `</div></div>`;
-                }
-            }
-
-            html += `</div></div>`;
-            document.getElementById('treeRoot').innerHTML = html;
-
-            memberElements.clear();
-            document.querySelectorAll('.tree-box').forEach(box => {
-                const name = box.getAttribute('data-name');
-                if (name) {
-                    memberElements.set(name, box);
-                    box.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('info-icon')) return;
-                        if (e.target.classList.contains('expand-btn')) return;
-                        e.stopPropagation();
-                        selectBox(box);
-                    });
-                }
-            });
+        function resetToRoot() {
+            if (currentSelectedBox) currentSelectedBox.classList.remove('selected');
+            currentSelectedBox = null;
+            lastSelectedMemberName = null;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchDropdown').style.display = 'none';
+            expandedState.clear();
+            renderFullTree();
+            updateOpenCounter();
         }
 
-        function renderWelcomeScreen() {
+        function renderFullTree() {
             document.getElementById('treeRoot').innerHTML = `
-                <div style="text-align: center; padding: 80px 20px; max-width: 600px; margin: 0 auto;">
-                    <div style="font-size: 80px; margin-bottom: 20px;">🌳</div>
-                    <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px; font-size: 28px;">Welcome to Rizvi Family Tree</h2>
-                    <p style="color: #555; margin-bottom: 30px; line-height: 1.6; font-size: 16px;">Enter a family member's name in the search box above to explore the complete family tree.</p>
-                    <div style="background: #faebcd; padding: 15px 25px; border-radius: 12px; display: inline-block; border: 2px solid var(--gold);">
-                        <span style="font-size: 20px;">🔍</span> <strong style="font-size: 16px;">Type any name</strong> — then select from dropdown
+                <div style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">🌳</div>
+                    <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to Rizvi Family Tree</h2>
+                    <p style="color: #555; margin-bottom: 25px; line-height: 1.6;">Enter a family member's name in the search box above to explore the complete family tree.</p>
+                    <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block;">
+                        <span style="font-size: 18px;">🔍</span> <strong>Type any name</strong> — then select from dropdown
                     </div>
                 </div>
             `;
@@ -962,161 +1006,92 @@ function renderTreeNode(parent, childrenMap, depth = 0, visited = new Set()) {
             }
         }
 
-        function selectBox(box) {
-            if (currentSelectedBox) currentSelectedBox.classList.remove('selected');
-            box.classList.add('selected');
-            currentSelectedBox = box;
-        }
-
-        function resetToRoot() {
-            if (currentSelectedBox) {
-                currentSelectedBox.classList.remove('selected');
-                currentSelectedBox = null;
-            }
-            document.getElementById('searchInput').value = '';
-            document.getElementById('searchDropdown').style.display = 'none';
-            expandedState.clear();
-            renderWelcomeScreen();
-            updateOpenCounter();
-        }
-
         function setupSearch() {
             const input = document.getElementById('searchInput');
             const dropdown = document.getElementById('searchDropdown');
-
+            
             input.addEventListener('input', function() {
-                const query = this.value.trim().toLowerCase();
-
-                if (query.length < 2) {
-                    dropdown.style.display = 'none';
-                    return;
+                const q = this.value.trim().toLowerCase();
+                if (q.length < 2) { 
+                    dropdown.style.display = 'none'; 
+                    return; 
                 }
-
-                const results = familyDB.filter(m =>
-                    m.name.toLowerCase().includes(query)
-                    
-                ).slice(0, 15);
-
-                if (results.length === 0) {
-                    dropdown.style.display = 'none';
-                    return;
+                const results = familyDB.filter(m => m.name.toLowerCase().includes(q)).slice(0, 15);
+                if (!results.length) { 
+                    dropdown.style.display = 'none'; 
+                    return; 
                 }
-
                 dropdown.innerHTML = '';
                 results.forEach(m => {
                     const div = document.createElement('div');
                     div.className = 'result-item';
-                    div.innerHTML = `
-                        <div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div>
-                        <div class="result-father">👨 Father: ${displayName(m.father) || 'Unknown'}</div>
-                    `;
-                    div.onclick = () => {
-                        jumpToMember(m.name);
-                        dropdown.style.display = 'none';
-                        input.value = displayName(m.name);
-                        input.blur();
-                    };
+                    div.innerHTML = `<div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div><div class="result-father">👨 Father: ${displayName(m.father) || 'Unknown'}</div>`;
+                    div.onclick = (function(memberName) {
+                        return function() { 
+                            jumpToMember(memberName); 
+                            dropdown.style.display = 'none'; 
+                            input.blur();
+                        };
+                    })(m.name);
                     dropdown.appendChild(div);
                 });
-
                 dropdown.style.display = 'block';
             });
-
-            document.addEventListener('click', (e) => {
+            
+            document.addEventListener('click', function(e) {
                 if (!input.contains(e.target) && !dropdown.contains(e.target)) {
                     dropdown.style.display = 'none';
                 }
             });
         }
 
-        function jumpToMember(name) {
-            const ancestors = getAncestors(name);
-            for (let ancestor of ancestors) {
-                expandedState.set(ancestor, true);
+        function setShowAllMode(enabled) {
+            showAllMode = enabled;
+            const toggleSwitch = document.getElementById('showAllToggleSwitch');
+            if (toggleSwitch) {
+                if (showAllMode) toggleSwitch.classList.add('active');
+                else toggleSwitch.classList.remove('active');
             }
-            expandedState.set(name, true);
+            
+            if (familyDB.length) {
+                const hasTree = document.getElementById('treeRoot').innerHTML.includes('tree-box');
+                if (hasTree && lastSelectedMemberName) {
+                    drawFullTreeAndCenter(lastSelectedMemberName);
+                } else if (hasTree && currentSelectedBox) {
+                    const name = currentSelectedBox.getAttribute('data-name');
+                    drawFullTreeAndCenter(name);
+     } else if (hasTree) {
+    drawFullTreeAndCenter(null);         
 
-            drawFullTreeOnDemand();
-            updateOpenCounter();
-            setTimeout(() => {
-                const element = memberElements.get(name);
-                if (element) {
-                    if (currentSelectedBox) currentSelectedBox.classList.remove('selected');
-                    element.classList.add('selected');
-                    currentSelectedBox = element;
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+
                 } else {
-                    alert(`⚠️ Member "${displayName(name)}" not found.`);
+                    renderFullTree();
                 }
-            }, 500);
+            }
         }
 
-        function zoomIn() {
-            zoomLevel = Math.min(zoomLevel + 0.1, 2.5);
-            document.getElementById('treeContainer').style.transform = `scale(${zoomLevel})`;
-            document.getElementById('treeContainer').style.transformOrigin = 'top left';
-            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+        function closeDropdownMenu() {
+            const menu = document.getElementById('toggleMenuPanel');
+            if (menu) menu.classList.remove('show');
         }
 
-        function zoomOut() {
-            zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
-            document.getElementById('treeContainer').style.transform = `scale(${zoomLevel})`;
-            document.getElementById('treeContainer').style.transformOrigin = 'top left';
-            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
-        }
+        function showSaveModal() { document.getElementById('saveModal').style.display = 'block'; document.getElementById('modalOverlay').style.display = 'block'; }
+        function closeSaveModal() { document.getElementById('saveModal').style.display = 'none'; document.getElementById('modalOverlay').style.display = 'none'; }
+        function showLoading(t) { const m = document.getElementById('loadingMsg'); m.textContent = t; m.style.display = 'block'; }
+        function hideLoading() { document.getElementById('loadingMsg').style.display = 'none'; }
 
-        function resetZoom() {
-            zoomLevel = 1;
-            document.getElementById('treeContainer').style.transform = 'scale(1)';
-            document.getElementById('zoomLevel').textContent = '100%';
-        }
-
-        function showSaveModal() {
-            document.getElementById('saveModal').style.display = 'block';
-            document.getElementById('modalOverlay').style.display = 'block';
-        }
-
-        function closeSaveModal() {
-            document.getElementById('saveModal').style.display = 'none';
-            document.getElementById('modalOverlay').style.display = 'none';
-        }
-
-        function showLoading(text) {
-            const msg = document.getElementById('loadingMsg');
-            msg.textContent = text;
-            msg.style.display = 'block';
-        }
-
-        function hideLoading() {
-            document.getElementById('loadingMsg').style.display = 'none';
-        }
-
-       
-
- async function processSave() {
-            const selectedFormat = document.querySelector('input[name="saveFormat"]:checked').value;
+        async function processSave() {
+            const fmt = document.querySelector('input[name="saveFormat"]:checked').value;
             closeSaveModal();
             showLoading('Optimizing tree for export...');
-
             const treeContainer = document.getElementById('treeContainer');
             const originalTransform = treeContainer.style.transform;
-
             try {
                 treeContainer.style.transform = 'none';
-                await new Promise(r => setTimeout(r, 500));
-
-                const canvas = await html2canvas(treeContainer, {
-                    useCORS: true,
-                    scale: 1,
-                    backgroundColor: '#fffcf8',
-                    width: treeContainer.scrollWidth,
-                    height: treeContainer.scrollHeight,
-                    logging: false
-                });
-
-                const imgData = canvas.toDataURL('image/jpeg', 0.7);
-
-                if (selectedFormat === 'jpeg') {
+                await new Promise(r => setTimeout(r, 300));
+                const canvas = await html2canvas(treeContainer, { scale: fmt === 'pdf-high' ? 2 : 1, backgroundColor: '#fffcf8', logging: false });
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                if (fmt === 'jpeg') {
                     const link = document.createElement('a');
                     link.download = 'Rizvi-Family-Tree.jpg';
                     link.href = imgData;
@@ -1126,16 +1101,21 @@ function renderTreeNode(parent, childrenMap, depth = 0, visited = new Set()) {
                     const orientation = canvas.width > canvas.height ? 'l' : 'p';
                     const pdf = new jsPDF(orientation, 'px', [canvas.width, canvas.height]);
                     pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height, undefined, 'FAST');
-                    pdf.save('Rizvi-Family-Tree-Zoomable.pdf');
+                    pdf.save('Rizvi-Family-Tree.pdf');
                 }
             } catch (error) {
-                console.error("Export Error:", error);
+                console.error(error);
                 alert("The tree is too massive for a single capture. Please use 'Ctrl+P' and select 'Save as PDF'.");
             } finally {
                 treeContainer.style.transform = originalTransform;
                 hideLoading();
             }
         }
+
+        function goToDashboard() {
+            window.location.href = '6-dashboard-mobile.html';
+        }
+
         function init() {
             if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) {
                 familyDB = FAMILY_DATA;
@@ -1143,95 +1123,50 @@ function renderTreeNode(parent, childrenMap, depth = 0, visited = new Set()) {
                 const saved = localStorage.getItem('familyDB');
                 if (saved) familyDB = JSON.parse(saved);
             }
-
             if (!familyDB.length) {
                 document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
                 return;
             }
-
-            renderWelcomeScreen();
+            renderFullTree();
             setupSearch();
-            resetZoom();
-            document.getElementById('resetRootBtn').onclick = resetToRoot;
+            
+            window.toggleLeftMenu = function() {
+                const menu = document.getElementById('toggleMenuPanel');
+                menu.classList.toggle('show');
+            };
+
+            document.addEventListener('click', function(e) {
+                const menu = document.getElementById('toggleMenuPanel');
+                const toggleBtn = document.querySelector('.left-toggle-btn');
+                if (menu && toggleBtn) {
+                    if (!toggleBtn.contains(e.target) && !menu.contains(e.target)) {
+                        menu.classList.remove('show');
+                    }
+                }
+            });
+            
+            const showAllItem = document.getElementById('showAllMenuItem');
+            if (showAllItem) {
+                showAllItem.onclick = (e) => { 
+                    e.stopPropagation();
+                    setShowAllMode(!showAllMode); 
+                    closeDropdownMenu(); 
+                };
+            }
+            
+            setShowAllMode(true);
         }
 
         document.addEventListener('DOMContentLoaded', init);
-
-        window.zoomIn = zoomIn;
-        window.zoomOut = zoomOut;
-        window.resetZoom = resetZoom;
-        window.goToDashboard = goToDashboard;
+        
+        window.toggleExpand = toggleExpand;
+        window.showInfoModal = showInfoModal;
+        window.resetToRoot = resetToRoot;
         window.showSaveModal = showSaveModal;
         window.closeSaveModal = closeSaveModal;
         window.processSave = processSave;
-        window.showInfoModal = showInfoModal;
-        window.resetToRoot = resetToRoot;
-        window.toggleExpand = toggleExpand;
-
-        function centerNode(element) {
-            const wrapper = document.querySelector('.tree-wrapper');
-            if (!wrapper || !element) return;
-
-            const wrapperRect = wrapper.getBoundingClientRect();
-            const elementRect = element.getBoundingClientRect();
-
-            const scrollLeft = wrapper.scrollLeft + (elementRect.left - wrapperRect.left) - (wrapperRect.width / 2) + (elementRect.width / 2);
-            const scrollTop = wrapper.scrollTop + (elementRect.top - wrapperRect.top) - (wrapperRect.height / 2) + (elementRect.height / 2);
-
-            wrapper.scrollTo({
-                left: scrollLeft,
-                top: scrollTop,
-                behavior: 'smooth'
-            });
-        }
-
-function updateOpenCounter() {
-    const openCount = Array.from(expandedState.values()).filter(val => val === true).length;
-    const counterSpan = document.getElementById('openCount');
-    if (counterSpan) {
-        counterSpan.textContent = openCount;
-        // Optional: change color if too many open
-        if (openCount > 100) {
-            counterSpan.style.color = '#ff9800';
-        } else if (openCount > 150) {
-            counterSpan.style.color = '#f44336';
-        } else {
-            counterSpan.style.color = 'var(--gold)';
-        }
-    }
-}
-
-// Toggle dropdown menu - wrapped in DOMContentLoaded to ensure elements exist
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleBtn = document.getElementById('toggleMenuBtn');
-    const toggleDropdown = document.getElementById('toggleDropdown');
-    
-    // Make function global so it can be called from inline onclick
-    window.closeToggleDropdown = function() {
-        if (toggleDropdown) toggleDropdown.style.display = 'none';
-    };
-    
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const isOpen = toggleDropdown.style.display === 'block';
-            toggleDropdown.style.display = isOpen ? 'none' : 'block';
-        });
-    }
-    
-    // Close dropdown when clicking anywhere else
-    document.addEventListener('click', function(e) {
-        if (toggleDropdown && toggleBtn) {
-            if (!toggleBtn.contains(e.target) && !toggleDropdown.contains(e.target)) {
-                toggleDropdown.style.display = 'none';
-            }
-        }
-    });
-});
-
-function goToDashboard() {
-            window.location.href = '1-dashboard-pc.html';
-        }
+        window.goToDashboard = goToDashboard;
+        window.centerNode = centerNode;
     </script>
 </body>
 </html>

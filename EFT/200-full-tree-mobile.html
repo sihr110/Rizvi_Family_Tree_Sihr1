@@ -10,6 +10,61 @@
     <script src="13-family-data.js"></script>
 
     <style>
+
+.manning-connector-single {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 0;
+}
+.manning-line-down {
+    width: 3px;
+    height: 25px;
+    background: var(--gold);
+}
+.manning-arrow-down {
+    color: var(--gold);
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: -5px;
+}
+
+.manning-connector-multi {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+.manning-line-down-multi {
+    width: 3px;
+    height: 20px;
+    background: var(--gold);
+}
+.manning-horizontal-line {
+    width: 100%;
+    height: 3px;
+    background: var(--gold);
+}
+.manning-lines-to-children {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+.manning-line-to-child {
+    width: 3px;
+    height: 15px;
+    background: var(--gold);
+}
+.manning-arrows-down-multi {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -568,6 +623,19 @@
                 font-size: 14px;
             }
         }
+
+
+.parent-line { display: flex; justify-content: center; }
+.parent-vertical-line { width: 3px; height: 20px; background: var(--gold); }
+.single-arrow { text-align: center; color: var(--gold); font-size: 16px; margin: -5px 0 5px 0; }
+.children-row { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+.horizontal-bar { width: 100%; height: 3px; background: var(--gold); margin: 5px 0; }
+.children-with-lines { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+.child-line-group { display: flex; flex-direction: column; align-items: center; }
+.child-vertical-line { width: 3px; height: 15px; background: var(--gold); }
+.child-arrow { color: var(--gold); font-size: 14px; font-weight: bold; margin-top: -3px; }
+
+
     </style>
 </head>
 <body>
@@ -742,76 +810,100 @@
             }
         }
 
-        function renderTreeNode(parent, childrenMap, visited = new Set()) {
-            if (visited.has(parent.name)) return '';
-            const newVisited = new Set(visited);
-            newVisited.add(parent.name);
-            const children = childrenMap.get(parent.name) || [];
-            const isExpanded = expandedState.get(parent.name) || false;
-            let childrenHtml = '';
-            if (isExpanded) {
-                for (const child of children) {
-                    childrenHtml += renderTreeNode(child, childrenMap, newVisited);
-                }
-            }
-            const hiddenClass = isExpanded ? '' : 'hidden-children';
-            return `
-                <div class="child-node">
-                    ${renderBox(parent)}
-                    <div class="parent-down-line"></div>
-                    <div class="sibling-bar"><div class="sibling-bar-line"></div></div>
-                    <div class="children-level ${hiddenClass}">
-                        ${childrenHtml}
-                    </div>
-                </div>
-            `;
-        }
 
-        function drawFullTreeAndCenter(centerMemberName = null) {
-            if (!familyDB.length) {
-                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
-                return;
-            }
-            const { childrenMap, roots } = buildChildrenMap();
-            let html = '<div class="tree"><div class="root-level">';
-            for (const root of roots) {
-                const rootChildren = childrenMap.get(root.name) || [];
-                if (rootChildren.length === 0) {
-                    html += `<div class="child-node root-node">${renderBox(root)}</div>`;
-                } else {
-                    html += `<div class="child-node root-node">${renderBox(root)}<div class="parent-down-line"></div><div class="sibling-bar"><div class="sibling-bar-line"></div></div><div class="children-level">`;
-                    for (const child of rootChildren) {
-                        html += renderTreeNode(child, childrenMap, new Set([root.name]));
-                    }
-                    html += `</div></div>`;
-                }
+function renderTreeNode(parent, childrenMap, visited = new Set()) {
+    if (visited.has(parent.name)) return '';
+    const newVisited = new Set(visited);
+    newVisited.add(parent.name);
+    const children = childrenMap.get(parent.name) || [];
+    const isExpanded = expandedState.get(parent.name) || false;
+    
+    if (!isExpanded || children.length === 0) {
+        return `<div class="child-node">${renderBox(parent)}</div>`;
+    }
+    
+    let html = `<div class="child-node">${renderBox(parent)}`;
+    html += `<div class="parent-line"><div class="parent-vertical-line"></div></div>`;
+    
+    if (children.length === 1) {
+        html += `<div class="single-arrow">▼</div>`;
+        html += `<div class="children-row">${children.map(child => renderTreeNode(child, childrenMap, newVisited)).join('')}</div>`;
+    } else {
+        html += `<div class="horizontal-bar"></div>`;
+        html += `<div class="children-with-lines">`;
+        for (let child of children) {
+            html += `<div class="child-line-group"><div class="child-vertical-line"></div><div class="child-arrow">▼</div>${renderTreeNode(child, childrenMap, newVisited)}</div>`;
+        }
+        html += `</div>`;
+    }
+    
+    html += `</div>`;
+    return html;
+}
+
+
+function drawFullTreeAndCenter(centerMemberName = null) {
+    if (!familyDB.length) {
+        document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
+        return;
+    }
+    const { childrenMap, roots } = buildChildrenMap();
+    let html = '<div class="tree"><div class="root-level">';
+    
+    for (const root of roots) {
+        const rootChildren = childrenMap.get(root.name) || [];
+        if (rootChildren.length === 0) {
+            html += `<div class="child-node root-node">${renderBox(root)}</div>`;
+        } else if (rootChildren.length === 1) {
+            html += `<div class="child-node root-node">${renderBox(root)}<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div><div class="children-level">`;
+            for (const child of rootChildren) {
+                html += renderTreeNode(child, childrenMap, new Set([root.name]));
             }
             html += `</div></div>`;
-            document.getElementById('treeRoot').innerHTML = html;
-            memberElements.clear();
-            document.querySelectorAll('.tree-box').forEach(box => {
-                const name = box.getAttribute('data-name');
-                if (name) {
-                    memberElements.set(name, box);
-                    box.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('info-icon')) return;
-                        if (e.target.classList.contains('expand-btn')) return;
-                        e.stopPropagation();
-                        selectBox(box);
-                        lastSelectedMemberName = name;
-                    });
-                }
-            });
+        } else {
+            let gapStyle = '';
+            if (rootChildren.length === 2) gapStyle = 'gap: 200px;';
+            else if (rootChildren.length === 3) gapStyle = 'gap: 100px;';
+            else gapStyle = 'gap: 60px;';
             
-            const memberToCenter = centerMemberName || lastSelectedMemberName;
-            if (memberToCenter) {
-                const box = memberElements.get(memberToCenter);
-                if (box) {
-                    selectBox(box);
-                    setTimeout(() => centerNode(box), 50);
-                }
+            html += `<div class="child-node root-node">${renderBox(root)}<div class="manning-connector-multi"><div class="manning-line-down-multi"></div><div class="manning-horizontal-line"></div><div class="manning-lines-to-children" style="${gapStyle} justify-content: center;">${Array(rootChildren.length).fill('<div class="manning-line-to-child"></div>').join('')}</div><div class="manning-arrows-down-multi" style="${gapStyle} justify-content: center;">${Array(rootChildren.length).fill('▼').join('')}</div></div><div class="children-level" style="display: flex; justify-content: center; gap: 50px; flex-wrap: wrap;">`;
+            for (const child of rootChildren) {
+                html += `<div class="child-node-wrapper">${renderTreeNode(child, childrenMap, new Set([root.name]))}</div>`;
             }
+            html += `</div></div>`;
         }
+    }
+    
+    html += `</div></div>`;
+    document.getElementById('treeRoot').innerHTML = html;
+    
+    memberElements.clear();
+    document.querySelectorAll('.tree-box').forEach(box => {
+        const name = box.getAttribute('data-name');
+        if (name) {
+            memberElements.set(name, box);
+            box.addEventListener('click', (e) => {
+                if (e.target.classList.contains('info-icon')) return;
+                if (e.target.classList.contains('expand-btn')) return;
+                e.stopPropagation();
+                selectBox(box);
+                lastSelectedMemberName = name;
+            });
+        }
+    });
+    
+    const memberToCenter = centerMemberName || lastSelectedMemberName;
+    if (memberToCenter) {
+        const box = memberElements.get(memberToCenter);
+        if (box) {
+            selectBox(box);
+            setTimeout(() => centerNode(box), 50);
+        }
+    }
+}
+
+
+
 
         function drawFullTree() {
             drawFullTreeAndCenter(null);
@@ -864,15 +956,26 @@
             return ancestors;
         }
 
-        function jumpToMember(name) {
-            const ancestors = getAncestors(name);
-            for (let anc of ancestors) expandedState.set(anc, true);
-            expandedState.set(name, true);
-            drawFullTreeAndCenter(name);
-            updateOpenCounter();
-            document.getElementById('searchInput').value = displayName(name);
-            document.getElementById('searchDropdown').style.display = 'none';
+     function jumpToMember(name) {
+    const ancestors = getAncestors(name);
+    for (let anc of ancestors) expandedState.set(anc, true);
+    expandedState.set(name, true);
+    // Also expand all parents in the chain
+    let current = name;
+    while (current) {
+        const member = familyDB.find(m => m.name === current);
+        if (member && member.father && member.father !== '---') {
+            expandedState.set(member.father, true);
+            current = member.father;
+        } else {
+            break;
         }
+    }
+    drawFullTreeAndCenter(name);
+    updateOpenCounter();
+    document.getElementById('searchInput').value = displayName(name);
+    document.getElementById('searchDropdown').style.display = 'none';
+}
 
         function resetToRoot() {
             if (currentSelectedBox) currentSelectedBox.classList.remove('selected');
@@ -957,8 +1060,10 @@
                 } else if (hasTree && currentSelectedBox) {
                     const name = currentSelectedBox.getAttribute('data-name');
                     drawFullTreeAndCenter(name);
-                } else if (hasTree) {
-                    drawFullTree();
+     } else if (hasTree) {
+    drawFullTreeAndCenter(null);         
+
+
                 } else {
                     renderFullTree();
                 }

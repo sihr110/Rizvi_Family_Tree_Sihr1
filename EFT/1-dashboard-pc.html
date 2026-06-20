@@ -443,32 +443,36 @@
     </div>
 
     <!-- TREE OPTION MODAL -->
-    <div class="tree-option-overlay" id="treeOptionOverlay">
-        <div class="tree-option-modal">
-            <h2>🌳 Full Family Tree</h2>
-            <p class="subtitle">Choose how you want to view the tree</p>
 
-            <div class="tree-option-btn" id="optionVisualTree">
-                <span class="icon">🎨</span>
-                <div class="info">
-                    <div class="title">Visual Tree</div>
-                    <div class="desc">Interactive graphical tree with expandable branches</div>
-                </div>
-                <span class="arrow">→</span>
+<!-- TREE OPTION MODAL -->
+<div class="tree-option-overlay" id="treeOptionOverlay">
+    <div class="tree-option-modal">
+        <h2>🌳 Full Family Tree</h2>
+        <p class="subtitle">Choose how you want to view the tree</p>
+
+        <!-- ✅ NOW FIRST - Text Tree View -->
+        <div class="tree-option-btn" id="optionTextView">
+            <span class="icon">📄</span>
+            <div class="info">
+                <div class="title">Text Tree View</div>
+                <div class="desc">Clean text-based tree with paginated view</div>
             </div>
-
-            <div class="tree-option-btn" id="optionTextView">
-                <span class="icon">📄</span>
-                <div class="info">
-                    <div class="title">Text Tree View</div>
-                    <div class="desc">Clean text-based tree with paginated view</div>
-                </div>
-                <span class="arrow">→</span>
-            </div>
-
-            <button class="tree-option-close" id="treeOptionClose">Cancel</button>
+            <span class="arrow">→</span>
         </div>
+
+        <!-- ✅ NOW SECOND - Visual Tree -->
+        <div class="tree-option-btn" id="optionVisualTree">
+            <span class="icon">🎨</span>
+            <div class="info">
+                <div class="title">Visual Tree</div>
+                <div class="desc">Interactive graphical tree with expandable branches</div>
+            </div>
+            <span class="arrow">→</span>
+        </div>
+
+        <button class="tree-option-close" id="treeOptionClose">Cancel</button>
     </div>
+</div>
 
 <script>
 
@@ -517,7 +521,7 @@ function goToVisualTree() {
             return;
         }
     }
-    window.location.href = '100-full-tree-pc.html';
+    window.location.href = 'FT-pc-2.html';
 }
 
 function goToTextView() {
@@ -531,7 +535,7 @@ function goToTextView() {
             return;
         }
     }
-    window.location.href = 'FT-1-pc.html';
+    window.location.href = 'FT-pc-1.html';
 }
 
 // UPDATED logout function - redirects to main index.html

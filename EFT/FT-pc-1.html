@@ -1051,7 +1051,7 @@
             <div class="menu-toggle-btn" onclick="toggleMenu()">☰ MENU</div>
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span>Rizvi family · structured tree</span>
+                <span>Rizvi Family Tree</span>
             </div>
             <div class="header-spacer"></div>
         </div>
@@ -1199,6 +1199,79 @@
             document.getElementById('saveOptionsModal').style.display = 'none';
             document.getElementById('saveModalOverlay').style.display = 'none';
         }
+
+
+// ============================================================
+// JAVASCRIPT SECTION 5E: SCREEN PAGE EXPORT FUNCTIONS
+// ============================================================
+
+function exportTreePDF(quality) {
+    const pageElement = document.getElementById('pageContainer');
+    if (!pageElement) {
+        alert('❌ No page to save!');
+        return;
+    }
+
+    html2canvas(pageElement, {
+        scale: quality === 'high' ? 2.0 : 1.0,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false
+    }).then(canvas => {
+        const { jsPDF } = window.jspdf;
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const mmWidth = imgWidth * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
+        const mmHeight = imgHeight * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
+
+        const pdf = new jsPDF({
+            orientation: mmWidth > mmHeight ? 'l' : 'p',
+            unit: 'mm',
+            format: [mmWidth + 20, mmHeight + 20]
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
+        pdf.addImage(imgData, 'JPEG', 10, 10, mmWidth, mmHeight, undefined, 'FAST');
+
+        const fileName = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
+        pdf.save(fileName);
+        alert(`✅ Saved current page as "${fileName}"`);
+    }).catch(err => {
+        alert('❌ Error generating PDF: ' + err.message);
+        console.error('PDF Export Error:', err);
+    });
+}
+
+function exportAsJPEG() {
+    const pageElement = document.getElementById('pageContainer');
+    if (!pageElement) {
+        alert('❌ No page to save!');
+        return;
+    }
+
+    html2canvas(pageElement, {
+        scale: 1.5,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false
+    }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const link = document.createElement('a');
+        link.download = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
+        link.href = imgData;
+        link.click();
+        alert(`✅ Saved current page as JPEG`);
+    }).catch(err => {
+        alert('❌ Error generating JPEG: ' + err.message);
+        console.error('JPEG Export Error:', err);
+    });
+}
+
+
+
+
+
+
 
         // ============================================================
         // JAVASCRIPT SECTION 5: SAVE FUNCTIONS (MODIFIED)

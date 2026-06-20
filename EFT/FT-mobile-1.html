@@ -896,6 +896,21 @@
             margin-bottom: 6px;
         }
 
+
+
+.detail-card .detail-notes {
+    background: #faf6f0;
+    padding: 14px;
+    border-radius: 8px;
+    margin-top: 4px;
+    border-left: 3px solid var(--gold);
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+
         /* ============================================================
            SECTION 15: CLICKABLE NAME STYLES
            ============================================================ */
@@ -2363,14 +2378,16 @@ function getAncestorPages(memberName) {
                 </div>
             `;
             
-            if (person.details && person.details.trim() !== '') {
-                html += `
-                    <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-                        <strong style="margin-bottom:6px;">📝 Details</strong>
-                        <div class="detail-notes">${person.details}</div>
-                    </div>
-                `;
-            }
+   if (person.details && person.details.trim() !== '') {
+    // Replace \n with <br> for line breaks
+    const detailsHtml = person.details.replace(/\\n/g, '<br>');
+    html += `
+        <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+            <strong style="margin-bottom:6px;">📝 Details</strong>
+            <div class="detail-notes">${detailsHtml}</div>
+        </div>
+    `;
+}
             
             const children = getChildren(person.name, globalMap);
             if (children && children.length > 0) {

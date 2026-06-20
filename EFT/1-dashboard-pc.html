@@ -731,44 +731,56 @@ function renderDashboardView() {
     
     const mainContent = document.getElementById('mainContent');
     mainContent.innerHTML = `
-        <div class="dashboard-grid">
-            <div class="top-row">
-                <div class="dashboard-card" onclick="goToIndividual()">
-                    <div class="card-icon">👤</div>
-                    <div class="card-title">Individual</div>
-                    <div class="card-desc">Single member search</div>
-                </div>
-                <div class="dashboard-card" onclick="goToRoot()">
-                    <div class="card-icon">👥</div>
-                    <div class="card-title">Root Relative</div>
-                    <div class="card-desc">Two member search</div>
-                </div>
-                <div class="dashboard-card" onclick="openTreeOptions()">
-                    <div class="card-icon">🌳</div>
-                    <div class="card-title">Full Family Tree</div>
-                    <div class="card-desc">Complete family tree view</div>
-                </div>
-                <div class="dashboard-card admin-card" onclick="goToAdminWithPassword()">
-                    <div class="card-icon">⚙️</div>
-                    <div class="card-title">Admin Use Only</div>
-                    <div class="card-desc">Data management</div>
-                    <span class="admin-badge">Restricted - Password Protected</span>
-                </div>
-            </div>
-            
-            <div class="bottom-row">
-                <div class="exit-btn-container" onclick="logout()">
-                    <span>🚪</span>
-                    <span>Exit to Login</span>
-                    <span>- (Back to main page)</span>
-                </div>
-                <div class="exit-btn-container" onclick="hardReset()" style="background: #4169E1;">
-                    <span>⚠️</span>
-                    <span>Hard Reset</span>
-                    <span>- (Delete all data)</span>
-                </div>
-            </div>
+      
+<div class="dashboard-grid">
+    <div class="top-row">
+        <!-- 1️⃣ Full Family Tree - NOW FIRST -->
+        <div class="dashboard-card" onclick="openTreeOptions()">
+            <div class="card-icon">🌳</div>
+            <div class="card-title">Full Family Tree</div>
+            <div class="card-desc">Complete family tree view</div>
         </div>
+        
+        <!-- 2️⃣ Individual - NOW SECOND -->
+        <div class="dashboard-card" onclick="goToIndividual()">
+            <div class="card-icon">👤</div>
+            <div class="card-title">Individual</div>
+            <div class="card-desc">Single member search</div>
+        </div>
+        
+        <!-- 3️⃣ Root Relative - NOW THIRD -->
+        <div class="dashboard-card" onclick="goToRoot()">
+            <div class="card-icon">👥</div>
+            <div class="card-title">Root Relative</div>
+            <div class="card-desc">Two member search</div>
+        </div>
+        
+        <!-- 4️⃣ Admin - LAST -->
+        <div class="dashboard-card admin-card" onclick="goToAdminWithPassword()">
+            <div class="card-icon">⚙️</div>
+            <div class="card-title">Admin Use Only</div>
+            <div class="card-desc">Data management</div>
+            <span class="admin-badge">Restricted - Password Protected</span>
+        </div>
+    </div>
+    
+    <div class="bottom-row">
+        <div class="exit-btn-container" onclick="logout()">
+            <span>🚪</span>
+            <span>Exit to Login</span>
+            <span>- (Back to main page)</span>
+        </div>
+        <div class="exit-btn-container" onclick="hardReset()" style="background: #4169E1;">
+            <span>⚠️</span>
+            <span>Hard Reset</span>
+            <span>- (Delete all data)</span>
+        </div>
+    </div>
+</div>
+
+
+
+
     `;
 }
 

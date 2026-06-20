@@ -506,46 +506,50 @@
                 document.getElementById('headerTitle').innerText = 'Rizvi Family (Mobile)';
 
                 mainContent.innerHTML = `
-                    <div class="mobile-dashboard">
-                        <div class="dashboard-card" id="cardIndividual">
-                            <div class="card-icon">👤</div>
-                            <div class="card-title">Individual</div>
-                            <div class="card-desc">Single member search</div>
-                        </div>
 
-                        <div class="dashboard-card" id="cardRoot">
-                            <div class="card-icon">👥</div>
-                            <div class="card-title">Root Relative</div>
-                            <div class="card-desc">Two member connection</div>
-                        </div>
+<div class="mobile-dashboard">
+    <!-- 1️⃣ Full Family Tree - FIRST (MOVED FROM 3rd TO 1st) -->
+    <div class="dashboard-card" id="cardFullTree">
+        <div class="card-icon">🌳</div>
+        <div class="card-title">Full Family Tree</div>
+        <div class="card-desc">Complete family tree view</div>
+    </div>
 
-                        <div class="dashboard-card" id="cardFullTree">
-                            <div class="card-icon">🌳</div>
-                            <div class="card-title">Full Family Tree</div>
-                            <div class="card-desc">Complete family tree view</div>
-                        </div>
+    <!-- 2️⃣ Individual - SECOND (MOVED FROM 1st TO 2nd) -->
+    <div class="dashboard-card" id="cardIndividual">
+        <div class="card-icon">👤</div>
+        <div class="card-title">Individual</div>
+        <div class="card-desc">Single member search</div>
+    </div>
 
-                        <div class="action-row">
-                            <div class="exit-btn-container" id="exitBtn">
-                                <span class="exit-btn-icon">🚪</span>
-                                <span class="exit-btn-text">Exit to Login</span>
-                                <span class="exit-btn-subtext">(back to main)</span>
-                            </div>
-                            <div class="exit-btn-container hardreset" id="resetBtn">
-                                <span class="exit-btn-icon">⚠️</span>
-                                <span class="exit-btn-text">Hard Reset</span>
-                                <span class="exit-btn-subtext">(delete all)</span>
-                            </div>
-                        </div>
-                    </div>
+    <!-- 3️⃣ Root Relative - THIRD (MOVED FROM 2nd TO 3rd) -->
+    <div class="dashboard-card" id="cardRoot">
+        <div class="card-icon">👥</div>
+        <div class="card-title">Root Relative</div>
+        <div class="card-desc">Two member connection</div>
+    </div>
+
+    <div class="action-row">
+        <div class="exit-btn-container" id="exitBtn">
+            <span class="exit-btn-icon">🚪</span>
+            <span class="exit-btn-text">Exit to Login</span>
+            <span class="exit-btn-subtext">(back to main)</span>
+        </div>
+        <div class="exit-btn-container hardreset" id="resetBtn">
+            <span class="exit-btn-icon">⚠️</span>
+            <span class="exit-btn-text">Hard Reset</span>
+            <span class="exit-btn-subtext">(delete all)</span>
+        </div>
+    </div>
+</div>
+
                 `;
 
-                document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
-                document.getElementById('cardRoot').addEventListener('click', goToRootMobile);
-                document.getElementById('cardFullTree').addEventListener('click', openTreeOptions);
-                document.getElementById('exitBtn').addEventListener('click', logoutMobile);
-                document.getElementById('resetBtn').addEventListener('click', hardResetMobile);
-            }
+document.getElementById('cardFullTree').addEventListener('click', openTreeOptions);
+document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
+document.getElementById('cardRoot').addEventListener('click', goToRootMobile);
+document.getElementById('exitBtn').addEventListener('click', logoutMobile);
+document.getElementById('resetBtn').addEventListener('click', hardResetMobile);}
 
             // === SETUP MODAL EVENTS ===
             function setupModalEvents() {

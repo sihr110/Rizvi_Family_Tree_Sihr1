@@ -12,6 +12,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+
+.manning-connector-single {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 0;
+}
+.manning-line-down {
+    width: 3px;
+    height: 25px;
+    background: var(--gold);
+}
+.manning-arrow-down {
+    color: var(--gold);
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: -5px;
+}
+
+
         /* Reset Button Styles */
         .reset-btn {
             padding: 10px 20px;
@@ -443,12 +463,7 @@
             color: #555;
         }
 
-        .v-line {
-            width: 3px;
-            height: 25px;
-            background: var(--gold);
-            margin: 10px auto;
-        }
+   
 
         .section-heading {
             display: flex;
@@ -707,6 +722,117 @@
                 font-size: 12px;
             }
         }
+
+
+.tips-btn {
+    background: none;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 6px;
+    font-weight: 600;
+    color: #3d2b1a;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.tips-btn:hover {
+    background: #faebcd;
+}
+
+
+/* Tips Modal */
+.tips-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.tips-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    max-width: 480px;
+    width: 92%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.tips-modal h3 {
+    font-family: 'Playfair Display', serif;
+    color: #0f172a;
+    font-size: 20px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 10px;
+}
+
+.tips-modal ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px 0;
+}
+
+.tips-modal ul li {
+    display: flex;
+    align-items: baseline;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    border-bottom: 1px solid #f0ebe4;
+    gap: 8px;
+}
+
+.tips-modal ul li:last-child {
+    border-bottom: none;
+}
+
+.tips-modal ul li strong {
+    min-width: 120px;
+    flex-shrink: 0;
+    color: #5a0000;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.tips-modal ul li span {
+    flex: 1;
+    text-align: left;
+    font-size: 13px;
+}
+
+.tips-close-btn {
+    background: #d4af37;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    color: #0f172a;
+    transition: background 0.2s;
+    display: block;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+}
+
+.tips-close-btn:hover {
+    background: #f1d279;
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -750,6 +876,7 @@
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
+<button class="tips-btn" onclick="openTips()">💡 Tips</button>
                     </div>
                 </div>
 
@@ -950,20 +1077,24 @@ function renderGenderGroup(genderMembers, type) {
                 if (ancestors.length) ancestors = ancestors.slice(1);
                 if (ancestors.length) {
                     html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span>🌳 ANCESTORS (${ancestors.length})</span><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span></div>`;
-                    if (!ancestorsCollapsed) {
-                        html += '<div class="family-group">';
-                        [...ancestors].reverse().forEach((a, idx) => {
-                            html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
-                            if (idx < ancestors.length-1) html += '<div class="v-line"></div>';
-                        });
-                        if (ancestors.length > 0) html += '<div class="v-line"></div>';
-                        html += '</div>';
-                    }
+              
+if (!ancestorsCollapsed) {
+    html += '<div class="family-group">';
+    [...ancestors].reverse().forEach((a, idx) => {
+        html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
+        if (idx < ancestors.length-1) html += '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>';
+    });
+    if (ancestors.length > 0) html += '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>';
+    html += '</div>';
+}
+
                 }
             }
             const father = findParent(currentIndividual);
             if (father) {
-                html += '<div class="family-group">' + renderBox(father, 'Father', false) + '<div class="v-line"></div>' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+
+html += '<div class="family-group">' + renderBox(father, 'Father', false) + '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+
             } else {
                 html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
             }
@@ -1420,6 +1551,52 @@ window.exportAsJPEG = async function() {
         });
         
         window.resetIndividual = resetIndividual;
+
+
+
+// Tips functions
+function openTips() {
+    document.getElementById('tipsOverlay').style.display = 'flex';
+}
+
+function closeTips() {
+    document.getElementById('tipsOverlay').style.display = 'none';
+}
+
+
+// Close Tips on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeTips();
+    }
+});
+
     </script>
+
+
+<!-- Tips Modal -->
+<div class="tips-overlay" id="tipsOverlay" onclick="this.style.display='none'">
+    <div class="tips-modal">
+        <h3>💡 Tips for Using the Family Tree</h3>
+        <ul>
+
+
+<li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
+<li><strong>View Details</strong> <span>: Click ℹ️ icon to view full details</span></li>
+<li><strong>Toggle Sections</strong> <span>: Click MENU (top-left) to show/hide<br>&nbsp;&nbsp;Siblings, Descendants, Ancestors, Table View <br>&nbsp;&nbsp;&nbsp;&amp; Dashboard</span></li>
+<li><strong>Expand/Collapse</strong> <span>: Click ➕/➖ on section headings<br>&nbsp;&nbsp;&nbsp;to expand or collapse</span></li>
+<li><strong>Table View</strong> <span>: From menu, switch to view in Table format</span></li>
+<li><strong>Dashboard</strong> <span>: From menu, go to Dashboard</span></li>
+<li><strong>Save</strong> <span>: From menu, choose format:<br>&nbsp;&nbsp;PDF or JPEG</span></li>
+
+
+</ul>
+<button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
+</div>
+</div>
+
+
+
+
 </body>
 </html>

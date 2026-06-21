@@ -727,14 +727,26 @@
 .tips-btn {
     background: none;
     border: none;
-    font-size: 12px;
+    font-size: 18px;
     cursor: pointer;
-    padding: 4px 6px;
+    padding: 4px 10px;
+    border-radius: 6px;
     font-weight: 600;
     color: #3d2b1a;
     white-space: nowrap;
-    flex-shrink: 0;
+    animation: tipsBlink 1.5s ease-in-out infinite;
     font-family: 'Inter', sans-serif;
+}
+
+.tips-btn:hover {
+    background: #faebcd;
+    animation: none;
+}
+
+@keyframes tipsBlink {
+    0% { color: #3d2b1a; }
+    50% { color: #d4af37; }
+    100% { color: #3d2b1a; }
 }
 
 .tips-btn:hover {

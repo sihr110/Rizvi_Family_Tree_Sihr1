@@ -224,24 +224,7 @@
 .info-modal button:hover {
     background: var(--light-gold);
 }
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
-
+   
         * {
             margin: 0;
             padding: 0;
@@ -918,10 +901,14 @@
         <input type="text" id="searchInput" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
         <div id="searchDropdown" class="search-dropdown"></div>
     </div>
-    <div class="reset-btn" onclick="resetIndividual()">🔄 دوبارہ ترتیب</div>
-    </div>
 
-                </div>
+<div class="reset-btn" onclick="resetIndividual()" style="font-size:40px; display:flex; align-items:center; justify-content:center; width:45px; height:45px; padding:0; background:transparent; border:none; cursor:pointer;">
+    <span style="transform:translateY(-10px); display:inline-block;">🔄</span>
+</div>
+
+
+    </div>
+    </div>
 
                 <div class="tree-container" id="treeContainer">
                     <div class="tree-root-layout" id="treeRoot"></div>

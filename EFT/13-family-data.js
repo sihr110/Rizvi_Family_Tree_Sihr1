@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/20/2026 11:21
-// Total members: 571
+// Saved: 06/21/2026 17:55
+// Total members: 574
 
 const FAMILY_DATA = [
   {
@@ -29,23 +29,50 @@ const FAMILY_DATA = [
     spouse: "Bibi Fatima Bint Asad (AS)",
     gen: "P-002-S2",
     gender: "MALE",
-    details: ""
+    details: "Details of the sons and daughters of Hazrat Abu Talib (AS):\\nSons: Hazrat Abu Talib (AS) had four well-known sons:\\n\\n1.\tHazrat Talib ibn Abi Talib: He was the eldest son.\\n2.\tHazrat Aqeel ibn Abi Talib: He was ten years older than Hazrat Ali (AS).\\n3.\tHazrat Ja'far ibn Abi Talib: He is also remembered by the titles \"Ja'far al-Tayyar\" (The Flier)\\n4.\tHazrat Ali ibn Abi Talib (AS): He was the youngest son \\n\\n\\nDaughters: Regarding the daughters of Hazrat Abu Talib (AS), two names are most prominent in historical books:\\n\\n1.\tBibi Umm Hani (whose name was Fakhita): She is the noble lady from whose house the Prophet Muhammad (PBUH) departed for the journey of Mi'raj (Ascension).\\n2.\tBibi Jumana: Her name is also mentioned in some historical traditions.\\n3.\tSome historians have also included the name of Bibi Rayta among the daughters of Hazrat Abu Talib (AS)."
   },
   {
     name: "Muhammad Rasool Allah (PBUH)",
     father: "Hazrat Abdullah",
     mother: "Bibi Amina bint Wahb (AS)",
-    spouse: "Bibi Khadeja Kubra (AS)",
+    spouse: "Bibi Khadeja Kubra (AS) &",
     gen: "P-003-S1",
     gender: "MALE",
-    details: ""
+    details: "There is a difference of opinion among historians regarding the number of women whom the Prophet Muhammad (ﷺ) married, which is why the count is cited between 11 and 14.\\n\\n1.\tBibi Khadija bint Khuwaylid (AS)\\n2.\tBibi Sawda bint Zam'a  \\n3.\tBibi Aisha Siddiqa bint Abi Bakr  \\n4.\tBibi Hafsa bint Umar  \\n5.\tBibi Zaynab bint Khuzayma  \\n6.\tBibi Umm Salama Hind bint Abi Umayya  \\n7.\tBibi Zaynab bint Jahsh  \\n8.\tBibi Juwayriya bint al-Harith  \\n9.\tBibi Umm Habiba Ramla bint Abi Sufyan  \\n10.\tBibi Safiyya bint Huyayy  \\n11.\tBibi Maymunah bint al-Harith  \\n12.\tBibi Fatima bint al-Dahhak al-Kilabiyya  \\n13.\tBibi Asma bint al-Nu'man  \\n14.\tBibi Qutayla bint Qays  \\n\\nNote: The first 11 names listed above are those known as the \"Ummhat al-Mu'minin\" (Mothers of the Believers), while the last three (12, 13, 14) are those with whom the marriage contract was made, but the consummation (Rukhsati) did not take place, or they separated for a specific reason."
   },
   {
     name: "Imam Ali (AS)",
     father: "Hazrat Abu Talib",
     mother: "Bibi Fatima Bint Asad (AS)",
-    spouse: "Syeda Fatima Zehra (AS)",
+    spouse: "Syeda Fatima Zehra (AS) &",
     gen: "P-003-S4",
+    gender: "MALE",
+    details: "Wives of Imam Ali (AS):\\n\\n1.\tFatimah bint Muhammad (AS) – (Sayyidah Fatimah al-Zahra), daughter of the Prophet Muhammad (PBUH).  \\n2.\tUmm al-Banin (Fatimah bint Huzam) – From the brave Banu Kilab tribe. Mother of Abbas(AS)\\n3.\tLayla bint Mas'ud – From the Banu Tamim tribe.\\n4.\tAsma bint Umais – She was previously married to Ja'far ibn Abi Talib (AS) (Imam Ali's brother) and later to Abu Bakr before marrying Imam Ali (AS).\\n5.\tUmm Habiba (al-Sahba bint Rabi'a) – Also known as al-Sahba al-Taghlibiyyah, from the Taghlib tribe.\\n6.\tUmamah bint Abi al-As – Granddaughter of the Prophet Muhammad (daughter of Zainab, the Prophet's daughter, and Abu al-As).\\n7.\tKhawla bint Ja'far al-Hanafiyyah – Also known as Khawla al-Hanafiyya. Mother of Muhammad ibn al-Hanafiyyah.\\n8.\tUmm Sa'id bint Urwah – From the Banu Thaqif tribe.\\n9.\tMuhayya bint Imru al-Qays – From the Banu Kilab tribe."
+  },
+  {
+    name: "Abdullah (Tahir & Tayyib)",
+    father: "Muhammad Rasool Allah (PBUH)",
+    mother: "Bibi Khadeja Kubra (AS)",
+    spouse: "",
+    gen: "P-004-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Ibrahim",
+    father: "Muhammad Rasool Allah (PBUH)",
+    mother: "Bibi Khadeja Kubra (AS)",
+    spouse: "",
+    gen: "P-004-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Qasim",
+    father: "Muhammad Rasool Allah (PBUH)",
+    mother: "Bibi Khadeja Kubra (AS)",
+    spouse: "",
+    gen: "P-004-S3",
     gender: "MALE",
     details: ""
   },
@@ -5147,8 +5174,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/20/2026 11:21", 
-    total_members: 571,
-    details_count: 69,
+    saved_time: "06/21/2026 17:55", 
+    total_members: 574,
+    details_count: 72,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

@@ -20,6 +20,117 @@
     <script src="13-family-data.js"></script>
     
     <style>
+        /* ===== TIPS BUTTON & MODAL ===== */
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 650px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .tips-modal h3 {
+            font-family: 'Playfair Display', serif;
+            color: #0f172a;
+            font-size: 22px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 12px;
+            text-align: center;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 6px 12px;
+            text-align: left;
+            direction: ltr;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .tips-grid .title {
+            font-weight: 700;
+            color: #5a0000;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .tips-grid .colon {
+            color: #5a0000;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .tips-grid .desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            text-align: left;
+        }
+
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tips-close-btn:hover {
+            background: #f1d279;
+        }
+
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tips-btn:hover {
+            background: #faebcd;
+            animation: none;
+        }
+
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
+        }
+
         /* CHANGE 1: Reset Button CSS */
         .reset-btn {
             padding: 10px 20px;
@@ -83,37 +194,52 @@
             overflow: hidden;
             margin: 0;
             padding: 10px;
+            position: relative;
         }
 
-        /* ZOOM CONTROLS - outside white container */
+        /* DRAGGABLE FLOATING ZOOM CONTROLS - FIXED POSITION */
         .zoom-controls {
-            position: absolute;
-            top: 30px;
-            right: 0px;
-            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
             border: 2px solid var(--gold);
-            border-radius: 8px;
-            padding: 5px;
+            border-radius: 10px;
+            padding: 6px;
             display: flex;
-            flex-direction: column;
-            gap: 5px;
+            flex-direction: row;
+            gap: 4px;
             z-index: 2000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+
+        .zoom-controls.dragging {
+            cursor: grabbing;
+            opacity: 0.85;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
 
         .zoom-btn {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border: 2px solid var(--gold);
             background: white;
             color: var(--dark-blue);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
 
         .zoom-btn:hover {
@@ -123,9 +249,13 @@
 
         .zoom-level {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 5px;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
         }
 
         .app-container {
@@ -208,6 +338,7 @@
             align-items: center;
             gap: 10px;
             transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
 
         .toggle-menu-item:hover {
@@ -251,36 +382,6 @@
             flex-wrap: wrap;
             margin-left: auto;
         }
-
-        .header-btn {
-            padding: 6px 14px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-            border: 2px solid var(--gold);
-            background: transparent;
-            color: var(--gold);
-            transition: all 0.2s;
-            border-radius: 4px;
-        }
-
-        .header-btn:hover {
-            background: var(--gold);
-            color: var(--dark-blue);
-            transform: translateY(-2px);
-        }
-
-        .header-btn.dashboard { 
-            background: var(--dashboard-green); 
-            color: white; 
-            border-color: transparent; 
-        }
-
-        .menu-toggle { display: none; }
 
         .main-content {
             flex: 1;
@@ -380,11 +481,10 @@
             min-width: 80px;
         }
 
-        .search-wrapper {
-            position: relative;
-            flex: 2;
-            min-width: 300px;
-        }
+.search-wrapper {
+position: relative;
+    flex: 0 0 800px;  /* Fixed width, won't shrink */
+}
 
         .search-input {
             width: 100%;
@@ -428,17 +528,17 @@
         .result-item .main-name { font-weight: 700; color: var(--dark-blue); }
         .result-item .gen { color: var(--maroon); font-size: 11px; margin-left: 6px; }
 
-    .root-announce {
-    background: var(--light-sage);
-    padding: 20px 30px;
-    border-radius: 30px;
-    margin: 20px auto;
-    text-align: center;
-    border: 2px solid var(--border-sage);
-    width: 90%;
-    max-width: 1000px;
-    min-width: 700px;
-}
+        .root-announce {
+            background: var(--light-sage);
+            padding: 20px 30px;
+            border-radius: 30px;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid var(--border-sage);
+            width: 90%;
+            max-width: 1000px;
+            min-width: 700px;
+        }
 
         .generation-info { background: white; border-radius: 20px; padding: 15px; margin-top: 15px; }
 
@@ -558,8 +658,8 @@
     </style>
 </head>
 <body>
-    <!-- ZOOM CONTROLS - outside white container -->
-    <div class="zoom-controls">
+    <!-- DRAGGABLE FLOATING ZOOM CONTROLS -->
+    <div class="zoom-controls" id="zoomControls">
         <div class="zoom-btn" onclick="zoomIn()">+</div>
         <div class="zoom-level" id="zoomLevel">100%</div>
         <div class="zoom-btn" onclick="zoomOut()">-</div>
@@ -573,21 +673,20 @@
                 <span class="header-icon">👥</span>
                 <span>Rizvi Family - Root Tree View</span>
             </div>
-         
+            <div class="header-actions">
+                <!-- Header buttons removed - now in menu -->
+            </div>
         </div>
 
-<div class="toggle-menu-panel" id="toggleMenuPanel">
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    <div class="toggle-menu-item" onclick="switchToTableView()">📋 Switch to Table</div>
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
-    <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
-</div>
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item" onclick="switchToTableView()">📋 Switch to Table</div>
+            <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
+            <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
+        </div>
 
         <div class="main-content">
             <div id="rootSection">
                 <div class="fixed-header-section">
-                    <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
                         <span class="search-label">MEMBER 1</span>
                         <div class="search-wrapper">
@@ -603,6 +702,7 @@
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetSearchRow(2)">🔄 Reset</div>
+                        <button class="tips-btn" onclick="openTips()">💡 Tips</button>
                     </div>
                     <div class="border-line"></div>
                 </div>
@@ -656,18 +756,156 @@
     <!-- Overlay -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
+    <!-- Tips Modal - 3 Column Grid -->
+    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="tips-modal">
+            <h3>💡 Tips for Using Root Tree</h3>
+
+            <div class="tips-grid">
+    <!-- ===== SEARCH & SELECT ===== -->
+    <div class="title">Search</div>
+    <div class="colon">:</div>
+    <div class="desc">Type name, select from dropdown</div>
+
+    <div class="title">Member 1 &amp; 2</div>
+    <div class="colon">:</div>
+    <div class="desc">Type names to compare and view Common Root</div>
+
+    <div class="title">Common Root</div>
+    <div class="colon">:</div>
+    <div class="desc">Shows shared ancestor between two members</div>
+
+    <div class="title">Generations</div>
+    <div class="colon">:</div>
+    <div class="desc">Shows generation gaps between members</div>
+
+    <!-- ===== MENU OPTIONS ===== -->
+    <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">Menu Options</div>
+    <div class="colon" style="margin-top:8px;"></div>
+    <div class="desc" style="margin-top:8px;"></div>
+
+    <div class="title">Table View</div>
+    <div class="colon">:</div>
+    <div class="desc">Switch to Table View</div>
+
+    <div class="title">Dashboard</div>
+    <div class="colon">:</div>
+    <div class="desc">Go to Dashboard (Main Menu)</div>
+
+    <div class="title">Save</div>
+    <div class="colon">:</div>
+    <div class="desc">Save file as PDF or JPEG</div>
+</div>
+
+            <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
+        </div>
+    </div>
+
     <script>
+        // ========== DRAGGABLE ZOOM CONTROLS ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+        });
+
+        // ========== TIPS FUNCTIONS ==========
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
+
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTips();
+            }
+        });
+
+        // ========== EXISTING CODE ==========
         // --- GLOBAL DATA ---
         let db = [];
         let fileInfo = { saved_time: "No timestamp" };
         let member1 = null, member2 = null;
-        let zoomLevel = 1;
+        let zoomLevel = 0.60;
 
         // --- CORE FUNCTIONS ---
-        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) { 
             if (!str) return '';
-            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
@@ -802,7 +1040,7 @@
         };
         
         window.resetZoom = function() { 
-            zoomLevel = 1; 
+            zoomLevel = 0.60; 
             applyZoom(); 
         };
         
@@ -1027,208 +1265,206 @@
         }
 
         // --- PDF EXPORT ---
-       async function exportPDF(quality = 'high') {
-    if (!member1 || !member2) {
-        alert('Please select both members first');
-        return;
-    }
-    
-    const scale = quality === 'high' ? 2.0 : 1.0;
-    const jpegQuality = quality === 'high' ? 0.95 : 0.6;
-    const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
-    
-    const content = document.getElementById('rootTree');
-    if (!content) return alert('No content to export');
-    
-    // Save original styles
-    const originalOverflow = content.style.overflow;
-    const originalHeight = content.style.height;
-    
-    // Temporarily remove overflow restrictions
-    content.style.overflow = 'visible';
-    content.style.height = 'auto';
-    
-    try {
-        const header = document.createElement('div');
-        header.style.marginBottom = '30px'; 
-        header.style.textAlign = 'center';
-        header.innerHTML = `
-            <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
-            <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
-        `;
-        content.insertBefore(header, content.firstChild);
+        async function exportPDF(quality = 'high') {
+            if (!member1 || !member2) {
+                alert('Please select both members first');
+                return;
+            }
+            
+            const scale = quality === 'high' ? 2.0 : 1.0;
+            const jpegQuality = quality === 'high' ? 0.95 : 0.6;
+            const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
+            
+            const content = document.getElementById('rootTree');
+            if (!content) return alert('No content to export');
+            
+            const originalOverflow = content.style.overflow;
+            const originalHeight = content.style.height;
+            
+            content.style.overflow = 'visible';
+            content.style.height = 'auto';
+            
+            try {
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px'; 
+                header.style.textAlign = 'center';
+                header.innerHTML = `
+                    <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
+                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
+                `;
+                content.insertBefore(header, content.firstChild);
 
-        const footer = document.createElement('div');
-        footer.style.marginTop = '30px';
-        footer.style.padding = '15px 20px';
-        footer.style.background = '#fcf9f4';
-        footer.style.width = '100%';
-        footer.style.boxSizing = 'border-box';
-        footer.style.fontFamily = "'Inter', sans-serif";
-        footer.style.fontSize = '12px';
-        footer.style.textAlign = 'center';
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
 
-        const timeStr = formatCurrentTime();
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
 
-        footer.innerHTML = `
-            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
-        `;
-        content.appendChild(footer);
-        
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%'; 
-        loadingMsg.style.left = '50%'; 
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000'; 
-        loadingMsg.style.color = 'white'; 
-        loadingMsg.style.padding = '20px 40px'; 
-        loadingMsg.style.borderRadius = '8px'; 
-        loadingMsg.style.zIndex = '9999'; 
-        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-        loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
-        document.body.appendChild(loadingMsg);
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
+                `;
+                content.appendChild(footer);
+                
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%'; 
+                loadingMsg.style.left = '50%'; 
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000'; 
+                loadingMsg.style.color = 'white'; 
+                loadingMsg.style.padding = '20px 40px'; 
+                loadingMsg.style.borderRadius = '8px'; 
+                loadingMsg.style.zIndex = '9999'; 
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
+                document.body.appendChild(loadingMsg);
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
 
-        const canvas = await html2canvas(content, { 
-            scale: scale, 
-            backgroundColor: '#ffffff', 
-            logging: false, 
-            allowTaint: true, 
-            useCORS: true 
-        });
-        
-        content.removeChild(header);
-        content.removeChild(footer);
-        content.style.overflow = originalOverflow;
-        content.style.height = originalHeight;
-        document.body.removeChild(loadingMsg);
+                const canvas = await html2canvas(content, { 
+                    scale: scale, 
+                    backgroundColor: '#ffffff', 
+                    logging: false, 
+                    allowTaint: true, 
+                    useCORS: true 
+                });
+                
+                content.removeChild(header);
+                content.removeChild(footer);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
+                document.body.removeChild(loadingMsg);
 
-        const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-        const { jsPDF } = window.jspdf;
-        const w = canvas.width / 2 * 0.264583;
-        const h = canvas.height / 2 * 0.264583;
-        const pdf = new jsPDF({ 
-            orientation: w > h ? 'l' : 'p', 
-            unit: 'mm', 
-            format: [w + 40, h + 40] 
-        });
-        
-        pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-        const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        pdf.save(`family_root_${safeName1}_${safeName2}_${quality}_${Date.now()}.pdf`);
-        
-        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-        alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
-        
-    } catch (err) {
-        console.error('PDF Error:', err);
-        content.style.overflow = originalOverflow;
-        content.style.height = originalHeight;
-        alert('❌ PDF generation failed: ' + err.message);
-    }
-}
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                const { jsPDF } = window.jspdf;
+                const w = canvas.width / 2 * 0.264583;
+                const h = canvas.height / 2 * 0.264583;
+                const pdf = new jsPDF({ 
+                    orientation: w > h ? 'l' : 'p', 
+                    unit: 'mm', 
+                    format: [w + 40, h + 40] 
+                });
+                
+                pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
+                const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                pdf.save(`family_root_${safeName1}_${safeName2}_${quality}_${Date.now()}.pdf`);
+                
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
+                
+            } catch (err) {
+                console.error('PDF Error:', err);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
+                alert('❌ PDF generation failed: ' + err.message);
+            }
+        }
 
         // --- JPEG EXPORT ---
-      window.exportAsJPEG = async function() {
-    if (!member1 || !member2) {
-        alert('Please select both members first');
-        return;
-    }
-    
-    const content = document.getElementById('rootTree');
-    if (!content) return alert('No content to export');
-    
-    const originalOverflow = content.style.overflow;
-    const originalHeight = content.style.height;
-    
-    content.style.overflow = 'visible';
-    content.style.height = 'auto';
-    
-    try {
-        const header = document.createElement('div');
-        header.style.marginBottom = '30px'; 
-        header.style.textAlign = 'center';
-        header.innerHTML = `
-            <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-            <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
-            <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
-        `;
-        content.insertBefore(header, content.firstChild);
+        window.exportAsJPEG = async function() {
+            if (!member1 || !member2) {
+                alert('Please select both members first');
+                return;
+            }
+            
+            const content = document.getElementById('rootTree');
+            if (!content) return alert('No content to export');
+            
+            const originalOverflow = content.style.overflow;
+            const originalHeight = content.style.height;
+            
+            content.style.overflow = 'visible';
+            content.style.height = 'auto';
+            
+            try {
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px'; 
+                header.style.textAlign = 'center';
+                header.innerHTML = `
+                    <h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">Root Relationship</h2>
+                    <h3 style="color:#0f172a; font-size:18px; margin:5px 0;">${displayName(member1.name)} ↔ ${displayName(member2.name)}</h3>
+                `;
+                content.insertBefore(header, content.firstChild);
 
-        const footer = document.createElement('div');
-        footer.style.marginTop = '30px';
-        footer.style.padding = '15px 20px';
-        footer.style.background = '#fcf9f4';
-        footer.style.width = '100%';
-        footer.style.boxSizing = 'border-box';
-        footer.style.fontFamily = "'Inter', sans-serif";
-        footer.style.fontSize = '12px';
-        footer.style.textAlign = 'center';
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
 
-        const timeStr = formatCurrentTime();
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
-        
-        footer.innerHTML = `
-            <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-            <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
-        `;
-        content.appendChild(footer);
-        
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%'; 
-        loadingMsg.style.left = '50%'; 
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000'; 
-        loadingMsg.style.color = 'white'; 
-        loadingMsg.style.padding = '20px 40px'; 
-        loadingMsg.style.borderRadius = '8px'; 
-        loadingMsg.style.zIndex = '9999'; 
-        loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-        loadingMsg.textContent = '📸 Creating JPEG...';
-        document.body.appendChild(loadingMsg);
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : 'No timestamp';
+                
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
+                `;
+                content.appendChild(footer);
+                
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%'; 
+                loadingMsg.style.left = '50%'; 
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000'; 
+                loadingMsg.style.color = 'white'; 
+                loadingMsg.style.padding = '20px 40px'; 
+                loadingMsg.style.borderRadius = '8px'; 
+                loadingMsg.style.zIndex = '9999'; 
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = '📸 Creating JPEG...';
+                document.body.appendChild(loadingMsg);
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
 
-        const canvas = await html2canvas(content, { 
-            scale: 1.2,
-            backgroundColor: '#ffffff', 
-            logging: false
-        });
-        
-        content.removeChild(header);
-        content.removeChild(footer);
-        content.style.overflow = originalOverflow;
-        content.style.height = originalHeight;
-        document.body.removeChild(loadingMsg);
+                const canvas = await html2canvas(content, { 
+                    scale: 1.2,
+                    backgroundColor: '#ffffff', 
+                    logging: false
+                });
+                
+                content.removeChild(header);
+                content.removeChild(footer);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
+                document.body.removeChild(loadingMsg);
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.85);
-        
-        const link = document.createElement('a');
-        const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        link.download = `family_root_${safeName1}_${safeName2}_${Date.now()}.jpg`;
-        link.href = imgData;
-        link.click();
-        
-        const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-        const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-        setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
-        
-    } catch (err) {
-        console.error('Export Error:', err);
-        content.style.overflow = originalOverflow;
-        content.style.height = originalHeight;
-        alert('❌ Failed: ' + err.message);
-    }
-};
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                
+                const link = document.createElement('a');
+                const safeName1 = member1.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                const safeName2 = member2.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                link.download = `family_root_${safeName1}_${safeName2}_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+                
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
+                
+            } catch (err) {
+                console.error('Export Error:', err);
+                content.style.overflow = originalOverflow;
+                content.style.height = originalHeight;
+                alert('❌ Failed: ' + err.message);
+            }
+        };
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -1267,23 +1503,27 @@
                 }
             });
             
-            try {
-                const m1 = localStorage.getItem('rootMember1');
-                const m2 = localStorage.getItem('rootMember2');
-                
-                if (m1 && m2) {
-                    member1 = JSON.parse(m1); 
-                    member2 = JSON.parse(m2);
-                    document.getElementById('search1').value = displayName(member1.name) + ' (' + (member1.gen || '') + ')';
-                    document.getElementById('search2').value = displayName(member2.name) + ' (' + (member2.gen || '') + ')';
-                    localStorage.removeItem('rootMember1');
-                    localStorage.removeItem('rootMember2');
-                    renderTree();
-                }
-            } catch(e) { 
-                console.error("Stored member parse error", e); 
-            }
-        });
+           try {
+        const m1 = localStorage.getItem('rootMember1');
+        const m2 = localStorage.getItem('rootMember2');
+        
+        if (m1 && m2) {
+            member1 = JSON.parse(m1); 
+            member2 = JSON.parse(m2);
+            document.getElementById('search1').value = displayName(member1.name) + ' (' + (member1.gen || '') + ')';
+            document.getElementById('search2').value = displayName(member2.name) + ' (' + (member2.gen || '') + ')';
+            localStorage.removeItem('rootMember1');
+            localStorage.removeItem('rootMember2');
+            renderTree();
+        }
+    } catch(e) { 
+        console.error("Stored member parse error", e); 
+    }
+    
+    // ===== ADD THIS LINE (same as file 5) =====
+    setTimeout(applyZoom, 100);
+    // ===========================================
+});
 
         window.switchToTableView = switchToTableView;
         window.resetSearch = resetSearch;
@@ -1291,6 +1531,8 @@
         window.exportPDF = exportPDF;
         window.showDashboard = showDashboard;
         window.toggleLeftMenu = toggleLeftMenu;
+        window.openTips = openTips;
+        window.closeTips = closeTips;
     </script>
 </body>
 </html>

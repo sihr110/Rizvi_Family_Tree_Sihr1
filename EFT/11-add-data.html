@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Rizvi Family Tree · Full Add/Edit Mode</title>
+  <title>Rizvi Family Tree · Import & Edit</title>
   <style>
+
+.rtl-mode {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
     * {
       margin: 0;
       padding: 0;
@@ -117,6 +124,12 @@
       align-items: center;
     }
 
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .btn {
       padding: 10px 20px;
       border-radius: 60px;
@@ -124,10 +137,16 @@
       cursor: pointer;
       border: none;
       font-size: 0.85rem;
+      transition: 0.1s ease;
     }
 
     .btn-primary {
       background: #2a7f49;
+      color: white;
+    }
+
+    .btn-excel {
+      background: #1f5e3a;
       color: white;
     }
 
@@ -160,6 +179,8 @@
       border: 1px solid #e2edf2;
       background: white;
       margin-top: 0.8rem;
+      max-height: 65vh;
+      overflow-y: auto;
     }
 
     .data-table {
@@ -176,6 +197,9 @@
       font-weight: 700;
       color: #1a4b2a;
       border: 1px solid #cbe0ce;
+      position: sticky;
+      top: 0;
+      z-index: 5;
     }
 
     .data-table td {
@@ -203,7 +227,6 @@
       }
     }
 
-    /* clean flat style — no inner borders */
     .data-table textarea,
     .data-table input,
     .data-table select {
@@ -218,11 +241,6 @@
 
     .data-table textarea {
       min-height: 40px;
-    }
-
-    .data-table select {
-      background: transparent;
-      cursor: pointer;
     }
 
     .delete-btn {
@@ -330,20 +348,35 @@
       margin-top: 4px;
     }
 
-    .mode-badge {
-      background: #eef2f0;
-      border-radius: 32px;
-      padding: 4px 12px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #1e3c2c;
+    .paste-dialog {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 2px solid #1e3a4d;
+      border-radius: 20px;
+      padding: 20px;
+      z-index: 30000;
+      width: 90%;
+      max-width: 650px;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+    }
+
+    .paste-dialog textarea {
+      width: 100%;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 12px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
 <body>
 <div class="family-card">
   <div class="tree-header">
-    <div class="header-title"><h1>Rizvi Family Tree</h1><p>Designed by Imran Haider</p></div>
+    <div class="header-title"><h1>Rizvi Family Tree</h1><p style="font-size: 0.7rem; opacity: 0.8;">Designed by Imran Haider</p></div>
     <div class="lang-switch">
       <button id="btnEnglish" class="lang-btn active">E</button>
       <button id="btnUrdu" class="lang-btn">U</button>
@@ -352,8 +385,9 @@
   </div>
   <div class="form-container">
     <div class="toolbar">
-      <div style="display: flex; gap: 12px;">
+      <div class="btn-group">
         <button id="addRowBtn" class="btn btn-primary">➕ Add New Member</button>
+        <button id="pasteExcelBtn" class="btn btn-excel">📋 Paste from Excel</button>
         <button id="editDataBtn" class="btn btn-edit">✏️ Edit Data</button>
       </div>
       <div>
@@ -370,39 +404,45 @@
   </div>
 </div>
 
-<script src="13-family-data.js"></script>
+
+
+
 
 <script>
-  let mainData = [];
-  let rows = [];
+  // ======================== GLOBAL STATE ========================
+  let mainData = [];           // master reference from 13-family-data.js (optional fallback)
+  let rows = [];              // editable rows array
   let currentLang = 'en';
-  let familyFather = "";
-  let familyMother = "";
   let editMode = false;
   let activeMobilePanel = null;
 
+  // Helper functions
   function generateId() { return Date.now() + '-' + Math.random().toString(36).substring(2, 10); }
   function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'); }); }
 
-  function loadMainData() {
+  // load external family data if exists (13-family-data.js)
+  function loadExternalFamilyData() {
     if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA && FAMILY_DATA.length) {
       mainData = FAMILY_DATA.map(p => ({
         name: p.name, father: p.father || "", mother: p.mother || "", spouse: p.spouse || "",
         gen: p.gen || "", gender: p.gender === "MALE" ? "Male" : "Female", detail: p.details || ""
       }));
+      return true;
     } else {
-      alert("ERROR: 13-family-data.js not found or FAMILY_DATA missing!");
+      console.warn("13-family-data.js not loaded, using empty default");
       mainData = [];
+      return false;
     }
   }
 
+  // find person from master reference
   function findPerson(name) { if (!name) return null; return mainData.find(p => p.name.toLowerCase() === name.toLowerCase()); }
   function getSpouse(name) { let p = findPerson(name); return p ? (p.spouse || "") : ""; }
   function getParentLine(person) { if (!person) return ""; if (person.father) return "S/o " + person.father; return ""; }
   function getAllMaleMembers() { return mainData.filter(p => p.gender === "Male"); }
   function getAllMembers() { return mainData; }
   function extractGenNumber(gen) { if (!gen) return 0; const match = gen.match(/[SD](\d+)$/); return match ? parseInt(match[1]) : 0; }
-  
+
   function generateGenWithSequence(fatherName, childGender, sequenceNumber) {
     if (!fatherName) return "";
     let father = findPerson(fatherName);
@@ -432,20 +472,23 @@
     return maxNum;
   }
 
-  function createEmptyRow(inheritFromFirstRow) {
-    // if inheritFromFirstRow = true and first row exists, copy its father/mother
-    if (inheritFromFirstRow && rows.length > 0 && rows[0].father) {
-      return {
-        id: generateId(), name: "", father: rows[0].father, mother: rows[0].mother,
-        spouse: "", gen: "", gender: "Male", detail: "",
-        _nameEn: "", _fatherEn: rows[0].father, _motherEn: rows[0].mother, _spouseEn: "", _detailEn: ""
-      };
-    }
-    return {
-      id: generateId(), name: "", father: "", mother: "",
-      spouse: "", gen: "", gender: "Male", detail: "",
+  function createEmptyRow(inheritFromFirst = false) {
+    let base = {
+      id: generateId(), name: "", father: "", mother: "", spouse: "",
+      gen: "", gender: "Male", detail: "",
       _nameEn: "", _fatherEn: "", _motherEn: "", _spouseEn: "", _detailEn: ""
     };
+    if (inheritFromFirst && rows.length > 0 && rows[0].father) {
+      base.father = rows[0].father;
+      base.mother = rows[0].mother;
+      base._fatherEn = rows[0].father;
+      base._motherEn = rows[0].mother;
+      if (base.father) {
+        let maxNum = getMaxChildNumber(base.father, base.gender);
+        base.gen = generateGenWithSequence(base.father, base.gender, maxNum + 1);
+      }
+    }
+    return base;
   }
 
   function closeMobileDropdown() {
@@ -453,8 +496,7 @@
     activeMobilePanel = null;
   }
 
-  // update a specific row when father is selected, or update all if it's the master row? 
-  // IMPROVED: now updates the specific row that triggered the dropdown
+  // update row after father selection
   function updateRowFromFather(selected, targetRow) {
     if (!targetRow) return;
     targetRow.father = selected.name;
@@ -465,7 +507,7 @@
       let maxNum = getMaxChildNumber(targetRow.father, targetRow.gender, targetRow);
       targetRow.gen = generateGenWithSequence(targetRow.father, targetRow.gender, maxNum + 1);
     }
-    // If the updated row is the first row, propagate to all other rows (except itself)
+    // propagate if first row changed (optional but for consistency)
     if (rows.indexOf(targetRow) === 0) {
       for (let i = 1; i < rows.length; i++) {
         rows[i].father = targetRow.father;
@@ -477,8 +519,6 @@
           rows[i].gen = generateGenWithSequence(rows[i].father, rows[i].gender, childMax + 1);
         }
       }
-      familyFather = targetRow.father;
-      familyMother = targetRow.mother;
     }
     renderTable();
   }
@@ -536,7 +576,6 @@
   function attachFatherDropdownToCell(cellElement, currentVal, rowObject) {
     cellElement.innerHTML = '';
     const wrapper = document.createElement('div');
-    wrapper.style.position = 'relative';
     wrapper.style.width = '100%';
     const triggerBtn = document.createElement('button');
     triggerBtn.className = 'dropdown-button';
@@ -547,7 +586,7 @@
     triggerBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openFatherDropdownForRow(rowObject); };
   }
 
-  // name search for EDIT mode (unchanged)
+  // Name search dropdown for edit mode (select preset person)
   function openNameSearchDropdown(currentRow, buttonElement) {
     if (!editMode) return;
     if (activeMobilePanel) closeMobileDropdown();
@@ -557,12 +596,11 @@
     panelDiv.className = 'mobile-dropdown-panel';
     const header = document.createElement('div');
     header.className = 'dropdown-header';
-    header.innerHTML = `<span>🔍 Select member to edit</span><button class="close-dropdown">✕</button>`;
+    header.innerHTML = `<span>🔍 Select member to load data</span><button class="close-dropdown">✕</button>`;
     panelDiv.appendChild(header);
     const searchDiv = document.createElement('div');
     searchDiv.className = 'dropdown-search-mobile';
     const searchInput = document.createElement('input');
-    searchInput.type = 'search';
     searchInput.placeholder = '🔍 Search name...';
     searchDiv.appendChild(searchInput);
     panelDiv.appendChild(searchDiv);
@@ -619,24 +657,29 @@
   function attachNameEditDropdown(cellElement, currentRow) {
     cellElement.innerHTML = '';
     const wrapper = document.createElement('div');
-    wrapper.style.position = 'relative';
-    wrapper.style.width = '100%';
     const triggerBtn = document.createElement('button');
     triggerBtn.className = 'dropdown-button';
     let displayText = currentRow.name || '▼ Select Member to Edit';
     triggerBtn.innerHTML = `<span>${escapeHtml(displayText)}</span> <span style="color:#2a7f49;">▼</span>`;
     wrapper.appendChild(triggerBtn);
     cellElement.appendChild(wrapper);
-    triggerBtn.onclick = (e) => { e.preventDefault(); e.stopPropagation(); openNameSearchDropdown(currentRow, triggerBtn); };
+    triggerBtn.onclick = (e) => { e.preventDefault(); openNameSearchDropdown(currentRow, triggerBtn); };
   }
 
-  function onEdit(row, field, val) {
-    if (field === 'name') { row.name = val; row._nameEn = val; }
-    if (field === 'father') { row.father = val; row._fatherEn = val; }
-    if (field === 'mother') { row.mother = val; row._motherEn = val; }
-    if (field === 'spouse') { row.spouse = val; row._spouseEn = val; }
-    if (field === 'detail') { row.detail = val; row._detailEn = val; }
-    if (field === 'gen') { row.gen = val.toUpperCase(); }
+function onEdit(row, field, val) {
+    // Update the display field
+    row[field] = val;
+    
+    // Automatically update the hidden English source for all text fields
+    if (['name', 'father', 'mother', 'spouse', 'detail'].includes(field)) {
+      row['_' + field + 'En'] = val;
+    }
+    
+    // Keep Gen uppercase if that's your preference
+    if (field === 'gen') {
+      row.gen = val.toUpperCase();
+    }
+    
     renderTable();
   }
 
@@ -651,52 +694,189 @@
   }
 
   function addMember() {
-    // new row inherits father/mother from first row if first row has father set
     let newRow = createEmptyRow(true);
-    if (!newRow.father && rows.length > 0 && rows[0].father) {
-      newRow.father = rows[0].father;
-      newRow.mother = rows[0].mother;
-      newRow._fatherEn = rows[0].father;
-      newRow._motherEn = rows[0].mother;
-      if (newRow.father) {
-        let maxNum = getMaxChildNumber(newRow.father, newRow.gender);
-        newRow.gen = generateGenWithSequence(newRow.father, newRow.gender, maxNum + 1);
-      }
-    }
     rows.push(newRow);
     renderTable();
     setTimeout(() => { const wrapper = document.querySelector('.table-wrapper'); if (wrapper) wrapper.scrollTop = wrapper.scrollHeight; }, 50);
   }
 
   function deleteRow(idx) {
-    if (rows.length === 1) { alert("Cannot delete last member. Refresh to reset."); return; }
+    if (rows.length === 1) { alert("Cannot delete last member."); return; }
     if (confirm("Delete this member?")) { rows.splice(idx, 1); renderTable(); }
   }
 
-  async function translateText(text, target) {
+  // ======================= EXCEL PASTE INTEGRATION (from file 2) =======================
+  function parseExcelPaste(fullText) {
+    const rowsArr = [];
+    let currentRow = [];
+    let currentField = '';
+    let inQuotes = false;
+    let i = 0;
+    const text = fullText;
+    while (i < text.length) {
+      const ch = text[i];
+      const nextCh = text[i + 1];
+      if (ch === '"') {
+        if (inQuotes && nextCh === '"') {
+          currentField += '"';
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (ch === '\t' && !inQuotes) {
+        currentRow.push(currentField);
+        currentField = '';
+      } else if (ch === '\n' && !inQuotes) {
+        currentRow.push(currentField);
+        rowsArr.push(currentRow);
+        currentRow = [];
+        currentField = '';
+      } else if (ch === '\r' && !inQuotes) {
+        // ignore
+      } else {
+        currentField += ch;
+      }
+      i++;
+    }
+    if (currentField !== '' || currentRow.length > 0) {
+      currentRow.push(currentField);
+      rowsArr.push(currentRow);
+    }
+    return rowsArr;
+  }
+
+  function loadFromPastedData(rawText) {
+    const parsed = parseExcelPaste(rawText);
+    if (!parsed.length) return false;
+    const newRows = [];
+    for (let rowData of parsed) {
+      if (rowData.length === 0 || (rowData.length === 1 && rowData[0].trim() === "")) continue;
+      // map columns: name, father, mother, spouse, gen, gender, detail
+      const newRow = createEmptyRow(false);
+      newRow.name = rowData[0] || "";
+      newRow.father = rowData[1] || "";
+      newRow.mother = rowData[2] || "";
+      newRow.spouse = rowData[3] || "";
+      newRow.gen = rowData[4] || "";
+      newRow.gender = (rowData[5] && (rowData[5].toLowerCase().includes('female') || rowData[5].toLowerCase() === 'female')) ? "Female" : "Male";
+      newRow.detail = rowData[6] || "";
+      newRow._nameEn = newRow.name;
+      newRow._fatherEn = newRow.father;
+      newRow._motherEn = newRow.mother;
+      newRow._spouseEn = newRow.spouse;
+      newRow._detailEn = newRow.detail;
+      newRows.push(newRow);
+    }
+    if (newRows.length) {
+      rows = newRows;
+      renderTable();
+      document.getElementById('statusMsg')?.remove();
+      const statusDiv = document.createElement('div');
+      statusDiv.id = 'statusMsg';
+      statusDiv.className = 'stats';
+      statusDiv.style.marginTop = '8px';
+      statusDiv.innerText = `✅ Pasted ${newRows.length} rows from Excel (multi-line preserved).`;
+      document.querySelector('.toolbar').after(statusDiv);
+      setTimeout(() => { if(statusDiv) statusDiv.remove(); }, 3000);
+      return true;
+    }
+    return false;
+  }
+
+  function showExcelPasteDialog() {
+    const existing = document.getElementById('excelPasteDialog');
+    if (existing) existing.remove();
+    const dialog = document.createElement('div');
+    dialog.id = 'excelPasteDialog';
+    dialog.className = 'paste-dialog';
+    dialog.innerHTML = `
+      <h3 style="margin:0 0 12px 0;">📋 Paste from Excel</h3>
+      <textarea id="pasteExcelArea" rows="8" placeholder="Press Ctrl+V to paste your Excel table (columns: Name, Father, Mother, Spouse, Gen, Gender, Detail)"></textarea>
+      <div style="margin-top:16px; text-align:right">
+        <button id="confirmExcelPaste" style="background:#2a7f49; color:white; border:none; padding:8px 16px; border-radius:30px;">Load Data</button>
+        <button id="cancelExcelPaste" style="background:#aaa; margin-left:12px; border:none; padding:8px 16px; border-radius:30px;">Cancel</button>
+      </div>
+    `;
+    document.body.appendChild(dialog);
+    const textarea = dialog.querySelector('#pasteExcelArea');
+    textarea.focus();
+    dialog.querySelector('#confirmExcelPaste').onclick = () => {
+      const raw = textarea.value;
+      if (raw.trim()) {
+        const success = loadFromPastedData(raw);
+        if (!success) alert('No valid data rows found.');
+      } else {
+        alert('Paste some Excel data first.');
+      }
+      dialog.remove();
+    };
+    dialog.querySelector('#cancelExcelPaste').onclick = () => dialog.remove();
+  }
+
+  
+// ======================= TRANSLATION (Google Translate) =======================
+
+ 
+
+async function translateText(text, target) {
     if (!text) return text;
     try {
       const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${target}&dt=t&q=${encodeURIComponent(text)}`);
       const data = await res.json();
       if (data && data[0]) return data[0].map(item => item[0]).join('');
       return text;
-    } catch(e) { return text; }
+    } catch(e) { 
+      return text; 
+    }
   }
 
-  async function translateAll(target) {
+
+async function translateAll(target) {
     for (let row of rows) {
-      if (row._nameEn === undefined) row._nameEn = row.name || "";
-      if (row._fatherEn === undefined) row._fatherEn = row.father || "";
-      if (row._motherEn === undefined) row._motherEn = row.mother || "";
-      if (row._spouseEn === undefined) row._spouseEn = row.spouse || "";
-      if (row._detailEn === undefined) row._detailEn = row.detail || "";
+      // Sync English data
+      if (!row._nameEn) row._nameEn = row.name || "";
+      if (!row._fatherEn) row._fatherEn = row.father || "";
+      if (!row._motherEn) row._motherEn = row.mother || "";
+      if (!row._spouseEn) row._spouseEn = row.spouse || "";
+      if (!row._detailEn) row._detailEn = row.detail || "";
+
       if (target === 'ur') {
         row.name = await translateText(row._nameEn, 'ur');
         row.father = await translateText(row._fatherEn, 'ur');
         row.mother = await translateText(row._motherEn, 'ur');
         row.spouse = await translateText(row._spouseEn, 'ur');
-        row.detail = await translateText(row._detailEn, 'ur');
+
+    
+if (row._detailEn) {
+  const lines = row._detailEn.split('\n');
+  let translatedLines = [];
+  
+  for (let line of lines) {
+    let trimmedLine = line.trim();
+    if (!trimmedLine) { translatedLines.push(""); continue; }
+
+    // 1. Header Logic (ends with colon): : [Translated Text]
+    if (trimmedLine.endsWith(':')) {
+      let textPart = trimmedLine.substring(0, trimmedLine.length - 1).trim();
+      let translated = await translateText(textPart, 'ur');
+      translatedLines.push(`: ${translated}`);
+    } 
+    // 2. Member Logic (colon in middle): [Translated Name] :[Label]
+    else if (trimmedLine.includes(':')) {
+      let parts = trimmedLine.split(':');
+      let leftPart = parts[0].trim();
+      let rightPart = parts[1].trim();
+      let translatedLeft = await translateText(leftPart, 'ur');
+      translatedLines.push(`${translatedLeft} :${rightPart}`);
+    } 
+    else {
+      translatedLines.push(await translateText(trimmedLine, 'ur'));
+    }
+  }
+  row.detail = translatedLines.join('\n');
+}
       } else {
+        // Switch back to English
         row.name = row._nameEn;
         row.father = row._fatherEn;
         row.mother = row._motherEn;
@@ -708,6 +888,7 @@
     renderTable();
   }
 
+  // ======================= RENDER TABLE =======================
   function renderTable() {
     const tbody = document.getElementById('tableBody');
     tbody.innerHTML = '';
@@ -716,146 +897,107 @@
       const tr = tbody.insertRow();
       if (editMode) tr.style.background = '#fff8e7';
 
-      // NAME column
+      // Name
       const tdName = tr.insertCell(0);
-      if (editMode) {
-        attachNameEditDropdown(tdName, m);
-      } else {
-        const nameTa = document.createElement('textarea');
-        nameTa.value = m.name || '';
-        nameTa.placeholder = 'Name';
-        nameTa.rows = 2;
-        nameTa.style.resize = 'vertical';
-        nameTa.onchange = ((r) => (e) => onEdit(r, 'name', e.target.value))(m);
-        tdName.appendChild(nameTa);
+      if (editMode) attachNameEditDropdown(tdName, m);
+      else {
+        const ta = document.createElement('textarea');
+        ta.value = m.name || '';
+        ta.placeholder = 'Name';
+        ta.rows = 2;
+        ta.onchange = ((r) => (e) => onEdit(r, 'name', e.target.value))(m);
+        tdName.appendChild(ta);
       }
 
-      // FATHER column — every row gets a dropdown in ADD MODE
+      // Father
       const tdFather = tr.insertCell(1);
       if (editMode) {
-        const fatherInp = document.createElement('input');
-        fatherInp.value = m.father || '';
-        fatherInp.placeholder = 'Father';
-        fatherInp.onchange = ((r) => (e) => onEdit(r, 'father', e.target.value))(m);
-        tdFather.appendChild(fatherInp);
-      } else {
-        attachFatherDropdownToCell(tdFather, m.father, m);
-      }
+        const inp = document.createElement('input');
+        inp.value = m.father || '';
+        inp.onchange = ((r) => (e) => onEdit(r, 'father', e.target.value))(m);
+        tdFather.appendChild(inp);
+      } else attachFatherDropdownToCell(tdFather, m.father, m);
 
-      // MOTHER column
+      // Mother
       const tdMother = tr.insertCell(2);
-      if (editMode) {
-        const motherInp = document.createElement('input');
-        motherInp.value = m.mother || '';
-        motherInp.placeholder = 'Mother';
-        motherInp.onchange = ((r) => (e) => onEdit(r, 'mother', e.target.value))(m);
-        tdMother.appendChild(motherInp);
-      } else {
-        const motherTa = document.createElement('textarea');
-        motherTa.value = m.mother || '';
-        motherTa.readOnly = false;
-        motherTa.rows = 2;
-        motherTa.style.resize = 'vertical';
-        motherTa.onchange = ((r) => (e) => onEdit(r, 'mother', e.target.value))(m);
-        tdMother.appendChild(motherTa);
-      }
+      const motherTa = document.createElement('textarea');
+      motherTa.value = m.mother || '';
+      motherTa.rows = 2;
+      motherTa.onchange = ((r) => (e) => onEdit(r, 'mother', e.target.value))(m);
+      tdMother.appendChild(motherTa);
 
-      // SPOUSE column
+      // Spouse
       const tdSpouse = tr.insertCell(3);
-      if (editMode) {
-        const spouseInp = document.createElement('input');
-        spouseInp.value = m.spouse || '';
-        spouseInp.placeholder = 'Spouse';
-        spouseInp.onchange = ((r) => (e) => onEdit(r, 'spouse', e.target.value))(m);
-        tdSpouse.appendChild(spouseInp);
-      } else {
-        const spouseTa = document.createElement('textarea');
-        spouseTa.value = m.spouse || '';
-        spouseTa.readOnly = false;
-        spouseTa.rows = 2;
-        spouseTa.style.resize = 'vertical';
-        spouseTa.style.border = 'none';
-        spouseTa.onchange = ((r) => (e) => onEdit(r, 'spouse', e.target.value))(m);
-        tdSpouse.appendChild(spouseTa);
-      }
+      const spouseTa = document.createElement('textarea');
+      spouseTa.value = m.spouse || '';
+      spouseTa.rows = 2;
+      spouseTa.onchange = ((r) => (e) => onEdit(r, 'spouse', e.target.value))(m);
+      tdSpouse.appendChild(spouseTa);
 
-      // GEN column
+      // Gen
       const tdGen = tr.insertCell(4);
-      if (editMode) {
-        const genInp = document.createElement('input');
-        genInp.value = m.gen || '';
-        genInp.placeholder = 'G-XXX-S/D#';
-        genInp.style.fontWeight = 'bold';
-        genInp.onchange = ((r) => (e) => onEdit(r, 'gen', e.target.value))(m);
-        tdGen.appendChild(genInp);
-      } else {
-        const genTa = document.createElement('textarea');
-        genTa.value = m.gen || '';
-        genTa.placeholder = 'G-XXX-S/D#';
-        genTa.rows = 1;
-        genTa.style.resize = 'none';
-        genTa.style.fontWeight = 'bold';
-        genTa.style.border = 'none';
-        genTa.onchange = ((r) => (e) => onEdit(r, 'gen', e.target.value))(m);
-        tdGen.appendChild(genTa);
-      }
+      const genInp = document.createElement('input');
+      genInp.value = m.gen || '';
+      genInp.style.fontWeight = 'bold';
+      genInp.onchange = ((r) => (e) => onEdit(r, 'gen', e.target.value))(m);
+      tdGen.appendChild(genInp);
 
-      // GENDER column
+      // Gender
       const tdGender = tr.insertCell(5);
       const sel = document.createElement('select');
       sel.options.add(new Option('👨 Male', 'Male'));
       sel.options.add(new Option('👩 Female', 'Female'));
       sel.value = m.gender;
-      if (editMode) {
-        sel.onchange = ((r) => (e) => changeGender(r, e.target.value))(m);
-        tdGender.appendChild(sel);
-      } else {
-        sel.disabled = false;
-        sel.onchange = ((r) => (e) => changeGender(r, e.target.value))(m);
-        tdGender.appendChild(sel);
-      }
+      sel.onchange = ((r) => (e) => changeGender(r, e.target.value))(m);
+      tdGender.appendChild(sel);
 
-      // DETAILS column
-      const tdDetail = tr.insertCell(6);
-      if (editMode) {
-        const detailInp = document.createElement('input');
-        detailInp.value = m.detail || '';
-        detailInp.placeholder = 'Details';
-        detailInp.onchange = ((r) => (e) => onEdit(r, 'detail', e.target.value))(m);
-        tdDetail.appendChild(detailInp);
-      } else {
-        const detailTa = document.createElement('textarea');
-        let rawDetail = m.detail || '';
-        rawDetail = rawDetail.replace(/\\n/g, '\n');
-        rawDetail = rawDetail.replace(/\\/g, '');
-        detailTa.value = rawDetail;
-        detailTa.readOnly = false;
-        detailTa.rows = 3;
-        detailTa.style.resize = 'vertical';
-        detailTa.style.border = 'none';
-        detailTa.onchange = ((r) => (e) => onEdit(r, 'detail', e.target.value))(m);
-        tdDetail.appendChild(detailTa);
-      }
+// Detail
+const tdDetail = tr.insertCell(6);
+const detailTa = document.createElement('textarea');
+let raw = m.detail || '';
+raw = raw.replace(/\\n/g, '\n');
+detailTa.value = raw;
+detailTa.rows = 3;
 
-      // DELETE button
-      const tdAction = tr.insertCell(7);
+// Add this block for RTL support
+if (currentLang === 'ur') {
+  detailTa.classList.add('rtl-mode');
+}
+
+detailTa.onchange = ((r) => (e) => onEdit(r, 'detail', e.target.value))(m);
+tdDetail.appendChild(detailTa);
+      // Delete
+      const tdDel = tr.insertCell(7);
       const delBtn = document.createElement('button');
       delBtn.innerHTML = '🗑️';
       delBtn.className = 'delete-btn';
       delBtn.onclick = ((idx) => () => deleteRow(idx))(i);
-      tdAction.appendChild(delBtn);
+      tdDel.appendChild(delBtn);
     }
     document.getElementById('rowCount').innerHTML = rows.length + ' members';
   }
 
-  function copyTable() {
+function copyTable() {
     if (!rows.length) return alert('No data');
-    let txt = "🌳 RIZVI FAMILY TREE 🌳\n\nName\tFather\tMother\tSpouse\tGen\tGender\tDetail\n";
+    let txt = "Name\tFather\tMother\tSpouse\tGen\tGender\tDetail\n";
+    
     for (let r of rows) {
-      txt += (r.name || '—') + '\t' + (r.father || '—') + '\t' + (r.mother || '—') + '\t' + (r.spouse || '—') + '\t' + (r.gen || '—') + '\t' + (r.gender || '—') + '\t' + (r.detail || '—') + '\n';
+      let detailContent = r.detail || '—';
+      
+      // Use \u202A (Left-to-Right Embedding) to force Excel's cell rendering
+      // This is stronger than \u200E for many Excel versions
+      let formattedDetail = '"' + '\u202A' + detailContent + '"';
+      
+      txt += (r.name || '—') + '\t' + 
+             (r.father || '—') + '\t' + 
+             (r.mother || '—') + '\t' + 
+             (r.spouse || '—') + '\t' + 
+             (r.gen || '—') + '\t' + 
+             (r.gender || '—') + '\t' + 
+             formattedDetail + '\n';
     }
-    navigator.clipboard.writeText(txt).then(() => alert('Copied!')).catch(() => alert('Press Ctrl+C'));
-  }
+    navigator.clipboard.writeText(txt).then(() => alert('Copied to clipboard!'));
+}
 
   function toggleEditMode() {
     editMode = !editMode;
@@ -871,20 +1013,25 @@
   }
 
   function init() {
-    loadMainData();
+    loadExternalFamilyData();
     rows = [createEmptyRow(false)];
-    familyFather = "";
-    familyMother = "";
     renderTable();
     document.getElementById('onlineStatus').innerText = 'Online';
   }
 
+  // event listeners
   document.getElementById('addRowBtn').onclick = addMember;
   document.getElementById('copyBtn').onclick = copyTable;
   document.getElementById('editDataBtn').onclick = toggleEditMode;
+  document.getElementById('pasteExcelBtn').onclick = showExcelPasteDialog;
   document.getElementById('btnEnglish').onclick = () => { translateAll('en'); document.getElementById('btnEnglish').classList.add('active'); document.getElementById('btnUrdu').classList.remove('active'); };
   document.getElementById('btnUrdu').onclick = () => { translateAll('ur'); document.getElementById('btnUrdu').classList.add('active'); document.getElementById('btnEnglish').classList.remove('active'); };
   init();
 </script>
+
+
+
+<!-- optional external family data (if provided) -->
+<script src="13-family-data.js" onerror="console.log('No external data file')"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rizvi family · table view )</title>
+    <title>Rizvi family · Table View</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -14,6 +14,156 @@
     <script src="13-family-data.js"></script>
     
     <style>
+        /* ===== TIPS BUTTON & MODAL ===== */
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 480px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .tips-modal h3 {
+            font-family: 'Playfair Display', serif;
+            color: #0f172a;
+            font-size: 20px;
+            margin-bottom: 14px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+
+        .tips-modal ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 18px 0;
+        }
+
+        .tips-modal ul li {
+            display: flex;
+            align-items: baseline;
+            padding: 6px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            border-bottom: 1px solid #f0ebe4;
+            gap: 8px;
+        }
+
+        .tips-modal ul li:last-child {
+            border-bottom: none;
+        }
+
+        .tips-modal ul li strong {
+            min-width: 120px;
+            flex-shrink: 0;
+            color: #5a0000;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .tips-modal ul li span {
+            flex: 1;
+            text-align: left;
+            font-size: 13px;
+        }
+
+
+/* Tips Grid Styles */
+.tips-grid {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 6px 12px;
+    text-align: left;
+    direction: ltr;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.tips-grid .title {
+    font-weight: 700;
+    color: #5a0000;
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.tips-grid .colon {
+    color: #5a0000;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: left;
+}
+
+.tips-grid .desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    text-align: left;
+}
+
+
+
+
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tips-close-btn:hover {
+            background: #f1d279;
+        }
+
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tips-btn:hover {
+            background: #faebcd;
+            animation: none;
+        }
+
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
+        }
+
         /* CHANGE 1: Reset Button CSS */
         .reset-btn {
             padding: 10px 20px;
@@ -70,35 +220,49 @@
             position: relative;
         }
 
-        /* ZOOM CONTROLS - outside white container */
+        /* DRAGGABLE FLOATING ZOOM CONTROLS - FIXED POSITION */
         .zoom-controls {
-            position: absolute;
-            top: 30px;
-            right: 0px;
-            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
             border: 2px solid var(--gold);
-            border-radius: 8px;
-            padding: 5px;
+            border-radius: 10px;
+            padding: 6px;
             display: flex;
-            flex-direction: column;
-            gap: 5px;
+            flex-direction: row;
+            gap: 4px;
             z-index: 2000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+
+        .zoom-controls.dragging {
+            cursor: grabbing;
+            opacity: 0.85;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
 
         .zoom-btn {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border: 2px solid var(--gold);
             background: white;
             color: var(--dark-blue);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
 
         .zoom-btn:hover {
@@ -108,9 +272,13 @@
 
         .zoom-level {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 5px;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
         }
 
         .app-container {
@@ -164,34 +332,6 @@
             display: flex;
             gap: 10px;
             margin-left: auto;
-        }
-
-        .header-btn {
-            padding: 8px 16px;
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .header-btn:hover {
-            background: var(--gold);
-            color: var(--dark-blue);
-        }
-
-        .header-btn.dashboard {
-            background: var(--green);
-            border-color: transparent;
-            color: white;
-        }
-        
-        .header-btn.tree-view {
-            background: var(--dark-blue);
-            border-color: var(--gold);
-            color: var(--gold);
         }
 
         .left-toggle-btn {
@@ -250,6 +390,7 @@
             align-items: center;
             gap: 10px;
             transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
 
         .toggle-menu-item:hover {
@@ -475,43 +616,44 @@
             gap: 8px;
         }
 
-.toggle-icon {
-    font-size: 22px;
-    font-weight: bold;
-    background: var(--gold);
-    color: var(--dark-blue);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: all 0.2s;
-    flex-shrink: 0;
-}
+        .toggle-icon {
+            font-size: 22px;
+            font-weight: bold;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
 
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--maroon);
-    margin: 0 0 25px 0;
-    padding-bottom: 5px;
-    border-bottom: 2px solid var(--gold);
-    font-family: 'Playfair Display', serif;
-    cursor: pointer;
-    flex-wrap: nowrap;
-}
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--maroon);
+            margin: 0 0 25px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--gold);
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            flex-wrap: nowrap;
+        }
+
         .toggle-icon:hover {
             transform: scale(1.1);
             background: var(--light-gold);
         }
 
-        /* Table Styles — VITAL STATUS COLUMN REMOVED */
+        /* Table Styles */
         .family-table {
             width: 100%;
             border-collapse: collapse;
@@ -617,8 +759,8 @@
     </style>
 </head>
 <body>
-    <!-- ZOOM CONTROLS - outside white container -->
-    <div class="zoom-controls">
+    <!-- DRAGGABLE FLOATING ZOOM CONTROLS -->
+    <div class="zoom-controls" id="zoomControls">
         <div class="zoom-btn" onclick="zoomIn()">+</div>
         <div class="zoom-level" id="zoomLevel">100%</div>
         <div class="zoom-btn" onclick="zoomOut()">-</div>
@@ -630,11 +772,10 @@
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span>Rizvi family · table view </span>
+                <span>Rizvi family · Table View</span>
             </div>
             <div class="header-actions">
-                <div class="header-btn tree-view" onclick="switchToTreeView()">🌳 Tree View</div>
-                <div class="header-btn dashboard" onclick="showDashboard()">🏠 Dashboard</div>
+                <!-- Header buttons removed - now in menu -->
             </div>
         </div>
 
@@ -643,13 +784,14 @@
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <!-- CHANGE 4: Reset removed from toggle menu -->
+            <div class="toggle-menu-item" onclick="switchToTreeView()">🌳 Tree View</div>
+            <div class="toggle-menu-item" onclick="showDashboard()">🏠 Dashboard</div>
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 Save File</div>
         </div>
 
         <div class="main-content">
             <div class="center-content">
-                <!-- CHANGE 3: Search section with reset button -->
+                <!-- Search section with Tips button -->
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">SEARCH MEMBER</span>
@@ -658,6 +800,7 @@
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
+                        <button class="tips-btn" onclick="openTips()">💡 Tips</button>
                     </div>
                 </div>
 
@@ -709,8 +852,159 @@
     <!-- Overlay -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
+   
+<!-- Tips Modal -->
+<div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+    <div class="tips-modal">
+        <h3>💡 Tips for Using Family Table</h3>
+
+        <div class="tips-grid">
+            <!-- ===== SEARCH & SELECT ===== -->
+            <div class="title">Search</div>
+            <div class="colon">:</div>
+            <div class="desc">Type name to view that person's table</div>
+
+            <div class="title">Table Rows</div>
+            <div class="colon">:</div>
+            <div class="desc">Click any row to view that person's table</div>
+
+            <div class="title">Expand/Collapse</div>
+            <div class="colon">:</div>
+            <div class="desc">Click ➕/➖ on section headings to expand or collapse</div>
+
+            <!-- ===== MENU OPTIONS ===== -->
+            <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">Menu Options</div>
+            <div class="colon" style="margin-top:8px;"></div>
+            <div class="desc" style="margin-top:8px;"></div>
+
+            <div class="title">Siblings</div>
+            <div class="colon">:</div>
+            <div class="desc">Show/Hide siblings of selected person</div>
+
+            <div class="title">Descendants</div>
+            <div class="colon">:</div>
+            <div class="desc">Show/Hide children of selected person</div>
+
+            <div class="title">Ancestors</div>
+            <div class="colon">:</div>
+            <div class="desc">Show/Hide ancestors of selected person</div>
+
+            <div class="title">Tree View</div>
+            <div class="colon">:</div>
+            <div class="desc">Switch to Tree View format</div>
+
+            <div class="title">Dashboard</div>
+            <div class="colon">:</div>
+            <div class="desc">Go to Dashboard (Main Menu)</div>
+
+            <div class="title">Save</div>
+            <div class="colon">:</div>
+            <div class="desc">Save file as PDF or JPEG</div>
+        </div>
+
+        <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
+    </div>
+</div>
+
+
+
+
     <script>
-        // global variables (data loaded from external 13-family-data.js)
+        // ========== DRAGGABLE ZOOM CONTROLS ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+        });
+
+        // ========== TIPS FUNCTIONS ==========
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
+
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTips();
+            }
+        });
+
+        // ========== EXISTING CODE ==========
         let db = [];
         let fileInfo = null;
         let currentIndividual = null;
@@ -722,16 +1016,13 @@
         let childrenCollapsed = true;
         let ancestorsCollapsed = true;
 
-        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) {
             if (!str) return '';
-            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // load from globals set by 13-family-data.js
             if (typeof FAMILY_DATA !== 'undefined') {
                 db = FAMILY_DATA;
             } else {
@@ -833,7 +1124,6 @@
             renderTable();
         }
 
-        // CHANGE 5: Fixed toggleSection function
         window.toggleSection = function(section) {
             if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
             else if (section === 'children') childrenCollapsed = !childrenCollapsed;
@@ -860,7 +1150,6 @@
             return arr;
         }
 
-        // render member card without VITAL column
         function renderMemberInfoCard(member) {
             const mother = getMother(member);
             
@@ -888,7 +1177,6 @@
             `;
         }
 
-        // render table for list of members - column
         function renderTableForMembers(members, title, includeSelected = false) {
             if (!members || members.length === 0) return '';
             
@@ -920,10 +1208,8 @@
             if (!currentIndividual) return;
             let html = '<div>';
 
-            // Member info card
             html += renderMemberInfoCard(currentIndividual);
 
-            // Ancestors section
             if (showAncestors) {
                 const ancestors = getAncestors(currentIndividual);
                 if (ancestors.length) {
@@ -937,7 +1223,6 @@
                 }
             }
 
-            // Siblings section
             if (showSiblings) {
                 const father = findParent(currentIndividual);
                 if (father) {
@@ -954,7 +1239,6 @@
                 }
             }
 
-            // Descendants section
             if (showDescendants) {
                 const children = db.filter(c => c.father === currentIndividual.name);
                 if (children.length) {
@@ -972,7 +1256,6 @@
             document.getElementById('tableRoot').innerHTML = html;
         }
 
-        // Zoom functions
         function zoomIn() { 
             zoomLevel = Math.min(zoomLevel + 0.1, 2); 
             applyZoom(); 
@@ -1000,7 +1283,6 @@
             }
         }
 
-        // Save Options Functions
         window.showSaveOptions = function() {
             if (!currentIndividual) {
                 alert('Please select a family member first');
@@ -1038,7 +1320,6 @@
             }
         };
 
-        // PDF export (adapted, works without vital column)
         async function exportTablePDF(quality = 'high') {
             if (!currentIndividual) { alert('Please select a member first'); return; }
             
@@ -1129,7 +1410,6 @@
             }
         }
 
-        // JPEG export (adapted)
         window.exportAsJPEG = async function() {
             if (!currentIndividual) return;
             
@@ -1225,7 +1505,6 @@
         
         function showDashboard() { window.location.href = '1-dashboard-pc.html'; }
         
-        // Global click listener
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
             
@@ -1238,13 +1517,14 @@
             }
         });
 
-        // Expose functions globally
         window.zoomIn = zoomIn; 
         window.zoomOut = zoomOut; 
         window.resetZoom = resetZoom;
         window.showDashboard = showDashboard; 
         window.resetIndividual = resetIndividual;
         window.switchToTreeView = switchToTreeView;
+        window.openTips = openTips;
+        window.closeTips = closeTips;
     </script>
 </body>
 </html>

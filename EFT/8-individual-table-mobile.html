@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
+    <script src="13-family-data.js"></script>
     <style>
 
 /* Tips Grid Styles */
@@ -339,10 +339,10 @@
             white-space: nowrap;
         }
 
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-        }
+    .search-wrapper {
+    position: relative;
+    flex: 1;
+}
 
         .search-input {
             width: 100%;
@@ -703,36 +703,27 @@
                        <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
         </div>
 
-        <div class="main-content">
-            <div class="center-content">
-                <!-- SEARCH SECTION -->
-                <div class="search-section">
-                    <div class="search-row">
-                        <span class="search-label">SEARCH MEMBER</span>
-                        <div class="search-wrapper">
-                            <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-                            <div id="searchDropdown" class="search-dropdown"></div>
-                        </div>
-                        <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
-                        <button class="tips-btn" onclick="openTips()">💡 Tips</button>
-                    </div>
+<div class="main-content">
+    <div class="center-content">
+        <!-- SEARCH SECTION -->
+        <div class="search-section">
+            <div class="search-row">
+                <span class="search-label">SEARCH MEMBER</span>
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                    <div id="searchDropdown" class="search-dropdown"></div>
                 </div>
-
-                <!-- TABLE CONTAINER -->
-                <div class="table-container" id="tableContainer">
-                    <div class="table-root-layout" id="tableRoot"></div>
-                </div>
+                <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
+                <button class="tips-btn" onclick="openTips()">💡 Tips</button>
             </div>
         </div>
-           
 
+        <!-- TABLE CONTAINER -->
+        <div class="table-container" id="tableContainer">
+            <div class="table-root-layout" id="tableRoot"></div>
+        </div>
+    </div>
 </div>
-</div> 
-       <div class="table-container" id="tableContainer">
-                    <div class="table-root-layout" id="tableRoot"></div>
-                </div>
-            </div>
-        </div>
 
         <div class="app-footer" id="appFooter">
             Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
@@ -806,13 +797,41 @@
             }
         });
 
-        function loadData() {
-            const saved = localStorage.getItem('familyDB');
-            if (saved) db = JSON.parse(saved);
-            
-            const savedInfo = localStorage.getItem('fileInfo');
-            if (savedInfo) fileInfo = JSON.parse(savedInfo);
+     function loadData() {
+    // First try to load from 13-family-data.js
+    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
+        db = FAMILY_DATA;
+        if (typeof FILE_INFO !== 'undefined') {
+            fileInfo = FILE_INFO;
         }
+        // Save to localStorage for future use
+        localStorage.setItem('familyDB', JSON.stringify(db));
+        if (fileInfo) localStorage.setItem('fileInfo', JSON.stringify(fileInfo));
+        console.log('✅ Loaded ' + db.length + ' members from 13-family-data.js');
+        return;
+    }
+    
+    // Fallback: try localStorage
+    const saved = localStorage.getItem('familyDB');
+    if (saved) {
+        try {
+            db = JSON.parse(saved);
+            console.log('✅ Loaded ' + db.length + ' members from localStorage');
+        } catch(e) {
+            db = [];
+            console.error('Error parsing localStorage data:', e);
+        }
+    }
+    
+    const savedInfo = localStorage.getItem('fileInfo');
+    if (savedInfo) {
+        try {
+            fileInfo = JSON.parse(savedInfo);
+        } catch(e) {
+            fileInfo = null;
+        }
+    }
+}
 
         function formatCurrentTime() {
             const d = new Date();

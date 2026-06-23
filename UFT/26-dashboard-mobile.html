@@ -1,7 +1,7 @@
 <!-- ======================================== -->
-<!-- FILE NAME: 21-dashboard-mobile.html       -->
+<!-- FILE NAME: 26-dashboard-mobile.html       -->
 <!-- Urdu Version - Rizvi Family Dashboard     -->
-<!-- Mobile Only - Simplified Version          -->
+<!-- Mobile Only - Full Feature Version        -->
 <!-- ======================================== -->
 
 <!DOCTYPE html>
@@ -9,514 +9,648 @@
 <head>
     <meta name="google" content="notranslate">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes, viewport-fit=cover">
     <title>خاندان رضوی · موبائل ڈیش بورڈ</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="33-family-data-urdu.js"></script>
     
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
-    
-    :root {
-        --maroon: #5a0000;
-        --dark-blue: #0f172a;
-        --gold: #d4af37;
-        --bronze: #bc8c4f;
-        --light-bg: #fffcf8;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    body {
-        font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-        background: #1a1a1a;
-        min-height: 100vh;
-        margin: 0;
-        padding: 8px;
-    }
+        :root {
+            --maroon: #5a0000;
+            --dark-blue: #0f172a;
+            --gold: #d4af37;
+            --bronze: #bc8c4f;
+        }
 
-    .app-container {
-        max-width: 500px;
-        margin: 0 auto;
-        background: white;
-        min-height: calc(100vh - 16px);
-        display: flex;
-        flex-direction: column;
-        border-radius: 24px;
-        border: 2px solid var(--gold);
-        overflow: hidden;
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-    }
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 8px;
+            direction: rtl;
+        }
 
-    .app-header {
-        background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-        color: var(--gold);
-        padding: 12px 15px;
-        border-bottom: 3px solid var(--gold);
-    }
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            border-radius: 24px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
 
-    .header-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-    }
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gold);
+        }
 
-    .header-title {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
-        font-size: 16px;
-        font-weight: 900;
-        white-space: nowrap;
-    }
+        .header-title {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 16px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-    .header-icon {
-        background: var(--gold);
-        color: var(--dark-blue);
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-    }
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
 
-    .status-badge {
-        background: var(--gold);
-        color: var(--dark-blue);
-        padding: 6px 12px;
-        border-radius: 30px;
-        font-size: 13px;
-        font-weight: 600;
-        white-space: nowrap;
-        font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    }
+        .header-actions {
+            display: flex;
+        }
 
-    .main-content {
-        flex: 1;
-        background: var(--light-bg);
-        padding: 15px 12px;
-    }
+        .status-badge {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
 
-    .dashboard-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
+        .main-content {
+            background: #fffcf8;
+            padding: 16px 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .dashboard-card {
-        background: white;
-        border: 2px solid var(--gold);
-        border-radius: 16px;
-        padding: 18px 12px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.2s;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        min-height: 140px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+        .mobile-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
 
-    .dashboard-card:active {
-        transform: scale(0.98);
-        border-color: var(--bronze);
-        background: #fafafa;
-    }
+        .dashboard-card {
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-    .card-icon {
-        font-size: 36px;
-        margin-bottom: 5px;
-    }
+        .dashboard-card:active {
+            transform: scale(0.98);
+            border-color: var(--bronze);
+        }
 
-    .card-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--dark-blue);
-        margin-bottom: 3px;
-        font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-        line-height: 1.2;
-    }
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
 
-    .card-desc {
-        color: #666;
-        font-size: 12px;
-        font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-        line-height: 1.3;
-    }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 4px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
 
-    .action-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-top: 5px;
-    }
+        .card-desc {
+            color: #666;
+            font-size: 12px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
 
-    .action-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        padding: 8px 15px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        border: 2px solid var(--gold);
-        transition: all 0.2s;
-        font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-        min-width: 200px;
-        white-space: nowrap;
-    }
+        .action-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
 
-    .action-btn.exit {
-        background: var(--maroon);
-        color: white;
-    }
+        .exit-btn-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #5a0000;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            width: 100%;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.15s;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
 
-    .action-btn.exit:active {
-        background: #7a1f1f;
-    }
+        .exit-btn-container:active {
+            background: #7a1f1f;
+            transform: scale(0.98);
+        }
 
-    .action-btn.reset {
-        background: #4169E1;
-        color: white;
-    }
+        .exit-btn-container.hardreset {
+            background: #1e4b8b;
+        }
 
-    .action-btn.reset:active {
-        background: #1E4B8B;
-    }
+        .exit-btn-container.hardreset:active {
+            background: #2569b3;
+        }
 
-    .action-btn span {
-        white-space: nowrap;
-    }
+        .exit-btn-icon {
+            font-size: 18px;
+        }
 
-    .action-btn .exit-btn-subtext {
-        font-size: 12px;
-        opacity: 0.9;
-    }
+        .exit-btn-subtext {
+            font-size: 11px;
+            opacity: 0.9;
+        }
 
-    .app-footer {
-        background: var(--dark-blue);
-        color: var(--gold);
-        text-align: center;
-        padding: 10px;
-        font-size: 11px;
-        border-top: 2px solid var(--gold);
-        line-height: 1.4;
-        font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    }
+        .app-footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 8px;
+            font-size: 10px;
+            border-top: 2px solid var(--gold);
+            line-height: 1.2;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
 
-    .loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 3000;
-        display: none;
-    }
+        #fileInput {
+            display: none;
+        }
 
-    .loading-content {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        border: 3px solid var(--gold);
-        text-align: center;
-    }
+        /* === TREE OPTION MODAL === */
+        .tree-option-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-    .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid var(--gold);
-        border-top-color: var(--dark-blue);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 15px;
-    }
+        .tree-option-overlay.show {
+            display: flex;
+        }
 
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
+        .tree-option-modal {
+            background: white;
+            border-radius: 20px;
+            border: 3px solid var(--gold);
+            max-width: 400px;
+            width: 100%;
+            padding: 28px 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlideUp 0.3s ease;
+        }
 
-    @keyframes slideUp {
-        from { transform: translateY(100%); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    
-    @keyframes slideDown {
-        from { transform: translateY(0); opacity: 1; }
-        to { transform: translateY(100%); opacity: 0; }
-    }
-</style>
+        @keyframes modalSlideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
 
+        .tree-option-modal h2 {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 22px;
+            color: var(--maroon);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .tree-option-modal .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 20px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tree-option-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            background: white;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tree-option-btn:active {
+            transform: scale(0.97);
+        }
+
+        .tree-option-btn .icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .tree-option-btn .info {
+            flex: 1;
+        }
+
+        .tree-option-btn .info .title {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: 15px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tree-option-btn .info .desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tree-option-btn .arrow {
+            color: var(--gold);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tree-option-btn:hover {
+            background: #faebcd;
+        }
+
+        .tree-option-close {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            color: #999;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            margin-top: 4px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tree-option-close:hover {
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Simplified Header - One Row -->
+    <div class="app-container" id="appContainer">
         <div class="app-header">
-            <div class="header-content">
-                <div class="header-title">
-                    <span class="header-icon">🌿</span>
-                    <span>رضوی خاندان</span>
-                </div>
-                <div class="status-badge" id="headerStatus">📊 0 اراکین</div>
+            <div class="header-title">
+                <span class="header-icon">🌿</span>
+                <span id="headerTitle">خاندان رضوی (موبائل)</span>
+            </div>
+            <div class="header-actions">
+                <span class="status-badge" id="headerStatus">📊 اراکین: 0</span>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content" id="mainContent">
-            <!-- Dynamic content will be inserted here -->
-        </div>
+        <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
 
-        <!-- Footer -->
+        <div class="main-content" id="mainContent"></div>
+
         <div class="app-footer">
-            ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی<br>
-            0332-787-6010
+            ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332
         </div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div id="loadingMessage">لوڈ ہو رہا ہے...</div>
+    <!-- TREE OPTION MODAL -->
+    <div class="tree-option-overlay" id="treeOptionOverlay">
+        <div class="tree-option-modal">
+            <h2>🌳 مکمل شجرہ</h2>
+            <p class="subtitle">شجرہ دیکھنے کا طریقہ منتخب کریں</p>
+
+            <div class="tree-option-btn" id="optionTextView">
+                <span class="icon">📄</span>
+                <div class="info">
+                    <div class="title">متنی شجرہ</div>
+                    <div class="desc">صاف اور منظم متن پر مبنی شجرہ</div>
+                </div>
+                <span class="arrow">←</span>
+            </div>
+
+            <div class="tree-option-btn" id="optionVisualTree">
+                <span class="icon">🎨</span>
+                <div class="info">
+                    <div class="title">بصری شجرہ</div>
+                    <div class="desc">انٹرایکٹو گرافیکل شجرہ جسے پھیلایا جا سکتا ہے</div>
+                </div>
+                <span class="arrow">←</span>
+            </div>
+
+            <button class="tree-option-close" id="treeOptionClose">منسوخ</button>
         </div>
     </div>
 
     <script>
-        // ==================== GLOBAL VARIABLES ====================
-        let db = [];
-        let fileInfo = null;
+        (function() {
+            let db = [];
 
-        // ==================== INITIALIZATION ====================
-        function initializeData() {
-            // STEP 1: Auto hard reset - clear everything
-            localStorage.removeItem('familyDB');
-            localStorage.removeItem('fileInfo');
-            localStorage.removeItem('tableViewMember');
-            localStorage.removeItem('tableViewFilters');
-            db = [];
-            
-            // STEP 2: Auto load fresh from 33-family-data-urdu.js
-            if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
-                try {
+            function loadFromStorageOrFallback() {
+                if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length > 0) {
                     db = FAMILY_DATA_URDU;
                     localStorage.setItem('familyDB', JSON.stringify(db));
-                    
                     if (typeof FILE_INFO !== 'undefined') {
-                        fileInfo = FILE_INFO;
                         localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                        console.log('✅ Timestamp saved:', FILE_INFO.saved_time);
                     }
-                    
-                    console.log(`✅ Auto-loaded ${db.length} members from 33-family-data-urdu.js`);
-                } catch (err) {
-                    console.error('Error loading from JS:', err);
+                    console.log(`✅ خودکار طور پر ${db.length} اراکین لوڈ ہوئے`);
+                } else {
+                    db = [];
                 }
-            } else {
-                console.warn('⚠️ FAMILY_DATA_URDU not found. Make sure 33-family-data-urdu.js is loaded.');
-                // Try to load from localStorage as fallback
-                const saved = localStorage.getItem('familyDB');
-                if (saved) {
-                    try {
-                        db = JSON.parse(saved);
-                        console.log(`✅ Loaded ${db.length} members from localStorage`);
-                    } catch(e) { console.error(e); }
+                updateHeaderCounter();
+            }
+
+            function updateHeaderCounter() {
+                const count = db.length;
+                const statusEl = document.getElementById('headerStatus');
+                if (statusEl) {
+                    statusEl.innerHTML = `📊 اراکین: ${count}`;
                 }
             }
-            
-            updateHeaderStatus();
-            renderDashboard();
-        }
 
-        function updateHeaderStatus() {
-            const count = db.length || 0;
-            document.getElementById('headerStatus').innerHTML = `📊 ${count} اراکین`;
-        }
+            function hardResetMobile() {
+                const confirmation = confirm("🚨 انتباہ: تمام ڈیٹا مستقل طور پر حذف ہو جائے گا۔ کیا آپ کو یقین ہے؟");
+                if (confirmation) {
+                    localStorage.removeItem('familyDB');
+                    localStorage.removeItem('fileInfo');
+                    localStorage.removeItem('tableViewMember');
+                    localStorage.removeItem('tableViewFilters');
+                    db = [];
+                    loadFromStorageOrFallback();
+                    updateHeaderCounter();
+                    alert("✅ تمام ڈیٹا صاف کر دیا گیا اور دوبارہ لوڈ ہو گیا");
+                }
+            }
 
-        // ==================== RENDER DASHBOARD ====================
-        function renderDashboard() {
-            const mainContent = document.getElementById('mainContent');
-            
-            mainContent.innerHTML = `
-                <div class="dashboard-grid">
-                    <!-- Individual Search Card -->
-                    <div class="dashboard-card" onclick="goToIndividual()">
-                        <div class="card-icon">👤</div>
-                        <div class="card-title">انفرادی تلاش</div>
-                        <div class="card-desc">کسی ایک فرد کی معلومات دیکھیں</div>
-                    </div>
-                    
-                    <!-- Root Relative Card -->
-                    <div class="dashboard-card" onclick="goToRoot()">
-                        <div class="card-icon">👥</div>
-                        <div class="card-title">جڑ رشتہ دار</div>
-                        <div class="card-desc">دو افراد کے درمیان تعلق معلوم کریں</div>
-                    </div>
-                    
-                    <!-- Full Family Tree Card - NEW -->
-                    <div class="dashboard-card" onclick="goToFullTree()">
+            function logoutMobile() {
+                if (confirm('کیا آپ باہر جانا چاہتے ہیں اور لاگ ان صفحہ پر واپس آنا چاہتے ہیں؟')) {
+                    localStorage.removeItem('familyDB');
+                    localStorage.removeItem('fileInfo');
+                    localStorage.removeItem('tableViewMember');
+                    localStorage.removeItem('tableViewFilters');
+                    db = [];
+                    window.location.href = '../index.html';
+                }
+            }
+
+            function goToIndividualMobile() {
+                if (db.length === 0) {
+                    const saved = localStorage.getItem('familyDB');
+                    if (saved) {
+                        db = JSON.parse(saved);
+                    } else {
+                        alert('کوئی ڈیٹا نہیں ملا۔ براہ کرم ڈیسک ٹاپ پر ایڈمن کے ذریعے ڈیٹا لوڈ کریں۔');
+                        return;
+                    }
+                }
+                window.location.href = '27-individual-tree-mobile.html';
+            }
+
+            function goToRootMobile() {
+                if (db.length === 0) {
+                    const saved = localStorage.getItem('familyDB');
+                    if (saved) {
+                        db = JSON.parse(saved);
+                    } else {
+                        alert('کوئی ڈیٹا نہیں ملا۔ براہ کرم ڈیسک ٹاپ پر ایڈمن کے ذریعے ڈیٹا لوڈ کریں۔');
+                        return;
+                    }
+                }
+                window.location.href = '29-root-tree-mobile.html';
+            }
+
+            // === FULL TREE OPTIONS ===
+            function openTreeOptions() {
+                document.getElementById('treeOptionOverlay').classList.add('show');
+            }
+
+            function closeTreeOptions() {
+                document.getElementById('treeOptionOverlay').classList.remove('show');
+            }
+
+            function goToVisualTree() {
+                closeTreeOptions();
+                if (db.length === 0) {
+                    const saved = localStorage.getItem('familyDB');
+                    if (saved) {
+                        db = JSON.parse(saved);
+                    } else {
+                        alert('کوئی ڈیٹا نہیں ملا۔ براہ کرم ڈیسک ٹاپ پر ایڈمن کے ذریعے ڈیٹا لوڈ کریں۔');
+                        return;
+                    }
+                }
+                window.location.href = 'FT-mobile-2U.html';
+            }
+
+            function goToTextView() {
+                closeTreeOptions();
+                if (db.length === 0) {
+                    const saved = localStorage.getItem('familyDB');
+                    if (saved) {
+                        db = JSON.parse(saved);
+                    } else {
+                        alert('کوئی ڈیٹا نہیں ملا۔ براہ کرم ڈیسک ٹاپ پر ایڈمن کے ذریعے ڈیٹا لوڈ کریں۔');
+                        return;
+                    }
+                }
+                window.location.href = 'FT-mobile-1U.html';
+            }
+
+            function renderMobileDashboard() {
+                const mainContent = document.getElementById('mainContent');
+                if (!mainContent) return;
+
+                document.getElementById('headerTitle').innerText = 'خاندان رضوی (موبائل)';
+
+                mainContent.innerHTML = `
+                <div class="mobile-dashboard">
+                    <!-- 1️⃣ مکمل شجرہ - پہلا -->
+                    <div class="dashboard-card" id="cardFullTree">
                         <div class="card-icon">🌳</div>
                         <div class="card-title">مکمل شجرہ</div>
-                        <div class="card-desc">خاندان کا مکمل شجرہ دیکھیں</div>
+                        <div class="card-desc">خاندان کا مکمل شجرہ</div>
                     </div>
-                    
-                    <!-- Action Buttons -->
-                    <div class="action-buttons">
-                        <div class="action-btn exit" onclick="logout()">
-                            <span>🚪</span>
-                            <span>لاگ آؤٹ</span>
+
+                    <!-- 2️⃣ انفرادی - دوسرا -->
+                    <div class="dashboard-card" id="cardIndividual">
+                        <div class="card-icon">👤</div>
+                        <div class="card-title">انفرادی</div>
+                        <div class="card-desc">ایک فرد کی تلاش</div>
+                    </div>
+
+                    <!-- 3️⃣ جڑ رشتہ دار - تیسرا -->
+                    <div class="dashboard-card" id="cardRoot">
+                        <div class="card-icon">👥</div>
+                        <div class="card-title">جڑ رشتہ دار</div>
+                        <div class="card-desc">دو افراد کا تعلق</div>
+                    </div>
+
+                    <div class="action-row">
+                        <div class="exit-btn-container" id="exitBtn">
+                            <span class="exit-btn-icon">🚪</span>
+                            <span class="exit-btn-text">لاگ آؤٹ</span>
+                            <span class="exit-btn-subtext">(مرکزی صفحہ)</span>
                         </div>
-                        
-                        <div class="action-btn reset" onclick="hardReset()">
-                            <span>⚠️</span>
-                            <span>مکمل ری سیٹ</span>
+                        <div class="exit-btn-container hardreset" id="resetBtn">
+                            <span class="exit-btn-icon">⚠️</span>
+                            <span class="exit-btn-text">مکمل ری سیٹ</span>
+                            <span class="exit-btn-subtext">(تمام ڈیٹا حذف)</span>
                         </div>
                     </div>
                 </div>
-            `;
-        }
+                `;
 
-        // ==================== NAVIGATION ====================
-        function goToIndividual() {
-            if (db.length === 0) {
-                const saved = localStorage.getItem('familyDB');
-                if (saved) {
-                    db = JSON.parse(saved);
-                } else {
-                    showToast('❌ براہ کرم پہلے ڈیٹا لوڈ کریں');
-                    return;
+                document.getElementById('cardFullTree').addEventListener('click', openTreeOptions);
+                document.getElementById('cardIndividual').addEventListener('click', goToIndividualMobile);
+                document.getElementById('cardRoot').addEventListener('click', goToRootMobile);
+                document.getElementById('exitBtn').addEventListener('click', logoutMobile);
+                document.getElementById('resetBtn').addEventListener('click', hardResetMobile);
+            }
+
+            // === SETUP MODAL EVENTS ===
+            function setupModalEvents() {
+                const overlay = document.getElementById('treeOptionOverlay');
+                const closeBtn = document.getElementById('treeOptionClose');
+                const visualBtn = document.getElementById('optionVisualTree');
+                const textBtn = document.getElementById('optionTextView');
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeTreeOptions);
                 }
-            }
-            window.location.href = '27-individual-tree-mobile.html';
-        }
 
-        function goToRoot() {
-            if (db.length === 0) {
-                const saved = localStorage.getItem('familyDB');
-                if (saved) {
-                    db = JSON.parse(saved);
-                } else {
-                    showToast('❌ براہ کرم پہلے ڈیٹا لوڈ کریں');
-                    return;
+                if (visualBtn) {
+                    visualBtn.addEventListener('click', goToVisualTree);
                 }
-            }
-            window.location.href = '29-root-tree-mobile.html';
-        }
 
-        // NEW: Go to Full Family Tree (Urdu version)
-        function goToFullTree() {
-            if (db.length === 0) {
-                const saved = localStorage.getItem('familyDB');
-                if (saved) {
-                    db = JSON.parse(saved);
-                } else {
-                    showToast('❌ براہ کرم پہلے ڈیٹا لوڈ کریں');
-                    return;
+                if (textBtn) {
+                    textBtn.addEventListener('click', goToTextView);
                 }
+
+                if (overlay) {
+                    overlay.addEventListener('click', function(e) {
+                        if (e.target === overlay) {
+                            closeTreeOptions();
+                        }
+                    });
+                }
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        closeTreeOptions();
+                    }
+                });
             }
-            window.location.href = '200U-full-tree-mobile.html';
-        }
 
-        // ==================== UTILITY FUNCTIONS ====================
-        function showLoading(message = 'لوڈ ہو رہا ہے...') {
-            document.getElementById('loadingMessage').textContent = message;
-            document.getElementById('loadingOverlay').style.display = 'flex';
-        }
+            // === INIT ===
+            document.addEventListener('DOMContentLoaded', function() {
+                const fileInput = document.getElementById('fileInput');
+                if (fileInput) {
+                    fileInput.onchange = function(e) {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = function(ev) {
+                            try {
+                                const data = new Uint8Array(ev.target.result);
+                                const wb = XLSX.read(data, { type: 'array' });
+                                const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+                                db = rows.map(r => ({
+                                    name: String(r.Name || r.name || '').trim(),
+                                    father: String(r.Father || r.father || '').trim(),
+                                    mother: String(r.Mother || r.mother || '').trim(),
+                                    spouse: String(r.Spouse || r.spouse || '').trim(),
+                                    gen: String(r.Gen || r.gen || '').trim(),
+                                    gender: String(r.Gender || r.gender || 'Male').trim().toUpperCase(),
+                                    maritalStatus: String(r.MaritalStatus || r.maritalStatus || r.Maritalstatus || r.maritalstatus || '').trim(),
+                                    alive: String(r.Alive || r.alive || '').trim()
+                                })).filter(p => p.name);
+                                localStorage.setItem('familyDB', JSON.stringify(db));
+                                updateHeaderCounter();
+                            } catch (err) {
+                                alert('❌ خرابی: ' + err.message);
+                            }
+                        };
+                        reader.readAsArrayBuffer(file);
+                    };
+                }
 
-        function hideLoading() {
-            document.getElementById('loadingOverlay').style.display = 'none';
-        }
+                setupModalEvents();
+            });
 
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                left: 20px;
-                right: 20px;
-                background: var(--dark-blue);
-                color: var(--gold);
-                padding: 15px;
-                border-radius: 12px;
-                text-align: center;
-                border: 2px solid var(--gold);
-                z-index: 5000;
-                font-family: 'Noto Nastaliq Urdu', sans-serif;
-                animation: slideUp 0.3s ease;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            `;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'slideDown 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 2000);
-        }
+            loadFromStorageOrFallback();
+            renderMobileDashboard();
 
-        function logout() {
-            if (confirm('کیا آپ باہر جانا چاہتے ہیں؟')) {
-                // Clear data when going back to password screen
-                localStorage.removeItem('familyDB');
-                localStorage.removeItem('fileInfo');
-                db = [];
-                window.location.href = '../index.html';
-            }
-        }
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'familyDB') {
+                    if (e.newValue) {
+                        try {
+                            db = JSON.parse(e.newValue);
+                        } catch (err) {
+                            db = [];
+                        }
+                    } else {
+                        db = [];
+                    }
+                    updateHeaderCounter();
+                }
+            });
 
-        function hardReset() {
-            if (confirm('🚨 انتباہ: تمام ڈیٹا مستقل طور پر حذف ہو جائے گا۔ کیا آپ کو یقین ہے؟')) {
-                localStorage.removeItem('familyDB');
-                localStorage.removeItem('fileInfo');
-                localStorage.removeItem('tableViewMember');
-                localStorage.removeItem('tableViewFilters');
-                db = [];
-                initializeData();
-                updateHeaderStatus();
-                renderDashboard();
-                showToast('✅ تمام ڈیٹا صاف کر دیا گیا اور دوبارہ لوڈ ہو گیا');
-            }
-        }
-
-        // ==================== ANIMATION STYLES ====================
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideUp {
-                from { transform: translateY(100%); opacity: 0; }
-                to { transform: translateY(0); opacity: 1; }
-            }
-            @keyframes slideDown {
-                from { transform: translateY(0); opacity: 1; }
-                to { transform: translateY(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // ==================== INITIALIZE ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeData();
-        });
-
-        // Make functions globally available
-        window.goToIndividual = goToIndividual;
-        window.goToRoot = goToRoot;
-        window.goToFullTree = goToFullTree;
-        window.logout = logout;
-        window.hardReset = hardReset;
+            window.openTreeOptions = openTreeOptions;
+            window.closeTreeOptions = closeTreeOptions;
+            window.goToVisualTree = goToVisualTree;
+            window.goToTextView = goToTextView;
+        })();
     </script>
 </body>
 </html>

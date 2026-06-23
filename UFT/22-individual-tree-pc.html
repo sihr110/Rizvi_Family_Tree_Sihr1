@@ -13,6 +13,118 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+        /* ===== TIPS BUTTON & MODAL ===== */
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 650px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .tips-modal h3 {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            color: #0f172a;
+            font-size: 22px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 12px;
+            text-align: center;
+        }
+
+        /* 3-COLUMN GRID - ALL RIGHT ALIGNED */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 6px 12px;
+            text-align: right;
+            direction: rtl;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .tips-grid .title {
+            font-weight: 700;
+            color: #5a0000;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .tips-grid .colon {
+            color: #5a0000;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .tips-grid .desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            text-align: right;
+        }
+
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tips-close-btn:hover {
+            background: #f1d279;
+        }
+
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tips-btn:hover {
+            background: #faebcd;
+            animation: none;
+        }
+
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
+        }
+
         .reset-btn {
             padding: 10px 20px;
             background: var(--gold);
@@ -58,35 +170,49 @@
             position: relative;
         }
 
+        /* DRAGGABLE FLOATING ZOOM CONTROLS - 75% SIZE, BOTTOM-RIGHT */
         .zoom-controls {
-            position: absolute;
-            top: 30px;
-            left: 0px;
-            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
             border: 2px solid var(--gold);
-            border-radius: 8px;
-            padding: 5px;
+            border-radius: 10px;
+            padding: 6px;
             display: flex;
-            flex-direction: column;
-            gap: 5px;
+            flex-direction: row;
+            gap: 4px;
             z-index: 2000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+
+        .zoom-controls.dragging {
+            cursor: grabbing;
+            opacity: 0.85;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
 
         .zoom-btn {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border: 2px solid var(--gold);
             background: white;
             color: var(--dark-blue);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
 
         .zoom-btn:hover {
@@ -96,10 +222,13 @@
 
         .zoom-level {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 5px;
+            padding: 0 6px;
+            min-width: 38px;
             font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
         }
 
         .app-container {
@@ -172,18 +301,6 @@
         .header-btn:hover {
             background: var(--gold);
             color: var(--dark-blue);
-        }
-
-        .header-btn.dashboard {
-            background: var(--green);
-            border-color: transparent;
-            color: white;
-        }
-        
-        .header-btn.table-view {
-            background: var(--dark-blue);
-            border-color: var(--gold);
-            color: var(--gold);
         }
 
         .left-toggle-btn {
@@ -628,6 +745,7 @@
             padding: 8px;
             font-size: 11px;
             border-top: 2px solid var(--gold);
+            position: relative;
         }
 
         .save-options-modal {
@@ -710,21 +828,21 @@
             border-bottom: 2px solid var(--gold);
         }
 
- .info-modal p {
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    font-size: 12px;
-    line-height: 1.6;
-    margin: 12px 0 0 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    color: #333;
-    max-height: 250px;
-    overflow-y: auto;
-    background: #fef9e6;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border-right: 3px solid var(--gold);
-}
+        .info-modal p {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 12px 0 0 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #333;
+            max-height: 250px;
+            overflow-y: auto;
+            background: #fef9e6;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-right: 3px solid var(--gold);
+        }
 
         .info-modal button {
             margin-top: 20px;
@@ -737,6 +855,7 @@
             font-weight: 600;
             width: 100%;
             transition: all 0.2s;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .info-modal button:hover {
@@ -793,7 +912,8 @@
     </style>
 </head>
 <body>
-    <div class="zoom-controls">
+    <!-- DRAGGABLE FLOATING ZOOM CONTROLS - 75% SIZE, BOTTOM-RIGHT -->
+    <div class="zoom-controls" id="zoomControls">
         <div class="zoom-btn" onclick="zoomIn()">+</div>
         <div class="zoom-level" id="zoomLevel">100%</div>
         <div class="zoom-btn" onclick="zoomOut()">-</div>
@@ -808,8 +928,7 @@
                 <span>رضوی خاندان · شجرہ نسب</span>
             </div>
             <div class="header-actions">
-                <div class="header-btn table-view" onclick="switchToTableView()">📊 ٹیبل</div>
-                <div class="header-btn dashboard" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
+                <!-- Header buttons removed - now in menu -->
             </div>
         </div>
 
@@ -818,6 +937,8 @@
             <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
             <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
             <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="switchToTableView()">📊 ٹیبل ویو</div>
+            <div class="toggle-menu-item" onclick="showDashboard()">🏠 مرکزی صفحہ</div>
             <div class="toggle-menu-item" onclick="showSaveOptions()">💾 فائل محفوظ کریں</div>
         </div>
 
@@ -831,6 +952,7 @@
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetIndividual()">🔄 دوبارہ ترتیب</div>
+                        <button class="tips-btn" onclick="openTips()">💡 رہنما اصول</button>
                     </div>
                 </div>
 
@@ -873,9 +995,144 @@
         <button onclick="closeInfoModal()">بند کریں</button>
     </div>
 
+  
+<!-- Tips Modal - 3 Column Grid -->
+<div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+    <div class="tips-modal">
+        <h3>💡 رہنما اصول برائے استعمال</h3>
+
+        <div class="tips-grid">
+            <!-- ===== SEARCH & SELECT ===== -->
+            <div class="title">تلاش</div>
+            <div class="colon">:</div>
+            <div class="desc">نام لکھیں، صفحہ دیکھیں</div>
+
+            <div class="title">تفصیلات</div>
+            <div class="colon">:</div>
+            <div class="desc">ℹ️ آئیکن پر کلک کریں</div>
+
+            <div class="title">پھیلائیں / سکیڑیں</div>
+            <div class="colon">:</div>
+            <div class="desc">سیکشن ہیڈنگ پر ➕/➖ پر کلک کریں</div>
+
+            <!-- ===== MENU OPTIONS ===== -->
+            <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">مینو آپشنز</div>
+            <div class="colon" style="margin-top:8px;"></div>
+            <div class="desc" style="margin-top:8px;"></div>
+
+            <div class="title">بہن بھائی</div>
+            <div class="colon">:</div>
+            <div class="desc">منتخب فرد کے بہن بھائی دکھائیں/چھپائیں</div>
+
+            <div class="title">اولاد</div>
+            <div class="colon">:</div>
+            <div class="desc">منتخب فرد کی اولاد دکھائیں/چھپائیں</div>
+
+            <div class="title">آباؤ اجداد</div>
+            <div class="colon">:</div>
+            <div class="desc">منتخب فرد کے آباؤ اجداد دکھائیں/چھپائیں</div>
+
+            <div class="title">ٹیبل ویو</div>
+            <div class="colon">:</div>
+            <div class="desc">ٹیبل فارمیٹ میں تبدیل کریں</div>
+
+            <div class="title">مرکزی صفحہ</div>
+            <div class="colon">:</div>
+            <div class="desc">مرکزی صفحہ پر جائیں</div>
+
+            <div class="title">محفوظ کریں</div>
+            <div class="colon">:</div>
+            <div class="desc">فائل کو PDF یا JPEG کے طور پر محفوظ کریں</div>
+        </div>
+
+        <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">بند کریں</button>
+    </div>
+</div>
+
+
     <script src="33-family-data-urdu.js"></script>
     
     <script>
+        // ========== DRAGGABLE ZOOM CONTROLS ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+        });
+
+        // ========== EXISTING CODE ==========
         let db = [], fileInfo = null, currentIndividual = null;
         let showSiblings = true, showDescendants = true, showAncestors = true;
         let zoomLevel = 0.7, siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
@@ -891,20 +1148,35 @@
             return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'شام':'صبح'}`;
         }
 
-function showInfoModal(personName) {
-    const person = db.find(p => p.name === personName);
-    if (!person) return;
-    let detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
-    detailsText = detailsText.replace(/\\n/g, '<br>');
-    document.getElementById('infoModalText').innerHTML = detailsText;
-    document.getElementById('infoModal').style.display = 'block';
-    document.getElementById('infoModalOverlay').style.display = 'block';
-}
+        function showInfoModal(personName) {
+            const person = db.find(p => p.name === personName);
+            if (!person) return;
+            let detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
+            detailsText = detailsText.replace(/\\n/g, '<br>');
+            document.getElementById('infoModalText').innerHTML = detailsText;
+            document.getElementById('infoModal').style.display = 'block';
+            document.getElementById('infoModalOverlay').style.display = 'block';
+        }
 
         function closeInfoModal() {
             document.getElementById('infoModal').style.display = 'none';
             document.getElementById('infoModalOverlay').style.display = 'none';
         }
+
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
+
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTips();
+                closeInfoModal();
+            }
+        });
 
         function loadData() {
             if (typeof FAMILY_DATA_URDU !== 'undefined') {
@@ -1385,6 +1657,8 @@ function showInfoModal(personName) {
         window.switchToTableView = switchToTableView;
         window.showInfoModal = showInfoModal;
         window.closeInfoModal = closeInfoModal;
+        window.openTips = openTips;
+        window.closeTips = closeTips;
     </script>
 </body>
 </html>

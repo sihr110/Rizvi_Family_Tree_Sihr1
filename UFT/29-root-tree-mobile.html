@@ -37,10 +37,9 @@
     line-height: 1;
 }
 
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
+       .reset-btn:hover {
+    background: transparent;
+}
 
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
@@ -568,7 +567,7 @@
                             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
-                       <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
+                       <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
                     </div>
                     <div class="border-line"></div>
                 </div>
@@ -700,19 +699,18 @@
                 if (dropdown2) dropdown2.style.display = 'none';
             }
             
-            if (!member1 && !member2) {
-                resetSearch();
-            } else if (member1 && member2) {
-                renderTree();
-            } else {
-                document.getElementById('rootTree').innerHTML = `
-                    <div class="empty-state">
-                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
-                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
-                        <div style="font-size:13px; color:#666;">ان کا مشترکہ جڑ بزرگ دیکھنے کے لیے اوپر دو افراد منتخب کریں</div>
-                    </div>
-                `;
-            }
+if (member1 && member2) {
+    renderTree();
+} else {
+    // show empty state with one selection
+    document.getElementById('rootTree').innerHTML = `
+        <div class="empty-state">
+            <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+            <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">دو افراد منتخب کریں</div>
+            <div style="font-size:13px; color:#666;">ان کا مشترکہ جڑ بزرگ دیکھنے کے لیے اوپر دو افراد منتخب کریں</div>
+        </div>
+    `;
+}
         }
 
         window.showSaveOptions = function() {

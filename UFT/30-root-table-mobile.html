@@ -630,7 +630,7 @@
                 <div class="fixed-header-section">
                     <!-- CHANGE 3: Search rows with reset buttons -->
                     <div class="search-row">
-                        <div class="search-label">رکن 1</div>
+                        <span class="search-label">فرد 1</span>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
@@ -638,7 +638,7 @@
                         <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
                     </div>
                     <div class="search-row">
-                        <div class="search-label">رکن 2</div>
+                        <span class="search-label">فرد 2</span>
                         <div class="search-wrapper">
                             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
@@ -998,11 +998,11 @@
                 <div class="paths-table-container">
                     <div class="path-table-column">
                         <h3>${displayName(member1.name)} کا جڑ تک سفر</h3>
-                        ${renderPathTable(member1, commonRoot, 'رکن 1', true)}
+                        ${renderPathTable(member1, commonRoot, 'فرد 1', true)}
                     </div>
                     <div class="path-table-column">
                         <h3>${displayName(member2.name)} کا جڑ تک سفر</h3>
-                        ${renderPathTable(member2, commonRoot, 'رکن 2', false)}
+                        ${renderPathTable(member2, commonRoot, 'فرد 2', false)}
                     </div>
                 </div>
             `;

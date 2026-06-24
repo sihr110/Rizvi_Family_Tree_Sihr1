@@ -2,7 +2,7 @@
 <!-- FILE NAME: 29-root-tree-mobile.html    -->
 <!-- Urdu Version - Rizvi Family Root Tree  -->
 <!-- EXACT STRUCTURE AS FILE 9              -->
-<!-- LAST UPDATED: 31/03/2026               -->
+<!-- LAST UPDATED: 24/06/2026               -->
 <!-- ===================================== -->
 
 <!DOCTYPE html>
@@ -137,24 +137,6 @@
 
 
 
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
-
         .left-toggle-btn {
             animation: gentle-blink 1.5s infinite;
         }
@@ -247,6 +229,13 @@
             align-items: center;
             justify-content: center;
             font-size: 16px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-right: auto;
         }
 
 .left-toggle-btn {
@@ -627,11 +616,6 @@
                 width: 95%;
             }
             
-            .reset-btn {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-            
             .empty-state {
                 padding: 30px 20px;
                 margin: 20px 15px;
@@ -654,6 +638,9 @@
                 <span class="header-icon">👥</span>
                 <span>رضوی خاندان - جڑ تک شجرہ ویو</span>
             </div>
+            <div class="header-actions">
+                <button class="tips-btn" onclick="openTips()" style="background:transparent; border:2px solid var(--gold); color:var(--gold); padding:6px 14px; border-radius:4px; cursor:pointer; font-size:16px; animation: tipsBlink 1.5s ease-in-out infinite; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">💡</button>
+            </div>
         </div>
 
  <!-- Toggle Menu Panel -->
@@ -675,18 +662,21 @@
             <input type="text" id="search1" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
             <div id="dropdown1" class="dropdown"></div>
         </div>
-        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 دوبارہ ترتیب</div>
+        <div onclick="resetSearchRow(1)" style="font-size:40px; display:flex; align-items:center; justify-content:center; width:45px; height:45px; padding:0; cursor:pointer;">
+            <span style="transform:translateY(-10px); display:inline-block;">🔄</span>
+        </div>
     </div>
 
-    <!-- MEMBER 2 (WITH Tips) -->
+    <!-- MEMBER 2 -->
     <div class="search-row">
         <span class="search-label">فرد 2</span>
         <div class="search-wrapper">
             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
             <div id="dropdown2" class="dropdown"></div>
         </div>
-        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 دوبارہ ترتیب</div>
-        <button class="tips-btn" onclick="openTips()">💡 رہنما اصول</button>
+        <div onclick="resetSearchRow(2)" style="font-size:40px; display:flex; align-items:center; justify-content:center; width:45px; height:45px; padding:0; cursor:pointer;">
+            <span style="transform:translateY(-10px); display:inline-block;">🔄</span>
+        </div>
     </div>
 
     <div class="border-line"></div>
@@ -694,7 +684,6 @@
 
 
 
-                    <div class="border-line"></div>
                 </div>
                 <div class="scrollable-content" id="rootTree">
                     <div class="empty-state">

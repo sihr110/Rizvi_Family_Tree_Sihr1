@@ -22,18 +22,20 @@
     <script src="33-family-data-urdu.js"></script>
     
     <style>
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
+  .reset-btn {
+    padding: 10px 12px;
+    background: transparent;
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-size: 28px;
+    line-height: 1;
+}
 
         .reset-btn:hover {
             background: var(--light-gold);
@@ -558,7 +560,7 @@
                             <input type="text" id="search1" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
-                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 دوبارہ ترتیب</div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
                     </div>
                     <div class="search-row">
                         <span class="search-label">فرد 2</span>
@@ -566,7 +568,7 @@
                             <input type="text" id="search2" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
-                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 دوبارہ ترتیب</div>
+                       <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
                     </div>
                     <div class="border-line"></div>
                 </div>

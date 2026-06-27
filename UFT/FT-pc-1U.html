@@ -1,14 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover" />
-    <title>Family Tree</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <meta name="google" content="notranslate">
+    <title>خاندان رضوی · تحریری شجرہ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;600&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
+
+/* Bulb pulse animation - color changing */
+@keyframes bulbPulse {
+    0% { 
+        color: #d4af37;
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+    }
+    25% { 
+        color: #FFD700;
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    }
+    50% { 
+        color: #FF6B35;
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.9));
+    }
+    75% { 
+        color: #FFD700;
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    }
+    100% { 
+        color: #d4af37;
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+    }
+}
+
+
+
 
 
 /* Tips Button - Blinking only */
@@ -23,7 +56,7 @@
     color: #3d2b1a;
     white-space: nowrap;
     animation: tipsBlink 1.5s ease-in-out infinite;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
 }
 
 .tips-btn:hover {
@@ -107,12 +140,13 @@
 }
 
 .tips-modal h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
   color: #0f172a;
   font-size: 22px;
   margin-bottom: 16px;
   border-bottom: 2px solid #d4af37;
   padding-bottom: 10px;
+  text-align: center;
 }
 
 .tips-modal ul li {
@@ -124,6 +158,7 @@
   color: #1a1a1a;
   border-bottom: 1px solid #f0ebe4;
   gap: 12px;
+  text-align: right;
 }
 
 .tips-modal ul li:last-child {
@@ -136,12 +171,14 @@
   flex-shrink: 0;
   color: #5a0000;
   font-weight: 700;
-  text-align: left;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
 }
 
 .tips-modal ul li span {
   flex: 1;
-  text-align: left;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
 }
 
 
@@ -157,6 +194,7 @@
   transition: background 0.2s;
   display: block;
   margin: 0 auto;
+  font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
 }
 
 .tips-close-btn:hover {
@@ -194,13 +232,14 @@
             font-weight: 700;
             color: var(--dark-blue);
             margin-bottom: 15px;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
         }
         .welcome-text {
             font-size: 16px;
             color: #666;
             margin-bottom: 25px;
             line-height: 1.6;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         /* ============================================================
@@ -217,9 +256,11 @@
             flex-direction: column;
             align-items: center;
             padding: 10px;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
             min-height: 100vh;
             position: relative;
+            direction: rtl;
+            text-align: right;
         }
 
         :root {
@@ -233,21 +274,22 @@
         /* ============================================================
            SECTION 3: MENU PANEL STYLES
            ============================================================ */
-        .menu-panel {
-            position: fixed;
-            left: 20px;
-            top: 55px;
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 12px;
-            padding: 12px;
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 9999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            min-width: 180px;
-        }
+    .menu-panel {
+    position: fixed;
+    right: 20px;
+    left: auto;
+    top: 90px;
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 12px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    min-width: 180px;
+}
 
         .menu-panel.show {
             display: flex;
@@ -267,7 +309,7 @@
             align-items: center;
             gap: 10px;
             transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .menu-item:hover {
@@ -336,7 +378,7 @@
             z-index: 2000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
             animation: gentle-blink 1.5s infinite;
         }
 
@@ -356,7 +398,7 @@
         }
 
         .header-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
             font-size: 20px;
             font-weight: 900;
             display: flex;
@@ -418,6 +460,7 @@
             font-weight: 600;
             color: #3d2b1a;
             font-size: 14px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .controls .search-wrapper {
@@ -441,7 +484,8 @@
             background: white;
             color: #2d1f13;
             width: 100%;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            text-align: right;
         }
 
         .controls .search-box input:focus {
@@ -460,7 +504,7 @@
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
 
         .controls .search-box button:hover {
@@ -477,7 +521,7 @@
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
 
         .controls .search-box .clear-btn:hover {
@@ -496,18 +540,21 @@
             color: var(--maroon);
             font-size: 13px;
             white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .controls .stats {
             font-size: 13px;
             color: #6b5a48;
             white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .controls .error-msg {
             color: #a94442;
             font-size: 13px;
             font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         /* ============================================================
@@ -537,6 +584,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .search-dropdown .result-item:hover {
@@ -546,6 +595,7 @@
         .search-dropdown .result-item .main-name {
             font-weight: 600;
             color: #1a3a5c;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .search-dropdown .result-item .gen {
@@ -556,12 +606,14 @@
         .search-dropdown .result-item .father-name {
             font-size: 11px;
             color: #6b5a48;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .search-dropdown .no-result {
             padding: 12px 14px;
             color: #999;
             text-align: center;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         /* ============================================================
@@ -590,7 +642,7 @@
             border-bottom: 2px solid #b8a088;
             padding-bottom: 6px;
             margin-bottom: 12px;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
             flex-shrink: 0;
         }
 
@@ -598,7 +650,7 @@
             font-size: 22px;
             font-weight: 900;
             color: #3d2b1a;
-            font-family: 'DM Serif Display', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'DM Serif Display', 'Georgia', serif;
             letter-spacing: 1px;
         }
 
@@ -606,7 +658,7 @@
             font-size: 13px;
             color: #6b5a48;
             margin-top: 4px;
-            font-family: 'Playfair Display', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', 'Georgia', serif;
             font-weight: 700;
         }
 
@@ -626,7 +678,7 @@
             color: #2e7d32;
             margin-top: 4px;
             font-weight: 600;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
 
         /* ============================================================
@@ -643,7 +695,7 @@
         .col-headers {
             display: grid;
             grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
-            font-family: 'DM Serif Display', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'DM Serif Display', 'Georgia', serif;
             font-weight: 700;
             font-size: 13px;
             color: #5a0000;
@@ -655,35 +707,38 @@
         }
 
         .col-headers .col-tree {
-            text-align: left;
+            text-align: right;
         }
 
         .col-headers .col-name {
-            text-align: left;
-            padding-left: var(--heading-offset);
+            text-align: right;
+            padding-right: var(--heading-offset);
+            padding-left: 0;
         }
 
         .col-headers .col-gen {
-            text-align: left;
-            padding-left: var(--heading-offset);
+            text-align: right;
+            padding-right: var(--heading-offset);
+            padding-left: 0;
         }
 
         .col-headers .col-page {
-            text-align: left;
-            padding-left: var(--heading-offset);
+            text-align: right;
+            padding-right: var(--heading-offset);
+            padding-left: 0;
             white-space: nowrap;
         }
 
         .tree-container {
-            font-family: 'Roboto Mono', 'Courier New', monospace;
+            font-family: 'Noto Nastaliq Urdu', 'Roboto Mono', 'Courier New', monospace;
             font-size: 12px;
             line-height: 2.0;
             padding: 2px 0;
             color: #1a1a1a;
             width: 100%;
             overflow: visible;
-            direction: ltr;
-            text-align: left;
+            direction: rtl;
+            text-align: right;
             flex: 1;
         }
 
@@ -691,23 +746,24 @@
             display: grid;
             grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
             align-items: center;
+            direction: rtl;
         }
 
         .tree-row .tree-chars {
             color: #6b5a48;
-            text-align: left;
+            text-align: right;
         }
 
         .tree-row .tree-name {
-            text-align: left;
+            text-align: right;
         }
 
         .tree-row .tree-gen {
-            text-align: left;
+            text-align: right;
         }
 
         .tree-row .tree-page {
-            text-align: left;
+            text-align: right;
         }
 
         /* ============================================================
@@ -768,12 +824,12 @@
             padding-top: 8px;
             border-top: 2px solid #b8a088;
             text-align: center;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
             flex-shrink: 0;
         }
 
         .page-footer .family-name {
-            font-family: 'Playfair Display', 'Georgia', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', 'Georgia', serif;
             font-style: italic;
             font-size: 14px;
             color: #3d2b1a;
@@ -787,6 +843,7 @@
             margin-top: 2px;
             font-weight: 400;
             letter-spacing: 0.3px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
 
         .page-footer .developer strong {
@@ -802,13 +859,14 @@
             padding: 60px 20px;
             color: #6b5a48;
             font-size: 18px;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
 
         .no-data .error {
             color: #a94442;
             font-size: 14px;
             margin-top: 10px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         /* ============================================================
@@ -835,6 +893,7 @@
             color: var(--maroon);
             margin-bottom: 15px;
             text-align: center;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .save-options-modal .save-mode-label {
@@ -845,6 +904,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: border-color 0.2s;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .save-options-modal .save-mode-label:hover {
@@ -852,19 +912,23 @@
         }
 
         .save-options-modal .save-mode-label input {
-            margin-right: 10px;
+            margin-left: 10px;
+            margin-right: 0;
         }
 
         .save-options-modal .save-mode-label .label-title {
             font-weight: 600;
             font-size: 14px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .save-options-modal .save-mode-label .label-desc {
             display: block;
             font-size: 12px;
             color: #666;
-            margin-left: 25px;
+            margin-right: 25px;
+            margin-left: 0;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .save-options-modal .format-section {
@@ -879,10 +943,12 @@
             padding: 6px 10px;
             font-size: 13px;
             cursor: pointer;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .save-options-modal .format-section .format-label input {
-            margin-right: 8px;
+            margin-left: 8px;
+            margin-right: 0;
         }
 
         .save-options-modal .modal-actions {
@@ -902,6 +968,7 @@
             font-weight: 600;
             cursor: pointer;
             font-size: 14px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .save-options-modal .modal-actions .save-btn:hover {
@@ -916,6 +983,7 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .save-options-modal .modal-actions .cancel-btn:hover {
@@ -979,7 +1047,7 @@
         }
 
         .detail-card .detail-header h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
             color: var(--dark-blue);
             font-size: 22px;
             margin: 0;
@@ -994,6 +1062,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .detail-card .detail-gender.male {
@@ -1016,6 +1085,7 @@
             font-size: 15px;
             display: flex;
             align-items: flex-start;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .detail-card .detail-row:last-child {
@@ -1027,11 +1097,13 @@
             min-width: 80px;
             flex-shrink: 0;
             font-weight: 700;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .detail-card .detail-row .detail-value {
             color: #1a1a1a;
             word-break: break-word;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .detail-card .detail-notes {
@@ -1039,32 +1111,20 @@
             padding: 14px;
             border-radius: 8px;
             margin-top: 4px;
-            border-left: 3px solid var(--gold);
+            border-right: 3px solid var(--gold);
+            border-left: none;
             white-space: pre-wrap;
             font-size: 14px;
             line-height: 1.6;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .detail-card .detail-notes strong {
             color: var(--maroon);
             display: block;
             margin-bottom: 6px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
-
-
-
-.detail-card .detail-notes {
-    background: #faf6f0;
-    padding: 14px;
-    border-radius: 8px;
-    margin-top: 4px;
-    border-left: 3px solid var(--gold);
-    white-space: pre-wrap;
-    font-size: 14px;
-    line-height: 1.8;
-}
-
-
 
         /* ============================================================
            SECTION 15: CLICKABLE NAME STYLES
@@ -1191,10 +1251,10 @@
     <!-- ============================================================
          HTML SECTION 1: MENU PANEL
          ============================================================ -->
-    <div class="menu-panel" id="menuPanel">
-        <div class="menu-item dashboard" onclick="goToDashboard()">🏠 Dashboard</div>
-        <div class="menu-item save" onclick="showSaveOptions()">💾 Save</div>
-    </div>
+<div class="menu-panel" id="menuPanel">
+    <div class="menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 مرکزی صفحہ</div>
+    <div class="menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 محفوظ کریں</div>
+</div>
 
     <!-- ============================================================
          HTML SECTION 2: APP WRAPPER
@@ -1205,10 +1265,10 @@
              HTML SECTION 3: APP HEADER
              ============================================================ -->
         <div class="app-header">
-            <div class="menu-toggle-btn" onclick="toggleMenu()">☰ MENU</div>
+            <div class="menu-toggle-btn" onclick="toggleMenu()">☰ مینو</div>
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span>Rizvi Family Tree</span>
+                <span>خاندان رضوی · تحریری شجرہ</span>
             </div>
             <div class="header-spacer"></div>
         </div>
@@ -1219,11 +1279,11 @@
         <div class="controls">
             <div style="width:85%; margin:0 auto;">
                 <div class="search-row">
-                    <span class="search-label">SEARCH MEMBER</span>
+                    <span class="search-label">نام تلاش کریں</span>
                     <div class="search-wrapper">
                         <div class="search-box">
-                            <input type="text" id="searchInput" placeholder="Type name..." autocomplete="off" />
-                            <button class="clear-btn" onclick="clearSearch()">🔄 Reset</button>
+                            <input type="text" id="searchInput" placeholder="نام درج کریں..." autocomplete="off" />
+                            <button class="clear-btn" onclick="clearSearch()">🔄 دوبارہ ترتیب</button>
                         </div>
                         <div class="search-dropdown" id="searchDropdown"></div>
                     </div>
@@ -1232,22 +1292,20 @@
  
 <div style="width:85%; margin:0 auto; border-bottom: 2px solid var(--gold); padding-bottom: 12px;">
     <div style="display:flex; justify-content:center; align-items:center; position:relative;">
+        <button onclick="openTips()" style="position:absolute; left:35px; background:none; border:none; font-size:28px; cursor:pointer; animation:bulbPulse 1.2s ease-in-out infinite;">💡</button>
         <span class="stats" id="stats"></span>
-        <button class="tips-btn" onclick="openTips()" style="position:absolute; right:0;">💡 Tips</button>
     </div>
     <div style="text-align:center; margin-top:4px;">
         <span class="error-msg" id="errorMsg"></span>
     </div>
 </div>
-
-
         </div>
 
         <!-- ============================================================
              HTML SECTION 5: PAGE CONTENT
              ============================================================ -->
         <div class="page" id="pageContainer">
-            <div class="no-data">Loading family data...</div>
+            <div class="no-data">خاندانی ڈیٹا لوڈ ہو رہا ہے...</div>
         </div>
 
     </div>
@@ -1257,52 +1315,52 @@
          ============================================================ -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
     <div class="save-options-modal" id="saveOptionsModal">
-        <h3>💾 Save Family Tree</h3>
+        <h3>💾 شجرہ محفوظ کریں</h3>
 
         <!-- Save Mode Selection -->
         <div style="margin-bottom:15px;">
-            <div style="font-weight:600; margin-bottom:8px; color:var(--dark-blue); font-size:14px;">Select Save Mode:</div>
+            <div style="font-weight:600; margin-bottom:8px; color:var(--dark-blue); font-size:14px; font-family:'Noto Nastaliq Urdu', 'Inter', sans-serif;">محفوظ کرنے کا طریقہ منتخب کریں:</div>
 
             <label class="save-mode-label">
                 <input type="radio" name="saveMode" value="screen" checked />
-                <span class="label-title">💾 On screen page</span>
-                <span class="label-desc">Save ONLY the currently visible page</span>
+                <span class="label-title">💾 موجودہ صفحہ</span>
+                <span class="label-desc">صرف دکھائی دے رہے صفحے کو محفوظ کریں</span>
             </label>
 
             <label class="save-mode-label">
                 <input type="radio" name="saveMode" value="selected" />
-                <span class="label-title">💾 Selected member pages</span>
-                <span class="label-desc">Save pages from root to the selected member (skip unrelated pages)</span>
+                <span class="label-title">💾 منتخب فرد کے صفحات</span>
+                <span class="label-desc">جڑ سے منتخب فرد تک کے صفحات محفوظ کریں</span>
             </label>
 
             <label class="save-mode-label">
                 <input type="radio" name="saveMode" value="all" />
-                <span class="label-title">💾 All pages</span>
-                <span class="label-desc">Save ALL pages in the family tree (one big PDF)</span>
+                <span class="label-title">💾 تمام صفحات</span>
+                <span class="label-desc">خاندانی شجرے کے تمام صفحات محفوظ کریں</span>
             </label>
         </div>
 
         <!-- Format Selection -->
         <div class="format-section">
-            <div style="font-weight:600; margin-bottom:6px; color:var(--dark-blue); font-size:13px;">Format:</div>
+            <div style="font-weight:600; margin-bottom:6px; color:var(--dark-blue); font-size:13px; font-family:'Noto Nastaliq Urdu', 'Inter', sans-serif;">فارمیٹ:</div>
             <label class="format-label">
                 <input type="radio" name="saveFormat" value="pdf-high" checked />
-                📑 PDF - High Resolution (Best for printing)
+                📑 PDF - ہائی ریزولوشن (پرنٹ کے لیے بہترین)
             </label>
             <label class="format-label">
                 <input type="radio" name="saveFormat" value="pdf-low" />
-                📑 PDF - Low Resolution (Good for sharing)
+                📑 PDF - لو ریزولوشن (شیئرنگ کے لیے بہترین)
             </label>
             <label class="format-label">
                 <input type="radio" name="saveFormat" value="jpeg" />
-                📸 JPEG Image (Universal format)
+                📸 JPEG تصویر (یونیورسل فارمیٹ)
             </label>
         </div>
 
         <!-- Actions -->
         <div class="modal-actions">
-            <button class="save-btn" onclick="processSave()">💾 Save</button>
-            <button class="cancel-btn" onclick="closeSaveModal()">Cancel</button>
+            <button class="save-btn" onclick="processSave()">💾 محفوظ کریں</button>
+            <button class="cancel-btn" onclick="closeSaveModal()">منسوخ</button>
         </div>
     </div>
 
@@ -1319,7 +1377,7 @@
     <!-- ============================================================
          JAVASCRIPT SECTION 1: LOAD DATA
          ============================================================ -->
-    <script src="13-family-data.js"></script>
+    <script src="33-family-data-urdu.js"></script>
 
     <script>
         // ============================================================
@@ -1351,7 +1409,7 @@
         }
 
         function goToDashboard() {
-            window.location.href = '1-dashboard-pc.html';
+            window.location.href = '21-dashboard-pc.html';
         }
 
         function showSaveOptions() {
@@ -1373,7 +1431,7 @@
 function exportTreePDF(quality) {
     const pageElement = document.getElementById('pageContainer');
     if (!pageElement) {
-        alert('❌ No page to save!');
+        alert('❌ کوئی صفحہ محفوظ نہیں!');
         return;
     }
 
@@ -1398,11 +1456,11 @@ function exportTreePDF(quality) {
         const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
         pdf.addImage(imgData, 'JPEG', 10, 10, mmWidth, mmHeight, undefined, 'FAST');
 
-        const fileName = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
+        const fileName = `shajra_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
         pdf.save(fileName);
-        alert(`✅ Saved current page as "${fileName}"`);
+        alert(`✅ موجودہ صفحہ "${fileName}" کے طور پر محفوظ ہو گیا`);
     }).catch(err => {
-        alert('❌ Error generating PDF: ' + err.message);
+        alert('❌ PDF بنانے میں خرابی: ' + err.message);
         console.error('PDF Export Error:', err);
     });
 }
@@ -1410,7 +1468,7 @@ function exportTreePDF(quality) {
 function exportAsJPEG() {
     const pageElement = document.getElementById('pageContainer');
     if (!pageElement) {
-        alert('❌ No page to save!');
+        alert('❌ کوئی صفحہ محفوظ نہیں!');
         return;
     }
 
@@ -1422,17 +1480,15 @@ function exportAsJPEG() {
     }).then(canvas => {
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
         const link = document.createElement('a');
-        link.download = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
+        link.download = `shajra_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
         link.href = imgData;
         link.click();
-        alert(`✅ Saved current page as JPEG`);
+        alert(`✅ موجودہ صفحہ JPEG کے طور پر محفوظ ہو گیا`);
     }).catch(err => {
-        alert('❌ Error generating JPEG: ' + err.message);
+        alert('❌ JPEG بنانے میں خرابی: ' + err.message);
         console.error('JPEG Export Error:', err);
     });
 }
-
-
 
 
 
@@ -1500,70 +1556,56 @@ function exportAsJPEG() {
             return isAncestorPage(fatherName, memberName, visited);
         }
 
-        // Get all ancestor pages (pages from root to selected member via father chain)
-       
-
-
-
-// Get all ancestor pages (ONLY direct father chain from root to selected member)
-function getAncestorPages(memberName) {
-    const result = [];
-    const visited = new Set();
-    
-    // Start from the member and go up through fathers
-    let currentName = memberName;
-    let chain = [];
-    
-    // Build the father chain from member up to root
-    while (currentName) {
-        chain.push(currentName);
-        const person = globalPersonMap[currentName];
-        if (!person || !person.father || person.father.trim() === '') {
-            break;
-        }
-        currentName = person.father.trim();
-        
-        // Prevent infinite loop
-        if (visited.has(currentName)) break;
-        visited.add(currentName);
-    }
-    
-    // Now chain = [Imran, Father, Grandfather, ..., Root]
-    // We need to find the page index for each name in the chain
-    for (let i = chain.length - 1; i >= 0; i--) {
-        const name = chain[i];
-        // Find the page where this name is the root
-        for (let j = 0; j < cachedPages.length; j++) {
-            if (cachedPages[j].root === name) {
-                if (!result.includes(j)) {
-                    result.push(j);
+        // Get all ancestor pages (ONLY direct father chain from root to selected member)
+        function getAncestorPages(memberName) {
+            const result = [];
+            const visited = new Set();
+            
+            // Start from the member and go up through fathers
+            let currentName = memberName;
+            let chain = [];
+            
+            // Build the father chain from member up to root
+            while (currentName) {
+                chain.push(currentName);
+                const person = globalPersonMap[currentName];
+                if (!person || !person.father || person.father.trim() === '') {
+                    break;
                 }
-                break;
+                currentName = person.father.trim();
+                
+                // Prevent infinite loop
+                if (visited.has(currentName)) break;
+                visited.add(currentName);
             }
+            
+            // Now chain = [Imran, Father, Grandfather, ..., Root]
+            // We need to find the page index for each name in the chain
+            for (let i = chain.length - 1; i >= 0; i--) {
+                const name = chain[i];
+                // Find the page where this name is the root
+                for (let j = 0; j < cachedPages.length; j++) {
+                    if (cachedPages[j].root === name) {
+                        if (!result.includes(j)) {
+                            result.push(j);
+                        }
+                        break;
+                    }
+                }
+            }
+            
+            // Sort by page index (ascending)
+            result.sort((a, b) => a - b);
+            return result;
         }
-    }
-    
-    // Sort by page index (ascending)
-    result.sort((a, b) => a - b);
-    return result;
-}
-
-
-
-
-
-
-
-
-
 
         // Add page counter to page footer for saved pages
         function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
             const footer = pageElement.querySelector('.page-footer');
             if (footer) {
                 const counterDiv = document.createElement('div');
-                counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right;';
-                counterDiv.textContent = `Page ${actualPageNum} of ${totalPages} (${filteredPageNum})`;
+                counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:left;';
+                counterDiv.textContent = `صفحہ ${actualPageNum} of ${totalPages} (${filteredPageNum})`;
                 footer.appendChild(counterDiv);
             }
             return pageElement;
@@ -1590,7 +1632,7 @@ function getAncestorPages(memberName) {
                 // Option 2: Selected member pages
                 const memberName = getCurrentMemberName();
                 if (!memberName) {
-                    alert('No member selected! Please search for a member first.');
+                    alert('کوئی فرد منتخب نہیں! براہ کرم پہلے کسی فرد کو تلاش کریں۔');
                     return;
                 }
                 const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
@@ -1617,7 +1659,7 @@ function getAncestorPages(memberName) {
             const ancestorPageIndices = getAncestorPages(memberName);
 
             if (ancestorPageIndices.length === 0) {
-                alert('No ancestor pages found for: ' + displayName(memberName));
+                alert('کوئی آبائی صفحات نہیں ملے: ' + displayName(memberName));
                 return;
             }
 
@@ -1626,7 +1668,7 @@ function getAncestorPages(memberName) {
             let filteredCount = 0;
 
             // Show progress
-            const progressMsg = `Saving ${totalSaved} pages for ${displayName(memberName)}...`;
+            const progressMsg = `${totalSaved} صفحات محفوظ کیے جا رہے ہیں ${displayName(memberName)} کے لیے...`;
             console.log(progressMsg);
 
             // We'll render each page, add counter, and capture
@@ -1696,13 +1738,13 @@ function getAncestorPages(memberName) {
                     pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
                 });
 
-                const fileName = `${displayName(memberName)}_ancestors_${Date.now()}.pdf`;
+                const fileName = `${displayName(memberName)}_aba_${Date.now()}.pdf`;
                 pdf.save(fileName);
-                alert(`✅ Saved ${capturedPages.length} pages for ${displayName(memberName)} as "${fileName}"`);
+                alert(`✅ ${capturedPages.length} صفحات ${displayName(memberName)} کے لیے "${fileName}" کے طور پر محفوظ ہو گئے`);
             }
 
             captureAll().catch(err => {
-                alert('❌ Error saving selected member pages: ' + err.message);
+                alert('❌ منتخب کردہ صفحات محفوظ کرنے میں خرابی: ' + err.message);
                 console.error(err);
             });
         }
@@ -1736,7 +1778,7 @@ function getAncestorPages(memberName) {
                         }).then(canvas => {
                             capturedPages.push(canvas);
                             progress++;
-                            console.log(`Captured page ${progress}/${totalPages}`);
+                            console.log(`صفحہ ${progress}/${totalPages} محفوظ ہو گیا`);
                             currentPageIndex = originalPageIndex;
                             renderPage();
                             resolve();
@@ -1773,13 +1815,13 @@ function getAncestorPages(memberName) {
                     pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
                 });
 
-                const fileName = `family_tree_all_pages_${Date.now()}.pdf`;
+                const fileName = `shajra_all_pages_${Date.now()}.pdf`;
                 pdf.save(fileName);
-                alert(`✅ Saved all ${capturedPages.length} pages as "${fileName}"`);
+                alert(`✅ تمام ${capturedPages.length} صفحات "${fileName}" کے طور پر محفوظ ہو گئے`);
             }
 
             captureAll().catch(err => {
-                alert('❌ Error saving all pages: ' + err.message);
+                alert('❌ تمام صفحات محفوظ کرنے میں خرابی: ' + err.message);
                 console.error(err);
             });
         }
@@ -1791,7 +1833,7 @@ function getAncestorPages(memberName) {
             const ancestorPageIndices = getAncestorPages(memberName);
 
             if (ancestorPageIndices.length === 0) {
-                alert('No ancestor pages found for: ' + displayName(memberName));
+                alert('کوئی آبائی صفحات نہیں ملے: ' + displayName(memberName));
                 return;
             }
 
@@ -1839,10 +1881,10 @@ function getAncestorPages(memberName) {
                 if (capturedPages.length === 1) {
                     const data = capturedPages[0].canvas.toDataURL('image/jpeg', 0.9);
                     const link = document.createElement('a');
-                    link.download = `${displayName(memberName)}_ancestor_page_${capturedPages[0].actualPageNum}.jpg`;
+                    link.download = `${displayName(memberName)}_aba_page_${capturedPages[0].actualPageNum}.jpg`;
                     link.href = data;
                     link.click();
-                    alert(`✅ Saved 1 page as JPEG`);
+                    alert(`✅ 1 صفحہ JPEG کے طور پر محفوظ ہو گیا`);
                 } else {
                     // Download all as individual JPEGs
                     let downloadCount = 0;
@@ -1850,12 +1892,12 @@ function getAncestorPages(memberName) {
                         setTimeout(() => {
                             const data = item.canvas.toDataURL('image/jpeg', 0.9);
                             const link = document.createElement('a');
-                            link.download = `${displayName(memberName)}_ancestor_page_${item.actualPageNum}.jpg`;
+                            link.download = `${displayName(memberName)}_aba_page_${item.actualPageNum}.jpg`;
                             link.href = data;
                             link.click();
                             downloadCount++;
                             if (downloadCount === capturedPages.length) {
-                                alert(`✅ Saved ${capturedPages.length} pages as JPEGs`);
+                                alert(`✅ ${capturedPages.length} صفحات JPEG کے طور پر محفوظ ہو گئے`);
                             }
                         }, idx * 300);
                     });
@@ -1863,7 +1905,7 @@ function getAncestorPages(memberName) {
             }
 
             captureAll().catch(err => {
-                alert('❌ Error: ' + err.message);
+                alert('❌ خرابی: ' + err.message);
                 console.error(err);
             });
         }
@@ -1911,26 +1953,26 @@ function getAncestorPages(memberName) {
                         setTimeout(() => {
                             const data = item.canvas.toDataURL('image/jpeg', 0.9);
                             const link = document.createElement('a');
-                            link.download = `family_tree_page_${item.actualPageNum}.jpg`;
+                            link.download = `shajra_page_${item.actualPageNum}.jpg`;
                             link.href = data;
                             link.click();
                             if (idx === capturedPages.length - 1) {
-                                alert(`✅ Saved ${capturedPages.length} pages as JPEGs`);
+                                alert(`✅ ${capturedPages.length} صفحات JPEG کے طور پر محفوظ ہو گئے`);
                             }
                         }, idx * 300);
                     });
                 } else {
                     // For many pages, create a zip-like download (sequential)
-                    alert(`📸 Saving ${capturedPages.length} JPEGs... They will download one by one.`);
+                    alert(`📸 ${capturedPages.length} JPEGs محفوظ کیے جا رہے ہیں... یہ ایک ایک کر کے ڈاؤن لوڈ ہوں گے۔`);
                     capturedPages.forEach((item, idx) => {
                         setTimeout(() => {
                             const data = item.canvas.toDataURL('image/jpeg', 0.9);
                             const link = document.createElement('a');
-                            link.download = `family_tree_page_${item.actualPageNum}.jpg`;
+                            link.download = `shajra_page_${item.actualPageNum}.jpg`;
                             link.href = data;
                             link.click();
                             if (idx === capturedPages.length - 1) {
-                                alert(`✅ Saved ${capturedPages.length} pages as JPEGs`);
+                                alert(`✅ ${capturedPages.length} صفحات JPEG کے طور پر محفوظ ہو گئے`);
                             }
                         }, idx * 500);
                     });
@@ -1938,7 +1980,7 @@ function getAncestorPages(memberName) {
             }
 
             captureAll().catch(err => {
-                alert('❌ Error: ' + err.message);
+                alert('❌ خرابی: ' + err.message);
                 console.error(err);
             });
         }
@@ -2110,19 +2152,27 @@ function getAncestorPages(memberName) {
             const fullName = name;
             const cleanName = displayName(name);
             const rootGen = (person && person.gen ? person.gen : '');
+            
+            // Get father info for the root person
+            const rootFather = getActualFather(name, personMap);
             let rootPagePart = '';
-            if (splitChildren && splitChildren.includes(name)) {
-                const actualPageIndex = rootToPageMap[name];
-                rootPagePart = actualPageIndex !== undefined ? 
-                    '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
+            
+            // If this person has a father, show (Father) and page number
+            if (rootFather && rootToPageMap[rootFather] !== undefined) {
+                const fatherPage = rootToPageMap[rootFather];
+                const fatherDisplay = displayName(rootFather);
+                rootPagePart = ` (والد) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">صفحہ ${fatherPage + 1}</span>`;
+            } else if (rootFather) {
+                // Father exists but not in pages (shouldn't happen, but just in case)
+                rootPagePart = ` (والد)`;
             }
 
             rows.push({
                 tree: '',
-                name: '<span class="' + fatherClass + '">' + cleanName + '</span>',
+                name: '<span class="' + fatherClass + '">' + cleanName + rootPagePart + '</span>',
                 plainName: fullName,
                 gen: rootGen,
-                page: rootPagePart
+                page: ''
             });
 
             if (isFather && children.length > 0) {
@@ -2140,7 +2190,7 @@ function getAncestorPages(memberName) {
                     if (splitChildren && splitChildren.includes(child)) {
                         const actualPageIndex = rootToPageMap[child];
                         childPagePart = actualPageIndex !== undefined ? 
-                            '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
+                            '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">صفحہ ' + (actualPageIndex + 1) + '</span>' : '';
                     }
 
                     let childClass = 'child-name' + (childIsFemale ? ' female' : '');
@@ -2163,11 +2213,11 @@ function getAncestorPages(memberName) {
         function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
             const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
 
-            let fatherPageDisplay = '(Root)';
+            let fatherPageDisplay = '(جڑ)';
             if (parentPage) {
                 const idx = rootToPageMap[parentPage];
                 if (idx !== undefined) {
-                    fatherPageDisplay = ' <span style="color:#2e7d32; font-weight:700; cursor:pointer; text-decoration:underline;" onclick="showMemberDetails(\'' + parentPage + '\')">' + displayName(parentPage) + '</span> → <span style="color:#cc0000; font-weight:900; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">Page ' + (idx + 1) + '</span>';
+                    fatherPageDisplay = ' <span style="color:#2e7d32; font-weight:700; cursor:pointer; text-decoration:underline;" onclick="showMemberDetails(\'' + parentPage + '\')">' + displayName(parentPage) + '</span> → <span style="color:#cc0000; font-weight:900; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">صفحہ ' + (idx + 1) + '</span>';
                 } else {
                     fatherPageDisplay = displayName(parentPage);
                 }
@@ -2177,21 +2227,21 @@ function getAncestorPages(memberName) {
 
             html += `
                 <div class="page-header">
-                    <h1>🌳 Rizvi Family Tree</h1>
+                    <h1>🌳 خاندان رضوی کا شجرہ نسب</h1>
                     <div class="ref" style="font-weight:700; font-size:14px;">
-                        Continues from: → ${fatherPageDisplay}
+                        جاری ہے: → ${fatherPageDisplay}
                     </div>
-                    ${highlightName ? `<div class="search-result-info">🔍 Showing: <b>${highlightName}</b></div>` : ''}
+                    ${highlightName ? `<div class="search-result-info">🔍 دکھا رہا ہے: <b>${highlightName}</b></div>` : ''}
                 </div>
             `;
 
             html += `
                 <div style="display:flex; justify-content:center; width:100%;">
                     <div style="width:80%;">
-                        <div class="col-headers" style="display:grid; grid-template-columns:60% 18% 22%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
-                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Name</span>
-                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Generation</span>
-                            <span style="padding-left:8px;">Next Generation</span>
+                        <div class="col-headers" style="display:grid; grid-template-columns:60% 18% 22%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">
+                            <span style="padding-right:8px; border-left:1px solid #b8a088; border-right:none;">نام</span>
+                            <span style="padding-right:8px; border-left:1px solid #b8a088; border-right:none;">نسل</span>
+                            <span style="padding-right:8px;">اگلی نسل</span>
                         </div>
                         <div class="tree-container">
             `;
@@ -2229,27 +2279,32 @@ function getAncestorPages(memberName) {
                     let clickableName = displayNameText;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
-                        // Extract clean text for click handler
-                        clickableName = displayNameText.replace(/<span[^>]*>(.*?)<\/span>/, function(match, content) {
-                            return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + content + '</span>';
-                        });
-                        // If the above didn't work (no span), wrap the whole thing
-                        if (clickableName === displayNameText) {
-                            clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + displayNameText + '</span>';
+                        // Check if name already has span (from rootPagePart)
+                        if (nameHtml.includes('<span')) {
+                            // Extract the clean name without the span
+                            const cleanNameText = displayName(personName);
+                            clickableName = displayNameText.replace(cleanNameText, function(match) {
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
+                            });
+                        } else {
+                            clickableName = displayNameText.replace(/<span[^>]*>(.*?)<\/span>/, function(match, content) {
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + content + '</span>';
+                            });
+                            if (clickableName === displayNameText) {
+                                clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + displayNameText + '</span>';
+                            }
                         }
                     }
                     
                     html += `<div class="tree-row" style="display:grid; grid-template-columns:60% 18% 22%; align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:12px;">${clickableName}</span>`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:12px;">${genHtml}</span>`;
+                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; border-right:none; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:12px;">${clickableName}</span>`;
+                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; border-right:none; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:12px;">${genHtml}</span>`;
                     
                     // Make "Next Generation" names clickable too
                     let clickablePageHtml = pageHtml;
-                    if (pageHtml && pageHtml.includes('Page')) {
-                        // Already has click handler from continue-arrow
+                    if (pageHtml && pageHtml.includes('صفحہ')) {
                         clickablePageHtml = pageHtml;
                     } else if (pageHtml && pageHtml.trim() !== '') {
-                        // Could be a name - make it clickable
                         const pagePerson = globalPersonMap[pageHtml];
                         if (pagePerson) {
                             const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
@@ -2258,11 +2313,11 @@ function getAncestorPages(memberName) {
                         }
                     }
                     
-                    html += `<span style="padding-left:8px; font-family:'Inter',sans-serif; font-size:12px;">${clickablePageHtml}</span>`;
+                    html += `<span style="padding-right:8px; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:12px;">${clickablePageHtml}</span>`;
                     html += `</div>`;
                 });
             } else {
-                html += 'No data available for ' + displayName(root);
+                html += 'کوئی ڈیٹا دستیاب نہیں ' + displayName(root);
             }
             
             html += `
@@ -2273,9 +2328,9 @@ function getAncestorPages(memberName) {
 
             html += `
                 <div class="page-footer">
-                    <div class="family-name">${displayName(root)} Family</div>
+                    <div class="family-name">${displayName(root)} کا خاندان</div>
                     <div class="developer">
-                        Developer: <strong>Imran Haider</strong> S/o <strong>Syed Risalat Hussain Rizvi</strong> | 0332-787-6010
+                        ڈویلپر: <strong>عمران حیدر</strong> ولد <strong>سید رسالت حسین رضوی</strong> | 6010-787-0332
                     </div>
                 </div>
             `;
@@ -2356,7 +2411,7 @@ function getAncestorPages(memberName) {
 
             const pageIndex = findMemberPage(query);
             if (pageIndex === -1) {
-                document.getElementById('errorMsg').textContent = '⚠️ Member not found: "' + query + '"';
+                document.getElementById('errorMsg').textContent = '⚠️ فرد نہیں ملا: "' + query + '"';
                 return;
             }
 
@@ -2373,8 +2428,8 @@ function getAncestorPages(memberName) {
                 <div class="welcome-container">
                     <div class="welcome-box">
                         <div class="welcome-icon">🌿</div>
-                        <div class="welcome-title">Rizvi Family Tree</div>
-                        <div class="welcome-text">Select a family member from the search box above<br>to view their family connections and relationships.</div>
+                        <div class="welcome-title">خاندان رضوی کا شجرہ نسب</div>
+                        <div class="welcome-text">براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>تا کہ ان کے خاندانی روابط اور رشتے دیکھ سکیں۔</div>
                     </div>
                 </div>
             `;
@@ -2398,7 +2453,7 @@ function getAncestorPages(memberName) {
             
             dropdown.innerHTML = '';
             if (results.length === 0) {
-                dropdown.innerHTML = '<div class="no-result">No results found</div>';
+                dropdown.innerHTML = '<div class="no-result">کوئی نتیجہ نہیں ملا</div>';
                 dropdown.style.display = 'block';
                 return;
             }
@@ -2420,15 +2475,15 @@ function getAncestorPages(memberName) {
                     }
                 }
                 
-                const pageDisplay = pageIdx >= 0 ? ` · Page ${pageIdx + 1}` : '';
-                const genderPrefix = member.gender?.startsWith('F') ? 'D/o' : 'S/o';
+                const pageDisplay = pageIdx >= 0 ? ` · صفحہ ${pageIdx + 1}` : '';
+                const genderPrefix = member.gender?.startsWith('F') ? 'بیٹی' : 'بیٹا';
                 
                 div.innerHTML = `
                     <div>
                         <span class="main-name">${displayName(member.name)}</span>
                         <span class="gen">${member.gen || ''}</span>
                         <span style="font-size:11px;color:#2e7d32;">${pageDisplay}</span>
-                        <div class="father-name">${genderPrefix} ${displayName(member.father) || '—'}</div>
+                        <div class="father-name">والد: ${displayName(member.father) || '—'}</div>
                     </div>
                 `;
                 div.onclick = () => { 
@@ -2475,29 +2530,29 @@ function getAncestorPages(memberName) {
             const container = document.getElementById('pageContainer');
             const errorMsg = document.getElementById('errorMsg');
 
-            if (typeof FAMILY_DATA === 'undefined') {
+            if (typeof FAMILY_DATA_URDU === 'undefined') {
                 container.innerHTML =
-                    `<div class="no-data">⚠️ Data not loaded!<div class="error">Make sure <strong>13-family-data.js</strong> is in the same folder.</div></div>`;
-                errorMsg.textContent = '⚠️ Data not loaded!';
+                    `<div class="no-data">⚠️ ڈیٹا لوڈ نہیں ہوا!<div class="error">یقینی بنائیں کہ <strong>33-family-data-urdu.js</strong> اسی فولڈر میں موجود ہے۔</div></div>`;
+                errorMsg.textContent = '⚠️ ڈیٹا لوڈ نہیں ہوا!';
                 return;
             }
 
-            familyData = FAMILY_DATA;
+            familyData = FAMILY_DATA_URDU;
             buildFamilyMap(familyData);
 
             try {
                 cachedPages = generatePages(familyData);
 
                 document.getElementById('stats').textContent =
-                    `Total: ${familyData.length} members · ${cachedPages.length} pages`;
+                    `کل: ${familyData.length} اراکین · ${cachedPages.length} صفحات`;
 
                 if (cachedPages.length === 0) {
                     container.innerHTML = `
                         <div class="welcome-container">
                             <div class="welcome-box">
                                 <div class="welcome-icon">🌿</div>
-                                <div class="welcome-title">Rizvi Family Tree</div>
-                                <div class="welcome-text">Select a family member from the search box above<br>to view their family connections and relationships.</div>
+                                <div class="welcome-title">خاندان رضوی کا شجرہ نسب</div>
+                                <div class="welcome-text">براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>تا کہ ان کے خاندانی روابط اور رشتے دیکھ سکیں۔</div>
                             </div>
                         </div>
                     `;
@@ -2508,8 +2563,8 @@ function getAncestorPages(memberName) {
                 currentPageIndex = 0;
                 renderPage();
             } catch (e) {
-                container.innerHTML = `<div class="no-data">⚠️ Error: ${e.message}</div>`;
-                errorMsg.textContent = '⚠️ Error: ' + e.message;
+                container.innerHTML = `<div class="no-data">⚠️ خرابی: ${e.message}</div>`;
+                errorMsg.textContent = '⚠️ خرابی: ' + e.message;
                 console.error(e);
             }
         }
@@ -2518,7 +2573,7 @@ function getAncestorPages(memberName) {
             const container = document.getElementById('pageContainer');
 
             if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) {
-                container.innerHTML = `<div class="no-data">No page selected.</div>`;
+                container.innerHTML = `<div class="no-data">کوئی صفحہ منتخب نہیں۔</div>`;
                 return;
             }
 
@@ -2526,7 +2581,7 @@ function getAncestorPages(memberName) {
                 const html = renderPageHTML(cachedPages[currentPageIndex], currentPageIndex, cachedPages.length, highlightName);
                 container.innerHTML = html;
             } catch (e) {
-                container.innerHTML = `<div class="no-data">⚠️ Error loading page: ${e.message}</div>`;
+                container.innerHTML = `<div class="no-data">⚠️ صفحہ لوڈ کرنے میں خرابی: ${e.message}</div>`;
                 console.error(e);
             }
         }
@@ -2539,7 +2594,7 @@ function getAncestorPages(memberName) {
             
             const person = globalPersonMap[name];
             if (!person) {
-                alert('Member not found: ' + name);
+                alert('فرد نہیں ملا: ' + name);
                 return;
             }
             
@@ -2550,7 +2605,7 @@ function getAncestorPages(memberName) {
                 <div class="detail-card">
                     <div class="detail-header">
                         <h2>${displayName(person.name)}</h2>
-                        <span class="detail-gender ${person.gender ? person.gender.toLowerCase() : ''}">${person.gender || 'UNKNOWN'}</span>
+                        <span class="detail-gender ${person.gender ? person.gender.toLowerCase() : ''}">${person.gender || 'نامعلوم'}</span>
                     </div>
                     <div class="detail-body">
             `;
@@ -2560,14 +2615,14 @@ function getAncestorPages(memberName) {
                 const fatherLink = getMemberPageLink(person.father);
                 html += `
                     <div class="detail-row">
-                        <strong>Father:</strong>
+                        <strong>والد:</strong>
                         <span class="detail-value">${fatherLink || fatherClean || '—'}</span>
                     </div>
                 `;
             } else {
                 html += `
                     <div class="detail-row">
-                        <strong>Father:</strong>
+                        <strong>والد:</strong>
                         <span class="detail-value">—</span>
                     </div>
                 `;
@@ -2578,14 +2633,14 @@ function getAncestorPages(memberName) {
                 const motherLink = getMemberPageLink(person.mother);
                 html += `
                     <div class="detail-row">
-                        <strong>Mother:</strong>
+                        <strong>والدہ:</strong>
                         <span class="detail-value">${motherLink || motherClean}</span>
                     </div>
                 `;
             } else {
                 html += `
                     <div class="detail-row">
-                        <strong>Mother:</strong>
+                        <strong>والدہ:</strong>
                         <span class="detail-value">—</span>
                     </div>
                 `;
@@ -2596,14 +2651,14 @@ function getAncestorPages(memberName) {
                 const spouseLink = getMemberPageLink(person.spouse);
                 html += `
                     <div class="detail-row">
-                        <strong>Spouse:</strong>
+                        <strong>شریک حیات:</strong>
                         <span class="detail-value">${spouseLink || spouseClean}</span>
                     </div>
                 `;
             } else {
                 html += `
                     <div class="detail-row">
-                        <strong>Spouse:</strong>
+                        <strong>شریک حیات:</strong>
                         <span class="detail-value">—</span>
                     </div>
                 `;
@@ -2611,7 +2666,7 @@ function getAncestorPages(memberName) {
             
             html += `
                 <div class="detail-row">
-                    <strong>Generation:</strong>
+                    <strong>نسل:</strong>
                     <span class="detail-value">${person.gen || '—'}</span>
                 </div>
             `;
@@ -2621,7 +2676,7 @@ function getAncestorPages(memberName) {
     const detailsHtml = person.details.replace(/\\n/g, '<br>');
     html += `
         <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-            <strong style="margin-bottom:6px;">📝 Details</strong>
+            <strong style="margin-bottom:6px;">📝 تفصیلات</strong>
             <div class="detail-notes">${detailsHtml}</div>
         </div>
     `;
@@ -2631,13 +2686,13 @@ function getAncestorPages(memberName) {
             if (children && children.length > 0) {
                 html += `
                     <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0; border-bottom:1px solid #f0ebe4;">
-                        <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
-                        <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px;">
+                        <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 اولاد (${children.length})</strong>
+                        <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-right:4px; padding-left:0;">
                 `;
                 children.forEach(child => {
                     const childClean = displayName(child);
                     const childLink = getMemberPageLink(child);
-                    html += `<span style="font-size:14px; color:#1a3a5c;">${childLink || childClean}</span>`;
+                    html += `<span style="font-size:14px; color:#1a3a5c; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">${childLink || childClean}</span>`;
                 });
                 html += `
                         </div>
@@ -2659,9 +2714,9 @@ function getAncestorPages(memberName) {
                     <button onclick="closeMemberModal()" 
                             style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
                                    border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                                   cursor:pointer; font-family:'Inter',sans-serif;
+                                   cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;
                                    transition:all 0.2s;">
-                        ✕ Close
+                         بند کریں
                     </button>
             `;
 
@@ -2670,9 +2725,9 @@ function getAncestorPages(memberName) {
                     <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
                             style="padding:10px 24px; background:var(--green); color:white; 
                                    border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                                   cursor:pointer; font-family:'Inter',sans-serif;
+                                   cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;
                                    transition:all 0.2s;">
-                        📄 View Full Page
+                        📄 مکمل صفحہ دیکھیں
                     </button>
                 `;
             }
@@ -2734,11 +2789,11 @@ function getAncestorPages(memberName) {
         // JAVASCRIPT SECTION 17: INITIALIZATION
         // ============================================================
         window.onload = function() {
-            if (typeof FAMILY_DATA !== 'undefined') {
+            if (typeof FAMILY_DATA_URDU !== 'undefined') {
                 renderAllPages();
             } else {
                 const checkData = setInterval(function() {
-                    if (typeof FAMILY_DATA !== 'undefined') {
+                    if (typeof FAMILY_DATA_URDU !== 'undefined') {
                         clearInterval(checkData);
                         renderAllPages();
                     }
@@ -2746,9 +2801,9 @@ function getAncestorPages(memberName) {
 
                 setTimeout(function() {
                     clearInterval(checkData);
-                    if (typeof FAMILY_DATA === 'undefined') {
+                    if (typeof FAMILY_DATA_URDU === 'undefined') {
                         document.getElementById('pageContainer').innerHTML = `
-                            <div class="no-data">⏳ Loading data...<div class="error">Make sure <strong>13-family-data.js</strong> is in the same folder.</div></div>
+                            <div class="no-data">⏳ ڈیٹا لوڈ ہو رہا ہے...<div class="error">یقینی بنائیں کہ <strong>33-family-data-urdu.js</strong> اسی فولڈر میں موجود ہے۔</div></div>
                         `;
                     }
                 }, 5000);
@@ -2782,21 +2837,21 @@ document.addEventListener('keydown', function(e) {
 <!-- Tips Modal -->
 <div class="tips-overlay" id="tipsOverlay">
   <div class="tips-modal">
-    <h3>💡 Tips for Using the Family Tree File</h3>
+    <h3>💡 رہنما اصول برائے استعمال</h3>
 
 
 <ul>
-  <li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
-  <li><strong>View Details</strong> <span>: Click any name to view full details</span></li>
+  <li><strong>تلاش</strong> <span>: نام لکھیں، اس شخص کا صفحہ دیکھیں</span></li>
+  <li><strong>تفصیلات دیکھیں</strong> <span>: کسی بھی نام پر کلک کریں</span></li>
   
 
-<li><strong>Navigate Pages</strong> <span>: Click Red "Page number" to view "Next<br>&nbsp;&nbsp;Generation Tree"</span></li>
-<li><strong>Menu</strong> <span>: Click ≡ MENU (top-left) to go to<br>&nbsp;&nbsp;Dashboard or Save options</span></li>
-<li><strong>Save</strong> <span>: From menu, choose: On screen page /<br>&nbsp;&nbsp;Selected member pages / All pages</span></li>
+<li><strong>صفحات کی منتقلی</strong> <span>: سرخ "صفحہ نمبر" پر کلک کریں<br>&nbsp;&nbsp;اگلی نسل کا شجرہ دیکھنے کے لیے</span></li>
+<li><strong>مینو</strong> <span>: ☰ مینو (اوپر بائیں) پر کلک کریں<br>&nbsp;&nbsp;مرکزی صفحہ یا محفوظ کریں</span></li>
+<li><strong>محفوظ کریں</strong> <span>: مینو سے منتخب کریں<br>&nbsp;&nbsp;موجودہ صفحہ / منتخب فرد / تمام صفحات</span></li>
 
 </ul>
 
-    <button class="tips-close-btn" onclick="closeTips()">Close</button>
+    <button class="tips-close-btn" onclick="closeTips()">بند کریں</button>
   </div>
 </div>
 

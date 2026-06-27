@@ -467,22 +467,22 @@
             background: #6b5a48;
         }
 
-        .controls .search-box .clear-btn {
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 6px;
-            padding: 6px 14px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
-        }
+.controls .search-box .clear-btn {
+    background: transparent;
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
 
-        .controls .search-box .clear-btn:hover {
-            background: var(--light-gold);
-        }
+.controls .search-box .clear-btn:hover {
+    background: transparent;
+}
 
         .search-row {
             display: flex;
@@ -1437,7 +1437,6 @@ function exportAsJPEG() {
 
 
 
-
         // ============================================================
         // JAVASCRIPT SECTION 5: SAVE FUNCTIONS (MODIFIED)
         // ============================================================
@@ -1500,62 +1499,48 @@ function exportAsJPEG() {
             return isAncestorPage(fatherName, memberName, visited);
         }
 
-        // Get all ancestor pages (pages from root to selected member via father chain)
-       
-
-
-
-// Get all ancestor pages (ONLY direct father chain from root to selected member)
-function getAncestorPages(memberName) {
-    const result = [];
-    const visited = new Set();
-    
-    // Start from the member and go up through fathers
-    let currentName = memberName;
-    let chain = [];
-    
-    // Build the father chain from member up to root
-    while (currentName) {
-        chain.push(currentName);
-        const person = globalPersonMap[currentName];
-        if (!person || !person.father || person.father.trim() === '') {
-            break;
-        }
-        currentName = person.father.trim();
-        
-        // Prevent infinite loop
-        if (visited.has(currentName)) break;
-        visited.add(currentName);
-    }
-    
-    // Now chain = [Imran, Father, Grandfather, ..., Root]
-    // We need to find the page index for each name in the chain
-    for (let i = chain.length - 1; i >= 0; i--) {
-        const name = chain[i];
-        // Find the page where this name is the root
-        for (let j = 0; j < cachedPages.length; j++) {
-            if (cachedPages[j].root === name) {
-                if (!result.includes(j)) {
-                    result.push(j);
+        // Get all ancestor pages (ONLY direct father chain from root to selected member)
+        function getAncestorPages(memberName) {
+            const result = [];
+            const visited = new Set();
+            
+            // Start from the member and go up through fathers
+            let currentName = memberName;
+            let chain = [];
+            
+            // Build the father chain from member up to root
+            while (currentName) {
+                chain.push(currentName);
+                const person = globalPersonMap[currentName];
+                if (!person || !person.father || person.father.trim() === '') {
+                    break;
                 }
-                break;
+                currentName = person.father.trim();
+                
+                // Prevent infinite loop
+                if (visited.has(currentName)) break;
+                visited.add(currentName);
             }
+            
+            // Now chain = [Imran, Father, Grandfather, ..., Root]
+            // We need to find the page index for each name in the chain
+            for (let i = chain.length - 1; i >= 0; i--) {
+                const name = chain[i];
+                // Find the page where this name is the root
+                for (let j = 0; j < cachedPages.length; j++) {
+                    if (cachedPages[j].root === name) {
+                        if (!result.includes(j)) {
+                            result.push(j);
+                        }
+                        break;
+                    }
+                }
+            }
+            
+            // Sort by page index (ascending)
+            result.sort((a, b) => a - b);
+            return result;
         }
-    }
-    
-    // Sort by page index (ascending)
-    result.sort((a, b) => a - b);
-    return result;
-}
-
-
-
-
-
-
-
-
-
 
         // Add page counter to page footer for saved pages
         function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
@@ -2110,19 +2095,25 @@ function getAncestorPages(memberName) {
             const fullName = name;
             const cleanName = displayName(name);
             const rootGen = (person && person.gen ? person.gen : '');
+            
+            // Get father info for the root person
+            const rootFather = getActualFather(name, personMap);
             let rootPagePart = '';
-            if (splitChildren && splitChildren.includes(name)) {
-                const actualPageIndex = rootToPageMap[name];
-                rootPagePart = actualPageIndex !== undefined ? 
-                    '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
+            
+            // If this person has a father, show (Father) and page number
+            if (rootFather && rootToPageMap[rootFather] !== undefined) {
+                const fatherPage = rootToPageMap[rootFather];
+                rootPagePart = ` (Father) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">Page ${fatherPage + 1}</span>`;
+            } else if (rootFather) {
+                rootPagePart = ` (Father)`;
             }
 
             rows.push({
                 tree: '',
-                name: '<span class="' + fatherClass + '">' + cleanName + '</span>',
+                name: '<span class="' + fatherClass + '">' + cleanName + rootPagePart + '</span>',
                 plainName: fullName,
                 gen: rootGen,
-                page: rootPagePart
+                page: ''
             });
 
             if (isFather && children.length > 0) {
@@ -2229,13 +2220,20 @@ function getAncestorPages(memberName) {
                     let clickableName = displayNameText;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
-                        // Extract clean text for click handler
-                        clickableName = displayNameText.replace(/<span[^>]*>(.*?)<\/span>/, function(match, content) {
-                            return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + content + '</span>';
-                        });
-                        // If the above didn't work (no span), wrap the whole thing
-                        if (clickableName === displayNameText) {
-                            clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + displayNameText + '</span>';
+                        // Check if name already has span (from rootPagePart)
+                        if (nameHtml.includes('<span')) {
+                            // Extract the clean name without the span
+                            const cleanNameText = displayName(personName);
+                            clickableName = displayNameText.replace(cleanNameText, function(match) {
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
+                            });
+                        } else {
+                            clickableName = displayNameText.replace(/<span[^>]*>(.*?)<\/span>/, function(match, content) {
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + content + '</span>';
+                            });
+                            if (clickableName === displayNameText) {
+                                clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + displayNameText + '</span>';
+                            }
                         }
                     }
                     

@@ -24,26 +24,46 @@
         .tips-btn {
             background: none;
             border: none;
-            font-size: 18px;
+            font-size: 22px;
             cursor: pointer;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
             font-weight: 600;
-            color: #3d2b1a;
-            white-space: nowrap;
-            animation: tipsBlink 1.5s ease-in-out infinite;
+            color: var(--gold);
             font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .tips-btn:hover {
-            background: #faebcd;
-            animation: none;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
         }
 
-        @keyframes tipsBlink {
-            0% { color: #3d2b1a; }
-            50% { color: #d4af37; }
-            100% { color: #3d2b1a; }
+        /* Bulb ON state - glowing */
+        .tips-btn.bulb-on {
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+            animation: bulbGlow 0.8s ease-in-out infinite alternate;
+        }
+
+        /* Bulb OFF state - dim */
+        .tips-btn.bulb-off {
+            color: #666;
+            text-shadow: none;
+            animation: none;
+            opacity: 0.5;
+        }
+
+        @keyframes bulbGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                text-shadow: 0 0 30px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.5), 0 0 80px rgba(255, 215, 0, 0.2);
+                transform: scale(1.05);
+            }
         }
 
         .tips-overlay {
@@ -130,25 +150,27 @@
             text-align: left;
         }
 
-        /* CHANGE : Reset Button CSS */
-  /* CHANGE 1: Reset Button - No golden box or shadow */
-.reset-btn {
-    padding: 10px 5px;
-    background: transparent;
-    color: var(--dark-blue);
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
-    transition: all 0.2s;
-    font-size: 18px;
-}
+        /* CHANGE 1: Reset Button CSS - No golden box */
+        .reset-btn {
+            padding: 8px 4px;
+            background: transparent;
+            color: var(--dark-blue);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-size: 18px;
+            flex-shrink: 0;
+            width: 30px;
+            text-align: center;
+        }
 
-.reset-btn:hover {
-    transform: scale(1.1);
-    color: var(--gold);
-}
+        .reset-btn:hover {
+            transform: scale(1.1);
+            color: var(--gold);
+        }
 
         /* Gentle pulsing/blinking effect */
         .left-toggle-btn {
@@ -378,32 +400,38 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
+            margin-bottom: 10px;
+            flex-wrap: nowrap;
+            width: 100%;
         }
 
         .search-label {
             font-weight: 700;
             color: var(--maroon);
-            font-size: 13px;
+            font-size: 11px;
             text-transform: uppercase;
             white-space: nowrap;
-            min-width: 80px;
+            width: 70px;
+            flex-shrink: 0;
+            text-align: right;
         }
 
-.search-wrapper {
-    position: relative;
-    flex: 0 0 800px;  /* SAME AS PC */
-}
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+        }
 
         .search-input {
             width: 100%;
-            padding: 8px 15px;
+            padding: 8px 10px;
             border: 2px solid #cbd5e1;
             border-radius: 4px;
             font-size: 13px;
             outline: none;
             transition: all 0.3s;
+            min-width: 0;
+            box-sizing: border-box;
         }
 
         .search-input:focus {
@@ -581,9 +609,25 @@
                 width: 95%;
             }
             
-            .reset-btn {
-                padding: 8px 12px;
+            .search-label {
+                font-size: 10px;
+                width: 55px;
+            }
+            
+            .search-input {
+                padding: 6px 8px;
                 font-size: 12px;
+            }
+            
+            .reset-btn {
+                padding: 6px 3px;
+                font-size: 16px;
+                width: 25px;
+            }
+            
+            .tips-btn {
+                font-size: 18px;
+                padding: 4px 6px;
             }
             
             .empty-state {
@@ -609,6 +653,7 @@
                 <span class="header-icon">👥</span>
                 <span>Rizvi Family - Root Tree View</span>
             </div>
+            <button class="tips-btn bulb-on" id="tipsToggleBtn" onclick="toggleTips()">💡</button>
         </div>
 
         <div class="toggle-menu-panel" id="toggleMenuPanel">
@@ -628,7 +673,7 @@
                             <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
-                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 </div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
                     </div>
                     <div class="search-row">
                         <span class="search-label">MEMBER 2</span>
@@ -636,8 +681,7 @@
                             <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
-                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 </div>
-                        <button class="tips-btn" onclick="openTips()">💡 </button>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
                     </div>
                     <div class="border-line"></div>
                 </div>
@@ -690,7 +734,7 @@
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
     <!-- Tips Modal -->
-    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) { this.style.display='none'; }">
         <div class="tips-modal">
             <h3>💡 Tips for Using Root Tree</h3>
 
@@ -730,14 +774,41 @@
                 <div class="desc">Save file as PDF or JPEG</div>
             </div>
 
-            <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
+            <button class="tips-close-btn" onclick="closeTips()">Close</button>
         </div>
     </div>
 
     <script>
+        // ==================== BULB TOGGLE ====================
+        let isBulbOn = true;
+
+        function toggleTips() {
+            const btn = document.getElementById('tipsToggleBtn');
+            isBulbOn = !isBulbOn;
+            
+            if (isBulbOn) {
+                btn.classList.remove('bulb-off');
+                btn.classList.add('bulb-on');
+                btn.innerHTML = '💡';
+                openTips();
+            } else {
+                btn.classList.remove('bulb-on');
+                btn.classList.add('bulb-off');
+                btn.innerHTML = '💡';
+                closeTips();
+            }
+        }
+
         // ==================== TIPS FUNCTIONS ====================
         function openTips() {
             document.getElementById('tipsOverlay').style.display = 'flex';
+            // Set bulb to ON when tips opens
+            const btn = document.getElementById('tipsToggleBtn');
+            if (btn && !isBulbOn) {
+                isBulbOn = true;
+                btn.classList.remove('bulb-off');
+                btn.classList.add('bulb-on');
+            }
         }
 
         function closeTips() {
@@ -1303,6 +1374,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeData();
             
+            // Initialize bulb to ON state
+            const btn = document.getElementById('tipsToggleBtn');
+            if (btn) {
+                btn.classList.add('bulb-on');
+            }
+            
             // Setup search handlers
             const search1 = document.getElementById('search1');
             const search2 = document.getElementById('search2');
@@ -1369,6 +1446,7 @@
         window.toggleLeftMenu = toggleLeftMenu;
         window.openTips = openTips;
         window.closeTips = closeTips;
+        window.toggleTips = toggleTips;
     </script>
 </body>
 </html>

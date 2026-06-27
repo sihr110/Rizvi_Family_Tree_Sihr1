@@ -590,11 +590,6 @@
         cursor: pointer;
     }
     
-    .lineage-table .current-row td {
-        background: #e8f5e9;
-        font-weight: 700;
-        border: 2px solid var(--dark-green);
-    }
     
     .lineage-table .root-row td {
         background: #fff0f0;
@@ -1073,36 +1068,34 @@
         // =========================================================================
         // RENDER TABLE PATH
         // =========================================================================
-        function renderPathTable(member, commonRoot, label, isFirstColumn) {
-            const chain = getAncestryChain(member);
-            const rootIndex = chain.findIndex(p => p.name.toLowerCase() === commonRoot.name.toLowerCase());
-            const path = chain.slice(0, rootIndex + 1).reverse();
-            
-            let html = `<table class="lineage-table">`;
-            html += `<thead> <tr><th>S.No</th><th>Name</th><th>Generation</th></tr> </thead> <tbody>`;
-            
-            let sno = 1;
-            path.forEach((p, index) => {
-                const isCurrent = index === 0;
-                const isRoot = p.name.toLowerCase() === commonRoot.name.toLowerCase();
-                const isFemale = p.gender?.startsWith('F');
-                
-                let rowClass = '';
-                if (isCurrent) rowClass = 'current-row';
-                if (isRoot) rowClass = 'root-row';
-                if (isFemale) rowClass += ' female-row';
-                
-                html += `<tr class="${rowClass}">`;
-                html += `<td>${sno++}</td>`;
-                html += `<td>${displayName(p.name)}${isCurrent ? ' (Selected)' : ''}${isRoot ? ' (Root)' : ''}</td>`;
-                html += `<td>${p.gen}</td>`;
-                html += `</tr>`;
-            });
-            
-            html += `</tbody> </table>`;
-            return html;
-        }
-
+function renderPathTable(member, commonRoot, label, isFirstColumn) {
+    const chain = getAncestryChain(member);
+    const rootIndex = chain.findIndex(p => p.name.toLowerCase() === commonRoot.name.toLowerCase());
+    const path = chain.slice(0, rootIndex + 1).reverse();
+    
+    let html = `<table class="lineage-table">`;
+    html += `<thead> <tr><th>S.No</th><th>Name</th><th>Generation</th></tr> </thead> <tbody>`;
+    
+    let sno = 1;
+    path.forEach((p, index) => {
+        const isCurrent = index === 0;
+        const isRoot = p.name.toLowerCase() === commonRoot.name.toLowerCase();
+        const isFemale = p.gender?.startsWith('F');
+        
+        let rowClass = '';
+        if (isRoot) rowClass = 'root-row';
+        if (isFemale) rowClass += ' female-row';
+        
+        html += `<tr class="${rowClass}">`;
+        html += `<td>${sno++}</td>`;
+        html += `<td>${displayName(p.name)}${isCurrent ? ' (Selected)' : ''}${isRoot ? ' (Root)' : ''}</td>`;
+        html += `<td>${p.gen}</td>`;
+        html += `</tr>`;
+    });
+    
+    html += `</tbody> </table>`;
+    return html;
+}
         // =========================================================================
         // RENDER ROOT TABLE
         // =========================================================================

@@ -130,24 +130,25 @@
             text-align: left;
         }
 
-        /* CHANGE 1: Reset Button CSS */
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
+        /* CHANGE : Reset Button CSS */
+  /* CHANGE 1: Reset Button - No golden box or shadow */
+.reset-btn {
+    padding: 10px 5px;
+    background: transparent;
+    color: var(--dark-blue);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-size: 18px;
+}
 
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
+.reset-btn:hover {
+    transform: scale(1.1);
+    color: var(--gold);
+}
 
         /* Gentle pulsing/blinking effect */
         .left-toggle-btn {
@@ -376,7 +377,7 @@
         .search-row {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 5px;
             margin-bottom: 15px;
             flex-wrap: wrap;
         }
@@ -627,7 +628,7 @@
                             <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
-                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 Reset</div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 </div>
                     </div>
                     <div class="search-row">
                         <span class="search-label">MEMBER 2</span>
@@ -635,8 +636,8 @@
                             <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
                             <div id="dropdown2" class="dropdown"></div>
                         </div>
-                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 Reset</div>
-                        <button class="tips-btn" onclick="openTips()">💡 Tips</button>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄 </div>
+                        <button class="tips-btn" onclick="openTips()">💡 </button>
                     </div>
                     <div class="border-line"></div>
                 </div>

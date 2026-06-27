@@ -659,7 +659,7 @@
                 if (saved) db = JSON.parse(saved);
                 else { alert('کوئی ڈیٹا نہیں، براہ کرم پہلے لوڈ کریں۔'); return; }
             }
-            window.location.href = 'FT-pc-2.html';
+            window.location.href = 'FT-pc-2U.html';
         }
         function goToTextView() {
             closeTreeOptions();
@@ -668,7 +668,7 @@
                 if (saved) db = JSON.parse(saved);
                 else { alert('کوئی ڈیٹا نہیں، براہ کرم پہلے لوڈ کریں۔'); return; }
             }
-            window.location.href = 'FT-pc-1.html';
+            window.location.href = 'FT-pc-1U.html';
         }
 
         // ---- موڈل ایونٹس ----
@@ -803,7 +803,7 @@
                     if (isAdminAuthenticated) {
                         currentView = 'admin';
                         renderAdminView();
-                        window.history.replaceState({}, document.title, "1-dashboard-pc.html#admin");
+                        window.history.replaceState({}, document.title, "21-dashboard-pc.html#admin");
                     } else {
                         const pwd = prompt('ایڈمن پاس ورڈ درج کریں:');
                         if (pwd === '6010') {

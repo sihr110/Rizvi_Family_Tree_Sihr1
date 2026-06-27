@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 6/27/26 22:14
+// Saved: 6/27/26 23:25
 // Total members: 574
 
 const FAMILY_DATA_URDU = [
@@ -3755,7 +3755,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید واسی حسین نقوی",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: "سیدہ حنا رضوی کی اولاد:\\n\\nS1: سید کمیل حسین نقوی\\nS2: سید جاری حسین نقوی\\nD1: سیدہ ابھیہ حسین نقوی"
+    details: "سیدہ حنا رضوی کی اولاد:\\n\\nS1: سید کمیل حسین نقوی\\nS2: سید جری حسین نقوی\\nD1: سیدہ ابھیا حسین نقوی"
   },
   {
     name: "سید فرحان حیدر",
@@ -5174,7 +5174,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "6/27/26 22:14", 
+    saved_time: "6/27/26 23:25", 
     total_members: 574,
     details_count: 72,
     sheets_merged: ["Main","1","2","3","4","5"]

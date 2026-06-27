@@ -1,15 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
-    <title>Rizvi Family · Mobile Tree</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <meta name="google" content="notranslate">
+    <title>خاندان رضوی · بصری شجرہ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="13-family-data.js"></script>
+    <script src="33-family-data-urdu.js"></script>
 
     <style>
+
+
+/* Bulb pulse animation - color changing */
+@keyframes bulbPulse {
+    0% { 
+        color: #d4af37;
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+    }
+    25% { 
+        color: #FFD700;
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    }
+    50% { 
+        color: #FF6B35;
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.9));
+    }
+    75% { 
+        color: #FFD700;
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    }
+    100% { 
+        color: #d4af37;
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+    }
+}
+
+
+
+/* ===== TIPS BUTTON & MODAL ===== */
+.tips-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #3d2b1a;
+    white-space: nowrap;
+    animation: tipsBlink 1.5s ease-in-out infinite;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.tips-btn:hover {
+    background: #faebcd;
+    animation: none;
+}
+
+@keyframes tipsBlink {
+    0% { color: #3d2b1a; }
+    50% { color: #d4af37; }
+    100% { color: #3d2b1a; }
+}
+
+.tips-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.tips-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    max-width: 480px;
+    width: 92%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.tips-modal h3 {
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+    color: #0f172a;
+    font-size: 20px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.tips-close-btn {
+    background: #d4af37;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    color: #0f172a;
+    transition: background 0.2s;
+    display: block;
+    margin: 0 auto;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.tips-close-btn:hover {
+    background: #f1d279;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 6px 12px;
+    text-align: right;
+    direction: rtl;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.tips-grid .title {
+    font-weight: 700;
+    color: #5a0000;
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.tips-grid .colon {
+    color: #5a0000;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: right;
+}
+
+.tips-grid .desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    text-align: right;
+}
 
 .manning-connector-single {
     display: flex;
@@ -79,7 +223,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
             background: #1a1a1a;
             height: 100vh;
             overflow: hidden;
@@ -100,7 +244,7 @@
             overflow: hidden;
         }
 
-        /* HEADER - like file 7 */
+        /* HEADER */
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
             color: var(--gold);
@@ -113,7 +257,7 @@
         }
 
         .header-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
             font-size: 20px;
             font-weight: 900;
             display: flex;
@@ -151,7 +295,8 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: all 0.3s;
             flex-shrink: 0;
-	    animation: gentle-blink 1.5s infinite;
+            animation: gentle-blink 1.5s infinite;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .left-toggle-btn:hover {
@@ -174,9 +319,10 @@
             font-size: 13px;
             font-weight: 600;
             white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        /* SEARCH SECTION - 2nd row like file 7 */
+        /* SEARCH SECTION */
         .search-section {
             padding: 15px;
             background: #fffcf8;
@@ -196,6 +342,7 @@
             color: var(--maroon);
             font-size: 13px;
             white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .search-wrapper {
@@ -210,10 +357,16 @@
             border-radius: 4px;
             font-size: 14px;
             outline: none;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+            text-align: right;
         }
 
         .search-input:focus {
             border-color: var(--gold);
+        }
+
+        .search-input::placeholder {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .search-dropdown {
@@ -239,7 +392,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
             white-space: nowrap;
             transition: all 0.2s;
         }
@@ -253,6 +406,8 @@
             padding: 10px 15px;
             cursor: pointer;
             border-bottom: 1px solid #eee;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .result-item:hover {
@@ -263,19 +418,22 @@
             font-weight: 700;
             color: var(--dark-blue);
             font-size: 14px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .result-father {
             font-size: 11px;
             color: #666;
             margin-top: 2px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        /* TOGGLE MENU PANEL */
+        /* TOGGLE MENU PANEL - RTL */
         .toggle-menu-panel {
             position: absolute;
-            left: 10px;
-            top: 60px;
+            right: 10px;
+            left: auto;
+            top: 70px;
             background: white;
             border: 3px solid var(--gold);
             border-radius: 12px;
@@ -307,11 +465,12 @@
             justify-content: space-between;
             gap: 10px;
             transition: all 0.2s;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .toggle-menu-item:hover {
             background: #faebcd;
-            transform: translateX(5px);
+            transform: translateX(-5px);
         }
 
         .toggle-switch {
@@ -435,6 +594,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: 0.1s ease;
             cursor: pointer;
+            text-align: right;
         }
 
         .box-header {
@@ -444,6 +604,7 @@
             padding: 6px 10px;
             border-bottom: 1px solid rgba(0,0,0,0.08);
             background: rgba(0,0,0,0.02);
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .gen-text {
@@ -452,6 +613,7 @@
             color: var(--maroon);
             flex: 1;
             text-align: center;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .expand-btn {
@@ -502,10 +664,11 @@
         .box-body {
             padding: 8px 10px;
             min-height: 90px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .member-name {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
             font-weight: 700;
             font-size: 13px;
             color: var(--dark-blue);
@@ -520,13 +683,14 @@
             margin-top: 4px;
             color: #333;
             line-height: 1.3;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .info-text .label-col {
             font-weight: 700;
             color: var(--maroon);
             display: inline-block;
-            width: 55px;
+            width: 50px;
             font-size: 10px;
         }
 
@@ -590,6 +754,7 @@
             font-weight: 600;
             display: none;
             white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .footer {
@@ -599,6 +764,7 @@
             padding: 8px;
             font-size: 11px;
             border-top: 2px solid var(--gold);
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         @media print {
@@ -640,36 +806,36 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- HEADER - 3 columns: MENU, Title, Counter -->
-        <div class="app-header">
-            <div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>
-            <div class="header-title">
-                <span class="header-icon">🌳</span>
-                <span>Rizvi Family · Full Tree</span>
-            </div>
-            <div class="counter-badge" id="openCount">📂 0</div>
-        </div>
+        <!-- HEADER -->
+      <div class="app-header">
+    <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰ مینو</div>
+    <div class="header-title">
+        <span class="header-icon">🌳</span>
+        <span>خاندان رضوی · بصری شجرہ</span>
+    </div>
+    <div class="counter-badge" id="openCount">📂 0</div>
+</div>
 
-        <!-- SEARCH SECTION - 2nd row -->
         <div class="search-section">
             <div class="search-row">
-                <span class="search-label">SEARCH MEMBER</span>
+                <span class="search-label">نام تلاش کریں</span>
                 <div class="search-wrapper">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                    <input type="text" id="searchInput" class="search-input" placeholder="نام درج کریں..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                     <div id="searchDropdown" class="search-dropdown"></div>
                 </div>
-                <div class="reset-btn" onclick="resetToRoot()">🔄 Reset</div>
+                <div class="reset-btn" onclick="resetToRoot()">🔄 دوبارہ ترتیب</div>
+                <button onclick="openTips()" style="background:none; border:none; font-size:32px; cursor:pointer; animation:bulbPulse 1.2s ease-in-out infinite; padding:0 5px;">💡</button>
             </div>
         </div>
 
         <!-- TOGGLE MENU PANEL -->
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div class="toggle-menu-item" id="showAllMenuItem">
-                <span>📂 Show All (full details)</span>
+                <span>📂 مکمل تفصیلات دکھائیں</span>
                 <span id="showAllToggleSwitch" class="toggle-switch active"></span>
             </div>
-            <div class="toggle-menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
-            <div class="toggle-menu-item" onclick="showSaveModal()" style="background: #d4af37; color: black;">💾 Save File</div>
+            <div class="toggle-menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white;">🏠 مرکزی صفحہ</div>
+            <div class="toggle-menu-item" onclick="showSaveModal()" style="background: #d4af37; color: black;">💾 محفوظ کریں</div>
         </div>
 
         <!-- TREE CONTENT -->
@@ -679,26 +845,25 @@
             </div>
         </div>
 
-        <div class="footer">Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+        <div class="footer">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
     </div>
 
     <!-- SAVE MODAL -->
     <div class="save-options-modal" id="saveModal">
-        <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
+        <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">💾 شجرہ محفوظ کریں</h3>
         <div style="margin-bottom:20px;">
-            <label style="display:block; margin-bottom:15px;"><input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - High Resolution</label>
-            <label style="display:block; margin-bottom:15px;"><input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - Low Resolution</label>
-            <label style="display:block;"><input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG Image</label>
+            <label style="display:block; margin-bottom:15px; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;"><input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - ہائی ریزولوشن</label>
+            <label style="display:block; margin-bottom:15px; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;"><input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - لو ریزولوشن</label>
+            <label style="display:block; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;"><input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG تصویر</label>
         </div>
         <div style="display:flex; gap:10px;">
-            <button onclick="processSave()" style="flex:2; padding:12px; background:#2e7d32; color:white; border:none; border-radius:6px; cursor:pointer;">Save</button>
-            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
+            <button onclick="processSave()" style="flex:2; padding:12px; background:#2e7d32; color:white; border:none; border-radius:6px; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">محفوظ کریں</button>
+            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">منسوخ</button>
         </div>
     </div>
     <div class="modal-overlay" id="modalOverlay" onclick="closeSaveModal()"></div>
-    <div class="loading-msg" id="loadingMsg">📄 Generating file, please wait...</div>
+    <div class="loading-msg" id="loadingMsg">📄 فائل بنا رہے ہیں، براہ کرم انتظار کریں...</div>
 
-    <script src="13-family-data.js"></script>
     <script>
         let familyDB = [];
         let currentSelectedBox = null;
@@ -715,7 +880,7 @@
         function showInfoModal(memberName) {
             const member = familyDB.find(m => m.name === memberName);
             if (!member) return;
-            let detailsText = member.details && member.details.trim() !== '' ? member.details : 'No additional information available.';
+            let detailsText = member.details && member.details.trim() !== '' ? member.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
             detailsText = detailsText.replace(/\\n/g, '<br>');
             
             let overlay = document.getElementById('infoModalOverlay');
@@ -727,13 +892,13 @@
                 document.body.appendChild(overlay);
                 modal = document.createElement('div');
                 modal.id = 'infoModal';
-                modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Inter,sans-serif';
+                modal.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:3px solid #d4af37;border-radius:12px;padding:20px;min-width:300px;max-width:450px;z-index:10000;display:none;font-family:Noto Nastaliq Urdu,Inter,sans-serif';
                 document.body.appendChild(modal);
             }
             modal.innerHTML = `
-                <h3 style="color:#5a0000;font-family:Playfair Display;margin-bottom:12px;">ℹ️ Other Informations</h3>
-                <p style="font-size:14px;line-height:1.5;margin:10px 0;white-space:pre-wrap;word-break:break-word;color:#2d2d2d;max-height:300px;overflow-y:auto;background:#fef9e6;padding:12px;border-radius:8px;border-left:3px solid #d4af37;">${detailsText}</p>
-                <button onclick="closeInfoModal()" style="margin-top:15px;padding:8px 20px;background:#d4af37;border:none;border-radius:6px;cursor:pointer;font-weight:600;">Close</button>
+                <h3 style="color:#5a0000;font-family:Playfair Display,Noto Nastaliq Urdu;margin-bottom:12px;">ℹ️ اضافی معلومات</h3>
+                <p style="font-size:14px;line-height:1.5;margin:10px 0;white-space:pre-wrap;word-break:break-word;color:#2d2d2d;max-height:300px;overflow-y:auto;background:#fef9e6;padding:12px;border-radius:8px;border-right:3px solid #d4af37;border-left:none;">${detailsText}</p>
+                <button onclick="closeInfoModal()" style="margin-top:15px;padding:8px 20px;background:#d4af37;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-family:Noto Nastaliq Urdu,Inter,sans-serif;">بند کریں</button>
             `;
             modal.style.display = 'block';
             overlay.style.display = 'block';
@@ -775,7 +940,7 @@
             let genDisplay = member.gen || '—';
             if (genDisplay.includes('-')) {
                 const parts = genDisplay.split('-');
-                genDisplay = 'Gen-' + parts.slice(1).join('-');
+                genDisplay = 'نسل-' + parts.slice(1).join('-');
             }
 
             if (showAllMode) {
@@ -784,13 +949,13 @@
                         <div class="box-header">
                             <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}</div>
                             <div class="gen-text">${genDisplay}</div>
-                            <div style="width: 30px; text-align:right;">${member.details ? `<span class="info-icon" onclick="showInfoModal('${safeName}')">ℹ️</span>` : ''}</div>
+                            <div style="width: 30px; text-align:left;">${member.details ? `<span class="info-icon" onclick="showInfoModal('${safeName}')">ℹ️</span>` : ''}</div>
                         </div>
                         <div class="box-body">
                             <div class="member-name">${displayName(member.name)}</div>
-                            <div class="info-text"><span class="label-col">Father:</span> ${displayName(member.father) || '—'}</div>
-                            <div class="info-text"><span class="label-col">Mother:</span> ${displayName(member.mother) || '—'}</div>
-                            <div class="info-text"><span class="label-col">Spouse:</span> ${displayName(member.spouse) || '—'}</div>
+                            <div class="info-text"><span class="label-col">والد:</span> ${displayName(member.father) || '—'}</div>
+                            <div class="info-text"><span class="label-col">والدہ:</span> ${displayName(member.mother) || '—'}</div>
+                            <div class="info-text"><span class="label-col">شریک حیات:</span> ${displayName(member.spouse) || '—'}</div>
                         </div>
                     </div>
                 `;
@@ -844,7 +1009,7 @@ function renderTreeNode(parent, childrenMap, visited = new Set()) {
 
 function drawFullTreeAndCenter(centerMemberName = null) {
     if (!familyDB.length) {
-        document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
+        document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ کوئی خاندانی ڈیٹا نہیں ملا۔</div>';
         return;
     }
     const { childrenMap, roots } = buildChildrenMap();
@@ -905,6 +1070,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
 
 
 
+
         function drawFullTree() {
             drawFullTreeAndCenter(null);
         }
@@ -960,7 +1126,6 @@ function drawFullTreeAndCenter(centerMemberName = null) {
     const ancestors = getAncestors(name);
     for (let anc of ancestors) expandedState.set(anc, true);
     expandedState.set(name, true);
-    // Also expand all parents in the chain
     let current = name;
     while (current) {
         const member = familyDB.find(m => m.name === current);
@@ -992,10 +1157,10 @@ function drawFullTreeAndCenter(centerMemberName = null) {
             document.getElementById('treeRoot').innerHTML = `
                 <div style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
                     <div style="font-size: 64px; margin-bottom: 20px;">🌳</div>
-                    <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to Rizvi Family Tree</h2>
-                    <p style="color: #555; margin-bottom: 25px; line-height: 1.6;">Enter a family member's name in the search box above to explore the complete family tree.</p>
-                    <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block;">
-                        <span style="font-size: 18px;">🔍</span> <strong>Type any name</strong> — then select from dropdown
+                    <h2 style="color: var(--maroon); font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif; margin-bottom: 15px;">خاندان رضوی کا شجرہ نسب</h2>
+                    <p style="color: #555; margin-bottom: 25px; line-height: 1.6; font-family:'Noto Nastaliq Urdu',Inter,sans-serif;">براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام درج کریں<br>مکمل شجرہ دیکھنے کے لیے۔</p>
+                    <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block; font-family:'Noto Nastaliq Urdu',Inter,sans-serif;">
+                        <span style="font-size: 18px;">🔍</span> <strong>کوئی بھی نام ٹائپ کریں</strong> — پھر ڈراپ ڈاؤن سے منتخب کریں
                     </div>
                 </div>
             `;
@@ -1025,7 +1190,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
                 results.forEach(m => {
                     const div = document.createElement('div');
                     div.className = 'result-item';
-                    div.innerHTML = `<div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div><div class="result-father">👨 Father: ${displayName(m.father) || 'Unknown'}</div>`;
+                    div.innerHTML = `<div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div><div class="result-father">👨 والد: ${displayName(m.father) || 'نامعلوم'}</div>`;
                     div.onclick = (function(memberName) {
                         return function() { 
                             jumpToMember(memberName); 
@@ -1038,12 +1203,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
                 dropdown.style.display = 'block';
             });
             
-            document.addEventListener('click', function(e) {
-                if (!input.contains(e.target) && !dropdown.contains(e.target)) {
-                    dropdown.style.display = 'none';
-                }
-            });
-        }
+                  }
 
         function setShowAllMode(enabled) {
             showAllMode = enabled;
@@ -1083,7 +1243,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
         async function processSave() {
             const fmt = document.querySelector('input[name="saveFormat"]:checked').value;
             closeSaveModal();
-            showLoading('Optimizing tree for export...');
+            showLoading('شجرہ بہتر کیا جا رہا ہے...');
             const treeContainer = document.getElementById('treeContainer');
             const originalTransform = treeContainer.style.transform;
             try {
@@ -1105,7 +1265,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
                 }
             } catch (error) {
                 console.error(error);
-                alert("The tree is too massive for a single capture. Please use 'Ctrl+P' and select 'Save as PDF'.");
+                alert("شجرہ بہت بڑا ہے۔ براہ کرم 'Ctrl+P' استعمال کریں اور 'Save as PDF' منتخب کریں۔");
             } finally {
                 treeContainer.style.transform = originalTransform;
                 hideLoading();
@@ -1113,18 +1273,18 @@ function drawFullTreeAndCenter(centerMemberName = null) {
         }
 
         function goToDashboard() {
-            window.location.href = '1-dashboard-pc.html';
+            window.location.href = '21-dashboard-pc.html';
         }
 
         function init() {
-            if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length) {
-                familyDB = FAMILY_DATA;
+            if (typeof FAMILY_DATA_URDU !== 'undefined' && FAMILY_DATA_URDU.length) {
+                familyDB = FAMILY_DATA_URDU;
             } else {
                 const saved = localStorage.getItem('familyDB');
                 if (saved) familyDB = JSON.parse(saved);
             }
             if (!familyDB.length) {
-                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
+                document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ کوئی خاندانی ڈیٹا نہیں ملا۔</div>';
                 return;
             }
             renderFullTree();
@@ -1135,15 +1295,36 @@ function drawFullTreeAndCenter(centerMemberName = null) {
                 menu.classList.toggle('show');
             };
 
-            document.addEventListener('click', function(e) {
-                const menu = document.getElementById('toggleMenuPanel');
-                const toggleBtn = document.querySelector('.left-toggle-btn');
-                if (menu && toggleBtn) {
-                    if (!toggleBtn.contains(e.target) && !menu.contains(e.target)) {
-                        menu.classList.remove('show');
-                    }
-                }
-            });
+       document.addEventListener('click', function(e) {
+    const input = document.getElementById('searchInput');
+    const dropdown = document.getElementById('searchDropdown');
+    if (input && dropdown) {
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.style.display = 'none';
+        }
+    }
+    
+    const menu = document.getElementById('toggleMenuPanel');
+    const toggleBtn = document.querySelector('.left-toggle-btn');
+    if (menu && toggleBtn) {
+        if (!toggleBtn.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.remove('show');
+        }
+    }
+    
+    const saveModal = document.getElementById('saveModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    if (saveModal && modalOverlay) {
+        if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveModal()"]')) {
+            saveModal.style.display = 'none';
+            modalOverlay.style.display = 'none';
+        }
+    }
+    
+    if (e.target === document.getElementById('tipsOverlay')) {
+        document.getElementById('tipsOverlay').style.display = 'none';
+    }
+});
             
             const showAllItem = document.getElementById('showAllMenuItem');
             if (showAllItem) {
@@ -1167,6 +1348,73 @@ function drawFullTreeAndCenter(centerMemberName = null) {
         window.processSave = processSave;
         window.goToDashboard = goToDashboard;
         window.centerNode = centerNode;
+
+
+// =========================================================================
+// TIPS FUNCTIONS
+// =========================================================================
+function openTips() {
+    document.getElementById('tipsOverlay').style.display = 'flex';
+}
+
+function closeTips() {
+    document.getElementById('tipsOverlay').style.display = 'none';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeTips();
+    }
+});
+
+// Expose tips functions globally
+window.openTips = openTips;
+window.closeTips = closeTips;
+
+
     </script>
+
+
+<!-- Tips Modal -->
+<div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+    <div class="tips-modal">
+        <h3>💡 رہنما اصول برائے استعمال</h3>
+
+        <div class="tips-grid">
+            <!-- ===== SEARCH & SELECT ===== -->
+            <div class="title">تلاش</div>
+            <div class="colon">:</div>
+            <div class="desc">نام لکھیں، اس شخص کا صفحہ دیکھیں</div>
+
+            <div class="title">تفصیلات دیکھیں</div>
+            <div class="colon">:</div>
+            <div class="desc">ℹ️ آئیکن پر کلک کریں</div>
+
+            <div class="title">پھیلائیں / سکیڑیں</div>
+            <div class="colon">:</div>
+            <div class="desc">سیکشن ہیڈنگ پر ➕/➖ پر کلک کریں</div>
+
+            <!-- ===== MENU OPTIONS ===== -->
+            <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">مینو آپشنز</div>
+            <div class="colon" style="margin-top:8px;"></div>
+            <div class="desc" style="margin-top:8px;"></div>
+
+            <div class="title">مکمل تفصیلات</div>
+            <div class="colon">:</div>
+            <div class="desc">شجرے میں مکمل تفصیلات دکھائیں/چھپائیں</div>
+
+            <div class="title">مرکزی صفحہ</div>
+            <div class="colon">:</div>
+            <div class="desc">مرکزی صفحہ پر جائیں</div>
+
+            <div class="title">محفوظ کریں</div>
+            <div class="colon">:</div>
+            <div class="desc">فائل کو PDF یا JPEG کے طور پر محفوظ کریں</div>
+        </div>
+
+        <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">بند کریں</button>
+    </div>
+</div>
+
 </body>
 </html>

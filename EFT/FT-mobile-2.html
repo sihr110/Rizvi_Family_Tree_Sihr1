@@ -11,6 +11,16 @@
 
     <style>
 
+.welcome-box {
+    border: 3px solid var(--gold);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
 /* ===== TIPS BUTTON & MODAL ===== */
 .tips-btn {
     background: none;
@@ -120,6 +130,7 @@
     color: #1a1a1a;
     text-align: left;
 }
+
 
 
 .manning-connector-single {
@@ -342,23 +353,23 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
+    .reset-btn {
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
 
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
+.reset-btn:hover {
+    background: transparent;
+    transform: scale(1.02);
+}
 
         .result-item {
             padding: 10px 15px;
@@ -761,16 +772,15 @@
             <div class="counter-badge" id="openCount">📂 0</div>
         </div>
 
-        <!-- SEARCH SECTION - 2nd row -->
-  <div class="search-section">
+   <div class="search-section">
     <div class="search-row">
         <span class="search-label">Search Name</span>
         <div class="search-wrapper">
             <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
             <div id="searchDropdown" class="search-dropdown"></div>
         </div>
-        <div class="reset-btn" onclick="resetToRoot()">🔄</div>
-        <button class="tips-btn" onclick="openTips()">💡 </button>
+        <div class="reset-btn" onclick="resetToRoot()">🔄 </div>
+        <button class="tips-btn" onclick="openTips()">💡 Tips</button>
     </div>
 </div>
 
@@ -1100,23 +1110,25 @@ function drawFullTreeAndCenter(centerMemberName = null) {
             updateOpenCounter();
         }
 
-        function renderFullTree() {
-            document.getElementById('treeRoot').innerHTML = `
-                <div style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
-                    <div style="font-size: 64px; margin-bottom: 20px;">🌳</div>
-                    <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px;">Welcome to Rizvi Family Tree</h2>
-                    <p style="color: #555; margin-bottom: 25px; line-height: 1.6;">Enter a family member's name in the search box above to explore the complete family tree.</p>
-                    <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block;">
-                        <span style="font-size: 18px;">🔍</span> <strong>Type any name</strong> — then select from dropdown
-                    </div>
+   function renderFullTree() {
+    document.getElementById('treeRoot').innerHTML = `
+        <div style="display:flex; justify-content:center; align-items:center; min-height:500px;">
+            <div class="welcome-box">
+                <div style="font-size: 64px; margin-bottom: 20px; text-align:center;">🌳</div>
+                <h2 style="color: var(--maroon); font-family: 'Playfair Display', serif; margin-bottom: 15px; text-align:center;">Welcome to Rizvi Family Tree</h2>
+                <p style="color: #555; margin-bottom: 25px; line-height: 1.6; text-align:center;">Enter a family member's name in the search box above to explore the complete family tree.</p>
+                <div style="background: #faebcd; padding: 15px; border-radius: 12px; display: inline-block; width:100%; text-align:center;">
+                    <span style="font-size: 18px;">🔍</span> <strong>Type any name</strong> — then select from dropdown
                 </div>
-            `;
-            memberElements.clear();
-            if (currentSelectedBox) {
-                currentSelectedBox.classList.remove('selected');
-                currentSelectedBox = null;
-            }
-        }
+            </div>
+        </div>
+    `;
+    memberElements.clear();
+    if (currentSelectedBox) {
+        currentSelectedBox.classList.remove('selected');
+        currentSelectedBox = null;
+    }
+}
 
         function setupSearch() {
             const input = document.getElementById('searchInput');
@@ -1150,7 +1162,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
                 dropdown.style.display = 'block';
             });
             
-        }
+                  }
 
         function setShowAllMode(enabled) {
             showAllMode = enabled;
@@ -1220,7 +1232,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
         }
 
         function goToDashboard() {
-            window.location.href = '6-dashboard-mobile.html';
+            window.location.href = '1-dashboard-pc.html';
         }
 
         function init() {
@@ -1324,6 +1336,7 @@ window.closeTips = closeTips;
 
 
     </script>
+
 
 <!-- Tips Modal -->
 <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">

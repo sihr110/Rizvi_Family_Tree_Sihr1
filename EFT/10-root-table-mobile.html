@@ -13,51 +13,72 @@
     
 
 <style>
-    /* CHANGE 1: Reset Button CSS */
+    /* CHANGE 1: Reset Button - No golden box or shadow */
     .reset-btn {
-        padding: 10px 20px;
-        background: var(--gold);
+        padding: 8px 4px;
+        background: transparent;
         color: var(--dark-blue);
         border: none;
-        border-radius: 4px;
         cursor: pointer;
         font-weight: 600;
         font-family: 'Inter', sans-serif;
         white-space: nowrap;
         transition: all 0.2s;
+        font-size: 18px;
+        flex-shrink: 0;
+        width: 30px;
+        text-align: center;
     }
 
     .reset-btn:hover {
-        background: var(--light-gold);
-        transform: scale(1.02);
+        transform: scale(1.1);
+        color: var(--gold);
     }
 
-
-
-    /* ===== TIPS BUTTON & MODAL ===== */
+    /* ===== TIPS BUTTON - Header version with bulb toggle ===== */
     .tips-btn {
         background: none;
         border: none;
-        font-size: 18px;
+        font-size: 22px;
         cursor: pointer;
-        padding: 4px 10px;
+        padding: 4px 8px;
         border-radius: 6px;
         font-weight: 600;
-        color: #3d2b1a;
-        white-space: nowrap;
-        animation: tipsBlink 1.5s ease-in-out infinite;
+        color: var(--gold);
         font-family: 'Inter', sans-serif;
+        transition: all 0.3s;
+        flex-shrink: 0;
     }
 
     .tips-btn:hover {
-        background: #faebcd;
-        animation: none;
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.1);
     }
 
-    @keyframes tipsBlink {
-        0% { color: #3d2b1a; }
-        50% { color: #d4af37; }
-        100% { color: #3d2b1a; }
+    /* Bulb ON state - glowing */
+    .tips-btn.bulb-on {
+        color: #FFD700;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+        animation: bulbGlow 0.8s ease-in-out infinite alternate;
+    }
+
+    /* Bulb OFF state - dim */
+    .tips-btn.bulb-off {
+        color: #666;
+        text-shadow: none;
+        animation: none;
+        opacity: 0.5;
+    }
+
+    @keyframes bulbGlow {
+        0% {
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.3);
+            transform: scale(1);
+        }
+        100% {
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.5), 0 0 80px rgba(255, 215, 0, 0.2);
+            transform: scale(1.05);
+        }
     }
 
     .tips-overlay {
@@ -144,10 +165,6 @@
         text-align: left;
     }
 
-
-
-
-
     /* ===== GLOBAL RESET & VARIABLES ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -221,22 +238,22 @@
         position: relative;
     }
 
-.left-toggle-btn {
-    background: var(--gold);
-    color: var(--dark-blue);
-    padding: 8px 16px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 2px solid white;
-    z-index: 2000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s;
-}
+    .left-toggle-btn {
+        background: var(--gold);
+        color: var(--dark-blue);
+        padding: 8px 16px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 2px solid white;
+        z-index: 2000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        transition: all 0.3s;
+    }
 
     .left-toggle-btn:hover {
         background: var(--light-gold);
@@ -325,7 +342,7 @@
         flex: 1; 
     }
     
-    /* CHANGE 2: Fixed header section centered */
+    /* Fixed header section centered */
     .fixed-header-section { 
         padding: 15px 15px 0 15px; 
         background: #fffcf8; 
@@ -364,39 +381,50 @@
         border-radius: 3px;
     }
     
-    /* ----- SEARCH SECTION (TWO ROWS) ----- */
+    /* ----- SEARCH SECTION (TWO ROWS) - CHANGED ----- */
     .search-row {
         display: flex;
         align-items: center;
-        gap: 15px;
-        margin-bottom: 15px;
-        flex-wrap: wrap;
+        gap: 5px;
+        margin-bottom: 10px;
+        flex-wrap: nowrap;
+        width: 100%;
     }
+
     .search-label {
         font-weight: 700;
         color: var(--maroon);
-        font-size: 13px;
+        font-size: 11px;
         text-transform: uppercase;
         white-space: nowrap;
-        min-width: 80px;
+        width: 70px;
+        flex-shrink: 0;
+        text-align: right;
     }
-.search-wrapper {
-    position: relative;
-    flex: 0 0 800px;  
-}
+
+    .search-wrapper {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+    }
+
     .search-input {
         width: 100%;
-        padding: 8px 15px;
+        padding: 8px 10px;
         border: 2px solid #cbd5e1;
         border-radius: 4px;
         font-size: 13px;
         outline: none;
         transition: all 0.3s;
+        min-width: 0;
+        box-sizing: border-box;
     }
+
     .search-input:focus {
         border-color: var(--gold);
         box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
     }
+
     .dropdown {
         position: absolute;
         top: 100%;
@@ -411,19 +439,23 @@
         z-index: 1000;
         box-shadow: 0 8px 15px rgba(0,0,0,0.1);
     }
+
     .result-item {
         padding: 8px 12px;
         border-bottom: 1px solid #eee;
         cursor: pointer;
         font-size: 13px;
     }
+
     .result-item:hover {
         background: #faebcd;
     }
+
     .result-item .main-name {
         font-weight: 700;
         color: var(--dark-blue);
     }
+
     .result-item .gen {
         color: var(--maroon);
         font-size: 11px;
@@ -648,10 +680,34 @@
         .fixed-header-section {
             width: 95%;
         }
-.left-toggle-btn {
-    padding: 6px 12px;
-    font-size: 12px;
-}
+        .left-toggle-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .search-label {
+            font-size: 10px;
+            width: 55px;
+        }
+        
+        .search-input {
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+        
+        .reset-btn {
+            padding: 6px 3px;
+            font-size: 16px;
+            width: 25px;
+        }
+        
+        .tips-btn {
+            font-size: 18px;
+            padding: 4px 6px;
+        }
+    }
     
     @media screen and (max-width: 380px) {
         .header-title { 
@@ -660,28 +716,25 @@
     }
 </style>
 
-<!-- ========================================= -->
-<!-- CSS END                                   -->
-<!-- ========================================= -->
-
 </head>
 <body>
     <!-- ⑩ ROOT TABLE – MOBILE -->
     <div class="app-container">
-        <!-- HEADER - with toggle button only -->
+        <!-- HEADER - with toggle button and bulb -->
         <div class="app-header">
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>
             <div class="header-title">
                 <span class="header-icon">👥</span> 
                 <span>Rizvi family - Root Table</span>
             </div>
+            <button class="tips-btn bulb-on" id="tipsToggleBtn" onclick="toggleTips()">💡</button>
         </div>
 
         <!-- Toggle Menu Panel -->
         <div class="toggle-menu-panel" id="toggleMenuPanel">
             <div class="toggle-menu-item" onclick="switchToTree()">🌲 Show Tree</div>
            
- <div class="toggle-menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+            <div class="toggle-menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
 
             <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
 
@@ -692,29 +745,27 @@
             <div id="rootSection">
                 <!-- fixed header with two search rows and reset buttons -->
                 <div class="fixed-header-section">
-                    <!-- CHANGE 3: Search rows with reset buttons -->
+                    <!-- Search rows - both identical now -->
                     <div class="search-row">
                         <div class="search-label">MEMBER 1</div>
                         <div class="search-wrapper">
                             <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
                             <div id="dropdown1" class="dropdown"></div>
                         </div>
-                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄 Reset</div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
                     </div>
-         
 
-<div class="search-row">
-    <div class="search-label">MEMBER 2</div>
-    <div class="search-wrapper">
-        <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-        <div id="dropdown2" class="dropdown"></div>
-    </div>
-    <div class="reset-btn" onclick="resetSearchRow(2)">🔄 Reset</div>
-    <button class="tips-btn" onclick="openTips()">💡 Tips</button>
-</div>
+                    <div class="search-row">
+                        <div class="search-label">MEMBER 2</div>
+                        <div class="search-wrapper">
+                            <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                            <div id="dropdown2" class="dropdown"></div>
+                        </div>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
+                    </div>
 
-
-
+                    <div class="border-line"></div>
+                </div>
 
                 <!-- scrollable table area with zoom -->
                 <div class="scrollable-content">
@@ -723,10 +774,10 @@
             </div>
         </div>
         <!-- footer -->
-        <div class="app-footer">📅 Last Data saved: 24/04/2026, 8:25:55 pm | Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+        <div class="app-footer" id="appFooter">📅 Last Data saved: 24/04/2026, 8:25:55 pm | Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
     </div>
 
-       <div class="save-options-modal" id="saveOptionsModal" style="display:none;">
+    <div class="save-options-modal" id="saveOptionsModal" style="display:none;">
         <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
         
         <div style="margin-bottom:20px;">
@@ -776,12 +827,32 @@
         let LOAD_STAMP = '';
 
         // =========================================================================
+        // BULB TOGGLE
+        // =========================================================================
+        let isBulbOn = true;
+
+        function toggleTips() {
+            const btn = document.getElementById('tipsToggleBtn');
+            isBulbOn = !isBulbOn;
+            
+            if (isBulbOn) {
+                btn.classList.remove('bulb-off');
+                btn.classList.add('bulb-on');
+                btn.innerHTML = '💡';
+                openTips();
+            } else {
+                btn.classList.remove('bulb-on');
+                btn.classList.add('bulb-off');
+                btn.innerHTML = '💡';
+                closeTips();
+            }
+        }
+
+        // =========================================================================
         // UTILITIES
         // =========================================================================
-        // CHANGE 6: Fixed displayName to remove -01, .01, ۔01 patterns
         function displayName(str) {
             if (!str) return '';
-            // Remove patterns: " - 02", "-02", ".02", "۔02", " - 2", "-2", ".2", "۔2"
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
@@ -978,26 +1049,26 @@
             drop.style.display = 'block';
         };
 
- document.addEventListener('click', function(e) {
-    if (!e.target.closest('.search-wrapper')) {
-        document.getElementById('dropdown1').style.display = 'none';
-        document.getElementById('dropdown2').style.display = 'none';
-    }
-    
-    if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
-        document.getElementById('toggleMenuPanel')?.classList.remove('show');
-    }
-    
-    if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
-        document.getElementById('saveOptionsModal').style.display = 'none';
-        document.getElementById('saveModalOverlay').style.display = 'none';
-    }
-    
-    // Close tips when clicking overlay
-    if (e.target === document.getElementById('tipsOverlay')) {
-        document.getElementById('tipsOverlay').style.display = 'none';
-    }
-});
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('dropdown1').style.display = 'none';
+                document.getElementById('dropdown2').style.display = 'none';
+            }
+            
+            if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
+                document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            }
+            
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+                document.getElementById('saveOptionsModal').style.display = 'none';
+                document.getElementById('saveModalOverlay').style.display = 'none';
+            }
+            
+            // Close tips when clicking overlay
+            if (e.target === document.getElementById('tipsOverlay')) {
+                document.getElementById('tipsOverlay').style.display = 'none';
+            }
+        });
 
         // =========================================================================
         // RENDER TABLE PATH
@@ -1326,6 +1397,12 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize bulb to ON state
+            const btn = document.getElementById('tipsToggleBtn');
+            if (btn) {
+                btn.classList.add('bulb-on');
+            }
+            
             const saved1 = localStorage.getItem('rootMember1');
             const saved2 = localStorage.getItem('rootMember2');
             if (saved1 && saved2) {
@@ -1346,32 +1423,37 @@
         window.goToDashboard = goToDashboard;
         window.resetSearch = resetSearch;
         window.resetSearchRow = resetSearchRow;
+        window.toggleTips = toggleTips;
     })();
 
 
-// =========================================================================
-// TIPS FUNCTIONS
-// =========================================================================
-function openTips() {
-    document.getElementById('tipsOverlay').style.display = 'flex';
-}
-
-function closeTips() {
-    document.getElementById('tipsOverlay').style.display = 'none';
-}
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeTips();
+    // =========================================================================
+    // TIPS FUNCTIONS
+    // =========================================================================
+    function openTips() {
+        document.getElementById('tipsOverlay').style.display = 'flex';
+        // Set bulb to ON when tips opens
+        const btn = document.getElementById('tipsToggleBtn');
+        if (btn && !isBulbOn) {
+            isBulbOn = true;
+            btn.classList.remove('bulb-off');
+            btn.classList.add('bulb-on');
+        }
     }
-});
 
-// Expose tips functions globally
-window.openTips = openTips;
-window.closeTips = closeTips;
+    function closeTips() {
+        document.getElementById('tipsOverlay').style.display = 'none';
+    }
 
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeTips();
+        }
+    });
 
-
+    // Expose tips functions globally
+    window.openTips = openTips;
+    window.closeTips = closeTips;
 
 </script>
 
@@ -1424,8 +1506,6 @@ window.closeTips = closeTips;
         <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
     </div>
 </div>
-
-
 
 </body>
 </html>

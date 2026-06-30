@@ -35,35 +35,35 @@
       width: 100%;
       border-radius: 20px;
       border: 3px solid var(--gold);
-      padding: 24px 24px 20px;
+      padding: 26px 24px 24px;
       box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
       text-align: center;
     }
 
     .family-seal {
-      font-size: 40px;
-      margin-bottom: 2px;
+      font-size: 48px;
+      margin-bottom: 5px;
     }
 
     .login-card h1 {
       font-family: 'Playfair Display', serif;
       color: var(--dark-blue);
-      font-size: 24px;
+      font-size: 26px;
     }
 
     .subtitle {
       color: var(--maroon);
-      font-size: 12px;
+      font-size: 13px;
       font-style: italic;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .section-label {
-      font-size: 10px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: #888;
-      margin: 10px 0 5px 0;
+      margin: 15px 0 8px 0;
       text-align: left;
     }
 
@@ -74,12 +74,12 @@
 
     .btn-group .btn {
       flex: 1;
-      padding: 10px 10px;
+      padding: 12px 10px;
       border: 2px solid var(--gold);
       background: white;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
@@ -100,15 +100,15 @@
 
     .password-wrapper {
       position: relative;
-      margin: 6px 0;
+      margin: 10px 0;
     }
 
     .password-wrapper input {
       width: 100%;
-      padding: 12px 15px;
+      padding: 14px 15px;
       border: 2px solid var(--gold);
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 16px;
       outline: none;
       font-family: 'Inter', sans-serif;
     }
@@ -125,10 +125,10 @@
       transform: translateY(-50%);
       cursor: pointer;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 14px;
       color: var(--maroon);
       background: white;
-      padding: 3px 10px;
+      padding: 4px 10px;
       border-radius: 4px;
       user-select: none;
     }
@@ -141,14 +141,14 @@
       background: var(--maroon);
       color: white;
       border: none;
-      padding: 14px;
+      padding: 16px;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 15px;
+      font-size: 16px;
       cursor: pointer;
       width: 100%;
       transition: all 0.2s;
-      margin-top: 4px;
+      margin-top: 5px;
     }
 
     .unlock-btn:active {
@@ -159,11 +159,11 @@
     .error-msg {
       color: var(--maroon);
       font-weight: 600;
-      font-size: 13px;
-      padding: 8px;
+      font-size: 14px;
+      padding: 10px;
       background: #ffe6e6;
       border-radius: 6px;
-      margin-top: 8px;
+      margin-top: 10px;
       display: none;
     }
 
@@ -171,14 +171,14 @@
       background: transparent;
       color: var(--dark-blue);
       border: 2px solid #ddd;
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 15px;
       cursor: pointer;
       width: 100%;
       transition: all 0.2s;
-      margin-top: 6px;
+      margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -191,10 +191,10 @@
     }
 
     .footer {
-      margin-top: 14px;
-      padding-top: 12px;
+      margin-top: 20px;
+      padding-top: 15px;
       border-top: 1px solid #eee;
-      font-size: 11px;
+      font-size: 12px;
       color: #666;
     }
 
@@ -211,8 +211,8 @@
       color: var(--maroon);
       animation: blink 1.5s infinite;
       font-weight: 600;
-      margin-top: 4px;
-      font-size: 11px;
+      margin-top: 6px;
+      font-size: 12px;
     }
 
     @keyframes blink {
@@ -223,11 +223,11 @@
     .access-granted {
       background: #e8f5e9;
       color: #2e7d32;
-      padding: 8px;
-      border-radius: 6px;
+      padding: 10px;
+      border-radius: 8px;
       font-weight: 600;
-      font-size: 13px;
-      margin: 6px 0;
+      font-size: 14px;
+      margin: 10px 0;
       display: none;
     }
 
@@ -239,43 +239,8 @@
       display: none !important;
     }
 
-    /* ===== MOBILE FIX - Slightly reduce height ===== */
-    @media (max-height: 750px) {
-      .login-card {
-        padding: 16px 20px 14px;
-      }
-      .family-seal { font-size: 32px; }
-      .login-card h1 { font-size: 20px; }
-      .subtitle { font-size: 11px; margin-bottom: 10px; }
-      .section-label { font-size: 9px; margin: 6px 0 3px 0; }
-      .btn-group .btn { padding: 8px 8px; font-size: 12px; }
-      .password-wrapper input { padding: 10px 12px; font-size: 14px; }
-      .unlock-btn { padding: 11px; font-size: 14px; }
-      .exit-btn { padding: 10px; font-size: 13px; }
-      .footer { font-size: 10px; margin-top: 10px; padding-top: 8px; }
-      .blink { font-size: 10px; }
-      .toggle-btn { font-size: 12px; padding: 2px 8px; }
-      .error-msg { font-size: 12px; padding: 6px; }
-      .access-granted { font-size: 12px; padding: 6px; }
-    }
-
-    @media (max-height: 650px) {
-      .login-card {
-        padding: 12px 16px 10px;
-      }
-      .family-seal { font-size: 28px; }
-      .login-card h1 { font-size: 18px; }
-      .subtitle { font-size: 10px; margin-bottom: 6px; }
-      .section-label { font-size: 8px; margin: 4px 0 2px 0; }
-      .btn-group .btn { padding: 6px 6px; font-size: 11px; }
-      .password-wrapper input { padding: 8px 10px; font-size: 13px; }
-      .unlock-btn { padding: 9px; font-size: 13px; }
-      .exit-btn { padding: 8px; font-size: 12px; }
-      .footer { font-size: 9px; margin-top: 6px; padding-top: 6px; }
-      .blink { font-size: 9px; }
-      .toggle-btn { font-size: 11px; padding: 2px 6px; }
-      .error-msg { font-size: 11px; padding: 4px; }
-      .access-granted { font-size: 11px; padding: 4px; }
+    .device-section {
+      margin-top: 5px;
     }
   </style>
 </head>

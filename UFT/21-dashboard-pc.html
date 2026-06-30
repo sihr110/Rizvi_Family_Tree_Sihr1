@@ -109,7 +109,7 @@
 
         .top-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
 
@@ -140,16 +140,6 @@
             border-color: var(--bronze);
         }
 
-        .dashboard-card.admin-card {
-            border-color: var(--admin-purple);
-            background: linear-gradient(145deg, #fff, #f8f4ff);
-        }
-
-        .dashboard-card.admin-card:hover {
-            border-color: #8b5cf6;
-            box-shadow: 0 5px 15px rgba(107, 33, 168, 0.2);
-        }
-
         .card-icon {
             font-size: 42px;
             margin-bottom: 10px;
@@ -165,16 +155,6 @@
         .card-desc {
             color: #666;
             font-size: 13px;
-        }
-
-        .admin-badge {
-            background: var(--admin-purple);
-            color: white;
-            font-size: 11px;
-            padding: 3px 10px;
-            border-radius: 12px;
-            margin-top: 10px;
-            display: inline-block;
         }
 
         .exit-btn-container {
@@ -210,92 +190,6 @@
             padding: 8px;
             font-size: 11px;
             border-top: 2px solid var(--gold);
-        }
-
-        /* ایڈمن پیج */
-        .admin-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .admin-title {
-            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
-            font-size: 24px;
-            color: var(--admin-purple);
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
-
-        .admin-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .admin-card-large {
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 20px;
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .admin-card-large:hover {
-            transform: translateY(-5px);
-            border-color: var(--admin-purple);
-            box-shadow: 0 10px 25px rgba(107, 33, 168, 0.15);
-        }
-
-        .admin-card-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .admin-card-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--dark-blue);
-            margin-bottom: 10px;
-        }
-
-        .admin-card-desc {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .data-status {
-            margin-top: 15px;
-            color: #2e7d32;
-            font-size: 13px;
-        }
-
-        .home-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--dark-blue);
-            color: var(--gold);
-            text-decoration: none;
-            border-radius: 40px;
-            border: 2px solid var(--gold);
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .home-link:hover {
-            background: var(--gold);
-            color: var(--dark-blue);
         }
 
         /* === شجرہ آپشن موڈل === */
@@ -418,16 +312,10 @@
             .top-row {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .admin-grid {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         @media (max-width: 500px) {
             .top-row {
-                grid-template-columns: 1fr;
-            }
-            .admin-grid {
                 grid-template-columns: 1fr;
             }
             .exit-btn-container {
@@ -496,11 +384,9 @@
 
         let db = [];
         let currentView = 'dashboard';
-        let isAdminAuthenticated = false;
 
         // ---- ابتدائی ڈیٹا ----
         function initializeData() {
-            // پہلے سے ذخیرہ شدہ ڈیٹا صاف
             localStorage.removeItem('familyDB');
             localStorage.removeItem('fileInfo');
             localStorage.removeItem('tableViewMember');
@@ -536,7 +422,7 @@
             if (db.length === 0) {
                 const saved = localStorage.getItem('familyDB');
                 if (saved) db = JSON.parse(saved);
-                else { alert('براہ کرم پہلے ڈیٹا لوڈ کریں (ایڈمن پینل)'); return; }
+                else { alert('براہ کرم پہلے ڈیٹا لوڈ کریں'); return; }
             }
             window.location.href = '22-individual-tree-pc.html';
         }
@@ -545,7 +431,7 @@
             if (db.length === 0) {
                 const saved = localStorage.getItem('familyDB');
                 if (saved) db = JSON.parse(saved);
-                else { alert('براہ کرم پہلے ڈیٹا لوڈ کریں (ایڈمن پینل)'); return; }
+                else { alert('براہ کرم پہلے ڈیٹا لوڈ کریں'); return; }
             }
             window.location.href = '24-root-tree-pc.html';
         }
@@ -555,69 +441,6 @@
             renderDashboardView();
         }
 
-        // ---- ایڈمن ----
-        function goToAdminWithPassword() {
-            const pwd = prompt('ایڈمن پاس ورڈ درج کریں:');
-            if (pwd === '6010') {
-                currentView = 'admin';
-                isAdminAuthenticated = true;
-                renderAdminView();
-            } else if (pwd !== null) {
-                alert('❌ غلط پاس ورڈ');
-            }
-        }
-
-        function loadData() {
-            document.getElementById('fileInput').click();
-        }
-
-        // فائل اپ لوڈ
-        document.getElementById('fileInput').onchange = function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                try {
-                    const data = new Uint8Array(ev.target.result);
-                    const wb = XLSX.read(data, { type: 'array' });
-                    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-                    db = rows.map(r => ({
-                        name: String(r.Name || r.name || '').trim(),
-                        father: String(r.Father || r.father || '').trim(),
-                        mother: String(r.Mother || r.mother || '').trim(),
-                        spouse: String(r.Spouse || r.spouse || '').trim(),
-                        gen: String(r.Gen || r.gen || '').trim(),
-                        gender: String(r.Gender || r.gender || 'Male').trim().toUpperCase(),
-                        maritalStatus: String(r.MaritalStatus || r.maritalStatus || r.Maritalstatus || r.maritalstatus || '').trim(),
-                        alive: String(r.Alive || r.alive || '').trim()
-                    })).filter(p => p.name);
-
-                    try {
-                        const firstSheet = wb.Sheets[wb.SheetNames[0]];
-                        const j1 = firstSheet['J1'];
-                        const j2 = firstSheet['J2'];
-                        const fileInfo = {
-                            saved_time_header: j1 ? String(j1.v || j1.w || '') : 'تاریخ اور وقت',
-                            saved_time: j2 ? (typeof j2.v === 'number' ? new Date((j2.v - 25569)*86400*1000).toLocaleString('ur-PK') : String(j2.v).trim()) : new Date().toLocaleString('ur-PK'),
-                            exported_time: new Date().toLocaleString('ur-PK'),
-                            total_members: db.length,
-                            source_file: file.name
-                        };
-                        localStorage.setItem('fileInfo', JSON.stringify(fileInfo));
-                    } catch(tsErr) {}
-
-                    localStorage.setItem('familyDB', JSON.stringify(db));
-                    updateHeaderStatus();
-                    if (currentView === 'admin') renderAdminView();
-                    else renderDashboardView();
-                    console.log('✅ ' + db.length + ' اراکین لوڈ ہوئے۔');
-                } catch(err) {
-                    alert('❌ خرابی: ' + err.message);
-                }
-            };
-            reader.readAsArrayBuffer(file);
-        };
-
         // ---- باہر جائیں (لاگ ان صفحہ) ----
         function logout() {
             if (confirm('کیا آپ لاگ ان صفحہ پر واپس جانا چاہتے ہیں؟')) {
@@ -626,7 +449,6 @@
                 localStorage.removeItem('tableViewMember');
                 localStorage.removeItem('tableViewFilters');
                 db = [];
-                isAdminAuthenticated = false;
                 window.location.href = '../index.html';
             }
         }
@@ -639,8 +461,7 @@
                 localStorage.removeItem('tableViewFilters');
                 db = [];
                 updateHeaderStatus();
-                if (currentView === 'admin') renderAdminView();
-                else renderDashboardView();
+                renderDashboardView();
                 alert('✅ تمام ڈیٹا صاف کر دیا گیا۔');
             }
         }
@@ -727,13 +548,6 @@
                             <div class="card-title">جڑ رشتہ دار</div>
                             <div class="card-desc">دو افراد کا تعلق</div>
                         </div>
-                        <!-- ایڈمن -->
-                        <div class="dashboard-card admin-card" onclick="goToAdminWithPassword()">
-                            <div class="card-icon">⚙️</div>
-                            <div class="card-title">صرف ایڈمن</div>
-                            <div class="card-desc">ڈیٹا کا نظم</div>
-                            <span class="admin-badge">محدود · پاس ورڈ محفوظ</span>
-                        </div>
                     </div>
                     <div class="bottom-row">
                         <div class="exit-btn-container" onclick="logout()">
@@ -751,77 +565,9 @@
             `;
         }
 
-        function renderAdminView() {
-            document.getElementById('headerTitle').innerText = 'ایڈمن کنٹرول پینل';
-            const count = db.length || (localStorage.getItem('familyDB') ? JSON.parse(localStorage.getItem('familyDB')).length : 0);
-            document.getElementById('headerActions').innerHTML = `
-                <span class="status-badge" id="headerStatus">📊 کل اراکین: ${count}</span>
-            `;
-
-            const main = document.getElementById('mainContent');
-            main.innerHTML = `
-                <div class="admin-container">
-                    <div class="admin-title">⚙️ صرف ایڈمن کے لیے</div>
-                    <div class="admin-grid">
-                        <div class="admin-card-large" onclick="loadData()">
-                            <div class="admin-card-icon">📂</div>
-                            <div class="admin-card-title">ڈیٹا لوڈ کریں</div>
-                            <div class="admin-card-desc">ایکسل فائل اپ لوڈ</div>
-                            <div class="data-status">${count > 0 ? '✅ ' + count + ' اراکین' : '⏳ کوئی ڈیٹا نہیں'}</div>
-                        </div>
-                        <div class="admin-card-large" onclick="window.location.href='31-add-data.html'">
-                            <div class="admin-card-icon">✏️</div>
-                            <div class="admin-card-title">رکن شامل / ترمیم</div>
-                            <div class="admin-card-desc">نیا رکن شامل کریں</div>
-                            <div class="data-status">→ ایڈٹ صفحہ</div>
-                        </div>
-                        <div class="admin-card-large" onclick="window.location.href='32-converter.html'">
-                            <div class="admin-card-icon">🔄</div>
-                            <div class="admin-card-title">ڈیٹا کنورٹر</div>
-                            <div class="admin-card-desc">ایکسل سے جے ایس</div>
-                            <div class="data-status">→ کنورٹر</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 25px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
-                        <div class="exit-btn-container" onclick="goToDashboard()" style="background: var(--dark-blue); min-width: 180px;">
-                            <span>⬅️</span>
-                            <span>واپس ڈیش بورڈ</span>
-                        </div>
-                        <div class="exit-btn-container" onclick="logout()" style="background: #5a0000; min-width: 180px;">
-                            <span>🚪</span>
-                            <span>لاگ ان صفحہ</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ---- ہیش چیک (ایڈمن براہ راست) ----
-        function checkHash() {
-            if (window.location.hash === '#admin') {
-                setTimeout(() => {
-                    if (isAdminAuthenticated) {
-                        currentView = 'admin';
-                        renderAdminView();
-                        window.history.replaceState({}, document.title, "21-dashboard-pc.html#admin");
-                    } else {
-                        const pwd = prompt('ایڈمن پاس ورڈ درج کریں:');
-                        if (pwd === '6010') {
-                            currentView = 'admin';
-                            isAdminAuthenticated = true;
-                            renderAdminView();
-                        } else {
-                            renderDashboardView();
-                        }
-                    }
-                }, 100);
-            }
-        }
-
         // ---- آغاز ----
         initializeData();
         renderDashboardView();
-        checkHash();
         setupModalEvents();
 
         // ڈیبگ کے لیے

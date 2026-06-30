@@ -1,528 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Rizvi Family Tree · Login</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        :root {
-            --maroon: #5a0000;
-            --dark-blue: #0f172a;
-            --gold: #d4af37;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Rizvi Family · Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #1a1a1a;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-        }
+    :root {
+      --maroon: #5a0000;
+      --dark-blue: #0f172a;
+      --gold: #d4af37;
+    }
 
-        .password-container {
-            background: white;
-            padding: 30px 20px;
-            border-radius: 20px;
-            border: 3px solid var(--gold);
-            max-width: 380px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--dark-blue);
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
+    .login-card {
+      background: white;
+      max-width: 420px;
+      width: 100%;
+      border-radius: 20px;
+      border: 3px solid var(--gold);
+      padding: 30px 24px;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+      text-align: center;
+    }
 
-        .subtitle {
-            color: var(--maroon);
-            font-size: 14px;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
+    .family-seal {
+      font-size: 48px;
+      margin-bottom: 5px;
+    }
 
-        .language-selector, .device-selector {
-            margin: 20px 0;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
+    .login-card h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--dark-blue);
+      font-size: 26px;
+    }
 
-        .lang-btn, .device-btn {
-            padding: 12px 10px;
-            border: 2px solid var(--gold);
-            background: white;
-            cursor: pointer;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
-            transition: all 0.2s;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            min-height: 50px;
-            -webkit-appearance: none;
-            appearance: none;
-        }
+    .subtitle {
+      color: var(--maroon);
+      font-size: 13px;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
 
-        .lang-btn.active, .device-btn.active {
-            background: var(--gold);
-            color: var(--dark-blue);
-            border-color: var(--dark-blue);
-        }
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin: 15px 0 8px 0;
+      text-align: left;
+    }
 
-        .lang-btn:active, .device-btn:active {
-            transform: scale(0.98);
-            background: #faebcd;
-        }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
 
-        .password-wrapper {
-            position: relative;
-            margin: 20px 0;
-        }
+    .btn-group .btn {
+      flex: 1;
+      padding: 12px 10px;
+      border: 2px solid var(--gold);
+      background: white;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
 
-        .password-wrapper input {
-            width: 100%;
-            padding: 14px 15px;
-            border: 2px solid var(--gold);
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-            -webkit-appearance: none;
-            appearance: none;
-        }
+    .btn-group .btn.active {
+      background: var(--gold);
+      color: var(--dark-blue);
+      border-color: var(--dark-blue);
+    }
 
-        .password-wrapper input:focus {
-            border-color: var(--maroon);
-            box-shadow: 0 0 0 3px rgba(90, 0, 0, 0.1);
-        }
+    .btn-group .btn:active {
+      transform: scale(0.97);
+    }
 
-        .toggle-btn {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: var(--maroon);
-            font-weight: bold;
-            font-size: 15px;
-            background: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            user-select: none;
-            min-height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .password-wrapper {
+      position: relative;
+      margin: 10px 0;
+    }
 
-        .toggle-btn:active {
-            background: #f0f0f0;
-        }
+    .password-wrapper input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .unlock-btn, .dashboard-btn {
-            background: var(--maroon);
-            color: white;
-            border: none;
-            padding: 16px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            font-size: 17px;
-            transition: all 0.2s;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            -webkit-appearance: none;
-            appearance: none;
-            min-height: 55px;
-        }
+    .password-wrapper input:focus {
+      border-color: var(--maroon);
+      box-shadow: 0 0 0 3px rgba(90, 0, 0, 0.1);
+    }
 
-        .unlock-btn:active, .dashboard-btn:active {
-            background: #7a1f1f;
-            transform: scale(0.98);
-        }
+    .toggle-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--maroon);
+      background: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      user-select: none;
+    }
 
-        .back-btn {
-            background: transparent;
-            color: var(--dark-blue);
-            border: 2px solid var(--gold);
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            transition: all 0.2s;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            -webkit-appearance: none;
-            appearance: none;
-            min-height: 50px;
-        }
+    .toggle-btn:active {
+      background: #f0f0f0;
+    }
 
-        .back-btn:active {
-            background: #f5f5f5;
-            transform: scale(0.98);
-        }
+    .unlock-btn {
+      background: var(--maroon);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+      margin-top: 5px;
+    }
 
-        .error-msg {
-            color: var(--maroon);
-            margin-top: 15px;
-            display: none;
-            font-size: 15px;
-            font-weight: 600;
-            padding: 10px;
-            background: #ffe6e6;
-            border-radius: 4px;
-        }
+    .unlock-btn:active {
+      background: #7a1f1f;
+      transform: scale(0.98);
+    }
 
-        .footer-note {
-            margin-top: 25px;
-            font-size: 13px;
-            color: #666;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
+    .error-msg {
+      color: var(--maroon);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px;
+      background: #ffe6e6;
+      border-radius: 6px;
+      margin-top: 10px;
+      display: none;
+    }
 
-        .footer-note p {
-            margin: 5px 0;
-        }
+    .exit-btn {
+      background: transparent;
+      color: var(--dark-blue);
+      border: 2px solid #ddd;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
 
-        .footer-note strong {
-            color: var(--dark-blue);
-        }
+    .exit-btn:active {
+      background: #f5f5f5;
+      transform: scale(0.98);
+    }
 
-        .blinking-text {
-            color: var(--maroon);
-            animation: blink 1.5s infinite;
-            font-weight: 600;
-            margin-top: 10px;
-        }
+    .footer {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+      color: #666;
+    }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+    .footer strong {
+      color: var(--dark-blue);
+    }
 
-        .family-seal {
-            font-size: 48px;
-            margin-bottom: 10px;
-            color: var(--gold);
-        }
+    .footer .phone {
+      color: var(--gold);
+      font-weight: 600;
+    }
 
-        .section-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666;
-            margin-bottom: 5px;
-        }
+    .blink {
+      color: var(--maroon);
+      animation: blink 1.5s infinite;
+      font-weight: 600;
+      margin-top: 6px;
+      font-size: 12px;
+    }
 
-        .hidden {
-            display: none !important;
-        }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
 
-        .welcome-message {
-            color: var(--dark-blue);
-            font-size: 16px;
-            margin: 15px 0;
-            padding: 10px;
-            background: #f9f3e0;
-            border-radius: 8px;
-            font-weight: 600;
-        }
+    .access-granted {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      margin: 10px 0;
+      display: none;
+    }
 
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-    </style>
+    .access-granted.show {
+      display: block;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .device-section {
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
-    <div class="password-container" id="loginContainer">
-        <div class="family-seal">🌿</div>
-        <h1>Rizvi Family Tree</h1>
-        <div class="subtitle">Honoring our past, preserving our future</div>
-        
-        <!-- Language Selection + Password Section (Initially Visible) -->
-        <div id="loginSection">
-            <div class="section-label">SELECT LANGUAGE</div>
-     <div class="language-selector">
-    <button class="lang-btn active" id="englishBtn">
-        <span>🇬🇧</span> English
-    </button>
-    <button class="lang-btn" id="urduBtn">
-        <span>🇵🇰</span> Urdu
-    </button>
+
+<div class="login-card">
+
+  <!-- ===== HEADER ===== -->
+  <div class="family-seal">🌿</div>
+  <h1>Rizvi Family</h1>
+  <div class="subtitle">Honoring our past, preserving our future</div>
+
+  <!-- ===== LANGUAGE ===== -->
+  <div class="section-label">🌐 Language</div>
+  <div class="btn-group">
+    <button class="btn active" id="englishBtn">🇬🇧 English</button>
+    <button class="btn" id="urduBtn">🇵🇰 Urdu</button>
+  </div>
+
+  <!-- ===== DEVICE ===== -->
+  <div class="section-label">📱 Device</div>
+  <div class="btn-group">
+    <button class="btn active" id="mobileBtn">📱 Mobile</button>
+    <button class="btn" id="pcBtn">💻 Desktop</button>
+  </div>
+
+  <!-- ===== PASSWORD ===== -->
+  <div class="section-label">🔒 Secure Access</div>
+  <div class="password-wrapper">
+    <input type="password" id="passwordField" placeholder="Enter password" autofocus>
+    <span class="toggle-btn" id="toggleBtn">Show</span>
+  </div>
+
+  <!-- ===== ACCESS GRANTED MESSAGE ===== -->
+  <div class="access-granted" id="accessGranted">✅ Access Granted</div>
+
+  <!-- ===== UNLOCK BUTTON ===== -->
+  <button class="unlock-btn" id="unlockBtn">🔓 Unlock &amp; Enter Dashboard</button>
+
+  <!-- ===== ERROR ===== -->
+  <div class="error-msg" id="passwordError">❌ Access Denied. Please verify the password.</div>
+
+  <!-- ===== EXIT BUTTON ===== -->
+  <button class="exit-btn" id="exitBtn">🚪 Exit</button>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <strong>Developer:</strong> Imran Haider S/o Syed Risalat Hussain Rizvi<br>
+    <span class="phone">📞 0332-787-6010</span>
+    <div class="blink">⚠️ Private family access only ⚠️</div>
+  </div>
+
 </div>
 
-            <div class="password-wrapper">
-                <input type="password" id="passwordField" placeholder="Enter Secure Password" autofocus>
-                <span class="toggle-btn" id="toggleBtn">Show</span>
-            </div>
+<script>
+  // ===== CONFIG =====
+  const CONFIG = { password: 'sihr110' };
 
-            <button class="unlock-btn" id="unlockBtn">
-                <span>🔓</span> Unlock
-            </button>
-            <div id="passwordError" class="error-msg">
-                ❌ Access Denied. Please verify the password.
-            </div>
-        </div>
+  let selectedLanguage = 'english';
+  let selectedDevice = 'mobile';
+  let isUnlocked = false;
 
-        <!-- Device Selection Section (Initially Hidden) -->
-        <div id="deviceSection" class="hidden">
-            <div class="welcome-message">
-                ✓ Password Verified
-            </div>
-            
-            <div class="section-label">CHOOSE DEVICE</div>
-            <div class="device-selector">
-                <button class="device-btn" id="pcBtn">
-                    <span>💻</span> Desktop
-                </button>
-                <button class="device-btn active" id="mobileBtn">
-                    <span>📱</span> Mobile
-                </button>
-            </div>
+  // ===== DOM ELEMENTS =====
+  const englishBtn = document.getElementById('englishBtn');
+  const urduBtn = document.getElementById('urduBtn');
+  const pcBtn = document.getElementById('pcBtn');
+  const mobileBtn = document.getElementById('mobileBtn');
+  const passwordField = document.getElementById('passwordField');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const unlockBtn = document.getElementById('unlockBtn');
+  const exitBtn = document.getElementById('exitBtn');
+  const errorMsg = document.getElementById('passwordError');
+  const accessGranted = document.getElementById('accessGranted');
 
-            <div class="button-group">
-                <button class="dashboard-btn" id="enterDashboardBtn">
-                    <span>🚪</span> Enter Dashboard
-                </button>
-                <button class="back-btn" id="backToLoginBtn">
-                    <span>↩️</span> Back to Login
-                </button>
-            </div>
-        </div>
+  // ===== LANGUAGE SELECTION =====
+  englishBtn.addEventListener('click', function() {
+    selectedLanguage = 'english';
+    englishBtn.classList.add('active');
+    urduBtn.classList.remove('active');
+  });
 
-        <div class="footer-note">
-            <p>Designed & Developed by:</p>
-            <p><strong>Imran Haider</strong></p>
-            <p>S/o Syed Risalat Hussain Rizvi</p>
-            <p><span style="color: var(--gold);">📞</span> 0332-787-6010</p>
-            <p class="blinking-text">⚠️ Private family access only ⚠️</p>
-        </div>
-    </div>
+  urduBtn.addEventListener('click', function() {
+    selectedLanguage = 'urdu';
+    urduBtn.classList.add('active');
+    englishBtn.classList.remove('active');
+  });
 
-    <script>
-        const CONFIG = { password: 'sihr110' };
-        let deviceType = 'mobile'; // Default to Mobile
-let language = 'english'; // Default to English
+  // ===== DEVICE SELECTION =====
+  // Mobile is now first (left), Desktop is second (right)
+  mobileBtn.addEventListener('click', function() {
+    selectedDevice = 'mobile';
+    mobileBtn.classList.add('active');
+    pcBtn.classList.remove('active');
+  });
 
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded, setting up event listeners...');
-            
-            // Get elements
-            const loginSection = document.getElementById('loginSection');
-            const deviceSection = document.getElementById('deviceSection');
-            const englishBtn = document.getElementById('englishBtn');
-            const urduBtn = document.getElementById('urduBtn');
-            const pcBtn = document.getElementById('pcBtn');
-            const mobileBtn = document.getElementById('mobileBtn');
-            const toggleBtn = document.getElementById('toggleBtn');
-            const unlockBtn = document.getElementById('unlockBtn');
-            const enterDashboardBtn = document.getElementById('enterDashboardBtn');
-            const backToLoginBtn = document.getElementById('backToLoginBtn');
-            const passwordField = document.getElementById('passwordField');
-            const errorMsg = document.getElementById('passwordError');
+  pcBtn.addEventListener('click', function() {
+    selectedDevice = 'pc';
+    pcBtn.classList.add('active');
+    mobileBtn.classList.remove('active');
+  });
 
-            // Language selection - English
-            if (englishBtn) {
-                englishBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('English button clicked');
-                    language = 'english';
-                    englishBtn.classList.add('active');
-                    urduBtn.classList.remove('active');
-                });
-            }
+  // ===== TOGGLE PASSWORD VISIBILITY =====
+  toggleBtn.addEventListener('click', function() {
+    const type = passwordField.type === 'password' ? 'text' : 'password';
+    passwordField.type = type;
+    toggleBtn.textContent = type === 'password' ? 'Show' : 'Hide';
+  });
 
-            // Language selection - Urdu
-            if (urduBtn) {
-                urduBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Urdu button clicked');
-                    language = 'urdu';
-                    urduBtn.classList.add('active');
-                    englishBtn.classList.remove('active');
-                });
-            }
+  // ===== UNLOCK BUTTON =====
+  unlockBtn.addEventListener('click', function() {
+    const entered = passwordField.value;
 
-            // Device selection - PC
-            if (pcBtn) {
-                pcBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('PC button clicked');
-                    deviceType = 'pc';
-                    pcBtn.classList.add('active');
-                    mobileBtn.classList.remove('active');
-                });
-            }
+    if (entered === CONFIG.password) {
+      // Correct password
+      isUnlocked = true;
+      errorMsg.style.display = 'none';
+      accessGranted.classList.add('show');
+      passwordField.value = '';
+      passwordField.type = 'password';
+      toggleBtn.textContent = 'Show';
 
-            // Device selection - Mobile
-            if (mobileBtn) {
-                mobileBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Mobile button clicked');
-                    deviceType = 'mobile';
-                    mobileBtn.classList.add('active');
-                    pcBtn.classList.remove('active');
-                });
-            }
+      // Navigate after 500ms
+      setTimeout(function() {
+        navigateToDashboard();
+      }, 500);
 
-            // Toggle password visibility
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Toggle button clicked');
-                    const type = passwordField.type === 'password' ? 'text' : 'password';
-                    passwordField.type = type;
-                    toggleBtn.textContent = type === 'password' ? 'Show' : 'Hide';
-                });
-            }
+    } else {
+      // Wrong password
+      isUnlocked = false;
+      errorMsg.style.display = 'block';
+      accessGranted.classList.remove('show');
+      passwordField.value = '';
+      passwordField.focus();
 
-            // Unlock button - First step
-            if (unlockBtn) {
-                unlockBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Unlock button clicked');
-                    checkPassword();
-                });
-            }
+      setTimeout(function() {
+        errorMsg.style.display = 'none';
+      }, 3000);
+    }
+  });
 
-            // Back to Login button
-            if (backToLoginBtn) {
-                backToLoginBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Back to Login button clicked');
-                    
-                    // Hide device section, show login section
-                    deviceSection.classList.add('hidden');
-                    loginSection.classList.remove('hidden');
-                    
-                    // Clear password field and focus
-                    passwordField.value = '';
-                    passwordField.focus();
-                    
-                    // Hide any error messages
-                    errorMsg.style.display = 'none';
-                    
-                    // Reset to default selections (Urdu)
-                    language = 'urdu';
-                    urduBtn.classList.add('active');
-                    englishBtn.classList.remove('active');
-                    
-                    // Reset device selection (Mobile)
-                    deviceType = 'mobile';
-                    mobileBtn.classList.add('active');
-                    pcBtn.classList.remove('active');
-                });
-            }
+  // ===== ENTER KEY ON PASSWORD FIELD =====
+  passwordField.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      unlockBtn.click();
+    }
+  });
 
-            // Enter key in password field
-            if (passwordField) {
-                passwordField.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        console.log('Enter key pressed');
-                        checkPassword();
-                    }
-                });
+  // ===== CLEAR ERROR WHEN TYPING =====
+  passwordField.addEventListener('input', function() {
+    errorMsg.style.display = 'none';
+  });
 
-                // Clear error when typing
-                passwordField.addEventListener('input', function() {
-                    errorMsg.style.display = 'none';
-                });
-            }
+  // ===== EXIT BUTTON =====
+  exitBtn.addEventListener('click', function() {
+    if (confirm('Are you sure you want to exit?')) {
+      window.close();
+    }
+  });
 
-            // Enter Dashboard button - Second step
-            if (enterDashboardBtn) {
-                enterDashboardBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Enter Dashboard button clicked');
-                    navigateToDashboard();
-                });
-            }
+  // ===== NAVIGATE TO DASHBOARD =====
+  function navigateToDashboard() {
+    let dashboard;
 
-            // Focus on password field
-            passwordField.focus();
-        });
+    if (selectedLanguage === 'english') {
+      dashboard = selectedDevice === 'pc' ? 'EFT/1-dashboard-pc.html' : 'EFT/6-dashboard-mobile.html';
+    } else {
+      dashboard = selectedDevice === 'pc' ? 'UFT/21-dashboard-pc.html' : 'UFT/26-dashboard-mobile.html';
+    }
 
-        function checkPassword() {
-            const passwordField = document.getElementById('passwordField');
-            const errorMsg = document.getElementById('passwordError');
-            const loginSection = document.getElementById('loginSection');
-            const deviceSection = document.getElementById('deviceSection');
-            const enteredPwd = passwordField.value;
-            
-            console.log('Checking password...');
-            console.log('Language selected:', language);
-            
-            if (enteredPwd === CONFIG.password) {
-                console.log('Password correct, showing device selection');
-                
-                // Hide login section, show device selection section
-                loginSection.classList.add('hidden');
-                deviceSection.classList.remove('hidden');
-                
-                // Clear password field
-                passwordField.value = '';
-                
-            } else {
-                console.log('Password incorrect');
-                // Show error message
-                errorMsg.style.display = 'block';
-                passwordField.value = '';
-                passwordField.focus();
-                
-                // Hide error after 3 seconds
-                setTimeout(() => {
-                    errorMsg.style.display = 'none';
-                }, 3000);
-            }
-        }
+    console.log('Navigating to:', dashboard);
+    console.log('Language:', selectedLanguage, 'Device:', selectedDevice);
 
-        function navigateToDashboard() {
-            console.log('Navigating to dashboard...');
-            console.log('Language selected:', language);
-            console.log('Device selected:', deviceType);
-            
-            // Navigate based on language and device
-            let dashboard;
-            if (language === 'english') {
-                // English language - redirect to EFT folder
-                dashboard = deviceType === 'pc' ? 'EFT/1-dashboard-pc.html' : 'EFT/6-dashboard-mobile.html';
-            } else {
-                // Urdu language - redirect to UFT folder
-                dashboard = deviceType === 'pc' ? 'UFT/21-dashboard-pc.html' : 'UFT/26-dashboard-mobile.html';
-            }
-            
-            console.log('Redirecting to:', dashboard);
-            window.location.href = dashboard;
-        }
-    </script>
+    window.location.href = dashboard;
+  }
+
+  // ===== FOCUS ON PASSWORD FIELD =====
+  passwordField.focus();
+</script>
+
 </body>
 </html>

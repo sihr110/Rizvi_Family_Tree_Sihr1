@@ -1,31 +1,31 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 06/21/2026 17:55
+// Saved: 07/02/2026 13:08
 // Total members: 574
 
 const FAMILY_DATA = [
   {
-    name: "Hazrat Abdul Mutalib",
-    father: "Hashim ibn Abdul Manaf",
-    mother: "",
-    spouse: "",
+    name: "Hazrat Abdul Mutalib (AS)",
+    father: "Hashim ibn Abdul Manaf (AS)",
+    mother: "Bibi Salma bint Amr (AS)",
+    spouse: "Bibi Fatima bint Amr (AS)",
     gen: "P-001-S1",
     gender: "MALE",
     details: ""
   },
   {
-    name: "Hazrat Abdullah",
-    father: "Hazrat Abdul Mutalib",
-    mother: "",
+    name: "Hazrat Abdullah (AS)",
+    father: "Hazrat Abdul Mutalib (AS)",
+    mother: "Bibi Fatima bint Amr (AS)",
     spouse: "Bibi Amna (AS)",
     gen: "P-002-S1",
     gender: "MALE",
     details: ""
   },
   {
-    name: "Hazrat Abu Talib",
-    father: "Hazrat Abdul Mutalib",
-    mother: "",
+    name: "Hazrat Abu Talib (AS)",
+    father: "Hazrat Abdul Mutalib (AS)",
+    mother: "Bibi Fatima bint Amr (AS)",
     spouse: "Bibi Fatima Bint Asad (AS)",
     gen: "P-002-S2",
     gender: "MALE",
@@ -33,7 +33,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Muhammad Rasool Allah (PBUH)",
-    father: "Hazrat Abdullah",
+    father: "Hazrat Abdullah (AS)",
     mother: "Bibi Amina bint Wahb (AS)",
     spouse: "Bibi Khadeja Kubra (AS) &",
     gen: "P-003-S1",
@@ -42,15 +42,15 @@ const FAMILY_DATA = [
   },
   {
     name: "Imam Ali (AS)",
-    father: "Hazrat Abu Talib",
+    father: "Hazrat Abu Talib (AS)",
     mother: "Bibi Fatima Bint Asad (AS)",
     spouse: "Syeda Fatima Zehra (AS) &",
     gen: "P-003-S4",
     gender: "MALE",
-    details: "Wives of Imam Ali (AS):\\n\\n1.\tFatimah bint Muhammad (AS) – (Sayyidah Fatimah al-Zahra), daughter of the Prophet Muhammad (PBUH).  \\n2.\tUmm al-Banin (Fatimah bint Huzam) – From the brave Banu Kilab tribe. Mother of Abbas(AS)\\n3.\tLayla bint Mas'ud – From the Banu Tamim tribe.\\n4.\tAsma bint Umais – She was previously married to Ja'far ibn Abi Talib (AS) (Imam Ali's brother) and later to Abu Bakr before marrying Imam Ali (AS).\\n5.\tUmm Habiba (al-Sahba bint Rabi'a) – Also known as al-Sahba al-Taghlibiyyah, from the Taghlib tribe.\\n6.\tUmamah bint Abi al-As – Granddaughter of the Prophet Muhammad (daughter of Zainab, the Prophet's daughter, and Abu al-As).\\n7.\tKhawla bint Ja'far al-Hanafiyyah – Also known as Khawla al-Hanafiyya. Mother of Muhammad ibn al-Hanafiyyah.\\n8.\tUmm Sa'id bint Urwah – From the Banu Thaqif tribe.\\n9.\tMuhayya bint Imru al-Qays – From the Banu Kilab tribe."
+    details: "Wives of Imam Ali (AS):\\n\\n1.\tFatimah bint Muhammad (AS) – (Sayyidah Fatimah al-Zahra), daughter of the Prophet Muhammad (PBUH).  \\n2.\tUmm al-Banin (Fatimah bint Huzam) – From the brave Banu Kilab tribe. Mother of Abbas(AS)\\n3.\tLayla bint Mas'ud – From the Banu Tamim tribe.\\n4.\tAsma bint Umais – She was previously married to Ja'far ibn Abi Talib (AS) (Imam Ali's brother) and later to Abu Bakr before marrying Imam Ali (AS).\\n5.\tUmm Habiba (al-Sahba bint Rabi'a) – Also known as al-Sahba al-Taghlibiyyah, from the Taghlib tribe.\\n6.\tUmamah bint Abi al-As – Granddaughter of the Prophet Muhammad (daughter of Zainab, the Prophet's daughter, and Abu al-As).\\n7.\tKhawla bint Ja'far al-Hanafiyyah – Also known as Khawla al-Hanafiyya. Mother of Muhammad ibn al-Hanafiyyah.\\n8.\tUmm Sa'id bint Urwah – From the Banu Thaqif tribe.\\n9.\tMuhayya bint Imru al-Qays – From the Banu Kilab tribe.\\n\\nChildren of Imam Ali (ع) by Mother\\n\\n-Bibi Fatima al-Zahra (sa)\t\\nAl-Hasan (ع), Al-Husayn (ع), Zaynab al-Kubra (sa), Umm Kulthum (Zaynab al-Sughra) (sa), and Mohsin (ع) (the unborn son who passed away during the home invasion)\\n\\n-Umm al-Banīn (Fatimah bint Hizam)\t\\nAl-Abbas (ع), Ja'far, Uthman, and Abdullah. (All four were martyred at Karbala alongside Imam Husayn (ع)).\\n\\n-Khawla bint Ja'far al-Hanafiyya\t\\nMuhammad ibn al-Hanafiyya.\\n\\n-Umm Habib bint Rabi'a\t\\nUmar and Ruqayya (twins).\\n\\n-Layla bint Mas'ud al-Darimi\t\\nMuhammad al-Asghar (also known as Abu Bakr) and Ubaydullah. (Both were martyred at Karbala).\\n\\n-Asma bint Umays\t\\nYahya.\\n\\n-Umm Sa'id bint Urwa\t\\nUmm al-Hasan and Ramla.\\n\\n-Other Mothers\t\\nNafisa, Zaynab al-Sughra, Ruqayya al-Sughra, Umm Hani, Umm al-Kiram, Jumana (Umm Ja'far), Umama, Umm Salama, Maymuna, Khadija, and Fatimah."
   },
   {
-    name: "Abdullah (Tahir & Tayyib)",
+    name: "Qasim (AS)",
     father: "Muhammad Rasool Allah (PBUH)",
     mother: "Bibi Khadeja Kubra (AS)",
     spouse: "",
@@ -59,7 +59,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Ibrahim",
+    name: "Abdullah (Tahir & Tayyib) (AS)",
     father: "Muhammad Rasool Allah (PBUH)",
     mother: "Bibi Khadeja Kubra (AS)",
     spouse: "",
@@ -68,9 +68,9 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Qasim",
+    name: "Ibrahim (AS)",
     father: "Muhammad Rasool Allah (PBUH)",
-    mother: "Bibi Khadeja Kubra (AS)",
+    mother: "Bibi Maria al-Qibtiyya (AS)",
     spouse: "",
     gen: "P-004-S3",
     gender: "MALE",
@@ -101,7 +101,7 @@ const FAMILY_DATA = [
     spouse: "Bibi Shahrbanu (AS)",
     gen: "P-004-S2",
     gender: "MALE",
-    details: ""
+    details: "Wives and Children of Imam Hussain (AS)\\n\\nShahrbanu (sa) bint Yazdegerd\tImam Ali Zayn al-Abidin (AS)\\n\\nRabab (sa) bint Imra' al-Qays\tSakina (sa) and Abdullah (Ali al-Asghar) (AS)\\n\\nLayla (sa) bint Abi Murrah\tAli al-Akbar(AS)\\n\\nUmm Ishaq (sa) bint Talha\tFatima al-Sughra (AS)\\n\\nQuda'iyyah (sa)\t                              Ja'far"
   },
   {
     name: "Hazrat Mohsin (AS)",
@@ -116,7 +116,7 @@ const FAMILY_DATA = [
     name: "Bibi Zainab (AS)",
     father: "Imam Ali (AS)",
     mother: "Syeda Fatima Zehra (AS)",
-    spouse: "Janab Abdullah Ibn Jafar Tayyar",
+    spouse: "Abdullah Ibn Jafar Tayyar (AS)",
     gen: "P-004-D1",
     gender: "FEMALE",
     details: ""
@@ -125,7 +125,7 @@ const FAMILY_DATA = [
     name: "Bibi Umme Khulsoom (AS) - 01",
     father: "Imam Ali (AS)",
     mother: "Syeda Fatima Zehra (AS)",
-    spouse: "Janab Aoun Ibn Jafar Tayyar",
+    spouse: "Aoun Ibn Jafar Tayyar (AS)",
     gen: "P-004-D1",
     gender: "FEMALE",
     details: ""
@@ -152,7 +152,7 @@ const FAMILY_DATA = [
     name: "Imam Jafar Sadiq (AS)",
     father: "Imam Muhammad Baqir (AS)",
     mother: "Bibi Umm Farwa (AS)",
-    spouse: "Bibi Hamida Khatoon",
+    spouse: "Bibi Hamida Khatoon (AS)",
     gen: "P-007-S1",
     gender: "MALE",
     details: ""
@@ -173,7 +173,7 @@ const FAMILY_DATA = [
     spouse: "Bibi Sabika (or Khayzuran) (AS)",
     gen: "G-001-S1",
     gender: "MALE",
-    details: ""
+    details: "Wives and Children of Imam Ali al-Ridha (AS)\\n \\nSabika (sa) (known as Khayzaran)\tImam Muhammad Taqi al-Jawad (AS)\\n\\nOther:\\nJa'far, Ibrahim, Hasan, Hussain, Aisha(Fatima)\\n\\nRegarding the daughter of Ma'mun:\\nImam al-Ridha (ع) married Ma'mun's daughter, Umm Habib. However, according to historical accounts, the Imam (AS) had no children from this marriage."
   },
   {
     name: "Syed Hasan ibn Musa",
@@ -335,7 +335,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-001-S19",
     gender: "MALE",
-    details: ""
+    details: "Shaykh al-Mufid and Ibn Shahrashub identify Imam Muhammad al-Jawad (AS) as the sole successor of Imam Ali al-Rida (AS).\\n\\nSome alternative historical accounts suggest the Imam may have had other children, including Ibrahim, Hasan, Ja'far, Husayn, and Fatima. \\n\\nIt is historically well-documented that Imam Musa al-Kadhim (AS) had a son named Ibrahim. \\n\\nConsequently, the Rizvi lineage from Hazrat Ibrahim may potentially trace back to either Ibrahim bin Ali al-Rida or Ibrahim bin Musa al-Kadhim (AS)."
   },
   {
     name: "Syeda Fatima Bint Musa",
@@ -488,7 +488,7 @@ const FAMILY_DATA = [
     spouse: "",
     gen: "G-002-S2",
     gender: "MALE",
-    details: ""
+    details: "Shaykh al-Mufid and Ibn Shahrashub identify Imam Muhammad al-Jawad (AS) as the sole successor of Imam Ali al-Rida (AS).\\n\\nSome alternative historical accounts suggest the Imam may have had other children, including Ibrahim, Hasan, Ja'far, Husayn, and Fatima. \\n\\nIt is historically well-documented that Imam Musa al-Kadhim (AS) had a son named Ibrahim. \\n\\nConsequently, the Rizvi lineage from Hazrat Ibrahim may potentially trace back to either Ibrahim bin Ali al-Rida or Ibrahim bin Musa al-Kadhim (AS)."
   },
   {
     name: "Syed Hasan",
@@ -5174,8 +5174,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "06/21/2026 17:55", 
+    saved_time: "07/02/2026 13:08", 
     total_members: 574,
-    details_count: 72,
+    details_count: 76,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

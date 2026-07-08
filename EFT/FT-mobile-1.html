@@ -573,20 +573,21 @@
         /* ============================================================
            SECTION 7: PAGE / WORKSHEET STYLES
            ============================================================ */
-        .page {
-            width: 100%;
-            min-height: 297mm;
-            background: #fffcf8;
-            padding: 8mm 10mm;
-            border-radius: 0 0 4px 4px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-            overflow: visible;
-            page-break-after: always;
-            display: flex;
-            flex-direction: column;
-            border-left: 2px solid var(--gold);
-            border-right: 2px solid var(--gold);
-        }
+  .page {
+    width: 100%;
+    zoom: 0.5;
+    min-height: 297mm;
+    background: #fffcf8;
+    padding: 8mm 10mm;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    overflow: visible;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+}
 
         /* ============================================================
            SECTION 8: PAGE HEADER STYLES
@@ -677,18 +678,7 @@
             white-space: nowrap;
         }
 
-        .tree-container {
-            font-family: 'Roboto Mono', 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 2.0;
-            padding: 2px 0;
-            color: #1a1a1a;
-            width: 100%;
-            overflow: visible;
-            direction: ltr;
-            text-align: left;
-            flex: 1;
-        }
+
 
         .tree-row {
             display: grid;
@@ -1117,84 +1107,91 @@
         /* ============================================================
            SECTION 16: RESPONSIVE STYLES - MOBILE (FIXED)
            ============================================================ */
-        @media screen and (max-width: 800px) {
-            body { padding: 8px; }
-            .controls { padding: 10px 12px; gap: 8px; }
-            .controls .search-wrapper { width: 100%; }
-            .controls .search-box input { min-width: auto; font-size: 13px; }
-            .controls .stats { font-size: 12px; text-align: center; }
-            .controls .row1, .controls .row2 { flex-direction: column; align-items: stretch; }
-            .page {
-                width: 100%;
-                min-height: 297mm;
-                padding: 6mm 8mm;
-            }
-            .col-headers { font-size: 11px; }
-            .tree-container { font-size: 11px; line-height: 1.8; }
-            .page-footer .developer { font-size: 10px; }
-            .header-title { font-size: 16px; }
-            .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
-            .menu-panel { left: 15px; top: 50px; min-width: 150px; }
-            .menu-item { font-size: 12px; padding: 8px 14px; }
-            .header-spacer { width: 60px; }
-            :root {
-                --col-tree-width: 22px;
-                --col-name-width: 32%;
-                --col-spouse-width: 25%;
-                --col-gen-width: 10%;
-                --col-page-width: 18%;
-                --heading-offset: 2ch;
-            }
-            .member-modal {
-                padding: 20px;
-                max-width: 95%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-            }
-            .detail-card .detail-header h2 {
-                font-size: 18px;
-            }
-            .detail-card .detail-row {
-                font-size: 14px;
-                flex-direction: column;
-                padding: 8px 0;
-            }
-            .detail-card .detail-row strong {
-                min-width: auto;
-                margin-bottom: 2px;
-            }
-            .detail-card .detail-gender {
-                font-size: 10px;
-                padding: 2px 12px;
-            }
-            .save-options-modal {
-                min-width: auto;
-                padding: 20px;
-            }
-        }
+ 
+@media screen and (max-width: 800px) {
+    body { padding: 8px; }
+    .controls { padding: 10px 12px; gap: 8px; }
+    .controls .search-wrapper { width: 100%; }
+    .controls .search-box input { min-width: auto; font-size: 13px; }
+    .controls .stats { font-size: 12px; text-align: center; }
+    .controls .row1, .controls .row2 { flex-direction: column; align-items: stretch; }
+    .page {
+        width: 100%;
+        min-height: 297mm;
+        padding: 6mm 8mm;
+    }
+    .col-headers { font-size: 11px; }
+    .tree-container { font-size: 11px; line-height: 1.8; }
+    .page-footer .developer { font-size: 10px; }
+    .header-title { font-size: 16px; }
+    .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
+    .menu-panel { left: 15px; top: 50px; min-width: 150px; }
+    .menu-item { font-size: 12px; padding: 8px 14px; }
+    .header-spacer { width: 60px; }
+    /* KEEP DESKTOP COLUMN WIDTHS */
+    :root {
+        --col-tree-width: 30px;
+        --col-name-width: 40%;
+        --col-spouse-width: 30%;
+        --col-gen-width: 10%;
+        --col-page-width: 20%;
+        --heading-offset: 4ch;
+    }
+    .member-modal {
+        padding: 20px;
+        max-width: 95%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .detail-card .detail-header h2 {
+        font-size: 18px;
+    }
+    .detail-card .detail-row {
+        font-size: 14px;
+        flex-direction: column;
+        padding: 8px 0;
+    }
+    .detail-card .detail-row strong {
+        min-width: auto;
+        margin-bottom: 2px;
+    }
+    .detail-card .detail-gender {
+        font-size: 10px;
+        padding: 2px 12px;
+    }
+    .save-options-modal {
+        min-width: auto;
+        padding: 20px;
+    }
+}
 
-        @media screen and (max-width: 480px) {
-            .menu-panel { left: 10px; top: 45px; min-width: 130px; }
-            .menu-item { font-size: 11px; padding: 6px 12px; }
-            .menu-toggle-btn { padding: 4px 10px; font-size: 11px; }
-            .header-title { font-size: 14px; }
-            .header-spacer { width: 50px; }
-            .save-options-modal {
-                min-width: auto;
-                padding: 15px;
-            }
-            .save-options-modal .save-mode-label {
-                padding: 8px 10px;
-            }
-            :root {
-                --col-tree-width: 18px;
-                --col-name-width: 28%;
-                --col-spouse-width: 22%;
-                --col-gen-width: 10%;
-                --col-page-width: 16%;
-                --heading-offset: 1ch;
-            }
-        }
+@media screen and (max-width: 480px) {
+    .menu-panel { left: 10px; top: 45px; min-width: 130px; }
+    .menu-item { font-size: 11px; padding: 6px 12px; }
+    .menu-toggle-btn { padding: 4px 10px; font-size: 11px; }
+    .header-title { font-size: 14px; }
+    .header-spacer { width: 50px; }
+    .save-options-modal {
+        min-width: auto;
+        padding: 15px;
+    }
+    .save-options-modal .save-mode-label {
+        padding: 8px 10px;
+    }
+    /* KEEP DESKTOP COLUMN WIDTHS */
+    :root {
+        --col-tree-width: 30px;
+        --col-name-width: 40%;
+        --col-spouse-width: 30%;
+        --col-gen-width: 10%;
+        --col-page-width: 20%;
+        --heading-offset: 4ch;
+    }
+}
+
+
+
+
     </style>
 </head>
 

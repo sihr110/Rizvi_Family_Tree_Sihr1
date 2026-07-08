@@ -228,6 +228,12 @@
             --light-gold: #f1d279;
             --maroon: #5a0000;
             --green: #2e7d32;
+            --col-tree-width: 30px;
+            --col-name-width: 40%;
+            --col-spouse-width: 30%;
+            --col-gen-width: 10%;
+            --col-page-width: 20%;
+            --heading-offset: 4ch;
         }
 
         /* ============================================================
@@ -630,17 +636,8 @@
         }
 
         /* ============================================================
-           SECTION 9: COLUMN & TREE ROW STYLES - WITH SPOUSE
+           SECTION 9: COLUMN & TREE ROW STYLES - FIXED WITH SPOUSE
            ============================================================ */
-        :root {
-            --col-tree-width: 30px;
-            --col-name-width: 40%;
-            --col-spouse-width: 30%;
-            --col-gen-width: 10%;
-            --col-page-width: 20%;
-            --heading-offset: 4ch;
-        }
-
         .col-headers {
             display: grid;
             grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
@@ -1118,7 +1115,7 @@
         }
 
         /* ============================================================
-           SECTION 16: RESPONSIVE STYLES - MOBILE
+           SECTION 16: RESPONSIVE STYLES - MOBILE (FIXED)
            ============================================================ */
         @media screen and (max-width: 800px) {
             body { padding: 8px; }
@@ -1141,11 +1138,11 @@
             .menu-item { font-size: 12px; padding: 8px 14px; }
             .header-spacer { width: 60px; }
             :root {
-                --col-tree-width: 25px;
-                --col-name-width: 35%;
-                --col-spouse-width: 28%;
+                --col-tree-width: 22px;
+                --col-name-width: 32%;
+                --col-spouse-width: 25%;
                 --col-gen-width: 10%;
-                --col-page-width: 17%;
+                --col-page-width: 18%;
                 --heading-offset: 2ch;
             }
             .member-modal {
@@ -1190,11 +1187,11 @@
                 padding: 8px 10px;
             }
             :root {
-                --col-tree-width: 20px;
-                --col-name-width: 32%;
-                --col-spouse-width: 25%;
+                --col-tree-width: 18px;
+                --col-name-width: 28%;
+                --col-spouse-width: 22%;
                 --col-gen-width: 10%;
-                --col-page-width: 15%;
+                --col-page-width: 16%;
                 --heading-offset: 1ch;
             }
         }
@@ -2177,7 +2174,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 10: RENDER PAGE HTML (DISPLAY) - WITH SPOUSE
+        // JAVASCRIPT SECTION 10: RENDER PAGE HTML (DISPLAY) - FIXED
         // ============================================================
         function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
             const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
@@ -2207,7 +2204,7 @@ function exportAsJPEG() {
             html += `
                 <div style="display:flex; justify-content:center; width:100%;">
                     <div style="width:90%;">
-                        <div class="col-headers" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
+                        <div class="col-headers" style="background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
                             <span style="padding-left:4px; border-right:1px solid #b8a088;"> </span>
                             <span style="padding-left:8px; border-right:1px solid #b8a088;">Name</span>
                             <span style="padding-left:8px; border-right:1px solid #b8a088;">Spouse</span>
@@ -2322,7 +2319,7 @@ function exportAsJPEG() {
                         }
                     }
                     
-                    html += `<div class="tree-row" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
+                    html += `<div class="tree-row" style="align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
                     html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
                     html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
                     html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;

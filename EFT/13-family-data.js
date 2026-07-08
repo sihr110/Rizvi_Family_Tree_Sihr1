@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/02/2026 13:08
+// Saved: 07/08/2026 21:57
 // Total members: 574
 
 const FAMILY_DATA = [
@@ -4931,7 +4931,7 @@ const FAMILY_DATA = [
     name: "Syed Zeeshan Haider",
     father: "Syed Risalat Hussain",
     mother: "Syeda Laiq Bano Naqvi",
-    spouse: "Syed Kaneez Fatima Rizvi (Dua)",
+    spouse: "Syeda Kaneez Fatima Rizvi (Dua)",
     gen: "G-041-S6",
     gender: "MALE",
     details: ""
@@ -5092,7 +5092,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Meesam Haider",
     father: "Syed Zeeshan Haider",
-    mother: "Syed Kaneez Fatima Rizvi (Dua)",
+    mother: "Syeda Kaneez Fatima Rizvi (Dua)",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -5101,7 +5101,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mujtaba Haider",
     father: "Syed Zeeshan Haider",
-    mother: "Syed Kaneez Fatima Rizvi (Dua)",
+    mother: "Syeda Kaneez Fatima Rizvi (Dua)",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -5110,7 +5110,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Haider - 02",
     father: "Syed Zeeshan Haider",
-    mother: "Syed Kaneez Fatima Rizvi (Dua)",
+    mother: "Syeda Kaneez Fatima Rizvi (Dua)",
     spouse: "",
     gen: "G-042-S3",
     gender: "MALE",
@@ -5174,7 +5174,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/02/2026 13:08", 
+    saved_time: "07/08/2026 21:57", 
     total_members: 574,
     details_count: 76,
     sheets_merged: ["Main","1","2","3","4","5"]

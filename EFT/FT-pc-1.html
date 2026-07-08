@@ -630,19 +630,20 @@
         }
 
         /* ============================================================
-           SECTION 9: COLUMN & TREE ROW STYLES
+           SECTION 9: COLUMN & TREE ROW STYLES - UPDATED WITH SPOUSE
            ============================================================ */
         :root {
             --col-tree-width: 30px;
-            --col-name-width: 46ch;
-            --col-gen-width: 16ch;
-            --col-page-width: 15ch;
+            --col-name-width: 40%;
+            --col-spouse-width: 30%;
+            --col-gen-width: 10%;
+            --col-page-width: 20%;
             --heading-offset: 4ch;
         }
 
         .col-headers {
             display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
+            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
             font-family: 'DM Serif Display', 'Georgia', serif;
             font-weight: 700;
             font-size: 13px;
@@ -659,6 +660,11 @@
         }
 
         .col-headers .col-name {
+            text-align: left;
+            padding-left: var(--heading-offset);
+        }
+
+        .col-headers .col-spouse {
             text-align: left;
             padding-left: var(--heading-offset);
         }
@@ -689,7 +695,7 @@
 
         .tree-row {
             display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
+            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
             align-items: center;
         }
 
@@ -699,6 +705,10 @@
         }
 
         .tree-row .tree-name {
+            text-align: left;
+        }
+
+        .tree-row .tree-spouse {
             text-align: left;
         }
 
@@ -743,6 +753,21 @@
             font-weight: 700;
         }
 
+        .tree-container .spouse-name {
+            color: #1a3a5c;
+            font-weight: 500;
+        }
+
+        .tree-container .spouse-name.female {
+            color: #FF1493;
+            font-weight: 600;
+        }
+
+        .tree-container .spouse-name.male {
+            color: #1a3a5c;
+            font-weight: 500;
+        }
+
         .tree-container .continue-arrow {
             color: #2e7d32;
             font-weight: 700;
@@ -758,6 +783,22 @@
             background: #ffeb3b;
             padding: 0 2px;
             border-radius: 2px;
+        }
+
+        .clickable-name {
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .clickable-name:hover {
+            background: #faebcd;
+            transform: scale(1.02);
+        }
+
+        .clickable-name.female:hover {
+            background: #f8d0d8;
         }
 
         /* ============================================================
@@ -812,7 +853,7 @@
         }
 
         /* ============================================================
-           SECTION 13: SAVE OPTIONS MODAL STYLES (MODIFIED)
+           SECTION 13: SAVE OPTIONS MODAL STYLES
            ============================================================ */
         .save-options-modal {
             position: fixed;
@@ -1051,42 +1092,8 @@
             margin-bottom: 6px;
         }
 
-
-
-.detail-card .detail-notes {
-    background: #faf6f0;
-    padding: 14px;
-    border-radius: 8px;
-    margin-top: 4px;
-    border-left: 3px solid var(--gold);
-    white-space: pre-wrap;
-    font-size: 14px;
-    line-height: 1.8;
-}
-
-
-
         /* ============================================================
-           SECTION 15: CLICKABLE NAME STYLES
-           ============================================================ */
-        .clickable-name {
-            cursor: pointer;
-            transition: all 0.2s;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
-
-        .clickable-name:hover {
-            background: #faebcd;
-            transform: scale(1.02);
-        }
-
-        .clickable-name.female:hover {
-            background: #f8d0d8;
-        }
-
-        /* ============================================================
-           SECTION 16: PRINT STYLES
+           SECTION 15: PRINT STYLES
            ============================================================ */
         @media print {
             body { background: #fff; padding: 0; }
@@ -1108,79 +1115,6 @@
             .member-modal { display: none !important; }
             #saveOptionsModal { display: none !important; }
             #saveModalOverlay { display: none !important; }
-        }
-
-        /* ============================================================
-           SECTION 17: RESPONSIVE STYLES
-           ============================================================ */
-        @media screen and (max-width: 800px) {
-            body { padding: 8px; }
-            .controls { padding: 10px 12px; gap: 8px; }
-            .controls .search-wrapper { width: 100%; }
-            .controls .search-box input { min-width: auto; font-size: 13px; }
-            .controls .stats { font-size: 12px; text-align: center; }
-            .controls .row1, .controls .row2 { flex-direction: column; align-items: stretch; }
-            .page {
-                width: 100%;
-                min-height: 297mm;
-                padding: 6mm 8mm;
-            }
-            .col-headers { font-size: 11px; }
-            .tree-container { font-size: 11px; line-height: 1.8; }
-            .page-footer .developer { font-size: 10px; }
-            .header-title { font-size: 16px; }
-            .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
-            .menu-panel { left: 15px; top: 50px; min-width: 150px; }
-            .menu-item { font-size: 12px; padding: 8px 14px; }
-            .header-spacer { width: 60px; }
-            :root {
-                --col-tree-width: 25px;
-                --col-name-width: 32ch;
-                --col-gen-width: 12ch;
-                --col-page-width: 12ch;
-                --heading-offset: 2ch;
-            }
-            .member-modal {
-                padding: 20px;
-                max-width: 95%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-            }
-            .detail-card .detail-header h2 {
-                font-size: 18px;
-            }
-            .detail-card .detail-row {
-                font-size: 14px;
-                flex-direction: column;
-                padding: 8px 0;
-            }
-            .detail-card .detail-row strong {
-                min-width: auto;
-                margin-bottom: 2px;
-            }
-            .detail-card .detail-gender {
-                font-size: 10px;
-                padding: 2px 12px;
-            }
-            .save-options-modal {
-                min-width: auto;
-                padding: 20px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .menu-panel { left: 10px; top: 45px; min-width: 130px; }
-            .menu-item { font-size: 11px; padding: 6px 12px; }
-            .menu-toggle-btn { padding: 4px 10px; font-size: 11px; }
-            .header-title { font-size: 14px; }
-            .header-spacer { width: 50px; }
-            .save-options-modal {
-                min-width: auto;
-                padding: 15px;
-            }
-            .save-options-modal .save-mode-label {
-                padding: 8px 10px;
-            }
         }
     </style>
 </head>
@@ -1253,13 +1187,12 @@
     </div>
 
     <!-- ============================================================
-         HTML SECTION 6: SAVE OPTIONS MODAL (MODIFIED)
+         HTML SECTION 6: SAVE OPTIONS MODAL
          ============================================================ -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
     <div class="save-options-modal" id="saveOptionsModal">
         <h3>💾 Save Family Tree</h3>
 
-        <!-- Save Mode Selection -->
         <div style="margin-bottom:15px;">
             <div style="font-weight:600; margin-bottom:8px; color:var(--dark-blue); font-size:14px;">Select Save Mode:</div>
 
@@ -1282,7 +1215,6 @@
             </label>
         </div>
 
-        <!-- Format Selection -->
         <div class="format-section">
             <div style="font-weight:600; margin-bottom:6px; color:var(--dark-blue); font-size:13px;">Format:</div>
             <label class="format-label">
@@ -1299,7 +1231,6 @@
             </label>
         </div>
 
-        <!-- Actions -->
         <div class="modal-actions">
             <button class="save-btn" onclick="processSave()">💾 Save</button>
             <button class="cancel-btn" onclick="closeSaveModal()">Cancel</button>
@@ -1365,109 +1296,98 @@
             document.getElementById('saveModalOverlay').style.display = 'none';
         }
 
-
-// ============================================================
-// JAVASCRIPT SECTION 5E: SCREEN PAGE EXPORT FUNCTIONS
-// ============================================================
-
-function exportTreePDF(quality) {
-    const pageElement = document.getElementById('pageContainer');
-    if (!pageElement) {
-        alert('❌ No page to save!');
-        return;
-    }
-
-    html2canvas(pageElement, {
-        scale: quality === 'high' ? 2.0 : 1.0,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false
-    }).then(canvas => {
-        const { jsPDF } = window.jspdf;
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const mmWidth = imgWidth * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
-        const mmHeight = imgHeight * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
-
-        const pdf = new jsPDF({
-            orientation: mmWidth > mmHeight ? 'l' : 'p',
-            unit: 'mm',
-            format: [mmWidth + 20, mmHeight + 20]
-        });
-
-        const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
-        pdf.addImage(imgData, 'JPEG', 10, 10, mmWidth, mmHeight, undefined, 'FAST');
-
-        const fileName = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
-        pdf.save(fileName);
-        alert(`✅ Saved current page as "${fileName}"`);
-    }).catch(err => {
-        alert('❌ Error generating PDF: ' + err.message);
-        console.error('PDF Export Error:', err);
-    });
-}
-
-function exportAsJPEG() {
-    const pageElement = document.getElementById('pageContainer');
-    if (!pageElement) {
-        alert('❌ No page to save!');
-        return;
-    }
-
-    html2canvas(pageElement, {
-        scale: 1.5,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false
-    }).then(canvas => {
-        const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        const link = document.createElement('a');
-        link.download = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
-        link.href = imgData;
-        link.click();
-        alert(`✅ Saved current page as JPEG`);
-    }).catch(err => {
-        alert('❌ Error generating JPEG: ' + err.message);
-        console.error('JPEG Export Error:', err);
-    });
-}
-
-
-
-
-
-
         // ============================================================
-        // JAVASCRIPT SECTION 5: SAVE FUNCTIONS (MODIFIED)
+        // JAVASCRIPT SECTION 5: EXPORT FUNCTIONS
         // ============================================================
 
-        // Get selected save mode
+        function exportTreePDF(quality) {
+            const pageElement = document.getElementById('pageContainer');
+            if (!pageElement) {
+                alert('❌ No page to save!');
+                return;
+            }
+
+            html2canvas(pageElement, {
+                scale: quality === 'high' ? 2.0 : 1.0,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                const { jsPDF } = window.jspdf;
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+                const mmWidth = imgWidth * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
+                const mmHeight = imgHeight * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
+
+                const pdf = new jsPDF({
+                    orientation: mmWidth > mmHeight ? 'l' : 'p',
+                    unit: 'mm',
+                    format: [mmWidth + 20, mmHeight + 20]
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
+                pdf.addImage(imgData, 'JPEG', 10, 10, mmWidth, mmHeight, undefined, 'FAST');
+
+                const fileName = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
+                pdf.save(fileName);
+                alert(`✅ Saved current page as "${fileName}"`);
+            }).catch(err => {
+                alert('❌ Error generating PDF: ' + err.message);
+                console.error('PDF Export Error:', err);
+            });
+        }
+
+        function exportAsJPEG() {
+            const pageElement = document.getElementById('pageContainer');
+            if (!pageElement) {
+                alert('❌ No page to save!');
+                return;
+            }
+
+            html2canvas(pageElement, {
+                scale: 1.5,
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                const link = document.createElement('a');
+                link.download = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+                alert(`✅ Saved current page as JPEG`);
+            }).catch(err => {
+                alert('❌ Error generating JPEG: ' + err.message);
+                console.error('JPEG Export Error:', err);
+            });
+        }
+
+        // ============================================================
+        // JAVASCRIPT SECTION 6: SAVE FUNCTIONS
+        // ============================================================
+
         function getSelectedSaveMode() {
             const selected = document.querySelector('input[name="saveMode"]:checked');
             return selected ? selected.value : 'screen';
         }
 
-        // Get selected format
         function getSelectedFormat() {
             const selected = document.querySelector('input[name="saveFormat"]:checked');
             return selected ? selected.value : 'pdf-high';
         }
 
-        // Get current member name (from page root)
         function getCurrentMemberName() {
             if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) return null;
             const page = cachedPages[currentPageIndex];
             return page.root || null;
         }
 
-        // Get the current page's root person object
         function getCurrentMemberPerson() {
             const name = getCurrentMemberName();
             if (!name) return null;
             return globalPersonMap[name] || null;
         }
 
-        // Helper: Check if a page is an ancestor of the selected member (following father chain)
         function isAncestorPage(pageRoot, memberName, visited) {
             if (pageRoot === memberName) return true;
 
@@ -1477,38 +1397,29 @@ function exportAsJPEG() {
             const fatherName = person.father.trim();
             if (!fatherName) return false;
 
-            // If father is the member, this page is an ancestor
             if (fatherName === memberName) return true;
 
-            // Check if father's page is an ancestor of the member
             const fatherPageIndex = rootToPageMap[fatherName];
             if (fatherPageIndex === undefined) return false;
 
-            // Avoid infinite loops
             if (visited.has(fatherName)) return false;
             visited.add(fatherName);
 
-            // Check if the father is an ancestor of the member
             const fatherPage = cachedPages[fatherPageIndex];
             if (!fatherPage) return false;
 
-            // If father is the member, this page is an ancestor
             if (fatherName === memberName) return true;
 
-            // Check if father is in the member's ancestor chain
             return isAncestorPage(fatherName, memberName, visited);
         }
 
-        // Get all ancestor pages (ONLY direct father chain from root to selected member)
         function getAncestorPages(memberName) {
             const result = [];
             const visited = new Set();
             
-            // Start from the member and go up through fathers
             let currentName = memberName;
             let chain = [];
             
-            // Build the father chain from member up to root
             while (currentName) {
                 chain.push(currentName);
                 const person = globalPersonMap[currentName];
@@ -1517,16 +1428,12 @@ function exportAsJPEG() {
                 }
                 currentName = person.father.trim();
                 
-                // Prevent infinite loop
                 if (visited.has(currentName)) break;
                 visited.add(currentName);
             }
             
-            // Now chain = [Imran, Father, Grandfather, ..., Root]
-            // We need to find the page index for each name in the chain
             for (let i = chain.length - 1; i >= 0; i--) {
                 const name = chain[i];
-                // Find the page where this name is the root
                 for (let j = 0; j < cachedPages.length; j++) {
                     if (cachedPages[j].root === name) {
                         if (!result.includes(j)) {
@@ -1537,12 +1444,10 @@ function exportAsJPEG() {
                 }
             }
             
-            // Sort by page index (ascending)
             result.sort((a, b) => a - b);
             return result;
         }
 
-        // Add page counter to page footer for saved pages
         function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
             const footer = pageElement.querySelector('.page-footer');
             if (footer) {
@@ -1554,9 +1459,6 @@ function exportAsJPEG() {
             return pageElement;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5A: PROCESS SAVE (MODIFIED)
-        // ============================================================
         function processSave() {
             const saveMode = getSelectedSaveMode();
             const format = getSelectedFormat();
@@ -1564,7 +1466,6 @@ function exportAsJPEG() {
             closeSaveModal();
 
             if (saveMode === 'screen') {
-                // Option 1: On screen page
                 const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
                 if (format === 'jpeg') {
                     exportAsJPEG();
@@ -1572,7 +1473,6 @@ function exportAsJPEG() {
                     exportTreePDF(quality);
                 }
             } else if (saveMode === 'selected') {
-                // Option 2: Selected member pages
                 const memberName = getCurrentMemberName();
                 if (!memberName) {
                     alert('No member selected! Please search for a member first.');
@@ -1585,7 +1485,6 @@ function exportAsJPEG() {
                     saveSelectedMemberPages(quality, memberName);
                 }
             } else if (saveMode === 'all') {
-                // Option 3: All pages
                 const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
                 if (format === 'jpeg') {
                     saveAllPagesAsJPEG();
@@ -1595,9 +1494,6 @@ function exportAsJPEG() {
             }
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5B: SAVE SELECTED MEMBER PAGES (NEW)
-        // ============================================================
         function saveSelectedMemberPages(quality, memberName) {
             const ancestorPageIndices = getAncestorPages(memberName);
 
@@ -1607,37 +1503,22 @@ function exportAsJPEG() {
             }
 
             const totalFullPages = cachedPages.length;
-            const totalSaved = ancestorPageIndices.length;
             let filteredCount = 0;
-
-            // Show progress
-            const progressMsg = `Saving ${totalSaved} pages for ${displayName(memberName)}...`;
-            console.log(progressMsg);
-
-            // We'll render each page, add counter, and capture
             let capturedPages = [];
 
-            // Function to capture a single page
             function capturePage(index) {
                 return new Promise((resolve, reject) => {
                     const pageIndex = ancestorPageIndices[index];
                     const actualPageNum = pageIndex + 1;
                     filteredCount++;
 
-                    // Store current page index
                     const originalPageIndex = currentPageIndex;
                     currentPageIndex = pageIndex;
-
-                    // Render the page
                     renderPage();
 
-                    // Get the page element after render
                     const pageElement = document.getElementById('pageContainer');
-
-                    // Add page counter
                     addPageCounterToPage(pageElement, actualPageNum, totalFullPages, filteredCount);
 
-                    // Wait for render
                     setTimeout(() => {
                         html2canvas(pageElement, {
                             scale: quality === 'high' ? 2.0 : 1.0,
@@ -1646,7 +1527,6 @@ function exportAsJPEG() {
                             logging: false
                         }).then(canvas => {
                             capturedPages.push(canvas);
-                            // Restore original page
                             currentPageIndex = originalPageIndex;
                             renderPage();
                             resolve();
@@ -1657,13 +1537,11 @@ function exportAsJPEG() {
                 });
             }
 
-            // Capture all pages sequentially
             async function captureAll() {
                 for (let i = 0; i < ancestorPageIndices.length; i++) {
                     await capturePage(i);
                 }
 
-                // Generate PDF
                 const { jsPDF } = window.jspdf;
                 const firstCanvas = capturedPages[0];
                 const w = firstCanvas.width * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
@@ -1692,9 +1570,6 @@ function exportAsJPEG() {
             });
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5C: SAVE ALL PAGES (NEW)
-        // ============================================================
         function saveAllPages(quality) {
             const totalPages = cachedPages.length;
             let capturedPages = [];
@@ -1708,8 +1583,6 @@ function exportAsJPEG() {
                     renderPage();
 
                     const pageElement = document.getElementById('pageContainer');
-
-                    // Add page counter for All Pages mode (filtered = same as actual)
                     addPageCounterToPage(pageElement, actualPageNum, totalPages, actualPageNum);
 
                     setTimeout(() => {
@@ -1733,14 +1606,12 @@ function exportAsJPEG() {
             }
 
             async function captureAll() {
-                // Show progress indicator
                 const total = totalPages;
 
                 for (let i = 0; i < total; i++) {
                     await capturePage(i);
                 }
 
-                // Generate PDF
                 const { jsPDF } = window.jspdf;
                 const firstCanvas = capturedPages[0];
                 const w = firstCanvas.width * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
@@ -1769,9 +1640,6 @@ function exportAsJPEG() {
             });
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5D: JPEG EXPORTS (NEW)
-        // ============================================================
         function saveSelectedMemberPagesAsJPEG(memberName) {
             const ancestorPageIndices = getAncestorPages(memberName);
 
@@ -1820,7 +1688,6 @@ function exportAsJPEG() {
                     await capturePage(i);
                 }
 
-                // Save as ZIP-like sequence (multiple downloads)
                 if (capturedPages.length === 1) {
                     const data = capturedPages[0].canvas.toDataURL('image/jpeg', 0.9);
                     const link = document.createElement('a');
@@ -1829,7 +1696,6 @@ function exportAsJPEG() {
                     link.click();
                     alert(`✅ Saved 1 page as JPEG`);
                 } else {
-                    // Download all as individual JPEGs
                     let downloadCount = 0;
                     capturedPages.forEach((item, idx) => {
                         setTimeout(() => {
@@ -1890,7 +1756,6 @@ function exportAsJPEG() {
                     await capturePage(i);
                 }
 
-                // Download all as individual JPEGs
                 if (capturedPages.length <= 5) {
                     capturedPages.forEach((item, idx) => {
                         setTimeout(() => {
@@ -1905,7 +1770,6 @@ function exportAsJPEG() {
                         }, idx * 300);
                     });
                 } else {
-                    // For many pages, create a zip-like download (sequential)
                     alert(`📸 Saving ${capturedPages.length} JPEGs... They will download one by one.`);
                     capturedPages.forEach((item, idx) => {
                         setTimeout(() => {
@@ -1929,7 +1793,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 6: FAMILY TREE BUILDING FUNCTIONS
+        // JAVASCRIPT SECTION 7: FAMILY TREE BUILDING FUNCTIONS
         // ============================================================
         function buildFamilyMap(data) {
             const map = {};
@@ -1993,7 +1857,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 7: PAGE GENERATION
+        // JAVASCRIPT SECTION 8: PAGE GENERATION
         // ============================================================
         function generatePages(data) {
             const { map, personMap } = buildFamilyMap(data);
@@ -2071,7 +1935,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 8: PAGE NAVIGATION
+        // JAVASCRIPT SECTION 9: PAGE NAVIGATION
         // ============================================================
         function goToPage(pageIndex) {
             if (pageIndex < 0 || pageIndex >= cachedPages.length) return;
@@ -2081,7 +1945,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 9: RENDER PAGE CONTENT (DATA)
+        // JAVASCRIPT SECTION 10: RENDER PAGE CONTENT (DATA)
         // ============================================================
         function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
             const person = personMap[name];
@@ -2096,17 +1960,17 @@ function exportAsJPEG() {
             const cleanName = displayName(name);
             const rootGen = (person && person.gen ? person.gen : '');
             
-            // Get father info for the root person
+            const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
+            const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
+            
             const rootFather = getActualFather(name, personMap);
             let rootPagePart = '';
             
-            // If this person has a father, show (Father) and page number
             if (rootFather && rootToPageMap[rootFather] !== undefined) {
                 const fatherPage = rootToPageMap[rootFather];
                 const fatherDisplay = displayName(rootFather);
                 rootPagePart = ` (Father) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">Page ${fatherPage + 1}</span>`;
             } else if (rootFather) {
-                // Father exists but not in pages (shouldn't happen, but just in case)
                 rootPagePart = ` (Father)`;
             }
 
@@ -2114,6 +1978,8 @@ function exportAsJPEG() {
                 tree: '',
                 name: '<span class="' + fatherClass + '">' + cleanName + rootPagePart + '</span>',
                 plainName: fullName,
+                spouse: cleanSpouse,
+                plainSpouse: rootSpouse,
                 gen: rootGen,
                 page: ''
             });
@@ -2126,6 +1992,9 @@ function exportAsJPEG() {
                     const childCleanName = displayName(child);
                     const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
                     const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
+                    
+                    const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
+                    const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
                     
                     let treeChars = isLast ? '└──' : '├──';
                     
@@ -2142,6 +2011,8 @@ function exportAsJPEG() {
                         tree: treeChars,
                         name: '<span class="' + childClass + '">' + childCleanName + '</span>',
                         plainName: childFullName,
+                        spouse: childCleanSpouse,
+                        plainSpouse: childSpouse,
                         gen: childGen,
                         page: childPagePart
                     });
@@ -2151,7 +2022,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 10: RENDER PAGE HTML (DISPLAY)
+        // JAVASCRIPT SECTION 11: RENDER PAGE HTML (DISPLAY) - FULLY FIXED
         // ============================================================
         function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
             const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
@@ -2180,11 +2051,13 @@ function exportAsJPEG() {
 
             html += `
                 <div style="display:flex; justify-content:center; width:100%;">
-                    <div style="width:80%;">
-                        <div class="col-headers" style="display:grid; grid-template-columns:60% 18% 22%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
+                    <div style="width:90%;">
+                        <div class="col-headers" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
+                            <span style="padding-left:4px; border-right:1px solid #b8a088;"> </span>
                             <span style="padding-left:8px; border-right:1px solid #b8a088;">Name</span>
-                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Generation</span>
-                            <span style="padding-left:8px;">Next Generation</span>
+                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Spouse</span>
+                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Gen</span>
+                            <span style="padding-left:8px;">Next Gen</span>
                         </div>
                         <div class="tree-container">
             `;
@@ -2192,12 +2065,20 @@ function exportAsJPEG() {
             if (lines && lines.length > 0) {
                 lines.forEach((row, index) => {
                     let nameHtml = row.name;
+                    let spouseHtml = row.spouse || '—';
                     let genHtml = row.gen;
                     let pageHtml = row.page;
                     
                     let personName = row.plainName || '';
                     let person = globalPersonMap[personName];
                     let isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
+                    
+                    let spousePerson = null;
+                    let spouseName = row.plainSpouse || '';
+                    if (spouseName) {
+                        spousePerson = globalPersonMap[spouseName];
+                    }
+                    let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
                     
                     if (highlightName) {
                         const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -2207,7 +2088,32 @@ function exportAsJPEG() {
                     }
                     
                     let isChild = index > 0;
-                    let displayNameText = isChild ? '   • ' + nameHtml : nameHtml;
+                    
+                    // Check if this is the highlighted name (for bold)
+                    let isHighlighted = false;
+                    if (highlightName) {
+                        const cleanHighlight = displayName(highlightName);
+                        const cleanPerson = displayName(personName);
+                        if (cleanPerson === cleanHighlight) {
+                            isHighlighted = true;
+                        }
+                    }
+                    
+                    // Build the name display
+                    let displayNameText = '';
+                    if (isChild) {
+                        // Child - normal with bullet in tree column
+                        displayNameText = nameHtml;
+                    } else {
+                        // Root/Parent - bold
+                        displayNameText = '<b>' + nameHtml + '</b>';
+                    }
+                    
+                    // If highlighted, make it bold
+                    if (isHighlighted) {
+                        displayNameText = '<b>' + displayNameText + '</b>';
+                    }
+                    
                     let fontWeight = isChild ? '400' : '700';
                     let color = isChild ? '#1a3a5c' : '#cc0000';
                     
@@ -2222,28 +2128,32 @@ function exportAsJPEG() {
                     let clickableName = displayNameText;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
-                        // Check if name already has span (from rootPagePart)
+                        // Check if name already has spans
                         if (nameHtml.includes('<span')) {
-                            // Extract the clean name without the span
                             const cleanNameText = displayName(personName);
                             clickableName = displayNameText.replace(cleanNameText, function(match) {
-                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
                             });
                         } else {
-                            clickableName = displayNameText.replace(/<span[^>]*>(.*?)<\/span>/, function(match, content) {
-                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + content + '</span>';
+                            // For root with <b> tags
+                            const cleanNameText = displayName(personName);
+                            clickableName = displayNameText.replace(cleanNameText, function(match) {
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
                             });
-                            if (clickableName === displayNameText) {
-                                clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + displayNameText + '</span>';
-                            }
                         }
                     }
                     
-                    html += `<div class="tree-row" style="display:grid; grid-template-columns:60% 18% 22%; align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:12px;">${clickableName}</span>`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:12px;">${genHtml}</span>`;
+                    // Make spouse clickable - FIXED
+                    let clickableSpouse = spouseHtml;
+                    if (spouseName && spouseHtml !== '—') {
+                        const genderClass = isSpouseFemale ? 'female' : 'male';
+                        clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName.replace(/'/g, "\\'") + '\')">' + displayName(spouseName) + '</span>';
+                    }
                     
-                    // Make "Next Generation" names clickable too
+                    // Tree character - Show dot for children in tree column
+                    let treeChar = isChild ? '•' : '';
+                    
+                    // Make Next Gen page links clickable
                     let clickablePageHtml = pageHtml;
                     if (pageHtml && pageHtml.includes('Page')) {
                         clickablePageHtml = pageHtml;
@@ -2252,11 +2162,16 @@ function exportAsJPEG() {
                         if (pagePerson) {
                             const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
                             const genderClassPage = isFemalePage ? 'female' : 'male';
-                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + pageHtml + '\')">' + displayName(pageHtml) + '</span>';
+                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + pageHtml.replace(/'/g, "\\'") + '\')">' + displayName(pageHtml) + '</span>';
                         }
                     }
                     
-                    html += `<span style="padding-left:8px; font-family:'Inter',sans-serif; font-size:12px;">${clickablePageHtml}</span>`;
+                    html += `<div class="tree-row" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
+                    html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
+                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
+                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
+                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${genHtml}</span>`;
+                    html += `<span style="padding-left:8px; font-family:'Inter',sans-serif; font-size:13px;">${clickablePageHtml}</span>`;
                     html += `</div>`;
                 });
             } else {
@@ -2282,7 +2197,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 11: SEARCH & PAGINATION HELPERS
+        // JAVASCRIPT SECTION 12: SEARCH & PAGINATION HELPERS
         // ============================================================
         function changePage(delta) {
             const allMembers = [];
@@ -2380,7 +2295,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 12: SEARCH DROPDOWN
+        // JAVASCRIPT SECTION 13: SEARCH DROPDOWN
         // ============================================================
         document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
             const query = this.value;
@@ -2455,7 +2370,7 @@ function exportAsJPEG() {
         });
 
         // ============================================================
-        // JAVASCRIPT SECTION 13: CLICK OUTSIDE HANDLER
+        // JAVASCRIPT SECTION 14: CLICK OUTSIDE HANDLER
         // ============================================================
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.search-wrapper')) {
@@ -2467,7 +2382,7 @@ function exportAsJPEG() {
         });
 
         // ============================================================
-        // JAVASCRIPT SECTION 14: RENDER FUNCTIONS
+        // JAVASCRIPT SECTION 15: RENDER FUNCTIONS
         // ============================================================
         function renderAllPages() {
             const container = document.getElementById('pageContainer');
@@ -2530,7 +2445,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 15: MEMBER DETAIL MODAL
+        // JAVASCRIPT SECTION 16: MEMBER DETAIL MODAL
         // ============================================================
         function showMemberDetails(name) {
             if (!name) return;
@@ -2614,16 +2529,15 @@ function exportAsJPEG() {
                 </div>
             `;
             
-   if (person.details && person.details.trim() !== '') {
-    // Replace \n with <br> for line breaks
-    const detailsHtml = person.details.replace(/\\n/g, '<br>');
-    html += `
-        <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-            <strong style="margin-bottom:6px;">📝 Details</strong>
-            <div class="detail-notes">${detailsHtml}</div>
-        </div>
-    `;
-}
+            if (person.details && person.details.trim() !== '') {
+                const detailsHtml = person.details.replace(/\\n/g, '<br>');
+                html += `
+                    <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                        <strong style="margin-bottom:6px;">📝 Details</strong>
+                        <div class="detail-notes">${detailsHtml}</div>
+                    </div>
+                `;
+            }
             
             const children = getChildren(person.name, globalMap);
             if (children && children.length > 0) {
@@ -2651,7 +2565,6 @@ function exportAsJPEG() {
                 }
             }
 
-            // Close button at bottom right
             html += `
                 <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
                     <button onclick="closeMemberModal()" 
@@ -2720,7 +2633,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 16: ESCAPE KEY HANDLER
+        // JAVASCRIPT SECTION 17: ESCAPE KEY HANDLER
         // ============================================================
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -2729,7 +2642,7 @@ function exportAsJPEG() {
         });
 
         // ============================================================
-        // JAVASCRIPT SECTION 17: INITIALIZATION
+        // JAVASCRIPT SECTION 18: INITIALIZATION
         // ============================================================
         window.onload = function() {
             if (typeof FAMILY_DATA !== 'undefined') {
@@ -2753,51 +2666,38 @@ function exportAsJPEG() {
             }
         };
 
+        // Tips functions
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
 
-// Tips functions
-function openTips() {
-  document.getElementById('tipsOverlay').style.display = 'flex';
-}
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
 
-function closeTips() {
-  document.getElementById('tipsOverlay').style.display = 'none';
-}
+        document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
+            if (e.target === this) closeTips();
+        });
 
-// Close on outside click
-document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
-  if (e.target === this) closeTips();
-});
-
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeTips();
-});
-
-
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeTips();
+        });
     </script>
 
-
-<!-- Tips Modal -->
-<div class="tips-overlay" id="tipsOverlay">
-  <div class="tips-modal">
-    <h3>💡 Tips for Using the Family Tree File</h3>
-
-
-<ul>
-  <li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
-  <li><strong>View Details</strong> <span>: Click any name to view full details</span></li>
-  
-
-<li><strong>Navigate Pages</strong> <span>: Click Red "Page number" to view "Next<br>&nbsp;&nbsp;Generation Tree"</span></li>
-<li><strong>Menu</strong> <span>: Click ≡ MENU (top-left) to go to<br>&nbsp;&nbsp;Dashboard or Save options</span></li>
-<li><strong>Save</strong> <span>: From menu, choose: On screen page /<br>&nbsp;&nbsp;Selected member pages / All pages</span></li>
-
-</ul>
-
-    <button class="tips-close-btn" onclick="closeTips()">Close</button>
-  </div>
-</div>
-
+    <!-- Tips Modal -->
+    <div class="tips-overlay" id="tipsOverlay">
+        <div class="tips-modal">
+            <h3>💡 Tips for Using the Family Tree File</h3>
+            <ul>
+                <li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
+                <li><strong>View Details</strong> <span>: Click any name to view full details</span></li>
+                <li><strong>Navigate Pages</strong> <span>: Click Red "Page number" to view "Next Generation Tree"</span></li>
+                <li><strong>Menu</strong> <span>: Click ≡ MENU (top-left) to go to Dashboard or Save options</span></li>
+                <li><strong>Save</strong> <span>: From menu, choose: On screen page / Selected member pages / All pages</span></li>
+            </ul>
+            <button class="tips-close-btn" onclick="closeTips()">Close</button>
+        </div>
+    </div>
 
 </body>
 </html>

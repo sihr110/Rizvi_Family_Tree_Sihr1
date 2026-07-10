@@ -11,6 +11,15 @@
     <style>
 
 
+
+.tree-row .tree-gen span,
+.tree-row .tree-page span {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+
 /* Tips Button - Blinking only */
 .tips-btn {
     background: none;
@@ -639,19 +648,20 @@
         /* ============================================================
            SECTION 9: COLUMN & TREE ROW STYLES - FIXED WITH SPOUSE
            ============================================================ */
-        .col-headers {
-            display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
-            font-family: 'DM Serif Display', 'Georgia', serif;
-            font-weight: 700;
-            font-size: 13px;
-            color: #5a0000;
-            letter-spacing: 0.5px;
-            padding: 4px 0 6px 0;
-            border-bottom: 2px solid #b8a088;
-            margin-bottom: 6px;
-            flex-shrink: 0;
-        }
+ .col-headers {
+    display: grid;
+    grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
+    font-family: 'DM Serif Display', 'Georgia', serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #5a0000;
+    letter-spacing: 0.5px;
+    padding: 4px 0 6px 0;
+    border-bottom: 2px solid #b8a088;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+    text-align: center;   /* ← ADD THIS */
+}
 
         .col-headers .col-tree {
             text-align: left;
@@ -667,16 +677,16 @@
             padding-left: var(--heading-offset);
         }
 
-        .col-headers .col-gen {
-            text-align: left;
-            padding-left: var(--heading-offset);
-        }
+.col-headers .col-gen {
+    text-align: center;   /* ← CHANGE to center */
+    padding-left: 0;      /* ← REMOVE the offset */
+}
 
-        .col-headers .col-page {
-            text-align: left;
-            padding-left: var(--heading-offset);
-            white-space: nowrap;
-        }
+.col-headers .col-page {
+    text-align: center;   /* ← CHANGE to center */
+    padding-left: 0;      /* ← REMOVE the offset */
+    white-space: nowrap;
+}
 
 
 
@@ -699,13 +709,15 @@
             text-align: left;
         }
 
-        .tree-row .tree-gen {
-            text-align: left;
-        }
+.tree-row .tree-gen {
+    text-align: center;
+    padding-left: 0;      /* ← Add this */
+}
 
-        .tree-row .tree-page {
-            text-align: left;
-        }
+.tree-row .tree-page {
+    text-align: center;
+    padding-left: 0;      /* ← Add this */
+}
 
         /* ============================================================
            SECTION 10: TREE NAME COLOR STYLES
@@ -2317,11 +2329,14 @@ function exportAsJPEG() {
                     }
                     
                     html += `<div class="tree-row" style="align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
-                    html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
+                   
+ html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
                     html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${genHtml}</span>`;
-                    html += `<span style="padding-left:8px; font-family:'Inter',sans-serif; font-size:13px;">${clickablePageHtml}</span>`;
+                  
+  html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
+                   
+html += `<span style="border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${genHtml}</span>`;
+html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${clickablePageHtml}</span>`;
                     html += `</div>`;
                 });
             } else {

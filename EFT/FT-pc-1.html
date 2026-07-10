@@ -230,6 +230,16 @@
             --green: #2e7d32;
         }
 
+
+
+/* Fix for Gen and Next Gen column centering */
+.tree-row .tree-gen span,
+.tree-row .tree-page span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
         /* ============================================================
            SECTION 3: MENU PANEL STYLES
            ============================================================ */
@@ -669,16 +679,16 @@
             padding-left: var(--heading-offset);
         }
 
-        .col-headers .col-gen {
-            text-align: left;
-            padding-left: var(--heading-offset);
-        }
+.col-headers .col-gen {
+    text-align: center;
+    padding-left: 0;
+}
 
-        .col-headers .col-page {
-            text-align: left;
-            padding-left: var(--heading-offset);
-            white-space: nowrap;
-        }
+.col-headers .col-page {
+    text-align: center;
+    padding-left: 0;
+    white-space: nowrap;
+}
 
         .tree-container {
             font-family: 'Roboto Mono', 'Courier New', monospace;
@@ -712,13 +722,13 @@
             text-align: left;
         }
 
-        .tree-row .tree-gen {
-            text-align: left;
-        }
+.tree-row .tree-gen {
+    text-align: center;
+}
 
-        .tree-row .tree-page {
-            text-align: left;
-        }
+.tree-row .tree-page {
+    text-align: center;
+}
 
         /* ============================================================
            SECTION 10: TREE NAME COLOR STYLES
@@ -2052,14 +2062,15 @@
             html += `
                 <div style="display:flex; justify-content:center; width:100%;">
                     <div style="width:90%;">
-                        <div class="col-headers" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
-                            <span style="padding-left:4px; border-right:1px solid #b8a088;"> </span>
-                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Name</span>
-                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Spouse</span>
-                            <span style="padding-left:8px; border-right:1px solid #b8a088;">Gen</span>
-                            <span style="padding-left:8px;">Next Gen</span>
-                        </div>
-                        <div class="tree-container">
+
+                       <div class="col-headers" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
+    <span style="padding-left:4px; border-right:1px solid #b8a088; text-align:center;"> </span>
+    <span style="padding-left:8px; border-right:1px solid #b8a088; text-align:center;">Name</span>
+    <span style="padding-left:8px; border-right:1px solid #b8a088; text-align:center;">Spouse</span>
+    <span style="padding-left:8px; border-right:1px solid #b8a088; text-align:center;">Gen</span>
+    <span style="padding-left:8px; text-align:center;">Next Gen</span>
+</div>
+<div class="tree-container">
             `;
             
             if (lines && lines.length > 0) {
@@ -2170,8 +2181,10 @@
                     html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
                     html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
                     html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${genHtml}</span>`;
-                    html += `<span style="padding-left:8px; font-family:'Inter',sans-serif; font-size:13px;">${clickablePageHtml}</span>`;
+                    
+
+html += `<span style="border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${genHtml}</span>`;
+html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${clickablePageHtml}</span>`;
                     html += `</div>`;
                 });
             } else {

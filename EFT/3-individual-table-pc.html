@@ -664,27 +664,33 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        .family-table th {
-            background: var(--table-header-bg);
-            color: var(--dark-blue);
-            font-weight: 700;
-            font-size: 13px;
-            padding: 12px 8px;
-            text-align: left;
-            border-bottom: 2px solid var(--gold);
-            border-right: 1px solid var(--table-border);
-        }
+.family-table th {
+    background: var(--table-header-bg);
+    color: var(--dark-blue);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 12px 8px;
+    text-align: center;        /* ← CHANGED TO CENTER */
+    border-bottom: 2px solid var(--gold);
+    border-right: 1px solid var(--table-border);
+}
 
         .family-table th:last-child {
             border-right: none;
         }
 
-        .family-table td {
-            padding: 10px 8px;
-            font-size: 12px;
-            border-bottom: 1px solid #eee;
-            border-right: 1px solid #f0f0f0;
-        }
+    .family-table td {
+    padding: 10px 8px;
+    font-size: 12px;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #f0f0f0;
+    /* text-align: left;  ← DO NOT ADD THIS — leave it unset */
+}
+
+/* This will center only the GEN column data */
+.family-table tbody td:nth-child(2) {
+    text-align: center;
+}
 
         .family-table td:last-child {
             border-right: none;

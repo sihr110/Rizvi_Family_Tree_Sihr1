@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/13/26 14:50
-// Total members: 584
+// Saved: 7/13/26 22:26
+// Total members: 587
 
 const FAMILY_DATA_URDU = [
   {
@@ -2342,7 +2342,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-039-S1",
     gender: "MALE",
-    details: ""
+    details: "سید علی عباس رضوی کی شادی سیدہ لئیق فاطمہ سے ہوئی، ان دونوں کی جڑ سید بادشاہ حسین شہید ہیں  - G-022-S1"
   },
   {
     name: "سیدہ  نرجس خاتون",
@@ -2375,7 +2375,7 @@ const FAMILY_DATA_URDU = [
     name: "سید قیصر عباس",
     father: "سید علی عباس",
     mother: "سیدہ لئیق فاطمہ رضوی",
-    spouse: "سیدہ نگہت رضوی",
+    spouse: "نگہت پروین",
     gen: "G-040-S3",
     gender: "MALE",
     details: ""
@@ -2563,8 +2563,8 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید اسد عباس",
     father: "سید قیصر عباس",
-    mother: "سیدہ نگہت پروین رضوی",
-    spouse: "",
+    mother: "نگہت پروین",
+    spouse: "سیدہ سمیرا فاطمہ رضوی",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
@@ -2572,8 +2572,8 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید اسفر عباس",
     father: "سید قیصر عباس",
-    mother: "سیدہ نگہت پروین رضوی",
-    spouse: "",
+    mother: "نگہت پروین",
+    spouse: "سیدہ نور الہدیٰ رضوی (جعفری)",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -2581,20 +2581,20 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید قمبر عباس",
     father: "سید قیصر عباس",
-    mother: "سیدہ نگہت پروین رضوی",
-    spouse: "",
+    mother: "نگہت پروین",
+    spouse: "سیدہ ایمن زیدی",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
   },
   {
-    name: "سیدہ مدحت",
+    name: "سیدہ مدحت زہرا",
     father: "سید قیصر عباس",
-    mother: "سیدہ نگہت رضوی",
-    spouse: "",
+    mother: "نگہت پروین",
+    spouse: "سید علی رضا زیدی",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ مدحت زہرا کی اولاد\\n\\nD1: ثانی زہرا\\nS1: سید حسن علی زیدی\\nS2: سید حسین علی زیدی"
   },
   {
     name: "سید عباس",
@@ -2603,7 +2603,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-S1",
     gender: "MALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سیدہ فاطمہ زہرا",
@@ -2612,7 +2612,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سیدہ مریم زہرہ",
@@ -2621,7 +2621,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-D2",
     gender: "FEMALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سیدہ ام لیلیٰ",
@@ -2630,7 +2630,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-D3",
     gender: "FEMALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سید حیدر عباس",
@@ -2639,7 +2639,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-S1",
     gender: "MALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سید ہادی عباس",
@@ -2648,7 +2648,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-S2",
     gender: "MALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سیدہ معصومہ زہرا",
@@ -2657,7 +2657,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سیدہ بتول زہرا",
@@ -2666,7 +2666,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-D2",
     gender: "FEMALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سیدہ 1",
@@ -2675,7 +2675,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سیدہ 2",
@@ -2684,7 +2684,7 @@ const FAMILY_DATA_URDU = [
     spouse: "—",
     gen: "G-042-D2",
     gender: "FEMALE",
-    details: "‪—"
+    details: ""
   },
   {
     name: "سید داش عباس",
@@ -2882,7 +2882,7 @@ const FAMILY_DATA_URDU = [
     spouse: "",
     gen: "G-039-S2",
     gender: "MALE",
-    details: ""
+    details: "سید محمد نقی رضوی کی شادی سیدہ ریاض فاطمہ سے ہوئی + ان دونوں کی جڑ سید بادشاہ حسین شہید ہیں - G-022-S1"
   },
   {
     name: "سید محمد عسکری",
@@ -3297,6 +3297,33 @@ const FAMILY_DATA_URDU = [
     gen: "G-039-D1",
     gender: "FEMALE",
     details: ""
+  },
+  {
+    name: "سید آفاق حسین",
+    father: "سید ابصار حسین",
+    mother: "",
+    spouse: "—",
+    gen: "G-040-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ ریاض فاطمہ",
+    father: "سید ابصار حسین",
+    mother: "",
+    spouse: "—",
+    gen: "G-040-D1",
+    gender: "FEMALE",
+    details: "سیدہ ریاض فاطمہ کی شادی سید محمد نقی رضوی سے ہوئی + ان دونوں کی جڑ سید بادشاہ حسین شہید ہیں - G-022-S1"
+  },
+  {
+    name: "سیدہ لئیق فاطمہ",
+    father: "سید ابصار حسین",
+    mother: "",
+    spouse: "سید علی عباس رضوی",
+    gen: "G-040-D2",
+    gender: "FEMALE",
+    details: "سیدہ لئیق فاطمہ کی شادی سید علی عباس رضوی سے ہوئی، ان دونوں کی جڑ سید بادشاہ حسین شہید ہیں  - G-022-S1"
   },
   {
     name: "سید ظفر الحسن - شارب (شعیب)",
@@ -5264,8 +5291,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/13/26 14:50", 
-    total_members: 584,
-    details_count: 86,
+    saved_time: "7/13/26 22:26", 
+    total_members: 587,
+    details_count: 81,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

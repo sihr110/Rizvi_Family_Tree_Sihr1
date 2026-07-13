@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/13/2026 14:46
-// Total members: 584
+// Saved: 07/13/2026 21:35
+// Total members: 587
 
 const FAMILY_DATA = [
   {
@@ -2342,7 +2342,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Laieeq Fatima Rizvi",
     gen: "G-039-S1",
     gender: "MALE",
-    details: ""
+    details: "Syed Ali Abbas Rizvi married  Syeda Laieeq Fatima + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syeda Narjis Khatoon",
@@ -2375,7 +2375,7 @@ const FAMILY_DATA = [
     name: "Syed Qaiser Abbas",
     father: "Syed Ali Abbas",
     mother: "Syeda Laieeq Fatima Rizvi",
-    spouse: "Syeda Nighat Parveen Rizvi",
+    spouse: "Nighat Parveen",
     gen: "G-040-S3",
     gender: "MALE",
     details: ""
@@ -2563,8 +2563,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Asad Abbas",
     father: "Syed Qaiser Abbas",
-    mother: "Syeda Nighat Parveen Rizvi",
-    spouse: "",
+    mother: "Nighat Parveen",
+    spouse: "Syeda Sumera Fatima Rizvi",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
@@ -2572,8 +2572,8 @@ const FAMILY_DATA = [
   {
     name: "Syed Asfar Abbas",
     father: "Syed Qaiser Abbas",
-    mother: "Syeda Nighat Parveen Rizvi",
-    spouse: "",
+    mother: "Nighat Parveen",
+    spouse: "Syeda Noor Ul Huda Rizvi (Jafry)",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -2581,20 +2581,20 @@ const FAMILY_DATA = [
   {
     name: "Syed Qamber Abbas",
     father: "Syed Qaiser Abbas",
-    mother: "Syeda Nighat Parveen Rizvi",
-    spouse: "",
+    mother: "Nighat Parveen",
+    spouse: "Syeda Ayman Zaidi",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
   },
   {
-    name: "Syeda Shumaila Qaiser (Midhat)",
+    name: "Syeda Midhat Zehra",
     father: "Syed Qaiser Abbas",
-    mother: "Syeda Nighat Parveen Rizvi",
-    spouse: "",
+    mother: "Nighat Parveen",
+    spouse: "Syed Ali Raza Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Syeda Midhat Zehra children:\\n\\nD1: Sani e zahra\\nS1: Syed Hassan Ali Zaidi\\nS2: Syed Hussain Ali Zaidi"
   },
   {
     name: "Syed Abbas",
@@ -2669,7 +2669,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda 1",
+    name: "Syeda Kulsoom Zehra",
     father: "Syed Qamber Abbas",
     mother: "",
     spouse: "",
@@ -2678,7 +2678,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda 2",
+    name: "Syeda Khadija Zehr",
     father: "Syed Qamber Abbas",
     mother: "",
     spouse: "",
@@ -2879,10 +2879,10 @@ const FAMILY_DATA = [
     name: "Syed Mohammad Naqi",
     father: "Syed Jawwad Ali",
     mother: "",
-    spouse: "",
+    spouse: "Syeda Riaz Fatima Rizvi",
     gen: "G-039-S2",
     gender: "MALE",
-    details: ""
+    details: "Syed Mohammad Naqi Rizvi married Syeda Riaz Fatima + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Mohammad Askari",
@@ -3297,6 +3297,33 @@ const FAMILY_DATA = [
     gen: "G-039-D1",
     gender: "FEMALE",
     details: ""
+  },
+  {
+    name: "Syed Afaq Hussain",
+    father: "Syed Absar Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Riaz Fatima",
+    father: "Syed Absar Hussain",
+    mother: "",
+    spouse: "Syed Mohammad Naqi Rizvi",
+    gen: "G-040-D1",
+    gender: "FEMALE",
+    details: "Syeda Riaz Fatima married Syed Mohammad Naqi Rizvi + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
+  },
+  {
+    name: "Syeda Laieeq Fatima",
+    father: "Syed Absar Hussain",
+    mother: "",
+    spouse: "Syed Ali Abbas Rizvi",
+    gen: "G-040-D2",
+    gender: "FEMALE",
+    details: "Syeda Laieeq Fatima married Syed Ali Abbas Rizvi + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
@@ -3752,7 +3779,7 @@ const FAMILY_DATA = [
     name: "Syed Muhammad Mazhar",
     father: "Syed Shahid Hussain",
     mother: "Syeda Narjis Khatoon Rizvi",
-    spouse: "",
+    spouse: "Sanjeeta Khatoon Bint Ali Ghazanfar",
     gen: "G-040-S2",
     gender: "MALE",
     details: ""
@@ -5264,8 +5291,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/13/2026 14:46", 
-    total_members: 584,
-    details_count: 76,
+    saved_time: "07/13/2026 21:35", 
+    total_members: 587,
+    details_count: 81,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

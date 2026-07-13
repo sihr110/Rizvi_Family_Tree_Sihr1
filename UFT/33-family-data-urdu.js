@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/2/26 13:04
-// Total members: 574
+// Saved: 7/13/26 14:50
+// Total members: 584
 
 const FAMILY_DATA_URDU = [
   {
@@ -2372,7 +2372,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید قاصر عباس",
+    name: "سید قیصر عباس",
     father: "سید علی عباس",
     mother: "سیدہ لئیق فاطمہ رضوی",
     spouse: "سیدہ نگہت رضوی",
@@ -2561,27 +2561,27 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سید اسد",
-    father: "سید قاصر عباس",
-    mother: "سیدہ نگہت رضوی",
+    name: "سید اسد عباس",
+    father: "سید قیصر عباس",
+    mother: "سیدہ نگہت پروین رضوی",
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
   },
   {
-    name: "سید اصفر",
-    father: "سید قاصر عباس",
-    mother: "سیدہ نگہت رضوی",
+    name: "سید اسفر عباس",
+    father: "سید قیصر عباس",
+    mother: "سیدہ نگہت پروین رضوی",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
   },
   {
-    name: "سید قمبر - 02",
-    father: "سید قاصر عباس",
-    mother: "سیدہ نگہت رضوی",
+    name: "سید قمبر عباس",
+    father: "سید قیصر عباس",
+    mother: "سیدہ نگہت پروین رضوی",
     spouse: "",
     gen: "G-041-S3",
     gender: "MALE",
@@ -2589,12 +2589,102 @@ const FAMILY_DATA_URDU = [
   },
   {
     name: "سیدہ مدحت",
-    father: "سید قاصر عباس",
+    father: "سید قیصر عباس",
     mother: "سیدہ نگہت رضوی",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
     details: ""
+  },
+  {
+    name: "سید عباس",
+    father: "سید اسد عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: "‪—"
+  },
+  {
+    name: "سیدہ فاطمہ زہرا",
+    father: "سید اسد عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: "‪—"
+  },
+  {
+    name: "سیدہ مریم زہرہ",
+    father: "سید اسد عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-D2",
+    gender: "FEMALE",
+    details: "‪—"
+  },
+  {
+    name: "سیدہ ام لیلیٰ",
+    father: "سید اسد عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-D3",
+    gender: "FEMALE",
+    details: "‪—"
+  },
+  {
+    name: "سید حیدر عباس",
+    father: "سید اسفر عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: "‪—"
+  },
+  {
+    name: "سید ہادی عباس",
+    father: "سید اسفر عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-S2",
+    gender: "MALE",
+    details: "‪—"
+  },
+  {
+    name: "سیدہ معصومہ زہرا",
+    father: "سید اسفر عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: "‪—"
+  },
+  {
+    name: "سیدہ بتول زہرا",
+    father: "سید اسفر عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-D2",
+    gender: "FEMALE",
+    details: "‪—"
+  },
+  {
+    name: "سیدہ 1",
+    father: "سید قمبر عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: "‪—"
+  },
+  {
+    name: "سیدہ 2",
+    father: "سید قمبر عباس",
+    mother: "—",
+    spouse: "—",
+    gen: "G-042-D2",
+    gender: "FEMALE",
+    details: "‪—"
   },
   {
     name: "سید داش عباس",
@@ -5174,8 +5264,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/2/26 13:04", 
-    total_members: 574,
-    details_count: 76,
+    saved_time: "7/13/26 14:50", 
+    total_members: 584,
+    details_count: 86,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

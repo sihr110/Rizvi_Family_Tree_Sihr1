@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/08/2026 21:57
-// Total members: 574
+// Saved: 07/13/2026 14:46
+// Total members: 584
 
 const FAMILY_DATA = [
   {
@@ -2561,7 +2561,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Asad",
+    name: "Syed Asad Abbas",
     father: "Syed Qaiser Abbas",
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
@@ -2570,7 +2570,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Asfar",
+    name: "Syed Asfar Abbas",
     father: "Syed Qaiser Abbas",
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
@@ -2579,7 +2579,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Qamber - 02",
+    name: "Syed Qamber Abbas",
     father: "Syed Qaiser Abbas",
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
@@ -2593,6 +2593,96 @@ const FAMILY_DATA = [
     mother: "Syeda Nighat Parveen Rizvi",
     spouse: "",
     gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Abbas",
+    father: "Syed Asad Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Fatima Zehra",
+    father: "Syed Asad Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Maryam Zehra",
+    father: "Syed Asad Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Umme Layla",
+    father: "Syed Asad Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Haider Abbas",
+    father: "Syed Asfar Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Haadi Abbas",
+    father: "Syed Asfar Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Masooma Zahra",
+    father: "Syed Asfar Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Batool Zahra",
+    father: "Syed Asfar Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda 1",
+    father: "Syed Qamber Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda 2",
+    father: "Syed Qamber Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-042-D2",
     gender: "FEMALE",
     details: ""
   },
@@ -5174,8 +5264,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/08/2026 21:57", 
-    total_members: 574,
+    saved_time: "07/13/2026 14:46", 
+    total_members: 584,
     details_count: 76,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

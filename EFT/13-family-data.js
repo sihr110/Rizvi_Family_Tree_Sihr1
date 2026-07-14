@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/13/2026 21:35
-// Total members: 587
+// Saved: 07/14/2026 17:50
+// Total members: 590
 
 const FAMILY_DATA = [
   {
@@ -1616,7 +1616,7 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syeda Fauzia",
+    name: "Syeda Fauzia - 01",
     father: "Syed Aley Haider - 01",
     mother: "Syeda Qudsia Sultana Rizvi (Begum)",
     spouse: "Syed Kazim",
@@ -2579,10 +2579,10 @@ const FAMILY_DATA = [
     details: ""
   },
   {
-    name: "Syed Qamber Abbas",
+    name: "Syed Qaumber Abbas",
     father: "Syed Qaiser Abbas",
     mother: "Nighat Parveen",
-    spouse: "Syeda Ayman Zaidi",
+    spouse: "Syeda Aiman Zaidi",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
@@ -2670,7 +2670,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Kulsoom Zehra",
-    father: "Syed Qamber Abbas",
+    father: "Syed Qaumber Abbas",
     mother: "",
     spouse: "",
     gen: "G-042-D1",
@@ -2679,7 +2679,7 @@ const FAMILY_DATA = [
   },
   {
     name: "Syeda Khadija Zehr",
-    father: "Syed Qamber Abbas",
+    father: "Syed Qaumber Abbas",
     mother: "",
     spouse: "",
     gen: "G-042-D2",
@@ -3248,7 +3248,7 @@ const FAMILY_DATA = [
     name: "Syed Absar Hussain",
     father: "Syed Ayyub ul Hasan",
     mother: "",
-    spouse: "",
+    spouse: "Bilqees",
     gen: "G-039-S1",
     gender: "MALE",
     details: ""
@@ -3284,7 +3284,7 @@ const FAMILY_DATA = [
     name: "Syed Zahid Hussain",
     father: "Syed Ayyub ul Hasan",
     mother: "",
-    spouse: "",
+    spouse: "Tauqeer",
     gen: "G-039-S5",
     gender: "MALE",
     details: ""
@@ -3324,6 +3324,33 @@ const FAMILY_DATA = [
     gen: "G-040-D2",
     gender: "FEMALE",
     details: "Syeda Laieeq Fatima married Syed Ali Abbas Rizvi + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
+  },
+  {
+    name: "Syed Itrat Raza",
+    father: "Syed Afaq Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Zaufashan Zehra",
+    father: "Syed Afaq Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Fauzia - 02",
+    father: "Syed Afaq Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
   },
   {
     name: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
@@ -5291,8 +5318,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/13/2026 21:35", 
-    total_members: 587,
+    saved_time: "07/14/2026 17:50", 
+    total_members: 590,
     details_count: 81,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

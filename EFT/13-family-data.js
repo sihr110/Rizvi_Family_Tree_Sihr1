@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/14/2026 17:50
-// Total members: 590
+// Saved: 07/14/2026 18:13
+// Total members: 597
 
 const FAMILY_DATA = [
   {
@@ -3947,6 +3947,69 @@ const FAMILY_DATA = [
     details: ""
   },
   {
+    name: "Syed Laqa Abbas",
+    father: "Syed Zahid Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Raza Ali",
+    father: "Syed Zahid Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Zia Abbas",
+    father: "Syed Zahid Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Faraz Hasnain",
+    father: "Syed Laqa Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Anee Fatima",
+    father: "Syed Laqa Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Um e Farwa Fatima",
+    father: "Syed Laqa Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Sheeren Fatima",
+    father: "Syed Laqa Abbas",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "Syed Najam Ul Hasan",
     father: "Syed Yaqoob Ul Hasan",
     mother: "Syeda Ajaz Fatima Rizvi",
@@ -5318,8 +5381,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/14/2026 17:50", 
-    total_members: 590,
+    saved_time: "07/14/2026 18:13", 
+    total_members: 597,
     details_count: 81,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

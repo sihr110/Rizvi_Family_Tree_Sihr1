@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/14/26 17:52
-// Total members: 590
+// Saved: 7/14/26 18:16
+// Total members: 597
 
 const FAMILY_DATA_URDU = [
   {
@@ -3947,6 +3947,69 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
+    name: "سید لقا عباس",
+    father: "سید زاہد حسین",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید رضا علی",
+    father: "سید زاہد حسین",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید ضیاء عباس",
+    father: "سید زاہد حسین",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S3",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید فراز حسنین",
+    father: "سید لقا عباس",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ عنی فاطمہ",
+    father: "سید لقا عباس",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ ام فروا فاطمہ",
+    father: "سید لقا عباس",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ شیریں فاطمہ",
+    father: "سید لقا عباس",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "سید نجم الحسن",
     father: "سید یعقوب الحسن",
     mother: "سیدہ اعجاز فاطمہ رضوی",
@@ -4166,7 +4229,7 @@ const FAMILY_DATA_URDU = [
     name: "سید محمد رضا",
     father: "سید شمس الحسن",
     mother: "",
-    spouse: "",
+    spouse: "عزرا رضا",
     gen: "G-040-S1",
     gender: "MALE",
     details: ""
@@ -4184,7 +4247,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ زہرہ فراز ( سیما بتول)",
     father: "سید شمس الحسن",
     mother: "",
-    spouse: "",
+    spouse: "سید غلام عباس رضا رضوی",
     gen: "G-040-D1",
     gender: "FEMALE",
     details: "سیدہ زہرہ فراز ( سیما بتول) کی اولاد:\\n\\nS1 - سید قمر عباس \\nS2 - سید عون عباس\\nS3 - سید غضنفر عباس"
@@ -4193,7 +4256,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ ہما بتول",
     father: "سید شمس الحسن",
     mother: "",
-    spouse: "",
+    spouse: "سید شکیل رضا رضوی",
     gen: "G-040-D2",
     gender: "FEMALE",
     details: "سیدہ ہما بتول کی شادی تایا سید محمد نیر کے بیٹے سید شکیل رضا رضوی سے ہوئی - دونوں کی جڑ سید یعقوب الحسن ہیں - G-038-S2"
@@ -5318,8 +5381,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/14/26 17:52", 
-    total_members: 590,
+    saved_time: "7/14/26 18:16", 
+    total_members: 597,
     details_count: 81,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

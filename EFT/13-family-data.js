@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/14/2026 18:26
-// Total members: 597
+// Saved: 07/15/2026 11:39
+// Total members: 608
 
 const FAMILY_DATA = [
   {
@@ -2375,7 +2375,7 @@ const FAMILY_DATA = [
     name: "Syed Qaiser Abbas",
     father: "Syed Ali Abbas",
     mother: "Syeda Laieeq Fatima Rizvi",
-    spouse: "Nighat Parveen",
+    spouse: "Nighat Parveen Bint Ali Ghazanfar",
     gen: "G-040-S3",
     gender: "MALE",
     details: ""
@@ -3349,6 +3349,105 @@ const FAMILY_DATA = [
     mother: "",
     spouse: "",
     gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Mushahid Hussain",
+    father: "Syed Shamshad Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Tahir Hussain",
+    father: "Syed Shamshad Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-040-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Khaleeq Fatima",
+    father: "Syed Shamshad Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-040-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed ? Raza",
+    father: "Syed Mushahid Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Ulfat Zehra",
+    father: "Syed Mushahid Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Azmat Zehra",
+    father: "Syed Mushahid Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Mohammad Shajee",
+    father: "Syed Tahir Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Mohammad Sameh",
+    father: "Syed Tahir Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda ? Zehra",
+    father: "Syed Tahir Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Shafeeq Zehra",
+    father: "Syed Tahir Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Raees Zehra",
+    father: "Syed Tahir Hussain",
+    mother: "",
+    spouse: "",
+    gen: "G-041-D3",
     gender: "FEMALE",
     details: ""
   },
@@ -5381,8 +5480,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/14/2026 18:26", 
-    total_members: 597,
+    saved_time: "07/15/2026 11:39", 
+    total_members: 608,
     details_count: 81,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

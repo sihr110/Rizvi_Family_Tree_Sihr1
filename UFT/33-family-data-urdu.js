@@ -1,7 +1,7 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/14/26 18:24
-// Total members: 597
+// Saved: 7/15/26 11:46
+// Total members: 608
 
 const FAMILY_DATA_URDU = [
   {
@@ -2375,7 +2375,7 @@ const FAMILY_DATA_URDU = [
     name: "سید قیصر عباس",
     father: "سید علی عباس",
     mother: "سیدہ لئیق فاطمہ رضوی",
-    spouse: "نگہت پروین",
+    spouse: "نگہت پروین بنت علی غضنفر",
     gen: "G-040-S3",
     gender: "MALE",
     details: ""
@@ -3353,6 +3353,105 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
+    name: "سید مشاہد حسین",
+    father: "سید شمشاد حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-040-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید طاہر حسین",
+    father: "سید شمشاد حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-040-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ خلیق فاطمہ",
+    father: "سید شمشاد حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-040-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید؟ رضا",
+    father: "سید مشاہد حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ الفت زہرہ",
+    father: "سید مشاہد حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ عظمت زہرہ",
+    father: "سید مشاہد حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سید محمد شجی",
+    father: "سید طاہر حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سید محمد سمیع",
+    father: "سید طاہر حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "سیدہ؟ زہرہ",
+    father: "سید طاہر حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ شفیق زہرہ",
+    father: "سید طاہر حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "سیدہ رئیس زہرہ",
+    father: "سید طاہر حسین",
+    mother: "—",
+    spouse: "—",
+    gen: "G-041-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
     name: "سید ظفر الحسن - شارب (شعیب)",
     father: "سید تفصیل حسین",
     mother: "سیدہ رباب فاطمہ (ربـّن)",
@@ -3620,7 +3719,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید جمیل عباس زیدی",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "سیدہ قرة العین عرفہ ارجمند کی اولاد:\\n\\n\\nS1:  سید محمد محسن زیدی \\nS2: سید محمد حسن زیدی\\n\\n\\nD1: سیدہ انعم زہرہ زیدی \\nD2: سیدہ منزہ فاطمہ زیدی"
+    details: "سیدہ قرة العین عرفہ ارجمند کی اولاد:\\n\\nS1:  سید محمد محسن زیدی \\nS2: سید محمد حسن زیدی\\n\\nD1: سیدہ انعم زہرہ زیدی \\nD2: سیدہ منزہ فاطمہ زیدی"
   },
   {
     name: "سیدہ قرت العین طاہرہ (پپی)",
@@ -3806,7 +3905,7 @@ const FAMILY_DATA_URDU = [
     name: "سید محمد مظہر",
     father: "سید شاہد حسین",
     mother: "سیدہ نرجس خاتون",
-    spouse: "",
+    spouse: "سنجیدہ خاتون بنت علی غضنفر",
     gen: "G-040-S2",
     gender: "MALE",
     details: ""
@@ -3860,7 +3959,7 @@ const FAMILY_DATA_URDU = [
     name: "سید محمد کامران رضوی",
     father: "سید محمد اظہر",
     mother: "سیدہ عصمت زہرہ رضوی (ملکہ)",
-    spouse: "سیدہ مہرین رضوی",
+    spouse: "سیدہ مہرین رضوی (مون)",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -5381,8 +5480,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/14/26 18:24", 
-    total_members: 597,
+    saved_time: "7/15/26 11:46", 
+    total_members: 608,
     details_count: 81,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

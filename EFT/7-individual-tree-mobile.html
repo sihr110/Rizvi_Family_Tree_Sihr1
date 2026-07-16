@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- MOBILE VIEWPORT: initial-scale=0.5 exactly like original file 7 -->
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi family · structured tree (mobile)</title>
     
@@ -12,47 +11,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+        .manning-connector-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .manning-line-down {
+            width: 3px;
+            height: 25px;
+            background: var(--gold);
+        }
+        .manning-arrow-down {
+            color: var(--gold);
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: -5px;
+        }
 
-.manning-connector-single {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 5px 0;
-}
-.manning-line-down {
-    width: 3px;
-    height: 25px;
-    background: var(--gold);
-}
-.manning-arrow-down {
-    color: var(--gold);
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: -5px;
-}
+        .reset-btn {
+            margin-left: -10px;
+            margin-right: -5px;
+            padding: 10px 5px;
+            background: transparent;
+            color: var(--dark-blue);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-size: 18px;
+        }
 
-        /* Reset Button Styles */
-.reset-btn {
-    margin-left: -10px;
-    margin-right: -5px;
-    padding: 10px 5px;
-    background: transparent;
-    color: var(--dark-blue);
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
-    transition: all 0.2s;
-    font-size: 18px;
-}
+        .reset-btn:hover {
+            transform: scale(1.1);
+            color: var(--gold);
+        }
 
-.reset-btn:hover {
-    transform: scale(1.1);
-    color: var(--gold);
-}
-
-        /* Gentle pulsing/blinking effect for toggle button */
         .left-toggle-btn.visible {
             animation: gentle-blink 1.5s infinite;
         }
@@ -108,6 +104,7 @@
             align-items: center;
             border-bottom: 3px solid var(--gold);
             position: relative;
+            flex-shrink: 0;
         }
 
         .header-title {
@@ -138,7 +135,7 @@
             color: var(--dark-blue);
             padding: 8px 16px;
             border-radius: 8px;
-            display: none;  /* HIDDEN BY DEFAULT - like PC */
+            display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
@@ -148,10 +145,6 @@
             z-index: 2000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: all 0.3s;
-        }
-
-        .left-toggle-btn.visible {
-            display: flex !important;
         }
 
         .left-toggle-btn:hover {
@@ -191,101 +184,14 @@
             margin-left: auto;
         }
 
-        /* ===== CHOICE SCREEN ===== */
-        .choice-screen {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fffcf8;
-            padding: 20px;
-            width: 100%;
-            height: 100%;
-        }
-
-        .choice-screen.hidden {
-            display: none;
-        }
-
-        .choice-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 900px;
-            width: 100%;
-        }
-
-        .choice-card {
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 16px;
-            padding: 25px 18px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            flex: 1;
-            min-width: 180px;
-            max-width: 250px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-        }
-
-        .choice-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--bronze);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-        }
-
-        .choice-card:active {
-            transform: scale(0.97);
-        }
-
-        .choice-icon {
-            font-size: 44px;
-            margin-bottom: 12px;
-        }
-
-        .choice-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--dark-blue);
-            margin-bottom: 8px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .choice-desc {
-            font-size: 13px;
-            color: #555;
-            line-height: 1.4;
-            max-width: 200px;
-        }
-
-        .choice-badge {
-            margin-top: 12px;
-            background: #f0ebe4;
-            color: #3d2b1a;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 3px 12px;
-            border-radius: 30px;
-            letter-spacing: 0.3px;
-        }
-
-        /* ===== TREE VIEW ===== */
+        /* ===== TREE VIEW (always visible) ===== */
         .tree-view {
             flex: 1;
-            display: none;
+            display: flex;
             flex-direction: column;
             overflow: hidden;
             height: 100%;
             width: 100%;
-        }
-
-        .tree-view.active {
-            display: flex;
         }
 
         .toggle-menu-panel {
@@ -388,6 +294,7 @@
             border-bottom: 2px solid var(--gold);
             width: 85%;
             margin: 0 auto;
+            flex-shrink: 0;
         }
 
         .search-row {
@@ -752,6 +659,7 @@
             padding: 8px;
             font-size: 11px;
             border-top: 2px solid var(--gold);
+            flex-shrink: 0;
         }
 
         /* Save Options Modal */
@@ -966,71 +874,6 @@
         .tips-close-btn:hover {
             background: #f1d279;
         }
-
-        /* Mobile responsive adjustments */
-        @media screen and (max-width: 480px) {
-            .app-header {
-                padding: 8px 10px;
-            }
-            .header-title {
-                font-size: 14px;
-            }
-            .header-title span:last-child {
-                display: none;
-            }
-            .left-toggle-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            .home-btn {
-                padding: 4px 10px;
-                font-size: 10px;
-            }
-            .choice-card {
-                min-width: 150px;
-                padding: 20px 14px 16px;
-            }
-            .choice-icon {
-                font-size: 36px;
-            }
-            .choice-title {
-                font-size: 15px;
-            }
-            .choice-desc {
-                font-size: 12px;
-            }
-            .box {
-                width: 240px;
-            }
-            .welcome-box {
-                padding: 20px;
-                margin: 0 10px;
-            }
-            .search-section {
-                width: 95%;
-                padding: 10px;
-            }
-            .search-label {
-                font-size: 10px;
-            }
-            .search-input {
-                font-size: 12px;
-                padding: 6px 10px;
-            }
-            .toggle-menu-panel {
-                min-width: 180px;
-                padding: 12px;
-            }
-            .toggle-menu-item {
-                font-size: 12px;
-                padding: 10px 14px;
-            }
-            .save-options-modal {
-                min-width: 280px;
-                padding: 20px;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -1067,34 +910,7 @@
 
         <div class="main-content">
             <div class="center-content">
-                
-                <!-- CHOICE SCREEN -->
-                <div class="choice-screen" id="choiceScreen">
-                    <div class="choice-grid">
-                        <div class="choice-card" onclick="startTreeMode()">
-                            <div class="choice-icon">🌳</div>
-                            <div class="choice-title">Search Individual – Tree</div>
-                            <div class="choice-desc">Visual tree view for a single member</div>
-                            <div class="choice-badge">Click to continue</div>
-                        </div>
-
-                        <div class="choice-card" onclick="goToTable()">
-                            <div class="choice-icon">📊</div>
-                            <div class="choice-title">Search Individual – Table</div>
-                            <div class="choice-desc">Table view with all details for one person</div>
-                            <div class="choice-badge">Click to continue</div>
-                        </div>
-
-                        <div class="choice-card" onclick="goToGlobalSearch()">
-                            <div class="choice-icon">🔍</div>
-                            <div class="choice-title">Global Search</div>
-                            <div class="choice-desc">Search any person or relative across all fields</div>
-                            <div class="choice-badge">Search Any Family Member</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TREE VIEW -->
+                <!-- TREE VIEW - Always visible -->
                 <div class="tree-view" id="treeView">
                     <div class="search-section">
                         <div class="search-row">
@@ -1194,13 +1010,10 @@
         let childrenCollapsed = true;
         let ancestorsCollapsed = true;
         let showFullDetails = true;
-        let isTreeMode = false;
 
         // ============================================================
         // DOM REFS
         // ============================================================
-        const choiceScreen = document.getElementById('choiceScreen');
-        const treeView = document.getElementById('treeView');
         const treeRoot = document.getElementById('treeRoot');
         const searchInput = document.getElementById('searchInput');
         const searchDropdown = document.getElementById('searchDropdown');
@@ -1214,18 +1027,6 @@
             window.location.href = '6-dashboard-mobile.html';
         }
 
-        function goToTable() {
-            if (currentIndividual) {
-                window.location.href = '8-individual-table-mobile.html?member=' + encodeURIComponent(currentIndividual.name);
-            } else {
-                window.location.href = '8-individual-table-mobile.html';
-            }
-        }
-
-        function goToGlobalSearch() {
-            window.location.href = 'Search All-mobile.html';
-        }
-
         function showDashboard() {
             window.location.href = '6-dashboard-mobile.html';
         }
@@ -1236,35 +1037,6 @@
             } else {
                 window.location.href = '8-individual-table-mobile.html';
             }
-        }
-
-        // ============================================================
-        // CHOICE SCREEN → TREE MODE
-        // ============================================================
-        function startTreeMode() {
-            isTreeMode = true;
-            choiceScreen.classList.add('hidden');
-            treeView.classList.add('active');
-            menuBtn.classList.add('visible');  // SHOW menu button
-            if (currentIndividual) {
-                renderTree();
-            } else {
-                showWelcome();
-            }
-            searchInput.focus();
-            homeBtn.classList.remove('visible');
-        }
-
-        function showWelcome() {
-            treeRoot.innerHTML = `
-                <div class="welcome-container">
-                    <div class="welcome-box">
-                        <div class="welcome-icon">🌿</div>
-                        <div class="welcome-title">Rizvi Family Tree</div>
-                        <div class="welcome-text">Type a name in the search box above<br>to view their family connections and relationships.</div>
-                    </div>
-                </div>
-            `;
         }
 
         // ============================================================
@@ -1454,7 +1226,10 @@
         }
 
         function renderTree() {
-            if (!currentIndividual || !isTreeMode) return;
+            if (!currentIndividual) {
+                showWelcome();
+                return;
+            }
             let html = '<div>';
             if (showAncestors) {
                 let ancestors = getAncestors(currentIndividual);
@@ -1504,6 +1279,21 @@
         }
 
         // ============================================================
+        // WELCOME / SHOW FUNCTIONS
+        // ============================================================
+        function showWelcome() {
+            treeRoot.innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">Rizvi Family Tree</div>
+                        <div class="welcome-text">Type a name in the search box above<br>to view their family connections and relationships.</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
         // SELECT / RESET
         // ============================================================
         function selectMember(member) {
@@ -1513,13 +1303,9 @@
             url.searchParams.set('member', encodeURIComponent(member.name));
             window.history.pushState({}, '', url);
 
-            if (!isTreeMode) {
-                startTreeMode();
-            } else {
-                renderTree();
-            }
+            renderTree();
             homeBtn.classList.remove('visible');
-            menuBtn.classList.add('visible');  // SHOW menu button
+            menuBtn.classList.add('visible');
         }
 
         function resetIndividual() {
@@ -1531,10 +1317,7 @@
             showWelcome();
             closeAllMenus();
             homeBtn.classList.add('visible');
-            menuBtn.classList.remove('visible');  // HIDE menu button
-            isTreeMode = false;
-            choiceScreen.classList.remove('hidden');
-            treeView.classList.remove('active');
+            menuBtn.classList.remove('visible');
         }
 
         function handleBoxClick(el) {
@@ -1855,7 +1638,6 @@
         // SEARCH DROPDOWN
         // ============================================================
         document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
-            if (!isTreeMode) return;
             const query = this.value;
             const dropdown = document.getElementById('searchDropdown');
             if (query.length < 2) {
@@ -1911,35 +1693,29 @@
             if (typeof FAMILY_DATA !== 'undefined') db = FAMILY_DATA;
             if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
 
+            // Always show tree view
+            document.getElementById('treeView').style.display = 'flex';
+
             const urlParams = new URLSearchParams(window.location.search);
             const memberName = urlParams.get('member');
 
             if (memberName) {
                 const member = db.find(m => m.name === decodeURIComponent(memberName));
                 if (member) {
-                    isTreeMode = true;
-                    choiceScreen.classList.add('hidden');
-                    treeView.classList.add('active');
-                    menuBtn.classList.add('visible');  // SHOW menu button
                     currentIndividual = member;
                     searchInput.value = displayName(member.name);
                     renderTree();
                     homeBtn.classList.remove('visible');
+                    menuBtn.classList.add('visible');
                 } else {
-                    isTreeMode = false;
-                    choiceScreen.classList.remove('hidden');
-                    treeView.classList.remove('active');
-                    menuBtn.classList.remove('visible');  // HIDE menu button
-                    homeBtn.classList.add('visible');
                     showWelcome();
+                    homeBtn.classList.add('visible');
+                    menuBtn.classList.remove('visible');
                 }
             } else {
-                isTreeMode = false;
-                choiceScreen.classList.remove('hidden');
-                treeView.classList.remove('active');
-                menuBtn.classList.remove('visible');  // HIDE menu button
-                homeBtn.classList.add('visible');
                 showWelcome();
+                homeBtn.classList.add('visible');
+                menuBtn.classList.remove('visible');
             }
         });
 
@@ -1947,11 +1723,8 @@
         // EXPOSE GLOBALLY
         // ============================================================
         window.goHome = goHome;
-        window.goToTable = goToTable;
-        window.goToGlobalSearch = goToGlobalSearch;
         window.showDashboard = showDashboard;
         window.showTableView = showTableView;
-        window.startTreeMode = startTreeMode;
         window.toggleLeftMenu = toggleLeftMenu;
         window.handleToggleMenuClick = handleToggleMenuClick;
         window.toggleSection = toggleSection;
@@ -1966,7 +1739,6 @@
         window.closeSaveModal = closeSaveModal;
         window.processSave = processSave;
         window.exportAsJPEG = exportAsJPEG;
-
     </script>
 </body>
 </html>

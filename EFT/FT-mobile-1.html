@@ -10,15 +10,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
 
-
-
 .tree-row .tree-gen span,
 .tree-row .tree-page span {
     display: block;
     width: 100%;
     text-align: center;
 }
-
 
 /* Tips Button - Blinking only */
 .tips-btn {
@@ -153,7 +150,6 @@
   text-align: left;
 }
 
-
 .tips-close-btn {
   background: #d4af37;
   border: none;
@@ -171,8 +167,6 @@
 .tips-close-btn:hover {
   background: #f1d279;
 }
-
-
 
         /* ============================================================
            SECTION 1: WELCOME SCREEN STYLES
@@ -582,21 +576,21 @@
         /* ============================================================
            SECTION 7: PAGE / WORKSHEET STYLES
            ============================================================ */
-  .page {
-    width: 100%;
-    zoom: 0.65;
-    min-height: 297mm;
-    background: #fffcf8;
-    padding: 8mm 10mm;
-    border-radius: 0 0 4px 4px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    overflow: visible;
-    page-break-after: always;
-    display: flex;
-    flex-direction: column;
-    border-left: 2px solid var(--gold);
-    border-right: 2px solid var(--gold);
-}
+        .page {
+            width: 100%;
+            zoom: 0.65;
+            min-height: 297mm;
+            background: #fffcf8;
+            padding: 8mm 10mm;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            overflow: visible;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
 
         /* ============================================================
            SECTION 8: PAGE HEADER STYLES
@@ -648,20 +642,20 @@
         /* ============================================================
            SECTION 9: COLUMN & TREE ROW STYLES - FIXED WITH SPOUSE
            ============================================================ */
- .col-headers {
-    display: grid;
-    grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
-    font-family: 'DM Serif Display', 'Georgia', serif;
-    font-weight: 700;
-    font-size: 13px;
-    color: #5a0000;
-    letter-spacing: 0.5px;
-    padding: 4px 0 6px 0;
-    border-bottom: 2px solid #b8a088;
-    margin-bottom: 6px;
-    flex-shrink: 0;
-    text-align: center;   /* ← ADD THIS */
-}
+        .col-headers {
+            display: grid;
+            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
+            font-family: 'DM Serif Display', 'Georgia', serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #5a0000;
+            letter-spacing: 0.5px;
+            padding: 4px 0 6px 0;
+            border-bottom: 2px solid #b8a088;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+            text-align: center;
+        }
 
         .col-headers .col-tree {
             text-align: left;
@@ -677,18 +671,16 @@
             padding-left: var(--heading-offset);
         }
 
-.col-headers .col-gen {
-    text-align: center;   /* ← CHANGE to center */
-    padding-left: 0;      /* ← REMOVE the offset */
-}
+        .col-headers .col-gen {
+            text-align: center;
+            padding-left: 0;
+        }
 
-.col-headers .col-page {
-    text-align: center;   /* ← CHANGE to center */
-    padding-left: 0;      /* ← REMOVE the offset */
-    white-space: nowrap;
-}
-
-
+        .col-headers .col-page {
+            text-align: center;
+            padding-left: 0;
+            white-space: nowrap;
+        }
 
         .tree-row {
             display: grid;
@@ -709,15 +701,15 @@
             text-align: left;
         }
 
-.tree-row .tree-gen {
-    text-align: center;
-    padding-left: 0;      /* ← Add this */
-}
+        .tree-row .tree-gen {
+            text-align: center;
+            padding-left: 0;
+        }
 
-.tree-row .tree-page {
-    text-align: center;
-    padding-left: 0;      /* ← Add this */
-}
+        .tree-row .tree-page {
+            text-align: center;
+            padding-left: 0;
+        }
 
         /* ============================================================
            SECTION 10: TREE NAME COLOR STYLES
@@ -1119,94 +1111,87 @@
         /* ============================================================
            SECTION 16: RESPONSIVE STYLES - MOBILE (FIXED)
            ============================================================ */
- 
-@media screen and (max-width: 800px) {
-    body { padding: 8px; }
-    .controls { padding: 10px 12px; gap: 8px; }
-    .controls .search-wrapper { width: 100%; }
-    .controls .search-box input { min-width: auto; font-size: 13px; }
-    .controls .stats { font-size: 12px; text-align: center; }
-    .controls .row1, .controls .row2 { flex-direction: column; align-items: stretch; }
-    .page {
-        width: 100%;
-        min-height: 297mm;
-        padding: 6mm 8mm;
-    }
-    .col-headers { font-size: 11px; }
-    .tree-container { font-size: 11px; line-height: 1.8; }
-    .page-footer .developer { font-size: 10px; }
-    .header-title { font-size: 16px; }
-    .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
-    .menu-panel { left: 15px; top: 50px; min-width: 150px; }
-    .menu-item { font-size: 12px; padding: 8px 14px; }
-    .header-spacer { width: 60px; }
-    /* KEEP DESKTOP COLUMN WIDTHS */
-    :root {
-        --col-tree-width: 30px;
-        --col-name-width: 40%;
-        --col-spouse-width: 30%;
-        --col-gen-width: 10%;
-        --col-page-width: 20%;
-        --heading-offset: 4ch;
-    }
-    .member-modal {
-        padding: 20px;
-        max-width: 95%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-    .detail-card .detail-header h2 {
-        font-size: 18px;
-    }
-    .detail-card .detail-row {
-        font-size: 14px;
-        flex-direction: column;
-        padding: 8px 0;
-    }
-    .detail-card .detail-row strong {
-        min-width: auto;
-        margin-bottom: 2px;
-    }
-    .detail-card .detail-gender {
-        font-size: 10px;
-        padding: 2px 12px;
-    }
-    .save-options-modal {
-        min-width: auto;
-        padding: 20px;
-    }
-}
+        @media screen and (max-width: 800px) {
+            body { padding: 8px; }
+            .controls { padding: 10px 12px; gap: 8px; }
+            .controls .search-wrapper { width: 100%; }
+            .controls .search-box input { min-width: auto; font-size: 13px; }
+            .controls .stats { font-size: 12px; text-align: center; }
+            .controls .row1, .controls .row2 { flex-direction: column; align-items: stretch; }
+            .page {
+                width: 100%;
+                min-height: 297mm;
+                padding: 6mm 8mm;
+            }
+            .col-headers { font-size: 11px; }
+            .tree-container { font-size: 11px; line-height: 1.8; }
+            .page-footer .developer { font-size: 10px; }
+            .header-title { font-size: 16px; }
+            .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
+            .menu-panel { left: 15px; top: 50px; min-width: 150px; }
+            .menu-item { font-size: 12px; padding: 8px 14px; }
+            .header-spacer { width: 60px; }
+            :root {
+                --col-tree-width: 30px;
+                --col-name-width: 40%;
+                --col-spouse-width: 30%;
+                --col-gen-width: 10%;
+                --col-page-width: 20%;
+                --heading-offset: 4ch;
+            }
+            .member-modal {
+                padding: 20px;
+                max-width: 95%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .detail-card .detail-header h2 {
+                font-size: 18px;
+            }
+            .detail-card .detail-row {
+                font-size: 14px;
+                flex-direction: column;
+                padding: 8px 0;
+            }
+            .detail-card .detail-row strong {
+                min-width: auto;
+                margin-bottom: 2px;
+            }
+            .detail-card .detail-gender {
+                font-size: 10px;
+                padding: 2px 12px;
+            }
+            .save-options-modal {
+                min-width: auto;
+                padding: 20px;
+            }
+        }
 
-@media screen and (max-width: 480px) {
-    .menu-panel { left: 10px; top: 45px; min-width: 130px; }
-    .menu-item { font-size: 11px; padding: 6px 12px; }
-    .menu-toggle-btn { padding: 4px 10px; font-size: 11px; }
-    .header-title { font-size: 14px; }
-    .header-spacer { width: 50px; }
-    .save-options-modal {
-        min-width: auto;
-        padding: 15px;
-    }
-    .save-options-modal .save-mode-label {
-        padding: 8px 10px;
-    }
-    /* KEEP DESKTOP COLUMN WIDTHS */
-    :root {
-        --col-tree-width: 30px;
-        --col-name-width: 40%;
-        --col-spouse-width: 30%;
-        --col-gen-width: 10%;
-        --col-page-width: 20%;
-        --heading-offset: 4ch;
-    }
-}
-
-
-
+        @media screen and (max-width: 480px) {
+            .menu-panel { left: 10px; top: 45px; min-width: 130px; }
+            .menu-item { font-size: 11px; padding: 6px 12px; }
+            .menu-toggle-btn { padding: 4px 10px; font-size: 11px; }
+            .header-title { font-size: 14px; }
+            .header-spacer { width: 50px; }
+            .save-options-modal {
+                min-width: auto;
+                padding: 15px;
+            }
+            .save-options-modal .save-mode-label {
+                padding: 8px 10px;
+            }
+            :root {
+                --col-tree-width: 30px;
+                --col-name-width: 40%;
+                --col-spouse-width: 30%;
+                --col-gen-width: 10%;
+                --col-page-width: 20%;
+                --heading-offset: 4ch;
+            }
+        }
 
     </style>
 </head>
-
 
 <body>
 
@@ -1252,16 +1237,15 @@
                 </div>
             </div>
  
-<div style="width:85%; margin:0 auto; border-bottom: 2px solid var(--gold); padding-bottom: 12px;">
-    <div style="display:flex; justify-content:center; align-items:center; position:relative;">
-        <span class="stats" id="stats"></span>
-        <button class="tips-btn" onclick="openTips()" style="position:absolute; right:0;">💡 </button>
-    </div>
-    <div style="text-align:center; margin-top:4px;">
-        <span class="error-msg" id="errorMsg"></span>
-    </div>
-</div>
-
+            <div style="width:85%; margin:0 auto; border-bottom: 2px solid var(--gold); padding-bottom: 12px;">
+                <div style="display:flex; justify-content:center; align-items:center; position:relative;">
+                    <span class="stats" id="stats"></span>
+                    <button class="tips-btn" onclick="openTips()" style="position:absolute; right:0;">💡 </button>
+                </div>
+                <div style="text-align:center; margin-top:4px;">
+                    <span class="error-msg" id="errorMsg"></span>
+                </div>
+            </div>
 
         </div>
 
@@ -1387,150 +1371,262 @@
             document.getElementById('saveModalOverlay').style.display = 'none';
         }
 
-
-// ============================================================
-// JAVASCRIPT SECTION 5E: SCREEN PAGE EXPORT FUNCTIONS
-// ============================================================
-
-function exportTreePDF(quality) {
-    const pageElement = document.getElementById('pageContainer');
-    if (!pageElement) {
-        alert('❌ No page to save!');
-        return;
-    }
-
-    html2canvas(pageElement, {
-        scale: quality === 'high' ? 2.0 : 1.0,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false
-    }).then(canvas => {
-        const { jsPDF } = window.jspdf;
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const mmWidth = imgWidth * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
-        const mmHeight = imgHeight * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
-
-        const pdf = new jsPDF({
-            orientation: mmWidth > mmHeight ? 'l' : 'p',
-            unit: 'mm',
-            format: [mmWidth + 20, mmHeight + 20]
-        });
-
-        const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
-        pdf.addImage(imgData, 'JPEG', 10, 10, mmWidth, mmHeight, undefined, 'FAST');
-
-        const fileName = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
-        pdf.save(fileName);
-        alert(`✅ Saved current page as "${fileName}"`);
-    }).catch(err => {
-        alert('❌ Error generating PDF: ' + err.message);
-        console.error('PDF Export Error:', err);
-    });
-}
-
-function exportAsJPEG() {
-    const pageElement = document.getElementById('pageContainer');
-    if (!pageElement) {
-        alert('❌ No page to save!');
-        return;
-    }
-
-    html2canvas(pageElement, {
-        scale: 1.5,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false
-    }).then(canvas => {
-        const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        const link = document.createElement('a');
-        link.download = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
-        link.href = imgData;
-        link.click();
-        alert(`✅ Saved current page as JPEG`);
-    }).catch(err => {
-        alert('❌ Error generating JPEG: ' + err.message);
-        console.error('JPEG Export Error:', err);
-    });
-}
-
-
-
-
-
-
         // ============================================================
-        // JAVASCRIPT SECTION 5: SAVE FUNCTIONS (MODIFIED)
+        // JAVASCRIPT SECTION 5: EXPORT FUNCTIONS (WRAPPER APPROACH)
         // ============================================================
 
-        // Get selected save mode
+        function formatCurrentTime() {
+            const d = new Date();
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = d.getFullYear();
+            const hours = d.getHours();
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'pm' : 'am';
+            const displayHours = hours % 12 || 12;
+            return `${day}/${month}/${year} ${displayHours}:${minutes}${ampm}`;
+        }
+
+        function getFileInfo() {
+            return window.FILE_INFO || { saved_time: 'Unknown' };
+        }
+
+        function createExportWrapper(contentElement, quality) {
+            // Clone the content
+            const clone = contentElement.cloneNode(true);
+            
+            // Remove any zoom from clone
+            clone.style.zoom = '1';
+            
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = `
+                position: absolute;
+                left: -9999px;
+                top: 0;
+                background: #ffffff;
+                padding: 20px;
+                width: fit-content;
+                min-width: 800px;
+                margin: 0 auto;
+                zoom: 1;
+                font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            `;
+            
+            // Add header
+            const header = document.createElement('div');
+            header.style.cssText = `
+                text-align: center;
+                border-bottom: 2px solid #b8a088;
+                padding-bottom: 10px;
+                margin-bottom: 15px;
+            `;
+            header.innerHTML = `
+                <h1 style="font-family: 'DM Serif Display', 'Georgia', serif; font-size: 24px; color: #3d2b1a; margin:0;">
+                    🌳 Rizvi Family Tree
+                </h1>
+                <div style="font-size: 13px; color: #6b5a48; margin-top: 4px; font-weight: 700;">
+                    ${clone.querySelector('.page-header .ref')?.innerHTML || 'Family Tree'}
+                </div>
+            `;
+            wrapper.appendChild(header);
+            
+            // Get the tree container
+            const treeContainer = clone.querySelector('.tree-container');
+            if (treeContainer) {
+                // Fix column headers in clone
+                const colHeaders = clone.querySelector('.col-headers');
+                if (colHeaders) {
+                    // Make sure it's centered properly
+                    colHeaders.style.width = '100%';
+                }
+                wrapper.appendChild(treeContainer);
+            } else {
+                // If no tree container, just append the clone
+                wrapper.appendChild(clone);
+            }
+            
+            // Add footer
+            const footer = document.createElement('div');
+            footer.style.cssText = `
+                margin-top: 15px;
+                padding-top: 10px;
+                border-top: 2px solid #b8a088;
+                text-align: center;
+                font-size: 12px;
+                color: #6b5a48;
+            `;
+            
+            const timeStr = formatCurrentTime();
+            const fileInfo = getFileInfo();
+            const savedTime = fileInfo.saved_time || 'Unknown';
+            
+            footer.innerHTML = `
+                <div style="font-weight:700; color:#3d2b1a;">${clone.querySelector('.page-footer .family-name')?.textContent || 'Family Tree'}</div>
+                <div style="margin-top:2px;">
+                    Developer: <strong>Imran Haider</strong> S/o <strong>Syed Risalat Hussain Rizvi</strong> | 0332-787-6010
+                </div>
+                <div style="margin-top:2px; color:#5a0000; font-weight:600;">
+                    Data Updated: ${savedTime} | Exported: ${timeStr}
+                </div>
+            `;
+            wrapper.appendChild(footer);
+            
+            return wrapper;
+        }
+
+        function exportTreePDF(quality) {
+            const pageElement = document.getElementById('pageContainer');
+            if (!pageElement) {
+                alert('❌ No page to save!');
+                return;
+            }
+
+            // Create wrapper with clone at full resolution
+            const wrapper = createExportWrapper(pageElement, quality);
+            document.body.appendChild(wrapper);
+
+            // Show loading
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.cssText = `
+                position: fixed; top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                background: #5a0000; color: white;
+                padding: 20px 40px; border-radius: 8px; z-index: 9999;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                font-family: 'Inter', sans-serif;
+                font-size: 16px;
+            `;
+            loadingMsg.textContent = `📄 Creating ${quality === 'high' ? 'High Resolution' : 'Low Resolution'} PDF...`;
+            document.body.appendChild(loadingMsg);
+
+            setTimeout(() => {
+                html2canvas(wrapper, {
+                    scale: quality === 'high' ? 2.0 : 1.0,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    logging: false,
+                    allowTaint: true,
+                    width: wrapper.scrollWidth,
+                    height: wrapper.scrollHeight,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                }).then(canvas => {
+                    // Clean up
+                    document.body.removeChild(wrapper);
+                    document.body.removeChild(loadingMsg);
+
+                    const { jsPDF } = window.jspdf;
+                    const imgWidth = canvas.width;
+                    const imgHeight = canvas.height;
+                    const mmWidth = imgWidth * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
+                    const mmHeight = imgHeight * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
+
+                    const pdf = new jsPDF({
+                        orientation: mmWidth > mmHeight ? 'l' : 'p',
+                        unit: 'mm',
+                        format: [mmWidth + 20, mmHeight + 20]
+                    });
+
+                    const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
+                    pdf.addImage(imgData, 'JPEG', 10, 10, mmWidth, mmHeight, undefined, 'FAST');
+
+                    const fileName = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
+                    pdf.save(fileName);
+                    
+                    const sizeKB = Math.round((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                    alert(`✅ Saved as "${fileName}"\nFile size: ~${sizeKB} KB`);
+                }).catch(err => {
+                    document.body.removeChild(wrapper);
+                    document.body.removeChild(loadingMsg);
+                    alert('❌ Error generating PDF: ' + err.message);
+                    console.error('PDF Export Error:', err);
+                });
+            }, 300);
+        }
+
+        function exportAsJPEG() {
+            const pageElement = document.getElementById('pageContainer');
+            if (!pageElement) {
+                alert('❌ No page to save!');
+                return;
+            }
+
+            const wrapper = createExportWrapper(pageElement, 'jpeg');
+            document.body.appendChild(wrapper);
+
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.cssText = `
+                position: fixed; top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                background: #5a0000; color: white;
+                padding: 20px 40px; border-radius: 8px; z-index: 9999;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                font-family: 'Inter', sans-serif;
+                font-size: 16px;
+            `;
+            loadingMsg.textContent = '📸 Creating JPEG...';
+            document.body.appendChild(loadingMsg);
+
+            setTimeout(() => {
+                html2canvas(wrapper, {
+                    scale: 1.5,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    logging: false,
+                    allowTaint: true,
+                    width: wrapper.scrollWidth,
+                    height: wrapper.scrollHeight,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                }).then(canvas => {
+                    document.body.removeChild(wrapper);
+                    document.body.removeChild(loadingMsg);
+
+                    const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                    const link = document.createElement('a');
+                    link.download = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
+                    link.href = imgData;
+                    link.click();
+                    
+                    const sizeKB = Math.round((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                    alert(`✅ Saved as JPEG\nFile size: ~${sizeKB} KB`);
+                }).catch(err => {
+                    document.body.removeChild(wrapper);
+                    document.body.removeChild(loadingMsg);
+                    alert('❌ Error generating JPEG: ' + err.message);
+                    console.error('JPEG Export Error:', err);
+                });
+            }, 300);
+        }
+
+        // ============================================================
+        // JAVASCRIPT SECTION 6: SAVE FUNCTIONS
+        // ============================================================
+
         function getSelectedSaveMode() {
             const selected = document.querySelector('input[name="saveMode"]:checked');
             return selected ? selected.value : 'screen';
         }
 
-        // Get selected format
         function getSelectedFormat() {
             const selected = document.querySelector('input[name="saveFormat"]:checked');
             return selected ? selected.value : 'pdf-high';
         }
 
-        // Get current member name (from page root)
         function getCurrentMemberName() {
             if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) return null;
             const page = cachedPages[currentPageIndex];
             return page.root || null;
         }
 
-        // Get the current page's root person object
-        function getCurrentMemberPerson() {
-            const name = getCurrentMemberName();
-            if (!name) return null;
-            return globalPersonMap[name] || null;
-        }
-
-        // Helper: Check if a page is an ancestor of the selected member (following father chain)
-        function isAncestorPage(pageRoot, memberName, visited) {
-            if (pageRoot === memberName) return true;
-
-            const person = globalPersonMap[pageRoot];
-            if (!person || !person.father) return false;
-
-            const fatherName = person.father.trim();
-            if (!fatherName) return false;
-
-            // If father is the member, this page is an ancestor
-            if (fatherName === memberName) return true;
-
-            // Check if father's page is an ancestor of the member
-            const fatherPageIndex = rootToPageMap[fatherName];
-            if (fatherPageIndex === undefined) return false;
-
-            // Avoid infinite loops
-            if (visited.has(fatherName)) return false;
-            visited.add(fatherName);
-
-            // Check if the father is an ancestor of the member
-            const fatherPage = cachedPages[fatherPageIndex];
-            if (!fatherPage) return false;
-
-            // If father is the member, this page is an ancestor
-            if (fatherName === memberName) return true;
-
-            // Check if father is in the member's ancestor chain
-            return isAncestorPage(fatherName, memberName, visited);
-        }
-
-        // Get all ancestor pages (ONLY direct father chain from root to selected member)
         function getAncestorPages(memberName) {
             const result = [];
             const visited = new Set();
             
-            // Start from the member and go up through fathers
             let currentName = memberName;
             let chain = [];
             
-            // Build the father chain from member up to root
             while (currentName) {
                 chain.push(currentName);
                 const person = globalPersonMap[currentName];
@@ -1538,17 +1634,12 @@ function exportAsJPEG() {
                     break;
                 }
                 currentName = person.father.trim();
-                
-                // Prevent infinite loop
                 if (visited.has(currentName)) break;
                 visited.add(currentName);
             }
             
-            // Now chain = [Imran, Father, Grandfather, ..., Root]
-            // We need to find the page index for each name in the chain
             for (let i = chain.length - 1; i >= 0; i--) {
                 const name = chain[i];
-                // Find the page where this name is the root
                 for (let j = 0; j < cachedPages.length; j++) {
                     if (cachedPages[j].root === name) {
                         if (!result.includes(j)) {
@@ -1559,12 +1650,10 @@ function exportAsJPEG() {
                 }
             }
             
-            // Sort by page index (ascending)
             result.sort((a, b) => a - b);
             return result;
         }
 
-        // Add page counter to page footer for saved pages
         function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
             const footer = pageElement.querySelector('.page-footer');
             if (footer) {
@@ -1576,9 +1665,6 @@ function exportAsJPEG() {
             return pageElement;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5A: PROCESS SAVE (MODIFIED)
-        // ============================================================
         function processSave() {
             const saveMode = getSelectedSaveMode();
             const format = getSelectedFormat();
@@ -1586,7 +1672,6 @@ function exportAsJPEG() {
             closeSaveModal();
 
             if (saveMode === 'screen') {
-                // Option 1: On screen page
                 const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
                 if (format === 'jpeg') {
                     exportAsJPEG();
@@ -1594,7 +1679,6 @@ function exportAsJPEG() {
                     exportTreePDF(quality);
                 }
             } else if (saveMode === 'selected') {
-                // Option 2: Selected member pages
                 const memberName = getCurrentMemberName();
                 if (!memberName) {
                     alert('No member selected! Please search for a member first.');
@@ -1607,7 +1691,6 @@ function exportAsJPEG() {
                     saveSelectedMemberPages(quality, memberName);
                 }
             } else if (saveMode === 'all') {
-                // Option 3: All pages
                 const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
                 if (format === 'jpeg') {
                     saveAllPagesAsJPEG();
@@ -1617,9 +1700,6 @@ function exportAsJPEG() {
             }
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5B: SAVE SELECTED MEMBER PAGES (NEW)
-        // ============================================================
         function saveSelectedMemberPages(quality, memberName) {
             const ancestorPageIndices = getAncestorPages(memberName);
 
@@ -1629,63 +1709,56 @@ function exportAsJPEG() {
             }
 
             const totalFullPages = cachedPages.length;
-            const totalSaved = ancestorPageIndices.length;
             let filteredCount = 0;
-
-            // Show progress
-            const progressMsg = `Saving ${totalSaved} pages for ${displayName(memberName)}...`;
-            console.log(progressMsg);
-
-            // We'll render each page, add counter, and capture
             let capturedPages = [];
 
-            // Function to capture a single page
             function capturePage(index) {
                 return new Promise((resolve, reject) => {
                     const pageIndex = ancestorPageIndices[index];
                     const actualPageNum = pageIndex + 1;
                     filteredCount++;
 
-                    // Store current page index
                     const originalPageIndex = currentPageIndex;
                     currentPageIndex = pageIndex;
-
-                    // Render the page
                     renderPage();
 
-                    // Get the page element after render
                     const pageElement = document.getElementById('pageContainer');
-
-                    // Add page counter
                     addPageCounterToPage(pageElement, actualPageNum, totalFullPages, filteredCount);
 
-                    // Wait for render
+                    // Create wrapper with clone
+                    const wrapper = createExportWrapper(pageElement, quality);
+                    document.body.appendChild(wrapper);
+
                     setTimeout(() => {
-                        html2canvas(pageElement, {
+                        html2canvas(wrapper, {
                             scale: quality === 'high' ? 2.0 : 1.0,
                             backgroundColor: '#ffffff',
                             useCORS: true,
-                            logging: false
+                            logging: false,
+                            allowTaint: true,
+                            width: wrapper.scrollWidth,
+                            height: wrapper.scrollHeight,
+                            windowWidth: wrapper.scrollWidth,
+                            windowHeight: wrapper.scrollHeight
                         }).then(canvas => {
+                            document.body.removeChild(wrapper);
                             capturedPages.push(canvas);
-                            // Restore original page
                             currentPageIndex = originalPageIndex;
                             renderPage();
                             resolve();
                         }).catch(err => {
+                            document.body.removeChild(wrapper);
                             reject(err);
                         });
-                    }, 200);
+                    }, 300);
                 });
             }
 
-            // Capture all pages sequentially
             async function captureAll() {
                 for (let i = 0; i < ancestorPageIndices.length; i++) {
                     await capturePage(i);
                 }
 
-                // Generate PDF
                 const { jsPDF } = window.jspdf;
                 const firstCanvas = capturedPages[0];
                 const w = firstCanvas.width * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
@@ -1714,13 +1787,9 @@ function exportAsJPEG() {
             });
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5C: SAVE ALL PAGES (NEW)
-        // ============================================================
         function saveAllPages(quality) {
             const totalPages = cachedPages.length;
             let capturedPages = [];
-            let progress = 0;
 
             function capturePage(index) {
                 return new Promise((resolve, reject) => {
@@ -1730,39 +1799,41 @@ function exportAsJPEG() {
                     renderPage();
 
                     const pageElement = document.getElementById('pageContainer');
-
-                    // Add page counter for All Pages mode (filtered = same as actual)
                     addPageCounterToPage(pageElement, actualPageNum, totalPages, actualPageNum);
 
+                    const wrapper = createExportWrapper(pageElement, quality);
+                    document.body.appendChild(wrapper);
+
                     setTimeout(() => {
-                        html2canvas(pageElement, {
+                        html2canvas(wrapper, {
                             scale: quality === 'high' ? 2.0 : 1.0,
                             backgroundColor: '#ffffff',
                             useCORS: true,
-                            logging: false
+                            logging: false,
+                            allowTaint: true,
+                            width: wrapper.scrollWidth,
+                            height: wrapper.scrollHeight,
+                            windowWidth: wrapper.scrollWidth,
+                            windowHeight: wrapper.scrollHeight
                         }).then(canvas => {
+                            document.body.removeChild(wrapper);
                             capturedPages.push(canvas);
-                            progress++;
-                            console.log(`Captured page ${progress}/${totalPages}`);
                             currentPageIndex = originalPageIndex;
                             renderPage();
                             resolve();
                         }).catch(err => {
+                            document.body.removeChild(wrapper);
                             reject(err);
                         });
-                    }, 200);
+                    }, 300);
                 });
             }
 
             async function captureAll() {
-                // Show progress indicator
-                const total = totalPages;
-
-                for (let i = 0; i < total; i++) {
+                for (let i = 0; i < totalPages; i++) {
                     await capturePage(i);
                 }
 
-                // Generate PDF
                 const { jsPDF } = window.jspdf;
                 const firstCanvas = capturedPages[0];
                 const w = firstCanvas.width * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
@@ -1791,9 +1862,6 @@ function exportAsJPEG() {
             });
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5D: JPEG EXPORTS (NEW)
-        // ============================================================
         function saveSelectedMemberPagesAsJPEG(memberName) {
             const ancestorPageIndices = getAncestorPages(memberName);
 
@@ -1819,21 +1887,31 @@ function exportAsJPEG() {
                     const pageElement = document.getElementById('pageContainer');
                     addPageCounterToPage(pageElement, actualPageNum, totalFullPages, filteredCount);
 
+                    const wrapper = createExportWrapper(pageElement, 'jpeg');
+                    document.body.appendChild(wrapper);
+
                     setTimeout(() => {
-                        html2canvas(pageElement, {
+                        html2canvas(wrapper, {
                             scale: 1.5,
                             backgroundColor: '#ffffff',
                             useCORS: true,
-                            logging: false
+                            logging: false,
+                            allowTaint: true,
+                            width: wrapper.scrollWidth,
+                            height: wrapper.scrollHeight,
+                            windowWidth: wrapper.scrollWidth,
+                            windowHeight: wrapper.scrollHeight
                         }).then(canvas => {
+                            document.body.removeChild(wrapper);
                             capturedPages.push({ canvas, actualPageNum });
                             currentPageIndex = originalPageIndex;
                             renderPage();
                             resolve();
                         }).catch(err => {
+                            document.body.removeChild(wrapper);
                             reject(err);
                         });
-                    }, 200);
+                    }, 300);
                 });
             }
 
@@ -1842,7 +1920,6 @@ function exportAsJPEG() {
                     await capturePage(i);
                 }
 
-                // Save as ZIP-like sequence (multiple downloads)
                 if (capturedPages.length === 1) {
                     const data = capturedPages[0].canvas.toDataURL('image/jpeg', 0.9);
                     const link = document.createElement('a');
@@ -1851,7 +1928,6 @@ function exportAsJPEG() {
                     link.click();
                     alert(`✅ Saved 1 page as JPEG`);
                 } else {
-                    // Download all as individual JPEGs
                     let downloadCount = 0;
                     capturedPages.forEach((item, idx) => {
                         setTimeout(() => {
@@ -1889,21 +1965,31 @@ function exportAsJPEG() {
                     const pageElement = document.getElementById('pageContainer');
                     addPageCounterToPage(pageElement, actualPageNum, totalPages, actualPageNum);
 
+                    const wrapper = createExportWrapper(pageElement, 'jpeg');
+                    document.body.appendChild(wrapper);
+
                     setTimeout(() => {
-                        html2canvas(pageElement, {
+                        html2canvas(wrapper, {
                             scale: 1.5,
                             backgroundColor: '#ffffff',
                             useCORS: true,
-                            logging: false
+                            logging: false,
+                            allowTaint: true,
+                            width: wrapper.scrollWidth,
+                            height: wrapper.scrollHeight,
+                            windowWidth: wrapper.scrollWidth,
+                            windowHeight: wrapper.scrollHeight
                         }).then(canvas => {
+                            document.body.removeChild(wrapper);
                             capturedPages.push({ canvas, actualPageNum });
                             currentPageIndex = originalPageIndex;
                             renderPage();
                             resolve();
                         }).catch(err => {
+                            document.body.removeChild(wrapper);
                             reject(err);
                         });
-                    }, 200);
+                    }, 300);
                 });
             }
 
@@ -1912,7 +1998,6 @@ function exportAsJPEG() {
                     await capturePage(i);
                 }
 
-                // Download all as individual JPEGs
                 if (capturedPages.length <= 5) {
                     capturedPages.forEach((item, idx) => {
                         setTimeout(() => {
@@ -1927,7 +2012,6 @@ function exportAsJPEG() {
                         }, idx * 300);
                     });
                 } else {
-                    // For many pages, create a zip-like download (sequential)
                     alert(`📸 Saving ${capturedPages.length} JPEGs... They will download one by one.`);
                     capturedPages.forEach((item, idx) => {
                         setTimeout(() => {
@@ -1951,7 +2035,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 6: FAMILY TREE BUILDING FUNCTIONS
+        // JAVASCRIPT SECTION 7: FAMILY TREE BUILDING FUNCTIONS
         // ============================================================
         function buildFamilyMap(data) {
             const map = {};
@@ -2015,7 +2099,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 7: PAGE GENERATION
+        // JAVASCRIPT SECTION 8: PAGE GENERATION
         // ============================================================
         function generatePages(data) {
             const { map, personMap } = buildFamilyMap(data);
@@ -2093,7 +2177,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 8: PAGE NAVIGATION
+        // JAVASCRIPT SECTION 9: PAGE NAVIGATION
         // ============================================================
         function goToPage(pageIndex) {
             if (pageIndex < 0 || pageIndex >= cachedPages.length) return;
@@ -2103,7 +2187,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 9: RENDER PAGE CONTENT (DATA) - WITH SPOUSE
+        // JAVASCRIPT SECTION 10: RENDER PAGE CONTENT (DATA)
         // ============================================================
         function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
             const person = personMap[name];
@@ -2118,15 +2202,12 @@ function exportAsJPEG() {
             const cleanName = displayName(name);
             const rootGen = (person && person.gen ? person.gen : '');
             
-            // Get spouse for root person
             const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
             const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
             
-            // Get father info for the root person
             const rootFather = getActualFather(name, personMap);
             let rootPagePart = '';
             
-            // If this person has a father, show (Father) and page number
             if (rootFather && rootToPageMap[rootFather] !== undefined) {
                 const fatherPage = rootToPageMap[rootFather];
                 rootPagePart = ` (Father) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">Page ${fatherPage + 1}</span>`;
@@ -2153,7 +2234,6 @@ function exportAsJPEG() {
                     const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
                     const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
                     
-                    // Get spouse for child
                     const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
                     const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
                     
@@ -2183,7 +2263,7 @@ function exportAsJPEG() {
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 10: RENDER PAGE HTML (DISPLAY) - FIXED
+        // JAVASCRIPT SECTION 11: RENDER PAGE HTML (DISPLAY)
         // ============================================================
         function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
             const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
@@ -2234,7 +2314,6 @@ function exportAsJPEG() {
                     let person = globalPersonMap[personName];
                     let isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
                     
-                    // Get spouse person for gender coloring
                     let spousePerson = null;
                     let spouseName = row.plainSpouse || '';
                     if (spouseName) {
@@ -2251,7 +2330,6 @@ function exportAsJPEG() {
                     
                     let isChild = index > 0;
                     
-                    // Check if this is the highlighted name (for bold)
                     let isHighlighted = false;
                     if (highlightName) {
                         const cleanHighlight = displayName(highlightName);
@@ -2261,17 +2339,13 @@ function exportAsJPEG() {
                         }
                     }
                     
-                    // Build the name display
                     let displayNameText = '';
                     if (isChild) {
-                        // Child - normal with bullet in tree column
                         displayNameText = nameHtml;
                     } else {
-                        // Root/Parent - bold
                         displayNameText = '<b>' + nameHtml + '</b>';
                     }
                     
-                    // If highlighted, make it bold
                     if (isHighlighted) {
                         displayNameText = '<b>' + displayNameText + '</b>';
                     }
@@ -2286,18 +2360,15 @@ function exportAsJPEG() {
                         rowBg = (index % 2 === 0) ? '#ffffff' : '#e8f5e9';
                     }
                     
-                    // Make names clickable
                     let clickableName = displayNameText;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
-                        // Check if name already has spans
                         if (nameHtml.includes('<span')) {
                             const cleanNameText = displayName(personName);
                             clickableName = displayNameText.replace(cleanNameText, function(match) {
                                 return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
                             });
                         } else {
-                            // For root with <b> tags
                             const cleanNameText = displayName(personName);
                             clickableName = displayNameText.replace(cleanNameText, function(match) {
                                 return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
@@ -2305,17 +2376,14 @@ function exportAsJPEG() {
                         }
                     }
                     
-                    // Make spouse clickable - FIXED
                     let clickableSpouse = spouseHtml;
                     if (spouseName && spouseHtml !== '—') {
                         const genderClass = isSpouseFemale ? 'female' : 'male';
                         clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName.replace(/'/g, "\\'") + '\')">' + displayName(spouseName) + '</span>';
                     }
                     
-                    // Tree character - Show dot for children in tree column
                     let treeChar = isChild ? '•' : '';
                     
-                    // Make Next Gen page links clickable
                     let clickablePageHtml = pageHtml;
                     if (pageHtml && pageHtml.includes('Page')) {
                         clickablePageHtml = pageHtml;
@@ -2330,13 +2398,13 @@ function exportAsJPEG() {
                     
                     html += `<div class="tree-row" style="align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
                    
- html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
+                    html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
                     html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
                   
-  html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
+                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
                    
-html += `<span style="border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${genHtml}</span>`;
-html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${clickablePageHtml}</span>`;
+                    html += `<span style="border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${genHtml}</span>`;
+                    html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${clickablePageHtml}</span>`;
                     html += `</div>`;
                 });
             } else {
@@ -2362,7 +2430,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 11: SEARCH & PAGINATION HELPERS
+        // JAVASCRIPT SECTION 12: SEARCH & PAGINATION HELPERS
         // ============================================================
         function changePage(delta) {
             const allMembers = [];
@@ -2460,7 +2528,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 12: SEARCH DROPDOWN
+        // JAVASCRIPT SECTION 13: SEARCH DROPDOWN
         // ============================================================
         document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
             const query = this.value;
@@ -2535,7 +2603,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         });
 
         // ============================================================
-        // JAVASCRIPT SECTION 13: CLICK OUTSIDE HANDLER
+        // JAVASCRIPT SECTION 14: CLICK OUTSIDE HANDLER
         // ============================================================
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.search-wrapper')) {
@@ -2547,7 +2615,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         });
 
         // ============================================================
-        // JAVASCRIPT SECTION 14: RENDER FUNCTIONS
+        // JAVASCRIPT SECTION 15: RENDER FUNCTIONS
         // ============================================================
         function renderAllPages() {
             const container = document.getElementById('pageContainer');
@@ -2610,7 +2678,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 15: MEMBER DETAIL MODAL
+        // JAVASCRIPT SECTION 16: MEMBER DETAIL MODAL
         // ============================================================
         function showMemberDetails(name) {
             if (!name) return;
@@ -2694,16 +2762,15 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
                 </div>
             `;
             
-   if (person.details && person.details.trim() !== '') {
-    // Replace \n with <br> for line breaks
-    const detailsHtml = person.details.replace(/\\n/g, '<br>');
-    html += `
-        <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-            <strong style="margin-bottom:6px;">📝 Details</strong>
-            <div class="detail-notes">${detailsHtml}</div>
-        </div>
-    `;
-}
+            if (person.details && person.details.trim() !== '') {
+                const detailsHtml = person.details.replace(/\\n/g, '<br>');
+                html += `
+                    <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                        <strong style="margin-bottom:6px;">📝 Details</strong>
+                        <div class="detail-notes">${detailsHtml}</div>
+                    </div>
+                `;
+            }
             
             const children = getChildren(person.name, globalMap);
             if (children && children.length > 0) {
@@ -2731,7 +2798,6 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
                 }
             }
 
-            // Close button at bottom right
             html += `
                 <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
                     <button onclick="closeMemberModal()" 
@@ -2800,7 +2866,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 16: ESCAPE KEY HANDLER
+        // JAVASCRIPT SECTION 17: ESCAPE KEY HANDLER
         // ============================================================
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -2809,7 +2875,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         });
 
         // ============================================================
-        // JAVASCRIPT SECTION 17: INITIALIZATION
+        // JAVASCRIPT SECTION 18: INITIALIZATION
         // ============================================================
         window.onload = function() {
             if (typeof FAMILY_DATA !== 'undefined') {
@@ -2833,51 +2899,39 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
             }
         };
 
+        // Tips functions
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
 
-// Tips functions
-function openTips() {
-  document.getElementById('tipsOverlay').style.display = 'flex';
-}
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
 
-function closeTips() {
-  document.getElementById('tipsOverlay').style.display = 'none';
-}
+        document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
+            if (e.target === this) closeTips();
+        });
 
-// Close on outside click
-document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
-  if (e.target === this) closeTips();
-});
-
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeTips();
-});
-
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeTips();
+        });
 
     </script>
 
-
-<!-- Tips Modal -->
-<div class="tips-overlay" id="tipsOverlay">
-  <div class="tips-modal">
-    <h3>💡 Tips for Using the Family Tree File</h3>
-
-
-<ul>
-  <li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
-  <li><strong>View Details</strong> <span>: Click any name to view full details</span></li>
-  
-
-<li><strong>Navigate Pages</strong> <span>: Click Red "Page number" to view "Next<br>&nbsp;&nbsp;Generation Tree"</span></li>
-<li><strong>Menu</strong> <span>: Click ≡ MENU (top-left) to go to<br>&nbsp;&nbsp;Dashboard or Save options</span></li>
-<li><strong>Save</strong> <span>: From menu, choose: On screen page /<br>&nbsp;&nbsp;Selected member pages / All pages</span></li>
-
-</ul>
-
-    <button class="tips-close-btn" onclick="closeTips()">Close</button>
-  </div>
-</div>
-
+    <!-- Tips Modal -->
+    <div class="tips-overlay" id="tipsOverlay">
+        <div class="tips-modal">
+            <h3>💡 Tips for Using the Family Tree File</h3>
+            <ul>
+                <li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
+                <li><strong>View Details</strong> <span>: Click any name to view full details</span></li>
+                <li><strong>Navigate Pages</strong> <span>: Click Red "Page number" to view "Next<br>&nbsp;&nbsp;Generation Tree"</span></li>
+                <li><strong>Menu</strong> <span>: Click ≡ MENU (top-left) to go to<br>&nbsp;&nbsp;Dashboard or Save options</span></li>
+                <li><strong>Save</strong> <span>: From menu, choose: On screen page /<br>&nbsp;&nbsp;Selected member pages / All pages</span></li>
+            </ul>
+            <button class="tips-close-btn" onclick="closeTips()">Close</button>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/15/26 11:46
+// Saved: 7/16/26 23:39
 // Total members: 608
 
 const FAMILY_DATA_URDU = [
@@ -3455,10 +3455,10 @@ const FAMILY_DATA_URDU = [
     name: "سید ظفر الحسن - شارب (شعیب)",
     father: "سید تفصیل حسین",
     mother: "سیدہ رباب فاطمہ (ربـّن)",
-    spouse: "",
+    spouse: "سیدہ تنظیم فاطمہ رضوی",
     gen: "G-040-S1",
     gender: "MALE",
-    details: ""
+    details: "سید ظفر الحسن رضوی  کی شادی  سیدہ تنظیم فاطمہ رضوی سے ہوئی - دونوں کی جڑ سید عنایت حسین ہیں  - G-037-S1 \\n\\nS1 - سید افنان احمد رضوی\\nD1 - سیدہ فروہ رضوی"
   },
   {
     name: "سید اظہار الحسن",
@@ -3490,7 +3490,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید ابو طالب - 02",
     father: "سید ظفر الحسن - شارب (شعیب)",
-    mother: "",
+    mother: "سیدہ تنظیم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
@@ -3499,7 +3499,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید عبداللہ - 06",
     father: "سید ظفر الحسن - شارب (شعیب)",
-    mother: "",
+    mother: "سیدہ تنظیم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
@@ -3508,7 +3508,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید کمال حیدر - 02",
     father: "سید ظفر الحسن - شارب (شعیب)",
-    mother: "",
+    mother: "سیدہ تنظیم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-S3",
     gender: "MALE",
@@ -3517,7 +3517,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید جمال حیدر",
     father: "سید ظفر الحسن - شارب (شعیب)",
-    mother: "",
+    mother: "سیدہ تنظیم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-S4",
     gender: "MALE",
@@ -3526,7 +3526,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ عفت زہرہ",
     father: "سید ظفر الحسن - شارب (شعیب)",
-    mother: "",
+    mother: "سیدہ تنظیم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -3535,7 +3535,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ ثروت زہرہ",
     father: "سید ظفر الحسن - شارب (شعیب)",
-    mother: "",
+    mother: "سیدہ تنظیم فاطمہ رضوی",
     spouse: "سید رضا حیدر رضوی",
     gen: "G-041-D2",
     gender: "FEMALE",
@@ -3544,7 +3544,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ نصرت زہرہ",
     father: "سید ظفر الحسن - شارب (شعیب)",
-    mother: "",
+    mother: "سیدہ تنظیم فاطمہ رضوی",
     spouse: "",
     gen: "G-041-D3",
     gender: "FEMALE",
@@ -4157,10 +4157,10 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ تنظیم فاطمہ",
     father: "سید یعقوب الحسن",
     mother: "سیدہ اعجاز فاطمہ رضوی",
-    spouse: "",
+    spouse: "سید ظفر الحسن رضوی - شارب (شعیب)",
     gen: "G-039-D2",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ تنظیم فاطمہ رضوی کی شادی سید ظفر الحسن رضوی سے ہوئی - دونوں کی جڑ سید عنایت حسین ہیں  - G-037-S1"
   },
   {
     name: "سید حیدر شکو",
@@ -5480,8 +5480,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/15/26 11:46", 
+    saved_time: "7/16/26 23:39", 
     total_members: 608,
-    details_count: 81,
+    details_count: 83,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

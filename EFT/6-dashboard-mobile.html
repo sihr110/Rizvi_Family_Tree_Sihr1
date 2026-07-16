@@ -100,29 +100,6 @@
             white-space: nowrap;
         }
 
-        .back-btn {
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            border-radius: 30px;
-            padding: 4px 12px;
-            font-weight: 600;
-            font-size: 11px;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
-            display: none;
-        }
-
-        .back-btn:hover {
-            background: var(--gold);
-            color: var(--dark-blue);
-        }
-
-        .back-btn.visible {
-            display: block;
-        }
-
         .main-content {
             background: #fffcf8;
             padding: 16px 12px;
@@ -144,24 +121,26 @@
             display: none;
         }
 
-        .dashboard-card {
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 16px;
-            padding: 16px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.15s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+.dashboard-card {
+    background: white;
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;  /* ← ADD THIS to center */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
 
         .dashboard-card:active {
             transform: scale(0.98);
@@ -189,11 +168,8 @@
         .screen-choice {
             display: none;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             height: 100%;
-            padding: 20px 0;
-        }
+                  }
 
         .screen-choice.visible {
             display: flex;
@@ -212,7 +188,7 @@
             background: white;
             border: 2px solid var(--gold);
             border-radius: 16px;
-            padding: 18px 16px;
+            padding: 16px 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.15s;
@@ -449,8 +425,7 @@
                 <span id="headerTitle">Rizvi Family</span>
             </div>
             <div class="header-actions">
-                <button class="back-btn" id="backBtn" onclick="showDashboard()">← Back</button>
-                <span class="status-badge" id="headerStatus">📊 members: 0</span>
+                                <span class="status-badge" id="headerStatus">📊 members: 0</span>
             </div>
         </div>
 
@@ -515,9 +490,16 @@
                         <div class="choice-badge">Search Any Family Member</div>
                     </div>
                 </div>
-            </div>
-        </div>
 
+                <!-- BACK BUTTON AT BOTTOM - WITH GAP -->
+                <div class="action-row" style="max-width: 350px; width: 100%; margin: 8px auto 0 auto;">
+                    <div class="exit-btn-container" id="backToDashboardBtn" onclick="showDashboard()">
+                        <span class="exit-btn-icon">⬅️</span>
+                        <span class="exit-btn-text">Back to Dashboard</span>
+                        <span class="exit-btn-subtext">(return to main)</span>
+                    </div>
+                </div>
+            </div>
         <div class="app-footer">
             Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
         </div>
@@ -606,14 +588,12 @@
             function showDashboard() {
                 document.getElementById('screenDashboard').classList.remove('hidden');
                 document.getElementById('screenChoice').classList.remove('visible');
-                document.getElementById('backBtn').classList.remove('visible');
                 document.getElementById('headerTitle').innerText = 'Rizvi Family';
             }
 
             function showChoiceScreen() {
                 document.getElementById('screenDashboard').classList.add('hidden');
                 document.getElementById('screenChoice').classList.add('visible');
-                document.getElementById('backBtn').classList.add('visible');
                 document.getElementById('headerTitle').innerText = 'Individual Options';
             }
 

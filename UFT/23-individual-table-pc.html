@@ -1,62 +1,19 @@
-
-
-<!-- ===================================== -->
-<!-- FILE NAME: 23-individual-table-pc.html -->
-<!-- LAST UPDATED: 25/03/2026              -->
-<!-- ===================================== -->
-
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رضوی خاندان ــ ٹیبل</title>
     <meta name="google" content="notranslate">
+    <title>رضوی خاندان · ٹیبل ویو</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="33-family-data-urdu.js"></script>
     
     <style>
-
-
-/* Tips Grid Styles */
-.tips-grid {
-    display: grid;
-    grid-template-columns: auto auto 1fr;
-    gap: 6px 12px;
-    text-align: right;
-    direction: rtl;
-    align-items: baseline;
-    margin-bottom: 20px;
-}
-
-.tips-grid .title {
-    font-weight: 700;
-    color: #5a0000;
-    font-size: 14px;
-    white-space: nowrap;
-    text-align: right;
-}
-
-.tips-grid .colon {
-    color: #5a0000;
-    font-weight: 700;
-    font-size: 14px;
-    text-align: right;
-}
-
-.tips-grid .desc {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #1a1a1a;
-    text-align: right;
-}
-
-
-
         /* ===== TIPS BUTTON & MODAL ===== */
         .tips-overlay {
             position: fixed;
@@ -92,42 +49,36 @@
             text-align: center;
         }
 
-        .tips-modal ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 18px 0;
+        .tips-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 6px 12px;
+            text-align: right;
+            direction: rtl;
+            align-items: baseline;
+            margin-bottom: 20px;
         }
 
-        .tips-modal ul li {
-            display: flex;
-            align-items: baseline;
-            padding: 6px 0;
+        .tips-grid .title {
+            font-weight: 700;
+            color: #5a0000;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .tips-grid .colon {
+            color: #5a0000;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .tips-grid .desc {
             font-size: 14px;
             line-height: 1.6;
             color: #1a1a1a;
-            border-bottom: 1px solid #f0ebe4;
-            gap: 8px;
             text-align: right;
-            direction: rtl;
-        }
-
-        .tips-modal ul li:last-child {
-            border-bottom: none;
-        }
-
-        .tips-modal ul li strong {
-            min-width: 100px;
-            flex-shrink: 0;
-            color: #5a0000;
-            font-weight: 700;
-            font-size: 13px;
-            text-align: right;
-        }
-
-        .tips-modal ul li span {
-            flex: 1;
-            text-align: right;
-            font-size: 13px;
         }
 
         .tips-close-btn {
@@ -174,19 +125,7 @@
             100% { color: #3d2b1a; }
         }
 
-        /* Fix modal font */
-        .save-options-modal,
-        .save-options-modal *,
-        .save-options-modal label,
-        .save-options-modal button,
-        .save-options-modal h3,
-        .save-options-modal div,
-        .save-options-modal span {
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
-            direction: rtl;
-            text-align: right;
-        }
-
+        /* Reset Button CSS */
         .reset-btn {
             padding: 10px 20px;
             background: var(--gold);
@@ -205,11 +144,17 @@
             transform: scale(1.02);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .left-toggle-btn {
+            animation: gentle-blink 1.5s infinite;
         }
+
+        @keyframes gentle-blink {
+            0% { opacity: 1; background: var(--gold); }
+            50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
+            100% { opacity: 1; background: var(--gold); }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --maroon: #5a0000;
@@ -219,6 +164,7 @@
             --green: #2e7d32;
             --dark-green: #1b5e20;
             --light-pink: #ffe4e9;
+            --bronze: #bc8c4f;
             --table-header-bg: #fdf6e3;
             --table-border: #e2d5b3;
             --selected-row-bg: #e8f5e9;
@@ -232,10 +178,9 @@
             margin: 0;
             padding: 10px;
             position: relative;
-            direction: rtl;
         }
 
-        /* DRAGGABLE FLOATING ZOOM CONTROLS - FIXED POSITION */
+        /* DRAGGABLE FLOATING ZOOM CONTROLS */
         .zoom-controls {
             position: fixed;
             bottom: 15px;
@@ -321,9 +266,9 @@
         }
 
         .header-title {
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 900;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -342,16 +287,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Inter', sans-serif;
         }
 
         .header-actions {
             display: flex;
             gap: 10px;
-            margin-right: auto;
-            margin-left: 0;
+            margin-left: auto;
         }
 
+        /* ===== TOGGLE MENU BUTTON - on LEFT side ===== */
         .left-toggle-btn {
             background: var(--gold);
             color: var(--dark-blue);
@@ -367,8 +311,7 @@
             z-index: 2000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: all 0.3s;
-            animation: gentle-blink 1.5s infinite;
-            font-family: 'Inter', sans-serif;
+            position: relative;
         }
 
         .left-toggle-btn:hover {
@@ -376,16 +319,12 @@
             transform: scale(1.1);
         }
 
-        @keyframes gentle-blink {
-            0% { opacity: 1; background: var(--gold); }
-            50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
-            100% { opacity: 1; background: var(--gold); }
-        }
-
+        /* ===== TOGGLE MENU PANEL - pops up on LEFT side ===== */
         .toggle-menu-panel {
             position: absolute;
-            right: 10px;
-            left: auto;
+            left: 10px;      /* ← FIXED: was "right: 10px" */
+            right:10px;
+left: auto;
             top: 60px;
             background: white;
             border: 3px solid var(--gold);
@@ -458,6 +397,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .search-label {
@@ -480,7 +420,7 @@
             border-radius: 4px;
             font-size: 14px;
             outline: none;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
             text-align: right;
         }
 
@@ -524,21 +464,18 @@
             font-weight: 700;
             color: var(--dark-blue);
             font-size: 14px;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .result-item .gen {
             color: var(--maroon);
             font-size: 12px;
             margin-right: 8px;
-            font-family: 'Inter', sans-serif;
         }
 
         .result-item .father-name {
             font-size: 11px;
             color: #666;
             margin-top: 2px;
-            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
         .table-container {
@@ -593,39 +530,30 @@
             border: 3px solid var(--gold);
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+
         }
 
         .welcome-icon {
             font-size: 72px;
             margin-bottom: 20px;
             color: var(--gold);
-            font-family: 'Inter', sans-serif;
         }
 
-.welcome-box {
-    width: 360px;
-    min-width: 360px;
-    max-width: 360px;
-    padding: 30px 25px;
-}
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+        }
 
-.welcome-icon {
-    font-size: 40px;
-}
-
-.welcome-title {
-    font-size: 20px;
-}
-
-
-.welcome-text {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #666;
-    margin-bottom: 20px;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
+        .welcome-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
 
         .section-heading {
             display: flex;
@@ -635,11 +563,12 @@
             font-size: 18px;
             font-weight: 800;
             color: var(--maroon);
-            margin: 20px 0 25px 0;
-            padding-bottom: 10px;
+            margin: 0 0 25px 0;
+            padding-bottom: 5px;
             border-bottom: 2px solid var(--gold);
-            cursor: pointer;
             font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            cursor: pointer;
+            flex-wrap: nowrap;
         }
 
         .toggle-icon {
@@ -656,7 +585,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: all 0.2s;
             flex-shrink: 0;
-            position: static;
         }
 
         .toggle-icon:hover {
@@ -664,14 +592,17 @@
             background: var(--light-gold);
         }
 
+        /* ===== TABLE STYLES ===== */
         .family-table {
             width: 100%;
+            max-width: 1200px;
             border-collapse: collapse;
             margin-bottom: 20px;
             border: 2px solid var(--gold);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            table-layout: fixed;
         }
 
         .family-table th {
@@ -680,7 +611,7 @@
             font-weight: 700;
             font-size: 13px;
             padding: 12px 8px;
-            text-align: right;
+            text-align: center;
             border-bottom: 2px solid var(--gold);
             border-left: 1px solid var(--table-border);
             border-right: none;
@@ -697,6 +628,8 @@
             border-bottom: 1px solid #eee;
             border-left: 1px solid #f0f0f0;
             border-right: none;
+            vertical-align: middle;
+            word-wrap: break-word;
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
@@ -704,12 +637,21 @@
             border-left: none;
         }
 
-        .family-table tbody tr.female-row {
-            background-color: var(--light-pink);
+        .family-table tbody td:nth-child(1) {
+            text-align: right;
         }
-        
+        .family-table tbody td:nth-child(2) {
+            text-align: center;
+        }
+        .family-table tbody td:nth-child(3) {
+            text-align: right;
+        }
+        .family-table tbody td:nth-child(4) {
+            text-align: right;
+        }
+
         .family-table tbody tr:hover {
-            background: #faebcd !important;
+            background: #faebcd;
             cursor: pointer;
         }
 
@@ -717,6 +659,18 @@
             background: var(--selected-row-bg) !important;
             border-right: 4px solid var(--green);
             border-left: none;
+        }
+
+        .family-table tbody tr.female-row {
+            background-color: var(--light-pink);
+        }
+
+        .family-table .father-line {
+            font-size: 11px;
+            color: #5a0000;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
         }
 
         .app-footer {
@@ -807,6 +761,24 @@
             z-index: 3999;
             display: none;
         }
+
+        /* Column widths for RTL */
+        .family-table th:nth-child(1),
+        .family-table td:nth-child(1) {
+            width: 30%;
+        }
+        .family-table th:nth-child(2),
+        .family-table td:nth-child(2) {
+            width: 10%;
+        }
+        .family-table th:nth-child(3),
+        .family-table td:nth-child(3) {
+            width: 30%;
+        }
+        .family-table th:nth-child(4),
+        .family-table td:nth-child(4) {
+            width: 30%;
+        }
     </style>
 </head>
 <body>
@@ -823,28 +795,29 @@
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span>رضوی خاندان ــ ٹیبل</span>
+                <span>رضوی خاندان · ٹیبل ویو</span>
             </div>
             <div class="header-actions">
                 <!-- Header buttons removed - now in menu -->
             </div>
         </div>
 
-<div class="toggle-menu-panel" id="toggleMenuPanel">
-    <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 بہن بھائی</div>
-    <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
-    <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    <div class="toggle-menu-item" onclick="switchToTreeView()">🌳 شجرہ</div>
-    <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 مرکزی صفحہ</div>
-    <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 محفوظ کریں</div>
-</div>
+        <!-- ===== TOGGLE MENU PANEL - pops up on LEFT ===== -->
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 بہن بھائی</div>
+            <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
+            <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="switchToTreeView()">🌳 شجرہ ویو</div>
+            <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 ڈیش بورڈ</div>
+            <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 فائل محفوظ کریں</div>
+        </div>
 
         <div class="main-content">
             <div class="center-content">
                 <div class="search-section">
                     <div class="search-row">
-                        <span class="search-label">نام تلاش کریں</span>
+                        <span class="search-label">فرد تلاش کریں</span>
                         <div class="search-wrapper">
                             <input type="text" id="searchInput" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                             <div id="searchDropdown" class="search-dropdown"></div>
@@ -860,98 +833,96 @@
             </div>
         </div>
 
-        <div class="app-footer">
+        <div class="app-footer" id="appFooter">
             ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332
         </div>
     </div>
 
     <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
 
-    <div class="save-options-modal" id="saveOptionsModal" style="display:none;">
+    <!-- Save Options Modal -->
+    <div class="save-options-modal" id="saveOptionsModal" style="display:none;" dir="rtl">
         <h3>💾 شجرہ محفوظ کریں</h3>
         
         <div style="margin-bottom:20px;">
-            <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">فارمیٹ منتخب کریں:</div>
+            <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue); font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">فارمیٹ منتخب کریں:</div>
             
             <label>
-                <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-left:10px;"> 
+                <input type="radio" name="saveFormat" value="pdf-high" checked> 
                 <span style="font-weight:600;">📑 PDF - ہائی ریزولوشن</span>
-                <span style="display:block; font-size:12px; color:#666; margin-right:25px;">پرنٹ کے لیے بہترین (3-8 MB)</span>
+                <span style="display:block; font-size:12px; color:#666; margin-right:25px;">پرنٹ کے لیے بہترین، بڑی فائل (3-8 MB)</span>
             </label>
             
             <label>
-                <input type="radio" name="saveFormat" value="pdf-low" style="margin-left:10px;"> 
+                <input type="radio" name="saveFormat" value="pdf-low"> 
                 <span style="font-weight:600;">📑 PDF - لو ریزولوشن</span>
-                <span style="display:block; font-size:12px; color:#666; margin-right:25px;">شیئرنگ کے لیے بہترین (0.5-2 MB)</span>
+                <span style="display:block; font-size:12px; color:#666; margin-right:25px;">شیئرنگ کے لیے بہترین، چھوٹی فائل (0.5-2 MB)</span>
             </label>
             
             <label>
-                <input type="radio" name="saveFormat" value="jpeg" style="margin-left:10px;"> 
+                <input type="radio" name="saveFormat" value="jpeg"> 
                 <span style="font-weight:600;">📸 JPEG تصویر</span>
-                <span style="display:block; font-size:12px; color:#666; margin-right:25px;">یونیورسل فارمیٹ (200-500 KB)</span>
+                <span style="display:block; font-size:12px; color:#666; margin-right:25px;">یونیورسل فارمیٹ، بہت چھوٹی فائل (200-500 KB)</span>
             </label>
         </div>
         
         <div style="display:flex; gap:10px; justify-content:center;">
-            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer;">محفوظ کریں</button>
-            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">منسوخ</button>
+            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">محفوظ کریں</button>
+            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">منسوخ</button>
         </div>
     </div>
 
+    <!-- Overlay -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
-<!-- Tips Modal -->
-<div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
-    <div class="tips-modal">
-        <h3>💡 رہنما اصول برائے استعمال</h3>
+    <!-- Tips Modal -->
+    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="tips-modal">
+            <h3>💡 رہنما اصول برائے استعمال</h3>
+            <div class="tips-grid">
+                <div class="title">تلاش</div>
+                <div class="colon">:</div>
+                <div class="desc">نام لکھیں، ٹیبل دیکھیں</div>
 
-        <div class="tips-grid">
-            <!-- ===== SEARCH & SELECT ===== -->
-            <div class="title">تلاش</div>
-            <div class="colon">:</div>
-            <div class="desc">نام لکھیں، ٹیبل دیکھیں</div>
+                <div class="title">ٹیبل قطاریں</div>
+                <div class="colon">:</div>
+                <div class="desc">کسی بھی قطار پر کلک کریں</div>
 
-            <div class="title">ٹیبل قطاریں</div>
-            <div class="colon">:</div>
-            <div class="desc">کسی بھی قطار پر کلک کریں</div>
+                <div class="title">پھیلائیں / سکیڑیں</div>
+                <div class="colon">:</div>
+                <div class="desc">سیکشن ہیڈنگ پر ➕/➖ پر کلک کریں</div>
 
-            <div class="title">پھیلائیں / سکیڑیں</div>
-            <div class="colon">:</div>
-            <div class="desc">سیکشن ہیڈنگ پر ➕/➖ پر کلک کریں</div>
+                <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">مینو آپشنز</div>
+                <div class="colon" style="margin-top:8px;"></div>
+                <div class="desc" style="margin-top:8px;"></div>
 
-            <!-- ===== MENU OPTIONS ===== -->
-            <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">مینو آپشنز</div>
-            <div class="colon" style="margin-top:8px;"></div>
-            <div class="desc" style="margin-top:8px;"></div>
+                <div class="title">بہن بھائی</div>
+                <div class="colon">:</div>
+                <div class="desc">منتخب فرد کے بہن بھائی دکھائیں/چھپائیں</div>
 
-            <div class="title">بہن بھائی</div>
-            <div class="colon">:</div>
-            <div class="desc">منتخب فرد کے بہن بھائی دکھائیں/چھپائیں</div>
+                <div class="title">اولاد</div>
+                <div class="colon">:</div>
+                <div class="desc">منتخب فرد کی اولاد دکھائیں/چھپائیں</div>
 
-            <div class="title">اولاد</div>
-            <div class="colon">:</div>
-            <div class="desc">منتخب فرد کی اولاد دکھائیں/چھپائیں</div>
+                <div class="title">آباؤ اجداد</div>
+                <div class="colon">:</div>
+                <div class="desc">منتخب فرد کے آباؤ اجداد دکھائیں/چھپائیں</div>
 
-            <div class="title">آباؤ اجداد</div>
-            <div class="colon">:</div>
-            <div class="desc">منتخب فرد کے آباؤ اجداد دکھائیں/چھپائیں</div>
+                <div class="title">شجرہ ویو</div>
+                <div class="colon">:</div>
+                <div class="desc">شجرہ ویو میں تبدیل کریں</div>
 
-            <div class="title">شجرہ</div>
-            <div class="colon">:</div>
-            <div class="desc">شجرہ ویو میں تبدیل کریں</div>
+                <div class="title">ڈیش بورڈ</div>
+                <div class="colon">:</div>
+                <div class="desc">مرکزی صفحہ پر جائیں</div>
 
-            <div class="title">مرکزی صفحہ</div>
-            <div class="colon">:</div>
-            <div class="desc">مرکزی صفحہ پر جائیں</div>
-
-            <div class="title">محفوظ کریں</div>
-            <div class="colon">:</div>
-            <div class="desc">فائل کو PDF یا JPEG کے طور پر محفوظ کریں</div>
+                <div class="title">محفوظ کریں</div>
+                <div class="colon">:</div>
+                <div class="desc">فائل کو PDF یا JPEG کے طور پر محفوظ کریں</div>
+            </div>
+            <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">بند کریں</button>
         </div>
-
-        <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">بند کریں</button>
     </div>
-</div>
 
     <script>
         // ========== DRAGGABLE ZOOM CONTROLS ==========
@@ -1048,67 +1019,51 @@
             }
         });
 
-        // ========== EXISTING CODE ==========
+        // ========== MAIN APP ==========
         let db = [];
         let fileInfo = null;
         let currentIndividual = null;
         let showSiblings = true;
         let showDescendants = true;
         let showAncestors = true;
-        let zoomLevel = 1;
+        let zoomLevel = 0.7;
         let siblingsCollapsed = true;
         let childrenCollapsed = true;
         let ancestorsCollapsed = true;
 
-        function loadData() {
-            const script = document.createElement('script');
-            script.src = '33-family-data-urdu.js';
-            script.onload = function() {
-                if (typeof FAMILY_DATA_URDU !== 'undefined') {
-                    db = FAMILY_DATA_URDU;
-                    fileInfo = FILE_INFO || null;
-                    
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const memberName = urlParams.get('member');
-                    if (memberName) {
-                        setTimeout(() => {
-                            const member = db.find(m => m.name === decodeURIComponent(memberName));
-                            if (member) selectMember(member);
-                        }, 500);
-                    } else {
-                        resetIndividual();
-                    }
-                } else {
-                    document.getElementById('tableRoot').innerHTML = `
-                        <div class="welcome-container">
-                            <div class="welcome-box">
-                                <div class="welcome-icon">⚠️</div>
-                                <div class="welcome-title">ڈیٹا لوڈ نہیں ہوا</div>
-                                <div class="welcome-text">براہ کرم یقینی بنائیں کہ فائل 33-family-data-urdu.js موجود ہے۔</div>
-                            </div>
-                        </div>
-                    `;
-                }
-            };
-            script.onerror = function() {
-                document.getElementById('tableRoot').innerHTML = `
-                    <div class="welcome-container">
-                        <div class="welcome-box">
-                            <div class="welcome-icon">⚠️</div>
-                            <div class="welcome-title">فائل نہیں ملی</div>
-                            <div class="welcome-text">33-family-data-urdu.js نہیں مل سکی۔</div>
-                        </div>
-                    </div>
-                `;
-            };
-            document.head.appendChild(script);
-        }
-
         function displayName(str) {
             if (!str) return '';
-            let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
             return cleaned;
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof FAMILY_DATA_URDU !== 'undefined') {
+                db = FAMILY_DATA_URDU;
+            } else {
+                console.warn('FAMILY_DATA_URDU not found, using empty array');
+                db = [];
+            }
+            if (typeof FILE_INFO !== 'undefined') {
+                fileInfo = FILE_INFO;
+            } else {
+                fileInfo = { saved_time: "19/03/2026, 2:02:45 am" };
+            }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const memberName = urlParams.get('member');
+            if (memberName) {
+                setTimeout(() => {
+                    const member = db.find(m => m.name === decodeURIComponent(memberName));
+                    if (member) selectMember(member);
+                }, 200);
+            } else {
+                resetIndividual();
+
+setTimeout(() => applyZoom(), 100);
+
+            }
+        });
 
         function formatCurrentTime() {
             const d = new Date();
@@ -1150,9 +1105,9 @@
                 <div class="welcome-container">
                     <div class="welcome-box">
                         <div class="welcome-icon">🌿</div>
-                        <div class="welcome-title">رضوی خاندان ــ ٹیبل</div>
+                        <div class="welcome-title">رضوی خاندان · ٹیبل</div>
                         <div class="welcome-text">
-                            براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>
+                            اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>
                             تاکہ ان کے خاندانی روابط ٹیبل میں دیکھ سکیں۔
                         </div>
                     </div>
@@ -1171,12 +1126,8 @@
                 const div = document.createElement('div');
                 div.className = 'result-item';
                 div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen || ''}</span>
-                    <div class="father-name">والد: ${displayName(member.father) || '—'}</div></div>`;
-                div.onclick = () => { 
-                    selectMember(member); 
-                    dropdown.style.display = 'none'; 
-                    this.value = displayName(member.name);
-                };
+                    <div class="father-name">${member.gender === 'FEMALE' ? 'بنت' : 'ابن'} ${displayName(member.father) || '—'}</div></div>`;
+                div.onclick = () => { selectMember(member); dropdown.style.display = 'none'; this.value = displayName(member.name); };
                 dropdown.appendChild(div);
             });
             dropdown.style.display = 'block';
@@ -1199,7 +1150,7 @@
         };
 
         function findParent(p) {
-            return p?.father && p.father !== '—' ? db.find(x => x.name === p.father) : null;
+            return p?.father ? db.find(x => x.name === p.father) : null;
         }
 
         function getMother(person) {
@@ -1208,7 +1159,7 @@
 
         function getAncestors(p) {
             let arr = [], cur = p;
-            while (cur?.father && cur.father !== '—') {
+            while (cur?.father) {
                 const father = db.find(x => x.name === cur.father);
                 if (!father) break;
                 arr.push(father);
@@ -1217,13 +1168,11 @@
             return arr;
         }
 
-        function isFemale(gender) {
-            return gender === 'Female' || gender === 'خاتون';
-        }
-
+        // ===== RENDER FUNCTIONS =====
         function renderMemberInfoCard(member) {
             const mother = getMother(member);
-            const femaleClass = isFemale(member.gender) ? 'female-row' : '';
+            const fatherDisplay = member.father ? displayName(member.father) : '—';
+            const isFemale = member.gender === 'FEMALE';
             
             return `
                 <table class="family-table" style="margin-bottom: 30px;">
@@ -1231,16 +1180,17 @@
                         <tr>
                             <th>نام</th>
                             <th>جنریشن</th>
-                            <th>والد</th>
                             <th>والدہ</th>
                             <th>شریک حیات</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="selected-row ${femaleClass}">
-                            <td><strong>${displayName(member.name)}</strong></td>
+                        <tr class="selected-row ${isFemale ? 'female-row' : ''}">
+                            <td>
+                                <strong>${displayName(member.name)}</strong>
+                                ${member.father ? `<span class="father-line">${isFemale ? 'بنت' : 'ابن'} ${fatherDisplay}</span>` : ''}
+                            </td>
                             <td>${member.gen || '—'}</td>
-                            <td>${displayName(member.father) || '—'}</td>
                             <td>${mother}</td>
                             <td>${member.spouse || '—'}</td>
                         </tr>
@@ -1249,25 +1199,24 @@
             `;
         }
 
-        function renderTableForMembers(members, includeSelected = false) {
+        function renderTableForMembers(members) {
             if (!members || members.length === 0) return '';
             
             let html = `<table class="family-table">`;
             html += `<thead><tr>
-                <th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th>
+                <th>نام</th><th>جنریشن</th><th>والدہ</th><th>شریک حیات</th>
             </tr></thead><tbody>`;
             
             members.forEach(m => {
-                if (includeSelected && currentIndividual?.name === m.name) return;
+                if (currentIndividual?.name === m.name) return;
                 
                 const mother = getMother(m);
                 const isSelected = currentIndividual?.name === m.name ? 'selected-row' : '';
-                const femaleClass = isFemale(m.gender) ? 'female-row' : '';
+                const isFemale = m.gender === 'FEMALE' ? 'female-row' : '';
                 
-                html += `<tr class="${isSelected} ${femaleClass}" onclick="selectMember(db.find(x => x.name === '${m.name.replace(/'/g, "\\'")}'))">`;
+                html += `<tr class="${isSelected} ${isFemale}" onclick="selectMember(db.find(x => x.name === '${m.name.replace(/'/g, "\\'")}'))">`;
                 html += `<td><strong>${displayName(m.name)}</strong></td>`;
                 html += `<td>${m.gen || '—'}</td>`;
-                html += `<td>${displayName(m.father) || '—'}</td>`;
                 html += `<td>${mother}</td>`;
                 html += `<td>${m.spouse || '—'}</td>`;
                 html += `</tr>`;
@@ -1279,7 +1228,7 @@
 
         function renderTable() {
             if (!currentIndividual) return;
-            let html = '<div>';
+            let html = '<div style="width:100%; max-width:1200px; margin:0 auto;">';
 
             html += renderMemberInfoCard(currentIndividual);
 
@@ -1291,7 +1240,7 @@
                     html += `<span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!ancestorsCollapsed) {
-                        html += renderTableForMembers(ancestors, false);
+                        html += renderTableForMembers(ancestors);
                     }
                 }
             }
@@ -1306,7 +1255,7 @@
                         html += `<span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span>`;
                         html += `</div>`;
                         if (!siblingsCollapsed) {
-                            html += renderTableForMembers(siblings, true);
+                            html += renderTableForMembers(siblings);
                         }
                     }
                 }
@@ -1320,7 +1269,7 @@
                     html += `<span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span>`;
                     html += `</div>`;
                     if (!childrenCollapsed) {
-                        html += renderTableForMembers(children, false);
+                        html += renderTableForMembers(children);
                     }
                 }
             }
@@ -1329,6 +1278,7 @@
             document.getElementById('tableRoot').innerHTML = html;
         }
 
+        // ===== ZOOM FUNCTIONS =====
         function zoomIn() { 
             zoomLevel = Math.min(zoomLevel + 0.1, 2); 
             applyZoom(); 
@@ -1356,6 +1306,7 @@
             }
         }
 
+        // ===== SAVE FUNCTIONS =====
         window.showSaveOptions = function() {
             if (!currentIndividual) {
                 alert('براہ کرم پہلے کسی فرد کو منتخب کریں');
@@ -1407,8 +1358,8 @@
                 const header = document.createElement('div');
                 header.style.marginBottom = '30px'; 
                 header.style.textAlign = 'center';
-                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">رضوی خاندان کا ٹیبل</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display','Noto Nastaliq Urdu',serif; margin:0;">رضوی خاندان کا ٹیبل</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display','Noto Nastaliq Urdu',serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
                 
                 tableElement.insertBefore(header, tableElement.firstChild);
 
@@ -1418,15 +1369,16 @@
                 footer.style.background = '#fcf9f4';
                 footer.style.width = '100%';
                 footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Noto Nastaliq Urdu','Inter',sans-serif";
                 footer.style.fontSize = '12px';
                 footer.style.textAlign = 'center';
 
                 const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
 
                 footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر : عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم : ${excelSavedTime} | PDF جنریٹ : ${timeStr}</div>
                 `;
                 tableElement.appendChild(footer);
                 
@@ -1474,7 +1426,7 @@
                 
                 const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
                 const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-                alert(`✅ PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`);
+                alert(`✅ ${qualityText} PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`);
                 
             } catch (err) {
                 console.error('PDF Error:', err);
@@ -1485,82 +1437,62 @@
         window.exportAsJPEG = async function() {
             if (!currentIndividual) return;
             
-            const originalElement = document.querySelector('.table-root-layout');
-            if (!originalElement) return alert('کوئی مواد نہیں');
-            
-            const el = originalElement.cloneNode(true);
-            el.style.transform = 'none';
-            el.style.width = '100%';
-            el.style.height = 'auto';
-            el.style.overflow = 'visible';
-            
-            const wrapper = document.createElement('div');
-            wrapper.style.position = 'absolute';
-            wrapper.style.left = '-9999px';
-            wrapper.style.top = '0';
-            wrapper.style.backgroundColor = 'white';
-            wrapper.style.padding = '20px';
-            wrapper.style.width = 'fit-content';
-            wrapper.style.minWidth = '800px';
-            wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
-            document.body.appendChild(wrapper);
-            
-            const styleTag = document.createElement('style');
-            styleTag.textContent = `
-                * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important; }
-                .family-table th, .family-table td, .member-name, .box-label, .box-value {
-                    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
-                }
-                h1, h2, .section-heading {
-                    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif !important;
-                }
-                .family-table { direction: rtl; }
-            `;
-            wrapper.appendChild(styleTag);
-            
-            const header = document.createElement('div');
-            header.style.marginBottom = '30px';
-            header.style.textAlign = 'center';
-            header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا ٹیبل</h1>
-                <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-            wrapper.appendChild(header);
-            wrapper.appendChild(el);
-            
-            const footer = document.createElement('div');
-            footer.style.marginTop = '30px';
-            footer.style.padding = '15px 20px';
-            footer.style.background = '#fcf9f4';
-            footer.style.textAlign = 'center';
-            const timeStr = formatCurrentTime();
-            const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-            footer.innerHTML = `<div style="font-family:'Noto Nastaliq Urdu';">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-                <div style="font-family:'Noto Nastaliq Urdu';">آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
-            wrapper.appendChild(footer);
-            
-            const loadingMsg = document.createElement('div');
-            loadingMsg.style.position = 'fixed';
-            loadingMsg.style.top = '50%';
-            loadingMsg.style.left = '50%';
-            loadingMsg.style.transform = 'translate(-50%, -50%)';
-            loadingMsg.style.background = '#5a0000';
-            loadingMsg.style.color = 'white';
-            loadingMsg.style.padding = '20px 40px';
-            loadingMsg.style.borderRadius = '8px';
-            loadingMsg.style.zIndex = '9999';
-            loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
-            document.body.appendChild(loadingMsg);
-            
-            await new Promise(resolve => setTimeout(resolve, 500));
+            const tableElement = document.querySelector('.table-root-layout');
+            if (!tableElement) return alert('کوئی مواد نہیں');
             
             try {
-                const canvas = await html2canvas(wrapper, {
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px'; 
+                header.style.textAlign = 'center';
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display','Noto Nastaliq Urdu',serif; margin:0;">رضوی خاندان کا ٹیبل</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display','Noto Nastaliq Urdu',serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                tableElement.insertBefore(header, tableElement.firstChild);
+
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Noto Nastaliq Urdu','Inter',sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
+
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+                
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر : عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم : ${excelSavedTime} | JPEG جنریٹ : ${timeStr}</div>
+                `;
+                tableElement.appendChild(footer);
+                
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%'; 
+                loadingMsg.style.left = '50%'; 
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000'; 
+                loadingMsg.style.color = 'white'; 
+                loadingMsg.style.padding = '20px 40px'; 
+                loadingMsg.style.borderRadius = '8px'; 
+                loadingMsg.style.zIndex = '9999'; 
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
+                document.body.appendChild(loadingMsg);
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                const canvas = await html2canvas(tableElement, { 
                     scale: 1.2,
-                    backgroundColor: '#ffffff',
-                    logging: false,
-                    windowWidth: wrapper.scrollWidth,
-                    windowHeight: wrapper.scrollHeight
+                    backgroundColor: '#ffffff', 
+                    logging: false
                 });
                 
+                tableElement.removeChild(header);
+                tableElement.removeChild(footer);
+                document.body.removeChild(loadingMsg);
+
                 const imgData = canvas.toDataURL('image/jpeg', 0.85);
                 
                 const link = document.createElement('a');
@@ -1569,15 +1501,13 @@
                 link.href = imgData;
                 link.click();
                 
-                const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
                 setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
                 
             } catch (err) {
                 console.error('Export Error:', err);
                 alert('❌ JPEG نہیں بن سکی: ' + err.message);
-            } finally {
-                document.body.removeChild(wrapper);
-                document.body.removeChild(loadingMsg);
             }
         };
 
@@ -1597,9 +1527,7 @@
             document.getElementById('saveModalOverlay').style.display = 'none';
         }
         
-        function showDashboard() { 
-            window.location.href = '21-dashboard-pc.html'; 
-        }
+        function showDashboard() { window.location.href = '21-dashboard-pc.html'; }
         
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
@@ -1621,10 +1549,6 @@
         window.switchToTreeView = switchToTreeView;
         window.openTips = openTips;
         window.closeTips = closeTips;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            loadData();
-        });
     </script>
 </body>
 </html>

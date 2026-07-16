@@ -1232,44 +1232,46 @@
         }
 
         // ==================== SEARCH FUNCTIONS ====================
-        window.searchMember = function(query, num) {
-            if (!db.length) return;
+window.searchMember = function(query, num) {
+    if (!db.length) return;
+    
+    const drop = document.getElementById(`dropdown${num}`);
+    drop.innerHTML = '';
+    
+    if (!query || query.length < 1) {
+        drop.style.display = 'none';
+        return;
+    }
+    
+    const found = db.filter(p => p.name.includes(query)).slice(0, 8);
+    if (found.length === 0) {
+        drop.style.display = 'none';
+        return;
+    }
+    
+    found.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'result-item';
+
+div.innerHTML = `<div><span class="main-name">${displayName(p.name)}</span> <span class="gen">(${p.gen || ''})</span></div>
+    <div style="font-size:11px;">${p.gender === 'FEMALE' ? 'بنت' : 'ابن'}: ${displayName(p.father) || '—'}</div>`;
+
+        div.onclick = (e) => {
+            e.stopPropagation();
+            document.getElementById(`search${num}`).value = displayName(p.name) + (p.gen ? ' (' + p.gen + ')' : '');
+            if (num === 1) member1 = p;
+            else member2 = p;
             
-            const drop = document.getElementById(`dropdown${num}`);
-            drop.innerHTML = '';
-            
-            if (!query || query.length < 1) {
-                drop.style.display = 'none';
-                return;
+            if (member1 && member2) {
+                renderTables();
             }
-            
-            const found = db.filter(p => p.name.includes(query)).slice(0, 8);
-            if (found.length === 0) {
-                drop.style.display = 'none';
-                return;
-            }
-            
-            found.forEach(p => {
-                const div = document.createElement('div');
-                div.className = 'result-item';
-                div.innerHTML = `<div><span class="main-name">${displayName(p.name)}</span> <span class="gen">(${p.gen || ''})</span></div>
-                    <div style="font-size:11px;">${p.gender === 'Female' ? 'دختر' : 'پسر'}: ${displayName(p.father) || '—'}</div>`;
-                div.onclick = (e) => {
-                    e.stopPropagation();
-                    document.getElementById(`search${num}`).value = displayName(p.name) + (p.gen ? ' (' + p.gen + ')' : '');
-                    if (num === 1) member1 = p;
-                    else member2 = p;
-                    
-                    if (member1 && member2) {
-                        renderTables();
-                    }
-                    drop.style.display = 'none';
-                };
-                drop.appendChild(div);
-            });
-            
-            drop.style.display = 'block';
+            drop.style.display = 'none';
         };
+        drop.appendChild(div);
+    });
+    
+    drop.style.display = 'block';
+};
 
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.search-wrapper')) {

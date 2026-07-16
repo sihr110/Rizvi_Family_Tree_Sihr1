@@ -1,10 +1,12 @@
+
+
 <!-- ======================================== -->
 <!-- FILE NAME: 24-root-tree-pc.html           -->
-<!-- LAST UPDATED: 30/03/2026 - FIXED         -->
+<!-- LAST UPDATED: 30/03/2026 - FULL REPLACE   -->
 <!-- ======================================== -->
 
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="ur" dir="rtl">
 <head>
     <meta name="google" content="notranslate">
     <meta charset="UTF-8">
@@ -132,24 +134,24 @@
             100% { color: #3d2b1a; }
         }
 
-.reset-btn {
-    padding: 10px 20px !important;
-    font-size: 12px !important;
-    line-height: 1 !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-    height: auto !important;
-    width: auto !important;
-    background: var(--gold);
-    color: var(--dark-blue);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    white-space: nowrap;
-    transition: all 0.2s;
-}
+        .reset-btn {
+            padding: 10px 20px !important;
+            font-size: 12px !important;
+            line-height: 1 !important;
+            min-width: 0 !important;
+            min-height: 0 !important;
+            height: auto !important;
+            width: auto !important;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
 
         .reset-btn:hover {
             background: var(--light-gold);
@@ -204,8 +206,8 @@
             position: relative;
         }
 
-        /* DRAGGABLE FLOATING ZOOM CONTROLS - FIXED POSITION */
-        .zoom-controls {
+        /* DRAGGABLE FLOATING ZOOM CONTROLS - FIXED TO LEFT SIDE */
+          .zoom-controls {
             position: fixed;
             bottom: 15px;
             right: 60px;
@@ -225,13 +227,11 @@
             transform: scale(0.75);
             transform-origin: bottom right;
         }
-
         .zoom-controls.dragging {
             cursor: grabbing;
             opacity: 0.85;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
-
         .zoom-btn {
             width: 36px;
             height: 36px;
@@ -248,12 +248,10 @@
             font-family: 'Inter', sans-serif;
             transition: all 0.2s;
         }
-
         .zoom-btn:hover {
             background: var(--gold);
             color: white;
         }
-
         .zoom-level {
             text-align: center;
             font-size: 11px;
@@ -405,7 +403,6 @@
             flex: 1;
         }
 
-        /* CHANGE 2: Fixed header section centered */
         .fixed-header-section {
             padding: 15px 15px 0 15px;
             background: #fffcf8;
@@ -780,7 +777,7 @@
     </style>
 </head>
 <body>
-    <!-- DRAGGABLE FLOATING ZOOM CONTROLS -->
+    <!-- DRAGGABLE FLOATING ZOOM CONTROLS (NOW ON LEFT SIDE) -->
     <div class="zoom-controls" id="zoomControls">
         <div class="zoom-btn" onclick="zoomIn()">+</div>
         <div class="zoom-level" id="zoomLevel">60%</div>
@@ -801,7 +798,7 @@
         </div>
 
 <div class="toggle-menu-panel" id="toggleMenuPanel">
-    <div class="toggle-menu-item" onclick="switchToTableView()">📋 ٹیبل ویو</div>
+    <div class="toggle-menu-item" onclick="switchToTreeView()">🌳 شجرہ ویو</div>
     <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 مرکزی صفحہ</div>
     <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 محفوظ کریں</div>
 </div>
@@ -921,9 +918,9 @@
             <div class="colon" style="margin-top:8px;"></div>
             <div class="desc" style="margin-top:8px;"></div>
 
-            <div class="title">ٹیبل ویو</div>
+            <div class="title">شجرہ ویو</div>
             <div class="colon">:</div>
-            <div class="desc">ٹیبل فارمیٹ میں تبدیل کریں</div>
+            <div class="desc">شجرہ ویو میں تبدیل کریں</div>
 
             <div class="title">مرکزی صفحہ</div>
             <div class="colon">:</div>
@@ -969,8 +966,9 @@
                 let newY = e.clientY - offsetY;
                 newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
                 newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.left = newX + 'px';
                 zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                zoomControls.style.right = 'auto';
             });
 
             document.addEventListener('mouseup', function() {
@@ -1005,8 +1003,9 @@
                 let newY = touch.clientY - touchOffsetY;
                 newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
                 newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.left = newX + 'px';
                 zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                zoomControls.style.right = 'auto';
                 e.preventDefault();
             }, { passive: false });
 
@@ -1064,24 +1063,48 @@
             return `${day}/${month}/${year} - ${displayHours}:${minutes} ${ampm}`;
         }
 
-        // --- DATA LOADING ---
-        function initializeData() {
-            try {
-                if (typeof FAMILY_DATA_URDU !== 'undefined' && Array.isArray(FAMILY_DATA_URDU)) {
-                    db = FAMILY_DATA_URDU;
-                    fileInfo = typeof FILE_INFO !== 'undefined' ? FILE_INFO : { saved_time: "18/03/2026, 9:04:20 pm" };
-                } else {
-                    console.error('FAMILY_DATA_URDU not found');
-                    showError('ڈیٹا لوڈ نہیں ہو سکا۔ براہ کرم یقینی بنائیں کہ فائل 33-family-data-urdu.js موجود ہے۔');
+        // --- DATA LOADING (ROBUST VERSION MATCHING FILE 23) ---
+
+function initializeData() {
+    try {
+        // 1. Try Urdu data first
+        if (typeof FAMILY_DATA_URDU !== 'undefined' && Array.isArray(FAMILY_DATA_URDU)) {
+            db = FAMILY_DATA_URDU;
+        } 
+        // 2. Fallback to standard data
+        else if (typeof FAMILY_DATA !== 'undefined' && Array.isArray(FAMILY_DATA)) {
+            db = FAMILY_DATA;
+        } 
+        // 3. Fallback to localStorage
+        else {
+            const stored = localStorage.getItem('familyDB');
+            if (stored) {
+                try {
+                    db = JSON.parse(stored);
+                } catch(e) {
+                    db = [];
                 }
-                
-                updateFooter();
-                
-            } catch (error) {
-                console.error('Data initialization error:', error);
-                showError('ڈیٹا لوڈ کرنے میں خرابی۔ براہ کرم دوبارہ کوشش کریں۔');
             }
         }
+
+        // Set file info
+        if (typeof FILE_INFO !== 'undefined') {
+            fileInfo = FILE_INFO;
+        } else {
+            fileInfo = { saved_time: "کوئی ٹائم سٹیمپ نہیں" };
+        }
+
+        if (db.length === 0) {
+            console.warn('No data found! Check 33-family-data-urdu.js');
+            showError('ڈیٹا لوڈ نہیں ہو سکا۔ براہ کرم یقینی بنائیں کہ فائل 33-family-data-urdu.js موجود ہے۔');
+        } else {
+            updateFooter();
+        }
+    } catch (error) {
+        console.error('Data initialization error:', error);
+        showError('ڈیٹا لوڈ کرنے میں خرابی۔ براہ کرم دوبارہ کوشش کریں۔');
+    }
+}
 
         function showError(message) {
             const rootTree = document.getElementById('rootTree');
@@ -1213,13 +1236,13 @@
             }
         };
 
-        // --- NAVIGATION ---
-        function switchToTableView() {
+        // --- NAVIGATION (UPDATED TO MATCH FILE 23) ---
+        function switchToTreeView() {
             if (member1 && member2) {
                 localStorage.setItem('rootMember1', JSON.stringify(member1));
                 localStorage.setItem('rootMember2', JSON.stringify(member2));
             }
-            window.location.href = '25-root-tree-table-pc.html';
+            window.location.href = '22-individual-tree-pc.html';
         }
 
         function showDashboard() { 
@@ -1298,20 +1321,29 @@
             drop.style.display = 'block';
         };
 
-        function renderBox(m, label, isRoot = false, isSelected = false) {
-            if (!m) return '';
-            const isF = m.gender === 'Female';
-            
-            let html = `<div class="box ${isF ? 'female-box' : ''} ${isSelected ? 'blinking-box' : ''} ${isRoot ? 'root-box' : ''}">`;
-            html += `<div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>`;
-            html += `<div class="box-body">`;
-            html += `<span class="member-name">${displayName(m.name)}</span>`;
-            html += `<div class="box-row"><span class="box-label">والد :</span><span class="box-value">${displayName(m.father) || '—'}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">والدہ :</span><span class="box-value">${displayName(m.mother) || '—'}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">شریک حیات :</span><span class="box-value">${m.spouse || '—'}</span></div>`;
-            html += `</div></div>`;
-            return html;
-        }
+        
+
+function renderBox(m, label, isRoot = false, isSelected = false) {
+    if (!m) return '';
+    const isF = m.gender === 'Female';
+    const motherName = m.mother ? displayName(m.mother) : '—';
+    
+    return `<div class="box ${isF ? 'female-box' : ''} ${isSelected ? 'blinking-box' : ''} ${isRoot ? 'root-box' : ''}">
+        <div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>
+        <div class="box-body">
+            <span class="member-name">${displayName(m.name)}</span>
+            <div class="parent-info">
+                <div class="row">
+                    <span class="label">والدہ</span>
+                    <span class="colon">:</span>
+                    <span class="value">${motherName}</span>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+
 
         function renderTree() {
             if (!member1 || !member2) return;
@@ -1649,10 +1681,10 @@
             } catch(e) { 
                 console.error("Stored member parse error", e); 
             }
-applyZoom();
+            applyZoom();
         });
 
-        window.switchToTableView = switchToTableView;
+        window.switchToTreeView = switchToTreeView;
         window.resetSearch = resetSearch;
         window.resetSearchRow = resetSearchRow;
         window.exportPDF = exportPDF;

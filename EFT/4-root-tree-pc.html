@@ -20,6 +20,39 @@
     <script src="13-family-data.js"></script>
     
     <style>
+
+.parent-info {
+    font-size: 11px;
+    color: #333;
+    margin-top: 6px;
+    text-align: left;
+    padding: 0 4px;
+}
+.parent-info .row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+.parent-info .label {
+    width: 65px;
+    font-weight: 600;
+    color: #5a0000;
+    text-align: right;
+    flex-shrink: 0;
+}
+.parent-info .colon {
+    font-weight: 600;
+    color: #5a0000;
+    flex-shrink: 0;
+}
+.parent-info .value {
+    font-weight: 400;
+    color: #1a1a1a;
+    text-align: left;
+}
+
+
+
         /* ===== TIPS BUTTON & MODAL ===== */
         .tips-overlay {
             position: fixed;
@@ -1179,17 +1212,30 @@ position: relative;
             drop.style.display = 'block';
         };
 
-        function renderBox(m, label, isRoot = false, isSelected = false) {
-            if (!m) return '';
-            const isF = m.gender && m.gender.startsWith('F');
-            
-            return `<div class="box ${isF ? 'female-box' : ''} ${isSelected ? 'blinking-box' : ''} ${isRoot ? 'root-box' : ''}">
-                <div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>
-                <div class="box-body">
-                    <span class="member-name">${displayName(m.name)}</span>
-                    <div class="father-name">${isF ? 'D/o' : 'S/o'}: ${displayName(m.father)}</div>
-                </div></div>`;
-        }
+
+function renderBox(m, label, isRoot = false, isSelected = false) {
+    if (!m) return '';
+    const isF = m.gender && m.gender.startsWith('F');
+    const motherName = m.mother ? displayName(m.mother) : '—';
+    
+    return `<div class="box ${isF ? 'female-box' : ''} ${isSelected ? 'blinking-box' : ''} ${isRoot ? 'root-box' : ''}">
+        <div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>
+        <div class="box-body">
+            <span class="member-name">${displayName(m.name)}</span>
+            <div class="parent-info">
+                <div class="row">
+                    <span class="label">Mother</span>
+                    <span class="colon">:</span>
+                    <span class="value">${motherName}</span>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+
+
+
 
         function renderTree() {
             if (!member1 || !member2) return;

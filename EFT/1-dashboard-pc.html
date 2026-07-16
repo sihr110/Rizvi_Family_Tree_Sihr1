@@ -1,6 +1,6 @@
 <!-- ======================================== -->
 <!-- FILE NAME: 1-dashboard-pc.html           -->
-<!--                                          -->
+<!-- Dashboard for PC - 2 screens             -->
 <!-- ======================================== -->
 
 <!DOCTYPE html>
@@ -12,7 +12,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <!-- Include 13-family-data.js for auto-loading on PC -->
     <script src="13-family-data.js"></script>
     
     <style>
@@ -57,6 +56,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 3px solid var(--gold);
+            flex-shrink: 0;
         }
 
         .header-title {
@@ -83,6 +83,7 @@
         .header-actions {
             display: flex;
             gap: 8px;
+            align-items: center;
         }
 
         .status-badge {
@@ -95,21 +96,50 @@
             white-space: nowrap;
         }
 
+        .back-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            display: none;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+            color: var(--dark-blue);
+        }
+
+        .back-btn.visible {
+            display: block;
+        }
+
         .main-content {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #fffcf8;
+            padding: 20px;
+            overflow-y: auto;
         }
 
-        .dashboard-grid {
+        /* ===== SCREEN 1: MAIN DASHBOARD ===== */
+        .screen-dashboard {
             display: flex;
             flex-direction: column;
             gap: 30px;
             max-width: 1000px;
             width: 100%;
-            padding: 20px;
+        }
+
+        .screen-dashboard.hidden {
+            display: none;
         }
 
         .top-row {
@@ -207,13 +237,94 @@
             transform: translateY(0);
         }
 
-        .app-footer {
-            background: var(--dark-blue);
-            color: var(--gold);
+        .exit-btn-container.hardreset {
+            background: #4169E1;
+        }
+
+        .exit-btn-container.hardreset:hover {
+            background: #5a7fe0;
+        }
+
+        /* ===== SCREEN 2: CHOICE SCREEN (moved from File 2) ===== */
+        .screen-choice {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+        }
+
+        .screen-choice.visible {
+            display: flex;
+        }
+
+        .choice-grid {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .choice-card {
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 35px 25px 30px;
             text-align: center;
-            padding: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            flex: 1;
+            min-width: 220px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .choice-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--bronze);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .choice-card:active {
+            transform: scale(0.97);
+        }
+
+        .choice-icon {
+            font-size: 52px;
+            margin-bottom: 16px;
+        }
+
+        .choice-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .choice-desc {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            max-width: 220px;
+        }
+
+        .choice-badge {
+            margin-top: 14px;
+            background: #f0ebe4;
+            color: #3d2b1a;
             font-size: 11px;
-            border-top: 2px solid var(--gold);
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
         }
 
         /* Admin Page Styles */
@@ -283,23 +394,14 @@
             font-size: 13px;
         }
 
-        .home-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
+        .app-footer {
             background: var(--dark-blue);
             color: var(--gold);
-            text-decoration: none;
-            border-radius: 40px;
-            border: 2px solid var(--gold);
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .home-link:hover {
-            background: var(--gold);
-            color: var(--dark-blue);
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
+            flex-shrink: 0;
         }
 
         /* === TREE OPTION MODAL === */
@@ -417,6 +519,29 @@
         .tree-option-close:hover {
             color: #555;
         }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .top-row {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .bottom-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .choice-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .choice-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -424,9 +549,10 @@
         <div class="app-header" id="appHeader">
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span id="headerTitle">Rizvi Family Dashboard (PC)</span>
+                <span id="headerTitle">Rizvi Family Dashboard</span>
             </div>
             <div class="header-actions" id="headerActions">
+                <button class="back-btn" id="backBtn" onclick="showDashboard()">← Back</button>
                 <span class="status-badge" id="headerStatus">📊 Total member records: 0</span>
             </div>
         </div>
@@ -434,7 +560,81 @@
         <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
 
         <div class="main-content" id="mainContent">
-            <!-- Dynamic content will be inserted here -->
+            <!-- SCREEN 1: MAIN DASHBOARD -->
+            <div class="screen-dashboard" id="screenDashboard">
+                <div class="top-row">
+                    <!-- 1️⃣ Full Family Tree -->
+                    <div class="dashboard-card" id="cardFullTree">
+                        <div class="card-icon">🌳</div>
+                        <div class="card-title">Full Family Tree</div>
+                        <div class="card-desc">Complete family tree view</div>
+                    </div>
+                    
+                    <!-- 2️⃣ Individual -->
+                    <div class="dashboard-card" id="cardIndividual">
+                        <div class="card-icon">👤</div>
+                        <div class="card-title">Individual</div>
+                        <div class="card-desc">Tree · Table · Global Search</div>
+                    </div>
+                    
+                    <!-- 3️⃣ Root Relative -->
+                    <div class="dashboard-card" id="cardRoot">
+                        <div class="card-icon">👥</div>
+                        <div class="card-title">Root Relative</div>
+                        <div class="card-desc">Two member search</div>
+                    </div>
+                    
+                    <!-- 4️⃣ Admin -->
+                    <div class="dashboard-card admin-card" id="cardAdmin">
+                        <div class="card-icon">⚙️</div>
+                        <div class="card-title">Admin Use Only</div>
+                        <div class="card-desc">Data management</div>
+                        <span class="admin-badge">Restricted - Password Protected</span>
+                    </div>
+                </div>
+                
+                <div class="bottom-row">
+                    <div class="exit-btn-container" id="exitBtn">
+                        <span>🚪</span>
+                        <span>Exit to Login</span>
+                        <span>- (Back to main page)</span>
+                    </div>
+                    <div class="exit-btn-container hardreset" id="resetBtn">
+                        <span>⚠️</span>
+                        <span>Hard Reset</span>
+                        <span>- (Delete all data)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCREEN 2: CHOICE SCREEN (moved from File 2) -->
+            <div class="screen-choice" id="screenChoice">
+                <div class="choice-grid">
+                    <!-- Option 1: Tree -->
+                    <div class="choice-card" id="choiceTree">
+                        <div class="choice-icon">🌳</div>
+                        <div class="choice-title">Search Individual – Tree</div>
+                        <div class="choice-desc">Visual tree view for a single member</div>
+                        <div class="choice-badge">Click to continue</div>
+                    </div>
+
+                    <!-- Option 2: Table -->
+                    <div class="choice-card" id="choiceTable">
+                        <div class="choice-icon">📊</div>
+                        <div class="choice-title">Search Individual – Table</div>
+                        <div class="choice-desc">Table view with all details for one person</div>
+                        <div class="choice-badge">Click to continue</div>
+                    </div>
+
+                    <!-- Option 3: Global Search -->
+                    <div class="choice-card" id="choiceGlobal">
+                        <div class="choice-icon">🔍</div>
+                        <div class="choice-title">Global Search</div>
+                        <div class="choice-desc">Search any person or relative across all fields</div>
+                        <div class="choice-badge">Search Any Family Member</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="app-footer" id="appFooter">
@@ -443,45 +643,195 @@
     </div>
 
     <!-- TREE OPTION MODAL -->
+    <div class="tree-option-overlay" id="treeOptionOverlay">
+        <div class="tree-option-modal">
+            <h2>🌳 Full Family Tree</h2>
+            <p class="subtitle">Choose how you want to view the tree</p>
 
-<!-- TREE OPTION MODAL -->
-<div class="tree-option-overlay" id="treeOptionOverlay">
-    <div class="tree-option-modal">
-        <h2>🌳 Full Family Tree</h2>
-        <p class="subtitle">Choose how you want to view the tree</p>
-
-        <!-- ✅ NOW FIRST - Text Tree View -->
-        <div class="tree-option-btn" id="optionTextView">
-            <span class="icon">📄</span>
-            <div class="info">
-                <div class="title">Text Tree View</div>
-                <div class="desc">Clean text-based tree with paginated view</div>
+            <div class="tree-option-btn" id="optionTextView">
+                <span class="icon">📄</span>
+                <div class="info">
+                    <div class="title">Text Tree View</div>
+                    <div class="desc">Clean text-based tree with paginated view</div>
+                </div>
+                <span class="arrow">→</span>
             </div>
-            <span class="arrow">→</span>
-        </div>
 
-        <!-- ✅ NOW SECOND - Visual Tree -->
-        <div class="tree-option-btn" id="optionVisualTree">
-            <span class="icon">🎨</span>
-            <div class="info">
-                <div class="title">Visual Tree</div>
-                <div class="desc">Interactive graphical tree with expandable branches</div>
+            <div class="tree-option-btn" id="optionVisualTree">
+                <span class="icon">🎨</span>
+                <div class="info">
+                    <div class="title">Visual Tree</div>
+                    <div class="desc">Interactive graphical tree with expandable branches</div>
+                </div>
+                <span class="arrow">→</span>
             </div>
-            <span class="arrow">→</span>
-        </div>
 
-        <button class="tree-option-close" id="treeOptionClose">Cancel</button>
+            <button class="tree-option-close" id="treeOptionClose">Cancel</button>
+        </div>
     </div>
-</div>
 
-<script>
+    <script>
+        // ============================================================
+        // STATE
+        // ============================================================
+        let db = [];
+        let currentView = 'dashboard';
+        let isAdminAuthenticated = false;
 
-// Check URL parameters on page load
-function checkURLParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('view') && urlParams.get('view') === 'admin') {
-        // Automatically prompt for admin password
-        setTimeout(() => {
+        // ============================================================
+        // DATA LOADING
+        // ============================================================
+        function loadFromStorageOrFallback() {
+            const saved = localStorage.getItem('familyDB');
+            if (saved) {
+                try {
+                    db = JSON.parse(saved);
+                    updateHeaderStatus();
+                    return true;
+                } catch (e) {
+                    console.error('Error parsing saved data:', e);
+                }
+            }
+
+            // Fallback to 13-family-data.js
+            if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
+                db = FAMILY_DATA;
+                localStorage.setItem('familyDB', JSON.stringify(db));
+                if (typeof FILE_INFO !== 'undefined') {
+                    localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
+                }
+                console.log(`✅ Auto-loaded ${db.length} members from 13-family-data.js`);
+                updateHeaderStatus();
+                return true;
+            }
+            return false;
+        }
+
+        function updateHeaderStatus() {
+            const count = db.length || (localStorage.getItem('familyDB') ? JSON.parse(localStorage.getItem('familyDB')).length : 0);
+            const statusEl = document.getElementById('headerStatus');
+            if (statusEl) {
+                statusEl.innerHTML = `📊 Total member records: ${count}`;
+            }
+        }
+
+        // ============================================================
+        // SCREEN NAVIGATION
+        // ============================================================
+        function showDashboard() {
+            document.getElementById('screenDashboard').classList.remove('hidden');
+            document.getElementById('screenChoice').classList.remove('visible');
+            document.getElementById('backBtn').classList.remove('visible');
+            document.getElementById('headerTitle').innerText = 'Rizvi Family Dashboard';
+            currentView = 'dashboard';
+        }
+
+        function showChoiceScreen() {
+            document.getElementById('screenDashboard').classList.add('hidden');
+            document.getElementById('screenChoice').classList.add('visible');
+            document.getElementById('backBtn').classList.add('visible');
+            document.getElementById('headerTitle').innerText = 'Individual Options';
+            currentView = 'choice';
+        }
+
+        // ============================================================
+        // NAVIGATION TO OTHER PAGES
+        // ============================================================
+        function goToIndividualTree() {
+            if (db.length === 0) {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else {
+                    alert('No family data found. Please load data via admin.');
+                    return;
+                }
+            }
+            window.location.href = '2-individual-tree-pc.html';
+        }
+
+        function goToIndividualTable() {
+            if (db.length === 0) {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else {
+                    alert('No family data found. Please load data via admin.');
+                    return;
+                }
+            }
+            window.location.href = '3-individual-table-pc.html';
+        }
+
+        function goToGlobalSearch() {
+            if (db.length === 0) {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else {
+                    alert('No family data found. Please load data via admin.');
+                    return;
+                }
+            }
+            window.location.href = 'Search All.html';
+        }
+
+        function goToRoot() {
+            if (db.length === 0) {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else {
+                    alert('No family data found. Please load data via admin.');
+                    return;
+                }
+            }
+            window.location.href = '4-root-tree-pc.html';
+        }
+
+        // ============================================================
+        // FULL TREE OPTIONS
+        // ============================================================
+        function openTreeOptions() {
+            document.getElementById('treeOptionOverlay').classList.add('show');
+        }
+
+        function closeTreeOptions() {
+            document.getElementById('treeOptionOverlay').classList.remove('show');
+        }
+
+        function goToVisualTree() {
+            closeTreeOptions();
+            if (db.length === 0) {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else {
+                    alert('No family data found. Please load data via admin.');
+                    return;
+                }
+            }
+            window.location.href = 'FT-pc-2.html';
+        }
+
+        function goToTextView() {
+            closeTreeOptions();
+            if (db.length === 0) {
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else {
+                    alert('No family data found. Please load data via admin.');
+                    return;
+                }
+            }
+            window.location.href = 'FT-pc-1.html';
+        }
+
+        // ============================================================
+        // ADMIN
+        // ============================================================
+        function goToAdminWithPassword() {
             const pwd = prompt('Enter Admin Password:');
             if (pwd === '6010') {
                 currentView = 'admin';
@@ -489,445 +839,259 @@ function checkURLParams() {
                 renderAdminView();
             } else if (pwd !== null) {
                 alert('❌ Invalid Admin Password');
-                renderDashboardView();
-            } else {
-                renderDashboardView();
             }
-        }, 100);
-    }
-}
-
-let db = [];
-let currentView = 'dashboard';
-let isAdminAuthenticated = false;
-
-// === FULL TREE OPTIONS ===
-function openTreeOptions() {
-    document.getElementById('treeOptionOverlay').classList.add('show');
-}
-
-function closeTreeOptions() {
-    document.getElementById('treeOptionOverlay').classList.remove('show');
-}
-
-function goToVisualTree() {
-    closeTreeOptions();
-    if (db.length === 0) {
-        const saved = localStorage.getItem('familyDB');
-        if (saved) {
-            db = JSON.parse(saved);
-        } else {
-            alert('No family data found. Please load data via admin on desktop.');
-            return;
         }
-    }
-    window.location.href = 'FT-pc-2.html';
-}
 
-function goToTextView() {
-    closeTreeOptions();
-    if (db.length === 0) {
-        const saved = localStorage.getItem('familyDB');
-        if (saved) {
-            db = JSON.parse(saved);
-        } else {
-            alert('No family data found. Please load data via admin on desktop.');
-            return;
-        }
-    }
-    window.location.href = 'FT-pc-1.html';
-}
-
-// UPDATED logout function - redirects to main index.html
-function logout() {
-    if (confirm('Are you sure you want to exit and return to the login page?')) {
-        localStorage.removeItem('familyDB');
-        localStorage.removeItem('fileInfo');
-        localStorage.removeItem('tableViewMember');
-        localStorage.removeItem('tableViewFilters');
-        db = [];
-        isAdminAuthenticated = false;
-        
-        console.log('Redirecting to main login page...');
-        window.location.href = '../index.html';
-    }
-}
-
-function hardReset() {
-    const confirmation = confirm("🚨 WARNING: This will permanently delete ALL family data from this browser. Are you sure?");
-    
-    if (confirmation) {
-        localStorage.removeItem('familyDB');
-        localStorage.removeItem('fileInfo');
-        localStorage.removeItem('tableViewMember');
-        localStorage.removeItem('tableViewFilters');
-        
-        db = [];
-        isAdminAuthenticated = false;
-        
-        updateHeaderStatus();
-        
-        if (currentView === 'admin') {
-            renderAdminView();
-        } else {
-            renderDashboardView();
-        }
-        
-        alert("✅ All data has been cleared from browser storage.");
-        
-           }
-}
-
-function goToAdminWithPassword() {
-    const pwd = prompt('Enter Admin Password:');
-    if (pwd === '6010') {
-        currentView = 'admin';
-        isAdminAuthenticated = true;
-        renderAdminView();
-    } else if (pwd !== null) {
-        alert('❌ Invalid Admin Password');
-    }
-}
-
-function loadData() {
-    document.getElementById('fileInput').click();
-}
-
-document.getElementById('fileInput').onchange = function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const data = new Uint8Array(e.target.result);
-            const wb = XLSX.read(data, { type: 'array' });
-            const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+        function renderAdminView() {
+            document.getElementById('headerTitle').innerText = 'Admin Control Panel';
+            document.getElementById('backBtn').classList.remove('visible');
             
-            db = rows.map(r => ({
-                name: String(r.Name || r.name || '').trim(),
-                father: String(r.Father || r.father || '').trim(),
-                mother: String(r.Mother || r.mother || '').trim(),
-                spouse: String(r.Spouse || r.spouse || '').trim(),
-                gen: String(r.Gen || r.gen || '').trim(),
-                gender: String(r.Gender || r.gender || 'Male').trim().toUpperCase(),
-                maritalStatus: String(r.MaritalStatus || r.maritalStatus || r.Maritalstatus || r.maritalstatus || '').trim(),
-                alive: String(r.Alive || r.alive || '').trim()
-            })).filter(p => p.name);
-
-            try {
-                const firstSheet = wb.Sheets[wb.SheetNames[0]];
-                const j1Cell = firstSheet['J1'];
-                const j2Cell = firstSheet['J2'];
-                
-                const fileInfo = {
-                    saved_time_header: j1Cell ? String(j1Cell.v || j1Cell.w || '') : 'Date & time file saved',
-                    saved_time: j2Cell ? (typeof j2Cell.v === 'number' ? 
-                        new Date((j2Cell.v - 25569) * 86400 * 1000).toLocaleString() : 
-                        String(j2Cell.v).trim()) : new Date().toLocaleString(),
-                    exported_time: new Date().toLocaleString(),
-                    total_members: db.length,
-                    source_file: file.name
-                };
-                
-                localStorage.setItem('fileInfo', JSON.stringify(fileInfo));
-                console.log('✅ Timestamp extracted from Excel:', fileInfo.saved_time);
-            } catch (tsErr) {
-                console.warn('Could not extract timestamp:', tsErr);
-            }
-
-            localStorage.setItem('familyDB', JSON.stringify(db));
-            
+            const dbCount = db.length || (localStorage.getItem('familyDB') ? JSON.parse(localStorage.getItem('familyDB')).length : 0);
             updateHeaderStatus();
             
-            if (currentView === 'admin') {
-                renderAdminView();
-            } else {
-                renderDashboardView();
-            }
-            
-            console.log(`✅ Successfully loaded ${db.length} members from Excel file.`);
-            
-        } catch (err) {
-            alert('❌ Error: ' + err.message);
-        }
-    };
-    reader.readAsArrayBuffer(file);
-};
+            const mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = `
+                <div class="admin-container">
+                    <div class="admin-title">⚙️ Admin Use Only</div>
+                    
+                    <div class="admin-grid">
+                        <div class="admin-card-large" onclick="loadData()">
+                            <div class="admin-card-icon">📂</div>
+                            <div class="admin-card-title">Load Data</div>
+                            <div class="admin-card-desc">Upload Excel file to database</div>
+                            <div class="data-status" style="color: #2e7d32;">
+                                ${dbCount > 0 ? `✅ ${dbCount} members loaded` : '⏳ No data loaded'}
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card-large" onclick="window.location.href='11-A-Menu-Add-Edit.html'">
+                            <div class="admin-card-icon">✏️</div>
+                            <div class="admin-card-title">Add / Edit Member</div>
+                            <div class="admin-card-desc">Add new members or edit existing records</div>
+                            <div class="data-status">→ Open Editor</div>
+                        </div>
 
-function updateHeaderStatus() {
-    const count = db.length || (localStorage.getItem('familyDB') ? JSON.parse(localStorage.getItem('familyDB')).length : 0);
-    document.getElementById('headerStatus').innerHTML = `📊 Total member records: ${count}`;
-}
-
-function goToIndividual() {
-    if (db.length === 0) {
-        const saved = localStorage.getItem('familyDB');
-        if (saved) {
-            db = JSON.parse(saved);
-        } else {
-            alert('Please load data first (Use Admin panel)');
-            return;
-        }
-    }
-    window.location.href = '2-individual-tree-pc.html';
-}
-
-function goToRoot() {
-    if (db.length === 0) {
-        const saved = localStorage.getItem('familyDB');
-        if (saved) {
-            db = JSON.parse(saved);
-        } else {
-            alert('Please load data first (Use Admin panel)');
-            return;
-        }
-    }
-    window.location.href = '4-root-tree-pc.html';
-}
-
-function goToDashboard() {
-    currentView = 'dashboard';
-    renderDashboardView();
-}
-
-
-function renderDashboardView() {
-    // STEP 1: Auto hard reset - clear everything
-    localStorage.removeItem('familyDB');
-    localStorage.removeItem('fileInfo');
-    localStorage.removeItem('tableViewMember');
-    localStorage.removeItem('tableViewFilters');
-    db = [];
-    
-    // STEP 2: Auto load fresh from 13-family-data.js
-    if (typeof FAMILY_DATA !== 'undefined' && FAMILY_DATA.length > 0) {
-        try {
-            db = FAMILY_DATA;
-            localStorage.setItem('familyDB', JSON.stringify(db));
-            
-            if (typeof FILE_INFO !== 'undefined') {
-                localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
-                console.log('✅ Timestamp saved:', FILE_INFO.saved_time);
-                console.log('✅ Total members:', FILE_INFO.total_members);
-            }
-            
-            console.log(`✅ Auto-loaded ${db.length} members from 13-family-data.js`);
-        } catch (err) {
-            console.error('Error loading from JS:', err);
-        }
-    } else {
-        console.warn('⚠️ FAMILY_DATA not found. Make sure 13-family-data.js is loaded.');
-    }
-    
-    // STEP 3: Update header with new count
-    updateHeaderStatus();
-    
-    // STEP 4: Render the dashboard UI
-    document.getElementById('headerTitle').innerText = 'Rizvi Family Dashboard (PC)';
-    document.getElementById('headerActions').innerHTML = `
-        <span class="status-badge" id="headerStatus">📊 Total member records: ${db.length}</span>
-    `;
-    
-    const mainContent = document.getElementById('mainContent');
-    mainContent.innerHTML = `
-      
-<div class="dashboard-grid">
-    <div class="top-row">
-        <!-- 1️⃣ Full Family Tree - NOW FIRST -->
-        <div class="dashboard-card" onclick="openTreeOptions()">
-            <div class="card-icon">🌳</div>
-            <div class="card-title">Full Family Tree</div>
-            <div class="card-desc">Complete family tree view</div>
-        </div>
-        
-        <!-- 2️⃣ Individual - NOW SECOND -->
-        <div class="dashboard-card" onclick="goToIndividual()">
-            <div class="card-icon">👤</div>
-            <div class="card-title">Individual</div>
-            <div class="card-desc">Single member search</div>
-        </div>
-        
-        <!-- 3️⃣ Root Relative - NOW THIRD -->
-        <div class="dashboard-card" onclick="goToRoot()">
-            <div class="card-icon">👥</div>
-            <div class="card-title">Root Relative</div>
-            <div class="card-desc">Two member search</div>
-        </div>
-        
-        <!-- 4️⃣ Admin - LAST -->
-        <div class="dashboard-card admin-card" onclick="goToAdminWithPassword()">
-            <div class="card-icon">⚙️</div>
-            <div class="card-title">Admin Use Only</div>
-            <div class="card-desc">Data management</div>
-            <span class="admin-badge">Restricted - Password Protected</span>
-        </div>
-    </div>
-    
-    <div class="bottom-row">
-        <div class="exit-btn-container" onclick="logout()">
-            <span>🚪</span>
-            <span>Exit to Login</span>
-            <span>- (Back to main page)</span>
-        </div>
-        <div class="exit-btn-container" onclick="hardReset()" style="background: #4169E1;">
-            <span>⚠️</span>
-            <span>Hard Reset</span>
-            <span>- (Delete all data)</span>
-        </div>
-    </div>
-</div>
-
-
-
-
-    `;
-}
-
-
-
-function renderAdminView() {
-    document.getElementById('headerTitle').innerText = 'Admin Control Panel';
-    document.getElementById('headerActions').innerHTML = `
-        <span class="status-badge" id="headerStatus">📊 Total member records: ${db.length || (localStorage.getItem('familyDB') ? JSON.parse(localStorage.getItem('familyDB')).length : 0)}</span>
-    `;
-    
-    const dbCount = db.length || (localStorage.getItem('familyDB') ? JSON.parse(localStorage.getItem('familyDB')).length : 0);
-    
-    const mainContent = document.getElementById('mainContent');
-    mainContent.innerHTML = `
-        <div class="admin-container">
-            <div class="admin-title">⚙️ Admin Use Only</div>
-            
-            <div class="admin-grid">
-                <div class="admin-card-large" onclick="loadData()">
-                    <div class="admin-card-icon">📂</div>
-                    <div class="admin-card-title">Load Data</div>
-                    <div class="admin-card-desc">Upload Excel file to database</div>
-                    <div class="data-status" style="color: #2e7d32;">
-                        ${dbCount > 0 ? `✅ ${dbCount} members loaded` : '⏳ No data loaded'}
+                        <div class="admin-card-large" onclick="window.location.href='12-excel-to-js-converter.html'">
+                            <div class="admin-card-icon">🔄</div>
+                            <div class="admin-card-title">Data Converter</div>
+                            <div class="admin-card-desc">Excel to JS / JSON converter</div>
+                            <div class="data-status">→ Open Converter</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 25px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+                        <div class="exit-btn-container" onclick="showDashboard()" style="background: var(--dark-blue); min-width: 200px; white-space: nowrap;">
+                            <span class="exit-btn-icon">⬅️</span>
+                            <span class="exit-btn-text">Back to Dashboard</span>
+                        </div>
+                        
+                        <div class="exit-btn-container" onclick="logout()" style="background: #5a0000; min-width: 200px; white-space: nowrap;">
+                            <span class="exit-btn-icon">🚪</span>
+                            <span class="exit-btn-text">Exit to Login</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="admin-card-large" onclick="window.location.href='11-add-data.html'">
-                    <div class="admin-card-icon">✏️</div>
-                    <div class="admin-card-title">Add / Edit Member</div>
-                    <div class="admin-card-desc">Add new members or edit existing records</div>
-                    <div class="data-status">→ Open Editor</div>
-                </div>
-
-                <div class="admin-card-large" onclick="window.location.href='12-excel-to-js-converter.html'">
-                    <div class="admin-card-icon">🔄</div>
-                    <div class="admin-card-title">Data Converter</div>
-                    <div class="admin-card-desc">Excel to JS / JSON converter</div>
-                    <div class="data-status">→ Open Converter</div>
-                </div>
-            </div>
-            
-            <div style="display: flex; gap: 25px; justify-content: center; margin-top: 30px;">
-                <div class="exit-btn-container" onclick="goToDashboard()" style="background: var(--dark-blue); min-width: 200px; white-space: nowrap;">
-                    <span class="exit-btn-icon">⬅️</span>
-                    <span class="exit-btn-text">Back to Dashboard</span>
-                </div>
-                
-                <div class="exit-btn-container" onclick="logout()" style="background: #5a0000; min-width: 200px; white-space: nowrap;">
-                    <span class="exit-btn-icon">🚪</span>
-                    <span class="exit-btn-text">Exit to Login</span>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-
-function initializeData() {
-    const saved = localStorage.getItem('familyDB');
-    if (saved) {
-        try {
-            db = JSON.parse(saved);
-            updateHeaderStatus();
-            
-            const savedInfo = localStorage.getItem('fileInfo');
-            if (savedInfo) {
-                console.log('📅 Cached timestamp:', JSON.parse(savedInfo).saved_time);
-            }
-            return;
-        } catch (e) {
-            console.error('Error parsing saved data:', e);
+            `;
         }
-    }
 
-    }
+        function loadData() {
+            document.getElementById('fileInput').click();
+        }
 
-function checkHash() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const isPreAuth = urlParams.get('auth') === 'true';
+        document.getElementById('fileInput').onchange = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
 
-    if (window.location.hash === '#admin') {
-        setTimeout(() => {
-            if (isPreAuth || isAdminAuthenticated) {
-                currentView = 'admin';
-                isAdminAuthenticated = true;
-                renderAdminView();
-                window.history.replaceState({}, document.title, "1-dashboard-pc.html#admin");
-            } else {
-                const pwd = prompt('Enter Admin Password:');
-                if (pwd === '6010') {
-                    currentView = 'admin';
-                    isAdminAuthenticated = true;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const wb = XLSX.read(data, { type: 'array' });
+                    const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+                    
+                    db = rows.map(r => ({
+                        name: String(r.Name || r.name || '').trim(),
+                        father: String(r.Father || r.father || '').trim(),
+                        mother: String(r.Mother || r.mother || '').trim(),
+                        spouse: String(r.Spouse || r.spouse || '').trim(),
+                        gen: String(r.Gen || r.gen || '').trim(),
+                        gender: String(r.Gender || r.gender || 'Male').trim().toUpperCase(),
+                        maritalStatus: String(r.MaritalStatus || r.maritalStatus || r.Maritalstatus || r.maritalstatus || '').trim(),
+                        alive: String(r.Alive || r.alive || '').trim()
+                    })).filter(p => p.name);
+
+                    try {
+                        const firstSheet = wb.Sheets[wb.SheetNames[0]];
+                        const j1Cell = firstSheet['J1'];
+                        const j2Cell = firstSheet['J2'];
+                        
+                        const fileInfo = {
+                            saved_time_header: j1Cell ? String(j1Cell.v || j1Cell.w || '') : 'Date & time file saved',
+                            saved_time: j2Cell ? (typeof j2Cell.v === 'number' ? 
+                                new Date((j2Cell.v - 25569) * 86400 * 1000).toLocaleString() : 
+                                String(j2Cell.v).trim()) : new Date().toLocaleString(),
+                            exported_time: new Date().toLocaleString(),
+                            total_members: db.length,
+                            source_file: file.name
+                        };
+                        
+                        localStorage.setItem('fileInfo', JSON.stringify(fileInfo));
+                        console.log('✅ Timestamp extracted from Excel:', fileInfo.saved_time);
+                    } catch (tsErr) {
+                        console.warn('Could not extract timestamp:', tsErr);
+                    }
+
+                    localStorage.setItem('familyDB', JSON.stringify(db));
+                    updateHeaderStatus();
+                    
+                    if (currentView === 'admin') {
+                        renderAdminView();
+                    } else {
+                        showDashboard();
+                    }
+                    
+                    console.log(`✅ Successfully loaded ${db.length} members from Excel file.`);
+                    
+                } catch (err) {
+                    alert('❌ Error: ' + err.message);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        };
+
+        // ============================================================
+        // EXIT / RESET
+        // ============================================================
+        function logout() {
+            if (confirm('Are you sure you want to exit and return to the login page?')) {
+                localStorage.removeItem('familyDB');
+                localStorage.removeItem('fileInfo');
+                localStorage.removeItem('tableViewMember');
+                localStorage.removeItem('tableViewFilters');
+                db = [];
+                isAdminAuthenticated = false;
+                window.location.href = '../index.html';
+            }
+        }
+
+        function hardReset() {
+            const confirmation = confirm("🚨 WARNING: This will permanently delete ALL family data from this browser. Are you sure?");
+            if (confirmation) {
+                localStorage.removeItem('familyDB');
+                localStorage.removeItem('fileInfo');
+                localStorage.removeItem('tableViewMember');
+                localStorage.removeItem('tableViewFilters');
+                db = [];
+                isAdminAuthenticated = false;
+                updateHeaderStatus();
+                loadFromStorageOrFallback();
+                if (currentView === 'admin') {
                     renderAdminView();
                 } else {
-                    renderDashboardView();
+                    showDashboard();
                 }
+                alert("✅ All data cleared and reloaded from 13-family-data.js.");
             }
-        }, 100);
-    }
-}
-
-// === SETUP MODAL EVENTS ===
-function setupModalEvents() {
-    const overlay = document.getElementById('treeOptionOverlay');
-    const closeBtn = document.getElementById('treeOptionClose');
-    const visualBtn = document.getElementById('optionVisualTree');
-    const textBtn = document.getElementById('optionTextView');
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeTreeOptions);
-    }
-
-    if (visualBtn) {
-        visualBtn.addEventListener('click', goToVisualTree);
-    }
-
-    if (textBtn) {
-        textBtn.addEventListener('click', goToTextView);
-    }
-
-    // Close on overlay click
-    if (overlay) {
-        overlay.addEventListener('click', function(e) {
-            if (e.target === overlay) {
-                closeTreeOptions();
-            }
-        });
-    }
-
-    // Close on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeTreeOptions();
         }
-    });
-}
 
-// Initialize everything
-initializeData();
-renderDashboardView();
-checkURLParams();
-checkHash();
-setupModalEvents();
+        // ============================================================
+        // SETUP EVENTS
+        // ============================================================
+        function setupEvents() {
+            // Dashboard cards
+            document.getElementById('cardFullTree').addEventListener('click', openTreeOptions);
+            document.getElementById('cardIndividual').addEventListener('click', showChoiceScreen);
+            document.getElementById('cardRoot').addEventListener('click', goToRoot);
+            document.getElementById('cardAdmin').addEventListener('click', goToAdminWithPassword);
+            document.getElementById('exitBtn').addEventListener('click', logout);
+            document.getElementById('resetBtn').addEventListener('click', hardReset);
 
-</script>
+            // Choice cards
+            document.getElementById('choiceTree').addEventListener('click', goToIndividualTree);
+            document.getElementById('choiceTable').addEventListener('click', goToIndividualTable);
+            document.getElementById('choiceGlobal').addEventListener('click', goToGlobalSearch);
 
+            // Tree option modal
+            document.getElementById('treeOptionClose').addEventListener('click', closeTreeOptions);
+            document.getElementById('optionVisualTree').addEventListener('click', goToVisualTree);
+            document.getElementById('optionTextView').addEventListener('click', goToTextView);
+
+            // Close modal on overlay click
+            document.getElementById('treeOptionOverlay').addEventListener('click', function(e) {
+                if (e.target === this) closeTreeOptions();
+            });
+
+            // Close on escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeTreeOptions();
+            });
+        }
+
+        // ============================================================
+        // URL PARAMS CHECK
+        // ============================================================
+        function checkURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('view') && urlParams.get('view') === 'admin') {
+                setTimeout(() => {
+                    const pwd = prompt('Enter Admin Password:');
+                    if (pwd === '6010') {
+                        currentView = 'admin';
+                        isAdminAuthenticated = true;
+                        renderAdminView();
+                    } else if (pwd !== null) {
+                        alert('❌ Invalid Admin Password');
+                        showDashboard();
+                    } else {
+                        showDashboard();
+                    }
+                }, 100);
+            }
+        }
+
+        function checkHash() {
+            if (window.location.hash === '#admin') {
+                setTimeout(() => {
+                    const pwd = prompt('Enter Admin Password:');
+                    if (pwd === '6010') {
+                        currentView = 'admin';
+                        isAdminAuthenticated = true;
+                        renderAdminView();
+                        window.history.replaceState({}, document.title, "1-dashboard-pc.html#admin");
+                    } else {
+                        showDashboard();
+                    }
+                }, 100);
+            }
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromStorageOrFallback();
+            showDashboard();
+            setupEvents();
+            checkURLParams();
+            checkHash();
+        });
+
+        // Expose functions globally
+        window.showDashboard = showDashboard;
+        window.showChoiceScreen = showChoiceScreen;
+        window.goToIndividualTree = goToIndividualTree;
+        window.goToIndividualTable = goToIndividualTable;
+        window.goToGlobalSearch = goToGlobalSearch;
+        window.goToRoot = goToRoot;
+        window.openTreeOptions = openTreeOptions;
+        window.closeTreeOptions = closeTreeOptions;
+        window.goToVisualTree = goToVisualTree;
+        window.goToTextView = goToTextView;
+        window.goToAdminWithPassword = goToAdminWithPassword;
+        window.loadData = loadData;
+        window.logout = logout;
+        window.hardReset = hardReset;
+        window.renderAdminView = renderAdminView;
+    </script>
 </body>
 </html>

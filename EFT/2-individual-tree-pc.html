@@ -11,235 +11,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
-
-.toggle-menu-item {
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    border: 2px solid var(--gold);
-    background: white;
-    color: var(--dark-blue);
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;  /* Add this */
-    gap: 10px;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
-}
-
-
-
-/* Tips Modal Overlay */
-.tips-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Tips Modal */
-.tips-modal {
-    background: white;
-    border-radius: 16px;
-    padding: 24px 28px;
-    max-width: 480px;
-    width: 92%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    max-height: 85vh;
-    overflow-y: auto;
-}
-
-.tips-modal h3 {
-    font-family: 'Playfair Display', serif;
-    color: #0f172a;
-    font-size: 20px;
-    margin-bottom: 14px;
-    border-bottom: 2px solid #d4af37;
-    padding-bottom: 10px;
-}
-
-.tips-modal ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 18px 0;
-}
-
-.tips-modal ul li {
-    display: flex;
-    align-items: baseline;
-    padding: 6px 0;
-    font-size: 14px;
-    line-height: 1.6;
-    color: #1a1a1a;
-    border-bottom: 1px solid #f0ebe4;
-    gap: 8px;
-}
-
-.tips-modal ul li:last-child {
-    border-bottom: none;
-}
-
-.tips-modal ul li strong {
-    min-width: 120px;
-    flex-shrink: 0;
-    color: #5a0000;
-    font-weight: 700;
-    font-size: 13px;
-}
-
-.tips-modal ul li span {
-    flex: 1;
-    text-align: left;
-    font-size: 13px;
-}
-
-
-
-
-/* Tips Grid Styles - Added for new modal format */
-.tips-grid {
-    display: grid;
-    grid-template-columns: auto auto 1fr;
-    gap: 6px 12px;
-    text-align: left;
-    direction: ltr;
-    align-items: baseline;
-    margin-bottom: 20px;
-}
-
-.tips-grid .title {
-    font-weight: 700;
-    color: #5a0000;
-    font-size: 14px;
-    white-space: nowrap;
-    text-align: left;
-}
-
-.tips-grid .colon {
-    color: #5a0000;
-    font-weight: 700;
-    font-size: 14px;
-    text-align: left;
-}
-
-.tips-grid .desc {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #1a1a1a;
-    text-align: left;
-}
-
-
-
-
-
-
-
-
-
-.tips-close-btn {
-    background: #d4af37;
-    border: none;
-    padding: 10px 28px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    color: #0f172a;
-    transition: background 0.2s;
-    display: block;
-    margin: 0 auto;
-    font-family: 'Inter', sans-serif;
-}
-
-.tips-close-btn:hover {
-    background: #f1d279;
-}
-
-
-/* Tips Button - Blinking only */
-.tips-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-    color: #3d2b1a;
-    white-space: nowrap;
-    animation: tipsBlink 1.5s ease-in-out infinite;
-    font-family: 'Inter', sans-serif;
-}
-
-.tips-btn:hover {
-    background: #faebcd;
-    animation: none;
-}
-
-@keyframes tipsBlink {
-    0% { color: #3d2b1a; }
-    50% { color: #d4af37; }
-    100% { color: #3d2b1a; }
-}
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-        }
-        .save-options-modal {
-            display: none;
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            z-index: 2001;
-            width: 320px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
-
-        .left-toggle-btn {
-            animation: gentle-blink 1.5s infinite;
-        }
-
-        @keyframes gentle-blink {
-            0% { opacity: 1; background: var(--gold); }
-            50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
-            100% { opacity: 1; background: var(--gold); }
-        }
-         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
@@ -261,67 +32,9 @@
             margin: 0;
             padding: 10px;
             position: relative;
-        }
-
-        /* DRAGGABLE FLOATING ZOOM CONTROLS - FIXED POSITION */
-        .zoom-controls {
-            position: fixed;
-            bottom: 15px;
-            right: 60px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid var(--gold);
-            border-radius: 10px;
-            padding: 6px;
-            display: flex;
-            flex-direction: row;
-            gap: 4px;
-            z-index: 2000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            align-items: center;
-            cursor: grab;
-            user-select: none;
-            touch-action: none;
-            transform: scale(0.75);
-            transform-origin: bottom right;
-        }
-
-        .zoom-controls.dragging {
-            cursor: grabbing;
-            opacity: 0.85;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .zoom-btn {
-            width: 36px;
-            height: 36px;
-            border: 2px solid var(--gold);
-            background: white;
-            color: var(--dark-blue);
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
-        }
-
-        .zoom-btn:hover {
-            background: var(--gold);
-            color: white;
-        }
-
-        .zoom-level {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 0 6px;
-            min-width: 38px;
-            font-family: 'Inter', sans-serif;
-            color: var(--dark-blue);
-            pointer-events: none;
         }
 
         .app-container {
@@ -335,8 +48,10 @@
             border: 2px solid var(--gold);
             overflow: hidden;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+            width: 100%;
         }
 
+        /* ===== HEADER ===== */
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
             color: var(--gold);
@@ -346,6 +61,7 @@
             align-items: center;
             border-bottom: 3px solid var(--gold);
             position: relative;
+            flex-shrink: 0;
         }
 
         .header-title {
@@ -377,132 +93,49 @@
             margin-left: auto;
         }
 
-        .left-toggle-btn {
+        .home-btn {
             background: var(--gold);
             color: var(--dark-blue);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            border: 2px solid white;
-            z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-
-        .left-toggle-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.1);
-        }
-
-        .toggle-menu-panel {
-            position: absolute;
-            left: 10px;
-            top: 60px;
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 12px;
-            padding: 15px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            min-width: 220px;
-        }
-
-        .toggle-menu-panel.show {
-            display: flex;
-        }
-
-        .toggle-menu-item {
-            padding: 12px 18px;
-            border-radius: 8px;
-            font-weight: 600;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 18px;
+            font-weight: 700;
             font-size: 14px;
             cursor: pointer;
-            border: 2px solid var(--gold);
-            background: white;
-            color: var(--dark-blue);
-            white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             transition: all 0.2s;
             font-family: 'Inter', sans-serif;
+            z-index: 10;
         }
 
-
-.toggle-switch {
-    width: 44px;
-    height: 22px;
-    background: #ccc;
-    border-radius: 22px;
-    display: inline-block;
-    position: relative;
-    transition: 0.2s;
-    flex-shrink: 0;
-    cursor: pointer;
-}
-
-.toggle-switch.active {
-    background: var(--green);
-}
-
-.toggle-switch::after {
-    content: "";
-    width: 18px;
-    height: 18px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    left: 3px;
-    transition: 0.2s;
-}
-
-.toggle-switch.active::after {
-    left: 23px;
-}
-
-
-
-        .toggle-menu-item:hover {
-            background: #faebcd;
-            transform: translateX(5px);
+        .home-btn:hover {
+            background: #e6c35c;
+            transform: scale(1.02);
         }
 
-        .toggle-menu-item.active {
-            background: #d4edda !important;
-            border-color: var(--dark-green) !important;
-            color: var(--dark-blue);
-        }
+        .home-btn.visible { display: flex !important; }
+        .home-btn:not(.visible) { display: none !important; }
 
-        .main-content {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-            background: #fffcf8;
-        }
-
-        .center-content {
+        /* ===== TREE VIEW (always visible) ===== */
+        .tree-view {
             flex: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            position: relative;
+            height: 100%;
+            width: 100%;
         }
 
+        /* ===== SEARCH SECTION ===== */
         .search-section {
             padding: 15px;
             background: #fffcf8;
             border-bottom: 2px solid var(--gold);
             width: 75%;
             margin: 0 auto;
+            flex-shrink: 0;
         }
 
         .search-row {
@@ -580,47 +213,44 @@
             margin-top: 2px;
         }
 
-.tree-container {
-    flex: 1;
-    overflow: auto !important;
-    padding: 20px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
+        /* ===== TREE CONTAINER ===== */
+        .tree-container {
+            flex: 1;
+            overflow: auto !important;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .tree-container::-webkit-scrollbar {
             width: 12px;
             height: 12px;
         }
-
         .tree-container::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 6px;
         }
-
         .tree-container::-webkit-scrollbar-thumb {
             background: var(--gold);
             border-radius: 6px;
         }
-
         .tree-container::-webkit-scrollbar-thumb:hover {
             background: var(--dark-blue);
         }
 
-.tree-root-layout {
-       transition: transform 0.1s;
-    min-width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+        .tree-root-layout {
+            transition: transform 0.1s;
+            min-width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
+        /* ===== WELCOME / EMPTY STATE ===== */
         .welcome-container {
             display: flex;
             justify-content: center;
@@ -644,7 +274,6 @@
             margin-bottom: 20px;
             color: var(--gold);
         }
-
         .welcome-title {
             font-size: 32px;
             font-weight: 700;
@@ -652,7 +281,6 @@
             margin-bottom: 15px;
             font-family: 'Playfair Display', serif;
         }
-
         .welcome-text {
             font-size: 16px;
             color: #666;
@@ -660,6 +288,7 @@
             line-height: 1.6;
         }
 
+        /* ===== BOX (tree nodes) ===== */
         .box {
             border: 2px solid var(--gold);
             border-radius: 12px;
@@ -672,11 +301,37 @@
             transition: all 0.2s;
             font-size: 12px;
         }
-
         .box:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
+        .box.female-box {
+            background-color: var(--light-pink);
+            border-color: #fb7185;
+        }
+        .box.selected {
+            animation: gentleBeat 2.2s infinite;
+            border-width: 4px;
+            z-index: 10;
+        }
+
+        @keyframes gentleBeat {
+            0% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
+            35% { border-color: #4caf50; background: #c8e6c9; transform: scale(1.04); box-shadow: 0 0 25px rgba(76,175,80,0.5); }
+            70% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
+            100% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
+        }
+
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 2px solid var(--gold);
+            border-radius: 10px 10px 0 0;
+        }
+        .box-header .label { font-weight: 700; color: var(--dark-blue); }
+        .box-header .id-code { font-weight: 600; color: var(--maroon); }
 
         .details-icon {
             display: inline-flex;
@@ -692,7 +347,6 @@
             margin-right: 6px;
             transition: all 0.2s;
         }
-
         .details-icon:hover {
             background: var(--light-gold);
             transform: scale(1.1);
@@ -703,19 +357,16 @@
             position: relative;
             min-height: 120px;
         }
-
         .box-row {
             display: flex;
             margin-bottom: 5px;
             line-height: 1.5;
         }
-
         .box-label {
             font-weight: 700;
             color: var(--dark-blue);
             min-width: 55px;
         }
-
         .box-value {
             color: #333;
             flex: 1;
@@ -724,13 +375,11 @@
             gap: 4px;
             flex-wrap: wrap;
         }
-
         .member-name {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 16px;
         }
-
         .child-icon {
             position: absolute;
             bottom: 8px;
@@ -779,7 +428,6 @@
             transition: all 0.2s;
             flex-shrink: 0;
         }
-
         .toggle-icon:hover {
             transform: scale(1.1);
             background: var(--light-gold);
@@ -793,7 +441,6 @@
             width: 100%;
             margin: 0 auto 10px auto;
         }
-
         .children-row.four-in-row {
             display: grid;
             grid-template-columns: repeat(4, auto);
@@ -801,7 +448,6 @@
             gap: 10px;
             margin-bottom: 10px;
         }
-
         .children-row.one-box,
         .children-row.two-boxes,
         .children-row.three-boxes {
@@ -810,7 +456,6 @@
             gap: 10px;
             margin-bottom: 10px;
         }
-
         .children-row.remaining-center {
             display: flex;
             justify-content: center;
@@ -835,119 +480,265 @@
             padding: 8px;
             font-size: 11px;
             border-top: 2px solid var(--gold);
+            flex-shrink: 0;
         }
 
-        .context-menu {
-            position: fixed;
+        /* ===== TOGGLE MENU ===== */
+        .toggle-menu-panel {
+            position: absolute;
+            left: 10px;
+            top: 60px;
             background: white;
-            border: 2px solid var(--gold);
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 220px;
+        }
+        .toggle-menu-panel.show { display: flex; }
+
+        .toggle-menu-item {
+            padding: 12px 18px;
             border-radius: 8px;
-            padding: 5px;
-            z-index: 3000;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            min-width: 150px;
-        }
-
-        .context-menu-item {
-            padding: 10px 15px;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            border-radius: 4px;
-            font-size: 13px;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-
-        .context-menu-item:hover {
+        .toggle-menu-item:hover {
             background: #faebcd;
+            transform: translateX(5px);
+        }
+        .toggle-menu-item.active {
+            background: #d4edda !important;
+            border-color: var(--dark-green) !important;
+            color: var(--dark-blue);
         }
 
+        .toggle-switch {
+            width: 44px;
+            height: 22px;
+            background: #ccc;
+            border-radius: 22px;
+            display: inline-block;
+            position: relative;
+            transition: 0.2s;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .toggle-switch.active {
+            background: var(--green);
+        }
+        .toggle-switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: 0.2s;
+        }
+        .toggle-switch.active::after {
+            left: 23px;
+        }
+
+        .left-toggle-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            animation: gentle-blink 1.5s infinite;
+        }
+        .left-toggle-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
+
+        @keyframes gentle-blink {
+            0% { opacity: 1; background: var(--gold); }
+            50% { opacity: 0.7; background: #90EE90; transform: scale(1.1); }
+            100% { opacity: 1; background: var(--gold); }
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
+        /* ===== ZOOM CONTROLS ===== */
+        .zoom-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 6px;
+            display: flex;
+            flex-direction: row;
+            gap: 4px;
+            z-index: 2000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+        .zoom-controls.dragging {
+            cursor: grabbing;
+            opacity: 0.85;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .zoom-btn:hover {
+            background: var(--gold);
+            color: white;
+        }
+        .zoom-level {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
+        }
+
+        /* ===== MODALS ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
         .save-options-modal {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 2001;
+            width: 320px;
+            font-family: 'Inter', sans-serif;
+        }
+        .info-modal {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
             border: 3px solid var(--gold);
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 25px;
-            z-index: 4000;
             min-width: 350px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 3999;
+            max-width: 500px;
+            width: 90%;
+            z-index: 10000;
             display: none;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            font-family: 'Inter', sans-serif;
         }
-
-.info-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 3px solid var(--gold);
-    border-radius: 16px;
-    padding: 25px;
-    min-width: 350px;
-    max-width: 500px;
-    width: 90%;
-    z-index: 10000;
-    display: none;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-    font-family: 'Inter', sans-serif;
-}
-
-.info-modal h3 {
-    color: var(--maroon);
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin: 0 0 5px 0;
-    padding: 0 0 10px 0;
-    border-bottom: 2px solid var(--gold);
-}
-
-.info-modal p {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    line-height: 1.8;
-    margin: 15px 0 5px 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    color: #2d2d2d;
-    max-height: 350px;
-    overflow-y: auto;
-    background: #fef9e6;
-    padding: 15px;
-    border-radius: 12px;
-    border-left: 4px solid var(--gold);
-}
-
-.info-modal button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: var(--gold);
-    color: var(--dark-blue);
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    width: 100%;
-    transition: all 0.2s;
-}
-
-.info-modal button:hover {
-    background: var(--light-gold);
-    transform: scale(1.02);
-}
-
+        .info-modal h3 {
+            color: var(--maroon);
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            padding: 0 0 10px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+        .info-modal p {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 15px 0 5px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #2d2d2d;
+            max-height: 350px;
+            overflow-y: auto;
+            background: #fef9e6;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+        }
+        .info-modal button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .info-modal button:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
         .info-modal-overlay {
             position: fixed;
             top: 0;
@@ -959,27 +750,117 @@
             display: none;
         }
 
-        .box.female-box {
-            background-color: var(--light-pink);
-            border-color: #fb7185;
+        /* ===== TIPS ===== */
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 480px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .tips-modal h3 {
+            font-family: 'Playfair Display', serif;
+            color: #0f172a;
+            font-size: 20px;
+            margin-bottom: 14px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        .tips-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 6px 12px;
+            text-align: left;
+            direction: ltr;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+        .tips-grid .title {
+            font-weight: 700;
+            color: #5a0000;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: left;
+        }
+        .tips-grid .colon {
+            color: #5a0000;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: left;
+        }
+        .tips-grid .desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            text-align: left;
+        }
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-close-btn:hover {
+            background: #f1d279;
+        }
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-btn:hover {
+            background: #faebcd;
+            animation: none;
+        }
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
         }
 
-        .box.selected {
-            animation: gentleBeat 2.2s infinite;
-            border-width: 4px;
-            z-index: 10;
-        }
-
-        @keyframes gentleBeat {
-            0% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
-            35% { border-color: #4caf50; background: #c8e6c9; transform: scale(1.04); box-shadow: 0 0 25px rgba(76,175,80,0.5); }
-            70% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
-            100% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .search-section { width: 95%; }
+            .header-title { font-size: 14px; }
+            .header-title span:last-child { display: none; }
+            .zoom-controls { transform: scale(0.6); }
         }
     </style>
 </head>
 <body>
-    <!-- DRAGGABLE FLOATING ZOOM CONTROLS -->
+
+    <!-- ===== ZOOM CONTROLS ===== -->
     <div class="zoom-controls" id="zoomControls">
         <div class="zoom-btn" onclick="zoomIn()">+</div>
         <div class="zoom-level" id="zoomLevel">70%</div>
@@ -987,37 +868,41 @@
         <div class="zoom-btn" onclick="resetZoom()">↺</div>
     </div>
 
+    <!-- ===== APP ===== -->
     <div class="app-container">
+        <!-- HEADER -->
         <div class="app-header">
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">☰</div>
             <div class="header-title">
                 <span class="header-icon">🌿</span>
-                <span>Rizvi family · Structured Tree</span>
+                <span>Rizvi family - Family Tree</span>
             </div>
             <div class="header-actions">
-                <!-- Header buttons removed - now in menu -->
+                <button class="home-btn visible" id="homeBtn" onclick="goHome()">🏠 Home</button>
             </div>
         </div>
 
-<div class="toggle-menu-panel" id="toggleMenuPanel">
-    <!-- NEW: Show Full Details Toggle -->
-<div class="toggle-menu-item" id="showAllMenuItem" style="justify-content: space-between;">
-    <span>📂 Show Full Details</span>
-    <span id="showAllToggleSwitch" class="toggle-switch active"></span>
-</div>
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    
-    <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 Siblings</div>
-    <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
-    <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
-    <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-    <div class="toggle-menu-item" onclick="showTableView()">📊 Table View</div>
-    <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
-    <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 Save File</div>
-</div>
+        <!-- ===== TOGGLE MENU ===== -->
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item" id="showAllMenuItem" style="justify-content: space-between;">
+                <span>📂 Show Full Details</span>
+                <span id="showAllToggleSwitch" class="toggle-switch active"></span>
+            </div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 Siblings</div>
+            <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
+            <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="showTableView()">📊 Table View</div>
+            <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
+            <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 Save File</div>
+        </div>
 
-        <div class="main-content">
-            <div class="center-content">
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent" style="flex:1; display:flex; flex-direction:column; overflow:hidden; background:#fffcf8; position:relative;">
+            
+            <!-- TREE VIEW (always visible) -->
+            <div class="tree-view" id="treeView" style="flex:1; display:flex; flex-direction:column; overflow:hidden; height:100%; width:100%;">
                 <div class="search-section">
                     <div class="search-row">
                         <span class="search-label">SEARCH MEMBER</span>
@@ -1026,7 +911,7 @@
                             <div id="searchDropdown" class="search-dropdown"></div>
                         </div>
                         <div class="reset-btn" onclick="resetIndividual()">🔄 Reset</div>
-<button class="tips-btn" onclick="openTips()">💡 Tips</button>
+                        <button class="tips-btn" onclick="openTips()">💡 Tips</button>
                     </div>
                 </div>
 
@@ -1041,47 +926,37 @@
         </div>
     </div>
 
+    <!-- ===== MODALS ===== -->
     <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
 
-    
-    <!-- Save Options Modal -->
     <div class="save-options-modal" id="saveOptionsModal" style="display:none;">
         <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
-        
         <div style="margin-bottom:20px;">
             <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">Select Format:</div>
-            
             <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
                 <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-right:10px;"> 
                 <span style="font-weight:600;">📑 PDF - High Resolution</span>
                 <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Best for printing, larger file (3-8 MB)</span>
             </label>
-            
             <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
                 <input type="radio" name="saveFormat" value="pdf-low" style="margin-right:10px;"> 
                 <span style="font-weight:600;">📑 PDF - Low Resolution</span>
                 <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Good for sharing, smaller file (0.5-2 MB)</span>
             </label>
-            
             <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
                 <input type="radio" name="saveFormat" value="jpeg" style="margin-right:10px;"> 
                 <span style="font-weight:600;">📸 JPEG Image</span>
                 <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Universal format, very small file (200-500 KB)</span>
             </label>
         </div>
-        
         <div style="display:flex; gap:10px; justify-content:center;">
             <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer;">Save</button>
             <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
         </div>
     </div>
 
-    <!-- Overlay -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
-
-
-    
     <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
     <div class="info-modal" id="infoModal">
         <h3>ℹ️ Other Informations</h3>
@@ -1089,692 +964,741 @@
         <button onclick="closeInfoModal()">Close</button>
     </div>
 
+    <!-- Tips Modal -->
+    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="tips-modal">
+            <h3>💡 Tips for Using Individual Tree</h3>
+            <div class="tips-grid">
+                <div class="title">Search</div><div class="colon">:</div><div class="desc">Type name to view that person's page</div>
+                <div class="title">View Details</div><div class="colon">:</div><div class="desc">Click ℹ️ icon to view full details</div>
+                <div class="title">Expand/Collapse</div><div class="colon">:</div><div class="desc">Click ➕/➖ on section headings to expand or collapse</div>
+                <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">Menu Options</div><div class="colon" style="margin-top:8px;"></div><div class="desc" style="margin-top:8px;"></div>
+                <div class="title">Siblings</div><div class="colon">:</div><div class="desc">Show/Hide siblings of selected person</div>
+                <div class="title">Descendants</div><div class="colon">:</div><div class="desc">Show/Hide children of selected person</div>
+                <div class="title">Ancestors</div><div class="colon">:</div><div class="desc">Show/Hide ancestors of selected person</div>
+                <div class="title">Table View</div><div class="colon">:</div><div class="desc">Switch to Table format</div>
+                <div class="title">Dashboard</div><div class="colon">:</div><div class="desc">Go to Dashboard (Main Menu)</div>
+                <div class="title">Save</div><div class="colon">:</div><div class="desc">Save file as PDF or JPEG</div>
+            </div>
+            <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
     <script src="13-family-data.js"></script>
-<script>
+    <script>
+        // ============================================================
+        //  STATE
+        // ============================================================
+        let db = [];
+        let fileInfo = null;
+        let currentIndividual = null;
+        let showSiblings = true;
+        let showDescendants = true;
+        let showAncestors = true;
+        let zoomLevel = 0.7;
+        let siblingsCollapsed = true;
+        let childrenCollapsed = true;
+        let ancestorsCollapsed = true;
+        let showFullDetails = true;
 
-let showFullDetails = true;
+        // ============================================================
+        //  DOM REFS
+        // ============================================================
+        const treeRoot = document.getElementById('treeRoot');
+        const searchInput = document.getElementById('searchInput');
+        const searchDropdown = document.getElementById('searchDropdown');
+        const homeBtn = document.getElementById('homeBtn');
 
-function toggleFullDetails() {
-    showFullDetails = !showFullDetails;
-    document.getElementById('showAllToggleSwitch').classList.toggle('active');
-    renderTree();
-    applyZoom();
-}
+        // ============================================================
+        //  NAVIGATION
+        // ============================================================
+        function goHome() {
+            window.location.href = '1-dashboard-pc.html';
+        }
 
-const showAllItem = document.getElementById('showAllMenuItem');
-if (showAllItem) {
-    showAllItem.onclick = function(e) {
-        e.stopPropagation();
-        toggleFullDetails();
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    };
-}
+        function showDashboard() {
+            window.location.href = '1-dashboard-pc.html';
+        }
 
-
-
-    // ========== DRAGGABLE ZOOM CONTROLS ==========
-    let db = [];
-    let fileInfo = null;
-    let currentIndividual = null;
-    let showSiblings = true;
-    let showDescendants = true;
-    let showAncestors = true;
-    let zoomLevel = 0.7;
-    let siblingsCollapsed = true;
-    let childrenCollapsed = true;
-    let ancestorsCollapsed = true;
-
-    // Zoom functions (defined BEFORE DOMContentLoaded)
-    function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.01, 2); applyZoom(); }
-    function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.01, 0.5); applyZoom(); }
-    function resetZoom() { zoomLevel = 0.7; applyZoom(); }
-    
-    function applyZoom() {
-        const content = document.getElementById('treeRoot');
-        if (content) {
-            content.style.transform = `scale(${zoomLevel})`;
-            // Remove width/height lines for cleaner zoom
-            // content.style.width = `${100 / zoomLevel}%`;
-            // content.style.height = `${100 / zoomLevel}%`;
-            const zoomDisplay = document.getElementById('zoomLevel');
-            if (zoomDisplay) {
-                zoomDisplay.textContent = Math.round(zoomLevel * 100) + '%';
+        function showTableView() {
+            if (currentIndividual) {
+                window.location.href = '3-individual-table-pc.html?member=' + encodeURIComponent(currentIndividual.name);
+            } else {
+                window.location.href = '3-individual-table-pc.html';
             }
         }
-    }
 
-    // ========== MAIN CODE ==========
-    function displayName(str) {
-        if (!str) return '';
-        let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
-        return cleaned;
-    }
+        // ============================================================
+        //  ZOOM
+        // ============================================================
+        function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.01, 2); applyZoom(); }
+        function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.01, 0.5); applyZoom(); }
+        function resetZoom() { zoomLevel = 0.7; applyZoom(); }
 
-    function showInfoModal(personName) {
-        const person = db.find(p => p.name === personName);
-        if (!person) return;
-        let detailsText = person.details && person.details.trim() !== '' ? person.details : 'No additional information available.';
-        detailsText = detailsText.replace(/\\n/g, '<br>');
-        document.getElementById('infoModalText').innerHTML = detailsText;
-        document.getElementById('infoModal').style.display = 'block';
-        document.getElementById('infoModalOverlay').style.display = 'block';
-    }
-
-    function closeInfoModal() {
-        document.getElementById('infoModal').style.display = 'none';
-        document.getElementById('infoModalOverlay').style.display = 'none';
-    }
-
-    function formatCurrentTime() {
-        const d = new Date();
-        const day = d.getDate();
-        const month = d.getMonth() + 1;
-        const year = d.getFullYear();
-        const hours = d.getHours();
-        const minutes = String(d.getMinutes()).padStart(2, '0');
-        const ampm = hours >= 12 ? 'pm' : 'am';
-        const displayHours = hours % 12 || 12;
-        return `${day}/${month}/${year} - ${displayHours}:${minutes}${ampm}`;
-    }
-
-function renderBox(person, label, isSiblingOrChild = false) {
-    const isFemale = person.gender?.startsWith('F');
-    const isSelected = currentIndividual?.name === person.name;
-    const mother = person.mother || '—';
-    const hasKids = db.some(c => c.father === person.name);
-    const hasDetails = person.details && person.details !== '' && person.details !== '—';
-    const idCode = person.gen || '—';
-
-    let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}">`;
-    html += `<div class="box-header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 2px solid var(--gold); border-radius: 10px 10px 0 0;">`;
-    html += `<span style="font-weight: 700; color: var(--dark-blue);">${label}</span>`;
-    
-    if (hasDetails) {
-        html += `<div class="details-icon" style="cursor: pointer;" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
-    } else {
-        html += `<div style="width: 20px;"></div>`;
-    }
-    
-    html += `<span style="font-weight: 600; color: var(--maroon);">${idCode}</span>`;
-    html += `</div>`;
-    
-    // Change min-height based on showFullDetails
-    const boxBodyMinHeight = showFullDetails ? '120px' : '50px';
-    html += `<div class="box-body" onclick="handleBoxClick(this.parentElement)" style="min-height: ${boxBodyMinHeight};">`;
-    
-    // Name always shown
-    html += `<div class="box-row"><span class="box-label">Name :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
-    
-    // Show full details only if showFullDetails is true
-    if (showFullDetails) {
-        if (isSiblingOrChild) {
-            html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
-        } else {
-            html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
-        }
-    }
-    
-    if (hasKids) html += `<div class="child-icon">👪</div>`;
-    html += `</div></div>`;
-    return html;
-}
-    function renderGenderGroup(genderMembers, type) {
-        const count = genderMembers.length;
-        const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
-        
-        if (count === 1) 
-            return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else if (count === 2) 
-            return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else if (count === 3) 
-            return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else if (count === 4) 
-            return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else {
-            const firstFour = genderMembers.slice(0, 4);
-            const remaining = genderMembers.slice(4);
-            let remainingClass = remaining.length === 1 ? 'one-box' : 
-                                (remaining.length === 2 ? 'two-boxes' : 
-                                (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
-            return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-                    <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        }
-    }
-
-    function renderMembersWithLayout(members, type) {
-        if (members.length === 0) return '';
-        if (members.length > 4) {
-            const males = members.filter(m => m.gender === 'MALE');
-            const females = members.filter(m => m.gender === 'FEMALE');
-            let html = '';
-            if (males.length > 0) html += renderGenderGroup(males, type);
-            if (females.length > 0) html += renderGenderGroup(females, type);
-            return html;
-        }
-        const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
-        const count = members.length;
-        if (count === 1) return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else if (count === 2) return `<div class="children-row two-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else if (count === 3) return `<div class="children-row three-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else if (count === 4) return `<div class="children-row four-in-row">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        else {
-            const firstFour = members.slice(0, 4);
-            const remaining = members.slice(4);
-            let remainingClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
-            return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-                    <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-        }
-    }
-
-    function renderTree() {
-        if (!currentIndividual) return;
-        let html = '<div>';
-        if (showAncestors) {
-            let ancestors = getAncestors(currentIndividual);
-            if (ancestors.length) ancestors = ancestors.slice(1);
-            if (ancestors.length) {
-                html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span>🌳 ANCESTORS (${ancestors.length})</span><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span></div>`;
-                if (!ancestorsCollapsed) {
-                    html += '<div class="family-group">';
-                    [...ancestors].reverse().forEach((a, idx) => {
-                        html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
-                        if (idx < ancestors.length-1) html += '<div class="v-line"></div>';
-                    });
-                    if (ancestors.length > 0) html += '<div class="v-line"></div>';
-                    html += '</div>';
+        function applyZoom() {
+            const content = document.getElementById('treeRoot');
+            if (content) {
+                content.style.transform = `scale(${zoomLevel})`;
+                const zoomDisplay = document.getElementById('zoomLevel');
+                if (zoomDisplay) {
+                    zoomDisplay.textContent = Math.round(zoomLevel * 100) + '%';
                 }
             }
         }
-        const father = findParent(currentIndividual);
-        if (father) {
-            html += '<div class="family-group">' + renderBox(father, 'Father', false) + '<div class="v-line"></div>' + renderBox(currentIndividual, 'Selected', false) + '</div>';
-        } else {
-            html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+
+        // ============================================================
+        //  TOGGLE MENU
+        // ============================================================
+        function toggleLeftMenu() {
+            document.getElementById('toggleMenuPanel').classList.toggle('show');
         }
-        if (showSiblings && father) {
-            const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
-            if (siblings.length) {
-                html += `<div class="section-heading" onclick="toggleSection('siblings')"><span>👥 Siblings Of ${displayName(currentIndividual.name)} (${siblings.length})</span><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span></div>`;
-                if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
+
+        function handleToggleMenuClick(filter) {
+            if (!currentIndividual) return;
+            if (filter === 'siblings') {
+                showSiblings = !showSiblings;
+                document.getElementById('toggleSiblings').classList.toggle('active', showSiblings);
+            } else if (filter === 'descendants') {
+                showDescendants = !showDescendants;
+                document.getElementById('toggleDescendants').classList.toggle('active', showDescendants);
+            } else if (filter === 'ancestors') {
+                showAncestors = !showAncestors;
+                document.getElementById('toggleAncestors').classList.toggle('active', showAncestors);
+            }
+            renderTree();
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        }
+
+        // ============================================================
+        //  SHOW FULL DETAILS TOGGLE
+        // ============================================================
+        function toggleFullDetails() {
+            showFullDetails = !showFullDetails;
+            document.getElementById('showAllToggleSwitch').classList.toggle('active');
+            renderTree();
+            applyZoom();
+        }
+
+        const showAllItem = document.getElementById('showAllMenuItem');
+        if (showAllItem) {
+            showAllItem.onclick = function(e) {
+                e.stopPropagation();
+                toggleFullDetails();
+                document.getElementById('toggleMenuPanel').classList.remove('show');
+            };
+        }
+
+        // ============================================================
+        //  DISPLAY NAME HELPER
+        // ============================================================
+        function displayName(str) {
+            if (!str) return '';
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            return cleaned;
+        }
+
+        // ============================================================
+        //  INFO MODAL
+        // ============================================================
+        function showInfoModal(personName) {
+            const person = db.find(p => p.name === personName);
+            if (!person) return;
+            let detailsText = person.details && person.details.trim() !== '' ? person.details : 'No additional information available.';
+            detailsText = detailsText.replace(/\\n/g, '<br>');
+            document.getElementById('infoModalText').innerHTML = detailsText;
+            document.getElementById('infoModal').style.display = 'block';
+            document.getElementById('infoModalOverlay').style.display = 'block';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.getElementById('infoModalOverlay').style.display = 'none';
+        }
+
+        // ============================================================
+        //  TIPS
+        // ============================================================
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
+
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+
+        // ============================================================
+        //  TREE RENDER FUNCTIONS
+        // ============================================================
+        function renderBox(person, label, isSiblingOrChild = false) {
+            const isFemale = person.gender?.startsWith('F');
+            const isSelected = currentIndividual?.name === person.name;
+            const mother = person.mother || '—';
+            const hasKids = db.some(c => c.father === person.name);
+            const hasDetails = person.details && person.details !== '' && person.details !== '—';
+            const idCode = person.gen || '—';
+
+            let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}">`;
+            html += `<div class="box-header">`;
+            html += `<span class="label">${label}</span>`;
+            if (hasDetails) {
+                html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
+            } else {
+                html += `<div style="width:20px;"></div>`;
+            }
+            html += `<span class="id-code">${idCode}</span>`;
+            html += `</div>`;
+
+            const boxBodyMinHeight = showFullDetails ? '120px' : '50px';
+            html += `<div class="box-body" onclick="handleBoxClick(this.parentElement)" style="min-height: ${boxBodyMinHeight};">`;
+            html += `<div class="box-row"><span class="box-label">Name :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
+
+            if (showFullDetails) {
+                if (isSiblingOrChild) {
+                    html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+                } else {
+                    html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+                }
+            }
+
+            if (hasKids) html += `<div class="child-icon">👪</div>`;
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderGenderGroup(genderMembers, type) {
+            const count = genderMembers.length;
+            const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
+
+            if (count === 1)
+                return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 2)
+                return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 3)
+                return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 4)
+                return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else {
+                const firstFour = genderMembers.slice(0, 4);
+                const remaining = genderMembers.slice(4);
+                let remainingClass = remaining.length === 1 ? 'one-box' :
+                    (remaining.length === 2 ? 'two-boxes' :
+                        (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
+                return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                        <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
             }
         }
-        if (showDescendants) {
-            const children = db.filter(c => c.father === currentIndividual.name);
-            if (children.length) {
-                html += `<div class="section-heading" onclick="toggleSection('children')"><span>👶 Children Of ${displayName(currentIndividual.name)} (${children.length})</span><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span></div>`;
-                if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
+
+        function renderMembersWithLayout(members, type) {
+            if (members.length === 0) return '';
+            if (members.length > 4) {
+                const males = members.filter(m => m.gender === 'MALE');
+                const females = members.filter(m => m.gender === 'FEMALE');
+                let html = '';
+                if (males.length > 0) html += renderGenderGroup(males, type);
+                if (females.length > 0) html += renderGenderGroup(females, type);
+                return html;
+            }
+            const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
+            const count = members.length;
+            if (count === 1) return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 2) return `<div class="children-row two-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 3) return `<div class="children-row three-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 4) return `<div class="children-row four-in-row">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else {
+                const firstFour = members.slice(0, 4);
+                const remaining = members.slice(4);
+                let remainingClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
+                return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                        <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
             }
         }
-        html += '</div>';
-        document.getElementById('treeRoot').innerHTML = html;
-    }
 
-    window.handleBoxClick = function(el) {
-        const name = el.dataset.name;
-        const member = db.find(m => m.name === name);
-        if (member) selectMember(member);
-    };
-
-    window.showSaveOptions = function() {
-        if (!currentIndividual) {
-            alert('Please select a family member first');
-            return;
+        function renderTree() {
+            if (!currentIndividual) {
+                showWelcome();
+                return;
+            }
+            let html = '<div>';
+            if (showAncestors) {
+                let ancestors = getAncestors(currentIndividual);
+                if (ancestors.length) ancestors = ancestors.slice(1);
+                if (ancestors.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span>🌳 ANCESTORS (${ancestors.length})</span><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span></div>`;
+                    if (!ancestorsCollapsed) {
+                        html += '<div class="family-group">';
+                        [...ancestors].reverse().forEach((a, idx) => {
+                            html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
+                            if (idx < ancestors.length - 1) html += '<div class="v-line"></div>';
+                        });
+                        if (ancestors.length > 0) html += '<div class="v-line"></div>';
+                        html += '</div>';
+                    }
+                }
+            }
+            const father = findParent(currentIndividual);
+            if (father) {
+                html += '<div class="family-group">' + renderBox(father, 'Father', false) + '<div class="v-line"></div>' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+            } else {
+                html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+            }
+            if (showSiblings && father) {
+                const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
+                if (siblings.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('siblings')"><span>👥 Siblings Of ${displayName(currentIndividual.name)} (${siblings.length})</span><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span></div>`;
+                    if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
+                }
+            }
+            if (showDescendants) {
+                const children = db.filter(c => c.father === currentIndividual.name);
+                if (children.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('children')"><span>👶 Children Of ${displayName(currentIndividual.name)} (${children.length})</span><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span></div>`;
+                    if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
+                }
+            }
+            html += '</div>';
+            treeRoot.innerHTML = html;
         }
-        document.getElementById('saveOptionsModal').style.display = 'block';
-        document.getElementById('saveModalOverlay').style.display = 'block';
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    };
 
-    window.closeSaveModal = function() {
-        document.getElementById('saveOptionsModal').style.display = 'none';
-        document.getElementById('saveModalOverlay').style.display = 'none';
-    };
-
-    window.processSave = function() {
-        const selected = document.querySelector('input[name="saveFormat"]:checked');
-        if (!selected) {
-            alert('Please select a format');
-            return;
+        function toggleSection(section) {
+            if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
+            else if (section === 'children') childrenCollapsed = !childrenCollapsed;
+            else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
+            renderTree();
+            applyZoom();
         }
-        closeSaveModal();
-        switch(selected.value) {
-            case 'pdf-high':
-                exportTreePDF('high');
-                break;
-            case 'pdf-low':
-                exportTreePDF('low');
-                break;
-            case 'jpeg':
-                exportAsJPEG();
-                break;
-        }
-    };
 
-    async function exportTreePDF(quality = 'high') {
-        if (!currentIndividual) { alert('Please select a member first'); return; }
-        const scale = quality === 'high' ? 2.0 : 1.0;
-        const jpegQuality = quality === 'high' ? 0.95 : 0.6;
-        const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
-        const treeElement = document.getElementById('treeRoot');
-        if (!treeElement) return alert('No content to export');
-        try {
-            const header = document.createElement('div');
-            header.style.marginBottom = '30px'; 
-            header.style.textAlign = 'center';
-            header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-                <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-            treeElement.insertBefore(header, treeElement.firstChild);
-            const footer = document.createElement('div');
-            footer.style.marginTop = '30px';
-            footer.style.padding = '15px 20px';
-            footer.style.background = '#fcf9f4';
-            footer.style.width = '100%';
-            footer.style.boxSizing = 'border-box';
-            footer.style.fontFamily = "'Inter', sans-serif";
-            footer.style.fontSize = '12px';
-            footer.style.textAlign = 'center';
-            const timeStr = formatCurrentTime();
-            const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
-            footer.innerHTML = `
-                <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-                <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
+        function findParent(p) {
+            return p?.father ? db.find(x => x.name === p.father) : null;
+        }
+
+        function getAncestors(p) {
+            let arr = [],
+                cur = p;
+            while (cur?.father) {
+                const father = db.find(x => x.name === cur.father);
+                if (!father) break;
+                arr.push(father);
+                cur = father;
+            }
+            return arr;
+        }
+
+        // ============================================================
+        //  WELCOME / SHOW FUNCTIONS
+        // ============================================================
+        function showWelcome() {
+            treeRoot.innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">Rizvi Family Tree</div>
+                        <div class="welcome-text">Type a name in the search box above<br>to view their family connections and relationships.</div>
+                    </div>
+                </div>
             `;
-            treeElement.appendChild(footer);
-            const loadingMsg = document.createElement('div');
-            loadingMsg.style.position = 'fixed';
-            loadingMsg.style.top = '50%'; 
-            loadingMsg.style.left = '50%'; 
-            loadingMsg.style.transform = 'translate(-50%, -50%)';
-            loadingMsg.style.background = '#5a0000'; 
-            loadingMsg.style.color = 'white'; 
-            loadingMsg.style.padding = '20px 40px'; 
-            loadingMsg.style.borderRadius = '8px'; 
-            loadingMsg.style.zIndex = '9999'; 
-            loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-            loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
-            document.body.appendChild(loadingMsg);
-            await new Promise(resolve => setTimeout(resolve, 500));
-            const canvas = await html2canvas(treeElement, { scale: scale, backgroundColor: '#ffffff', logging: false, allowTaint: true, useCORS: true });
-            treeElement.removeChild(header);
-            treeElement.removeChild(footer);
-            document.body.removeChild(loadingMsg);
-            const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-            const { jsPDF } = window.jspdf;
-            const w = canvas.width / 2 * 0.264583;
-            const h = canvas.height / 2 * 0.264583;
-            const pdf = new jsPDF({ orientation: w > h ? 'l' : 'p', unit: 'mm', format: [w + 40, h + 40] });
-            pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-            const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            pdf.save(`family_tree_${safeName}_${quality}_${Date.now()}.pdf`);
-            const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-            const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-            alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
-        } catch (err) {
-            console.error('PDF Error:', err);
-            alert('❌ PDF generation failed: ' + err.message);
-        }
-    }
-
-    window.exportAsJPEG = async function() {
-        if (!currentIndividual) return;
-        const treeElement = document.getElementById('treeRoot');
-        if (!treeElement) return alert('No content to export');
-        try {
-            const header = document.createElement('div');
-            header.style.marginBottom = '30px'; 
-            header.style.textAlign = 'center';
-            header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
-                <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-            treeElement.insertBefore(header, treeElement.firstChild);
-            const footer = document.createElement('div');
-            footer.style.marginTop = '30px';
-            footer.style.padding = '15px 20px';
-            footer.style.background = '#fcf9f4';
-            footer.style.width = '100%';
-            footer.style.boxSizing = 'border-box';
-            footer.style.fontFamily = "'Inter', sans-serif";
-            footer.style.fontSize = '12px';
-            footer.style.textAlign = 'center';
-            const timeStr = formatCurrentTime();
-            const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
-            footer.innerHTML = `
-                <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-                <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
-            `;
-            treeElement.appendChild(footer);
-            const loadingMsg = document.createElement('div');
-            loadingMsg.style.position = 'fixed';
-            loadingMsg.style.top = '50%'; 
-            loadingMsg.style.left = '50%'; 
-            loadingMsg.style.transform = 'translate(-50%, -50%)';
-            loadingMsg.style.background = '#5a0000'; 
-            loadingMsg.style.color = 'white'; 
-            loadingMsg.style.padding = '20px 40px'; 
-            loadingMsg.style.borderRadius = '8px'; 
-            loadingMsg.style.zIndex = '9999'; 
-            loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-            loadingMsg.textContent = '📸 Creating JPEG...';
-            document.body.appendChild(loadingMsg);
-            await new Promise(resolve => setTimeout(resolve, 500));
-            const canvas = await html2canvas(treeElement, { scale: 1.2, backgroundColor: '#ffffff', logging: false });
-            treeElement.removeChild(header);
-            treeElement.removeChild(footer);
-            document.body.removeChild(loadingMsg);
-            const imgData = canvas.toDataURL('image/jpeg', 0.85);
-            const link = document.createElement('a');
-            const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            link.download = `family_tree_${safeName}_${Date.now()}.jpg`;
-            link.href = imgData;
-            link.click();
-            const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-            const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-            setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
-        } catch (err) {
-            console.error('Export Error:', err);
-            alert('❌ Failed: ' + err.message);
-        }
-    };
-
-    function closeAllMenus() {
-        document.getElementById('searchDropdown').style.display = 'none';
-        document.querySelectorAll('.context-menu').forEach(m => m.remove());
-        document.getElementById('toggleMenuPanel')?.classList.remove('show');
-        document.getElementById('saveOptionsModal').style.display = 'none';
-        document.getElementById('saveModalOverlay').style.display = 'none';
-        closeInfoModal();
-    }
-
-    function showDashboard() { 
-        window.location.href = '1-dashboard-pc.html'; 
-    }
-
-    window.showTableView = function() {
-        if (currentIndividual) {
-            window.location.href = '3-individual-table-pc.html?member=' + encodeURIComponent(currentIndividual.name);
-        } else {
-            window.location.href = '3-individual-table-pc.html';
-        }
-    };
-
-    window.toggleLeftMenu = () => {
-        document.getElementById('toggleMenuPanel').classList.toggle('show');
-    };
-
-    window.handleToggleMenuClick = function(filter) {
-        if (!currentIndividual) return;
-        if (filter === 'siblings') { 
-            showSiblings = !showSiblings; 
-            document.getElementById('toggleSiblings').classList.toggle('active', showSiblings); 
-        } else if (filter === 'descendants') { 
-            showDescendants = !showDescendants; 
-            document.getElementById('toggleDescendants').classList.toggle('active', showDescendants); 
-        } else if (filter === 'ancestors') { 
-            showAncestors = !showAncestors; 
-            document.getElementById('toggleAncestors').classList.toggle('active', showAncestors); 
-        }
-        renderTree();
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    };
-
-    function resetIndividual() {
-        document.getElementById('searchInput').value = '';
-        currentIndividual = null;
-        const url = new URL(window.location);
-        url.searchParams.delete('member');
-        window.history.pushState({}, '', url);
-        document.getElementById('treeRoot').innerHTML = `<div class="welcome-container"><div class="welcome-box"><div class="welcome-icon">🌿</div><div class="welcome-title">Rizvi Family Tree</div><div class="welcome-text">Select a family member from the search box above<br>to view their family connections and relationships.</div></div></div>`;
-        closeAllMenus();
-        // Reset zoom when going home
-        resetZoom();
-    }
-
-    function selectMember(member) {
-        currentIndividual = member;
-        document.getElementById('searchInput').value = displayName(member.name);
-        const url = new URL(window.location);
-        url.searchParams.set('member', encodeURIComponent(member.name));
-        window.history.pushState({}, '', url);
-        renderTree();
-        applyZoom();
-    }
-
-    window.toggleSection = function(section) {
-        if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
-        else if (section === 'children') childrenCollapsed = !childrenCollapsed;
-        else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
-        renderTree();
-        applyZoom();
-    };
-
-    function findParent(p) { 
-        return p?.father ? db.find(x => x.name === p.father) : null; 
-    }
-
-    function getAncestors(p) { 
-        let arr = [], cur = p; 
-        while (cur?.father) { 
-            const father = db.find(x => x.name === cur.father); 
-            if (!father) break; 
-            arr.push(father); 
-            cur = father; 
-        } 
-        return arr; 
-    }
-
-    // ========== DRAGGABLE ZOOM CONTROLS ==========
-    document.addEventListener('DOMContentLoaded', function() {
-        const zoomControls = document.getElementById('zoomControls');
-        let isDragging = false;
-        let offsetX, offsetY;
-
-        zoomControls.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-        });
-
-        zoomControls.addEventListener('mousedown', function(e) {
-            if (e.target.closest('.zoom-btn')) return;
-            isDragging = true;
-            const rect = zoomControls.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            zoomControls.classList.add('dragging');
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const controlWidth = zoomControls.offsetWidth;
-            const controlHeight = zoomControls.offsetHeight;
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
-            newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-            newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-            zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-            zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-        });
-
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                zoomControls.classList.remove('dragging');
-            }
-        });
-
-        let touchOffsetX, touchOffsetY;
-        let isTouching = false;
-
-        zoomControls.addEventListener('touchstart', function(e) {
-            if (e.target.closest('.zoom-btn')) return;
-            const touch = e.touches[0];
-            const rect = zoomControls.getBoundingClientRect();
-            touchOffsetX = touch.clientX - rect.left;
-            touchOffsetY = touch.clientY - rect.top;
-            isTouching = true;
-            zoomControls.classList.add('dragging');
-            e.preventDefault();
-        }, { passive: false });
-
-        document.addEventListener('touchmove', function(e) {
-            if (!isTouching) return;
-            const touch = e.touches[0];
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const controlWidth = zoomControls.offsetWidth;
-            const controlHeight = zoomControls.offsetHeight;
-            let newX = touch.clientX - touchOffsetX;
-            let newY = touch.clientY - touchOffsetY;
-            newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-            newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-            zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-            zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-            e.preventDefault();
-        }, { passive: false });
-
-        document.addEventListener('touchend', function() {
-            if (isTouching) {
-                isTouching = false;
-                zoomControls.classList.remove('dragging');
-            }
-        });
-
-        // ========== LOAD DATA ==========
-        if (typeof FAMILY_DATA !== 'undefined') db = FAMILY_DATA;
-        if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
-        const urlParams = new URLSearchParams(window.location.search);
-        const memberName = urlParams.get('member');
-        if (memberName) {
-            setTimeout(() => { 
-                const member = db.find(m => m.name === decodeURIComponent(memberName)); 
-                if(member) selectMember(member); 
-            }, 500);
-        } else {
-            resetIndividual();
         }
 
-        // Apply zoom after everything loads
-        applyZoom();
-    });
+        // ============================================================
+        //  SELECT / RESET
+        // ============================================================
+        function selectMember(member) {
+            currentIndividual = member;
+            searchInput.value = displayName(member.name);
+            const url = new URL(window.location);
+            url.searchParams.set('member', encodeURIComponent(member.name));
+            window.history.pushState({}, '', url);
 
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.search-wrapper')) {
-            document.getElementById('searchDropdown').style.display = 'none';
+            renderTree();
+            applyZoom();
+            homeBtn.classList.remove('visible');
         }
-        if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
+
+        function resetIndividual() {
+            searchInput.value = '';
+            currentIndividual = null;
+            const url = new URL(window.location);
+            url.searchParams.delete('member');
+            window.history.pushState({}, '', url);
+            showWelcome();
+            closeAllMenus();
+            resetZoom();
+            homeBtn.classList.add('visible');
+        }
+
+        function handleBoxClick(el) {
+            const name = el.dataset.name;
+            const member = db.find(m => m.name === name);
+            if (member) selectMember(member);
+        }
+
+        function closeAllMenus() {
+            searchDropdown.style.display = 'none';
+            document.querySelectorAll('.context-menu').forEach(m => m.remove());
             document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+            closeInfoModal();
         }
-        if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+
+        // ============================================================
+        //  SAVE OPTIONS
+        // ============================================================
+        function showSaveOptions() {
+            if (!currentIndividual) {
+                alert('Please select a family member first');
+                return;
+            }
+            document.getElementById('saveOptionsModal').style.display = 'block';
+            document.getElementById('saveModalOverlay').style.display = 'block';
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        }
+
+        function closeSaveModal() {
             document.getElementById('saveOptionsModal').style.display = 'none';
             document.getElementById('saveModalOverlay').style.display = 'none';
         }
-    });
 
-    document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
-        const query = this.value;
-        const dropdown = document.getElementById('searchDropdown');
-        if (query.length < 2) { 
-            dropdown.style.display = 'none'; 
-            return; 
+        function processSave() {
+            const selected = document.querySelector('input[name="saveFormat"]:checked');
+            if (!selected) {
+                alert('Please select a format');
+                return;
+            }
+            closeSaveModal();
+            switch (selected.value) {
+                case 'pdf-high':
+                    exportTreePDF('high');
+                    break;
+                case 'pdf-low':
+                    exportTreePDF('low');
+                    break;
+                case 'jpeg':
+                    exportAsJPEG();
+                    break;
+            }
         }
-        const results = db.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
-        dropdown.innerHTML = '';
-        results.forEach(member => {
-            const div = document.createElement('div');
-            div.className = 'result-item';
-            div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen}</span><div class="father-name">${member.gender?.startsWith('F') ? 'D/o' : 'S/o'} ${displayName(member.father) || '—'}</div></div>`;
-            div.onclick = () => { 
-                selectMember(member); 
-                dropdown.style.display = 'none'; 
-                this.value = displayName(member.name); 
-            };
-            dropdown.appendChild(div);
+
+        async function exportTreePDF(quality = 'high') {
+            if (!currentIndividual) { alert('Please select a member first'); return; }
+            const scale = quality === 'high' ? 2.0 : 1.0;
+            const jpegQuality = quality === 'high' ? 0.95 : 0.6;
+            const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
+            const treeElement = document.getElementById('treeRoot');
+            if (!treeElement) return alert('No content to export');
+            try {
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px';
+                header.style.textAlign = 'center';
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                treeElement.insertBefore(header, treeElement.firstChild);
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
+                `;
+                treeElement.appendChild(footer);
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%';
+                loadingMsg.style.left = '50%';
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000';
+                loadingMsg.style.color = 'white';
+                loadingMsg.style.padding = '20px 40px';
+                loadingMsg.style.borderRadius = '8px';
+                loadingMsg.style.zIndex = '9999';
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = `📄 Creating ${qualityText} PDF...`;
+                document.body.appendChild(loadingMsg);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const canvas = await html2canvas(treeElement, { scale: scale, backgroundColor: '#ffffff', logging: false, allowTaint: true, useCORS: true });
+                treeElement.removeChild(header);
+                treeElement.removeChild(footer);
+                document.body.removeChild(loadingMsg);
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                const { jsPDF } = window.jspdf;
+                const w = canvas.width / 2 * 0.264583;
+                const h = canvas.height / 2 * 0.264583;
+                const pdf = new jsPDF({ orientation: w > h ? 'l' : 'p', unit: 'mm', format: [w + 40, h + 40] });
+                pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
+                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                pdf.save(`family_tree_${safeName}_${quality}_${Date.now()}.pdf`);
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
+            } catch (err) {
+                console.error('PDF Error:', err);
+                alert('❌ PDF generation failed: ' + err.message);
+            }
+        }
+
+        async function exportAsJPEG() {
+            if (!currentIndividual) return;
+            const treeElement = document.getElementById('treeRoot');
+            if (!treeElement) return alert('No content to export');
+            try {
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px';
+                header.style.textAlign = 'center';
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family Tree</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                treeElement.insertBefore(header, treeElement.firstChild);
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
+                `;
+                treeElement.appendChild(footer);
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%';
+                loadingMsg.style.left = '50%';
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000';
+                loadingMsg.style.color = 'white';
+                loadingMsg.style.padding = '20px 40px';
+                loadingMsg.style.borderRadius = '8px';
+                loadingMsg.style.zIndex = '9999';
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = '📸 Creating JPEG...';
+                document.body.appendChild(loadingMsg);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const canvas = await html2canvas(treeElement, { scale: 1.2, backgroundColor: '#ffffff', logging: false });
+                treeElement.removeChild(header);
+                treeElement.removeChild(footer);
+                document.body.removeChild(loadingMsg);
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                const link = document.createElement('a');
+                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                link.download = `family_tree_${safeName}_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
+            } catch (err) {
+                console.error('Export Error:', err);
+                alert('❌ Failed: ' + err.message);
+            }
+        }
+
+        function formatCurrentTime() {
+            const d = new Date();
+            const day = d.getDate();
+            const month = d.getMonth() + 1;
+            const year = d.getFullYear();
+            const hours = d.getHours();
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'pm' : 'am';
+            const displayHours = hours % 12 || 12;
+            return `${day}/${month}/${year} - ${displayHours}:${minutes}${ampm}`;
+        }
+
+        // ============================================================
+        //  SEARCH DROPDOWN
+        // ============================================================
+        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+            const query = this.value;
+            const dropdown = document.getElementById('searchDropdown');
+            if (query.length < 2) {
+                dropdown.style.display = 'none';
+                return;
+            }
+            const results = db.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
+            dropdown.innerHTML = '';
+            results.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen}</span><div class="father-name">${member.gender?.startsWith('F') ? 'D/o' : 'S/o'} ${displayName(member.father) || '—'}</div></div>`;
+                div.onclick = () => {
+                    selectMember(member);
+                    dropdown.style.display = 'none';
+                    this.value = displayName(member.name);
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
         });
-        dropdown.style.display = 'block';
-    });
 
-    window.zoomIn = zoomIn; 
-    window.zoomOut = zoomOut; 
-    window.resetZoom = resetZoom; 
-    window.showDashboard = showDashboard; 
-    window.resetIndividual = resetIndividual;
+        // ============================================================
+        //  GLOBAL CLICK HANDLERS
+        // ============================================================
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+            if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
+                document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            }
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+                document.getElementById('saveOptionsModal').style.display = 'none';
+                document.getElementById('saveModalOverlay').style.display = 'none';
+            }
+        });
 
-    // Tips functions
-    function openTips() {
-        document.getElementById('tipsOverlay').style.display = 'flex';
-    }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTips();
+                closeInfoModal();
+                closeSaveModal();
+                document.getElementById('toggleMenuPanel')?.classList.remove('show');
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+        });
 
-    function closeTips() {
-        document.getElementById('tipsOverlay').style.display = 'none';
-    }
+        // ============================================================
+        //  ZOOM CONTROLS DRAGGABLE
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeTips();
-        }
-    });
+            zoomControls.addEventListener('dragstart', function(e) { e.preventDefault(); });
 
-    window.openTips = openTips;
-    window.closeTips = closeTips;
-</script>
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
 
-<!-- Tips Modal -->
-<div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
-    <div class="tips-modal">
-        <h3>💡 Tips for Using Individual Tree</h3>
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
 
-        <div class="tips-grid">
-            <!-- ===== SEARCH & SELECT ===== -->
-            <div class="title">Search</div>
-            <div class="colon">:</div>
-            <div class="desc">Type name to view that person's page</div>
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
 
-            <div class="title">View Details</div>
-            <div class="colon">:</div>
-            <div class="desc">Click ℹ️ icon to view full details</div>
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
 
-            <div class="title">Expand/Collapse</div>
-            <div class="colon">:</div>
-            <div class="desc">Click ➕/➖ on section headings to expand or collapse</div>
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
 
-            <!-- ===== MENU OPTIONS ===== -->
-            <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">Menu Options</div>
-            <div class="colon" style="margin-top:8px;"></div>
-            <div class="desc" style="margin-top:8px;"></div>
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
 
-            <div class="title">Siblings</div>
-            <div class="colon">:</div>
-            <div class="desc">Show/Hide siblings of selected person</div>
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
 
-            <div class="title">Descendants</div>
-            <div class="colon">:</div>
-            <div class="desc">Show/Hide children of selected person</div>
+            // ============================================================
+            //  LOAD DATA & INIT
+            // ============================================================
+            if (typeof FAMILY_DATA !== 'undefined') db = FAMILY_DATA;
+            if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
 
-            <div class="title">Ancestors</div>
-            <div class="colon">:</div>
-            <div class="desc">Show/Hide ancestors of selected person</div>
+            const urlParams = new URLSearchParams(window.location.search);
+            const memberName = urlParams.get('member');
 
-            <div class="title">Table View</div>
-            <div class="colon">:</div>
-            <div class="desc">Switch to Table format</div>
+            if (memberName) {
+                const member = db.find(m => m.name === decodeURIComponent(memberName));
+                if (member) {
+                    currentIndividual = member;
+                    searchInput.value = displayName(member.name);
+                    renderTree();
+                    applyZoom();
+                    homeBtn.classList.remove('visible');
+                } else {
+                    showWelcome();
+                    homeBtn.classList.add('visible');
+                }
+            } else {
+                showWelcome();
+                homeBtn.classList.add('visible');
+            }
 
-            <div class="title">Dashboard</div>
-            <div class="colon">:</div>
-            <div class="desc">Go to Dashboard (Main Menu)</div>
+            applyZoom();
+        });
 
-            <div class="title">Save</div>
-            <div class="colon">:</div>
-            <div class="desc">Save file as PDF or JPEG</div>
-        </div>
-
-        <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
-    </div>
-</div>
-
-
+        // Expose functions globally
+        window.zoomIn = zoomIn;
+        window.zoomOut = zoomOut;
+        window.resetZoom = resetZoom;
+        window.showDashboard = showDashboard;
+        window.resetIndividual = resetIndividual;
+        window.goHome = goHome;
+        window.showTableView = showTableView;
+        window.showSaveOptions = showSaveOptions;
+        window.closeSaveModal = closeSaveModal;
+        window.processSave = processSave;
+        window.handleBoxClick = handleBoxClick;
+        window.toggleLeftMenu = toggleLeftMenu;
+        window.handleToggleMenuClick = handleToggleMenuClick;
+        window.toggleSection = toggleSection;
+        window.showInfoModal = showInfoModal;
+        window.closeInfoModal = closeInfoModal;
+        window.openTips = openTips;
+        window.closeTips = closeTips;
+        window.exportAsJPEG = exportAsJPEG;
+    </script>
 </body>
 </html>

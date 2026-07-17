@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/16/26 23:39
+// Saved: 7/17/26 18:34
 // Total members: 608
 
 const FAMILY_DATA_URDU = [
@@ -3491,7 +3491,7 @@ const FAMILY_DATA_URDU = [
     name: "سید ابو طالب - 02",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "",
+    spouse: "سیدہ شیر بانو بلگرامی",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
@@ -3500,7 +3500,7 @@ const FAMILY_DATA_URDU = [
     name: "سید عبداللہ - 06",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "",
+    spouse: "سیدہ فرحت زیدی",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -3509,7 +3509,7 @@ const FAMILY_DATA_URDU = [
     name: "سید کمال حیدر - 02",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "",
+    spouse: "سیدہ روبی اختر زیدی",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
@@ -3518,7 +3518,7 @@ const FAMILY_DATA_URDU = [
     name: "سید جمال حیدر",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "",
+    spouse: "سید مہر آراء زیدی",
     gen: "G-041-S4",
     gender: "MALE",
     details: ""
@@ -3527,7 +3527,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ عفت زہرہ",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "",
+    spouse: "سید ارشاد حسین زیدی",
     gen: "G-041-D1",
     gender: "FEMALE",
     details: "سیدہ عفت زہرہ کی اولاد:\\n\\nS1: سید منتظر مہدی زیدی\\nD1: سیدہ آمنہ زیدی"
@@ -3545,7 +3545,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ نصرت زہرہ",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "",
+    spouse: "سید زیشان حیدر زیدی",
     gen: "G-041-D3",
     gender: "FEMALE",
     details: ""
@@ -3553,7 +3553,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید محتشم علی",
     father: "سید ابو طالب - 02",
-    mother: "",
+    mother: "سیدہ شیر بانو بلگرامی",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3562,7 +3562,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید احتشام عباس",
     father: "سید ابو طالب - 02",
-    mother: "",
+    mother: "سیدہ شیر بانو بلگرامی",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3571,7 +3571,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید اصغر علی - 02",
     father: "سید ابو طالب - 02",
-    mother: "",
+    mother: "سیدہ شیر بانو بلگرامی",
     spouse: "",
     gen: "G-042-S3",
     gender: "MALE",
@@ -3580,7 +3580,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ ملیکہ رضوی",
     father: "سید ابو طالب - 02",
-    mother: "",
+    mother: "سیدہ شیر بانو بلگرامی",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3589,7 +3589,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ ثنا رضوی",
     father: "سید ابو طالب - 02",
-    mother: "",
+    mother: "سیدہ شیر بانو بلگرامی",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -3598,7 +3598,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ خدیجہ رضوی",
     father: "سید عبداللہ - 06",
-    mother: "",
+    mother: "سیدہ فرحت زیدی",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3607,7 +3607,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ ثمانہ بتول",
     father: "سید عبداللہ - 06",
-    mother: "",
+    mother: "سیدہ فرحت زیدی",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -3616,7 +3616,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید عسکری رضوی",
     father: "سید عبداللہ - 06",
-    mother: "",
+    mother: "سیدہ فرحت زیدی",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3625,7 +3625,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید احمد علی",
     father: "سید عبداللہ - 06",
-    mother: "",
+    mother: "سیدہ فرحت زیدی",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3634,7 +3634,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید حسن غازی",
     father: "سید کمال حیدر - 02",
-    mother: "",
+    mother: "سیدہ روبی اختر زیدی",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3643,7 +3643,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید علی غازی",
     father: "سید کمال حیدر - 02",
-    mother: "",
+    mother: "سیدہ روبی اختر زیدی",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3652,7 +3652,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ امامہ فاطمہ",
     father: "سید کمال حیدر - 02",
-    mother: "",
+    mother: "سیدہ روبی اختر زیدی",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3661,7 +3661,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید فخر عباس",
     father: "سید جمال حیدر",
-    mother: "",
+    mother: "سید مہر آراء زیدی",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3670,7 +3670,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ حور زہرہ",
     father: "سید جمال حیدر",
-    mother: "",
+    mother: "سید مہر آراء زیدی",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -5480,7 +5480,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/16/26 23:39", 
+    saved_time: "7/17/26 18:34", 
     total_members: 608,
     details_count: 83,
     sheets_merged: ["Main","1","2","3","4","5"]

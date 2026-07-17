@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/16/2026 23:38
+// Saved: 07/17/2026 18:28
 // Total members: 608
 
 const FAMILY_DATA = [
@@ -3491,7 +3491,7 @@ const FAMILY_DATA = [
     name: "Syed Abu Talib - 02",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "",
+    spouse: "Syeda Sher Bano Bilgrami",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
@@ -3500,7 +3500,7 @@ const FAMILY_DATA = [
     name: "Syed Abdullah - 06",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "",
+    spouse: "Syeda Farhat Zaidi",
     gen: "G-041-S2",
     gender: "MALE",
     details: ""
@@ -3509,7 +3509,7 @@ const FAMILY_DATA = [
     name: "Syed Kamal Haider - 02",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "",
+    spouse: "Syeda Rubi Akhtar Zaidi",
     gen: "G-041-S3",
     gender: "MALE",
     details: ""
@@ -3518,7 +3518,7 @@ const FAMILY_DATA = [
     name: "Syed Jamal Haider",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "",
+    spouse: "Syed Meher Ara Zaidi",
     gen: "G-041-S4",
     gender: "MALE",
     details: ""
@@ -3527,7 +3527,7 @@ const FAMILY_DATA = [
     name: "Syeda Ifat Zehra",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "",
+    spouse: "Syed Irshad Hussain Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
     details: "Children of Syeda Ifat Zehra:\\n\\nS1- Syed Muntazir Mehdi Zaidi\\n\\nD1- Syeda Amna Zaidi"
@@ -3545,7 +3545,7 @@ const FAMILY_DATA = [
     name: "Syeda Nusrat Zehra",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "",
+    spouse: "Syed Zeeshan Haider Zaidi",
     gen: "G-041-D3",
     gender: "FEMALE",
     details: ""
@@ -5480,7 +5480,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/16/2026 23:38", 
+    saved_time: "07/17/2026 18:28", 
     total_members: 608,
     details_count: 83,
     sheets_merged: ["Main","1","2","3","4","5"]

@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/17/2026 18:31
+// Saved: 07/17/2026 21:28
 // Total members: 608
 
 const FAMILY_DATA = [
@@ -3509,10 +3509,10 @@ const FAMILY_DATA = [
     name: "Syed Kamal Haider - 02",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "Syeda Rubi Akhtar Zaidi",
+    spouse: "See details in ℹ️",
     gen: "G-041-S3",
     gender: "MALE",
-    details: ""
+    details: "1st wife   : Syeda Shabi-e-Zehra Zaidi (mother of all 3 children)\\n2nd wife : Syeda Rubi Akhtar Zaidi\\n\\nNote : Syed Kamal 2nd marriage after the death of first wife."
   },
   {
     name: "Syed Jamal Haider",
@@ -3548,7 +3548,7 @@ const FAMILY_DATA = [
     spouse: "Syed Zeeshan Haider Zaidi",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: ""
+    details: "Children of Syeda Nusrat Zehra:\\n\\nS1- Syed Hasnain Abbas Zaidi\\nS2- Syeda Maheen Fatima Zaidi\\nD1- Syeda Masooma Fatima Zaidi\\nD2- Syeda Kainat Fatima Zaidi"
   },
   {
     name: "Syed Mohtashim Ali",
@@ -3634,7 +3634,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Hassan Ghazi",
     father: "Syed Kamal Haider - 02",
-    mother: "Syeda Rubi Akhtar Zaidi",
+    mother: "Syeda Shabi-e-Zehra Zaidi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3643,7 +3643,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Gazi",
     father: "Syed Kamal Haider - 02",
-    mother: "Syeda Rubi Akhtar Zaidi",
+    mother: "Syeda Shabi-e-Zehra Zaidi",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3652,7 +3652,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Omama Fatima",
     father: "Syed Kamal Haider - 02",
-    mother: "Syeda Rubi Akhtar Zaidi",
+    mother: "Syeda Shabi-e-Zehra Zaidi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -4805,10 +4805,10 @@ const FAMILY_DATA = [
     name: "Syed Ibadat Hussain",
     father: "Syed Ashfaq Hussain",
     mother: "Syeda Kaneez Sughra Rizvi",
-    spouse: "1- Syeda Kubra Khatoon\n2- Syeda",
+    spouse: "See details in ℹ️",
     gen: "G-040-S1",
     gender: "MALE",
-    details: "Syed Ibadat remarried after death of his first wife:\\n1- Wife 1: His taya Syed Ibrahim's daugher Syeda Kubra - no child\\n2- Wife 2: Syeda .."
+    details: "Syed Ibadat 2nd marriage after the death of his first wife.\\n\\n1st wife   : Syeda Kubra Khatoon - no child (His taya Syed Ibrahim's daugher)\\n2nd wife : Syeda .."
   },
   {
     name: "Syed Wiladat Hussain",
@@ -5480,8 +5480,8 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/17/2026 18:31", 
+    saved_time: "07/17/2026 21:28", 
     total_members: 608,
-    details_count: 83,
+    details_count: 85,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

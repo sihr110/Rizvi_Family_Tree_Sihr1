@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/17/2026 18:28
+// Saved: 07/17/2026 18:31
 // Total members: 608
 
 const FAMILY_DATA = [
@@ -3553,7 +3553,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohtashim Ali",
     father: "Syed Abu Talib - 02",
-    mother: "",
+    mother: "Syeda Sher Bano Bilgrami",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3562,7 +3562,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ahtasham Abbas",
     father: "Syed Abu Talib - 02",
-    mother: "",
+    mother: "Syeda Sher Bano Bilgrami",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3571,7 +3571,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Asghar Ali - 02",
     father: "Syed Abu Talib - 02",
-    mother: "",
+    mother: "Syeda Sher Bano Bilgrami",
     spouse: "",
     gen: "G-042-S3",
     gender: "MALE",
@@ -3580,7 +3580,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Malika Rizvi",
     father: "Syed Abu Talib - 02",
-    mother: "",
+    mother: "Syeda Sher Bano Bilgrami",
     spouse: "Syed Kumail Raza Rizvi",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3589,7 +3589,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Sana Rizvi",
     father: "Syed Abu Talib - 02",
-    mother: "",
+    mother: "Syeda Sher Bano Bilgrami",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -3598,7 +3598,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Khadija Rizvi",
     father: "Syed Abdullah - 06",
-    mother: "",
+    mother: "Syeda Farhat Zaidi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3607,7 +3607,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Samana Batool",
     father: "Syed Abdullah - 06",
-    mother: "",
+    mother: "Syeda Farhat Zaidi",
     spouse: "Syed Muhammad Abbas Haider Rizvi",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -3616,7 +3616,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Askari Rizvi",
     father: "Syed Abdullah - 06",
-    mother: "",
+    mother: "Syeda Farhat Zaidi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3625,7 +3625,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ahmed Ali",
     father: "Syed Abdullah - 06",
-    mother: "",
+    mother: "Syeda Farhat Zaidi",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3634,7 +3634,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Hassan Ghazi",
     father: "Syed Kamal Haider - 02",
-    mother: "",
+    mother: "Syeda Rubi Akhtar Zaidi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3643,7 +3643,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Ali Gazi",
     father: "Syed Kamal Haider - 02",
-    mother: "",
+    mother: "Syeda Rubi Akhtar Zaidi",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3652,7 +3652,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Omama Fatima",
     father: "Syed Kamal Haider - 02",
-    mother: "",
+    mother: "Syeda Rubi Akhtar Zaidi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -3661,7 +3661,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Fakhar Abbas",
     father: "Syed Jamal Haider",
-    mother: "",
+    mother: "Syed Meher Ara Zaidi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3670,7 +3670,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Hoor Zehra",
     father: "Syed Jamal Haider",
-    mother: "",
+    mother: "Syed Meher Ara Zaidi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -5480,7 +5480,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/17/2026 18:28", 
+    saved_time: "07/17/2026 18:31", 
     total_members: 608,
     details_count: 83,
     sheets_merged: ["Main","1","2","3","4","5"]

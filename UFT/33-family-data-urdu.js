@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/17/26 18:34
+// Saved: 7/17/26 21:29
 // Total members: 608
 
 const FAMILY_DATA_URDU = [
@@ -3509,10 +3509,10 @@ const FAMILY_DATA_URDU = [
     name: "سید کمال حیدر - 02",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "سیدہ روبی اختر زیدی",
+    spouse: "تفصیلات ℹ️میں دیکھیں",
     gen: "G-041-S3",
     gender: "MALE",
-    details: ""
+    details: "پہلی بیوی: سیدہ شبیہِ زہرہ زیدی ( 3 بچوں کی والدہ) \\nدوسری بیوی: سیدہ روبی اختر زیدی\\n\\nنوٹ: سید کمال کی دوسری شادی پہلی بیوی کی وفات کے بعد ہوئی۔"
   },
   {
     name: "سید جمال حیدر",
@@ -3548,7 +3548,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید زیشان حیدر زیدی",
     gen: "G-041-D3",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ نصرت زہرا کی اولاد:\\n\\nS1 : سید حسنین عباس زیدی\\nS2 : سیدہ ماہین فاطمہ زیدی\\nD1 : سیدہ معصومہ فاطمہ زیدی\\nD2 : سیدہ کائنات فاطمہ زیدی"
   },
   {
     name: "سید محتشم علی",
@@ -3634,7 +3634,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید حسن غازی",
     father: "سید کمال حیدر - 02",
-    mother: "سیدہ روبی اختر زیدی",
+    mother: "سیدہ شبیہِ زہرا زیدی",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -3643,7 +3643,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید علی غازی",
     father: "سید کمال حیدر - 02",
-    mother: "سیدہ روبی اختر زیدی",
+    mother: "سیدہ شبیہِ زہرا زیدی",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -3652,7 +3652,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ امامہ فاطمہ",
     father: "سید کمال حیدر - 02",
-    mother: "سیدہ روبی اختر زیدی",
+    mother: "سیدہ شبیہِ زہرا زیدی",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -4805,10 +4805,10 @@ const FAMILY_DATA_URDU = [
     name: "سید عبادت حسین",
     father: "سید اشفاق حسین",
     mother: "سیدہ کنیز صغرا رضوی",
-    spouse: "ـ1) سیدہ کبریٰ خاتون رضوی  \nـ2) سیدہ",
+    spouse: "تفصیلات ℹ️میں دیکھیں",
     gen: "G-040-S1",
     gender: "MALE",
-    details: "سید عبادت نے اپنی پہلی بیوی کی وفات کے بعد دوسری شادی کی:\\n\\n1- پہلی بیوی: ان کے تایا سید ابراہیم کی صاحبزادی سیدہ کبریٰ — ان سے کوئی اولاد نہیں\\n2- دوسری بیوی: سیدہ .."
+    details: "سید عبادت نے اپنی پہلی بیوی کی وفات کے بعد دوسری شادی کی:\\n\\n1- پہلی بیوی: ان کے تایا سید ابراہیم کی صاحبزادی سیدہ کبریٰ خاتون — ان سے کوئی اولاد نہیں\\n2- دوسری بیوی: سیدہ .."
   },
   {
     name: "سید ولادت حسین",
@@ -5480,8 +5480,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/17/26 18:34", 
+    saved_time: "7/17/26 21:29", 
     total_members: 608,
-    details_count: 83,
+    details_count: 85,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

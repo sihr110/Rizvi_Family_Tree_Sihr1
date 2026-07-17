@@ -210,6 +210,12 @@
             --light-gold: #f1d279;
             --maroon: #5a0000;
             --green: #2e7d32;
+            --col-tree-width: 30px;
+            --col-name-width: 38%;
+            --col-spouse-width: 28%;
+            --col-gen-width: 14%;
+            --col-page-width: 20%;
+            --heading-offset: 4ch;
         }
 
         /* ============================================================
@@ -621,19 +627,11 @@
         }
 
         /* ============================================================
-           COLUMN & TREE ROW STYLES
+           COLUMN & TREE ROW STYLES - WITH SPOUSE COLUMN
            ============================================================ */
-        :root {
-            --col-tree-width: 30px;
-            --col-name-width: 46ch;
-            --col-gen-width: 16ch;
-            --col-page-width: 15ch;
-            --heading-offset: 4ch;
-        }
-
         .col-headers {
             display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
+            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
             font-family: 'DM Serif Display', 'Noto Nastaliq Urdu', 'Georgia', serif;
             font-weight: 700;
             font-size: 13px;
@@ -643,6 +641,7 @@
             border-bottom: 2px solid #b8a088;
             margin-bottom: 6px;
             flex-shrink: 0;
+            text-align: center;
         }
 
         .col-headers .col-tree {
@@ -654,33 +653,25 @@
             padding-right: var(--heading-offset);
         }
 
-        .col-headers .col-gen {
+        .col-headers .col-spouse {
             text-align: right;
             padding-right: var(--heading-offset);
+        }
+
+        .col-headers .col-gen {
+            text-align: center;
+            padding-right: 0;
         }
 
         .col-headers .col-page {
-            text-align: right;
-            padding-right: var(--heading-offset);
+            text-align: center;
+            padding-right: 0;
             white-space: nowrap;
-        }
-
-        .tree-container {
-            font-family: 'Roboto Mono', 'Noto Nastaliq Urdu', 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 2.0;
-            padding: 2px 0;
-            color: #1a1a1a;
-            width: 100%;
-            overflow: visible;
-            direction: rtl;
-            text-align: right;
-            flex: 1;
         }
 
         .tree-row {
             display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-gen-width) var(--col-page-width);
+            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
             align-items: center;
         }
 
@@ -693,12 +684,18 @@
             text-align: right;
         }
 
-        .tree-row .tree-gen {
+        .tree-row .tree-spouse {
             text-align: right;
         }
 
+        .tree-row .tree-gen {
+            text-align: center;
+            padding-right: 0;
+        }
+
         .tree-row .tree-page {
-            text-align: right;
+            text-align: center;
+            padding-right: 0;
         }
 
         /* ============================================================
@@ -732,6 +729,21 @@
         .tree-container .father-normal.female {
             color: #FF1493;
             font-weight: 700;
+        }
+
+        .tree-container .spouse-name {
+            color: #1a3a5c;
+            font-weight: 500;
+        }
+
+        .tree-container .spouse-name.female {
+            color: #FF1493;
+            font-weight: 600;
+        }
+
+        .tree-container .spouse-name.male {
+            color: #1a3a5c;
+            font-weight: 500;
         }
 
         .tree-container .continue-arrow {
@@ -1124,9 +1136,10 @@
             .header-spacer { width: 60px; }
             :root {
                 --col-tree-width: 25px;
-                --col-name-width: 32ch;
-                --col-gen-width: 12ch;
-                --col-page-width: 12ch;
+                --col-name-width: 34%;
+                --col-spouse-width: 26%;
+                --col-gen-width: 14%;
+                --col-page-width: 18%;
                 --heading-offset: 2ch;
             }
             .member-modal {
@@ -1169,6 +1182,14 @@
             }
             .save-options-modal .save-mode-label {
                 padding: 8px 10px;
+            }
+            :root {
+                --col-tree-width: 20px;
+                --col-name-width: 34%;
+                --col-spouse-width: 26%;
+                --col-gen-width: 14%;
+                --col-page-width: 18%;
+                --heading-offset: 2ch;
             }
         }
     </style>
@@ -2000,7 +2021,7 @@
         }
 
         // ============================================================
-        // RENDER PAGE CONTENT (DATA)
+        // RENDER PAGE CONTENT (DATA) - WITH SPOUSE
         // ============================================================
         function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
             const person = personMap[name];
@@ -2014,19 +2035,28 @@
             const fullName = name;
             const cleanName = displayName(name);
             const rootGen = (person && person.gen ? person.gen : '');
+
+            const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
+            const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
+
+            const rootFather = getActualFather(name, personMap);
             let rootPagePart = '';
-            if (splitChildren && splitChildren.includes(name)) {
-                const actualPageIndex = rootToPageMap[name];
-                rootPagePart = actualPageIndex !== undefined ?
-                    '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">صفحہ ' + (actualPageIndex + 1) + '</span>' : '';
+
+            if (rootFather && rootToPageMap[rootFather] !== undefined) {
+                const fatherPage = rootToPageMap[rootFather];
+                rootPagePart = ` (والد) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">صفحہ ${fatherPage + 1}</span>`;
+            } else if (rootFather) {
+                rootPagePart = ` (والد)`;
             }
 
             rows.push({
                 tree: '',
-                name: '<span class="' + fatherClass + '">' + cleanName + '</span>',
+                name: '<span class="' + fatherClass + '">' + cleanName + rootPagePart + '</span>',
                 plainName: fullName,
+                spouse: cleanSpouse,
+                plainSpouse: rootSpouse,
                 gen: rootGen,
-                page: rootPagePart
+                page: ''
             });
 
             if (isFather && children.length > 0) {
@@ -2037,6 +2067,9 @@
                     const childCleanName = displayName(child);
                     const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
                     const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
+
+                    const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
+                    const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
 
                     let treeChars = isLast ? '└──' : '├──';
 
@@ -2053,6 +2086,8 @@
                         tree: treeChars,
                         name: '<span class="' + childClass + '">' + childCleanName + '</span>',
                         plainName: childFullName,
+                        spouse: childCleanSpouse,
+                        plainSpouse: childSpouse,
                         gen: childGen,
                         page: childPagePart
                     });
@@ -2062,7 +2097,7 @@
         }
 
         // ============================================================
-        // RENDER PAGE HTML (DISPLAY)
+        // RENDER PAGE HTML (DISPLAY) - WITH SPOUSE COLUMN
         // ============================================================
         function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
             const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
@@ -2091,9 +2126,11 @@
 
             html += `
                 <div style="display:flex; justify-content:center; width:100%;">
-                    <div style="width:80%;">
-                        <div class="col-headers" style="display:grid; grid-template-columns:60% 18% 22%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
+                    <div style="width:90%;">
+                        <div class="col-headers" style="background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
+                            <span style="padding-right:4px; border-left:1px solid #b8a088;"> </span>
                             <span style="padding-right:8px; border-left:1px solid #b8a088;">نام</span>
+                            <span style="padding-right:8px; border-left:1px solid #b8a088;">شریک حیات</span>
                             <span style="padding-right:8px; border-left:1px solid #b8a088;">حوالہ نسل</span>
                             <span style="padding-right:8px;">اگلی نسل</span>
                         </div>
@@ -2103,12 +2140,20 @@
             if (lines && lines.length > 0) {
                 lines.forEach((row, index) => {
                     let nameHtml = row.name;
+                    let spouseHtml = row.spouse || '—';
                     let genHtml = row.gen;
                     let pageHtml = row.page;
 
                     let personName = row.plainName || '';
                     let person = globalPersonMap[personName];
                     let isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
+
+                    let spousePerson = null;
+                    let spouseName = row.plainSpouse || '';
+                    if (spouseName) {
+                        spousePerson = globalPersonMap[spouseName];
+                    }
+                    let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
 
                     if (highlightName) {
                         const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -2118,7 +2163,27 @@
                     }
 
                     let isChild = index > 0;
-                    let displayNameText = isChild ? '   • ' + nameHtml : nameHtml;
+
+                    let isHighlighted = false;
+                    if (highlightName) {
+                        const cleanHighlight = displayName(highlightName);
+                        const cleanPerson = displayName(personName);
+                        if (cleanPerson === cleanHighlight) {
+                            isHighlighted = true;
+                        }
+                    }
+
+                    let displayNameText = '';
+                    if (isChild) {
+                        displayNameText = nameHtml;
+                    } else {
+                        displayNameText = '<b>' + nameHtml + '</b>';
+                    }
+
+                    if (isHighlighted) {
+                        displayNameText = '<b>' + displayNameText + '</b>';
+                    }
+
                     let fontWeight = isChild ? '400' : '700';
                     let color = isChild ? '#1a3a5c' : '#cc0000';
 
@@ -2132,17 +2197,26 @@
                     let clickableName = displayNameText;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
-                        clickableName = displayNameText.replace(/<span[^>]*>(.*?)<\/span>/, function(match, content) {
-                            return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + content + '</span>';
-                        });
-                        if (clickableName === displayNameText) {
-                            clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + displayNameText + '</span>';
+                        if (nameHtml.includes('<span')) {
+                            const cleanNameText = displayName(personName);
+                            clickableName = displayNameText.replace(cleanNameText, function(match) {
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
+                            });
+                        } else {
+                            const cleanNameText = displayName(personName);
+                            clickableName = displayNameText.replace(cleanNameText, function(match) {
+                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
+                            });
                         }
                     }
 
-                    html += `<div class="tree-row" style="display:grid; grid-template-columns:60% 18% 22%; align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
-                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:12px;">${clickableName}</span>`;
-                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:12px;">${genHtml}</span>`;
+                    let clickableSpouse = spouseHtml;
+                    if (spouseName && spouseHtml !== '—') {
+                        const genderClass = isSpouseFemale ? 'female' : 'male';
+                        clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName.replace(/'/g, "\\'") + '\')">' + displayName(spouseName) + '</span>';
+                    }
+
+                    let treeChar = isChild ? '•' : '';
 
                     let clickablePageHtml = pageHtml;
                     if (pageHtml && pageHtml.includes('صفحہ')) {
@@ -2152,11 +2226,16 @@
                         if (pagePerson) {
                             const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
                             const genderClassPage = isFemalePage ? 'female' : 'male';
-                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + pageHtml + '\')">' + displayName(pageHtml) + '</span>';
+                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + pageHtml.replace(/'/g, "\\'") + '\')">' + displayName(pageHtml) + '</span>';
                         }
                     }
 
-                    html += `<span style="padding-right:8px; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:12px;">${clickablePageHtml}</span>`;
+                    html += `<div class="tree-row" style="align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
+                    html += `<span style="padding-right:4px; border-left:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
+                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
+                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
+                    html += `<span style="border-left:1px solid #d0c8be; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${genHtml}</span>`;
+                    html += `<span style="font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${clickablePageHtml}</span>`;
                     html += `</div>`;
                 });
             } else {

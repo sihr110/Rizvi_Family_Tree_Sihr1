@@ -904,49 +904,74 @@
             return { childrenMap, roots };
         }
 
-        function renderBox(member) {
-            const isFemale = member.gender && (member.gender.startsWith('F') || member.gender === 'FEMALE');
-            const safeName = member.name.replace(/'/g, "\\'");
-            const { childrenMap } = buildChildrenMap();
-            const hasChildren = childrenMap.has(member.name);
-            const isExpanded = expandedState.get(member.name) || false;
-            let genDisplay = member.gen || '—';
-            if (genDisplay.includes('-')) {
-                const parts = genDisplay.split('-');
-                genDisplay = 'نسل-' + parts.slice(1).join('-');
-            }
 
-            if (showAllMode) {
-                return `
-                    <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
-                        <div class="box-header">
-                            <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}</div>
-                            <div class="gen-text">${genDisplay}</div>
-                            <div style="width: 30px; text-align:left;">${member.details ? `<span class="info-icon" onclick="showInfoModal('${safeName}')">ℹ️</span>` : ''}</div>
-                        </div>
-                        <div class="box-body">
-                            <div class="member-name">${displayName(member.name)}</div>
-                            <div class="info-text"><span class="label-col">والد:</span> ${displayName(member.father) || '—'}</div>
-                            <div class="info-text"><span class="label-col">والدہ:</span> ${displayName(member.mother) || '—'}</div>
-                            <div class="info-text"><span class="label-col">شریک حیات:</span> ${displayName(member.spouse) || '—'}</div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                return `
-                    <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
-                        <div class="box-header">
-                            <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}</div>
-                            <div class="gen-text">${genDisplay}</div>
-                            <div style="width: 30px;"></div>
-                        </div>
-                        <div class="box-body" style="text-align:center; min-height:50px;">
-                            <div class="member-name" style="border-bottom:none; margin-bottom:0;">${displayName(member.name)}</div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
+
+function renderBox(member) {
+    // Explicit gender check - handle null/undefined
+    let isFemale = false;
+    if (member.gender) {
+        const g = member.gender.toUpperCase();
+        isFemale = (g === 'FEMALE' || g === 'F' || g === 'WOMAN' || g === 'W');
+    }
+    
+    const safeName = member.name.replace(/'/g, "\\'");
+    const { childrenMap } = buildChildrenMap();
+    const hasChildren = childrenMap.has(member.name);
+    const isExpanded = expandedState.get(member.name) || false;
+    let genDisplay = member.gen || '—';
+    if (genDisplay.includes('-')) {
+        const parts = genDisplay.split('-');
+        genDisplay = 'نسل-' + parts.slice(1).join('-');
+    }
+    
+    // Labels based on gender
+    const fatherLabel = isFemale ? 'والدہ' : 'والد';
+    const fatherDisplay = member.father && member.father !== '---' && member.father !== '—' 
+        ? displayName(member.father) 
+        : '—';
+    const spouseLabel = isFemale ? 'شوہر' : 'شریک حیات';
+    
+    // Name prefix with ابن/بنت
+    let nameDisplay = displayName(member.name);
+    if (member.father && member.father !== '---' && member.father !== '—') {
+        const prefix = isFemale ? 'بنتِ ' : 'ابنِ ';
+        nameDisplay = prefix + nameDisplay;
+    }
+
+    // Debug log to check gender detection (remove after testing)
+    console.log(`Member: ${member.name}, Gender: ${member.gender}, isFemale: ${isFemale}`);
+
+    if (showAllMode) {
+        return `
+            <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
+                <div class="box-header">
+                    <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}</div>
+                    <div class="gen-text">${genDisplay}</div>
+                    <div style="width: 30px; text-align:left;">${member.details ? `<span class="info-icon" onclick="showInfoModal('${safeName}')">ℹ️</span>` : ''}</div>
+                </div>
+                <div class="box-body">
+                    <div class="member-name">${nameDisplay}</div>
+                    <div class="info-text"><span class="label-col">${fatherLabel}:</span> ${fatherDisplay}</div>
+                    <div class="info-text"><span class="label-col">والدہ:</span> ${displayName(member.mother) || '—'}</div>
+                    <div class="info-text"><span class="label-col">${spouseLabel}:</span> ${displayName(member.spouse) || '—'}</div>
+                </div>
+            </div>
+        `;
+    } else {
+        return `
+            <div class="tree-box ${isFemale ? 'female' : ''}" data-name="${member.name}">
+                <div class="box-header">
+                    <div style="width: 30px;">${hasChildren ? `<button class="expand-btn" onclick="toggleExpand('${safeName}', event)">${isExpanded ? '-' : '+'}</button>` : ''}</div>
+                    <div class="gen-text">${genDisplay}</div>
+                    <div style="width: 30px;"></div>
+                </div>
+                <div class="box-body" style="text-align:center; min-height:50px;">
+                    <div class="member-name" style="border-bottom:none; margin-bottom:0;">${nameDisplay}</div>
+                </div>
+            </div>
+        `;
+    }
+}
 
 
 function renderTreeNode(parent, childrenMap, visited = new Set()) {
@@ -1145,39 +1170,53 @@ function renderFullTree() {
     }
 }
 
-        function setupSearch() {
-            const input = document.getElementById('searchInput');
-            const dropdown = document.getElementById('searchDropdown');
-            
-            input.addEventListener('input', function() {
-                const q = this.value.trim().toLowerCase();
-                if (q.length < 2) { 
-                    dropdown.style.display = 'none'; 
-                    return; 
-                }
-                const results = familyDB.filter(m => m.name.toLowerCase().includes(q)).slice(0, 15);
-                if (!results.length) { 
-                    dropdown.style.display = 'none'; 
-                    return; 
-                }
-                dropdown.innerHTML = '';
-                results.forEach(m => {
-                    const div = document.createElement('div');
-                    div.className = 'result-item';
-                    div.innerHTML = `<div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div><div class="result-father">👨 والد: ${displayName(m.father) || 'نامعلوم'}</div>`;
-                    div.onclick = (function(memberName) {
-                        return function() { 
-                            jumpToMember(memberName); 
-                            dropdown.style.display = 'none'; 
-                            input.blur();
-                        };
-                    })(m.name);
-                    dropdown.appendChild(div);
-                });
-                dropdown.style.display = 'block';
-            });
-            
+       
+function setupSearch() {
+    const input = document.getElementById('searchInput');
+    const dropdown = document.getElementById('searchDropdown');
+    
+    input.addEventListener('input', function() {
+        const q = this.value.trim().toLowerCase();
+        if (q.length < 2) { 
+            dropdown.style.display = 'none'; 
+            return; 
         }
+        const results = familyDB.filter(m => m.name.toLowerCase().includes(q)).slice(0, 15);
+        if (!results.length) { 
+            dropdown.style.display = 'none'; 
+            return; 
+        }
+        dropdown.innerHTML = '';
+        results.forEach(m => {
+            // Determine gender
+            let isFemale = false;
+            if (m.gender) {
+                const g = m.gender.toUpperCase();
+                isFemale = (g === 'FEMALE' || g === 'F' || g === 'WOMAN' || g === 'W');
+            }
+            
+            // Show father name with ابن/بنت prefix
+            let fatherDisplay = 'نامعلوم';
+            if (m.father && m.father !== '---' && m.father !== '—') {
+                const prefix = isFemale ? 'بنتِ ' : 'ابنِ ';
+                fatherDisplay = prefix + displayName(m.father);
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'result-item';
+            div.innerHTML = `<div class="result-name">${displayName(m.name)} <span style="font-size:10px; color:#5a0000;">${m.gen || ''}</span></div><div class="result-father">${fatherDisplay}</div>`;
+            div.onclick = (function(memberName) {
+                return function() { 
+                    jumpToMember(memberName); 
+                    dropdown.style.display = 'none'; 
+                    input.blur();
+                };
+            })(m.name);
+            dropdown.appendChild(div);
+        });
+        dropdown.style.display = 'block';
+    });
+}
 
         function setShowAllMode(enabled) {
             showAllMode = enabled;

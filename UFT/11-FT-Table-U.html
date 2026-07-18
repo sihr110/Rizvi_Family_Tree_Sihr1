@@ -1287,36 +1287,8 @@
         }
 
         /* ============================================================
-           SECTION 17: PRINT STYLES
+           SECTION 17: DETAILS MODAL HIDE BY DEFAULT
            ============================================================ */
-        @media print {
-            body { background: #fff; padding: 0; }
-            .controls { display: none !important; }
-            .menu-toggle-btn { display: none !important; }
-            .menu-panel { display: none !important; }
-            .page {
-                width: 100%;
-                min-height: 100vh;
-                box-shadow: none;
-                border-radius: 0;
-                padding: 8mm 10mm;
-                margin: 0;
-                page-break-after: always;
-            }
-            .app-wrapper { zoom: 1 !important; }
-            .tree-container { font-size: 11px; line-height: 1.8; }
-            #memberModalOverlay { display: none !important; }
-            .member-modal { display: none !important; }
-            #detailsModalOverlay { display: none !important; }
-            .details-modal { display: none !important; }
-            #saveOptionsModal { display: none !important; }
-            #saveModalOverlay { display: none !important; }
-        }
-
-
-/* ============================================================
-   SECTION 19: DETAILS MODAL HIDE BY DEFAULT
-   ============================================================ */
 #detailsModalOverlay {
     display: none !important;
 }
@@ -1352,107 +1324,6 @@
     text-align: right;
     animation: fadeIn 0.25s ease;
 }
-
-        /* ============================================================
-           SECTION 18: RESPONSIVE STYLES
-           ============================================================ */
-        @media screen and (max-width: 800px) {
-            body { padding: 8px; }
-            .controls { padding: 10px 12px; gap: 8px; }
-            .controls .search-wrapper { width: 100%; }
-            .controls .search-box input { min-width: auto; font-size: 13px; }
-            .controls .stats { font-size: 12px; text-align: center; }
-            .controls .row1, .controls .row2 { flex-direction: column; align-items: stretch; }
-            .page {
-                width: 100%;
-                min-height: 297mm;
-                padding: 6mm 8mm;
-            }
-            .col-headers { font-size: 11px; }
-            .tree-container { font-size: 11px; line-height: 1.8; }
-            .page-footer .developer { font-size: 10px; }
-            .header-title { font-size: 16px; }
-            .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
-            .menu-panel { left: 15px; top: 50px; min-width: 150px; }
-            .menu-item { font-size: 12px; padding: 8px 14px; }
-            .header-spacer { width: 60px; }
-            :root {
-                --col-tree-width: 25px;
-                --col-name-width: 34%;
-                --col-spouse-width: 26%;
-                --col-gen-width: 14%;
-                --col-page-width: 18%;
-                --heading-offset: 2ch;
-            }
-            .member-modal {
-                padding: 20px;
-                max-width: 95%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-            }
-            .detail-card .detail-header h2 {
-                font-size: 18px;
-            }
-            .detail-card .detail-row {
-                font-size: 14px;
-                flex-direction: column;
-                padding: 8px 0;
-            }
-            .detail-card .detail-row strong {
-                min-width: auto;
-                margin-bottom: 2px;
-            }
-            .detail-card .detail-gender {
-                font-size: 10px;
-                padding: 2px 12px;
-            }
-            .save-options-modal {
-                min-width: auto;
-                padding: 20px;
-            }
-            .details-modal {
-                padding: 20px;
-                max-width: 95%;
-            }
-            .details-modal .details-header h2 {
-                font-size: 17px;
-            }
-            .details-modal .details-content-box {
-                font-size: 14px;
-                padding: 14px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .menu-panel { left: 10px; top: 45px; min-width: 130px; }
-            .menu-item { font-size: 11px; padding: 6px 12px; }
-            .menu-toggle-btn { padding: 4px 10px; font-size: 11px; }
-            .header-title { font-size: 14px; }
-            .header-spacer { width: 50px; }
-            .save-options-modal {
-                min-width: auto;
-                padding: 15px;
-            }
-            .save-options-modal .save-mode-label {
-                padding: 8px 10px;
-            }
-            :root {
-                --col-tree-width: 20px;
-                --col-name-width: 34%;
-                --col-spouse-width: 26%;
-                --col-gen-width: 14%;
-                --col-page-width: 18%;
-                --heading-offset: 2ch;
-            }
-            .details-modal {
-                padding: 15px;
-            }
-            .details-modal .details-content-box {
-                font-size: 13px;
-                padding: 12px;
-            }
-        }
-
     </style>
 </head>
 

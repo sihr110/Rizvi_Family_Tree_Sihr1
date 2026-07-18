@@ -15,27 +15,14 @@
         // DEVICE DETECTION & ZOOM CONTROL
         // ============================================================
         function getDevicePreference() {
-            // Check URL parameter first
             const urlParams = new URLSearchParams(window.location.search);
             const deviceParam = urlParams.get('device');
             if (deviceParam === 'pc' || deviceParam === 'mobile') {
-                localStorage.setItem('devicePreference', deviceParam);
                 return deviceParam;
             }
-            
-            // Check localStorage
-            const saved = localStorage.getItem('devicePreference');
-            if (saved === 'pc' || saved === 'mobile') {
-                return saved;
-            }
-            
-            // Auto-detect as fallback
-            const isMobile = window.innerWidth <= 768 || 
-                           /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
-            return isMobile ? 'mobile' : 'pc';
+            return 'pc';
         }
 
-        // Set viewport zoom based on device preference
         function setViewportZoom() {
             const device = getDevicePreference();
             const scale = device === 'pc' ? '1.0' : '0.5';
@@ -44,15 +31,8 @@
             if (viewport) {
                 viewport.content = `width=device-width, initial-scale=${scale}, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover`;
             }
-            
-            // Add class to body for CSS targeting
-            document.body.classList.add(device === 'pc' ? 'desktop-device' : 'mobile-device');
-            
-            // Log for debugging
-            console.log(`Device: ${device}, Zoom: ${scale}`);
         }
 
-        // Run on load
         document.addEventListener('DOMContentLoaded', setViewportZoom);
     </script>
     
@@ -337,11 +317,6 @@
     min-width: 180px;
 }
 
-/* Mobile menu position */
-body.mobile-device .menu-panel {
-    top: 55px;
-}
-
         .menu-panel.show {
             display: flex;
         }
@@ -584,11 +559,6 @@ body.mobile-device .menu-panel {
             align-items: center;
             gap: 15px;
             width: 100%;
-        }
-
-        /* Mobile search row width */
-        body.mobile-device .search-row {
-            width: 85%;
         }
 
         .search-label {
@@ -1483,131 +1453,6 @@ body.mobile-device .menu-panel {
             }
         }
 
-        /* Mobile device specific adjustments */
-        body.mobile-device .menu-panel {
-            top: 55px;
-        }
-
-        body.mobile-device .search-row {
-            width: 85%;
-        }
-
-        body.mobile-device .page {
-            padding: 6mm 8mm;
-        }
-
-        body.mobile-device .col-headers {
-            font-size: 11px;
-        }
-
-        body.mobile-device .tree-container {
-            font-size: 11px;
-            line-height: 1.8;
-        }
-
-        body.mobile-device .header-title {
-            font-size: 16px;
-        }
-
-        body.mobile-device .menu-toggle-btn {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-
-        body.mobile-device .header-spacer {
-            width: 60px;
-        }
-
-        body.mobile-device .member-modal {
-            padding: 20px;
-            max-width: 95%;
-        }
-
-        body.mobile-device .detail-card .detail-header h2 {
-            font-size: 18px;
-        }
-
-        body.mobile-device .detail-card .detail-row {
-            font-size: 14px;
-            flex-direction: column;
-            padding: 8px 0;
-        }
-
-        body.mobile-device .detail-card .detail-row strong {
-            min-width: auto;
-            margin-bottom: 2px;
-        }
-
-        body.mobile-device .detail-card .detail-gender {
-            font-size: 10px;
-            padding: 2px 12px;
-        }
-
-        body.mobile-device .save-options-modal {
-            min-width: auto;
-            padding: 20px;
-        }
-
-        body.mobile-device .details-modal {
-            padding: 20px;
-            max-width: 95%;
-        }
-
-        body.mobile-device .details-modal .details-header h2 {
-            font-size: 17px;
-        }
-
-        body.mobile-device .details-modal .details-content-box {
-            font-size: 14px;
-            padding: 14px;
-        }
-
-  
-
-        body.mobile-device .menu-item {
-            font-size: 11px;
-            padding: 6px 12px;
-        }
-
-        body.mobile-device .menu-toggle-btn {
-            padding: 4px 10px;
-            font-size: 11px;
-        }
-
-        body.mobile-device .header-title {
-            font-size: 14px;
-        }
-
-        body.mobile-device .header-spacer {
-            width: 50px;
-        }
-
-        body.mobile-device .save-options-modal {
-            min-width: auto;
-            padding: 15px;
-        }
-
-        body.mobile-device .save-options-modal .save-mode-label {
-            padding: 8px 10px;
-        }
-
-        body.mobile-device :root {
-            --col-tree-width: 20px;
-            --col-name-width: 34%;
-            --col-spouse-width: 26%;
-            --col-gen-width: 14%;
-            --col-page-width: 18%;
-            --heading-offset: 2ch;
-        }
-
-        body.mobile-device .details-modal {
-            padding: 15px;
-        }
-
-        body.mobile-device .details-modal .details-content-box {
-            font-size: 13px;
-            padding: 12px;
-        }
     </style>
 </head>
 
@@ -1802,9 +1647,9 @@ body.mobile-device .menu-panel {
         let cachedPages = [];
         let familyData = null;
         let currentPageIndex = 0;
-        let detailsTargetPerson = null; // For details popup
+        let detailsTargetPerson = null;
 
-let pageLoaded = false;
+        let pageLoaded = false;
 
         // ============================================================
         // JAVASCRIPT SECTION 4: MENU FUNCTIONS
@@ -1813,31 +1658,29 @@ let pageLoaded = false;
             document.getElementById('menuPanel').classList.toggle('show');
         }
 
-  function goToDashboard() {
-    // Get device from URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const deviceParam = urlParams.get('device');
-    
-    // If device is in URL, pass it to dashboard
-    if (deviceParam === 'pc') {
-        window.location.href = '21-dashboard-pc.html?device=pc';
-    } else if (deviceParam === 'mobile') {
-        window.location.href = '26-dashboard-mobile.html?device=mobile';
-    } else {
-        // Fallback: use localStorage
-        const saved = localStorage.getItem('devicePreference');
-        if (saved === 'pc') {
-            window.location.href = '21-dashboard-pc.html?device=pc';
-        } else if (saved === 'mobile') {
-            window.location.href = '26-dashboard-mobile.html?device=mobile';
-        } else {
-            // Auto-detect as last resort
-            const isMobile = window.innerWidth <= 768 || 
-                           /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
-            window.location.href = isMobile ? '26-dashboard-mobile.html?device=mobile' : '21-dashboard-pc.html?device=pc';
+        function goToDashboard() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const deviceParam = urlParams.get('device');
+            
+            if (deviceParam === 'pc') {
+                window.location.href = '21-dashboard-pc.html';
+            } else if (deviceParam === 'mobile') {
+                window.location.href = '26-dashboard-mobile.html';
+            } else {
+                window.location.href = 'index.html';
+            }
         }
-    }
-}
+
+        function showSaveOptions() {
+            document.getElementById('saveOptionsModal').style.display = 'block';
+            document.getElementById('saveModalOverlay').style.display = 'block';
+            document.getElementById('menuPanel').classList.remove('show');
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
 
         // ============================================================
         // JAVASCRIPT SECTION 5: EXPORT FUNCTIONS
@@ -2496,17 +2339,14 @@ let pageLoaded = false;
             const cleanName = displayName(name);
             const rootGen = (person && person.gen ? person.gen : '');
 
-            // Get spouse for root person
             const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
             const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
 
-            // Get father info for the root person
             const rootFather = getActualFather(name, personMap);
             let rootPagePart = '';
 
             if (rootFather && rootToPageMap[rootFather] !== undefined) {
                 const fatherPage = rootToPageMap[rootFather];
-                const fatherDisplay = displayName(rootFather);
                 rootPagePart = ` (والد) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">صفحہ ${fatherPage + 1}</span>`;
             } else if (rootFather) {
                 rootPagePart = ` (والد)`;
@@ -2637,7 +2477,6 @@ let pageLoaded = false;
                         rowBg = (index % 2 === 0) ? '#ffffff' : '#e8f5e9';
                     }
 
-                    // Make names clickable
                     let clickableName = displayNameText;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
@@ -2656,28 +2495,21 @@ let pageLoaded = false;
                         }
                     }
 
-                    // Make spouse clickable
                     let clickableSpouse = spouseHtml;
                     if (spouseName && spouseHtml !== '—') {
                         const genderClass = isSpouseFemale ? 'female' : 'male';
                         clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName + '\')">' + displayName(spouseName) + '</span>';
                     }
 
-                    // Check if spouse contains "تفصیلات ℹ️ میں دیکھیں"
                     if (spouseHtml && spouseHtml.includes('تفصیلات')) {
-                        // Find the person who has this as their spouse field
-                        // We need to get the actual person object
                         const targetPerson = globalPersonMap[personName];
                         if (targetPerson && targetPerson.spouse && targetPerson.spouse.includes('تفصیلات')) {
-                            // This is a details link - make it clickable
                             clickableSpouse = '<span class="details-link" data-person="' + personName + '">تفصیلات ℹ️ میں دیکھیں</span>';
                         }
                     }
 
-                    // Also check if any child has details in spouse
                     let treeChar = isChild ? '•' : '';
 
-                    // Make page link clickable
                     let clickablePageHtml = pageHtml;
                     if (pageHtml && pageHtml.includes('صفحہ')) {
                         clickablePageHtml = pageHtml;
@@ -2724,37 +2556,34 @@ let pageLoaded = false;
         // JAVASCRIPT SECTION 12: DETAILS POPUP FUNCTIONS
         // ============================================================
 
+        function openDetailsPopup(personName) {
+            if (!personName) return;
+            if (!pageLoaded) return;
+            if (document.readyState !== 'complete') return;
 
-function openDetailsPopup(personName) {
-    // Prevent opening on page load
-    if (!personName) return;
-    if (!pageLoaded) return;
-    if (document.readyState !== 'complete') return;
+            const person = globalPersonMap[personName];
+            if (!person) {
+                alert('فرد نہیں ملا: ' + personName);
+                return;
+            }
 
-    const person = globalPersonMap[personName];
-    if (!person) {
-        alert('فرد نہیں ملا: ' + personName);
-        return;
-    }
+            let detailsText = person.details || 'کوئی تفصیلات دستیاب نہیں';
+            detailsTargetPerson = personName;
 
-    let detailsText = person.details || 'کوئی تفصیلات دستیاب نہیں';
-    detailsTargetPerson = personName;
+            document.getElementById('detailsModalTitle').textContent = '📝 تفصیلات — ' + displayName(personName);
+            document.getElementById('detailsModalContent').innerHTML = detailsText.replace(/\\n/g, '<br>');
 
-    document.getElementById('detailsModalTitle').textContent = '📝 تفصیلات — ' + displayName(personName);
-    document.getElementById('detailsModalContent').innerHTML = detailsText.replace(/\\n/g, '<br>');
+            document.getElementById('detailsModalOverlay').classList.add('show');
+            document.getElementById('detailsModal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
 
-    document.getElementById('detailsModalOverlay').classList.add('show');
-    document.getElementById('detailsModal').classList.add('show');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeDetailsModal() {
-    document.getElementById('detailsModalOverlay').classList.remove('show');
-    document.getElementById('detailsModal').classList.remove('show');
-    document.body.style.overflow = 'auto';
-    detailsTargetPerson = null;
-}
-
+        function closeDetailsModal() {
+            document.getElementById('detailsModalOverlay').classList.remove('show');
+            document.getElementById('detailsModal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+            detailsTargetPerson = null;
+        }
 
         // ============================================================
         // JAVASCRIPT SECTION 13: SEARCH & PAGINATION HELPERS
@@ -2955,15 +2784,13 @@ function closeDetailsModal() {
                 return;
             }
 
-
-document.addEventListener('click', function(e) {
-    const el = e.target.closest('.details-link');
-    if (el) {
-        const name = el.getAttribute('data-person');
-        if (name) openDetailsPopup(name);
-    }
-});
-
+            document.addEventListener('click', function(e) {
+                const el = e.target.closest('.details-link');
+                if (el) {
+                    const name = el.getAttribute('data-person');
+                    if (name) openDetailsPopup(name);
+                }
+            });
 
             familyData = FAMILY_DATA_URDU;
             buildFamilyMap(familyData);
@@ -3232,7 +3059,7 @@ document.addEventListener('click', function(e) {
         // JAVASCRIPT SECTION 20: INITIALIZATION
         // ============================================================
         window.onload = function() {
-pageLoaded = true;
+            pageLoaded = true;
             if (typeof FAMILY_DATA_URDU !== 'undefined') {
                 renderAllPages();
             } else {

@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 07/17/2026 21:28
+// Saved: 07/18/2026 12:17
 // Total members: 608
 
 const FAMILY_DATA = [
@@ -2801,7 +2801,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Batool Zafar Hyder Rizvi",
     gen: "G-041-S2",
     gender: "MALE",
-    details: "Syed Mudasir married Syeda Batool (Phopi Syeda Tanveer ki pooti ) + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: "Syed Mudasir married Syeda Batool (Phopi Syeda Tanveer ki pooti , Syed Zafar Iqbal ki beti) + Their both root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Muzzammil Haider",
@@ -2977,7 +2977,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Mohammad Jafar",
     father: "Syed Mohammad Naqi",
-    mother: "",
+    mother: "Syeda Riaz Fatima Rizvi",
     spouse: "",
     gen: "G-040-S2",
     gender: "MALE",
@@ -2986,7 +2986,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Masoom Fatima",
     father: "Syed Mohammad Naqi",
-    mother: "",
+    mother: "Syeda Riaz Fatima Rizvi",
     spouse: "Syed Hassan Abbas (Naseem)",
     gen: "G-040-D1",
     gender: "FEMALE",
@@ -2995,7 +2995,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Naseer Fatima",
     father: "Syed Mohammad Naqi",
-    mother: "",
+    mother: "Syeda Riaz Fatima Rizvi",
     spouse: "",
     gen: "G-040-D2",
     gender: "FEMALE",
@@ -3004,7 +3004,7 @@ const FAMILY_DATA = [
   {
     name: "Syeda Najam Fatima (Najjo)",
     father: "Syed Mohammad Naqi",
-    mother: "",
+    mother: "Syeda Riaz Fatima Rizvi",
     spouse: "",
     gen: "G-040-D3",
     gender: "FEMALE",
@@ -3491,7 +3491,7 @@ const FAMILY_DATA = [
     name: "Syed Abu Talib - 02",
     father: "Syed Zafar Ul Hassan - Sharib (Shoaib)",
     mother: "Syeda Tanzeem Fatima Rizvi",
-    spouse: "Syeda Sher Bano Bilgrami",
+    spouse: "Syeda Sher Bano Bilgrami Jafary",
     gen: "G-041-S1",
     gender: "MALE",
     details: ""
@@ -4130,7 +4130,7 @@ const FAMILY_DATA = [
     name: "Syed Shams Ul Hassan",
     father: "Syed Yaqoob Ul Hasan",
     mother: "Syeda Ajaz Fatima Rizvi",
-    spouse: "",
+    spouse: "Syeda Tasneem Zehra Jaffry ( Suriyya )",
     gen: "G-039-S3",
     gender: "MALE",
     details: ""
@@ -4277,7 +4277,7 @@ const FAMILY_DATA = [
     spouse: "Syeda Huma Batool Rizvi",
     gen: "G-040-S1",
     gender: "MALE",
-    details: "Syed Shakeel Raza married chacha Syed Shams Ul Hassan's daughter, Syeda Huma Batool Rizvi - Their both root is Syed Yaqoob Ul Hasan - G-038-S2"
+    details: "Syed Shakeel Raza married Syeda Huma Batool Rizvi daughter of his chacha Syed Shams Ul Hassan - Their both root is Syed Yaqoob Ul Hasan - G-038-S2"
   },
   {
     name: "Syed Aqleem Raza",
@@ -4327,7 +4327,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Muhmmad Raza",
     father: "Syed Shams Ul Hassan",
-    mother: "",
+    mother: "Syeda Tasneem Zehra Jaffry ( Suriyya )",
     spouse: "Azra Raza",
     gen: "G-040-S1",
     gender: "MALE",
@@ -4336,7 +4336,7 @@ const FAMILY_DATA = [
   {
     name: "Syed Hashim Raza",
     father: "Syed Shams Ul Hassan",
-    mother: "",
+    mother: "Syeda Tasneem Zehra Jaffry ( Suriyya )",
     spouse: "Syeda Qurat ul Aian Arfa Rizvi (Kiran)",
     gen: "G-040-S2",
     gender: "MALE",
@@ -4345,20 +4345,20 @@ const FAMILY_DATA = [
   {
     name: "Syeda Zehra Faraz (Seema Batool)",
     father: "Syed Shams Ul Hassan",
-    mother: "",
+    mother: "Syeda Tasneem Zehra Jaffry ( Suriyya )",
     spouse: "Syed Ghulam Abbas Zaidi",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: "Children of Syeda Seema Batool:\\n\\nS1: Syed Qammar Abbas Zaidi\\nS2: Syed Aun Abbas Syed Zaidi\\nS3: Ghazanfar Abbas Syed"
+    details: "Children of Syeda Seema Batool:\\n\\nS1: Syed Qammar Abbas Zaidi\\nS2: Syed Aun Abbas Zaidi\\nS3: Syed Ghazanfar Abbas Zaidi"
   },
   {
     name: "Syeda Huma Batool",
     father: "Syed Shams Ul Hassan",
-    mother: "",
+    mother: "Syeda Tasneem Zehra Jaffry ( Suriyya )",
     spouse: "Syed Shakeel Raza Rizvi",
     gen: "G-040-D2",
     gender: "FEMALE",
-    details: "Syeda Huma Batool married taya Syed Mohammad Nayar k betey, Syed Shakeel Raza Rizvi  - Their both root is Syed Yaqoob Ul Hasan - G-038-S2"
+    details: "Syeda Huma Batool married Syed Shakeel Raza Rizvi, son of her taya Syed Mohammad Nayar - Their both root is Syed Yaqoob Ul Hasan - G-038-S2"
   },
   {
     name: "Syed Mohd Ali",
@@ -4484,7 +4484,7 @@ const FAMILY_DATA = [
     spouse: "Syed Aun Abbas Zaidi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: "Syeda Zainab married, phophi Syeda Seema Batool's son Syed Aun Abbas Zaidi (Syed Shams ul Hassan k nawasay - Hashim k bhanjay hain)"
+    details: "Syeda Zainab married, phophi Syeda Seema Batool's son Syed Aun Abbas Zaidi (Syed Shams ul Hassan k nawasay)"
   },
   {
     name: "Syed Abrar Hussain",
@@ -5480,7 +5480,7 @@ const FAMILY_DATA = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "07/17/2026 21:28", 
+    saved_time: "07/18/2026 12:17", 
     total_members: 608,
     details_count: 85,
     sheets_merged: ["Main","1","2","3","4","5"]

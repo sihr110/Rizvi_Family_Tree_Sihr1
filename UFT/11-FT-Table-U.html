@@ -289,11 +289,6 @@
             --light-gold: #f1d279;
             --maroon: #5a0000;
             --green: #2e7d32;
-            --col-tree-width: 40px;
-            --col-name-width: 300px;
-            --col-spouse-width: 300px;
-            --col-gen-width: 80px;
-            --col-page-width: 80px;
             --heading-offset: 4ch;
         }
 
@@ -708,159 +703,176 @@
         }
 
         /* ============================================================
-           SECTION 9: COLUMN & TREE ROW STYLES - WITH SPOUSE COLUMN
+           SECTION 9: TABLE STYLES (CHANGED FROM GRID TO TABLE)
            ============================================================ */
-        .col-headers {
-            display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
-            font-family: 'Noto Nastaliq Urdu', 'DM Serif Display', 'Georgia', serif;
+        .family-table-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .family-table {
+            width: 100%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            border: 2px solid #b8a088;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            table-layout: auto;
+        }
+
+        .family-table th {
+            background: #faf6f0;
+            color: #5a0000;
             font-weight: 700;
             font-size: 13px;
-            color: #5a0000;
-            letter-spacing: 0.5px;
-            padding: 4px 0 6px 0;
+            padding: 12px 8px;
+            text-align: center;
             border-bottom: 2px solid #b8a088;
-            margin-bottom: 6px;
-            flex-shrink: 0;
+            border-left: 1px solid #b8a088;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .col-headers .col-tree {
-            text-align: right;
+        .family-table th:last-child {
+            border-left: none;
         }
 
-        .col-headers .col-name {
-            text-align: right;
-            padding-right: var(--heading-offset);
-            padding-left: 0;
-        }
-
-        .col-headers .col-spouse {
-            text-align: right;
-            padding-right: var(--heading-offset);
-            padding-left: 0;
-        }
-
-        .col-headers .col-gen {
-            text-align: right;
-            padding-right: var(--heading-offset);
-            padding-left: 0;
-        }
-
-        .col-headers .col-page {
-            text-align: right;
-            padding-right: var(--heading-offset);
-            padding-left: 0;
-            white-space: nowrap;
-        }
-
-        .tree-container {
-            font-family: 'Noto Nastaliq Urdu', 'Roboto Mono', 'Courier New', monospace;
+        .family-table td {
+            padding: 8px 8px;
             font-size: 12px;
-            line-height: 2.0;
-            padding: 2px 0;
-            color: #1a1a1a;
-            width: 100%;
-            overflow: visible;
-            direction: rtl;
-            text-align: right;
-            flex: 1;
+            border-bottom: 1px solid #d0c8be;
+            border-left: 1px solid #d0c8be;
+            vertical-align: middle;
+            word-wrap: break-word;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .tree-row {
-            display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
-            align-items: center;
-            direction: rtl;
+        .family-table td:last-child {
+            border-left: none;
         }
 
-        .tree-row .tree-chars {
-            color: #6b5a48;
-            text-align: right;
+        .family-table tbody tr:hover {
+            background: #faebcd;
+            cursor: pointer;
         }
 
-        .tree-row .tree-name {
-            text-align: right;
+        .family-table tbody tr.female-row {
+            background-color: #fff0f0;
         }
 
-        .tree-row .tree-spouse {
-            text-align: right;
+        .family-table tbody tr.selected-row {
+            background: #e8f5e9 !important;
+            border-right: 4px solid var(--green);
         }
 
-        .tree-row .tree-gen {
-            text-align: right;
+        .family-table .father-line {
+            font-size: 11px;
+            color: #5a0000;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
         }
 
-        .tree-row .tree-page {
-            text-align: right;
-        }
-
-        /* ============================================================
-           SECTION 10: TREE NAME COLOR STYLES
-           ============================================================ */
-        .tree-container .father-red {
+        .family-table .father-red {
             color: #cc0000;
             font-weight: 900;
         }
 
-        .tree-container .father-normal {
+        .family-table .father-normal {
             color: #000;
             font-weight: 700;
         }
 
-        .tree-container .child-name {
+        .family-table .child-name {
             color: #1a3a5c;
             font-weight: 600;
         }
 
-        .tree-container .child-name.female {
+        .family-table .child-name.female {
             color: #FF1493;
             font-weight: 700;
         }
 
-        .tree-container .father-red.female {
-            color: #FF1493;
-            font-weight: 900;
-        }
-
-        .tree-container .father-normal.female {
-            color: #FF1493;
-            font-weight: 700;
-        }
-
-        .tree-container .spouse-name {
-            color: #1a3a5c;
-            font-weight: 500;
-        }
-
-        .tree-container .spouse-name.female {
-            color: #FF1493;
-            font-weight: 600;
-        }
-
-        .tree-container .spouse-name.male {
-            color: #1a3a5c;
-            font-weight: 500;
-        }
-
-        .tree-container .continue-arrow {
+        .family-table .continue-arrow {
             color: #2e7d32;
             font-weight: 700;
             cursor: pointer;
         }
 
-        .tree-container .continue-arrow:hover {
+        .family-table .continue-arrow:hover {
             color: #cc0000;
             text-decoration: underline;
         }
 
-        .tree-container .highlight {
+        .family-table .clickable-name {
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .family-table .clickable-name:hover {
+            background: #faebcd;
+            transform: scale(1.02);
+        }
+
+        .family-table .clickable-name.female:hover {
+            background: #f8d0d8;
+        }
+
+        .family-table .highlight {
             background: #ffeb3b;
             padding: 0 2px;
             border-radius: 2px;
         }
 
+        .family-table .details-link {
+            color: #2e7d32;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            background: #f0f7f0;
+        }
+
+        .family-table .details-link:hover {
+            background: #ffeb3b;
+            transform: scale(1.05);
+        }
+
+        /* Column widths */
+        .family-table th:nth-child(1),
+        .family-table td:nth-child(1) {
+            width: 5%;
+            text-align: center;
+        }
+        .family-table th:nth-child(2),
+        .family-table td:nth-child(2) {
+            width: 30%;
+            text-align: right;
+        }
+        .family-table th:nth-child(3),
+        .family-table td:nth-child(3) {
+            width: 25%;
+            text-align: right;
+        }
+        .family-table th:nth-child(4),
+        .family-table td:nth-child(4) {
+            width: 15%;
+            text-align: center;
+        }
+        .family-table th:nth-child(5),
+        .family-table td:nth-child(5) {
+            width: 25%;
+            text-align: center;
+        }
+
         /* ============================================================
-           SECTION 11: PAGE FOOTER STYLES
+           SECTION 10: PAGE FOOTER STYLES
            ============================================================ */
         .page-footer {
             margin-top: 12px;
@@ -895,7 +907,7 @@
         }
 
         /* ============================================================
-           SECTION 12: NO DATA & ERROR STYLES
+           SECTION 11: NO DATA & ERROR STYLES
            ============================================================ */
         .no-data {
             text-align: center;
@@ -913,7 +925,7 @@
         }
 
         /* ============================================================
-           SECTION 13: SAVE OPTIONS MODAL STYLES
+           SECTION 12: SAVE OPTIONS MODAL STYLES
            ============================================================ */
         .save-options-modal {
             position: fixed;
@@ -1045,7 +1057,7 @@
         }
 
         /* ============================================================
-           SECTION 14: MEMBER DETAIL MODAL STYLES
+           SECTION 13: MEMBER DETAIL MODAL STYLES
            ============================================================ */
         #memberModalOverlay {
             position: fixed;
@@ -1170,42 +1182,43 @@
         }
 
         /* ============================================================
-           SECTION 15: CLICKABLE NAME STYLES
+           SECTION 14: DETAILS POPUP STYLES
            ============================================================ */
-        .clickable-name {
-            cursor: pointer;
-            transition: all 0.2s;
-            padding: 2px 4px;
-            border-radius: 4px;
+        #detailsModalOverlay {
+            display: none !important;
         }
 
-        .clickable-name:hover {
-            background: #faebcd;
-            transform: scale(1.02);
+        #detailsModal {
+            display: none !important;
         }
 
-        .clickable-name.female:hover {
-            background: #f8d0d8;
+        #detailsModalOverlay.show {
+            display: flex !important;
         }
 
-        /* ============================================================
-           SECTION 16: DETAILS POPUP STYLES
-           ============================================================ */
-.details-link {
-    color: #2e7d32;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 13px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    display: inline-block;
-    background: #f0f7f0;
-}
+        #detailsModal.show {
+            display: block !important;
+        }
 
-.details-link:hover {
-    background: #ffeb3b;
-    transform: scale(1.05);
-}
+        .details-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fffcf8;
+            border-radius: 16px;
+            padding: 30px;
+            z-index: 6001;
+            max-width: 600px;
+            width: 92%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            border: 3px solid var(--gold);
+            direction: rtl;
+            text-align: right;
+            animation: fadeIn 0.25s ease;
+        }
 
         .details-modal .details-header {
             display: flex;
@@ -1287,46 +1300,7 @@
         }
 
         /* ============================================================
-           SECTION 17: DETAILS MODAL HIDE BY DEFAULT
-           ============================================================ */
-#detailsModalOverlay {
-    display: none !important;
-}
-
-#detailsModal {
-    display: none !important;
-}
-
-#detailsModalOverlay.show {
-    display: flex !important;
-}
-
-#detailsModal.show {
-    display: block !important;
-}
-
-.details-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fffcf8;
-    border-radius: 16px;
-    padding: 30px;
-    z-index: 6001;
-    max-width: 600px;
-    width: 92%;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    border: 3px solid var(--gold);
-    direction: rtl;
-    text-align: right;
-    animation: fadeIn 0.25s ease;
-}
-
-        /* ============================================================
-           SECTION 18: PRINT FIX - Reset zoom before printing
+           SECTION 15: PRINT FIX - Reset zoom before printing
            ============================================================ */
         window.addEventListener('beforeprint', function() {
             const viewport = document.getElementById('viewportMeta');
@@ -2244,17 +2218,19 @@
 
             rows.push({
                 tree: '',
-                name: '<span class="' + fatherClass + '">' + cleanName + rootPagePart + '</span>',
+                name: cleanName + rootPagePart,
                 plainName: fullName,
+                isFather: isFather,
+                isFemale: isFemale,
                 spouse: cleanSpouse,
                 plainSpouse: rootSpouse,
                 gen: rootGen,
-                page: ''
+                page: '',
+                fatherClass: fatherClass
             });
 
             if (isFather && children.length > 0) {
                 children.forEach((child, index) => {
-                    const isLast = index === children.length - 1;
                     const childPerson = personMap[child];
                     const childFullName = child;
                     const childCleanName = displayName(child);
@@ -2263,8 +2239,6 @@
 
                     const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
                     const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
-
-                    let treeChars = isLast ? '└──' : '├──';
 
                     let childPagePart = '';
                     if (splitChildren && splitChildren.includes(child)) {
@@ -2276,13 +2250,16 @@
                     let childClass = 'child-name' + (childIsFemale ? ' female' : '');
 
                     rows.push({
-                        tree: treeChars,
-                        name: '<span class="' + childClass + '">' + childCleanName + '</span>',
+                        tree: '•',
+                        name: childCleanName,
                         plainName: childFullName,
+                        isFather: false,
+                        isFemale: childIsFemale,
                         spouse: childCleanSpouse,
                         plainSpouse: childSpouse,
                         gen: childGen,
-                        page: childPagePart
+                        page: childPagePart,
+                        childClass: childClass
                     });
                 });
             }
@@ -2290,7 +2267,7 @@
         }
 
         // ============================================================
-        // JAVASCRIPT SECTION 11: RENDER PAGE HTML (DISPLAY) - WITH SPOUSE
+        // JAVASCRIPT SECTION 11: RENDER PAGE HTML (DISPLAY) - USING TABLE
         // ============================================================
         function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
             const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
@@ -2318,115 +2295,106 @@
             `;
 
             html += `
-                <div style="display:flex; justify-content:center; width:100%;">
-                    <div style="width:80%;">
-                        <div class="col-headers" style="background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
-                            <span style="padding-right:4px; border-left:1px solid #b8a088; border-right:none; text-align:center;"> </span>
-                            <span style="padding-right:8px; border-left:1px solid #b8a088; border-right:none; text-align:right;">نام</span>
-                            <span style="padding-right:8px; border-left:1px solid #b8a088; border-right:none; text-align:right;">شریک حیات</span>
-                            <span style="padding-right:8px; border-left:1px solid #b8a088; border-right:none; text-align:center;">نسل</span>
-                            <span style="padding-right:8px; text-align:center;">اگلی نسل</span>
-                        </div>
-                        <div class="tree-container">
+                <div class="family-table-wrapper">
+                    <table class="family-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>نام</th>
+                                <th>شریک حیات</th>
+                                <th>نسل</th>
+                                <th>اگلی نسل</th>
+                            </tr>
+                        </thead>
+                        <tbody>
             `;
 
             if (lines && lines.length > 0) {
                 lines.forEach((row, index) => {
-                    let nameHtml = row.name;
-                    let spouseHtml = row.spouse || '—';
-                    let genHtml = row.gen;
-                    let pageHtml = row.page;
-
                     let personName = row.plainName || '';
                     let person = globalPersonMap[personName];
-                    let isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
+                    let isFemale = row.isFemale || false;
 
-                    let spousePerson = null;
-                    let spouseName = row.plainSpouse || '';
-                    if (spouseName) {
-                        spousePerson = globalPersonMap[spouseName];
+                    let rowBg = '';
+                    if (isFemale) {
+                        rowBg = 'female-row';
+                    } else {
+                        rowBg = (index % 2 === 0) ? '' : '';
                     }
-                    let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
+
+                    let nameDisplay = row.name;
+                    if (row.isFather) {
+                        nameDisplay = `<span class="${row.fatherClass}">${row.name}</span>`;
+                    } else {
+                        nameDisplay = `<span class="${row.childClass}">${row.name}</span>`;
+                    }
 
                     if (highlightName) {
                         const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                        nameHtml = nameHtml.replace(new RegExp(escaped, 'gi'), match => {
+                        nameDisplay = nameDisplay.replace(new RegExp(escaped, 'gi'), match => {
                             return '<span class="highlight">' + match + '</span>';
                         });
                     }
 
-                    let isChild = index > 0;
-                    let displayNameText = isChild ? '   • ' + nameHtml : nameHtml;
-                    let fontWeight = isChild ? '400' : '700';
-                    let color = isChild ? '#1a3a5c' : '#cc0000';
-
-                    let rowBg;
-                    if (isFemale) {
-                        rowBg = '#fff0f0';
-                    } else {
-                        rowBg = (index % 2 === 0) ? '#ffffff' : '#e8f5e9';
-                    }
-
-                    let clickableName = displayNameText;
+                    // Make name clickable
+                    let clickableName = nameDisplay;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
-                        if (nameHtml.includes('<span')) {
-                            const cleanNameText = displayName(personName);
-                            clickableName = displayNameText.replace(cleanNameText, function(match) {
-                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
-                            });
-                        } else {
-                            clickableName = displayNameText.replace(/<span[^>]*>(.*?)<\/span>/, function(match, content) {
-                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + content + '</span>';
-                            });
-                            if (clickableName === displayNameText) {
-                                clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + displayNameText + '</span>';
-                            }
+                        const cleanNameText = displayName(personName);
+                        clickableName = nameDisplay.replace(cleanNameText, function(match) {
+                            return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
+                        });
+                        if (clickableName === nameDisplay) {
+                            clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + nameDisplay + '</span>';
                         }
                     }
 
-                    let clickableSpouse = spouseHtml;
-                    if (spouseName && spouseHtml !== '—') {
+                    // Make spouse clickable
+                    let clickableSpouse = row.spouse || '—';
+                    let spouseName = row.plainSpouse || '';
+                    if (spouseName && row.spouse !== '—') {
+                        let spousePerson = globalPersonMap[spouseName];
+                        let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
                         const genderClass = isSpouseFemale ? 'female' : 'male';
                         clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName + '\')">' + displayName(spouseName) + '</span>';
                     }
 
-                    if (spouseHtml && spouseHtml.includes('تفصیلات')) {
+                    // Check for details link in spouse
+                    if (row.spouse && row.spouse.includes('تفصیلات')) {
                         const targetPerson = globalPersonMap[personName];
                         if (targetPerson && targetPerson.spouse && targetPerson.spouse.includes('تفصیلات')) {
                             clickableSpouse = '<span class="details-link" data-person="' + personName + '">تفصیلات ℹ️ میں دیکھیں</span>';
                         }
                     }
 
-                    let treeChar = isChild ? '•' : '';
-
-                    let clickablePageHtml = pageHtml;
-                    if (pageHtml && pageHtml.includes('صفحہ')) {
-                        clickablePageHtml = pageHtml;
-                    } else if (pageHtml && pageHtml.trim() !== '') {
-                        const pagePerson = globalPersonMap[pageHtml];
+                    // Page link
+                    let clickablePageHtml = row.page || '';
+                    if (row.page && row.page.includes('صفحہ')) {
+                        clickablePageHtml = row.page;
+                    } else if (row.page && row.page.trim() !== '') {
+                        const pagePerson = globalPersonMap[row.page];
                         if (pagePerson) {
                             const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
                             const genderClassPage = isFemalePage ? 'female' : 'male';
-                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + pageHtml + '\')">' + displayName(pageHtml) + '</span>';
+                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + row.page + '\')">' + displayName(row.page) + '</span>';
                         }
                     }
 
-                    html += `<div class="tree-row" style="display:grid; grid-template-columns:var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width); align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
-                    html += `<span style="padding-right:4px; border-left:1px solid #d0c8be; border-right:none; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">${treeChar}</span>`;
-                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; border-right:none; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
-                    html += `<span style="padding-right:8px; border-left:1px solid #d0c8be; border-right:none; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
-                    html += `<span style="border-left:1px solid #d0c8be; border-right:none; font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${genHtml}</span>`;
-                    html += `<span style="font-family:'Noto Nastaliq Urdu','Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${clickablePageHtml}</span>`;
-                    html += `</div>`;
+                    let treeChar = row.tree || '';
+
+                    html += `<tr class="${rowBg}" style="border-bottom:1px solid #d0c8be;">`;
+                    html += `<td style="text-align:center; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; padding:6px 4px;">${treeChar}</td>`;
+                    html += `<td style="text-align:right; padding:6px 8px; font-weight:${row.isFather ? '700' : '400'}; color:${row.isFather ? '#cc0000' : '#1a3a5c'};">${clickableName}</td>`;
+                    html += `<td style="text-align:right; padding:6px 8px;">${clickableSpouse}</td>`;
+                    html += `<td style="text-align:center; padding:6px 8px;">${row.gen || ''}</td>`;
+                    html += `<td style="text-align:center; padding:6px 8px;">${clickablePageHtml}</td>`;
+                    html += `</tr>`;
                 });
-            } else {
-                html += 'کوئی ڈیٹا دستیاب نہیں ' + displayName(root);
             }
 
             html += `
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             `;
 

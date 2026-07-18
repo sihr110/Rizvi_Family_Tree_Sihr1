@@ -289,11 +289,11 @@
             --light-gold: #f1d279;
             --maroon: #5a0000;
             --green: #2e7d32;
-            --col-tree-width: 30px;
-            --col-name-width: 36%;
-            --col-spouse-width: 28%;
-            --col-gen-width: 16%;
-            --col-page-width: 20%;
+            --col-tree-width: 40px;
+            --col-name-width: 300px;
+            --col-spouse-width: 300px;
+            --col-gen-width: 80px;
+            --col-page-width: 80px;
             --heading-offset: 4ch;
         }
 
@@ -1324,6 +1324,25 @@
     text-align: right;
     animation: fadeIn 0.25s ease;
 }
+
+        /* ============================================================
+           SECTION 18: PRINT FIX - Reset zoom before printing
+           ============================================================ */
+        window.addEventListener('beforeprint', function() {
+            const viewport = document.getElementById('viewportMeta');
+            const device = getDevicePreference();
+            if (device === 'mobile') {
+                viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover';
+            }
+        });
+
+        window.addEventListener('afterprint', function() {
+            const viewport = document.getElementById('viewportMeta');
+            const device = getDevicePreference();
+            if (device === 'mobile') {
+                viewport.content = 'width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover';
+            }
+        });
     </style>
 </head>
 

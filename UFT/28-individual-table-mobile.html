@@ -2,7 +2,7 @@
 <!-- FILE NAME: 28-individual-table-mobile.html -->
 <!-- Urdu Version - Rizvi Family Table View    -->
 <!-- Mobile Optimized - Individual Table View  -->
-<!-- WITH ZOOM CONTROLS (like file 22)        -->
+<!-- WITH PRINT-TO-PDF (Most Reliable)        -->
 <!-- ===================================== -->
 
 <!DOCTYPE html>
@@ -16,39 +16,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
 
-
-.detail-modal-footer {
-    padding: 16px 20px;
-    border-top: 1px solid #eee;
-    display: flex;
-    justify-content: center;
-    flex-shrink: 0;
+/* ===== PRINT STYLES ===== */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #printArea, #printArea * {
+        visibility: visible;
+    }
+    #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        background: white;
+        direction: rtl;
+        font-family: 'Noto Nastaliq Urdu', 'Inter', 'Arial', sans-serif;
+        transform: none !important;
+        transform-origin: top left !important;
+    }
+.family-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.detail-modal-close-btn {
-    background: var(--gold);
-    color: var(--dark-blue);
-    border: none;
-    border-radius: 6px;
-    padding: 10px 30px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    transition: all 0.2s;
+.family-table th,
+.family-table td {
+    border-right: 1px solid #666;
+    border-bottom: 1px solid #666;
+    padding: 10px 8px;
 }
 
-.detail-modal-close-btn:hover {
-    background: var(--light-gold);
-    transform: scale(1.02);
+.family-table tr th:last-child,
+.family-table tr td:last-child {
+    border-left: none;
 }
 
-/* ===== ZOOM CONTROLS (exactly like file 22) ===== */
+.family-table tbody tr:last-child td {
+    border-bottom: none;
+}
+    .section-heading {
+        font-size: 16px;
+        font-weight: 700;
+        color: #5a0000;
+        margin: 15px 0 10px 0;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+    }
+    .selected-row {
+        background: #e8f5e9 !important;
+    }
+    .female-row {
+        background: #fff0f0 !important;
+    }
+    .no-print, .no-print * {
+        display: none !important;
+    }
+    .toggle-icon {
+        display: none !important;
+    }
+    .detail-modal-close-btn {
+        display: none !important;
+    }
+    table { 
+        width: 100% !important; 
+        table-layout: fixed !important; 
+    }
+}
+
+
+/* ===== ZOOM CONTROLS  ===== */
 .zoom-controls {
     position: fixed;
     bottom: 15px;
@@ -623,7 +669,6 @@ body {
     margin-bottom: 20px;
     border: 2px solid var(--gold);
     border-radius: 12px;
-    overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
@@ -634,28 +679,18 @@ body {
     font-size: 13px;
     padding: 12px 8px;
     text-align: right;
-    border-bottom: 2px solid var(--gold);
-    border-left: 1px solid var(--table-border);
-    border-right: none;
+    border: 1px solid #666; /* Replace old border lines with this */
     font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
 }
 
-.family-table th:last-child {
-    border-left: none;
-}
 
 .family-table td {
     padding: 10px 8px;
     font-size: 12px;
-    border-bottom: 1px solid #eee;
-    border-left: 1px solid #f0f0f0;
-    border-right: none;
+    border: 1px solid #666; /* Replace old border lines with this */
     font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
 }
 
-.family-table td:last-child {
-    border-left: none;
-}
 
 .family-table tbody tr.female-row {
     background-color: var(--light-pink);
@@ -668,7 +703,7 @@ body {
 
 .family-table tbody tr.selected-row {
     background: var(--selected-row-bg) !important;
-    border-right: 4px solid var(--green);
+    border-right: none;
     border-left: none;
 }
 
@@ -738,7 +773,6 @@ body {
     display: none;
 }
 
-/* ===== RESET BUTTON ===== */
 .reset-btn {
     font-size: 40px;
     display: flex;
@@ -865,12 +899,11 @@ body {
     .detail-content-box { font-size: 13px; padding: 14px; max-height: 40vh; }
 }
 
-
 </style>
 </head>
 <body>
 
-<!-- ===== ZOOM CONTROLS (exactly like file 22) ===== -->
+<!-- ===== ZOOM CONTROLS ===== -->
 <div class="zoom-controls" id="zoomControls">
     <div class="zoom-btn" onclick="zoomIn()">+</div>
     <div class="zoom-level" id="zoomLevel">100%</div>
@@ -895,11 +928,11 @@ body {
         <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
         <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
         <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-        <div class="toggle-menu-item" onclick="toggleZoomControls()">🔍 زوم کنٹرولز</div>
+        <div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #2e7d32; color: white;">🔍 زوم کنٹرولز</div>
         <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
         <div class="toggle-menu-item" onclick="switchToTreeView()">📋 شجر میں دیکھیں</div>
         <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 مرکزی صفحہ</div>
-        <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 محفوظ کریں</div>
+        <div class="toggle-menu-item" onclick="showPrintOptions()" style="background: #d4af37; color: black;">🖨️ PDF پرنٹ کریں</div>
     </div>
 
     <div class="main-content">
@@ -928,38 +961,12 @@ body {
     </div>
 </div>
 
-<input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
-
-<div class="save-options-modal" id="saveOptionsModal" style="display:none;">
-    <h3>💾 شجرہ محفوظ کریں</h3>
-    
-    <div style="margin-bottom:20px;">
-        <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">فارمیٹ منتخب کریں:</div>
-        
-        <label>
-            <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-left:10px;"> 
-            <span style="font-weight:600;">📑 PDF - ہائی ریزولوشن</span>
-            <span style="display:block; font-size:12px; color:#666; margin-right:25px;">پرنٹ کے لیے بہترین (3-8 MB)</span>
-        </label>
-        
-        <label>
-            <input type="radio" name="saveFormat" value="pdf-low" style="margin-left:10px;"> 
-            <span style="font-weight:600;">📑 PDF - لو ریزولوشن</span>
-            <span style="display:block; font-size:12px; color:#666; margin-right:25px;">شیئرنگ کے لیے بہترین (0.5-2 MB)</span>
-        </label>
-        
-        <label>
-            <input type="radio" name="saveFormat" value="jpeg" style="margin-left:10px;"> 
-            <span style="font-weight:600;">📸 JPEG تصویر</span>
-            <span style="display:block; font-size:12px; color:#666; margin-right:25px;">یونیورسل فارمیٹ (200-500 KB)</span>
-        </label>
-    </div>
-    
-    <div style="display:flex; gap:10px; justify-content:center;">
-        <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer;">محفوظ کریں</button>
-        <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">منسوخ</button>
-    </div>
+<!-- ===== PRINT AREA ===== -->
+<div id="printArea" style="display:none;">
+    <div id="printContent"></div>
 </div>
+
+<input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
 
 <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
@@ -976,11 +983,32 @@ body {
     let ancestorsCollapsed = true;
     let zoomVisible = false;
 
-    // ========== ZOOM FUNCTIONS (exactly like file 22) ==========
+    // ========== ZOOM FUNCTIONS ==========
     function zoomIn() { 
         zoomLevel = Math.min(zoomLevel + 0.1, 2); 
         applyZoom(); 
     }
+
+
+// ========== PRINT ZOOM CONTROL ==========
+window.addEventListener('beforeprint', function() {
+    // Save current zoom level
+    window._savedZoom = zoomLevel;
+    // Set zoom to 100% for printing
+    zoomLevel = 1;
+    applyZoom();
+});
+
+window.addEventListener('afterprint', function() {
+    // Restore saved zoom level (70%)
+    if (window._savedZoom !== undefined) {
+        zoomLevel = window._savedZoom;
+    } else {
+        zoomLevel = 0.7;
+    }
+    applyZoom();
+});
+
 
     function zoomOut() { 
         zoomLevel = Math.max(zoomLevel - 0.1, 0.5); 
@@ -997,14 +1025,14 @@ body {
         const content = document.getElementById('tableRoot');
         
         if (container && content) {
-            content.style.transform = `scale(${zoomLevel})`;
-            content.style.width = `${100 / zoomLevel}%`;
-            content.style.height = `${100 / zoomLevel}%`;
+            content.style.transform = 'scale(' + zoomLevel + ')';
+            content.style.width = (100 / zoomLevel) + '%';
+            content.style.height = (100 / zoomLevel) + '%';
             document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
         }
     }
 
-    // ========== TOGGLE ZOOM CONTROLS (menu option) ==========
+    // ========== TOGGLE ZOOM CONTROLS ==========
     function toggleZoomControls() {
         zoomVisible = !zoomVisible;
         const controls = document.getElementById('zoomControls');
@@ -1016,7 +1044,7 @@ body {
         document.getElementById('toggleMenuPanel').classList.remove('show');
     }
 
-    // ========== DRAGGABLE ZOOM CONTROLS (exactly like file 22) ==========
+    // ========== DRAGGABLE ZOOM CONTROLS ==========
     document.addEventListener('DOMContentLoaded', function() {
         const zoomControls = document.getElementById('zoomControls');
         let isDragging = false;
@@ -1092,7 +1120,6 @@ body {
             }
         });
 
-        // Apply initial zoom
         applyZoom();
     });
 
@@ -1105,60 +1132,63 @@ body {
         document.getElementById('tipsOverlay').style.display = 'none';
     }
 
-
-function openDetailPopup(name) {
-    const modal = document.getElementById('detailOverlay');
-    const title = document.getElementById('detailModalTitle');
-    const body = document.getElementById('detailModalBody');
-    
-    modal.classList.add('show');
-    title.textContent = 'ℹ️ تفصیلات – ' + displayName(name);
-    body.innerHTML = '⏳ لوڈ ہو رہا ہے...';
-    
-    const person = db.find(p => p.name === name);
-    
-    if (!person) {
-        body.innerHTML = `<div class="no-details">"${name}" نام کا کوئی فرد ڈیٹا میں موجود نہیں۔</div>`;
-        return;
-    }
-    
-    const detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
-    let formattedDetails = detailsText.replace(/\\n/g, '<br>');
-    
-    const lines = formattedDetails.split('<br>');
-    let bulletHtml = '';
-    lines.forEach(line => {
-        if (line.trim() !== '') {
-            bulletHtml += `<div style="display:flex; gap:8px; margin-bottom:4px;"><span style="font-weight:bold;">-</span><span style="flex:1;">${line.trim()}</span></div>`;
+    // ========== DETAIL MODAL ==========
+    function openDetailPopup(name) {
+        const modal = document.getElementById('detailOverlay');
+        const title = document.getElementById('detailModalTitle');
+        const body = document.getElementById('detailModalBody');
+        
+        modal.classList.add('show');
+        title.textContent = '📝 تفصیلات – ' + displayName(name);
+        body.innerHTML = '⏳ لوڈ ہو رہا ہے...';
+        
+        const person = db.find(function(p) { return p.name === name; });
+        
+        if (!person) {
+            body.innerHTML = '<div class="no-details">"' + name + '" نام کا کوئی فرد ڈیٹا میں موجود نہیں۔</div>';
+            return;
         }
-    });
-    
-    body.innerHTML = bulletHtml;
-}
-function closeDetailModal() {
-    document.getElementById('detailOverlay').classList.remove('show');
-}
+        
+        var detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
+        var formattedDetails = detailsText.replace(/\\n/g, '<br>');
+        
+        var lines = formattedDetails.split('<br>');
+        var bulletHtml = '';
+        for (var i = 0; i < lines.length; i++) {
+            if (lines[i].trim() !== '') {
+                bulletHtml += '<div style="display:flex; gap:8px; margin-bottom:4px;"><span style="font-weight:bold;">-</span><span style="flex:1;">' + lines[i].trim() + '</span></div>';
+            }
+        }
+        
+        body.innerHTML = bulletHtml;
+    }
 
+    function closeDetailModal() {
+        document.getElementById('detailOverlay').classList.remove('show');
+    }
 
+    // ========== DISPLAY NAME HELPER ==========
     function displayName(str) {
         if (!str) return '';
-        let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
+        var cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
         return cleaned;
     }
 
+    // ========== FORMAT TIME ==========
     function formatCurrentTime() {
-        const d = new Date();
-        const day = d.getDate();
-        const month = d.getMonth() + 1;
-        const year = d.getFullYear();
-        const hours = d.getHours();
-        const minutes = String(d.getMinutes()).padStart(2, '0');
-        const ampm = hours >= 12 ? 'شام' : 'صبح';
-        const displayHours = hours % 12 || 12;
-        return `${day}/${month}/${year} - ${displayHours}:${minutes} ${ampm}`;
+        var d = new Date();
+        var day = d.getDate();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var hours = d.getHours();
+        var minutes = String(d.getMinutes()).padStart(2, '0');
+        var ampm = hours >= 12 ? 'شام' : 'صبح';
+        var displayHours = hours % 12 || 12;
+        return day + '/' + month + '/' + year + ' - ' + displayHours + ':' + minutes + ' ' + ampm;
     }
 
-    window.toggleLeftMenu = () => document.getElementById('toggleMenuPanel').classList.toggle('show');
+    // ========== MENU FUNCTIONS ==========
+    window.toggleLeftMenu = function() { document.getElementById('toggleMenuPanel').classList.toggle('show'); };
 
     window.handleToggleMenuClick = function(filter) {
         if (!currentIndividual) return;
@@ -1176,10 +1206,126 @@ function closeDetailModal() {
         document.getElementById('toggleMenuPanel').classList.remove('show');
     };
 
+    // ========== PRINT PDF ==========
+    function showPrintOptions() {
+        if (!currentIndividual) {
+            alert('براہ کرم پہلے کسی فرد کو منتخب کریں');
+            return;
+        }
+        document.getElementById('toggleMenuPanel').classList.remove('show');
+        exportTablePDF();
+    }
+
+
+
+
+async function exportTablePDF() {
+    if (!currentIndividual) { alert('براہ کرم پہلے کسی فرد کو منتخب کریں'); return; }
+
+    // SAVE current zoom
+    var savedZoom = zoomLevel;
+
+    try {
+        const tableRoot = document.getElementById('tableRoot');
+        if (!tableRoot) return alert('کوئی مواد نہیں');
+
+        const printArea = document.getElementById('printArea');
+        const printContent = document.getElementById('printContent');
+
+        // Clone the table
+        const clone = tableRoot.cloneNode(true);
+        
+        // REMOVE any transform from the clone
+        clone.style.transform = 'none';
+        clone.style.width = '100%';
+        clone.style.height = 'auto';
+        clone.style.overflow = 'visible';
+        
+        const header = document.createElement('div');
+        header.style.textAlign = 'center';
+        header.style.marginBottom = '20px';
+        header.innerHTML = `
+            <h1 style="color:#d4af37;font-size:28px;margin:0;font-family:'Noto Nastaliq Urdu','Playfair Display',serif;">رضوی خاندان کا ٹیبل</h1>
+            <h2 style="color:#5a0000;font-size:20px;margin:5px 0 0 0;font-family:'Noto Nastaliq Urdu','Playfair Display',serif;">${displayName(currentIndividual.name)}</h2>
+        `;
+        
+        const footer = document.createElement('div');
+        footer.style.textAlign = 'center';
+        footer.style.marginTop = '20px';
+        footer.style.padding = '10px';
+        footer.style.borderTop = '2px solid #b8a088';
+        footer.style.fontSize = '11px';
+        footer.style.fontFamily = "'Noto Nastaliq Urdu','Inter',sans-serif";
+        const timeStr = formatCurrentTime();
+
+
+const excelSavedTime = typeof FILE_INFO !== 'undefined' && FILE_INFO.saved_time 
+    ? FILE_INFO.saved_time 
+    : '7/18/26 10:55';       
+
+ footer.innerHTML = `
+            <div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+            <div>آخری ترمیم: ${excelSavedTime} | پرنٹ جنریٹ: ${timeStr}</div>
+        `;
+
+        printContent.innerHTML = '';
+        printContent.appendChild(header);
+        printContent.appendChild(clone);
+        printContent.appendChild(footer);
+        
+        printArea.style.display = 'block';
+
+        const loadingMsg = document.createElement('div');
+        loadingMsg.style.position = 'fixed';
+        loadingMsg.style.top = '50%';
+        loadingMsg.style.left = '50%';
+        loadingMsg.style.transform = 'translate(-50%, -50%)';
+        loadingMsg.style.background = '#5a0000';
+        loadingMsg.style.color = 'white';
+        loadingMsg.style.padding = '20px 40px';
+        loadingMsg.style.borderRadius = '8px';
+        loadingMsg.style.zIndex = '9999';
+        loadingMsg.textContent = '  براہ کرم انتظار کریں (5-1 سیکنڈ)';
+        document.body.appendChild(loadingMsg);
+
+        // Wait for 1 seconds
+await new Promise(resolve => setTimeout(resolve, 1000));
+        // SET zoom to 100% on screen (for user to see)
+        zoomLevel = 1;
+        applyZoom();
+
+        // Wait a bit for zoom to apply
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Open print dialog
+        window.print();
+
+        document.body.removeChild(loadingMsg);
+        printArea.style.display = 'none';
+        printContent.innerHTML = '';
+
+        // RESTORE zoom
+        zoomLevel = savedZoom;
+        applyZoom();
+
+        setTimeout(function() {
+            alert('✅ PDF محفوظ ہو گئی!\nپرنٹ ڈائیلاگ میں "Save as PDF" منتخب کریں۔');
+        }, 500);
+
+    } catch (err) {
+        console.error('Print Error:', err);
+        alert('❌ PDF نہیں بن سکی: ' + err.message);
+        
+        zoomLevel = savedZoom;
+        applyZoom();
+    }
+}
+
+    // ========== RESET INDIVIDUAL ==========
     function resetIndividual() {
         document.getElementById('searchInput').value = '';
         currentIndividual = null;
-        const url = new URL(window.location);
+        var url = new URL(window.location);
         url.searchParams.delete('member');
         window.history.pushState({}, '', url);
         document.getElementById('tableRoot').innerHTML = `
@@ -1197,36 +1343,41 @@ function closeDetailModal() {
         closeAllMenus();
     }
 
-    document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
-        const query = this.value;
-        const dropdown = document.getElementById('searchDropdown');
+    // ========== SEARCH ==========
+    document.getElementById('searchInput').addEventListener('keyup', function(e) {
+        var query = this.value;
+        var dropdown = document.getElementById('searchDropdown');
         if (query.length < 2) { dropdown.style.display = 'none'; return; }
-        const results = db.filter(m => m.name.includes(query)).slice(0, 8);
+        var results = db.filter(function(m) { return m.name.includes(query); }).slice(0, 8);
         dropdown.innerHTML = '';
-        results.forEach(member => {
-            const div = document.createElement('div');
+        for (var i = 0; i < results.length; i++) {
+            var member = results[i];
+            var div = document.createElement('div');
             div.className = 'result-item';
-            div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen || ''}</span>
-                <div class="father-name">والد: ${displayName(member.father) || '—'}</div></div>`;
-            div.onclick = () => { 
-                selectMember(member); 
-                dropdown.style.display = 'none'; 
-                this.value = displayName(member.name);
-            };
+            div.innerHTML = '<div><span class="main-name">' + displayName(member.name) + '</span> <span class="gen">' + (member.gen || '') + '</span><div class="father-name">والد: ' + (displayName(member.father) || '—') + '</div></div>';
+            div.onclick = function(m) {
+                return function() { 
+                    selectMember(m); 
+                    dropdown.style.display = 'none'; 
+                    document.getElementById('searchInput').value = displayName(m.name);
+                };
+            }(member);
             dropdown.appendChild(div);
-        });
+        }
         dropdown.style.display = 'block';
     });
 
+    // ========== SELECT MEMBER ==========
     function selectMember(member) {
         currentIndividual = member;
         document.getElementById('searchInput').value = displayName(member.name);
-        const url = new URL(window.location);
+        var url = new URL(window.location);
         url.searchParams.set('member', encodeURIComponent(member.name));
         window.history.pushState({}, '', url);
         renderTable();
     }
 
+    // ========== TOGGLE SECTION ==========
     window.toggleSection = function(section) {
         if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
         else if (section === 'children') childrenCollapsed = !childrenCollapsed;
@@ -1234,18 +1385,17 @@ function closeDetailModal() {
         renderTable();
     };
 
+    // ========== FAMILY TREE HELPERS ==========
     function findParent(p) {
-        return p?.father && p.father !== '—' ? db.find(x => x.name === p.father) : null;
+        return p.father && p.father !== '—' ? db.find(function(x) { return x.name === p.father; }) : null;
     }
 
-    function getMother(person) {
-        return person?.mother || '—';
-    }
+    function getMother(person) { return person.mother || '—'; }
 
     function getAncestors(p) {
-        let arr = [], cur = p;
-        while (cur?.father && cur.father !== '—') {
-            const father = db.find(x => x.name === cur.father);
+        var arr = [], cur = p;
+        while (cur.father && cur.father !== '—') {
+            var father = db.find(function(x) { return x.name === cur.father; });
             if (!father) break;
             arr.push(father);
             cur = father;
@@ -1253,110 +1403,90 @@ function closeDetailModal() {
         return arr;
     }
 
-    function isFemale(gender) {
-        return gender === 'Female' || gender === 'خاتون';
-    }
+    function isFemale(gender) { return gender === 'Female' || gender === 'خاتون'; }
 
-function renderMemberInfoCard(member) {
-    const mother = getMother(member);
-    const femaleClass = isFemale(member.gender) ? 'female-row' : '';
-    
-    let fatherVal = displayName(member.father) || '—';
-    if (fatherVal.includes('تفصیلات')) {
-        fatherVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup('${member.name.replace(/'/g, "\\'")}')">تفصیلات ℹ️</span>`;
-    }
-    
-    let motherVal = mother || '—';
-    if (motherVal.includes('تفصیلات')) {
-        motherVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup('${member.name.replace(/'/g, "\\'")}')">تفصیلات ℹ️</span>`;
-    }
-    
-    let spouseVal = member.spouse || '—';
-    if (spouseVal.includes('تفصیلات')) {
-        spouseVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup('${member.name.replace(/'/g, "\\'")}')">تفصیلات ℹ️</span>`;
-    }
-    
-    return `
-        <table class="family-table" style="margin-bottom: 30px;">
-            <thead>
-                <tr>
-                    <th>نام</th>
-                    <th>جنریشن</th>
-                    <th>والد</th>
-                    <th>والدہ</th>
-                    <th>شریک حیات</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="selected-row ${femaleClass}">
-                    <td><strong>${displayName(member.name)}</strong></td>
-                    <td>${member.gen || '—'}</td>
-                    <td>${fatherVal}</td>
-                    <td>${motherVal}</td>
-                    <td>${spouseVal}</td>
-                </tr>
-            </tbody>
-        </table>
-    `;
-}
-
-function renderTableForMembers(members, includeSelected = false) {
-    if (!members || members.length === 0) return '';
-    
-    let html = `<table class="family-table">`;
-    html += `<thead><tr>
-        <th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th>
-    </tr></thead><tbody>`;
-    
-    members.forEach(m => {
-        if (includeSelected && currentIndividual?.name === m.name) return;
+    // ========== RENDER MEMBER INFO CARD ==========
+    function renderMemberInfoCard(member) {
+        var mother = getMother(member);
+        var femaleClass = isFemale(member.gender) ? 'female-row' : '';
         
-        const mother = getMother(m);
-        const isSelected = currentIndividual?.name === m.name ? 'selected-row' : '';
-        const femaleClass = isFemale(m.gender) ? 'female-row' : '';
-        
-        html += `<tr class="${isSelected} ${femaleClass}" onclick="selectMember(db.find(x => x.name === '${m.name.replace(/'/g, "\\'")}'))">`;
-        html += `<td><strong>${displayName(m.name)}</strong></td>`;
-        html += `<td>${m.gen || '—'}</td>`;
-        
-        let fatherVal = displayName(m.father) || '—';
+        var fatherVal = displayName(member.father) || '—';
         if (fatherVal.includes('تفصیلات')) {
-            fatherVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup('${m.name.replace(/'/g, "\\'")}')">تفصیلات ℹ️</span>`;
+            fatherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + member.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
         }
-        html += `<td>${fatherVal}</td>`;
         
-        let motherVal = mother || '—';
+        var motherVal = mother || '—';
         if (motherVal.includes('تفصیلات')) {
-            motherVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup('${m.name.replace(/'/g, "\\'")}')">تفصیلات ℹ️</span>`;
+            motherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + member.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
         }
-        html += `<td>${motherVal}</td>`;
         
-        let spouseVal = m.spouse || '—';
+        var spouseVal = member.spouse || '—';
         if (spouseVal.includes('تفصیلات')) {
-            spouseVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup('${m.name.replace(/'/g, "\\'")}')">تفصیلات ℹ️</span>`;
+            spouseVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + member.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
         }
-        html += `<td>${spouseVal}</td>`;
         
-        html += `</tr>`;
-    });
-    
-    html += `</tbody></table>`;
-    return html;
-}
+        return '<table class="family-table" style="margin-bottom: 30px;"><thead><tr><th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th></tr></thead><tbody><tr class="selected-row ' + femaleClass + '"><td><strong>' + displayName(member.name) + '</strong></td><td>' + (member.gen || '—') + '</td><td>' + fatherVal + '</td><td>' + motherVal + '</td><td>' + spouseVal + '</td></tr></tbody></table>';
+    }
 
+    // ========== RENDER TABLE FOR MEMBERS ==========
+    function renderTableForMembers(members, includeSelected) {
+        if (includeSelected === undefined) includeSelected = false;
+        if (!members || members.length === 0) return '';
+        
+        var html = '<table class="family-table">';
+        html += '<thead><tr><th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th></tr></thead><tbody>';
+        
+        for (var i = 0; i < members.length; i++) {
+            var m = members[i];
+            if (includeSelected && currentIndividual && currentIndividual.name === m.name) continue;
+            
+            var mother = getMother(m);
+            var isSelected = (currentIndividual && currentIndividual.name === m.name) ? 'selected-row' : '';
+            var femaleClass = isFemale(m.gender) ? 'female-row' : '';
+            
+            html += '<tr class="' + isSelected + ' ' + femaleClass + '" onclick="selectMember(db.find(function(x) { return x.name === \'' + m.name.replace(/'/g, "\\'") + '\'; }))">';
+            html += '<td><strong>' + displayName(m.name) + '</strong></td>';
+            html += '<td>' + (m.gen || '—') + '</td>';
+            
+            var fatherVal = displayName(m.father) || '—';
+            if (fatherVal.includes('تفصیلات')) {
+                fatherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + m.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
+            }
+            html += '<td>' + fatherVal + '</td>';
+            
+            var motherVal = mother || '—';
+            if (motherVal.includes('تفصیلات')) {
+                motherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + m.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
+            }
+            html += '<td>' + motherVal + '</td>';
+            
+            var spouseVal = m.spouse || '—';
+            if (spouseVal.includes('تفصیلات')) {
+                spouseVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + m.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
+            }
+            html += '<td>' + spouseVal + '</td>';
+            
+            html += '</tr>';
+        }
+        
+        html += '</tbody></table>';
+        return html;
+    }
+
+    // ========== RENDER TABLE ==========
     function renderTable() {
         if (!currentIndividual) return;
-        let html = '<div>';
+        var html = '<div>';
 
         html += renderMemberInfoCard(currentIndividual);
 
         if (showAncestors) {
-            const ancestors = getAncestors(currentIndividual);
+            var ancestors = getAncestors(currentIndividual);
             if (ancestors.length) {
-                html += `<div class="section-heading" onclick="toggleSection('ancestors')">`;
-                html += `<span>🌳 آباؤ اجداد (${ancestors.length})</span>`;
-                html += `<span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span>`;
-                html += `</div>`;
+                html += '<div class="section-heading" onclick="toggleSection(\'ancestors\')">';
+                html += '<span>🌳 آباؤ اجداد (' + ancestors.length + ')</span>';
+                html += '<span class="toggle-icon">' + (ancestorsCollapsed ? '+' : '-') + '</span>';
+                html += '</div>';
                 if (!ancestorsCollapsed) {
                     html += renderTableForMembers(ancestors, false);
                 }
@@ -1364,14 +1494,14 @@ function renderTableForMembers(members, includeSelected = false) {
         }
 
         if (showSiblings) {
-            const father = findParent(currentIndividual);
+            var father = findParent(currentIndividual);
             if (father) {
-                const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
+                var siblings = db.filter(function(s) { return s.father === father.name && s.name !== currentIndividual.name; });
                 if (siblings.length) {
-                    html += `<div class="section-heading" onclick="toggleSection('siblings')">`;
-                    html += `<span>👥 بہن بھائی (${siblings.length})</span>`;
-                    html += `<span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span>`;
-                    html += `</div>`;
+                    html += '<div class="section-heading" onclick="toggleSection(\'siblings\')">';
+                    html += '<span>👥 بہن بھائی (' + siblings.length + ')</span>';
+                    html += '<span class="toggle-icon">' + (siblingsCollapsed ? '+' : '-') + '</span>';
+                    html += '</div>';
                     if (!siblingsCollapsed) {
                         html += renderTableForMembers(siblings, true);
                     }
@@ -1380,12 +1510,12 @@ function renderTableForMembers(members, includeSelected = false) {
         }
 
         if (showDescendants) {
-            const children = db.filter(c => c.father === currentIndividual.name);
+            var children = db.filter(function(c) { return c.father === currentIndividual.name; });
             if (children.length) {
-                html += `<div class="section-heading" onclick="toggleSection('children')">`;
-                html += `<span>👶 اولاد (${children.length})</span>`;
-                html += `<span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span>`;
-                html += `</div>`;
+                html += '<div class="section-heading" onclick="toggleSection(\'children\')">';
+                html += '<span>👶 اولاد (' + children.length + ')</span>';
+                html += '<span class="toggle-icon">' + (childrenCollapsed ? '+' : '-') + '</span>';
+                html += '</div>';
                 if (!childrenCollapsed) {
                     html += renderTableForMembers(children, false);
                 }
@@ -1396,231 +1526,7 @@ function renderTableForMembers(members, includeSelected = false) {
         document.getElementById('tableRoot').innerHTML = html;
     }
 
-    window.showSaveOptions = function() {
-        if (!currentIndividual) {
-            alert('براہ کرم پہلے کسی فرد کو منتخب کریں');
-            return;
-        }
-        document.getElementById('saveOptionsModal').style.display = 'block';
-        document.getElementById('saveModalOverlay').style.display = 'block';
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    };
-
-    window.closeSaveModal = function() {
-        document.getElementById('saveOptionsModal').style.display = 'none';
-        document.getElementById('saveModalOverlay').style.display = 'none';
-    };
-
-    window.processSave = function() {
-        const selected = document.querySelector('input[name="saveFormat"]:checked');
-        if (!selected) {
-            alert('براہ کرم فارمیٹ منتخب کریں');
-            return;
-        }
-        
-        closeSaveModal();
-        
-        switch(selected.value) {
-            case 'pdf-high':
-                exportTablePDF('high');
-                break;
-            case 'pdf-low':
-                exportTablePDF('low');
-                break;
-            case 'jpeg':
-                exportAsJPEG();
-                break;
-        }
-    };
-
-    async function exportTablePDF(quality = 'high') {
-        if (!currentIndividual) { alert('براہ کرم پہلے کسی فرد کو منتخب کریں'); return; }
-        
-        const scale = quality === 'high' ? 2.0 : 1.0;
-        const jpegQuality = quality === 'high' ? 0.95 : 0.6;
-        const qualityText = quality === 'high' ? 'ہائی ریزولوشن' : 'لو ریزولوشن';
-        
-        const tableElement = document.querySelector('.table-root-layout');
-        if (!tableElement) return alert('کوئی مواد نہیں');
-        
-        try {
-            const header = document.createElement('div');
-            header.style.marginBottom = '30px'; 
-            header.style.textAlign = 'center';
-            header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">رضوی خاندان کا ٹیبل</h1>
-                <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-            
-            tableElement.insertBefore(header, tableElement.firstChild);
-
-            const footer = document.createElement('div');
-            footer.style.marginTop = '30px';
-            footer.style.padding = '15px 20px';
-            footer.style.background = '#fcf9f4';
-            footer.style.width = '100%';
-            footer.style.boxSizing = 'border-box';
-            footer.style.fontSize = '12px';
-            footer.style.textAlign = 'center';
-
-            const timeStr = formatCurrentTime();
-            const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-
-            footer.innerHTML = `
-                <div style="padding:2px 0; font-weight:bold; color:#0f172a;">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-                <div style="padding:2px 0; font-weight:bold; color:#5a0000;">آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>
-            `;
-            tableElement.appendChild(footer);
-            
-            const loadingMsg = document.createElement('div');
-            loadingMsg.style.position = 'fixed';
-            loadingMsg.style.top = '50%'; 
-            loadingMsg.style.left = '50%'; 
-            loadingMsg.style.transform = 'translate(-50%, -50%)';
-            loadingMsg.style.background = '#5a0000'; 
-            loadingMsg.style.color = 'white'; 
-            loadingMsg.style.padding = '20px 40px'; 
-            loadingMsg.style.borderRadius = '8px'; 
-            loadingMsg.style.zIndex = '9999'; 
-            loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-            loadingMsg.textContent = `📄 PDF بنا رہے ہیں... (${qualityText})`;
-            document.body.appendChild(loadingMsg);
-            
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            const canvas = await html2canvas(tableElement, { 
-                scale: scale, 
-                backgroundColor: '#ffffff', 
-                logging: false, 
-                allowTaint: true, 
-                useCORS: true 
-            });
-            
-            tableElement.removeChild(header);
-            tableElement.removeChild(footer);
-            document.body.removeChild(loadingMsg);
-
-            const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-            const { jsPDF } = window.jspdf;
-            const w = canvas.width / 2 * 0.264583;
-            const h = canvas.height / 2 * 0.264583;
-            const pdf = new jsPDF({ 
-                orientation: w > h ? 'l' : 'p', 
-                unit: 'mm', 
-                format: [w + 40, h + 40] 
-            });
-            
-            pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-            const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            pdf.save(`shajra_table_${safeName}_${quality}_${Date.now()}.pdf`);
-            
-            const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-            const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-            alert(`✅ PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`);
-            
-        } catch (err) {
-            console.error('PDF Error:', err);
-            alert('❌ PDF نہیں بن سکی: ' + err.message);
-        }
-    }
-
-    window.exportAsJPEG = async function() {
-        if (!currentIndividual) return;
-        
-        const originalElement = document.querySelector('.table-root-layout');
-        if (!originalElement) return alert('کوئی مواد نہیں');
-        
-        const el = originalElement.cloneNode(true);
-        el.style.transform = 'none';
-        el.style.width = '100%';
-        el.style.height = 'auto';
-        el.style.overflow = 'visible';
-        
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'absolute';
-        wrapper.style.left = '-9999px';
-        wrapper.style.top = '0';
-        wrapper.style.backgroundColor = 'white';
-        wrapper.style.padding = '20px';
-        wrapper.style.width = 'fit-content';
-        wrapper.style.minWidth = '800px';
-        wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
-        document.body.appendChild(wrapper);
-        
-        const styleTag = document.createElement('style');
-        styleTag.textContent = `
-            * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important; }
-            .family-table th, .family-table td, .member-name, .box-label, .box-value {
-                font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
-            }
-            h1, h2, .section-heading {
-                font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif !important;
-            }
-            .family-table { direction: rtl; }
-        `;
-        wrapper.appendChild(styleTag);
-        
-        const header = document.createElement('div');
-        header.style.marginBottom = '30px';
-        header.style.textAlign = 'center';
-        header.innerHTML = `<h1 style="color:#d4af37;font-size:36px;margin:0;">رضوی خاندان کا ٹیبل</h1>
-            <h2 style="color:#5a0000;font-size:24px;margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-        wrapper.appendChild(header);
-        wrapper.appendChild(el);
-        
-        const footer = document.createElement('div');
-        footer.style.marginTop = '30px';
-        footer.style.padding = '15px 20px';
-        footer.style.background = '#fcf9f4';
-        footer.style.textAlign = 'center';
-        const timeStr = formatCurrentTime();
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-        footer.innerHTML = `<div style="font-family:'Noto Nastaliq Urdu';">ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-            <div style="font-family:'Noto Nastaliq Urdu';">آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
-        wrapper.appendChild(footer);
-        
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%';
-        loadingMsg.style.left = '50%';
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000';
-        loadingMsg.style.color = 'white';
-        loadingMsg.style.padding = '20px 40px';
-        loadingMsg.style.borderRadius = '8px';
-        loadingMsg.style.zIndex = '9999';
-        loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
-        document.body.appendChild(loadingMsg);
-        
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        try {
-            const canvas = await html2canvas(wrapper, {
-                scale: 1.2,
-                backgroundColor: '#ffffff',
-                logging: false,
-                windowWidth: wrapper.scrollWidth,
-                windowHeight: wrapper.scrollHeight
-            });
-            
-            const imgData = canvas.toDataURL('image/jpeg', 0.85);
-            
-            const link = document.createElement('a');
-            const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            link.download = `shajra_table_${safeName}_${Date.now()}.jpg`;
-            link.href = imgData;
-            link.click();
-            
-            const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
-            setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
-            
-        } catch (err) {
-            console.error('Export Error:', err);
-            alert('❌ JPEG نہیں بن سکی: ' + err.message);
-        } finally {
-            document.body.removeChild(wrapper);
-            document.body.removeChild(loadingMsg);
-        }
-    };
-
+    // ========== NAVIGATION FUNCTIONS ==========
     function switchToTreeView() {
         if (currentIndividual) {
             window.location.href = '27-individual-tree-mobile.html?member=' + encodeURIComponent(currentIndividual.name);
@@ -1631,16 +1537,15 @@ function renderTableForMembers(members, includeSelected = false) {
 
     function closeAllMenus() {
         document.getElementById('searchDropdown').style.display = 'none';
-        document.querySelectorAll('.context-menu').forEach(m => m.remove());
-        document.getElementById('toggleMenuPanel')?.classList.remove('show');
-        document.getElementById('saveOptionsModal').style.display = 'none';
-        document.getElementById('saveModalOverlay').style.display = 'none';
+        document.querySelectorAll('.context-menu').forEach(function(m) { m.remove(); });
+        document.getElementById('toggleMenuPanel').classList.remove('show');
     }
     
     function showDashboard() { 
         window.location.href = '26-dashboard-mobile.html'; 
     }
-    
+
+    // ========== CLICK OUTSIDE HANDLER ==========
     document.addEventListener('click', function(e) {
         if (e.target === document.getElementById('tipsOverlay')) {
             document.getElementById('tipsOverlay').style.display = 'none';
@@ -1649,14 +1554,47 @@ function renderTableForMembers(members, includeSelected = false) {
         if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
         
         if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) 
-            document.getElementById('toggleMenuPanel')?.classList.remove('show');
-        
-        if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
-            document.getElementById('saveOptionsModal').style.display = 'none';
-            document.getElementById('saveModalOverlay').style.display = 'none';
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+    });
+
+    // ========== ESCAPE KEY ==========
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeTips();
+            closeDetailModal();
         }
     });
 
+    // ========== LOAD DATA ==========
+    function loadData() {
+        var script = document.createElement('script');
+        script.src = '33-family-data-urdu.js';
+        script.onload = function() {
+            if (typeof FAMILY_DATA_URDU !== 'undefined') {
+                db = FAMILY_DATA_URDU;
+                fileInfo = FILE_INFO || null;
+                
+                var urlParams = new URLSearchParams(window.location.search);
+                var memberName = urlParams.get('member');
+                if (memberName) {
+                    setTimeout(function() {
+                        var member = db.find(function(m) { return m.name === decodeURIComponent(memberName); });
+                        if (member) selectMember(member);
+                    }, 500);
+                } else {
+                    resetIndividual();
+                }
+            } else {
+                document.getElementById('tableRoot').innerHTML = '<div class="welcome-container"><div class="welcome-box"><div class="welcome-icon">⚠️</div><div class="welcome-title">ڈیٹا لوڈ نہیں ہوا</div><div class="welcome-text">براہ کرم یقینی بنائیں کہ فائل 33-family-data-urdu.js موجود ہے۔</div></div></div>';
+            }
+        };
+        script.onerror = function() {
+            document.getElementById('tableRoot').innerHTML = '<div class="welcome-container"><div class="welcome-box"><div class="welcome-icon">⚠️</div><div class="welcome-title">فائل نہیں ملی</div><div class="welcome-text">33-family-data-urdu.js نہیں مل سکی۔</div></div></div>';
+        };
+        document.head.appendChild(script);
+    }
+
+    // ========== WINDOW EXPORTS ==========
     window.zoomIn = zoomIn; 
     window.zoomOut = zoomOut; 
     window.resetZoom = resetZoom;
@@ -1664,66 +1602,15 @@ function renderTableForMembers(members, includeSelected = false) {
     window.resetIndividual = resetIndividual;
     window.switchToTreeView = switchToTreeView;
     window.toggleZoomControls = toggleZoomControls;
+    window.openDetailPopup = openDetailPopup;
+    window.closeDetailModal = closeDetailModal;
+    window.showPrintOptions = showPrintOptions;
+    window.exportTablePDF = exportTablePDF;
 
+    // ========== INIT ==========
     document.addEventListener('DOMContentLoaded', function() {
         loadData();
     });
-
-    function openTips() {
-        document.getElementById('tipsOverlay').style.display = 'flex';
-    }
-
-    function closeTips() {
-        document.getElementById('tipsOverlay').style.display = 'none';
-    }
-
-function loadData() {
-    const script = document.createElement('script');
-    script.src = '33-family-data-urdu.js';
-    script.onload = function() {
-        if (typeof FAMILY_DATA_URDU !== 'undefined') {
-            db = FAMILY_DATA_URDU;
-            fileInfo = FILE_INFO || null;
-            
-            const urlParams = new URLSearchParams(window.location.search);
-            const memberName = urlParams.get('member');
-            if (memberName) {
-                setTimeout(() => {
-                    const member = db.find(m => m.name === decodeURIComponent(memberName));
-                    if (member) selectMember(member);
-                }, 500);
-            } else {
-                resetIndividual();
-            }
-        } else {
-            document.getElementById('tableRoot').innerHTML = `
-                <div class="welcome-container">
-                    <div class="welcome-box">
-                        <div class="welcome-icon">⚠️</div>
-                        <div class="welcome-title">ڈیٹا لوڈ نہیں ہوا</div>
-                        <div class="welcome-text">براہ کرم یقینی بنائیں کہ فائل 33-family-data-urdu.js موجود ہے۔</div>
-                    </div>
-                </div>
-            `;
-        }
-    };
-    script.onerror = function() {
-        document.getElementById('tableRoot').innerHTML = `
-            <div class="welcome-container">
-                <div class="welcome-box">
-                    <div class="welcome-icon">⚠️</div>
-                    <div class="welcome-title">فائل نہیں ملی</div>
-                    <div class="welcome-text">33-family-data-urdu.js نہیں مل سکی۔</div>
-                </div>
-            </div>
-        `;
-    };
-    document.head.appendChild(script);
-}
-
-window.openDetailPopup = openDetailPopup;
-window.closeDetailModal = closeDetailModal;
-
 </script>
 
 <!-- Tips Modal -->
@@ -1768,9 +1655,9 @@ window.closeDetailModal = closeDetailModal;
             <div class="colon">:</div>
             <div class="desc">مرکزی صفحہ پر جائیں</div>
 
-            <div class="title">محفوظ کریں</div>
+            <div class="title">PDF پرنٹ</div>
             <div class="colon">:</div>
-            <div class="desc">فائل کو PDF یا JPEG کے طور پر محفوظ کریں</div>
+            <div class="desc">مینو سے PDF پرنٹ کریں اور "Save as PDF" منتخب کریں</div>
             
             <div class="title">زوم</div>
             <div class="colon">:</div>
@@ -1796,13 +1683,6 @@ window.closeDetailModal = closeDetailModal;
         <div class="detail-modal-footer">
             <button class="detail-modal-close-btn" onclick="closeDetailModal()">✕ بند کریں</button>
         </div>
-    </div>
-</div>
-
-
-<div class="detail-modal-footer">
-    <button class="detail-modal-close-btn" onclick="closeDetailModal()">✕ بند کریں</button>
-</div>
     </div>
 </div>
 

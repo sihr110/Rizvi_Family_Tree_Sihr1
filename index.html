@@ -397,20 +397,25 @@
   });
 
   // ===== NAVIGATE TO DASHBOARD =====
-  function navigateToDashboard() {
+function navigateToDashboard() {
     let dashboard;
 
     if (selectedLanguage === 'english') {
-      dashboard = selectedDevice === 'pc' ? 'EFT/1-dashboard-pc.html' : 'EFT/6-dashboard-mobile.html';
+        if (selectedDevice === 'pc') {
+            dashboard = 'EFT/1-dashboard-pc.html';
+        } else {
+            dashboard = 'EFT/6-dashboard-mobile.html';
+        }
     } else {
-      dashboard = selectedDevice === 'pc' ? 'UFT/21-dashboard-pc.html' : 'UFT/26-dashboard-mobile.html';
+        if (selectedDevice === 'pc') {
+            dashboard = 'UFT/01-dashboard-U.html';
+        } else {
+            dashboard = 'UFT/01-dashboard-U.html';
+        }
     }
 
-    console.log('Navigating to:', dashboard);
-    console.log('Language:', selectedLanguage, 'Device:', selectedDevice);
-
     window.location.href = dashboard;
-  }
+}
 
   // ===== FOCUS ON PASSWORD FIELD =====
   passwordField.focus();

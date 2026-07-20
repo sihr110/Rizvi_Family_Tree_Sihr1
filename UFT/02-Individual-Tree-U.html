@@ -1017,7 +1017,7 @@
         let db = [], fileInfo = null, currentIndividual = null;
         let showSiblings = true, showDescendants = true, showAncestors = true;
         let siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
-        let zoomLevel = 0.7;
+        let zoomLevel = 0.5;
         let zoomVisible = false;
 
         function displayName(str) { 
@@ -1555,7 +1555,7 @@
         }
 
         function resetZoom() { 
-            zoomLevel = 0.7; 
+            zoomLevel = 0.5; 
             applyZoom(); 
         }
 
@@ -1588,7 +1588,7 @@
             if (window._savedZoom !== undefined) {
                 zoomLevel = window._savedZoom;
             } else {
-                zoomLevel = 0.7;
+                zoomLevel = 0.5;
             }
             applyZoom();
         });

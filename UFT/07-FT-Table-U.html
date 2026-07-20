@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" id="viewportMeta" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover" />
+    <meta name="google" content="notranslate">
+    <title>خاندان رضوی · شجرہ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;600&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet" />
+    
+    <script>
+        function getDevicePreference() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const deviceParam = urlParams.get('device');
+            if (deviceParam === 'pc' || deviceParam === 'mobile') {
+                return deviceParam;
+            }
+            return 'pc';
+        }
+
+        function setViewportZoom() {
+            const device = getDevicePreference();
+            const scale = device === 'pc' ? '1.0' : '0.5';
+            const viewport = document.getElementById('viewportMeta');
+            if (viewport) {
+                viewport.content = `width=device-width, initial-scale=${scale}, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', setViewportZoom);
+    </script>
+    
+    <style>
+
+/* ===== ZOOM CONTROLS ===== */
+.zoom-controls {
+    position: fixed;
+    bottom: 15px;
+    right: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 6px;
+    display: none;
+    flex-direction: row;
+    gap: 4px;
+    z-index: 2000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    transform: scale(0.75);
+    transform-origin: bottom right;
+}
+
+.zoom-controls.dragging {
+    cursor: grabbing;
+    opacity: 0.85;
+}
+
+.zoom-controls.visible {
+    display: flex;
+}
+
+.zoom-btn {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--gold);
+    background: white;
+    color: var(--dark-blue);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+}
+
+.zoom-btn:hover {
+    background: var(--gold);
+    color: white;
+}
+
+.zoom-level {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 0 6px;
+    min-width: 38px;
+    font-family: 'Inter', sans-serif;
+    color: var(--dark-blue);
+    pointer-events: none;
+}
+
+/* Bulb pulse animation */
+@keyframes bulbPulse {
+    0% { color: #d4af37; transform: scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3)); }
+    25% { color: #FFD700; transform: scale(1.15); filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+    50% { color: #FF6B35; transform: scale(1.2); filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.9)); }
+    75% { color: #FFD700; transform: scale(1.15); filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+    100% { color: #d4af37; transform: scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3)); }
+}
+
+.tips-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #3d2b1a;
+    white-space: nowrap;
+    animation: tipsBlink 1.5s ease-in-out infinite;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.tips-btn:hover {
+    background: #faebcd;
+    animation: none;
+}
+
+@keyframes tipsBlink {
+    0% { color: #3d2b1a; }
+    50% { color: #d4af37; }
+    100% { color: #3d2b1a; }
+}
+
+.tips-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.tips-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 35px;
+    max-width: 520px;
+    width: 92%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.tips-modal h3 {
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+    color: #0f172a;
+    font-size: 22px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.tips-modal ul li {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    border-bottom: 1px solid #f0ebe4;
+    gap: 12px;
+    text-align: right;
+}
+
+.tips-modal ul li:last-child {
+    border-bottom: none;
+}
+
+.tips-modal ul li strong {
+    display: inline-block;
+    width: 140px;
+    flex-shrink: 0;
+    color: #5a0000;
+    font-weight: 700;
+    text-align: right;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.tips-modal ul li span {
+    flex: 1;
+    text-align: right;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.tips-close-btn {
+    background: #d4af37;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    color: #0f172a;
+    transition: background 0.2s;
+    display: block;
+    margin: 0 auto;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.tips-close-btn:hover {
+    background: #f1d279;
+}
+
+/* ===== WELCOME SCREEN ===== */
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 500px;
+}
+.welcome-box {
+    text-align: center;
+    max-width: 500px;
+    padding: 40px;
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+.welcome-icon {
+    font-size: 72px;
+    margin-bottom: 20px;
+    color: var(--gold);
+}
+.welcome-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin-bottom: 15px;
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+}
+.welcome-text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: #f0ebe4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    direction: rtl;
+    text-align: right;
+}
+
+:root {
+    --gold: #d4af37;
+    --dark-blue: #0f172a;
+    --light-gold: #f1d279;
+    --maroon: #5a0000;
+    --green: #2e7d32;
+}
+
+/* ===== MENU PANEL ===== */
+.menu-panel {
+    position: fixed;
+    right: 20px;
+    left: auto;
+    top: 90px;
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 12px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    min-width: 180px;
+}
+
+.menu-panel.show {
+    display: flex;
+}
+
+.menu-item {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: 2px solid var(--gold);
+    background: white;
+    color: var(--dark-blue);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.menu-item:hover {
+    background: #faebcd;
+    transform: translateX(5px);
+}
+
+.menu-item.dashboard {
+    background: #6495ED;
+    color: white;
+    border-color: #6495ED;
+}
+
+.menu-item.dashboard:hover {
+    background: #4a7fd4;
+}
+
+.menu-item.save {
+    background: var(--gold);
+    color: var(--dark-blue);
+    border-color: var(--gold);
+}
+
+.menu-item.save:hover {
+    background: var(--light-gold);
+}
+
+.menu-item.zoom-toggle {
+    background: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+}
+
+.menu-item.zoom-toggle:hover {
+    background: #1b5e20;
+}
+
+/* ===== APP WRAPPER & HEADER ===== */
+.app-wrapper {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-header {
+    background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+    color: var(--gold);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--gold);
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    position: relative;
+}
+
+.menu-toggle-btn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid white;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    animation: gentle-blink 1.5s infinite;
+}
+
+.menu-toggle-btn:hover {
+    background: var(--light-gold);
+    transform: scale(1.05);
+}
+
+@keyframes gentle-blink {
+    0% { opacity: 1; background: var(--gold); }
+    50% { opacity: 0.7; background: #90EE90; transform: scale(1.05); }
+    100% { opacity: 1; background: var(--gold); }
+}
+
+.header-title {
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-icon {
+    background: var(--gold);
+    color: var(--dark-blue);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-spacer {
+    width: 80px;
+}
+
+/* ===== CONTROLS / SEARCH BAR ===== */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    align-items: center;
+    background: #fffcf8;
+    padding: 12px 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    border-left: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+}
+
+.search-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.search-label {
+    font-weight: 700;
+    color: var(--maroon);
+    font-size: 13px;
+    white-space: nowrap;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.search-wrapper {
+    position: relative;
+    flex: 2;
+    min-width: 200px;
+}
+
+.search-box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+}
+
+.search-box input {
+    padding: 10px 15px;
+    border: 2px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+    color: #2d1f13;
+    width: 100%;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+    text-align: right;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.search-box .clear-btn {
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
+
+.search-box .clear-btn:hover {
+    background: var(--light-gold);
+}
+
+.controls .stats {
+    font-size: 13px;
+    color: #6b5a48;
+    white-space: nowrap;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.controls .error-msg {
+    color: #a94442;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+/* ===== SEARCH DROPDOWN ===== */
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #b8a088;
+    border-radius: 8px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    margin-top: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.search-dropdown .result-item {
+    padding: 8px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0ebe4;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.search-dropdown .result-item:hover {
+    background: #faebcd;
+}
+
+.search-dropdown .result-item .main-name {
+    font-weight: 600;
+    color: #1a3a5c;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.search-dropdown .result-item .gen {
+    font-size: 11px;
+    color: #6b5a48;
+}
+
+.search-dropdown .result-item .father-name {
+    font-size: 11px;
+    color: #6b5a48;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.search-dropdown .no-result {
+    padding: 12px 14px;
+    color: #999;
+    text-align: center;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+/* ===== PAGE / WORKSHEET ===== */
+.page {
+    width: 100%;
+    min-height: 297mm;
+    background: #fffcf8;
+    padding: 8mm 10mm;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    overflow: visible;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+  }
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+    text-align: center;
+    border-bottom: 2px solid #b8a088;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+    flex-shrink: 0;
+}
+
+.page-header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #3d2b1a;
+    font-family: 'Noto Nastaliq Urdu', 'DM Serif Display', 'Georgia', serif;
+    letter-spacing: 1px;
+}
+
+.page-header .ref {
+    font-size: 13px;
+    color: #6b5a48;
+    margin-top: 4px;
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', 'Georgia', serif;
+    font-weight: 700;
+}
+
+.page-header .ref .page-link {
+    color: #2e7d32;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.page-header .ref .page-link:hover {
+    color: #cc0000;
+}
+
+.page-header .search-result-info {
+    font-size: 13px;
+    color: #2e7d32;
+    margin-top: 4px;
+    font-weight: 600;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
+
+/* ===== TABLE ===== */
+.family-table-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.family-table {
+    width: 100%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    border: 2px solid #b8a088;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    table-layout: auto;
+}
+
+.family-table th {
+    background: #faf6f0;
+    color: #5a0000;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 2px solid #b8a088;
+    border-left: 1px solid #b8a088;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.family-table th:last-child {
+    border-left: none;
+}
+
+.family-table td {
+    padding: 8px 8px;
+    font-size: 12px;
+    border-bottom: 1px solid #d0c8be;
+    border-left: 1px solid #d0c8be;
+    vertical-align: middle;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.family-table td:last-child {
+    border-left: none;
+}
+
+.family-table tbody tr:hover {
+    background: #faebcd;
+    cursor: pointer;
+}
+
+.family-table tbody tr.female-row {
+    background-color: #fff0f0;
+}
+
+.family-table tbody tr.selected-row {
+    background: #e8f5e9 !important;
+    border-right: 4px solid var(--green);
+}
+
+.family-table .father-red {
+    color: #cc0000;
+    font-weight: 900;
+}
+
+.family-table .father-normal {
+    color: #000;
+    font-weight: 700;
+}
+
+.family-table .child-name {
+    color: #1a3a5c;
+    font-weight: 600;
+}
+
+.family-table .child-name.female {
+    color: #FF1493;
+    font-weight: 700;
+}
+
+.family-table .continue-arrow {
+    color: #2e7d32;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.family-table .continue-arrow:hover {
+    color: #cc0000;
+    text-decoration: underline;
+}
+
+.family-table .clickable-name {
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.family-table .clickable-name:hover {
+    background: #faebcd;
+    transform: scale(1.02);
+}
+
+.family-table .clickable-name.female:hover {
+    background: #f8d0d8;
+}
+
+.family-table .highlight {
+    background: #ffeb3b;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.family-table .details-link {
+    color: #2e7d32;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    background: #f0f7f0;
+}
+
+.family-table .details-link:hover {
+    background: #ffeb3b;
+    transform: scale(1.05);
+}
+
+/* Column widths */
+.family-table th:nth-child(1), .family-table td:nth-child(1) { width: 5%; text-align: center; }
+.family-table th:nth-child(2), .family-table td:nth-child(2) { width: 30%; text-align: right; }
+.family-table th:nth-child(3), .family-table td:nth-child(3) { width: 25%; text-align: right; }
+.family-table th:nth-child(4), .family-table td:nth-child(4) { width: 15%; text-align: center; }
+.family-table th:nth-child(5), .family-table td:nth-child(5) { width: 25%; text-align: center; }
+
+/* ===== PAGE FOOTER ===== */
+.page-footer {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 2px solid #b8a088;
+    text-align: center;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+    flex-shrink: 0;
+}
+
+.page-footer .family-name {
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', 'Georgia', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #3d2b1a;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.page-footer .developer {
+    font-size: 11px;
+    color: #6b5a48;
+    margin-top: 2px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
+
+.page-footer .developer strong {
+    color: #3d2b1a;
+    font-weight: 600;
+}
+
+/* ===== NO DATA & ERROR ===== */
+.no-data {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b5a48;
+    font-size: 18px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', 'Segoe UI', 'Arial', sans-serif;
+}
+
+.no-data .error {
+    color: #a94442;
+    font-size: 14px;
+    margin-top: 10px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+/* ===== SAVE OPTIONS MODAL ===== */
+.save-options-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 25px;
+    z-index: 4000;
+    min-width: 400px;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    display: none;
+    width: 92%;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal h3 {
+    color: var(--maroon);
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal .save-mode-label {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal .save-mode-label:hover {
+    border-color: var(--gold);
+}
+
+.save-options-modal .save-mode-label input {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.save-options-modal .save-mode-label .label-title {
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal .save-mode-label .label-desc {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-right: 25px;
+    margin-left: 0;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal .format-section {
+    margin: 15px 0;
+    padding: 12px;
+    background: #f8f5f0;
+    border-radius: 8px;
+}
+
+.save-options-modal .format-section .format-label {
+    display: block;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal .format-section .format-label input {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+.save-options-modal .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.save-options-modal .modal-actions .save-btn {
+    flex: 2;
+    padding: 12px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal .modal-actions .save-btn:hover {
+    background: #1b5e20;
+}
+
+.save-options-modal .modal-actions .cancel-btn {
+    flex: 1;
+    padding: 12px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.save-options-modal .modal-actions .cancel-btn:hover {
+    background: #e0e0e0;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 3999;
+    display: none;
+}
+
+/* ===== MEMBER DETAIL MODAL ===== */
+#memberModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 4999;
+    display: none;
+}
+
+.member-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fffcf8;
+    border-radius: 16px;
+    padding: 30px;
+    z-index: 5000;
+    max-width: 550px;
+    width: 92%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    display: none;
+    border: 3px solid var(--gold);
+}
+
+.detail-card .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+.detail-card .detail-header h2 {
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+    color: var(--dark-blue);
+    font-size: 22px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.detail-card .detail-gender {
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.detail-card .detail-gender.male {
+    background: #e3f2fd;
+    color: #0d47a1;
+}
+
+.detail-card .detail-gender.female {
+    background: #fce4ec;
+    color: #880e4f;
+}
+
+.detail-card .detail-row {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe4;
+    font-size: 15px;
+    display: flex;
+    align-items: flex-start;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.detail-card .detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-card .detail-row strong {
+    color: var(--maroon);
+    min-width: 80px;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+.detail-card .detail-notes {
+    background: #faf6f0;
+    padding: 14px;
+    border-radius: 8px;
+    margin-top: 4px;
+    border-right: 3px solid var(--gold);
+    border-left: none;
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+}
+
+/* ===== DETAILS POPUP ===== */
+.details-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fffcf8;
+    border-radius: 16px;
+    padding: 30px;
+    z-index: 6001;
+    max-width: 600px;
+    width: 92%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    border: 3px solid var(--gold);
+    direction: rtl;
+    text-align: right;
+    display: none;
+}
+
+.details-modal .details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+.details-modal .details-header h2 {
+    font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+    color: var(--dark-blue);
+    font-size: 20px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.details-modal .details-content-box {
+    background: #faf6f0;
+    padding: 18px;
+    border-radius: 8px;
+    border-right: 4px solid var(--gold);
+    border-left: none;
+    white-space: pre-wrap;
+    font-size: 15px;
+    line-height: 1.8;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    color: #1a1a1a;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.details-modal .details-actions {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 2px solid var(--gold);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.details-modal .details-actions .close-btn {
+    padding: 10px 24px;
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+    transition: all 0.2s;
+}
+
+.details-modal .details-actions .close-btn:hover {
+    background: var(--light-gold);
+}
+
+/* ===== PRINT ===== */
+@media print {
+    .app-header, .controls, .menu-panel, .zoom-controls,
+    .save-options-modal, .modal-overlay, .tips-overlay,
+    .menu-toggle-btn, .header-spacer, .tips-btn {
+        display: none !important;
+    }
+    .page {
+        zoom: 1 !important;
+        transform: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        min-height: auto !important;
+        padding: 15px !important;
+    }
+    body {
+        background: white !important;
+        padding: 0 !important;
+    }
+    .app-wrapper {
+        width: 100% !important;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 480px) {
+    .header-title { font-size: 14px; }
+    .header-title span { display: none; }
+    .header-icon { width: 28px; height: 28px; font-size: 14px; }
+    .menu-toggle-btn { padding: 6px 12px; font-size: 12px; }
+    .controls .search-box input { font-size: 12px; padding: 8px 10px; }
+    .search-row { flex-wrap: wrap; gap: 8px; }
+    .search-label { font-size: 11px; min-width: 50px; }
+    .search-wrapper { flex: 1; min-width: 150px; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- ===== ZOOM CONTROLS ===== -->
+    <div class="zoom-controls" id="zoomControls">
+        <div class="zoom-btn" onclick="zoomIn()">+</div>
+        <div class="zoom-level" id="zoomLevel">70%</div>
+        <div class="zoom-btn" onclick="zoomOut()">-</div>
+        <div class="zoom-btn" onclick="resetZoom()">↺</div>
+    </div>
+
+    <!-- ===== MENU PANEL ===== -->
+    <div class="menu-panel" id="menuPanel">
+        <div class="menu-item zoom-toggle" onclick="toggleZoomControls()">🔍 زوم کنٹرولز</div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 مرکزی صفحہ</div>
+        <div class="menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 محفوظ کریں</div>
+    </div>
+
+    <!-- ===== APP WRAPPER ===== -->
+    <div class="app-wrapper">
+
+        <!-- ===== APP HEADER ===== -->
+        <div class="app-header">
+            <div class="menu-toggle-btn" onclick="toggleMenu()">☰ مینو</div>
+            <div class="header-title">
+                <span class="header-icon">🌿</span>
+                <span>خاندان رضوی · تحریری شجرہ</span>
+            </div>
+            <div class="header-spacer"></div>
+        </div>
+
+        <!-- ===== CONTROLS / SEARCH BAR ===== -->
+        <div class="controls">
+            <div style="width:85%; margin:0 auto;">
+                <div class="search-row">
+                    <span class="search-label">نام تلاش کریں</span>
+                    <div class="search-wrapper">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="نام درج کریں..." autocomplete="off" />
+                            <button class="clear-btn" onclick="clearSearch()">🔄 دوبارہ ترتیب</button>
+                        </div>
+                        <div class="search-dropdown" id="searchDropdown"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:85%; margin:0 auto; border-bottom: 2px solid var(--gold); padding-bottom: 12px;">
+                <div style="display:flex; justify-content:center; align-items:center; position:relative;">
+                    <button onclick="openTips()" style="position:absolute; left:35px; background:none; border:none; font-size:28px; cursor:pointer; animation:bulbPulse 1.2s ease-in-out infinite;">💡</button>
+                    <span class="stats" id="stats"></span>
+                </div>
+                <div style="text-align:center; margin-top:4px;">
+                    <span class="error-msg" id="errorMsg"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE CONTENT ===== -->
+        <div class="page" id="pageContainer">
+            <div class="no-data">خاندانی ڈیٹا لوڈ ہو رہا ہے...</div>
+        </div>
+
+    </div>
+
+    <!-- ===== SAVE OPTIONS MODAL ===== -->
+    <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
+    <div class="save-options-modal" id="saveOptionsModal">
+        <h3>💾 شجرہ محفوظ کریں</h3>
+
+        <div style="margin-bottom:15px;">
+            <div style="font-weight:600; margin-bottom:8px; color:var(--dark-blue); font-size:14px; font-family:'Noto Nastaliq Urdu', 'Inter', sans-serif;">محفوظ کرنے کا طریقہ منتخب کریں:</div>
+
+            <label class="save-mode-label">
+                <input type="radio" name="saveMode" value="screen" checked />
+                <span class="label-title">💾 موجودہ صفحہ</span>
+                <span class="label-desc">صرف دکھائی دے رہے صفحے کو محفوظ کریں</span>
+            </label>
+
+            <label class="save-mode-label">
+                <input type="radio" name="saveMode" value="selected" />
+                <span class="label-title">💾 منتخب فرد کے صفحات</span>
+                <span class="label-desc">جڑ سے منتخب فرد تک کے صفحات محفوظ کریں</span>
+            </label>
+
+            <label class="save-mode-label">
+                <input type="radio" name="saveMode" value="all" />
+                <span class="label-title">💾 تمام صفحات</span>
+                <span class="label-desc">خاندانی شجرے کے تمام صفحات محفوظ کریں</span>
+            </label>
+        </div>
+
+        <div class="format-section">
+            <div style="font-weight:600; margin-bottom:6px; color:var(--dark-blue); font-size:13px; font-family:'Noto Nastaliq Urdu', 'Inter', sans-serif;">فارمیٹ:</div>
+            <label class="format-label">
+                <input type="radio" name="saveFormat" value="pdf-high" checked />
+                📑 PDF - ہائی ریزولوشن (پرنٹ کے لیے بہترین)
+            </label>
+            <label class="format-label">
+                <input type="radio" name="saveFormat" value="pdf-low" />
+                📑 PDF - لو ریزولوشن (شیئرنگ کے لیے بہترین)
+            </label>
+            <label class="format-label">
+                <input type="radio" name="saveFormat" value="jpeg" />
+                📸 JPEG تصویر (یونیورسل فارمیٹ)
+            </label>
+        </div>
+
+        <div class="modal-actions">
+            <button class="save-btn" onclick="processSave()">💾 محفوظ کریں</button>
+            <button class="cancel-btn" onclick="closeSaveModal()">منسوخ</button>
+        </div>
+    </div>
+
+    <!-- ===== MEMBER DETAIL MODAL ===== -->
+    <div id="memberModalOverlay" onclick="closeMemberModal()"></div>
+    <div class="member-modal" id="memberModal">
+        <div class="modal-content">
+            <div id="memberDetailsContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== DETAILS POPUP ===== -->
+    <div class="details-modal" id="detailsModal">
+        <div class="details-header">
+            <h2 id="detailsModalTitle">📝 تفصیلات</h2>
+            <span style="font-size:12px; color:#6b5a48; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;"></span>
+        </div>
+        <div class="details-body">
+            <div class="details-content-box" id="detailsModalContent">
+                تفصیلات لوڈ ہو رہی ہیں...
+            </div>
+        </div>
+        <div class="details-actions">
+            <button class="close-btn" onclick="closeDetailsModal()">✕ بند کریں</button>
+        </div>
+    </div>
+
+    <!-- ===== TIPS MODAL ===== -->
+    <div class="tips-overlay" id="tipsOverlay">
+        <div class="tips-modal">
+            <h3>💡 رہنما اصول برائے استعمال</h3>
+            <ul>
+                <li><strong>تلاش</strong> <span>: نام لکھیں، اس شخص کا صفحہ دیکھیں</span></li>
+                <li><strong>تفصیلات دیکھیں</strong> <span>: کسی بھی نام پر کلک کریں</span></li>
+                <li><strong>صفحات کی منتقلی</strong> <span>: سرخ "صفحہ نمبر" پر کلک کریں</span></li>
+                <li><strong>مینو</strong> <span>: ☰ مینو (اوپر بائیں) پر کلک کریں</span></li>
+                <li><strong>زوم</strong> <span>: مینو سے زوم کنٹرولز آن کریں</span></li>
+                <li><strong>محفوظ کریں</strong> <span>: مینو سے منتخب کریں</span></li>
+            </ul>
+            <button class="tips-close-btn" onclick="closeTips()">بند کریں</button>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT: LOAD DATA ===== -->
+    <script src="33-family-data-urdu.js"></script>
+
+    <script>
+
+        // ============================================================
+        // DISPLAY NAME HELPER
+        // ============================================================
+        function displayName(str) {
+            if (!str) return '';
+            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+            cleaned = cleaned.replace(/-\d+$/, '').trim();
+            return cleaned;
+        }
+
+        // ============================================================
+        // GLOBAL VARIABLES
+        // ============================================================
+        let globalMap = {};
+        let globalPersonMap = {};
+        let rootToPageMap = {};
+        let db = [];
+        let cachedPages = [];
+        let familyData = null;
+        let currentPageIndex = 0;
+        let detailsTargetPerson = null;
+        let pageLoaded = false;
+        let zoomLevel = 0.7;
+        let zoomVisible = false;
+
+        // ============================================================
+        // ZOOM FUNCTIONS
+        // ============================================================
+        function zoomIn() { 
+            zoomLevel = Math.min(zoomLevel + 0.1, 2.0); 
+            applyZoom(); 
+        }
+
+        function zoomOut() { 
+            zoomLevel = Math.max(zoomLevel - 0.1, 0.5); 
+            applyZoom(); 
+        }
+
+        function resetZoom() { 
+            zoomLevel = 0.7; 
+            applyZoom(); 
+        }
+
+function applyZoom() {
+    const container = document.getElementById('pageContainer');
+    if (container) {
+        container.style.zoom = zoomLevel;
+        document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+    }
+}
+        function toggleZoomControls() {
+            zoomVisible = !zoomVisible;
+            const controls = document.getElementById('zoomControls');
+            if (zoomVisible) {
+                controls.classList.add('visible');
+            } else {
+                controls.classList.remove('visible');
+            }
+            document.getElementById('menuPanel').classList.remove('show');
+        }
+
+        // ============================================================
+        // ZOOM - PRINT HANDLERS
+        // ============================================================
+        window.addEventListener('beforeprint', function() {
+            window._savedZoom = zoomLevel;
+            zoomLevel = 1.0;
+            applyZoom();
+        });
+
+        window.addEventListener('afterprint', function() {
+            if (window._savedZoom !== undefined) {
+                zoomLevel = window._savedZoom;
+            } else {
+                zoomLevel = 1.0;
+            }
+            applyZoom();
+        });
+
+        // ============================================================
+        // ZOOM - DRAGGABLE CONTROLS
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('dragstart', function(e) { e.preventDefault(); });
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            applyZoom();
+        });
+
+        // ============================================================
+        // MENU FUNCTIONS
+        // ============================================================
+        function toggleMenu() {
+            document.getElementById('menuPanel').classList.toggle('show');
+        }
+
+        function goToDashboard() {
+            window.location.href = '01-Dashboard-U.html';
+        }
+
+        function showSaveOptions() {
+            document.getElementById('saveOptionsModal').style.display = 'block';
+            document.getElementById('saveModalOverlay').style.display = 'block';
+            document.getElementById('menuPanel').classList.remove('show');
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
+
+        // ============================================================
+        // EXPORT FUNCTIONS - CLEANED
+        // ============================================================
+        
+        function exportTreePDF() {
+            // Use browser's native print - renders Urdu perfectly
+            window.print();
+        }
+
+        function exportAsJPEG() {
+            const pageElement = document.getElementById('pageContainer');
+            if (!pageElement) {
+                alert('❌ کوئی صفحہ محفوظ نہیں!');
+                return;
+            }
+
+            const originalZoom = pageElement.style.zoom || '0.5';
+            
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'fixed';
+            wrapper.style.top = '0';
+            wrapper.style.left = '0';
+            wrapper.style.width = '100%';
+            wrapper.style.background = 'white';
+            wrapper.style.zIndex = '9999';
+            wrapper.style.padding = '20px';
+            wrapper.style.overflow = 'visible';
+            
+            const clone = pageElement.cloneNode(true);
+            clone.style.zoom = '1';
+            clone.style.transform = 'none';
+            clone.style.width = '100%';
+            clone.style.maxWidth = '1200px';
+            clone.style.margin = '0 auto';
+            clone.style.padding = '15px';
+            clone.style.background = 'white';
+            
+            wrapper.appendChild(clone);
+            document.body.appendChild(wrapper);
+            
+            setTimeout(() => {
+                html2canvas(wrapper, {
+                    scale: 2.0,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    logging: false,
+                    allowTaint: true
+                }).then(canvas => {
+                    document.body.removeChild(wrapper);
+                    const link = document.createElement('a');
+                    link.download = `shajra_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
+                    link.href = canvas.toDataURL('image/jpeg', 0.95);
+                    link.click();
+                }).catch(err => {
+                    document.body.removeChild(wrapper);
+                    alert('❌ JPEG نہیں بن سکی: ' + err.message);
+                });
+            }, 300);
+        }
+
+        // ============================================================
+        // SAVE FUNCTIONS
+        // ============================================================
+        function getSelectedSaveMode() {
+            const selected = document.querySelector('input[name="saveMode"]:checked');
+            return selected ? selected.value : 'screen';
+        }
+
+        function getSelectedFormat() {
+            const selected = document.querySelector('input[name="saveFormat"]:checked');
+            return selected ? selected.value : 'pdf-high';
+        }
+
+        function getCurrentMemberName() {
+            if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) return null;
+            const page = cachedPages[currentPageIndex];
+            return page.root || null;
+        }
+
+        function processSave() {
+            const saveMode = getSelectedSaveMode();
+            const format = getSelectedFormat();
+
+            closeSaveModal();
+
+            if (format === 'jpeg') {
+                exportAsJPEG();
+            } else {
+                // PDF - use browser print
+                window.print();
+            }
+        }
+
+        // ============================================================
+        // FAMILY TREE BUILDING FUNCTIONS
+        // ============================================================
+        function buildFamilyMap(data) {
+            const map = {};
+            const personMap = {};
+
+            data.forEach(p => {
+                const key = p.name.trim();
+                personMap[key] = p;
+                map[key] = [];
+            });
+
+            data.forEach(p => {
+                const fatherName = p.father ? p.father.trim() : '';
+                if (fatherName !== '') {
+                    if (map[fatherName]) {
+                        if (!map[fatherName].includes(p.name.trim())) {
+                            map[fatherName].push(p.name.trim());
+                        }
+                    } else {
+                        map[fatherName] = [p.name.trim()];
+                    }
+                }
+            });
+
+            globalMap = map;
+            globalPersonMap = personMap;
+            db = data;
+            return { map, personMap };
+        }
+
+        function findRoots(data, map) {
+            const allNames = new Set(data.map(p => p.name.trim()));
+            const roots = [];
+
+            data.forEach(p => {
+                const fatherName = p.father ? p.father.trim() : '';
+                if (fatherName === '' || !allNames.has(fatherName)) {
+                    if (!roots.includes(p.name.trim())) {
+                        roots.push(p.name.trim());
+                    }
+                }
+            });
+
+            return roots.length > 0 ? roots : [data[0].name.trim()];
+        }
+
+        function getChildren(name, map) {
+            return map[name] || [];
+        }
+
+        function hasChildren(name, map) {
+            return getChildren(name, map).length > 0;
+        }
+
+        function getActualFather(name, personMap) {
+            const person = personMap[name];
+            if (person && person.father && person.father.trim() !== '') {
+                return person.father.trim();
+            }
+            return null;
+        }
+
+        // ============================================================
+        // PAGE GENERATION
+        // ============================================================
+        function generatePages(data) {
+            const { map, personMap } = buildFamilyMap(data);
+            const pages = [];
+            const processed = new Set();
+            const roots = findRoots(data, map);
+
+            const queue = [];
+
+            roots.forEach(root => {
+                if (!processed.has(root)) {
+                    processed.add(root);
+                    queue.push(root);
+                }
+            });
+
+            for (const [parent, children] of Object.entries(map)) {
+                if (children.length > 0 && !processed.has(parent)) {
+                    const hasParent = data.some(p => p.name.trim() === parent && p.father && p.father.trim() !== '');
+                    if (hasParent) {
+                        processed.add(parent);
+                        queue.push(parent);
+                    }
+                }
+            }
+
+            while (queue.length > 0) {
+                const currentRoot = queue.shift();
+                const children = getChildren(currentRoot, map);
+
+                const childrenWithChildren = [];
+                children.forEach(child => {
+                    const childChildren = getChildren(child, map);
+                    if (childChildren.length > 0) {
+                        childrenWithChildren.push(child);
+                    }
+                });
+
+                const actualFather = getActualFather(currentRoot, personMap);
+
+                pages.push({
+                    root: currentRoot,
+                    lines: [],
+                    splitChildren: childrenWithChildren,
+                    parentPage: actualFather,
+                    hasChildren: hasChildren(currentRoot, map),
+                    rootPerson: personMap[currentRoot]
+                });
+
+                childrenWithChildren.forEach(child => {
+                    if (!processed.has(child)) {
+                        processed.add(child);
+                        queue.push(child);
+                    }
+                });
+            }
+
+            rootToPageMap = {};
+            pages.forEach((page, index) => {
+                rootToPageMap[page.root] = index;
+            });
+
+            pages.forEach((page, index) => {
+                page.lines = renderPageContent(
+                    page.root,
+                    map,
+                    personMap,
+                    page.splitChildren,
+                    index,
+                    rootToPageMap
+                );
+            });
+
+            return pages;
+        }
+
+        // ============================================================
+        // PAGE NAVIGATION
+        // ============================================================
+        function goToPage(pageIndex) {
+            if (pageIndex < 0 || pageIndex >= cachedPages.length) return;
+            currentPageIndex = pageIndex;
+            renderPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // RENDER PAGE CONTENT
+        // ============================================================
+        function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
+            const person = personMap[name];
+            const children = getChildren(name, map);
+            const isFather = hasChildren(name, map);
+            const isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
+
+            let rows = [];
+            let fatherClass = (isFather ? 'father-red' : 'father-normal') + (isFemale ? ' female' : '');
+
+            const fullName = name;
+            const cleanName = displayName(name);
+            const rootGen = (person && person.gen ? person.gen : '');
+
+            const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
+            const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
+
+            const rootFather = getActualFather(name, personMap);
+            let rootPagePart = '';
+
+            if (rootFather && rootToPageMap[rootFather] !== undefined) {
+                const fatherPage = rootToPageMap[rootFather];
+                rootPagePart = ` (والد) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">صفحہ ${fatherPage + 1}</span>`;
+            } else if (rootFather) {
+                rootPagePart = ` (والد)`;
+            }
+
+            rows.push({
+                tree: '',
+                name: cleanName + rootPagePart,
+                plainName: fullName,
+                isFather: isFather,
+                isFemale: isFemale,
+                spouse: cleanSpouse,
+                plainSpouse: rootSpouse,
+                gen: rootGen,
+                page: '',
+                fatherClass: fatherClass
+            });
+
+            if (isFather && children.length > 0) {
+                children.forEach((child, index) => {
+                    const childPerson = personMap[child];
+                    const childFullName = child;
+                    const childCleanName = displayName(child);
+                    const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
+                    const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
+
+                    const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
+                    const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
+
+                    let childPagePart = '';
+                    if (splitChildren && splitChildren.includes(child)) {
+                        const actualPageIndex = rootToPageMap[child];
+                        childPagePart = actualPageIndex !== undefined ?
+                            '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">صفحہ ' + (actualPageIndex + 1) + '</span>' : '';
+                    }
+
+                    let childClass = 'child-name' + (childIsFemale ? ' female' : '');
+
+                    rows.push({
+                        tree: '•',
+                        name: childCleanName,
+                        plainName: childFullName,
+                        isFather: false,
+                        isFemale: childIsFemale,
+                        spouse: childCleanSpouse,
+                        plainSpouse: childSpouse,
+                        gen: childGen,
+                        page: childPagePart,
+                        childClass: childClass
+                    });
+                });
+            }
+            return rows;
+        }
+
+        // ============================================================
+        // RENDER PAGE HTML
+        // ============================================================
+        function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
+            const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
+
+            let fatherPageDisplay = '(جڑ)';
+            if (parentPage) {
+                const idx = rootToPageMap[parentPage];
+                if (idx !== undefined) {
+                    fatherPageDisplay = ' <span style="color:#2e7d32; font-weight:700; cursor:pointer; text-decoration:underline;" onclick="showMemberDetails(\'' + parentPage + '\')">' + displayName(parentPage) + '</span> → <span style="color:#cc0000; font-weight:900; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">صفحہ ' + (idx + 1) + '</span>';
+                } else {
+                    fatherPageDisplay = displayName(parentPage);
+                }
+            }
+
+            let html = '';
+
+            html += `
+                <div class="page-header">
+                    <h1>🌳 خاندان رضوی کا شجرہ نسب</h1>
+                    <div class="ref" style="font-weight:700; font-size:14px;">
+                        جاری ہے: → ${fatherPageDisplay}
+                    </div>
+                    ${highlightName ? `<div class="search-result-info">🔍 دکھا رہا ہے: <b>${highlightName}</b></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="family-table-wrapper">
+                    <table class="family-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>نام</th>
+                                <th>شریک حیات</th>
+                                <th>نسل</th>
+                                <th>اگلی نسل</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            if (lines && lines.length > 0) {
+                lines.forEach((row, index) => {
+                    let personName = row.plainName || '';
+                    let person = globalPersonMap[personName];
+                    let isFemale = row.isFemale || false;
+
+                    let rowBg = '';
+                    if (isFemale) {
+                        rowBg = 'female-row';
+                    }
+
+                    let nameDisplay = row.name;
+                    if (row.isFather) {
+                        nameDisplay = `<span class="${row.fatherClass}">${row.name}</span>`;
+                    } else {
+                        nameDisplay = `<span class="${row.childClass}">${row.name}</span>`;
+                    }
+
+                    if (highlightName) {
+                        const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        nameDisplay = nameDisplay.replace(new RegExp(escaped, 'gi'), match => {
+                            return '<span class="highlight">' + match + '</span>';
+                        });
+                    }
+
+                    // Make name clickable
+                    let clickableName = nameDisplay;
+                    if (personName) {
+                        const genderClass = isFemale ? 'female' : 'male';
+                        const cleanNameText = displayName(personName);
+                        clickableName = nameDisplay.replace(cleanNameText, function(match) {
+                            return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
+                        });
+                        if (clickableName === nameDisplay) {
+                            clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + nameDisplay + '</span>';
+                        }
+                    }
+
+                    // Make spouse clickable
+                    let clickableSpouse = row.spouse || '—';
+                    let spouseName = row.plainSpouse || '';
+                    if (spouseName && row.spouse !== '—') {
+                        let spousePerson = globalPersonMap[spouseName];
+                        let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
+                        const genderClass = isSpouseFemale ? 'female' : 'male';
+                        clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName + '\')">' + displayName(spouseName) + '</span>';
+                    }
+
+                    // Check for details link in spouse
+                    if (row.spouse && row.spouse.includes('تفصیلات')) {
+                        const targetPerson = globalPersonMap[personName];
+                        if (targetPerson && targetPerson.spouse && targetPerson.spouse.includes('تفصیلات')) {
+                            clickableSpouse = '<span class="details-link" data-person="' + personName + '">تفصیلات ℹ️ میں دیکھیں</span>';
+                        }
+                    }
+
+                    // Page link
+                    let clickablePageHtml = row.page || '';
+                    if (row.page && row.page.includes('صفحہ')) {
+                        clickablePageHtml = row.page;
+                    } else if (row.page && row.page.trim() !== '') {
+                        const pagePerson = globalPersonMap[row.page];
+                        if (pagePerson) {
+                            const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
+                            const genderClassPage = isFemalePage ? 'female' : 'male';
+                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + row.page + '\')">' + displayName(row.page) + '</span>';
+                        }
+                    }
+
+                    let treeChar = row.tree || '';
+
+                    html += `<tr class="${rowBg}" style="border-bottom:1px solid #d0c8be;">`;
+                    html += `<td style="text-align:center; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; padding:6px 4px;">${treeChar}</td>`;
+                    html += `<td style="text-align:right; padding:6px 8px; font-weight:${row.isFather ? '700' : '400'}; color:${row.isFather ? '#cc0000' : '#1a3a5c'};">${clickableName}</td>`;
+                    html += `<td style="text-align:right; padding:6px 8px;">${clickableSpouse}</td>`;
+                    html += `<td style="text-align:center; padding:6px 8px;">${row.gen || ''}</td>`;
+                    html += `<td style="text-align:center; padding:6px 8px;">${clickablePageHtml}</td>`;
+                    html += `</tr>`;
+                });
+            }
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            html += `
+                <div class="page-footer">
+                    <div class="family-name">${displayName(root)} کا خاندان</div>
+                    <div class="developer">
+                        ڈویلپر: <strong>عمران حیدر</strong> ولد <strong>سید رسالت حسین رضوی</strong> | 6010-787-0332
+                    </div>
+                </div>
+            `;
+
+            return html;
+        }
+
+        // ============================================================
+        // DETAILS POPUP FUNCTIONS
+        // ============================================================
+        function openDetailsPopup(personName) {
+            if (!personName) return;
+            if (!pageLoaded) return;
+            if (document.readyState !== 'complete') return;
+
+            const person = globalPersonMap[personName];
+            if (!person) {
+                alert('فرد نہیں ملا: ' + personName);
+                return;
+            }
+
+            let detailsText = person.details || 'کوئی تفصیلات دستیاب نہیں';
+            detailsTargetPerson = personName;
+
+            document.getElementById('detailsModalTitle').textContent = '📝 تفصیلات — ' + displayName(personName);
+            document.getElementById('detailsModalContent').innerHTML = detailsText.replace(/\\n/g, '<br>');
+
+            document.getElementById('detailsModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            detailsTargetPerson = null;
+        }
+
+        // ============================================================
+        // SEARCH FUNCTIONS
+        // ============================================================
+        function findMemberPage(memberName) {
+            const searchLower = memberName.trim().toLowerCase();
+            if (!searchLower) return -1;
+
+            for (let i = 0; i < cachedPages.length; i++) {
+                const page = cachedPages[i];
+                if (page.root.toLowerCase() === searchLower) {
+                    return i;
+                }
+            }
+
+            for (let i = 0; i < cachedPages.length; i++) {
+                const page = cachedPages[i];
+                if (page.root.toLowerCase().includes(searchLower)) {
+                    return i;
+                }
+                const children = getChildren(page.root, globalMap);
+                for (let child of children) {
+                    if (child.toLowerCase().includes(searchLower)) {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        function searchMember() {
+            const input = document.getElementById('searchInput');
+            const query = input.value.trim();
+            if (!query) {
+                renderPage();
+                return;
+            }
+
+            const pageIndex = findMemberPage(query);
+            if (pageIndex === -1) {
+                document.getElementById('errorMsg').textContent = '⚠️ فرد نہیں ملا: "' + query + '"';
+                return;
+            }
+
+            document.getElementById('errorMsg').textContent = '';
+            renderPage(query);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('errorMsg').textContent = '';
+            document.getElementById('searchDropdown').style.display = 'none';
+            const container = document.getElementById('pageContainer');
+            container.innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">خاندان رضوی کا شجرہ نسب</div>
+                        <div class="welcome-text">براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>تا کہ ان کے خاندانی روابط اور رشتے دیکھ سکیں۔</div>
+                    </div>
+                </div>
+            `;
+            currentPageIndex = 0;
+        }
+
+        // ============================================================
+        // SEARCH DROPDOWN
+        // ============================================================
+        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+            const query = this.value;
+            const dropdown = document.getElementById('searchDropdown');
+            if (query.length < 2) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            const results = db.filter(m =>
+                m.name.toLowerCase().includes(query.toLowerCase())
+            ).slice(0, 8);
+
+            dropdown.innerHTML = '';
+            if (results.length === 0) {
+                dropdown.innerHTML = '<div class="no-result">کوئی نتیجہ نہیں ملا</div>';
+                dropdown.style.display = 'block';
+                return;
+            }
+
+            results.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+
+                let pageIdx = -1;
+                for (let i = 0; i < cachedPages.length; i++) {
+                    if (cachedPages[i].root === member.name) {
+                        pageIdx = i;
+                        break;
+                    }
+                    const children = getChildren(cachedPages[i].root, globalMap);
+                    if (children.includes(member.name)) {
+                        pageIdx = i;
+                        break;
+                    }
+                }
+
+                const pageDisplay = pageIdx >= 0 ? ` · صفحہ ${pageIdx + 1}` : '';
+
+                div.innerHTML = `
+                    <div>
+                        <span class="main-name">${displayName(member.name)}</span>
+                        <span class="gen">${member.gen || ''}</span>
+                        <span style="font-size:11px;color:#2e7d32;">${pageDisplay}</span>
+                        <div class="father-name">والد: ${displayName(member.father) || '—'}</div>
+                    </div>
+                `;
+                div.onclick = () => {
+                    let targetPage = -1;
+                    for (let i = 0; i < cachedPages.length; i++) {
+                        if (cachedPages[i].root === member.name) {
+                            targetPage = i;
+                            break;
+                        }
+                        const children = getChildren(cachedPages[i].root, globalMap);
+                        if (children.includes(member.name)) {
+                            targetPage = i;
+                            break;
+                        }
+                    }
+                    if (targetPage >= 0) {
+                        currentPageIndex = targetPage;
+                        renderPage(displayName(member.name));
+                        dropdown.style.display = 'none';
+                        this.value = displayName(member.name);
+                    }
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
+        });
+
+        // ============================================================
+        // CLICK OUTSIDE HANDLER
+        // ============================================================
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+            if (!e.target.closest('.menu-panel') && !e.target.closest('.menu-toggle-btn')) {
+                document.getElementById('menuPanel').classList.remove('show');
+            }
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+                document.getElementById('saveOptionsModal').style.display = 'none';
+                document.getElementById('saveModalOverlay').style.display = 'none';
+            }
+            if (e.target === document.getElementById('tipsOverlay')) {
+                document.getElementById('tipsOverlay').style.display = 'none';
+            }
+        });
+
+        // ============================================================
+        // RENDER FUNCTIONS
+        // ============================================================
+        function renderAllPages() {
+            const container = document.getElementById('pageContainer');
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (typeof FAMILY_DATA_URDU === 'undefined') {
+                container.innerHTML =
+                    `<div class="no-data">⚠️ ڈیٹا لوڈ نہیں ہوا!<div class="error">یقینی بنائیں کہ <strong>33-family-data-urdu.js</strong> اسی فولڈر میں موجود ہے۔</div></div>`;
+                errorMsg.textContent = '⚠️ ڈیٹا لوڈ نہیں ہوا!';
+                return;
+            }
+
+            document.addEventListener('click', function(e) {
+                const el = e.target.closest('.details-link');
+                if (el) {
+                    const name = el.getAttribute('data-person');
+                    if (name) openDetailsPopup(name);
+                }
+            });
+
+            familyData = FAMILY_DATA_URDU;
+            buildFamilyMap(familyData);
+
+            try {
+                cachedPages = generatePages(familyData);
+
+                document.getElementById('stats').textContent =
+                    `کل: ${familyData.length} اراکین · ${cachedPages.length} صفحات`;
+
+                if (cachedPages.length === 0) {
+                    container.innerHTML = `
+                        <div class="welcome-container">
+                            <div class="welcome-box">
+                                <div class="welcome-icon">🌿</div>
+                                <div class="welcome-title">خاندان رضوی کا شجرہ نسب</div>
+                                <div class="welcome-text">براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>تا کہ ان کے خاندانی روابط اور رشتے دیکھ سکیں۔</div>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                errorMsg.textContent = '';
+                currentPageIndex = 0;
+                renderPage();
+            } catch (e) {
+                container.innerHTML = `<div class="no-data">⚠️ خرابی: ${e.message}</div>`;
+                errorMsg.textContent = '⚠️ خرابی: ' + e.message;
+                console.error(e);
+            }
+        }
+
+        function renderPage(highlightName = null) {
+            const container = document.getElementById('pageContainer');
+
+            if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) {
+                container.innerHTML = `<div class="no-data">کوئی صفحہ منتخب نہیں۔</div>`;
+                return;
+            }
+
+            try {
+                const html = renderPageHTML(cachedPages[currentPageIndex], currentPageIndex, cachedPages.length, highlightName);
+                container.innerHTML = html;
+            } catch (e) {
+                container.innerHTML = `<div class="no-data">⚠️ صفحہ لوڈ کرنے میں خرابی: ${e.message}</div>`;
+                console.error(e);
+            }
+        }
+
+        // ============================================================
+        // MEMBER DETAIL MODAL
+        // ============================================================
+        function showMemberDetails(name) {
+            if (!name) return;
+
+            const person = globalPersonMap[name];
+            if (!person) {
+                alert('فرد نہیں ملا: ' + name);
+                return;
+            }
+
+            const modal = document.getElementById('memberModal');
+            const content = document.getElementById('memberDetailsContent');
+
+            let html = `
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <h2>${displayName(person.name)}</h2>
+                        <span class="detail-gender ${person.gender ? person.gender.toLowerCase() : ''}">${person.gender || 'نامعلوم'}</span>
+                    </div>
+                    <div class="detail-body">
+            `;
+
+            if (person.father && person.father.trim() !== '') {
+                const fatherClean = displayName(person.father);
+                html += `
+                    <div class="detail-row">
+                        <strong>والد:</strong>
+                        <span class="detail-value">${fatherClean}</span>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="detail-row">
+                        <strong>والد:</strong>
+                        <span class="detail-value">—</span>
+                    </div>
+                `;
+            }
+
+            if (person.mother && person.mother.trim() !== '') {
+                const motherClean = displayName(person.mother);
+                html += `
+                    <div class="detail-row">
+                        <strong>والدہ:</strong>
+                        <span class="detail-value">${motherClean}</span>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="detail-row">
+                        <strong>والدہ:</strong>
+                        <span class="detail-value">—</span>
+                    </div>
+                `;
+            }
+
+            if (person.spouse && person.spouse.trim() !== '') {
+                const spouseClean = displayName(person.spouse);
+                html += `
+                    <div class="detail-row">
+                        <strong>شریک حیات:</strong>
+                        <span class="detail-value">${spouseClean}</span>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="detail-row">
+                        <strong>شریک حیات:</strong>
+                        <span class="detail-value">—</span>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="detail-row">
+                    <strong>نسل:</strong>
+                    <span class="detail-value">${person.gen || '—'}</span>
+                </div>
+            `;
+
+            if (person.details && person.details.trim() !== '') {
+                const detailsHtml = person.details.replace(/\\n/g, '<br>');
+                html += `
+                    <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                        <strong style="margin-bottom:6px;">📝 تفصیلات</strong>
+                        <div class="detail-notes">${detailsHtml}</div>
+                    </div>
+                `;
+            }
+
+            const children = getChildren(person.name, globalMap);
+            if (children && children.length > 0) {
+                html += `
+                    <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                        <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 اولاد (${children.length})</strong>
+                        <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-right:4px; padding-left:0;">
+                `;
+                children.forEach(child => {
+                    const childClean = displayName(child);
+                    html += `<span style="font-size:14px; color:#1a3a5c; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">${childClean}</span>`;
+                });
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            let pageIdx = -1;
+            for (let i = 0; i < cachedPages.length; i++) {
+                if (cachedPages[i].root === person.name) {
+                    pageIdx = i;
+                    break;
+                }
+            }
+
+            html += `
+                <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
+                    <button onclick="closeMemberModal()" 
+                            style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
+                                   border:none; border-radius:8px; font-size:14px; font-weight:700; 
+                                   cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;
+                                   transition:all 0.2s;">
+                         بند کریں
+                    </button>
+            `;
+
+            if (pageIdx >= 0) {
+                html += `
+                    <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
+                            style="padding:10px 24px; background:var(--green); color:white; 
+                                   border:none; border-radius:8px; font-size:14px; font-weight:700; 
+                                   cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;
+                                   transition:all 0.2s;">
+                        📄 مکمل صفحہ دیکھیں
+                    </button>
+                `;
+            }
+
+            html += `</div>`;
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            content.innerHTML = html;
+            modal.style.display = 'block';
+            document.getElementById('memberModalOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMemberModal() {
+            document.getElementById('memberModal').style.display = 'none';
+            document.getElementById('memberModalOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ============================================================
+        // ESCAPE KEY HANDLER
+        // ============================================================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMemberModal();
+                closeDetailsModal();
+                closeTips();
+            }
+        });
+
+        // ============================================================
+        // TIPS FUNCTIONS
+        // ============================================================
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
+
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+
+        document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
+            if (e.target === this) closeTips();
+        });
+
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
+        window.onload = function() {
+            pageLoaded = true;
+            if (typeof FAMILY_DATA_URDU !== 'undefined') {
+                renderAllPages();
+            } else {
+                const checkData = setInterval(function() {
+                    if (typeof FAMILY_DATA_URDU !== 'undefined') {
+                        clearInterval(checkData);
+                        renderAllPages();
+                    }
+                }, 100);
+
+                setTimeout(function() {
+                    clearInterval(checkData);
+                    if (typeof FAMILY_DATA_URDU === 'undefined') {
+                        document.getElementById('pageContainer').innerHTML = `
+                            <div class="no-data">⏳ ڈیٹا لوڈ ہو رہا ہے...<div class="error">یقینی بنائیں کہ <strong>33-family-data-urdu.js</strong> اسی فولڈر میں موجود ہے۔</div></div>
+                        `;
+                    }
+                }, 5000);
+            }
+        };
+
+        // Expose functions globally
+        window.zoomIn = zoomIn;
+        window.zoomOut = zoomOut;
+        window.resetZoom = resetZoom;
+        window.applyZoom = applyZoom;
+        window.toggleZoomControls = toggleZoomControls;
+    </script>
+
+</body>
+</html>

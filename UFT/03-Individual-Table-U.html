@@ -1,942 +1,902 @@
-<!-- ===================================== -->
-<!-- FILE NAME: 28-individual-table-mobile.html -->
-<!-- Urdu Version - Rizvi Family Table View    -->
-<!-- Mobile Optimized - Individual Table View  -->
-<!-- WITH PRINT-TO-PDF (Most Reliable)        -->
-<!-- ===================================== -->
+<!-- ================================================ -->
+<!-- FILE NAME: 03-Individual-Table-U.html            -->
+<!-- VERSION: Master Specification v1.0               -->
+<!-- CREATED: 2026-07-22                              -->
+<!-- LAST UPDATED: 2026-07-22 16:45                  -->
+<!--                                                   -->
+<!-- BASED ON: 02-Individual-Tree-U.html (Master)     -->
+<!--                                                   -->
+<!-- CHANGES FROM MASTER:                             -->
+<!-- 1. Content: Tree boxes → Table rows              -->
+<!-- 2. CSS Classes: tree-* → table-*                 -->
+<!-- 3. Zoom method: style.zoom → transform: scale()  -->
+<!-- 4. Navigation: showTableView() → switchToTreeView() -->
+<!--                                                   -->
+<!-- EVERYTHING ELSE IS IDENTICAL TO MASTER           -->
+<!-- ================================================ -->
 
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
-    <title>رضوی خاندان ــ ٹیبل</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <meta name="google" content="notranslate">
+    <title>رضوی خاندان · ٹیبل</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
-
-/* ===== PRINT STYLES ===== */
-@media print {
-    body * {
-        visibility: hidden;
-    }
-    #printArea, #printArea * {
-        visibility: visible;
-    }
-    #printArea {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 20px;
-        background: white;
-        direction: rtl;
-        font-family: 'Noto Nastaliq Urdu', 'Inter', 'Arial', sans-serif;
-        transform: none !important;
-        transform-origin: top left !important;
-    }
-.family-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 20px;
-    border: 2px solid var(--gold);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.family-table th,
-.family-table td {
-    border-right: 1px solid #666;
-    border-bottom: 1px solid #666;
-    padding: 10px 8px;
-}
-
-.family-table tr th:last-child,
-.family-table tr td:last-child {
-    border-left: none;
-}
-
-.family-table tbody tr:last-child td {
-    border-bottom: none;
-}
-    .section-heading {
-        font-size: 16px;
-        font-weight: 700;
-        color: #5a0000;
-        margin: 15px 0 10px 0;
-        border-bottom: 2px solid #000;
-        padding-bottom: 5px;
-        font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
-    }
-    .selected-row {
-        background: #e8f5e9 !important;
-    }
-    .female-row {
-        background: #fff0f0 !important;
-    }
-    .no-print, .no-print * {
-        display: none !important;
-    }
-    .toggle-icon {
-        display: none !important;
-    }
-    .detail-modal-close-btn {
-        display: none !important;
-    }
-    table { 
-        width: 100% !important; 
-        table-layout: fixed !important; 
-    }
-}
-
-
-/* ===== ZOOM CONTROLS  ===== */
-.zoom-controls {
-    position: fixed;
-    bottom: 15px;
-    right: 60px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 2px solid var(--gold);
-    border-radius: 10px;
-    padding: 6px;
-    display: none;
-    flex-direction: row;
-    gap: 4px;
-    z-index: 2000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    align-items: center;
-    cursor: grab;
-    user-select: none;
-    touch-action: none;
-    transform: scale(0.75);
-    transform-origin: bottom right;
-}
-
-.zoom-controls.dragging {
-    cursor: grabbing;
-    opacity: 0.85;
-}
-
-.zoom-controls.visible {
-    display: flex;
-}
-
-.zoom-btn {
-    width: 36px;
-    height: 36px;
-    border: 2px solid var(--gold);
-    background: white;
-    color: var(--dark-blue);
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
-}
-
-.zoom-btn:hover {
-    background: var(--gold);
-    color: white;
-}
-
-.zoom-level {
-    text-align: center;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 0 6px;
-    min-width: 38px;
-    font-family: 'Inter', sans-serif;
-    color: var(--dark-blue);
-    pointer-events: none;
-}
-
-/* ===== TIPS BUTTON & MODAL ===== */
-.tips-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-    color: #3d2b1a;
-    white-space: nowrap;
-    animation: tipsBlink 1.5s ease-in-out infinite;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.tips-btn:hover {
-    background: #faebcd;
-    animation: none;
-}
-
-@keyframes tipsBlink {
-    0% { color: #3d2b1a; }
-    50% { color: #d4af37; }
-    100% { color: #3d2b1a; }
-}
-
-.tips-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.tips-modal {
-    background: white;
-    border-radius: 16px;
-    padding: 24px 28px;
-    max-width: 480px;
-    width: 92%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    max-height: 85vh;
-    overflow-y: auto;
-}
-
-.tips-modal h3 {
-    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
-    color: #0f172a;
-    font-size: 20px;
-    margin-bottom: 14px;
-    border-bottom: 2px solid #d4af37;
-    padding-bottom: 10px;
-    text-align: center;
-}
-
-.tips-close-btn {
-    background: #d4af37;
-    border: none;
-    padding: 10px 28px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    color: #0f172a;
-    transition: background 0.2s;
-    display: block;
-    margin: 0 auto;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.tips-close-btn:hover {
-    background: #f1d279;
-}
-
-.tips-grid {
-    display: grid;
-    grid-template-columns: auto auto 1fr;
-    gap: 6px 12px;
-    text-align: right;
-    direction: rtl;
-    align-items: baseline;
-    margin-bottom: 20px;
-}
-
-.tips-grid .title {
-    font-weight: 700;
-    color: #5a0000;
-    font-size: 14px;
-    white-space: nowrap;
-    text-align: right;
-}
-
-.tips-grid .colon {
-    color: #5a0000;
-    font-weight: 700;
-    font-size: 14px;
-    text-align: right;
-}
-
-.tips-grid .desc {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #1a1a1a;
-    text-align: right;
-}
-
-/* Fix modal font */
-.save-options-modal,
-.save-options-modal *,
-.save-options-modal label,
-.save-options-modal button,
-.save-options-modal h3,
-.save-options-modal div,
-.save-options-modal span {
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
-    direction: rtl;
-    text-align: right;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --maroon: #5a0000;
-    --dark-blue: #0f172a;
-    --gold: #d4af37;
-    --light-gold: #f1d279;
-    --green: #2e7d32;
-    --dark-green: #1b5e20;
-    --light-pink: #ffe4e9;
-    --table-header-bg: #fdf6e3;
-    --table-border: #e2d5b3;
-    --selected-row-bg: #e8f5e9;
-}
-
-body {
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    background: #1a1a1a;
-    height: 100vh;
-    overflow: hidden;
-    margin: 0;
-    padding: 10px;
-    position: relative;
-    direction: rtl;
-}
-
-.app-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    background: white;
-    height: calc(100vh - 20px);
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    border: 2px solid var(--gold);
-    overflow: hidden;
-    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
-}
-
-.app-header {
-    background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-    color: var(--gold);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid var(--gold);
-    position: relative;
-}
-
-.header-title {
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-}
-
-.header-icon {
-    background: var(--gold);
-    color: var(--dark-blue);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-}
-
-.header-actions {
-    display: flex;
-    gap: 10px;
-    margin-right: auto;
-    margin-left: 0;
-}
-
-.left-toggle-btn {
-    background: var(--gold);
-    color: var(--dark-blue);
-    padding: 8px 16px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 2px solid white;
-    z-index: 2000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s;
-}
-
-.left-toggle-btn:hover {
-    background: var(--light-gold);
-    transform: scale(1.1);
-}
-
-.toggle-menu-panel {
-    position: absolute;
-    right: 10px;
-    left: auto;
-    top: 60px;
-    background: white;
-    border: 3px solid var(--gold);
-    border-radius: 12px;
-    padding: 15px;
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1999;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    min-width: 220px;
-}
-
-.toggle-menu-panel.show {
-    display: flex;
-}
-
-.toggle-menu-item {
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    border: 2px solid var(--gold);
-    background: white;
-    color: var(--dark-blue);
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.2s;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.toggle-menu-item:hover {
-    background: #faebcd;
-    transform: translateX(-5px);
-}
-
-.toggle-menu-item.active {
-    background: #d4edda !important;
-    border-color: var(--dark-green) !important;
-    color: var(--dark-blue);
-}
-
-.main-content {
-    flex: 1;
-    display: flex;
-    overflow: hidden;
-    background: #fffcf8;
-}
-
-.center-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-}
-
-.search-section {
-    padding: 15px;
-    background: #fffcf8;
-    border-bottom: 2px solid var(--gold);
-    width: 85%;
-    margin: 0 auto;
-}
-
-.search-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.search-label {
-    font-weight: 700;
-    color: var(--maroon);
-    font-size: 13px;
-    white-space: nowrap;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.search-wrapper {
-    position: relative;
-    flex: 1;
-}
-
-.search-input {
-    width: 100%;
-    padding: 10px 15px;
-    border: 2px solid #cbd5e1;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
-    text-align: right;
-}
-
-.search-input:focus {
-    border-color: var(--gold);
-}
-
-.search-input::placeholder {
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.search-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 2px solid var(--gold);
-    border-radius: 0 0 4px 4px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: none;
-    z-index: 1000;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.result-item {
-    padding: 12px 15px;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-    transition: background 0.2s;
-    text-align: right;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.result-item:hover {
-    background: #faebcd;
-}
-
-.result-item .main-name {
-    font-weight: 700;
-    color: var(--dark-blue);
-    font-size: 14px;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.result-item .gen {
-    color: var(--maroon);
-    font-size: 12px;
-    margin-right: 8px;
-    font-family: 'Inter', sans-serif;
-}
-
-.result-item .father-name {
-    font-size: 11px;
-    color: #666;
-    margin-top: 2px;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.table-container {
-    flex: 1;
-    overflow: auto;
-    padding: 20px;
-    position: relative;
-}
-
-.table-container::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
-
-.table-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 6px;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-    background: var(--gold);
-    border-radius: 6px;
-}
-
-.table-container::-webkit-scrollbar-thumb:hover {
-    background: var(--dark-blue);
-}
-
-.table-root-layout {
-    transform-origin: top right;
-    transition: transform 0.1s;
-    min-width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.welcome-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    min-height: 500px;
-}
-
-.welcome-box {
-    text-align: center;
-    max-width: 500px;
-    padding: 40px;
-    background: white;
-    border: 3px solid var(--gold);
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-}
-
-.welcome-icon {
-    font-size: 72px;
-    margin-bottom: 20px;
-    color: var(--gold);
-    font-family: 'Inter', sans-serif;
-}
-
-.welcome-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--dark-blue);
-    margin-bottom: 15px;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.welcome-text {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 25px;
-    line-height: 1.6;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--maroon);
-    margin: 20px 0 25px 0;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--gold);
-    cursor: pointer;
-    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
-}
-
-.toggle-icon {
-    font-size: 22px;
-    font-weight: bold;
-    background: var(--gold);
-    color: var(--dark-blue);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: all 0.2s;
-    flex-shrink: 0;
-    position: static;
-}
-
-.toggle-icon:hover {
-    transform: scale(1.1);
-    background: var(--light-gold);
-}
-
-.family-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 2px solid var(--gold);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.family-table th {
-    background: var(--table-header-bg);
-    color: var(--dark-blue);
-    font-weight: 700;
-    font-size: 13px;
-    padding: 12px 8px;
-    text-align: right;
-    border: 1px solid #666; /* Replace old border lines with this */
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-
-.family-table td {
-    padding: 10px 8px;
-    font-size: 12px;
-    border: 1px solid #666; /* Replace old border lines with this */
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-
-.family-table tbody tr.female-row {
-    background-color: var(--light-pink);
-}
-
-.family-table tbody tr:hover {
-    background: #faebcd !important;
-    cursor: pointer;
-}
-
-.family-table tbody tr.selected-row {
-    background: var(--selected-row-bg) !important;
-    border-right: none;
-    border-left: none;
-}
-
-.app-footer {
-    background: var(--dark-blue);
-    color: var(--gold);
-    text-align: center;
-    padding: 8px;
-    font-size: 11px;
-    border-top: 2px solid var(--gold);
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.save-options-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 3px solid var(--gold);
-    border-radius: 12px;
-    padding: 25px;
-    z-index: 4000;
-    min-width: 350px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-
-.save-options-modal h3 {
-    color: var(--maroon);
-    margin-bottom: 20px;
-    text-align: center;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.save-options-modal label {
-    display: block;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.save-options-modal input[type="radio"] {
-    margin-left: 10px;
-    margin-right: 0;
-}
-
-.save-options-modal button {
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 3999;
-    display: none;
-}
-
-.reset-btn {
-    font-size: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-/* ===== DETAIL MODAL ===== */
-.detail-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 99999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-.detail-overlay.show { display: flex; }
-
-.detail-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fffcf8;
-    border-radius: 16px;
-    padding: 30px;
-    z-index: 6001;
-    max-width: 600px;
-    width: 92%;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    border: 3px solid var(--gold);
-    direction: rtl;
-    text-align: right;
-    animation: detailSlideUp 0.3s ease;
-}
-
-@keyframes detailSlideUp {
-    from { transform: translate(-50%, -50%) scale(0.95); opacity: 0; }
-    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-}
-
-.detail-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid var(--gold);
-    padding-bottom: 14px;
-    margin-bottom: 18px;
-}
-
-.detail-modal-title {
-    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
-    color: var(--dark-blue);
-    font-size: 20px;
-    margin: 0;
-    line-height: 1.3;
-    font-weight: 900;
-}
-
-.detail-modal-body {
-    padding: 4px 0;
-}
-
-.detail-content-box {
-    background: #faf6f0;
-    padding: 18px;
-    border-radius: 8px;
-    border-right: 4px solid var(--gold);
-    border-left: none;
-    white-space: pre-wrap;
-    font-size: 15px;
-    line-height: 1.8;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    color: #1a1a1a;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.detail-modal-footer {
-    margin-top: 18px;
-    padding-top: 14px;
-    border-top: 2px solid var(--gold);
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.detail-modal-close-btn {
-    padding: 10px 24px;
-    background: var(--gold);
-    color: var(--dark-blue);
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
-    transition: all 0.2s;
-}
-.detail-modal-close-btn:hover {
-    background: var(--light-gold);
-}
-
-@media (max-width: 480px) {
-    .detail-modal {
-        max-width: 100%;
-        margin: 10px;
-        padding: 20px;
-    }
-    .detail-modal-title { font-size: 16px; }
-    .detail-content-box { font-size: 13px; padding: 14px; max-height: 40vh; }
-}
-
-</style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --maroon: #5a0000;
+            --dark-blue: #0f172a;
+            --gold: #d4af37;
+            --light-gold: #f1d279;
+            --green: #2e7d32;
+            --dark-green: #1b5e20;
+            --light-pink: #ffe4e9;
+            --bronze: #bc8c4f;
+        }
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            background: #1a1a1a;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 10px;
+            position: relative;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            height: calc(100dvh - 10px);
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: visible;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+        }
+
+        .zoom-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            transform-origin: top left;
+            overflow: visible;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+            flex-shrink: 0;
+            min-height: 60px;
+        }
+
+        .header-title {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .left-toggle-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .left-toggle-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
+
+        .header-stats {
+            margin-right: auto;
+            margin-left: 0;
+            font-size: 12px;
+            color: var(--gold);
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+
+        .search-section {
+            padding: 15px;
+            background: #fffcf8;
+            width: 85%;
+            margin: 0 auto;
+            flex-shrink: 0;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: nowrap;
+        }
+
+        .search-label {
+            font-weight: 700;
+            color: var(--maroon);
+            font-size: 13px;
+            white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+            text-align: right;
+        }
+
+        .search-input:focus {
+            border-color: var(--gold);
+        }
+
+        .search-input::placeholder {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 0 0 4px 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .result-item:hover {
+            background: #faebcd;
+        }
+
+        .result-item .main-name {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: 14px;
+        }
+
+        .result-item .gen {
+            color: var(--maroon);
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .result-item .father-name {
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .tips-btn:hover {
+            background: #faebcd;
+            animation: none;
+        }
+
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
+        }
+
+        .table-wrapper {
+            min-height: 0;
+            flex: 1;
+            overflow: auto !important;
+            background: #fffcf8;
+            position: relative;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 6px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-blue);
+        }
+
+        .table-container {
+            padding: 30px;
+            min-width: max-content;
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .table-root-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            transform-origin: top center;
+        }
+
+        .family-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .welcome-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 400px;
+            width: 100%;
+        }
+
+        .welcome-box {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .welcome-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .welcome-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--maroon);
+            margin: 20px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--gold);
+            cursor: pointer;
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            gap: 12px;
+        }
+
+        .toggle-icon {
+            font-size: 22px;
+            font-weight: bold;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .toggle-icon:hover {
+            transform: scale(1.1);
+            background: var(--light-gold);
+        }
+
+        .family-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .family-table th {
+            background: #fdf6e3;
+            color: var(--dark-blue);
+            font-weight: 700;
+            font-size: 13px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #666;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .family-table td {
+            padding: 10px 8px;
+            font-size: 12px;
+            border: 1px solid #666;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .family-table tbody tr.female-row {
+            background-color: var(--light-pink);
+        }
+
+        .family-table tbody tr:hover {
+            background: #faebcd !important;
+            cursor: pointer;
+        }
+
+        .family-table tbody tr.selected-row {
+            background: #e8f5e9 !important;
+        }
+
+        .v-line {
+            width: 3px;
+            height: 25px;
+            background: var(--gold);
+            margin: 8px auto;
+        }
+
+        .app-footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .toggle-menu-panel {
+            position: absolute;
+            right: 10px;
+            left: auto;
+            top: 60px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 220px;
+        }
+
+        .toggle-menu-panel.show {
+            display: flex;
+        }
+
+        .toggle-menu-item {
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .toggle-menu-item:hover {
+            background: #faebcd;
+            transform: translateX(-5px);
+        }
+
+        .toggle-menu-item.active {
+            background: #d4edda !important;
+            border-color: var(--dark-green) !important;
+            color: var(--dark-blue);
+        }
+
+        .zoom-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 6px;
+            display: none;
+            flex-direction: row;
+            gap: 4px;
+            z-index: 2000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+
+        .zoom-controls.dragging {
+            cursor: grabbing;
+            opacity: 0.85;
+        }
+
+        .zoom-controls.visible {
+            display: flex;
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: var(--gold);
+            color: white;
+        }
+
+        .zoom-level {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
+        }
+
+        .save-options-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            z-index: 4000;
+            min-width: 350px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: none;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .save-options-modal h3 {
+            color: var(--maroon);
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .save-options-modal label {
+            display: block;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .save-options-modal input[type="radio"] {
+            margin-left: 10px;
+            margin-right: 0;
+        }
+
+        .save-options-modal button {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 3999;
+            display: none;
+        }
+
+        .info-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        .info-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 260px;
+            max-width: 340px;
+            width: 85%;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            text-align: right;
+        }
+
+        .info-modal h3 {
+            color: var(--maroon);
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 3px 0;
+            padding: 0 0 6px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .info-modal p {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 8px 0 2px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #2d2d2d;
+            max-height: 220px;
+            overflow-y: auto;
+            background: #fef9e6;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-right: 3px solid var(--gold);
+        }
+
+        .info-modal button {
+            margin-top: 10px;
+            padding: 6px 15px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            font-size: 11px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .info-modal button:hover {
+            background: var(--light-gold);
+        }
+
+        .details-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .details-icon:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
+
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 480px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .tips-modal h3 {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            color: #0f172a;
+            font-size: 20px;
+            margin-bottom: 14px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tips-close-btn:hover {
+            background: #f1d279;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 6px 12px;
+            text-align: right;
+            direction: rtl;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .tips-grid .title {
+            font-weight: 700;
+            color: #5a0000;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .tips-grid .colon {
+            color: #5a0000;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .tips-grid .desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            text-align: right;
+        }
+
+        @media screen and (max-width: 480px) {
+            .left-toggle-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            .header-title {
+                font-size: 14px;
+            }
+            .header-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            .search-section {
+                width: 95%;
+                padding: 10px;
+            }
+            .search-label {
+                font-size: 11px;
+            }
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            .table-container {
+                padding: 15px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .zoom-wrapper {
+                zoom: 0.50;
+            }
+        }
+
+    </style>
 </head>
 <body>
 
-<!-- ===== ZOOM CONTROLS ===== -->
-<div class="zoom-controls" id="zoomControls">
-    <div class="zoom-btn" onclick="zoomIn()">+</div>
-    <div class="zoom-level" id="zoomLevel">100%</div>
-    <div class="zoom-btn" onclick="zoomOut()">-</div>
-    <div class="zoom-btn" onclick="resetZoom()">↺</div>
-</div>
+    <div class="app-container">
 
-<div class="app-container">
-    <div class="app-header">
-        <div class="left-toggle-btn" onclick="toggleLeftMenu()">فہرست</div>
-        <div class="header-title">
-            <span class="header-icon">🌿</span>
-            <span>رضوی خاندان ــ ٹیبل</span>
-        </div>
-        <div class="header-actions">
-            <button class="tips-btn" onclick="openTips()" style="background:transparent; border:2px solid var(--gold); color:var(--gold); padding:6px 14px; border-radius:4px; cursor:pointer; font-size:16px; animation: tipsBlink 1.5s ease-in-out infinite; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">💡</button>
-        </div>
-    </div>
-        
-    <div class="toggle-menu-panel" id="toggleMenuPanel">
-        <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 بہن بھائی</div>
-        <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
-        <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
-        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-        <div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #2e7d32; color: white;">🔍 زوم کنٹرولز</div>
-        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-        <div class="toggle-menu-item" onclick="switchToTreeView()">📋 شجر میں دیکھیں</div>
-        <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 مرکزی صفحہ</div>
-        <div class="toggle-menu-item" onclick="showPrintOptions()" style="background: #d4af37; color: black;">🖨️ PDF پرنٹ کریں</div>
-    </div>
+        <div class="zoom-wrapper" id="zoomWrapper">
 
-    <div class="main-content">
-        <div class="center-content">
+            <div class="app-header">
+                <div class="left-toggle-btn" onclick="toggleLeftMenu()">فہرست</div>
+                <div class="header-title">
+                    <span class="header-icon">🌿</span>
+                    <span>رضوی خاندان · ٹیبل</span>
+                </div>
+                <div class="header-stats">
+                    <span id="statsHeader"></span>
+                </div>
+            </div>
+
+            <div class="toggle-menu-panel" id="toggleMenuPanel">
+                <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 بہن بھائی</div>
+                <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 اولاد</div>
+                <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 آباؤ اجداد</div>
+                <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+                <div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #2e7d32; color: white;">🔍 زوم کنٹرولز</div>
+                <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+                <div class="toggle-menu-item" onclick="switchToTreeView()">🌳 شجرہ ویو</div>
+                <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 مرکزی صفحہ</div>
+                <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 محفوظ کریں</div>
+            </div>
+
             <div class="search-section">
                 <div class="search-row">
                     <span class="search-label">نام تلاش کریں</span>
@@ -944,747 +904,871 @@ body {
                         <input type="text" id="searchInput" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
                         <div id="searchDropdown" class="search-dropdown"></div>
                     </div>
-                    <div class="reset-btn" onclick="resetIndividual()">
-                        <span>🔄</span>
-                    </div>
+                    <div class="reset-btn" onclick="resetIndividual()">🔄 دوبارہ ترتیب</div>
+                    <button class="tips-btn" onclick="openTips()">💡 رہنمائی</button>
                 </div>
             </div>
 
-            <div class="table-container" id="tableContainer">
-                <div class="table-root-layout" id="tableRoot"></div>
+            <div class="table-wrapper" id="tableWrapper">
+                <div class="table-container" id="tableContainer">
+                    <div class="table-root-layout" id="tableRoot"></div>
+                </div>
             </div>
+
+            <div class="app-footer">
+                ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="save-options-modal" id="saveOptionsModal" dir="rtl">
+        <h3>💾 شجرہ محفوظ کریں</h3>
+        <div style="margin-bottom:20px;">
+            <div style="font-weight:600; margin-bottom:10px; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">فارمیٹ منتخب کریں:</div>
+            <label>
+                <input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - ہائی ریزولوشن
+            </label>
+            <label>
+                <input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - لو ریزولوشن
+            </label>
+            <label>
+                <input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG تصویر
+            </label>
+        </div>
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">محفوظ کریں</button>
+            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">منسوخ</button>
+        </div>
+    </div>
+    <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
+
+    <div class="zoom-controls" id="zoomControls">
+        <div class="zoom-btn" onclick="zoomIn()">+</div>
+        <div class="zoom-level" id="zoomLevel">50%</div>
+        <div class="zoom-btn" onclick="zoomOut()">-</div>
+        <div class="zoom-btn" onclick="resetZoom()">↺</div>
+    </div>
+
+    <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+    <div class="info-modal" id="infoModal" style="display:none;">
+        <h3>ℹ️ اضافی معلومات</h3>
+        <p id="infoModalText"></p>
+        <button onclick="closeInfoModal()">بند کریں</button>
+    </div>
+
+    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="tips-modal">
+            <h3>💡 رہنما اصول برائے استعمال</h3>
+            <div class="tips-grid">
+                <div class="title">تلاش</div>
+                <div class="colon">:</div>
+                <div class="desc">نام لکھیں، صفحہ دیکھیں</div>
+                <div class="title">تفصیلات</div>
+                <div class="colon">:</div>
+                <div class="desc">ℹ️ آئیکن پر کلک کریں</div>
+                <div class="title">پھیلائیں / سکیڑیں</div>
+                <div class="colon">:</div>
+                <div class="desc">سیکشن ہیڈنگ پر ➕/➖ پر کلک کریں</div>
+                <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">مینو آپشنز</div>
+                <div class="colon" style="margin-top:8px;"></div>
+                <div class="desc" style="margin-top:8px;"></div>
+                <div class="title">بہن بھائی</div>
+                <div class="colon">:</div>
+                <div class="desc">منتخب فرد کے بہن بھائی دکھائیں/چھپائیں</div>
+                <div class="title">اولاد</div>
+                <div class="colon">:</div>
+                <div class="desc">منتخب فرد کی اولاد دکھائیں/چھپائیں</div>
+                <div class="title">آباؤ اجداد</div>
+                <div class="colon">:</div>
+                <div class="desc">منتخب فرد کے آباؤ اجداد دکھائیں/چھپائیں</div>
+                <div class="title">زوم کنٹرولز</div>
+                <div class="colon">:</div>
+                <div class="desc">زوم ان/آؤٹ کریں اور کنٹرولز کو گھسیٹیں</div>
+                <div class="title">شجرہ ویو</div>
+                <div class="colon">:</div>
+                <div class="desc">شجرہ ویو میں تبدیل کریں</div>
+                <div class="title">مرکزی صفحہ</div>
+                <div class="colon">:</div>
+                <div class="desc">مرکزی صفحہ پر جائیں</div>
+                <div class="title">محفوظ کریں</div>
+                <div class="colon">:</div>
+                <div class="desc">فائل کو PDF یا JPEG کے طور پر محفوظ کریں</div>
+            </div>
+            <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">بند کریں</button>
         </div>
     </div>
 
-    <div class="app-footer">
-        ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332
-    </div>
-</div>
+    <script src="33-family-data-urdu.js"></script>
+    <script>
 
-<!-- ===== PRINT AREA ===== -->
-<div id="printArea" style="display:none;">
-    <div id="printContent"></div>
-</div>
+        // ================================================================
+        // DATA
+        // ================================================================
+        let db = [], fileInfo = null, currentIndividual = null;
+        let showSiblings = true, showDescendants = true, showAncestors = true;
+        let siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
+        let zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 1.0;
+        let zoomVisible = false;
 
-<input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
-
-<div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
-
-<script>
-    let db = [];
-    let fileInfo = null;
-    let currentIndividual = null;
-    let showSiblings = true;
-    let showDescendants = true;
-    let showAncestors = true;
-    let zoomLevel = 0.7;
-    let siblingsCollapsed = true;
-    let childrenCollapsed = true;
-    let ancestorsCollapsed = true;
-    let zoomVisible = false;
-
-    // ========== ZOOM FUNCTIONS ==========
-    function zoomIn() { 
-        zoomLevel = Math.min(zoomLevel + 0.1, 2); 
-        applyZoom(); 
-    }
-
-
-// ========== PRINT ZOOM CONTROL ==========
-window.addEventListener('beforeprint', function() {
-    // Save current zoom level
-    window._savedZoom = zoomLevel;
-    // Set zoom to 100% for printing
-    zoomLevel = 1;
-    applyZoom();
-});
-
-window.addEventListener('afterprint', function() {
-    // Restore saved zoom level (70%)
-    if (window._savedZoom !== undefined) {
-        zoomLevel = window._savedZoom;
-    } else {
-        zoomLevel = 0.7;
-    }
-    applyZoom();
-});
-
-
-    function zoomOut() { 
-        zoomLevel = Math.max(zoomLevel - 0.1, 0.5); 
-        applyZoom(); 
-    }
-
-    function resetZoom() { 
-        zoomLevel = 1; 
-        applyZoom(); 
-    }
-
-    function applyZoom() {
-        const container = document.querySelector('.table-container');
-        const content = document.getElementById('tableRoot');
-        
-        if (container && content) {
-            content.style.transform = 'scale(' + zoomLevel + ')';
-            content.style.width = (100 / zoomLevel) + '%';
-            content.style.height = (100 / zoomLevel) + '%';
-            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+        // ================================================================
+        // HELPERS
+        // ================================================================
+        function displayName(str) {
+            if (!str) return '';
+            let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
+            return cleaned;
         }
-    }
 
-    // ========== TOGGLE ZOOM CONTROLS ==========
-    function toggleZoomControls() {
-        zoomVisible = !zoomVisible;
-        const controls = document.getElementById('zoomControls');
-        if (zoomVisible) {
-            controls.classList.add('visible');
-        } else {
-            controls.classList.remove('visible');
+        function formatCurrentTime() {
+            const d = new Date();
+            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'شام':'صبح'}`;
         }
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    }
 
-    // ========== DRAGGABLE ZOOM CONTROLS ==========
-    document.addEventListener('DOMContentLoaded', function() {
-        const zoomControls = document.getElementById('zoomControls');
-        let isDragging = false;
-        let offsetX, offsetY;
+        function findParent(p) {
+            return p?.father && p.father !== '—' ? db.find(x => x.name === p.father) : null;
+        }
 
-        zoomControls.addEventListener('dragstart', function(e) { e.preventDefault(); });
-
-        zoomControls.addEventListener('mousedown', function(e) {
-            if (e.target.closest('.zoom-btn')) return;
-            isDragging = true;
-            const rect = zoomControls.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            zoomControls.classList.add('dragging');
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const controlWidth = zoomControls.offsetWidth;
-            const controlHeight = zoomControls.offsetHeight;
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
-            newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-            newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-            zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-            zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-        });
-
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                zoomControls.classList.remove('dragging');
+        function getAncestors(p) {
+            let arr = [], cur = p;
+            while (cur?.father && cur.father !== '—') {
+                const father = db.find(x => x.name === cur.father);
+                if (!father) break;
+                arr.push(father);
+                cur = father;
             }
-        });
-
-        let touchOffsetX, touchOffsetY;
-        let isTouching = false;
-
-        zoomControls.addEventListener('touchstart', function(e) {
-            if (e.target.closest('.zoom-btn')) return;
-            const touch = e.touches[0];
-            const rect = zoomControls.getBoundingClientRect();
-            touchOffsetX = touch.clientX - rect.left;
-            touchOffsetY = touch.clientY - rect.top;
-            isTouching = true;
-            zoomControls.classList.add('dragging');
-            e.preventDefault();
-        }, { passive: false });
-
-        document.addEventListener('touchmove', function(e) {
-            if (!isTouching) return;
-            const touch = e.touches[0];
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const controlWidth = zoomControls.offsetWidth;
-            const controlHeight = zoomControls.offsetHeight;
-            let newX = touch.clientX - touchOffsetX;
-            let newY = touch.clientY - touchOffsetY;
-            newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-            newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-            zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-            zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-            e.preventDefault();
-        }, { passive: false });
-
-        document.addEventListener('touchend', function() {
-            if (isTouching) {
-                isTouching = false;
-                zoomControls.classList.remove('dragging');
-            }
-        });
-
-        applyZoom();
-    });
-
-    // ========== TIPS FUNCTIONS ==========
-    function openTips() {
-        document.getElementById('tipsOverlay').style.display = 'flex';
-    }
-
-    function closeTips() {
-        document.getElementById('tipsOverlay').style.display = 'none';
-    }
-
-    // ========== DETAIL MODAL ==========
-    function openDetailPopup(name) {
-        const modal = document.getElementById('detailOverlay');
-        const title = document.getElementById('detailModalTitle');
-        const body = document.getElementById('detailModalBody');
-        
-        modal.classList.add('show');
-        title.textContent = '📝 تفصیلات – ' + displayName(name);
-        body.innerHTML = '⏳ لوڈ ہو رہا ہے...';
-        
-        const person = db.find(function(p) { return p.name === name; });
-        
-        if (!person) {
-            body.innerHTML = '<div class="no-details">"' + name + '" نام کا کوئی فرد ڈیٹا میں موجود نہیں۔</div>';
-            return;
+            return arr;
         }
-        
-        var detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
-        var formattedDetails = detailsText.replace(/\\n/g, '<br>');
-        
-        var lines = formattedDetails.split('<br>');
-        var bulletHtml = '';
-        for (var i = 0; i < lines.length; i++) {
-            if (lines[i].trim() !== '') {
-                bulletHtml += '<div style="display:flex; gap:8px; margin-bottom:4px;"><span style="font-weight:bold;">-</span><span style="flex:1;">' + lines[i].trim() + '</span></div>';
+
+        function isFemale(gender) {
+            return gender === 'FEMALE';
+        }
+
+        // ================================================================
+        // INFO MODAL
+        // ================================================================
+        function showInfoModal(personName) {
+            const person = db.find(p => p.name === personName);
+            if (!person) return;
+            let detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
+            detailsText = detailsText.replace(/\\n/g, '<br>');
+            document.getElementById('infoModalText').innerHTML = detailsText;
+            document.getElementById('infoModal').style.display = 'block';
+            document.getElementById('infoModalOverlay').style.display = 'block';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.getElementById('infoModalOverlay').style.display = 'none';
+        }
+
+        // ================================================================
+        // ZOOM FUNCTIONS
+        // ================================================================
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel + 0.1, 2.0);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel - 0.1, 0.3);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 1.0;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const wrapper = document.getElementById('tableRoot');
+            if (wrapper) {
+                wrapper.style.transform = 'scale(' + zoomLevel + ')';
+                wrapper.style.transformOrigin = 'top center';
+                wrapper.style.width = (100 / zoomLevel) + '%';
+                document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
             }
         }
-        
-        body.innerHTML = bulletHtml;
-    }
 
-    function closeDetailModal() {
-        document.getElementById('detailOverlay').classList.remove('show');
-    }
-
-    // ========== DISPLAY NAME HELPER ==========
-    function displayName(str) {
-        if (!str) return '';
-        var cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
-        return cleaned;
-    }
-
-    // ========== FORMAT TIME ==========
-    function formatCurrentTime() {
-        var d = new Date();
-        var day = d.getDate();
-        var month = d.getMonth() + 1;
-        var year = d.getFullYear();
-        var hours = d.getHours();
-        var minutes = String(d.getMinutes()).padStart(2, '0');
-        var ampm = hours >= 12 ? 'شام' : 'صبح';
-        var displayHours = hours % 12 || 12;
-        return day + '/' + month + '/' + year + ' - ' + displayHours + ':' + minutes + ' ' + ampm;
-    }
-
-    // ========== MENU FUNCTIONS ==========
-    window.toggleLeftMenu = function() { document.getElementById('toggleMenuPanel').classList.toggle('show'); };
-
-    window.handleToggleMenuClick = function(filter) {
-        if (!currentIndividual) return;
-        if (filter === 'siblings') {
-            showSiblings = !showSiblings;
-            document.getElementById('toggleSiblings').classList.toggle('active', showSiblings);
-        } else if (filter === 'descendants') {
-            showDescendants = !showDescendants;
-            document.getElementById('toggleDescendants').classList.toggle('active', showDescendants);
-        } else if (filter === 'ancestors') {
-            showAncestors = !showAncestors;
-            document.getElementById('toggleAncestors').classList.toggle('active', showAncestors);
-        }
-        renderTable();
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    };
-
-    // ========== PRINT PDF ==========
-    function showPrintOptions() {
-        if (!currentIndividual) {
-            alert('براہ کرم پہلے کسی فرد کو منتخب کریں');
-            return;
-        }
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-        exportTablePDF();
-    }
-
-
-
-
-async function exportTablePDF() {
-    if (!currentIndividual) { alert('براہ کرم پہلے کسی فرد کو منتخب کریں'); return; }
-
-    // SAVE current zoom
-    var savedZoom = zoomLevel;
-
-    try {
-        const tableRoot = document.getElementById('tableRoot');
-        if (!tableRoot) return alert('کوئی مواد نہیں');
-
-        const printArea = document.getElementById('printArea');
-        const printContent = document.getElementById('printContent');
-
-        // Clone the table
-        const clone = tableRoot.cloneNode(true);
-        
-        // REMOVE any transform from the clone
-        clone.style.transform = 'none';
-        clone.style.width = '100%';
-        clone.style.height = 'auto';
-        clone.style.overflow = 'visible';
-        
-        const header = document.createElement('div');
-        header.style.textAlign = 'center';
-        header.style.marginBottom = '20px';
-        header.innerHTML = `
-            <h1 style="color:#d4af37;font-size:28px;margin:0;font-family:'Noto Nastaliq Urdu','Playfair Display',serif;">رضوی خاندان کا ٹیبل</h1>
-            <h2 style="color:#5a0000;font-size:20px;margin:5px 0 0 0;font-family:'Noto Nastaliq Urdu','Playfair Display',serif;">${displayName(currentIndividual.name)}</h2>
-        `;
-        
-        const footer = document.createElement('div');
-        footer.style.textAlign = 'center';
-        footer.style.marginTop = '20px';
-        footer.style.padding = '10px';
-        footer.style.borderTop = '2px solid #b8a088';
-        footer.style.fontSize = '11px';
-        footer.style.fontFamily = "'Noto Nastaliq Urdu','Inter',sans-serif";
-        const timeStr = formatCurrentTime();
-
-
-const excelSavedTime = typeof FILE_INFO !== 'undefined' && FILE_INFO.saved_time 
-    ? FILE_INFO.saved_time 
-    : '7/18/26 10:55';       
-
- footer.innerHTML = `
-            <div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
-            <div>آخری ترمیم: ${excelSavedTime} | پرنٹ جنریٹ: ${timeStr}</div>
-        `;
-
-        printContent.innerHTML = '';
-        printContent.appendChild(header);
-        printContent.appendChild(clone);
-        printContent.appendChild(footer);
-        
-        printArea.style.display = 'block';
-
-        const loadingMsg = document.createElement('div');
-        loadingMsg.style.position = 'fixed';
-        loadingMsg.style.top = '50%';
-        loadingMsg.style.left = '50%';
-        loadingMsg.style.transform = 'translate(-50%, -50%)';
-        loadingMsg.style.background = '#5a0000';
-        loadingMsg.style.color = 'white';
-        loadingMsg.style.padding = '20px 40px';
-        loadingMsg.style.borderRadius = '8px';
-        loadingMsg.style.zIndex = '9999';
-        loadingMsg.textContent = '  براہ کرم انتظار کریں (5-1 سیکنڈ)';
-        document.body.appendChild(loadingMsg);
-
-        // Wait for 1 seconds
-await new Promise(resolve => setTimeout(resolve, 1000));
-        // SET zoom to 100% on screen (for user to see)
-        zoomLevel = 1;
-        applyZoom();
-
-        // Wait a bit for zoom to apply
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // Open print dialog
-        window.print();
-
-        document.body.removeChild(loadingMsg);
-        printArea.style.display = 'none';
-        printContent.innerHTML = '';
-
-        // RESTORE zoom
-        zoomLevel = savedZoom;
-        applyZoom();
-
-        setTimeout(function() {
-            alert('✅ PDF محفوظ ہو گئی!\nپرنٹ ڈائیلاگ میں "Save as PDF" منتخب کریں۔');
-        }, 500);
-
-    } catch (err) {
-        console.error('Print Error:', err);
-        alert('❌ PDF نہیں بن سکی: ' + err.message);
-        
-        zoomLevel = savedZoom;
-        applyZoom();
-    }
-}
-
-    // ========== RESET INDIVIDUAL ==========
-    function resetIndividual() {
-        document.getElementById('searchInput').value = '';
-        currentIndividual = null;
-        var url = new URL(window.location);
-        url.searchParams.delete('member');
-        window.history.pushState({}, '', url);
-        document.getElementById('tableRoot').innerHTML = `
-            <div class="welcome-container">
-                <div class="welcome-box">
-                    <div class="welcome-icon">🌿</div>
-                    <div class="welcome-title">رضوی خاندان ــ ٹیبل</div>
-                    <div class="welcome-text">
-                        براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>
-                        تاکہ ان کے خاندانی روابط ٹیبل میں دیکھ سکیں۔
-                    </div>
-                </div>
-            </div>
-        `;
-        closeAllMenus();
-    }
-
-    // ========== SEARCH ==========
-    document.getElementById('searchInput').addEventListener('keyup', function(e) {
-        var query = this.value;
-        var dropdown = document.getElementById('searchDropdown');
-        if (query.length < 2) { dropdown.style.display = 'none'; return; }
-        var results = db.filter(function(m) { return m.name.includes(query); }).slice(0, 8);
-        dropdown.innerHTML = '';
-        for (var i = 0; i < results.length; i++) {
-            var member = results[i];
-            var div = document.createElement('div');
-            div.className = 'result-item';
-            div.innerHTML = '<div><span class="main-name">' + displayName(member.name) + '</span> <span class="gen">' + (member.gen || '') + '</span><div class="father-name">والد: ' + (displayName(member.father) || '—') + '</div></div>';
-            div.onclick = function(m) {
-                return function() { 
-                    selectMember(m); 
-                    dropdown.style.display = 'none'; 
-                    document.getElementById('searchInput').value = displayName(m.name);
-                };
-            }(member);
-            dropdown.appendChild(div);
-        }
-        dropdown.style.display = 'block';
-    });
-
-    // ========== SELECT MEMBER ==========
-    function selectMember(member) {
-        currentIndividual = member;
-        document.getElementById('searchInput').value = displayName(member.name);
-        var url = new URL(window.location);
-        url.searchParams.set('member', encodeURIComponent(member.name));
-        window.history.pushState({}, '', url);
-        renderTable();
-    }
-
-    // ========== TOGGLE SECTION ==========
-    window.toggleSection = function(section) {
-        if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
-        else if (section === 'children') childrenCollapsed = !childrenCollapsed;
-        else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
-        renderTable();
-    };
-
-    // ========== FAMILY TREE HELPERS ==========
-    function findParent(p) {
-        return p.father && p.father !== '—' ? db.find(function(x) { return x.name === p.father; }) : null;
-    }
-
-    function getMother(person) { return person.mother || '—'; }
-
-    function getAncestors(p) {
-        var arr = [], cur = p;
-        while (cur.father && cur.father !== '—') {
-            var father = db.find(function(x) { return x.name === cur.father; });
-            if (!father) break;
-            arr.push(father);
-            cur = father;
-        }
-        return arr;
-    }
-
-    function isFemale(gender) { return gender === 'Female' || gender === 'خاتون'; }
-
-    // ========== RENDER MEMBER INFO CARD ==========
-    function renderMemberInfoCard(member) {
-        var mother = getMother(member);
-        var femaleClass = isFemale(member.gender) ? 'female-row' : '';
-        
-        var fatherVal = displayName(member.father) || '—';
-        if (fatherVal.includes('تفصیلات')) {
-            fatherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + member.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
-        }
-        
-        var motherVal = mother || '—';
-        if (motherVal.includes('تفصیلات')) {
-            motherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + member.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
-        }
-        
-        var spouseVal = member.spouse || '—';
-        if (spouseVal.includes('تفصیلات')) {
-            spouseVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + member.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
-        }
-        
-        return '<table class="family-table" style="margin-bottom: 30px;"><thead><tr><th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th></tr></thead><tbody><tr class="selected-row ' + femaleClass + '"><td><strong>' + displayName(member.name) + '</strong></td><td>' + (member.gen || '—') + '</td><td>' + fatherVal + '</td><td>' + motherVal + '</td><td>' + spouseVal + '</td></tr></tbody></table>';
-    }
-
-    // ========== RENDER TABLE FOR MEMBERS ==========
-    function renderTableForMembers(members, includeSelected) {
-        if (includeSelected === undefined) includeSelected = false;
-        if (!members || members.length === 0) return '';
-        
-        var html = '<table class="family-table">';
-        html += '<thead><tr><th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th></tr></thead><tbody>';
-        
-        for (var i = 0; i < members.length; i++) {
-            var m = members[i];
-            if (includeSelected && currentIndividual && currentIndividual.name === m.name) continue;
-            
-            var mother = getMother(m);
-            var isSelected = (currentIndividual && currentIndividual.name === m.name) ? 'selected-row' : '';
-            var femaleClass = isFemale(m.gender) ? 'female-row' : '';
-            
-            html += '<tr class="' + isSelected + ' ' + femaleClass + '" onclick="selectMember(db.find(function(x) { return x.name === \'' + m.name.replace(/'/g, "\\'") + '\'; }))">';
-            html += '<td><strong>' + displayName(m.name) + '</strong></td>';
-            html += '<td>' + (m.gen || '—') + '</td>';
-            
-            var fatherVal = displayName(m.father) || '—';
-            if (fatherVal.includes('تفصیلات')) {
-                fatherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + m.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
+        function toggleZoomControls() {
+            zoomVisible = !zoomVisible;
+            const controls = document.getElementById('zoomControls');
+            if (zoomVisible) {
+                controls.classList.add('visible');
+            } else {
+                controls.classList.remove('visible');
             }
-            html += '<td>' + fatherVal + '</td>';
-            
-            var motherVal = mother || '—';
-            if (motherVal.includes('تفصیلات')) {
-                motherVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + m.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
-            }
-            html += '<td>' + motherVal + '</td>';
-            
-            var spouseVal = m.spouse || '—';
-            if (spouseVal.includes('تفصیلات')) {
-                spouseVal = '<span style="cursor:pointer;color:var(--gold);font-weight:bold;" onclick="event.stopPropagation(); openDetailPopup(\'' + m.name.replace(/'/g, "\\'") + '\')">تفصیلات ℹ️</span>';
-            }
-            html += '<td>' + spouseVal + '</td>';
-            
-            html += '</tr>';
+            document.getElementById('toggleMenuPanel').classList.remove('show');
         }
-        
-        html += '</tbody></table>';
-        return html;
-    }
 
-    // ========== RENDER TABLE ==========
-    function renderTable() {
-        if (!currentIndividual) return;
-        var html = '<div>';
+        // ================================================================
+        // ZOOM - DRAGGABLE CONTROLS
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
 
-        html += renderMemberInfoCard(currentIndividual);
+            zoomControls.addEventListener('dragstart', function(e) { e.preventDefault(); });
 
-        if (showAncestors) {
-            var ancestors = getAncestors(currentIndividual);
-            if (ancestors.length) {
-                html += '<div class="section-heading" onclick="toggleSection(\'ancestors\')">';
-                html += '<span>🌳 آباؤ اجداد (' + ancestors.length + ')</span>';
-                html += '<span class="toggle-icon">' + (ancestorsCollapsed ? '+' : '-') + '</span>';
-                html += '</div>';
-                if (!ancestorsCollapsed) {
-                    html += renderTableForMembers(ancestors, false);
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
                 }
-            }
-        }
+            });
 
-        if (showSiblings) {
-            var father = findParent(currentIndividual);
-            if (father) {
-                var siblings = db.filter(function(s) { return s.father === father.name && s.name !== currentIndividual.name; });
-                if (siblings.length) {
-                    html += '<div class="section-heading" onclick="toggleSection(\'siblings\')">';
-                    html += '<span>👥 بہن بھائی (' + siblings.length + ')</span>';
-                    html += '<span class="toggle-icon">' + (siblingsCollapsed ? '+' : '-') + '</span>';
-                    html += '</div>';
-                    if (!siblingsCollapsed) {
-                        html += renderTableForMembers(siblings, true);
-                    }
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
                 }
+            });
+
+            applyZoom();
+        });
+
+        // ================================================================
+        // PRINT HANDLER
+        // ================================================================
+        window.addEventListener('beforeprint', function() {
+            window._savedZoom = zoomLevel;
+            zoomLevel = 1.0;
+            applyZoom();
+        });
+
+        window.addEventListener('afterprint', function() {
+            if (window._savedZoom !== undefined) {
+                zoomLevel = window._savedZoom;
+            } else {
+                zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 1.0;
             }
+            applyZoom();
+        });
+
+        // ================================================================
+        // TIPS
+        // ================================================================
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
         }
 
-        if (showDescendants) {
-            var children = db.filter(function(c) { return c.father === currentIndividual.name; });
-            if (children.length) {
-                html += '<div class="section-heading" onclick="toggleSection(\'children\')">';
-                html += '<span>👶 اولاد (' + children.length + ')</span>';
-                html += '<span class="toggle-icon">' + (childrenCollapsed ? '+' : '-') + '</span>';
-                html += '</div>';
-                if (!childrenCollapsed) {
-                    html += renderTableForMembers(children, false);
-                }
-            }
-        }
-
-        html += '</div>';
-        document.getElementById('tableRoot').innerHTML = html;
-    }
-
-    // ========== NAVIGATION FUNCTIONS ==========
-    function switchToTreeView() {
-        if (currentIndividual) {
-            window.location.href = '02-Individual-Tree-U.html?member=' + encodeURIComponent(currentIndividual.name);
-        } else {
-            window.location.href = '02-Individual-Tree-U.html';
-        }
-    }
-
-    function closeAllMenus() {
-        document.getElementById('searchDropdown').style.display = 'none';
-        document.querySelectorAll('.context-menu').forEach(function(m) { m.remove(); });
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-    }
-    
-    function showDashboard() { 
-        window.location.href = '01-Dashboard-U.html'; 
-    }
-
-    // ========== CLICK OUTSIDE HANDLER ==========
-    document.addEventListener('click', function(e) {
-        if (e.target === document.getElementById('tipsOverlay')) {
+        function closeTips() {
             document.getElementById('tipsOverlay').style.display = 'none';
         }
 
-        if (!e.target.closest('.search-wrapper')) document.getElementById('searchDropdown').style.display = 'none';
-        
-        if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) 
-            document.getElementById('toggleMenuPanel').classList.remove('show');
-    });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTips();
+            }
+        });
 
-    // ========== ESCAPE KEY ==========
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeTips();
-            closeDetailModal();
-        }
-    });
+        window.openTips = openTips;
+        window.closeTips = closeTips;
 
-    // ========== LOAD DATA ==========
-    function loadData() {
-        var script = document.createElement('script');
-        script.src = '33-family-data-urdu.js';
-        script.onload = function() {
+        // ================================================================
+        // LOAD DATA
+        // ================================================================
+        function loadData() {
             if (typeof FAMILY_DATA_URDU !== 'undefined') {
                 db = FAMILY_DATA_URDU;
                 fileInfo = FILE_INFO || null;
-                
-                var urlParams = new URLSearchParams(window.location.search);
-                var memberName = urlParams.get('member');
+                document.getElementById('statsHeader').textContent = `${db.length} اراکین`;
+                const urlParams = new URLSearchParams(window.location.search);
+                const memberName = urlParams.get('member');
                 if (memberName) {
-                    setTimeout(function() {
-                        var member = db.find(function(m) { return m.name === decodeURIComponent(memberName); });
+                    setTimeout(() => {
+                        const member = db.find(m => m.name === decodeURIComponent(memberName));
                         if (member) selectMember(member);
                     }, 500);
                 } else {
                     resetIndividual();
                 }
-            } else {
-                document.getElementById('tableRoot').innerHTML = '<div class="welcome-container"><div class="welcome-box"><div class="welcome-icon">⚠️</div><div class="welcome-title">ڈیٹا لوڈ نہیں ہوا</div><div class="welcome-text">براہ کرم یقینی بنائیں کہ فائل 33-family-data-urdu.js موجود ہے۔</div></div></div>';
             }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        // ================================================================
+        // TOGGLE MENU
+        // ================================================================
+        window.toggleLeftMenu = function() {
+            document.getElementById('toggleMenuPanel').classList.toggle('show');
         };
-        script.onerror = function() {
-            document.getElementById('tableRoot').innerHTML = '<div class="welcome-container"><div class="welcome-box"><div class="welcome-icon">⚠️</div><div class="welcome-title">فائل نہیں ملی</div><div class="welcome-text">33-family-data-urdu.js نہیں مل سکی۔</div></div></div>';
+
+        window.handleToggleMenuClick = function(filter) {
+            if (!currentIndividual) return;
+            if (filter === 'siblings') {
+                showSiblings = !showSiblings;
+                document.getElementById('toggleSiblings').classList.toggle('active', showSiblings);
+            } else if (filter === 'descendants') {
+                showDescendants = !showDescendants;
+                document.getElementById('toggleDescendants').classList.toggle('active', showDescendants);
+            } else if (filter === 'ancestors') {
+                showAncestors = !showAncestors;
+                document.getElementById('toggleAncestors').classList.toggle('active', showAncestors);
+            }
+            renderTable();
+            document.getElementById('toggleMenuPanel').classList.remove('show');
         };
-        document.head.appendChild(script);
+
+        // ================================================================
+        // NAVIGATION
+        // ================================================================
+        function switchToTreeView() {
+            window.location.href = currentIndividual ? `02-Individual-Tree-U.html?member=${encodeURIComponent(currentIndividual.name)}` : '02-Individual-Tree-U.html';
+        }
+
+        function showDashboard() {
+            window.location.href = '01-Dashboard-U.html';
+        }
+
+        // ================================================================
+        // RESET
+        // ================================================================
+        function resetIndividual() {
+            document.getElementById('searchInput').value = '';
+            currentIndividual = null;
+            const url = new URL(window.location);
+            url.searchParams.delete('member');
+            window.history.pushState({}, '', url);
+            document.getElementById('tableRoot').innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">رضوی خاندان · ٹیبل</div>
+                        <div class="welcome-text">
+                            براہ کرم اوپر دیے گئے سرچ باکس میں کسی فرد کا نام تلاش کریں<br>
+                            تاکہ ان کے خاندانی روابط ٹیبل میں دیکھ سکیں۔
+                        </div>
+                    </div>
+                </div>
+            `;
+            closeAllMenus();
+        }
+
+        // ================================================================
+        // SEARCH
+        // ================================================================
+        document.getElementById('searchInput')?.addEventListener('keyup', function() {
+            const query = this.value;
+            const dropdown = document.getElementById('searchDropdown');
+            if (query.length < 2) { dropdown.style.display = 'none'; return; }
+            const results = db.filter(m => m.name.includes(query)).slice(0, 8);
+            dropdown.innerHTML = '';
+            results.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen || ''}</span>
+                    <div class="father-name">والد: ${displayName(member.father) || '—'}</div></div>`;
+                div.onclick = () => {
+                    selectMember(member);
+                    dropdown.style.display = 'none';
+                    this.value = displayName(member.name);
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
+        });
+
+        // ================================================================
+        // SELECT MEMBER
+        // ================================================================
+        function selectMember(member) {
+            currentIndividual = member;
+            document.getElementById('searchInput').value = displayName(member.name);
+            const url = new URL(window.location);
+            url.searchParams.set('member', encodeURIComponent(member.name));
+            window.history.pushState({}, '', url);
+            renderTable();
+        }
+
+        // ================================================================
+        // TOGGLE SECTION
+        // ================================================================
+        window.toggleSection = function(section) {
+            if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
+            else if (section === 'children') childrenCollapsed = !childrenCollapsed;
+            else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
+            renderTable();
+        };
+
+        // ================================================================
+        // RENDER TABLE
+        // ================================================================
+
+function renderMemberInfoCard(member) {
+    const mother = member.mother || '—';
+    const femaleClass = isFemale(member.gender) ? 'female-row' : '';
+    const escapedName = member.name.replace(/'/g, "\\'");
+    
+    // Name column - JUST the name (NO details link)
+    let nameDisplay = displayName(member.name);
+    
+    // Spouse column - make "تفصیلات" clickable
+    let spouseVal = member.spouse || '—';
+    if (spouseVal.includes('تفصیلات')) {
+        spouseVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;font-size:14px;" onclick="event.stopPropagation(); window.showInfoModal('${escapedName}')">ℹ️ تفصیلات</span>`;
     }
 
-    // ========== WINDOW EXPORTS ==========
-    window.zoomIn = zoomIn; 
-    window.zoomOut = zoomOut; 
-    window.resetZoom = resetZoom;
-    window.showDashboard = showDashboard; 
-    window.resetIndividual = resetIndividual;
-    window.switchToTreeView = switchToTreeView;
-    window.toggleZoomControls = toggleZoomControls;
-    window.openDetailPopup = openDetailPopup;
-    window.closeDetailModal = closeDetailModal;
-    window.showPrintOptions = showPrintOptions;
-    window.exportTablePDF = exportTablePDF;
+    return `<table class="family-table" style="margin-bottom: 30px;">
+        <thead><tr><th>نام</th><th>جنریشن</th><th>والد</th><th>والدہ</th><th>شریک حیات</th></tr></thead>
+        <tbody><tr class="selected-row ${femaleClass}">
+            <td><strong>${nameDisplay}</strong></td>
+            <td>${member.gen || '—'}</td>
+            <td>${displayName(member.father) || '—'}</td>
+            <td>${mother}</td>
+            <td>${spouseVal}</td>
+        </tr></tbody></table>`;
+}
 
-    // ========== INIT ==========
-    document.addEventListener('DOMContentLoaded', function() {
-        loadData();
+        // ================================================================
+        // FIXED: renderTableForMembers with working details link
+        // ================================================================
+        function renderTableForMembers(members, includeSelected) {
+    if (!members || members.length === 0) return '';
+    let html = '<table class="family-table">';
+    html += '<thead><tr><th>نام</th><th>جنریشن</th><th>والدہ</th><th>شریک حیات</th></tr></thead><tbody>';
+
+    members.forEach(m => {
+        if (includeSelected && currentIndividual && currentIndividual.name === m.name) return;
+        const mother = m.mother || '—';
+        const isSelected = (currentIndividual && currentIndividual.name === m.name) ? 'selected-row' : '';
+        const femaleClass = isFemale(m.gender) ? 'female-row' : '';
+
+        const escapedName = m.name.replace(/'/g, "\\'");
+        
+        html += `<tr class="${isSelected} ${femaleClass}" onclick="window.selectMember(window.db.find(x => x.name === '${escapedName}'))">`;
+        
+        // Name column - JUST the name
+        html += `<td><strong>${displayName(m.name)}</strong></td>`;
+        html += `<td>${m.gen || '—'}</td>`;
+        html += `<td>${mother}</td>`;
+        
+        // Spouse column - make "تفصیلات" clickable
+        let spouseVal = m.spouse || '—';
+        if (spouseVal.includes('تفصیلات')) {
+            spouseVal = `<span style="cursor:pointer;color:var(--gold);font-weight:bold;font-size:14px;" onclick="event.stopPropagation(); window.showInfoModal('${escapedName}')">ℹ️ تفصیلات</span>`;
+        }
+        html += `<td>${spouseVal}</td>`;
+        
+        html += '</tr>';
     });
-</script>
 
-<!-- Tips Modal -->
-<div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
-    <div class="tips-modal">
-        <h3>💡 رہنما اصول برائے استعمال</h3>
+    html += '</tbody></table>';
+    return html;
+}
 
-        <div class="tips-grid">
-            <div class="title">تلاش</div>
-            <div class="colon">:</div>
-            <div class="desc">نام لکھیں، ٹیبل دیکھیں</div>
 
-            <div class="title">ٹیبل قطاریں</div>
-            <div class="colon">:</div>
-            <div class="desc">کسی بھی قطار پر کلک کریں</div>
+        function renderTable() {
+            if (!currentIndividual) return;
+            let html = '<div>';
 
-            <div class="title">پھیلائیں / سکیڑیں</div>
-            <div class="colon">:</div>
-            <div class="desc">سیکشن ہیڈنگ پر ➕/➖ پر کلک کریں</div>
+            html += renderMemberInfoCard(currentIndividual);
 
-            <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">مینو آپشنز</div>
-            <div class="colon" style="margin-top:8px;"></div>
-            <div class="desc" style="margin-top:8px;"></div>
+            if (showAncestors) {
+                let ancestors = getAncestors(currentIndividual);
+                if (ancestors.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('ancestors')">
+                        <span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span>
+                        <span>🌳 آباؤ اجداد (${ancestors.length})</span>
+                    </div>`;
+                    if (!ancestorsCollapsed) {
+                        html += renderTableForMembers(ancestors, false);
+                    }
+                }
+            }
 
-            <div class="title">بہن بھائی</div>
-            <div class="colon">:</div>
-            <div class="desc">منتخب فرد کے بہن بھائی دکھائیں/چھپائیں</div>
+            const father = findParent(currentIndividual);
+            if (showSiblings && father) {
+                const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
+                if (siblings.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('siblings')">
+                        <span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span>
+                        <span>👥 بہن بھائی (${siblings.length})</span>
+                    </div>`;
+                    if (!siblingsCollapsed) {
+                        html += renderTableForMembers(siblings, true);
+                    }
+                }
+            }
 
-            <div class="title">اولاد</div>
-            <div class="colon">:</div>
-            <div class="desc">منتخب فرد کی اولاد دکھائیں/چھپائیں</div>
+            if (showDescendants) {
+                const children = db.filter(c => c.father === currentIndividual.name);
+                if (children.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('children')">
+                        <span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span>
+                        <span>👶 اولاد (${children.length})</span>
+                    </div>`;
+                    if (!childrenCollapsed) {
+                        html += renderTableForMembers(children, false);
+                    }
+                }
+            }
 
-            <div class="title">آباؤ اجداد</div>
-            <div class="colon">:</div>
-            <div class="desc">منتخب فرد کے آباؤ اجداد دکھائیں/چھپائیں</div>
+            html += '</div>';
+            document.getElementById('tableRoot').innerHTML = html;
+        }
 
-            <div class="title">شجرہ</div>
-            <div class="colon">:</div>
-            <div class="desc">شجرہ ویو میں تبدیل کریں</div>
+        // ================================================================
+        // SAVE FUNCTIONS
+        // ================================================================
+        window.showSaveOptions = function() {
+            if (!currentIndividual) { alert('براہ کرم پہلے کسی فرد کو منتخب کریں'); return; }
+            document.getElementById('saveOptionsModal').style.display = 'block';
+            document.getElementById('saveModalOverlay').style.display = 'block';
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        };
 
-            <div class="title">مرکزی صفحہ</div>
-            <div class="colon">:</div>
-            <div class="desc">مرکزی صفحہ پر جائیں</div>
+        window.closeSaveModal = function() {
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        };
 
-            <div class="title">PDF پرنٹ</div>
-            <div class="colon">:</div>
-            <div class="desc">مینو سے PDF پرنٹ کریں اور "Save as PDF" منتخب کریں</div>
-            
-            <div class="title">زوم</div>
-            <div class="colon">:</div>
-            <div class="desc">مینو سے زوم کنٹرولز آن کریں</div>
-        </div>
+        window.processSave = function() {
+            const s = document.querySelector('input[name="saveFormat"]:checked');
+            if (!s) { alert('براہ کرم فارمیٹ منتخب کریں'); return; }
+            closeSaveModal();
+            if (s.value === 'jpeg') exportAsJPEG();
+            else exportIndividualPDF(s.value === 'pdf-high' ? 'high' : 'low');
+        };
 
-        <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">بند کریں</button>
-    </div>
-</div>
+        // ================================================================
+        // EXPORT PDF
+        // ================================================================
+        async function exportIndividualPDF(quality) {
+            const member = currentIndividual;
+            if (!member) return alert('کوئی مواد نہیں');
 
-<!-- ===== DETAIL MODAL ===== -->
-<div class="detail-overlay" id="detailOverlay" onclick="closeDetailModal()">
-    <div class="detail-modal" id="detailModal">
-        <div class="detail-modal-header">
-            <h2 class="detail-modal-title" id="detailModalTitle">📝 تفصیلات</h2>
-            <span style="font-size:12px; color:#6b5a48; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;"></span>
-        </div>
-        <div class="detail-modal-body">
-            <div class="detail-content-box" id="detailModalBody">
-                لوڈ ہو رہا ہے...
-            </div>
-        </div>
-        <div class="detail-modal-footer">
-            <button class="detail-modal-close-btn" onclick="closeDetailModal()">✕ بند کریں</button>
-        </div>
-    </div>
-</div>
+            const scale = quality === 'high' ? 2.0 : 1.5;
+            const jpegQuality = quality === 'high' ? 0.95 : 0.7;
+            const qualityText = quality === 'high' ? 'ہائی ریزولوشن' : 'لو ریزولوشن';
+
+            const originalElement = document.querySelector('.table-root-layout');
+            if (!originalElement) return alert('کوئی مواد نہیں');
+
+            const el = originalElement.cloneNode(true);
+            el.style.transform = 'none';
+            el.style.width = 'fit-content';
+            el.style.minWidth = '100%';
+            el.style.height = 'auto';
+            el.style.overflow = 'visible';
+
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '-9999px';
+            wrapper.style.top = '0';
+            wrapper.style.backgroundColor = 'white';
+            wrapper.style.padding = '25px';
+            wrapper.style.width = 'fit-content';
+            wrapper.style.minWidth = '100%';
+            wrapper.style.overflow = 'visible';
+            wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            document.body.appendChild(wrapper);
+
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+                .family-table { direction: rtl; text-align: right; width: 100%; }
+                .family-table th, .family-table td { padding: 8px 12px; }
+                .children-row { gap: 8px; }
+                .section-heading { font-size: 16px; margin: 15px 0 10px; }
+                .toggle-icon { width: 28px; height: 28px; font-size: 18px; }
+            `;
+            wrapper.appendChild(styleTag);
+
+            const header = document.createElement('div');
+            header.style.marginBottom = '20px';
+            header.style.textAlign = 'center';
+            header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;">رضوی خاندان کا ٹیبل</h1>
+                <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;">${displayName(member.name)}</h2>`;
+            wrapper.appendChild(header);
+            wrapper.appendChild(el);
+
+            const footer = document.createElement('div');
+            footer.style.marginTop = '20px';
+            footer.style.padding = '12px';
+            footer.style.background = '#fcf9f4';
+            footer.style.textAlign = 'center';
+            footer.style.fontSize = '10px';
+            const timeStr = formatCurrentTime();
+            const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+            footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+                <div>آخری ترمیم: ${excelSavedTime} | PDF جنریٹ: ${timeStr}</div>`;
+            wrapper.appendChild(footer);
+
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.position = 'fixed';
+            loadingMsg.style.top = '50%';
+            loadingMsg.style.left = '50%';
+            loadingMsg.style.transform = 'translate(-50%, -50%)';
+            loadingMsg.style.background = '#5a0000';
+            loadingMsg.style.color = 'white';
+            loadingMsg.style.padding = '15px 30px';
+            loadingMsg.style.borderRadius = '8px';
+            loadingMsg.style.zIndex = '9999';
+            loadingMsg.style.fontSize = '14px';
+            loadingMsg.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            loadingMsg.textContent = `📄 PDF بنا رہے ہیں... (${qualityText})`;
+            document.body.appendChild(loadingMsg);
+
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            try {
+                const canvas = await html2canvas(wrapper, {
+                    scale: scale,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    useCORS: true,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                const { jsPDF } = window.jspdf;
+                const isLandscape = canvas.width > canvas.height;
+                const orientation = isLandscape ? 'l' : 'p';
+                const mmWidth = canvas.width * 0.264583;
+                const mmHeight = canvas.height * 0.264583;
+                const margin = 10;
+                const pdfWidth = mmWidth + (margin * 2);
+                const pdfHeight = mmHeight + (margin * 2);
+
+                const pdf = new jsPDF({
+                    orientation: orientation,
+                    unit: 'mm',
+                    format: [pdfWidth, pdfHeight]
+                });
+
+                pdf.addImage(imgData, 'JPEG', margin, margin, mmWidth, mmHeight);
+                const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                pdf.save(`table_${safeName}_${quality}_${Date.now()}.pdf`);
+
+                const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                setTimeout(() => alert(`✅ PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
+
+            } catch (err) {
+                console.error('PDF Error:', err);
+                alert('❌ PDF نہیں بن سکی: ' + err.message);
+            } finally {
+                document.body.removeChild(wrapper);
+                document.body.removeChild(loadingMsg);
+            }
+        }
+
+        // ================================================================
+        // EXPORT JPEG
+        // ================================================================
+        async function exportAsJPEG() {
+            const member = currentIndividual;
+            if (!member) return alert('کوئی مواد نہیں');
+
+            const originalElement = document.querySelector('.table-root-layout');
+            if (!originalElement) return alert('کوئی مواد نہیں');
+
+            const el = originalElement.cloneNode(true);
+            el.style.transform = 'none';
+            el.style.width = 'fit-content';
+            el.style.minWidth = '100%';
+            el.style.height = 'auto';
+            el.style.overflow = 'visible';
+
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '-9999px';
+            wrapper.style.top = '0';
+            wrapper.style.backgroundColor = 'white';
+            wrapper.style.padding = '25px';
+            wrapper.style.width = 'fit-content';
+            wrapper.style.minWidth = '100%';
+            wrapper.style.overflow = 'visible';
+            wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            document.body.appendChild(wrapper);
+
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+                .family-table { direction: rtl; text-align: right; width: 100%; }
+                .family-table th, .family-table td { padding: 8px 12px; }
+                .children-row { gap: 8px; }
+                .section-heading { font-size: 16px; margin: 15px 0 10px; }
+                .toggle-icon { width: 28px; height: 28px; font-size: 18px; }
+            `;
+            wrapper.appendChild(styleTag);
+
+            const header = document.createElement('div');
+            header.style.marginBottom = '20px';
+            header.style.textAlign = 'center';
+            header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;">رضوی خاندان کا ٹیبل</h1>
+                <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;">${displayName(member.name)}</h2>`;
+            wrapper.appendChild(header);
+            wrapper.appendChild(el);
+
+            const footer = document.createElement('div');
+            footer.style.marginTop = '20px';
+            footer.style.padding = '12px';
+            footer.style.background = '#fcf9f4';
+            footer.style.textAlign = 'center';
+            footer.style.fontSize = '10px';
+            const timeStr = formatCurrentTime();
+            const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+            footer.innerHTML = `<div>ڈویلپر: عمران حیدر ولد سید رسالت حسین رضوی | 6010-787-0332</div>
+                <div>آخری ترمیم: ${excelSavedTime} | JPEG جنریٹ: ${timeStr}</div>`;
+            wrapper.appendChild(footer);
+
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.position = 'fixed';
+            loadingMsg.style.top = '50%';
+            loadingMsg.style.left = '50%';
+            loadingMsg.style.transform = 'translate(-50%, -50%)';
+            loadingMsg.style.background = '#5a0000';
+            loadingMsg.style.color = 'white';
+            loadingMsg.style.padding = '15px 30px';
+            loadingMsg.style.borderRadius = '8px';
+            loadingMsg.style.zIndex = '9999';
+            loadingMsg.style.fontSize = '14px';
+            loadingMsg.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
+            document.body.appendChild(loadingMsg);
+
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            try {
+                const canvas = await html2canvas(wrapper, {
+                    scale: 1.5,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    useCORS: true,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 0.9);
+
+                const link = document.createElement('a');
+                const safeName = member.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                link.download = `table_${safeName}_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+
+                const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
+
+            } catch (err) {
+                console.error('Export Error:', err);
+                alert('❌ JPEG نہیں بن سکی: ' + err.message);
+            } finally {
+                document.body.removeChild(wrapper);
+                document.body.removeChild(loadingMsg);
+            }
+        }
+
+        // ================================================================
+        // CLOSE ALL MENUS
+        // ================================================================
+        function closeAllMenus() {
+            document.getElementById('searchDropdown').style.display = 'none';
+            document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
+
+        // ================================================================
+        // CLOSE DROPDOWNS ON CLICK OUTSIDE
+        // ================================================================
+        document.addEventListener('click', function(e) {
+            if (e.target === document.getElementById('tipsOverlay')) {
+                document.getElementById('tipsOverlay').style.display = 'none';
+            }
+
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+            if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
+                document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            }
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+                closeSaveModal();
+            }
+        });
+
+        // ================================================================
+        // EXPOSE GLOBALS - FIXED: Added db, selectMember, showInfoModal
+        // ================================================================
+        window.showDashboard = showDashboard;
+        window.resetIndividual = resetIndividual;
+        window.switchToTreeView = switchToTreeView;
+        window.zoomIn = zoomIn;
+        window.zoomOut = zoomOut;
+        window.resetZoom = resetZoom;
+        window.applyZoom = applyZoom;
+        window.toggleZoomControls = toggleZoomControls;
+        window.showInfoModal = showInfoModal;
+        window.closeInfoModal = closeInfoModal;
+        window.renderTable = renderTable;
+        window.selectMember = selectMember;
+        window.db = db;
+
+    </script>
 
 </body>
 </html>

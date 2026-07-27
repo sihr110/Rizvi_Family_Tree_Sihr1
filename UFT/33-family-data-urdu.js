@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 7/18/26 10:55
+// Saved: 7/22/26 14:59
 // Total members: 608
 
 const FAMILY_DATA_URDU = [
@@ -1610,7 +1610,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ درخشاں (رخشی)",
     father: "سید آل حیدر -01",
     mother: "سیدہ قدسیہ سلطانہ رضوی (بیگم)",
-    spouse: "سید",
+    spouse: "سید ظفر",
     gen: "G-038-D3",
     gender: "FEMALE",
     details: ""
@@ -3509,7 +3509,7 @@ const FAMILY_DATA_URDU = [
     name: "سید کمال حیدر - 02",
     father: "سید ظفر الحسن - شارب (شعیب)",
     mother: "سیدہ تنظیم فاطمہ رضوی",
-    spouse: "تفصیلات ℹ️میں دیکھیں",
+    spouse: "تفصیلات ℹ️",
     gen: "G-041-S3",
     gender: "MALE",
     details: "پہلی بیوی: سیدہ شبیہِ زہرا زیدی ( تینوں بچوں کی والدہ) \\nدوسری بیوی: سیدہ روبی اختر زیدی\\n\\nنوٹ: سید کمال کی دوسری شادی پہلی بیوی کی وفات کے بعد ہوئی۔"
@@ -3578,7 +3578,7 @@ const FAMILY_DATA_URDU = [
     details: ""
   },
   {
-    name: "سیدہ ملیکہ رضوی",
+    name: "سیدہ مالکہ بتول رضوی",
     father: "سید ابو طالب - 02",
     mother: "سیدہ شیر بانو بلگرامی",
     spouse: "",
@@ -4400,10 +4400,10 @@ const FAMILY_DATA_URDU = [
     name: "کمیل رضا",
     father: "سید شکیل رضا",
     mother: "سیدہ ہما بتول رضوی",
-    spouse: "سیدہ مالکہ بتول رضوی",
+    spouse: "سیدہ مالیکہ بتول رضوی",
     gen: "G-041-S1",
     gender: "MALE",
-    details: "سید کمیل رضا رضوی کی شادی سیدہ ملکہ بتول رضوی ہوئی + دونوں کی جڑ سید عنایت حسین ہیں - G-037-S1"
+    details: "سید کمیل رضا رضوی کی شادی سیدہ ملیکہ بتول رضوی ہوئی + دونوں کی جڑ سید عنایت حسین ہیں - G-037-S1"
   },
   {
     name: "سارہ رضا",
@@ -4805,7 +4805,7 @@ const FAMILY_DATA_URDU = [
     name: "سید عبادت حسین",
     father: "سید اشفاق حسین",
     mother: "سیدہ کنیز صغرا رضوی",
-    spouse: "تفصیلات ℹ️میں دیکھیں",
+    spouse: "تفصیلات ℹ️",
     gen: "G-040-S1",
     gender: "MALE",
     details: "سید عبادت نے اپنی پہلی بیوی کی وفات کے بعد دوسری شادی کی:\\n\\n1- پہلی بیوی: ان کے تایا سید ابراہیم کی صاحبزادی سیدہ کبریٰ خاتون — ان سے کوئی اولاد نہیں\\n2- دوسری بیوی: سیدہ .."
@@ -4976,7 +4976,7 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ انجم نگہت",
     father: "سید ولادت حسین",
     mother: "سیدہ تنویر فاطمہ رضوی",
-    spouse: "سید نعیم حیدر رضوی",
+    spouse: "سید نسیم حیدر رضوی",
     gen: "G-041-D1",
     gender: "FEMALE",
     details: "سیدہ انجم نگہت کے بچّے\\n\\n 1- سید محمد رضوی"
@@ -5480,7 +5480,7 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "7/18/26 10:55", 
+    saved_time: "7/22/26 14:59", 
     total_members: 608,
     details_count: 85,
     sheets_merged: ["Main","1","2","3","4","5"]

@@ -375,21 +375,26 @@ min-height: 0;
             font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
         }
 
-        .section-heading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--maroon);
-            margin: 20px 0 15px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--gold);
-            cursor: pointer;
-            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
-            gap: 12px;
-        }
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Change from center to flex-start */
+    width: 100%;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--maroon);
+    margin: 20px 0 15px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--gold);
+    cursor: pointer;
+    font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+    gap: 12px;
+}
+
+.section-heading span:last-child {
+    flex: 1;
+    text-align: center;
+}
 
         .toggle-icon {
             font-size: 22px;
@@ -1120,7 +1125,7 @@ min-height: 0;
         let db = [], fileInfo = null, currentIndividual = null;
         let showSiblings = true, showDescendants = true, showAncestors = true;
         let siblingsCollapsed = true, childrenCollapsed = true, ancestorsCollapsed = true;
-let zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 1.0;
+let zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.70;
         let zoomVisible = false;
 
         // ================================================================
@@ -1169,7 +1174,7 @@ let zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerr
         }
 
 function resetZoom() { 
-    zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 1.0;
+    zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.7;
     applyZoom(); 
 }
 
@@ -1291,7 +1296,7 @@ function applyZoom() {
         // ================================================================
         window.addEventListener('beforeprint', function() {
             window._savedZoom = zoomLevel;
-            zoomLevel = 1.0;
+            zoomLevel = 0.7;
             applyZoom();
         });
 

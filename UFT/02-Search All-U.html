@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<!-- ================================================================
+     FILE NAME: 03-Search-All-U.html
+     VERSION: v1.0
+     LAST UPDATED: 2026-07-28
+     PURPOSE: Search all members across all fields
+     ================================================================ -->
+<html lang="ur" dir="rtl" class="notranslate">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" />
+
+    <!-- ================================================================
+         UNIQUE: PAGE TITLE (File 4)
+         ================================================================ -->
+    <title>کوئی بھی نام تلاش کریں</title>
+
+    <!-- ================================================================
+         COMMON: FONTS (All 3 Files)
+         ================================================================ -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- ================================================================
+         COMMON: EXTERNAL LIBRARIES (All 3 Files)
+         ================================================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    
+<style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --maroon: #5a0000;
+            --dark-blue: #0f172a;
+            --gold: #d4af37;
+            --light-gold: #f1d279;
+            --green: #2e7d32;
+            --dark-green: #1b5e20;
+            --light-pink: #ffe4e9;
+            --bronze: #bc8c4f;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            background: #1a1a1a;
+            margin: 0;
+            padding: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+            width: 100%;
+        }
+
+        .zoom-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            flex-shrink: 0;
+            min-height: 60px;
+            position: relative;
+        }
+
+        .header-title {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .header-stats {
+            margin-right: auto;
+            margin-left: 0;
+            font-size: 12px;
+            color: var(--gold);
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+
+        .home-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            border: 2px solid white;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 10;
+        }
+        .home-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.05);
+        }
+
+        .search-section {
+            padding: 15px;
+            background: #fffcf8;
+            width: 85%;
+            margin: 0 auto;
+            flex-shrink: 0;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: nowrap;
+        }
+
+        .search-label {
+            font-weight: 700;
+            color: var(--maroon);
+            font-size: 13px;
+            white-space: nowrap;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+            z-index: 1000;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif !important;
+            text-align: right;
+            background: white;
+        }
+        .search-input:focus {
+            border-color: var(--gold);
+        }
+        .search-input::placeholder {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 0 0 4px 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 9999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .search-dropdown.show {
+            display: block !important;
+        }
+
+        .result-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+            text-align: right;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+        .result-item:hover {
+            background: #faebcd;
+        }
+        .result-item .main-name {
+            font-weight: 700;
+            color: var(--dark-blue);
+            font-size: 14px;
+        }
+        .result-item .gen {
+            color: var(--maroon);
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        .result-item .father-name {
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .reset-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.02);
+        }
+
+        .search-results-inline {
+            font-size: 11px;
+            color: var(--maroon);
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            flex-shrink: 0;
+        }
+        .tips-btn:hover {
+            background: #faebcd;
+            animation: none;
+        }
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
+        }
+
+        .tree-wrapper {
+            min-height: 0;
+            flex: 1;
+            overflow: auto !important;
+            background: #fffcf8;
+            position: relative;
+        }
+
+        .tree-wrapper::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        .tree-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+        .tree-wrapper::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 6px;
+        }
+        .tree-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-blue);
+        }
+
+        .tree-container {
+            padding: 30px;
+            min-width: max-content;
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .tree-root-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            min-width: 100%;
+            transform-origin: top center;
+        }
+
+        .welcome-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 400px;
+            width: 100%;
+        }
+
+        .welcome-box {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .welcome-text {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .table-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+            background: white;
+            flex: unset;
+            min-height: unset;
+            width: fit-content;
+            margin: 0 auto;
+            transform: scale(1.5);
+            transform-origin: top center;
+            margin-bottom: -8%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 420px;
+        }
+
+        th {
+            background: #faf6f0;
+            color: #5a0000;
+            font-weight: 700;
+            padding: 10px 15px;
+            text-align: center;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            vertical-align: middle;
+            background-color: white;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .clickable-name {
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        .details-icon {
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--gold);
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        tr:hover td {
+            background-color: #faebcd;
+            cursor: pointer;
+        }
+        tr.female-row td {
+            background-color: #fff0f0;
+        }
+
+        .no-results {
+            padding: 40px 16px;
+            text-align: center;
+            color: #7a6a58;
+            font-size: 14px;
+        }
+        .no-results span {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .app-footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        /* Zoom Controls */
+        .zoom-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 6px;
+            display: none;
+            flex-direction: row;
+            gap: 4px;
+            z-index: 2000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+        .zoom-controls.dragging {
+            cursor: grabbing;
+            opacity: 0.85;
+        }
+        .zoom-controls.visible {
+            display: flex;
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .zoom-btn:hover {
+            background: var(--gold);
+            color: white;
+        }
+
+        .zoom-level {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
+        }
+
+        /* Save Options Modal */
+        .save-options-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            z-index: 4000;
+            min-width: 350px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: none;
+            direction: rtl;
+            text-align: right;
+        }
+        .save-options-modal h3 {
+            color: var(--maroon);
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+        .save-options-modal label {
+            display: block;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+        .save-options-modal input[type="radio"] {
+            margin-left: 10px;
+            margin-right: 0;
+        }
+        .save-options-modal button {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3999;
+            display: none;
+        }
+
+        .info-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        .info-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 260px;
+            max-width: 340px;
+            width: 85%;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            text-align: right;
+        }
+        .info-modal h3 {
+            color: var(--maroon);
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 3px 0;
+            padding: 0 0 6px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+        .info-modal p {
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 8px 0 2px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #2d2d2d;
+            max-height: 220px;
+            overflow-y: auto;
+            background: #fef9e6;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-right: 3px solid var(--gold);
+        }
+        .info-modal button {
+            margin-top: 10px;
+            padding: 6px 15px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            font-size: 11px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .info-modal button:hover {
+            background: var(--light-gold);
+        }
+
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 480px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .tips-modal h3 {
+            font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif;
+            color: #0f172a;
+            font-size: 20px;
+            margin-bottom: 14px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+        }
+        .tips-close-btn:hover {
+            background: #f1d279;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 6px 12px;
+            text-align: right;
+            direction: rtl;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+        .tips-grid .title {
+            font-weight: 700;
+            color: #5a0000;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: right;
+        }
+        .tips-grid .colon {
+            color: #5a0000;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: right;
+        }
+        .tips-grid .desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            text-align: right;
+        }
+
+        .details-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fffcf8;
+            border-radius: 16px;
+            padding: 30px;
+            z-index: 6001;
+            max-width: 600px;
+            width: 92%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 3px solid var(--gold);
+            direction: rtl;
+            text-align: right;
+            display: none;
+        }
+        .details-modal .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+        }
+        .details-modal .details-header h2 {
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+            color: var(--dark-blue);
+            font-size: 20px;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .details-modal .details-content-box {
+            background: #faf6f0;
+            padding: 18px;
+            border-radius: 8px;
+            border-right: 4px solid var(--gold);
+            border-left: none;
+            white-space: pre-wrap;
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            color: #1a1a1a;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .details-modal .details-actions {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 2px solid var(--gold);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .details-modal .details-actions .close-btn {
+            padding: 10px 24px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .details-modal .details-actions .close-btn:hover {
+            background: var(--light-gold);
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 480px) {
+            .home-btn {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+            .header-title {
+                font-size: 14px;
+            }
+            .header-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            .search-section {
+                width: 95%;
+                padding: 10px;
+            }
+            .search-label {
+                font-size: 11px;
+            }
+            .reset-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            .tree-container {
+                padding: 15px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .zoom-wrapper {
+                zoom: 0.50;
+            }
+            .search-row {
+                flex-wrap: nowrap;
+                gap: 8px;
+            }
+            .search-label {
+                font-size: 11px;
+            }
+            .search-wrapper {
+                flex: 1;
+                min-width: 60px;
+            }
+            .reset-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+            .tips-btn {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+        }
+           
+
+</style>
+
+
+
+</head>
+<body>
+
+    <!-- ================================================================
+         COMMON 17: HTML - APP CONTAINER (All 3 Files)
+         ================================================================ -->
+    <div class="app-container">
+
+        <!-- ============================================================
+             COMMON 18: HTML - ZOOM WRAPPER (All 3 Files)
+             ============================================================ -->
+        <div class="zoom-wrapper" id="zoomWrapper">
+
+            <!-- ============================================================
+                 COMMON 19: HTML - APP HEADER (All 3 Files)
+                 ============================================================ -->
+            <div class="app-header">
+
+                <!-- ============================================================
+                     UNIQUE: File 4 uses HOME BUTTON (not left-toggle-btn)
+                     ============================================================ -->
+                <a href="00-Dashboard-U.html" class="home-btn"><span>🏠</span> ہوم</a>
+
+                <!-- ============================================================
+                     UNIQUE: File 4 Header Title
+                     ============================================================ -->
+                <div class="header-title">
+                    <span class="header-icon">🌿</span>
+                    <span>کوئی بھی نام تلاش کریں</span>
+                </div>
+
+                <!-- ============================================================
+                     COMMON: header-stats (SAME as Files 2 & 3)
+                     ============================================================ -->
+                <div class="header-stats">
+                    <span id="statsHeader"></span>
+                </div>
+
+            </div>
+
+            <!-- ============================================================
+                 UNIQUE: File 4 does NOT have Toggle Menu Panel
+                 (Files 2 & 3 have this, but File 4 doesn't)
+                 ============================================================ -->
+
+            <!-- ============================================================
+                 COMMON 20: HTML - SEARCH SECTION (All 3 Files)
+                 ============================================================ -->
+            <div class="search-section">
+                <div class="search-row">
+                    <span class="search-label">نام تلاش کریں</span>
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" class="search-input" placeholder="نام درج کریں..." autocomplete="off">
+                        <div id="searchDropdown" class="search-dropdown"></div>
+                    </div>
+                    <!-- ============================================================
+                         UNIQUE: File 4 uses resetSearch()
+                         ============================================================ -->
+                    <div class="reset-btn" onclick="resetSearch()">🔄 دوبارہ ترتیب</div>
+                    <button class="tips-btn" onclick="openTips()">💡 ہدایات</button>
+                </div>
+            </div>
+
+            <!-- ============================================================
+                 COMMON 21: HTML - CONTENT AREA (All 3 Files)
+                 ============================================================ -->
+            <div class="tree-wrapper" id="treeWrapper">
+                <div class="tree-container" id="treeContainer">
+                    <div class="tree-root-layout" id="treeRoot">
+                        <!-- CONTENT RENDERED BY JAVASCRIPT -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================
+                 COMMON 22: HTML - APP FOOTER (All 3 Files)
+                 ============================================================ -->
+            <div class="app-footer">
+                ڈویلپر: عمران حیدر ص/ سید رسالت حسین رضوی | 0332-787-6010
+            </div>
+
+        </div><!-- end .zoom-wrapper -->
+
+    </div><!-- end .app-container -->
+
+    <!-- ================================================================
+         COMMON 23: HTML - SAVE OPTIONS MODAL (All 3 Files)
+         ================================================================ -->
+    <div class="save-options-modal" id="saveOptionsModal" dir="rtl">
+        <h3>💾 شجرہ محفوظ کریں</h3>
+        <div style="margin-bottom:20px;">
+            <div style="font-weight:600; margin-bottom:10px; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">فارمیٹ منتخب کریں:</div>
+            <label><input type="radio" name="saveFormat" value="pdf-high" checked> 📑 PDF - ہائی ریزولوشن</label>
+            <label><input type="radio" name="saveFormat" value="pdf-low"> 📑 PDF - لو ریزولوشن</label>
+            <label><input type="radio" name="saveFormat" value="jpeg"> 📸 JPEG تصویر</label>
+        </div>
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">محفوظ کریں</button>
+            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer; font-family:'Noto Nastaliq Urdu','Inter',sans-serif;">منسوخ</button>
+        </div>
+    </div>
+    <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
+
+    <!-- ================================================================
+         COMMON 24: HTML - ZOOM CONTROLS (All 3 Files)
+         ================================================================ -->
+    <div class="zoom-controls" id="zoomControls">
+        <div class="zoom-btn" onclick="zoomIn()">+</div>
+        <div class="zoom-level" id="zoomLevel">50%</div>
+        <div class="zoom-btn" onclick="zoomOut()">-</div>
+        <div class="zoom-btn" onclick="resetZoom()">↺</div>
+    </div>
+
+    <!-- ================================================================
+         COMMON 25: HTML - INFO MODAL (All 3 Files)
+         ================================================================ -->
+    <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+    <div class="info-modal" id="infoModal" style="display:none;">
+        <h3>ℹ️ اضافی معلومات</h3>
+        <p id="infoModalText"></p>
+        <button onclick="closeInfoModal()">بند کریں</button>
+    </div>
+
+    <!-- ================================================================
+         UNIQUE: HTML - DETAILS MODAL (Only File 4 - for showing details)
+         ================================================================ -->
+    <div class="modal-overlay" id="detailsOverlay" onclick="closeDetailsModal()"></div>
+    <div class="details-modal" id="detailsModal">
+        <div class="details-header">
+            <h2 id="detailsModalTitle">📝 تفصیلات</h2>
+        </div>
+        <div class="details-body">
+            <div class="details-content-box" id="detailsModalContent">
+                تفصیلات لوڈ ہو رہی ہیں...
+            </div>
+        </div>
+        <div class="details-actions">
+            <button class="close-btn" onclick="closeDetailsModal()">✕ بند کریں</button>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         UNIQUE: CSS - DETAILS MODAL STYLES (Only File 4)
+         ================================================================ -->
+    <style>
+        .details-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fffcf8;
+            border-radius: 16px;
+            padding: 30px;
+            z-index: 6001;
+            max-width: 600px;
+            width: 92%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 3px solid var(--gold);
+            direction: rtl;
+            text-align: right;
+            display: none;
+        }
+        .details-modal .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+        }
+        .details-modal .details-header h2 {
+            font-family: 'Noto Nastaliq Urdu', 'Playfair Display', serif;
+            color: var(--dark-blue);
+            font-size: 20px;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .details-modal .details-content-box {
+            background: #faf6f0;
+            padding: 18px;
+            border-radius: 8px;
+            border-right: 4px solid var(--gold);
+            border-left: none;
+            white-space: pre-wrap;
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            color: #1a1a1a;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .details-modal .details-actions {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 2px solid var(--gold);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .details-modal .details-actions .close-btn {
+            padding: 10px 24px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .details-modal .details-actions .close-btn:hover {
+            background: var(--light-gold);
+        }
+    </style>
+
+    <!-- ================================================================
+         COMMON 26: HTML - TIPS MODAL (All 3 Files)
+         ================================================================ -->
+    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="tips-modal">
+            <h3>💡 رہنما اصول برائے استعمال</h3>
+            <div class="tips-grid">
+    <div class="title">تلاش</div>
+    <div class="colon">:</div>
+    <div class="desc">نام لکھیں، تمام فیلڈز میں تلاش ہوگی</div>
+
+    <div class="title">تفصیلات</div>
+    <div class="colon">:</div>
+    <div class="desc">ℹ️ آئیکن پر کلک کریں</div>
+
+    <div class="title">دوبارہ ترتیب</div>
+    <div class="colon">:</div>
+    <div class="desc">🔄 تلاش صاف کریں اور تمام نتائج ہٹائیں</div>
+
+    <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">نیویگیشن</div>
+    <div class="colon" style="margin-top:8px;"></div>
+    <div class="desc" style="margin-top:8px;"></div>
+
+    <div class="title">ہوم</div>
+    <div class="colon">:</div>
+    <div class="desc">🏠 مرکزی صفحہ پر جائیں</div>
+
+    <div class="title">نتائج</div>
+    <div class="colon">:</div>
+    <div class="desc">ملاپ والے تمام افراد ٹیبل میں دکھائے جاتے ہیں</div>
+</div>
+       
+            <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">بند کریں</button>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         COMMON: DATA FILE
+         ================================================================ -->
+    <script src="20-family-Data-U.js"></script>
+
+    <!-- ================================================================
+         UNIQUE: JAVASCRIPT (File 4 - Search Functions)
+         ================================================================ -->
+    <script>
+        // ================================================================
+        // FILE NAME: 03-Search-All-U.html
+        // VERSION: v1.0
+        // LAST UPDATED: 2026-07-28
+        // ================================================================
+
+        let zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.70;
+        let zoomVisible = false;
+
+        // ================================================================
+        // COMMON: Zoom Functions (All 3 Files)
+        // ================================================================
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel + 0.1, 2.0);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel - 0.1, 0.3);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.7;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const wrapper = document.getElementById('treeRoot');
+            if (wrapper) {
+                wrapper.style.zoom = zoomLevel;
+            }
+            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+        }
+
+        function toggleZoomControls() {
+            zoomVisible = !zoomVisible;
+            const controls = document.getElementById('zoomControls');
+            if (zoomVisible) {
+                controls.classList.add('visible');
+            } else {
+                controls.classList.remove('visible');
+            }
+        }
+
+        // ================================================================
+        // COMMON: Zoom Controls Drag (All 3 Files)
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('dragstart', function(e) { e.preventDefault(); });
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            applyZoom();
+        });
+
+        // ================================================================
+        // COMMON: Print Zoom Reset (All 3 Files)
+        // ================================================================
+        window.addEventListener('beforeprint', function() {
+            window._savedZoom = zoomLevel;
+            zoomLevel = 0.7;
+            applyZoom();
+        });
+
+        window.addEventListener('afterprint', function() {
+            if (window._savedZoom !== undefined) {
+                zoomLevel = window._savedZoom;
+            } else {
+                zoomLevel = 0.7;
+            }
+            applyZoom();
+        });
+
+        // ================================================================
+        // COMMON: Tips Functions (All 3 Files)
+        // ================================================================
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
+
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTips();
+            }
+        });
+
+        window.openTips = openTips;
+        window.closeTips = closeTips;
+
+        // ================================================================
+        // COMMON: Info Modal Functions (All 3 Files)
+        // ================================================================
+        function showInfoModal(personName) {
+            const person = window.familyDataList.find(p => p.name === personName);
+            if (!person) return;
+            let detailsText = person.details && person.details.trim() !== '' ? person.details : 'کوئی اضافی معلومات دستیاب نہیں۔';
+            detailsText = detailsText.replace(/\\n/g, '<br>');
+            document.getElementById('infoModalText').innerHTML = detailsText;
+            document.getElementById('infoModal').style.display = 'block';
+            document.getElementById('infoModalOverlay').style.display = 'block';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.getElementById('infoModalOverlay').style.display = 'none';
+        }
+
+        // ================================================================
+        // COMMON: Save Options Functions (All 3 Files)
+        // ================================================================
+        function formatCurrentTime() {
+            const d = new Date();
+            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'شام':'صبح'}`;
+        }
+
+        function showSaveOptions() {
+            if (!window.familyDataList || window.familyDataList.length === 0) {
+                alert('براہ کرم پہلے کسی فرد کو منتخب کریں');
+                return;
+            }
+            document.getElementById('saveOptionsModal').style.display = 'block';
+            document.getElementById('saveModalOverlay').style.display = 'block';
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
+
+        function processSave() {
+            const s = document.querySelector('input[name="saveFormat"]:checked');
+            if (!s) { alert('براہ کرم فارمیٹ منتخب کریں'); return; }
+            closeSaveModal();
+            if (s.value === 'jpeg') exportAsJPEG();
+            else exportIndividualPDF(s.value === 'pdf-high' ? 'high' : 'low');
+        }
+
+        // ================================================================
+        // UNIQUE: File 4 - Export Functions
+        // ================================================================
+        async function exportIndividualPDF(quality) {
+            const member = window.familyDataList[0];
+            if (!member) return alert('کوئی مواد نہیں');
+
+            const scale = quality === 'high' ? 2.0 : 1.5;
+            const jpegQuality = quality === 'high' ? 0.95 : 0.7;
+            const qualityText = quality === 'high' ? 'ہائی ریزولوشن' : 'لو ریزولوشن';
+
+            const originalElement = document.querySelector('.tree-root-layout');
+            if (!originalElement) return alert('کوئی مواد نہیں');
+
+            const el = originalElement.cloneNode(true);
+            el.style.transform = 'none';
+            el.style.width = 'fit-content';
+            el.style.minWidth = '100%';
+            el.style.height = 'auto';
+            el.style.overflow = 'visible';
+
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '-9999px';
+            wrapper.style.top = '0';
+            wrapper.style.backgroundColor = 'white';
+            wrapper.style.padding = '25px';
+            wrapper.style.width = 'fit-content';
+            wrapper.style.minWidth = '100%';
+            wrapper.style.overflow = 'visible';
+            wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            document.body.appendChild(wrapper);
+
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                    * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                    .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                    h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+                    .family-table { direction: rtl; text-align: right; width: 100%; }
+                    .family-table th, .family-table td { padding: 8px 12px; }
+                    .children-row { gap: 8px; }
+                    .section-heading { font-size: 16px; margin: 15px 0 10px; }
+                    .toggle-icon { width: 28px; height: 28px; font-size: 18px; }
+                `;
+            wrapper.appendChild(styleTag);
+
+            const header = document.createElement('div');
+            header.style.marginBottom = '20px';
+            header.style.textAlign = 'center';
+            header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;">رضوی خاندان · تلاش کے نتائج</h1>
+                    <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;">${displayName(member.name)}</h2>`;
+            wrapper.appendChild(header);
+            wrapper.appendChild(el);
+
+            const footer = document.createElement('div');
+            footer.style.marginTop = '20px';
+            footer.style.padding = '12px';
+            footer.style.background = '#fcf9f4';
+            footer.style.textAlign = 'center';
+            footer.style.fontSize = '10px';
+            const timeStr = formatCurrentTime();
+            footer.innerHTML = `<div>ڈویلپر: عمران حیدر ص/ سید رسالت حسین رضوی | 0332-787-6010</div>
+                    <div>PDF جنریٹ: ${timeStr}</div>`;
+            wrapper.appendChild(footer);
+
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.position = 'fixed';
+            loadingMsg.style.top = '50%';
+            loadingMsg.style.left = '50%';
+            loadingMsg.style.transform = 'translate(-50%, -50%)';
+            loadingMsg.style.background = '#5a0000';
+            loadingMsg.style.color = 'white';
+            loadingMsg.style.padding = '15px 30px';
+            loadingMsg.style.borderRadius = '8px';
+            loadingMsg.style.zIndex = '9999';
+            loadingMsg.style.fontSize = '14px';
+            loadingMsg.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            loadingMsg.textContent = `📄 PDF بنا رہے ہیں... (${qualityText})`;
+            document.body.appendChild(loadingMsg);
+
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            try {
+                const canvas = await html2canvas(wrapper, {
+                    scale: scale,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    useCORS: true,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                const { jsPDF } = window.jspdf;
+                const isLandscape = canvas.width > canvas.height;
+                const orientation = isLandscape ? 'l' : 'p';
+                const mmWidth = canvas.width * 0.264583;
+                const mmHeight = canvas.height * 0.264583;
+                const margin = 10;
+                const pdfWidth = mmWidth + (margin * 2);
+                const pdfHeight = mmHeight + (margin * 2);
+
+                const pdf = new jsPDF({
+                    orientation: orientation,
+                    unit: 'mm',
+                    format: [pdfWidth, pdfHeight]
+                });
+
+                pdf.addImage(imgData, 'JPEG', margin, margin, mmWidth, mmHeight);
+                pdf.save(`search_results_${quality}_${Date.now()}.pdf`);
+
+                const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                setTimeout(() => alert(`✅ PDF محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
+
+            } catch (err) {
+                console.error('PDF Error:', err);
+                alert('❌ PDF نہیں بن سکی: ' + err.message);
+            } finally {
+                document.body.removeChild(wrapper);
+                document.body.removeChild(loadingMsg);
+            }
+        }
+
+        async function exportAsJPEG() {
+            const member = window.familyDataList[0];
+            if (!member) return alert('کوئی مواد نہیں');
+
+            const originalElement = document.querySelector('.tree-root-layout');
+            if (!originalElement) return alert('کوئی مواد نہیں');
+
+            const el = originalElement.cloneNode(true);
+            el.style.transform = 'none';
+            el.style.width = 'fit-content';
+            el.style.minWidth = '100%';
+            el.style.height = 'auto';
+            el.style.overflow = 'visible';
+
+            const wrapper = document.createElement('div');
+            wrapper.style.position = 'absolute';
+            wrapper.style.left = '-9999px';
+            wrapper.style.top = '0';
+            wrapper.style.backgroundColor = 'white';
+            wrapper.style.padding = '25px';
+            wrapper.style.width = 'fit-content';
+            wrapper.style.minWidth = '100%';
+            wrapper.style.overflow = 'visible';
+            wrapper.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            document.body.appendChild(wrapper);
+
+            const styleTag = document.createElement('style');
+            styleTag.textContent = `
+                    * { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                    .member-name, .box-header, .box-label, .box-value { font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif; }
+                    h1, h2, .section-heading { font-family: 'Playfair Display', 'Noto Nastaliq Urdu', serif; }
+                    .family-table { direction: rtl; text-align: right; width: 100%; }
+                    .family-table th, .family-table td { padding: 8px 12px; }
+                    .children-row { gap: 8px; }
+                    .section-heading { font-size: 16px; margin: 15px 0 10px; }
+                    .toggle-icon { width: 28px; height: 28px; font-size: 18px; }
+                `;
+            wrapper.appendChild(styleTag);
+
+            const header = document.createElement('div');
+            header.style.marginBottom = '20px';
+            header.style.textAlign = 'center';
+            header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;">رضوی خاندان · تلاش کے نتائج</h1>
+                    <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;">${displayName(member.name)}</h2>`;
+            wrapper.appendChild(header);
+            wrapper.appendChild(el);
+
+            const footer = document.createElement('div');
+            footer.style.marginTop = '20px';
+            footer.style.padding = '12px';
+            footer.style.background = '#fcf9f4';
+            footer.style.textAlign = 'center';
+            footer.style.fontSize = '10px';
+            const timeStr = formatCurrentTime();
+            footer.innerHTML = `<div>ڈویلپر: عمران حیدر ص/ سید رسالت حسین رضوی | 0332-787-6010</div>
+                    <div>JPEG جنریٹ: ${timeStr}</div>`;
+            wrapper.appendChild(footer);
+
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.position = 'fixed';
+            loadingMsg.style.top = '50%';
+            loadingMsg.style.left = '50%';
+            loadingMsg.style.transform = 'translate(-50%, -50%)';
+            loadingMsg.style.background = '#5a0000';
+            loadingMsg.style.color = 'white';
+            loadingMsg.style.padding = '15px 30px';
+            loadingMsg.style.borderRadius = '8px';
+            loadingMsg.style.zIndex = '9999';
+            loadingMsg.style.fontSize = '14px';
+            loadingMsg.style.fontFamily = "'Noto Nastaliq Urdu', 'Inter', sans-serif";
+            loadingMsg.textContent = '📸 JPEG بنا رہے ہیں...';
+            document.body.appendChild(loadingMsg);
+
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            try {
+                const canvas = await html2canvas(wrapper, {
+                    scale: 1.5,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    useCORS: true,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                const link = document.createElement('a');
+                link.download = `search_results_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+
+                const fileSizeKB = Math.ceil((imgData.length - 'data:image/jpeg;base64,'.length) * 0.75 / 1024);
+                setTimeout(() => alert(`✅ JPEG محفوظ ہو گئی!\nفائل سائز: ~${fileSizeKB} KB`), 100);
+
+            } catch (err) {
+                console.error('Export Error:', err);
+                alert('❌ JPEG نہیں بن سکی: ' + err.message);
+            } finally {
+                document.body.removeChild(wrapper);
+                document.body.removeChild(loadingMsg);
+            }
+        }
+
+        // ================================================================
+        // UNIQUE: File 4 - Dashboard Navigation
+        // ================================================================
+        function showDashboard() {
+            window.location.href = '00-Dashboard-U.html';
+        }
+
+        // ================================================================
+        // UNIQUE: File 4 - displayName function
+        // ================================================================
+        function displayName(str) {
+            if (!str) return '';
+            let cleaned = str.replace(/[\s-۔]*\d+$/, '').trim();
+            return cleaned;
+        }
+
+        // ================================================================
+        // UNIQUE: File 4 - Details Modal Functions
+        // ================================================================
+        function openDetailsModal(personName) {
+            const person = window.familyDataList.find(p => p.name === personName);
+            if (!person) return;
+
+            let detailsText = person.details && person.details.trim() !== '' ?
+                person.details :
+                'کوئی تفصیلات دستیاب نہیں';
+
+            document.getElementById('detailsModalTitle').textContent = '📝 تفصیلات — ' + displayName(personName);
+            document.getElementById('detailsModalContent').innerHTML = detailsText.replace(/\\n/g, '<br>');
+            document.getElementById('detailsModal').style.display = 'block';
+            document.getElementById('detailsOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+            document.getElementById('detailsOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ================================================================
+        // UNIQUE: File 4 - resetSearch function
+        // ================================================================
+        function resetSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const treeRoot = document.getElementById('treeRoot');
+            const resultCountSpan = document.getElementById('resultCount');
+            const dropdownList = document.getElementById('searchDropdown');
+
+            searchInput.value = '';
+            treeRoot.innerHTML = `
+                    <div class="welcome-container">
+                        <div class="welcome-box">
+                            <div class="welcome-icon">🔎</div>
+                            <div class="welcome-title">کوئی بھی نام تلاش کریں</div>
+                            <div class="welcome-text">تمام فیلڈز میں تلاش کرنے کے لیے نام ٹائپ کریں</div>
+                        </div>
+                    </div>
+                `;
+            document.getElementById('statsHeader').textContent = ` ${window.totalMembersCount || 0} اراکین`;
+            resultCountSpan.textContent = '0';
+            dropdownList.classList.remove('show');
+            searchInput.focus();
+        }
+
+        // ================================================================
+        // UNIQUE: File 4 - Main Search Functions (IIFE)
+        // ================================================================
+        (function() {
+            const searchInput = document.getElementById('searchInput');
+            const treeRoot = document.getElementById('treeRoot');
+            const resultCountSpan = document.getElementById('resultCount');
+            const dropdownList = document.getElementById('searchDropdown');
+
+            let familyData = [];
+
+            if (typeof FAMILY_DATA_URDU !== 'undefined' && Array.isArray(FAMILY_DATA_URDU) && FAMILY_DATA_URDU.length > 0) {
+                familyData = FAMILY_DATA_URDU;
+                window.familyDataList = familyData;
+            } else {
+                treeRoot.innerHTML = `
+                        <div class="welcome-container">
+                            <div class="welcome-box">
+                                <div class="welcome-icon">⚠️</div>
+                                <div class="welcome-title">ڈیٹا فائل موجود نہیں</div>
+                                <div class="welcome-text">براہ کرم 20-family-Data-U.js چیک کریں</div>
+                            </div>
+                        </div>
+                    `;
+                return;
+            }
+
+            const totalMembers = familyData.length;
+            window.totalMembersCount = totalMembers;
+            document.getElementById('statsHeader').textContent = `⚡ ${totalMembers} اراکین`;
+
+            function escapeAttr(str) {
+                if (!str) return '';
+                return String(str).replace(/["']/g, '&quot;');
+            }
+
+            function escHtml(str) {
+                if (!str) return '';
+                return String(str).replace(/[&<>"]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            function buildDropdown(query) {
+                if (!query || query.trim() === '') {
+                    dropdownList.classList.remove('show');
+                    dropdownList.innerHTML = '';
+                    return;
+                }
+                const q = query.trim().toLowerCase();
+
+                const matchedMap = new Map();
+
+                for (const m of familyData) {
+                    const fields = [
+                        { key: 'نام', value: m.name || '' },
+                        { key: 'والد', value: m.father || '' },
+                        { key: 'والدہ', value: m.mother || '' },
+                        { key: 'شریک حیات', value: m.spouse || '' },
+                        { key: 'نسل', value: m.gen || '' },
+                        { key: 'تفصیلات', value: m.details || '' }
+                    ];
+
+                    let foundField = false;
+                    for (const f of fields) {
+                        if (f.value.toLowerCase().includes(q)) {
+                            foundField = true;
+                            break;
+                        }
+                    }
+
+                    if (foundField) {
+                        if (!matchedMap.has(m.name)) {
+                            matchedMap.set(m.name, m);
+                        }
+                    }
+                }
+
+                const uniqueMatches = Array.from(matchedMap.values()).slice(0, 15);
+
+                if (uniqueMatches.length === 0) {
+                    dropdownList.innerHTML = `<div class="no-match">کوئی مماثل نام یا رشتہ نہیں ملا</div>`;
+                    dropdownList.classList.add('show');
+                    return;
+                }
+
+                let html = '';
+                for (const m of uniqueMatches) {
+                    const isFemale = m.gender && m.gender.toUpperCase() === 'FEMALE';
+
+                    let parentLabel = isFemale ? 'والدہ' : 'والد';
+                    let parentVal = isFemale ? (m.mother || m.father || '—') : (m.father || '—');
+
+                    let namePart = escHtml(displayName(m.name) || '—');
+                    let genPart = m.gen ? ` (${escHtml(m.gen)})` : '';
+                    let mainLineText = `${namePart}${genPart}`;
+
+                    let subLineText = `${parentLabel} ${escHtml(displayName(parentVal))}`;
+
+                    html += `
+                                <div class="result-item" data-name="${escapeAttr(m.name)}">
+                                    <div class="main-line">${mainLineText}</div>
+                                    <div class="sub-line">${subLineText}</div>
+                                </div>
+                            `;
+                }
+                dropdownList.innerHTML = html;
+                dropdownList.classList.add('show');
+
+                dropdownList.querySelectorAll('.result-item').forEach(item => {
+                    item.addEventListener('mousedown', function(e) {
+                        e.preventDefault();
+                    });
+                    item.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const name = this.dataset.name;
+                        if (name) {
+                            searchInput.value = displayName(name);
+                            dropdownList.classList.remove('show');
+                            performSearch();
+                        }
+                    });
+                });
+            }
+
+            function searchInAllFields(query) {
+                if (!query || query.trim() === '') return [];
+                const q = query.trim().toLowerCase();
+                const resultsMap = new Map();
+
+                for (const member of familyData) {
+                    let matchField = null;
+                    const fields = [
+                        { key: 'نام', value: member.name || '' },
+                        { key: 'والد', value: member.father || '' },
+                        { key: 'والدہ', value: member.mother || '' },
+                        { key: 'شریک حیات', value: member.spouse || '' },
+                        { key: 'نسل', value: member.gen || '' },
+                        { key: 'تفصیلات', value: member.details || '' }
+                    ];
+                    for (const f of fields) {
+                        if (f.value.toLowerCase().includes(q)) {
+                            matchField = f.key;
+                            break;
+                        }
+                    }
+                    if (matchField && !resultsMap.has(member.name)) {
+                        resultsMap.set(member.name, { ...member, _matchField: matchField });
+                    }
+                }
+                return Array.from(resultsMap.values());
+            }
+
+
+
+function renderResults(results, query) {
+    if (!results || results.length === 0) {
+        treeRoot.innerHTML = `
+            <div class="welcome-container">
+                <div class="welcome-box">
+                    <div class="welcome-icon">🔎</div>
+                    <div class="welcome-title">کوئی نتیجہ نہیں ملا</div>
+                    <div class="welcome-text">اپنی تلاش کے الفاظ تبدیل کریں</div>
+                </div>
+            </div>
+        `;
+        document.getElementById('statsHeader').textContent = ` ${totalMembers} اراکین`;
+        resultCountSpan.textContent = '0';
+        return;
+    }
+
+    let html = `
+        <div style="width:100%; padding:5px 0;">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>نمبر</th>
+                            <th>نام</th>
+                            <th>والد</th>
+                            <th>والدہ</th>
+                            <th>شریک حیات</th>
+                            <th>نسل</th>
+                            <th>تفصیلات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+
+    let rowNum = 1;
+    for (const m of results) {
+        const isFemale = m.gender && m.gender.toUpperCase() === 'FEMALE';
+        const rowClass = isFemale ? 'female-row' : '';
+        const nameClean = displayName(m.name);
+        const fatherClean = displayName(m.father);
+
+        html += `<tr class="${rowClass}">`;
+        html += `<td>${rowNum}</td>`;
+        html +=
+            `<td><span class="clickable-name" onclick="openDetailsModal('${escapeAttr(m.name)}')">${escHtml(nameClean)}</span></td>`;
+        html += `<td>${escHtml(fatherClean)}</td>`;
+        html += `<td>${escHtml(m.mother || '—')}</td>`;
+        html += `<td>${escHtml(m.spouse || '—')}</td>`;
+        html += `<td>${escHtml(m.gen || '—')}</td>`;
+
+        if (m.details && m.details.trim() !== '') {
+            html +=
+                `<td><span class="details-icon" onclick="openDetailsModal('${escapeAttr(m.name)}')">ℹ️</span></td>`;
+        } else {
+            html += `<td style="color:#ccc;">—</td>`;
+        }
+        html += `</tr>`;
+        rowNum++;
+    }
+
+    html += `</tbody></table></div></div>`;
+    treeRoot.innerHTML = html;
+    document.getElementById('statsHeader').textContent = ` ${totalMembers} اراکین`;
+    resultCountSpan.textContent = results.length;
+}
+
+
+            function performSearch() {
+dropdownList.classList.remove('show');
+                const query = searchInput.value;
+                if (!query || query.trim() === '') {
+                    treeRoot.innerHTML = `
+                            <div class="welcome-container">
+                                <div class="welcome-box">
+                                    <div class="welcome-icon">🔎</div>
+                                    <div class="welcome-title">کوئی بھی نام تلاش کریں</div>
+                                    <div class="welcome-text">تمام فیلڈز میں تلاش کرنے کے لیے نام الفاظ ٹائپ کریں</div>
+                                </div>
+                            </div>
+                        `;
+                    document.getElementById('statsHeader').textContent = ` ${totalMembers} اراکین`;
+                    resultCountSpan.textContent = '0';
+                    dropdownList.classList.remove('show');
+                    return;
+                }
+                const results = searchInAllFields(query);
+                renderResults(results, query);
+                dropdownList.classList.remove('show');
+            }
+
+            searchInput.addEventListener('input', function(e) {
+                const val = this.value;
+                buildDropdown(val);
+                if (!val || val.trim() === '') {
+                    dropdownList.classList.remove('show');
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                const wrapper = document.querySelector('.search-wrapper');
+                if (wrapper && !wrapper.contains(e.target)) {
+                    dropdownList.classList.remove('show');
+                }
+                if (e.target === document.getElementById('detailsOverlay')) {
+                    closeDetailsModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeDetailsModal();
+                    dropdownList.classList.remove('show');
+                }
+            });
+
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                                 }
+                if (e.key === 'Escape') {
+                    resetSearch();
+                    dropdownList.classList.remove('show');
+                }
+            });
+
+            resetSearch();
+        })();
+
+        // ================================================================
+        // UNIQUE: File 4 - Close All Menus
+        // ================================================================
+        function closeAllMenus() {
+            document.getElementById('searchDropdown').style.display = 'none';
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target === document.getElementById('tipsOverlay')) {
+                document.getElementById('tipsOverlay').style.display = 'none';
+            }
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+                closeSaveModal();
+            }
+        });
+    </script>
+
+</body>
+</html>

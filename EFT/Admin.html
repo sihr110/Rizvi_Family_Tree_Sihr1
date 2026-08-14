@@ -1,0 +1,2211 @@
+<!-- ======================================== -->
+<!-- FILE NAME: Admin.html                    -->
+<!-- Admin Panel - Rizvi Family               -->
+<!-- ======================================== -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Admin Panel · Rizvi Family</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="20-Family-Data-E.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --maroon: #5a0000;
+            --dark-blue: #0f172a;
+            --gold: #d4af37;
+            --bronze: #bc8c4f;
+            --admin-purple: #6b21a8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .status-badge {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+            color: var(--dark-blue);
+        }
+
+        .main-content {
+            padding: 30px 25px 35px;
+            background: #fffcf8;
+            min-height: 550px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-content.hidden {
+            display: none;
+        }
+
+        /* ===== PASSWORD SCREEN ===== */
+        .password-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        .password-screen .lock-icon {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+
+        .password-screen h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--admin-purple);
+            margin-bottom: 8px;
+        }
+
+        .password-screen .sub-text {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .password-screen .admin-badge {
+            background: var(--admin-purple);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .password-input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .password-input-group input {
+            padding: 12px 20px;
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            font-size: 16px;
+            width: 220px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+
+        .password-input-group input:focus {
+            border-color: var(--admin-purple);
+        }
+
+        .password-input-group button {
+            padding: 12px 30px;
+            background: var(--admin-purple);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .password-input-group button:hover {
+            background: #7c3aed;
+            transform: scale(1.02);
+        }
+
+        .password-error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .admin-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--admin-purple);
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        .admin-card {
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--admin-purple);
+            box-shadow: 0 10px 30px rgba(107, 33, 168, 0.15);
+        }
+
+        .admin-card:active {
+            transform: scale(0.97);
+        }
+
+        .admin-card-icon {
+            font-size: 48px;
+            margin-bottom: 14px;
+        }
+
+        .admin-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 8px;
+        }
+
+        .admin-card-desc {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .data-status {
+            margin-top: 12px;
+            color: #2e7d32;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            min-width: 200px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .action-btn:active {
+            transform: scale(0.97);
+        }
+
+        .action-btn.dashboard-btn {
+            background: var(--dark-blue);
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .action-btn.dashboard-btn:hover {
+            background: #1a2a4a;
+        }
+
+        .action-btn.logout-btn {
+            background: #5a0000;
+            color: white;
+            border-color: #5a0000;
+        }
+
+        .action-btn.logout-btn:hover {
+            background: #7a1f1f;
+        }
+
+        .action-btn.load-btn {
+            background: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+
+        .action-btn.load-btn:hover {
+            background: #1b5e20;
+        }
+
+        .app-footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 10px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
+        }
+
+        #fileInput { display: none; }
+
+        @media (max-width: 768px) {
+            .admin-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+            .admin-card {
+                min-height: 150px;
+                padding: 20px 15px;
+            }
+            .admin-card-icon {
+                font-size: 36px;
+            }
+            .admin-card-title {
+                font-size: 15px;
+            }
+            .admin-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
+                min-width: unset;
+            }
+            .password-input-group input {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+            .app-container {
+                border-radius: 16px;
+            }
+            .main-content {
+                padding: 20px 15px;
+            }
+            .admin-title {
+                font-size: 22px;
+            }
+        }
+
+        /* ===== CONVERTER & EDITOR SHARED STYLES ===== */
+        .section-content {
+            display: none;
+            padding: 20px;
+            background: #fffcf8;
+            min-height: 550px;
+        }
+        .section-content.active {
+            display: block;
+        }
+
+        .section-back {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .section-back button {
+            background: var(--dark-blue);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 10px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .section-back button:hover {
+            background: var(--gold);
+            color: var(--dark-blue);
+        }
+
+        /* ===== CONVERTER STYLES ===== */
+        .converter-container {
+            background: #0b2a35;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .converter-left {
+            width: 35%;
+            background: #1e3a4a;
+            border-radius: 15px;
+            padding: 15px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .converter-left h2 { color: #ffd966; margin-bottom: 5px; text-align: center; font-size: 18px; }
+        .conversion-item {
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .conversion-item:hover { background: rgba(255,255,255,0.2); transform: translateX(5px); }
+        .conversion-item.active { background: #ffd966; color: #1e293b; border-color: #ffd966; }
+        .conversion-number {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            background: #ffd966;
+            color: #1e293b;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 10px;
+            font-weight: bold;
+            line-height: 26px;
+        }
+        .converter-right {
+            width: 60%;
+            background: #fff9e6;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        .converter-right h2 { color: #0b2a35; }
+        .upload-area {
+            border: 3px dashed #0284c7;
+            padding: 25px;
+            text-align: center;
+            border-radius: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            background: #f0f9ff;
+            transition: all 0.3s;
+        }
+        .upload-area.urdu { border-color: #059669; background: #f0fdf4; }
+        .upload-area:hover { background: #e6f7ff; transform: scale(1.01); }
+        .file-info {
+            background: #1e293b;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .date-info {
+            background: #e0f2fe;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: none;
+            border-left: 4px solid #0284c7;
+        }
+        .date-info.urdu { background: #d1fae5; border-left-color: #059669; }
+        .stats-panel {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: none;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .stat-item {
+            background: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .broken-links-warning {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: none;
+        }
+        .debug-panel {
+            background: #1e1e1e;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 11px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow: auto;
+            display: none;
+        }
+        .debug-option { margin-top: 10px; font-size: 12px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .sheet-stats { font-size: 12px; margin-top: 10px; color: #475569; }
+        .file-badge { background: #ffd966; color: #1e293b; padding: 4px 12px; border-radius: 20px; font-weight: bold; }
+        .error-log {
+            background: #fee2e2;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            display: none;
+            color: #991b1b;
+            max-height: 120px;
+            overflow: auto;
+        }
+        .converter-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .converter-actions .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+        }
+        .btn-en { background: #0284c7; color: white; }
+        .btn-en:hover { background: #0369a1; transform: translateY(-2px); }
+        .btn-ur { background: #059669; color: white; }
+        .btn-ur:hover { background: #047857; transform: translateY(-2px); }
+        .btn-report { background: #7c3aed; color: white; }
+        .btn-report:hover { background: #6d28d9; transform: translateY(-2px); }
+        .btn-comment { background: #b45309; color: white; }
+        .btn-comment:hover { background: #9b4307; transform: translateY(-2px); }
+        .btn-reset { background: #dc2626; color: white; }
+        .btn-reset:hover { background: #b91c1c; transform: translateY(-2px); }
+
+        @media (max-width: 768px) {
+            .converter-container { flex-direction: column; }
+            .converter-left, .converter-right { width: 100%; }
+            .stats-grid { grid-template-columns: repeat(2,1fr); }
+        }
+
+        /* ===== EDITOR STYLES ===== */
+        .editor-container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid var(--gold);
+        }
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .editor-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--maroon);
+            font-size: 20px;
+        }
+        .editor-toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .editor-toolbar .btn {
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-size: 0.8rem;
+            transition: 0.1s ease;
+        }
+        .btn-add { background: #d4af37; color: #000000; }
+        .btn-add:hover { background: #c49a2a; }
+        .btn-excel { background: #1f5e3a; color: white; }
+        .btn-excel:hover { background: #16482b; }
+        .btn-copy { background: #25D366; color: white; }
+        .btn-copy:hover { background: #1da851; }
+        .stats-text {
+            background: #ddeeff;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .editor-table-wrapper {
+            overflow-x: auto;
+            border-radius: 1rem;
+            border: 1px solid #e2edf2;
+            background: white;
+            margin-top: 0.8rem;
+            overflow-y: auto;
+                    }
+        .editor-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            table-layout: fixed;
+        }
+        .editor-table th {
+            background: #f0f6f0;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 700;
+            color: #1a4b2a;
+            border: 1px solid #cbe0ce;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+        .editor-table td {
+            padding: 8px 6px;
+            border: 1px solid #cbe0ce;
+            vertical-align: top;
+            word-wrap: break-word;
+        }
+        .editor-table th:nth-child(1), .editor-table td:nth-child(1) { width: 18%; }
+        .editor-table th:nth-child(2), .editor-table td:nth-child(2) { width: 16%; }
+        .editor-table th:nth-child(3), .editor-table td:nth-child(3) { width: 14%; }
+        .editor-table th:nth-child(4), .editor-table td:nth-child(4) { width: 12%; }
+        .editor-table th:nth-child(5), .editor-table td:nth-child(5) { width: 8%; }
+        .editor-table th:nth-child(6), .editor-table td:nth-child(6) { width: 8%; }
+        .editor-table th:nth-child(7), .editor-table td:nth-child(7) { width: 18%; }
+        .editor-table th:nth-child(8), .editor-table td:nth-child(8) { width: 6%; }
+        .editor-table textarea, .editor-table input, .editor-table select {
+            width: 100%;
+            padding: 6px 4px;
+            border: none;
+            font-size: 0.8rem;
+            font-family: inherit;
+            background: transparent;
+            resize: vertical;
+        }
+        .editor-table textarea { min-height: 36px; }
+        .rtl-mode { direction: rtl; text-align: right; }
+        .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 4px 8px;
+            border-radius: 20px;
+            color: #c0392b;
+        }
+        .status-msg {
+            background: #d4edda;
+            color: #155724;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .paste-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid #1e3a4d;
+            border-radius: 20px;
+            padding: 24px;
+            z-index: 30000;
+            width: 90%;
+            max-width: 650px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.25s ease;
+        }
+        .paste-dialog textarea {
+            width: 100%;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 13px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            min-height: 150px;
+        }
+        .paste-dialog .dialog-actions { margin-top: 16px; display: flex; justify-content: flex-end; gap: 12px; }
+        .paste-dialog .dialog-actions button {
+            padding: 10px 24px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .paste-dialog .btn-confirm { background: #2a7f49; color: white; }
+        .paste-dialog .btn-cancel { background: #e0e0e0; color: #333; }
+        @keyframes modalSlideIn {
+            from { transform: translateY(-20px) scale(0.97); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .dropdown-button {
+            width: 100%;
+            padding: 6px 4px;
+            background: transparent;
+            border: none;
+            font-size: 0.8rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+        .field-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .dropdown-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #2a7f49;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            background: white;
+            cursor: text;
+            box-sizing: border-box;
+        }
+        .dropdown-input:focus {
+            outline: none;
+            border-color: #1a5c33;
+            box-shadow: 0 0 0 3px rgba(42, 127, 73, 0.2);
+        }
+        .suggestions-box {
+            position: absolute;
+            background: white;
+            border: 2px solid #2a7f49;
+            border-radius: 8px;
+            max-height: 280px;
+            overflow-y: auto;
+            width: auto;
+            min-width: 300px;
+            max-width: 800px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            top: 100%;
+            left: 0;
+            margin-top: 4px;
+        }
+        .suggestion-item {
+            padding: 10px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #edf2f7;
+            transition: 0.1s;
+        }
+        .suggestion-item:hover { background: #faebcd; }
+        .suggestion-name {
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .suggestion-gen {
+            background: #e2e8f0;
+            padding: 1px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: normal;
+            color: #1e293b;
+        }
+        .suggestion-item:hover .suggestion-gen {
+            background: #d4af37;
+            color: #103c4c;
+        }
+        .suggestion-parent {
+            font-size: 11px;
+            color: #5b6e8c;
+            margin-top: 2px;
+        }
+        .suggestion-item:hover .suggestion-parent {
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- HEADER -->
+    <div class="app-header">
+        <div class="header-title">
+            <span class="header-icon">🌿</span>
+            <span id="headerTitle">Admin Control Panel</span>
+        </div>
+        <div class="header-actions">
+
+<button onclick="goToDashboard()" class="back-btn" id="backToDashboardBtn" style="display:none;">← Back to Dashboard</button>
+<button onclick="showAdminMain()" class="back-btn" id="backToAdminBtn" style="display:none;">← Back to Admin</button>
+            <span class="status-badge" id="headerStatus">📊 0 members</span>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
+
+    <!-- ============================================================ -->
+    <!-- MAIN CONTENT - PASSWORD SCREEN + ADMIN PANEL                -->
+    <!-- ============================================================ -->
+    <div class="main-content" id="mainContent">
+        <!-- PASSWORD SCREEN -->
+        <div class="password-screen" id="passwordScreen">
+            <div class="lock-icon">🔒</div>
+            <h2>Admin Use Only</h2>
+            <div class="sub-text">Data management</div>
+            <span class="admin-badge">Restricted - Password Protected</span>
+            <div class="password-input-group">
+                <input type="password" id="adminPasswordInput" placeholder="Enter password..." onkeydown="if(event.key==='Enter') verifyPassword()">
+                <button onclick="verifyPassword()">Unlock</button>
+            </div>
+            <div class="password-error" id="passwordError">❌ Invalid password. Try again.</div>
+        </div>
+
+        <!-- ADMIN PANEL (hidden by default) -->
+        <div class="admin-container" id="adminPanel" style="display:none;">
+            <div class="admin-title">⚙️ Admin Use Only</div>
+
+            <div class="admin-grid">
+                <div class="admin-card" id="cardLoadData">
+                    <div class="admin-card-icon">📂</div>
+                    <div class="admin-card-title">Load Data</div>
+                    <div class="admin-card-desc">Upload Excel file to database</div>
+                    <div class="data-status" id="dataStatus">⏳ No data loaded</div>
+                </div>
+
+                <div class="admin-card" id="cardAddEdit">
+                    <div class="admin-card-icon">✏️</div>
+                    <div class="admin-card-title">Add / Edit Member</div>
+                    <div class="admin-card-desc">Add new members or edit existing records</div>
+                    <div class="data-status">→ Open Editor</div>
+                </div>
+
+                <div class="admin-card" id="cardConverter">
+                    <div class="admin-card-icon">🔄</div>
+                    <div class="admin-card-title">Data Converter</div>
+                    <div class="admin-card-desc">Excel to JS / JSON converter</div>
+                    <div class="data-status">→ Open Converter</div>
+                </div>
+            </div>
+
+            <div class="admin-actions">
+
+                <div class="action-btn logout-btn" id="logoutBtn">
+                    <span>🚪</span> Exit to Login
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- CONVERTER SECTION                                            -->
+    <!-- ============================================================ -->
+    <div class="section-content" id="converterSection">
+        <div class="converter-container">
+            <div class="converter-left">
+                <h2>📋 Excel → JS (Multi-Sheet)</h2>
+                <div class="conversion-item active" id="conv1Embed">
+                    <span class="conversion-number">1</span>
+                    <b>English Excel → JS</b>
+                    <div style="font-size: 12px; margin-left: 32px;">Output: 20-Family-Data-E.js</div>
+                    <div style="font-size: 11px; margin-left: 32px; color: #ffd966;">📚 Reads: Main,1,2,3,4,5</div>
+                    <div style="font-size: 11px; margin-left: 32px; color: #90EE90;">✅ Validates father links</div>
+                </div>
+                <div class="conversion-item" id="conv2Embed">
+                    <span class="conversion-number">2</span>
+                    <b>Urdu Excel → JS</b>
+                    <div style="font-size: 12px; margin-left: 32px;">Output: 20-family-Data-U.js</div>
+                    <div style="font-size: 11px; margin-left: 32px; color: #ffd966;">📚 Reads: Main,1,2,3,4,5</div>
+                    <div style="font-size: 11px; margin-left: 32px; color: #90EE90;">✅ Validates father links</div>
+                </div>
+                <div class="converter-actions">
+                    <button class="btn btn-en" id="actionBtnEmbed" disabled>⬇️ Generate js file</button>
+                    <button class="btn btn-report" id="reportBtnEmbed">📋 Validation report</button>
+                    <button class="btn btn-comment" id="commentReportBtnEmbed" disabled>💬 Show all details</button>
+                    <button class="btn btn-reset" id="resetBtnEmbed">⚠️ Hard reset</button>
+                </div>
+            </div>
+            <div class="converter-right">
+                <h2 id="rightTitleEmbed">English Excel → JS (Multi-Sheet Merge)</h2>
+                <div id="activeDescEmbed" style="color: #64748b; margin-bottom: 10px;">Load Excel → Merges Main+1+2+3+4+5 → JavaScript</div>
+                <div class="upload-area" id="uploadAreaEmbed">
+                    <div style="font-size: 40px;" id="uploadIconEmbed">📤</div>
+                    <div style="font-size: 18px; font-weight: bold;" id="uploadTextEmbed">Load Excel File</div>
+                    <div style="color: #64748b;" id="uploadHintEmbed">.xlsx, .xls, or .csv (with multiple sheets)</div>
+                    <input type="file" id="fileInputEmbed" accept=".xlsx,.xls,.csv" style="display: none;">
+                </div>
+                <div class="file-info" id="fileInfoEmbed">
+                    <span id="fileNameEmbed"></span>
+                    <span class="file-badge" id="fileCountEmbed">0 members</span>
+                </div>
+                <div class="date-info" id="dateInfoEmbed">
+                    <b>📅 Excel saved date:</b> <span id="sheet2DateEmbed"></span>
+                </div>
+                <div class="stats-panel" id="statsPanelEmbed">
+                    <b>📊 Statistics (merged from Main,1,2,3,4,5)</b>
+                    <div class="stats-grid">
+                        <div class="stat-item"><div>Total members</div><div style="font-size: 24px; font-weight: bold;" id="stat1Embed">0</div></div>
+                        <div class="stat-item"><div>Male</div><div style="font-size: 24px; font-weight: bold;" id="statMaleEmbed">0</div></div>
+                        <div class="stat-item"><div>Female</div><div style="font-size: 24px; font-weight: bold;" id="statFemaleEmbed">0</div></div>
+                        <div class="stat-item"><div>📝 With details</div><div style="font-size: 24px; font-weight: bold; color: #b45309;" id="statCommentsEmbed">0</div></div>
+                    </div>
+                    <div class="sheet-stats" id="sheetStatsEmbed"></div>
+                </div>
+                <div class="broken-links-warning" id="brokenLinksWarningEmbed">
+                    <strong>🔗 Broken father links detected!</strong>
+                    <div id="brokenLinksListEmbed" style="font-size: 12px; margin-top: 5px;"></div>
+                    <small>These records have fathers that don't exist as names in the database.</small>
+                </div>
+                <div class="error-log" id="errorLogEmbed"></div>
+                <div class="debug-option">
+                    <input type="checkbox" id="debugModeCheckboxEmbed">
+                    <span>🔍 Enable debug mode (shows raw data from Excel)</span>
+                </div>
+                <div class="debug-panel" id="debugPanelEmbed"></div>
+            </div>
+        </div>
+ 
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- EDITOR SECTION                                               -->
+    <!-- ============================================================ -->
+    <div class="section-content" id="editorSection">
+        <div class="editor-container">
+            <div class="editor-header">
+                <h2>✏️ Add & Edit Member Data</h2>
+                <div class="editor-toolbar">
+                    <button id="addRowBtnEmbed" class="btn btn-add">➕ Add New Row</button>
+                    <button id="pasteExcelBtnEmbed" class="btn btn-excel">📊 Paste from Excel</button>
+                    <button id="copyBtnEmbed" class="btn btn-copy">💬 Copy for WhatsApp</button>
+                    <span id="rowCountEmbed" class="stats-text">0 members</span>
+                </div>
+            </div>
+            <div class="editor-table-wrapper">
+                <table class="editor-table" id="editTableEmbed">
+                    <thead><tr><th>Name</th><th>Father</th><th>Mother</th><th>Spouse</th><th>Gen</th><th>Gender</th><th>Details</th><th></th></tr></thead>
+                    <tbody id="editTableBodyEmbed"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="app-footer">
+        Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT - MAIN                                            -->
+<!-- ============================================================ -->
+<script>
+    // ============================================================
+    // STATE
+    // ============================================================
+    let adminDb = [];
+    let isAdminAuthenticated = false;
+
+    // ============================================================
+    // DATA LOADING
+    // ============================================================
+    function loadAdminData() {
+        const saved = localStorage.getItem('familyDB');
+        if (saved) {
+            try {
+                adminDb = JSON.parse(saved);
+                updateAdminStatus();
+                return true;
+            } catch(e) {}
+        }
+        if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
+            adminDb = FAMILY_DATA_E;
+            localStorage.setItem('familyDB', JSON.stringify(adminDb));
+            updateAdminStatus();
+            return true;
+        }
+        return false;
+    }
+
+    function updateAdminStatus() {
+        const count = adminDb.length || 0;
+        document.getElementById('headerStatus').innerHTML = '📊 ' + count + ' members';
+        const statusEl = document.getElementById('dataStatus');
+        if (statusEl) {
+            statusEl.innerHTML = count > 0 ? '✅ ' + count + ' members loaded' : '⏳ No data loaded';
+        }
+    }
+
+    // ============================================================
+    // PASSWORD VERIFICATION
+    // ============================================================
+    function verifyPassword() {
+        const input = document.getElementById('adminPasswordInput');
+        const error = document.getElementById('passwordError');
+        if (input.value === '6010') {
+            error.style.display = 'none';
+            showAdminPanel();
+        } else {
+            error.style.display = 'block';
+            input.value = '';
+            input.focus();
+        }
+    }
+
+    function showAdminPanel() {
+        isAdminAuthenticated = true;
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        document.getElementById('headerTitle').innerHTML = 'Admin Control Panel';
+        loadAdminData();
+    }
+
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+function showAdminMain() {
+    document.getElementById('converterSection').classList.remove('active');
+    document.getElementById('editorSection').classList.remove('active');
+    document.getElementById('mainContent').style.display = 'flex';
+    document.getElementById('headerTitle').innerHTML = 'Admin Control Panel';
+    document.getElementById('backToAdminBtn').style.display = 'none';
+    document.getElementById('backToDashboardBtn').style.display = 'none';  // ADD THIS
+    loadAdminData();
+}
+
+function showConverter() {
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('converterSection').classList.add('active');
+    document.getElementById('editorSection').classList.remove('active');
+    document.getElementById('headerTitle').innerHTML = 'Data Converter';
+    document.getElementById('backToAdminBtn').style.display = 'inline-block';
+    document.getElementById('backToDashboardBtn').style.display = 'inline-block';  // ADD THIS
+}
+
+function showEditor() {
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('editorSection').classList.add('active');
+    document.getElementById('converterSection').classList.remove('active');
+    document.getElementById('headerTitle').innerHTML = '✏️ Add / Edit Member';
+    document.getElementById('backToAdminBtn').style.display = 'inline-block';
+    document.getElementById('backToDashboardBtn').style.display = 'inline-block';  // ADD THIS
+}
+
+    // ============================================================
+    // EXIT / LOGOUT
+    // ============================================================
+    function logout() {
+        if (confirm('Are you sure you want to exit?')) {
+            localStorage.removeItem('familyDB');
+            localStorage.removeItem('fileInfo');
+            adminDb = [];
+            window.location.href = '../index.html';
+        }
+    }
+
+    function goToDashboard() {
+        window.location.href = 'EPC-00-Dashboard.html';
+    }
+
+    // ============================================================
+    // LOAD DATA (File Upload)
+    // ============================================================
+    function loadData() {
+        document.getElementById('fileInput').click();
+    }
+
+    document.getElementById('fileInput').onchange = function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const wb = XLSX.read(data, { type: 'array' });
+                const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+                
+                adminDb = rows.map(r => ({
+                    name: String(r.Name || r.name || '').trim(),
+                    father: String(r.Father || r.father || '').trim(),
+                    mother: String(r.Mother || r.mother || '').trim(),
+                    spouse: String(r.Spouse || r.spouse || '').trim(),
+                    gen: String(r.Gen || r.gen || '').trim(),
+                    gender: String(r.Gender || r.gender || 'Male').trim().toUpperCase(),
+                    details: String(r.Details || r.details || r.Detail || r.detail || '').trim()
+                })).filter(p => p.name);
+
+                localStorage.setItem('familyDB', JSON.stringify(adminDb));
+                updateAdminStatus();
+                alert('✅ Successfully loaded ' + adminDb.length + ' members.');
+                
+            } catch (err) {
+                alert('❌ Error: ' + err.message);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    };
+
+    // ============================================================
+    // SETUP EVENTS
+    // ============================================================
+    document.getElementById('cardLoadData').onclick = loadData;
+    document.getElementById('cardAddEdit').onclick = showEditor;
+    document.getElementById('cardConverter').onclick = showConverter;
+    document.getElementById('logoutBtn').onclick = logout;
+    document.getElementById('backToDashboardBtn').onclick = goToDashboard;
+
+    // Enter key for password
+    document.getElementById('adminPasswordInput').onkeydown = function(e) {
+        if (e.key === 'Enter') verifyPassword();
+    };
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    loadAdminData();
+</script>
+
+<!-- ============================================================ -->
+<!-- CONVERTER JAVASCRIPT                                          -->
+<!-- ============================================================ -->
+<script>
+(function() {
+    // Converter state
+    let convData = null;
+    let convFileName = '';
+    let convValidationErrors = [];
+    let convSheetTimestamp = '';
+    let convSheetContribution = {};
+    let convMissingFathers = [];
+    let convBrokenLinks = [];
+    let convCurrent = 1;
+
+    const conv1 = document.getElementById('conv1Embed');
+    const conv2 = document.getElementById('conv2Embed');
+    const rightTitle = document.getElementById('rightTitleEmbed');
+    const activeDesc = document.getElementById('activeDescEmbed');
+    const uploadArea = document.getElementById('uploadAreaEmbed');
+    const uploadIcon = document.getElementById('uploadIconEmbed');
+    const uploadText = document.getElementById('uploadTextEmbed');
+    const uploadHint = document.getElementById('uploadHintEmbed');
+    const fileInput = document.getElementById('fileInputEmbed');
+    const fileInfo = document.getElementById('fileInfoEmbed');
+    const fileNameSpan = document.getElementById('fileNameEmbed');
+    const fileCountSpan = document.getElementById('fileCountEmbed');
+    const statsPanel = document.getElementById('statsPanelEmbed');
+    const dateInfo = document.getElementById('dateInfoEmbed');
+    const sheet2DateSpan = document.getElementById('sheet2DateEmbed');
+    const stat1 = document.getElementById('stat1Embed');
+    const statMale = document.getElementById('statMaleEmbed');
+    const statFemale = document.getElementById('statFemaleEmbed');
+    const statComments = document.getElementById('statCommentsEmbed');
+    const sheetStats = document.getElementById('sheetStatsEmbed');
+    const actionBtn = document.getElementById('actionBtnEmbed');
+    const reportBtn = document.getElementById('reportBtnEmbed');
+    const commentReportBtn = document.getElementById('commentReportBtnEmbed');
+    const resetBtn = document.getElementById('resetBtnEmbed');
+    const errorLog = document.getElementById('errorLogEmbed');
+    const brokenWarning = document.getElementById('brokenLinksWarningEmbed');
+    const brokenList = document.getElementById('brokenLinksListEmbed');
+    const debugPanel = document.getElementById('debugPanelEmbed');
+    const debugCheckbox = document.getElementById('debugModeCheckboxEmbed');
+
+    function cleanValue(v) {
+        if (v === undefined || v === null) return '';
+        let s = String(v).trim();
+        if (s === '' || s === 'empty' || s === 'empty 1' || s === '---') return '';
+        return s;
+    }
+
+    function normalizeGender(v) {
+        const g = String(v || '').toUpperCase();
+        if (g === 'MALE' || g === 'M' || g === 'مرد') return 'MALE';
+        if (g === 'FEMALE' || g === 'F' || g === 'خاتون') return 'FEMALE';
+        return 'MALE';
+    }
+
+    function sheetToRows(sheet) {
+        try { return XLSX.utils.sheet_to_json(sheet, { defval: "", header: 1 }); }
+        catch(e) { return []; }
+    }
+
+    function rowsToObjects(rows) {
+        if (!rows || rows.length < 2) return [];
+        const headers = rows[0].map(h => String(h || '').trim());
+        const normalized = headers.map(h => h.toLowerCase());
+        const objects = [];
+        for (let i = 1; i < rows.length; i++) {
+            const row = rows[i];
+            let isEmpty = true;
+            for (let j = 0; j < row.length; j++) {
+                if (row[j] !== undefined && row[j] !== null && String(row[j]).trim() !== '') {
+                    isEmpty = false;
+                    break;
+                }
+            }
+            if (isEmpty) continue;
+            const obj = {};
+            for (let j = 0; j < headers.length; j++) {
+                const header = headers[j];
+                if (header && header !== '') {
+                    obj[header] = (row[j] !== undefined && row[j] !== null) ? row[j] : '';
+                    obj[normalized[j]] = obj[header];
+                }
+            }
+            objects.push(obj);
+        }
+        return objects;
+    }
+
+    function extractTimestampFromSheet100(wb) {
+        try {
+            if (wb.SheetNames.includes('100')) {
+                const sheet100 = wb.Sheets['100'];
+                if (sheet100) {
+                    const dateCell = sheet100['A2'] || sheet100['A1'];
+                    if (dateCell && dateCell.v !== undefined && dateCell.v !== '') {
+                        const formatted = XLSX.utils.format_cell(dateCell);
+                        if (formatted && formatted !== '') return formatted;
+                        return String(dateCell.v);
+                    }
+                }
+            }
+            const now = new Date();
+            const d = String(now.getDate()).padStart(2,'0');
+            const m = String(now.getMonth()+1).padStart(2,'0');
+            const y = now.getFullYear();
+            const h = String(now.getHours()).padStart(2,'0');
+            const min = String(now.getMinutes()).padStart(2,'0');
+            return `${d}/${m}/${y} ${h}:${min}`;
+        } catch(e) {
+            const now = new Date();
+            const d = String(now.getDate()).padStart(2,'0');
+            const m = String(now.getMonth()+1).padStart(2,'0');
+            const y = now.getFullYear();
+            const h = String(now.getHours()).padStart(2,'0');
+            const min = String(now.getMinutes()).padStart(2,'0');
+            return `${d}/${m}/${y} ${h}:${min}`;
+        }
+    }
+
+    function processSheetRows(rows, isUrdu, sheetName) {
+        const result = [];
+        for (let idx = 0; idx < rows.length; idx++) {
+            const row = rows[idx];
+            const originalRowNum = idx + 2;
+            let name = '';
+            if (isUrdu) { name = cleanValue(row['نام'] || row['name']); }
+            else { name = cleanValue(row['name'] || row['Name'] || row['NAME']); }
+            if (name === '') continue;
+            let father = '';
+            if (isUrdu) { father = cleanValue(row['والد'] || row['father']); }
+            else { father = cleanValue(row['father'] || row['Father'] || row['FATHER']); }
+            let mother = '';
+            if (isUrdu) { mother = cleanValue(row['والدہ'] || row['mother']); }
+            else { mother = cleanValue(row['mother'] || row['Mother'] || row['MOTHER']); }
+            let spouse = '';
+            if (isUrdu) { spouse = cleanValue(row['شریک حیات'] || row['spouse']); }
+            else { spouse = cleanValue(row['spouse'] || row['Spouse'] || row['SPOUSE']); }
+            let gen = cleanValue(row['gen'] || row['GEN'] || row['Gen']);
+            let gender = 'MALE';
+            const rawGender = isUrdu ? (row['gender'] || row['جنسیت']) : (row['gender'] || row['Gender'] || row['GENDER']);
+            if (rawGender) gender = normalizeGender(rawGender);
+            let detail = '';
+            if (isUrdu) { detail = cleanValue(row['تفصیل'] || row['detail'] || row['Detail'] || row['DETAIL']); }
+            else { detail = cleanValue(row['detail'] || row['Detail'] || row['DETAIL']); }
+            if (detail !== '' && typeof detail === 'string') {
+                detail = detail.replace(/\n/g, '\\n');
+            }
+            if (debugCheckbox.checked) {
+                debugPanel.style.display = 'block';
+                debugPanel.innerHTML += `<div>🔍 [${sheetName} Row ${originalRowNum}] name: "${name}" | father: "${father}"</div>`;
+            }
+            const isReligious = name.includes('Imam') || name.includes('Hazrat') || name.includes('PBUH') || name.includes('AS');
+            if (father === '' && !isReligious && name !== '') {
+                convMissingFathers.push({ name, sheet: sheetName, row: originalRowNum });
+            }
+            result.push({
+                name, father, mother, spouse, gen, gender,
+                details: detail,
+                _sourceSheet: sheetName,
+                _sourceRow: originalRowNum
+            });
+        }
+        return result;
+    }
+
+    function validateFatherReferences(data) {
+        const nameSet = new Set(data.map(r => r.name));
+        const broken = [];
+        data.forEach(record => {
+            if (record.father && record.father !== '') {
+                const isReligious = record.name.includes('Imam') || record.name.includes('Hazrat') ||
+                                   record.name.includes('PBUH') || record.name.includes('AS');
+                const isHistorical = record.father.includes('ibn') || record.father.includes('بن') ||
+                                    record.father.includes('Hashim') || record.father.includes('ہاشم');
+                if (!isReligious && !isHistorical && !nameSet.has(record.father)) {
+                    broken.push({
+                        name: record.name,
+                        father: record.father,
+                        row: record._sourceRow || '?',
+                        sheet: record._sourceSheet || 'unknown'
+                    });
+                }
+            }
+        });
+        return broken;
+    }
+
+    function getGenderStats(data) {
+        let male = 0, female = 0, hasDetails = 0;
+        data.forEach(r => {
+            const g = (r.gender || '').toUpperCase();
+            if (g === 'MALE') male++;
+            else if (g === 'FEMALE') female++;
+            if (r.details && r.details.trim() !== '') hasDetails++;
+        });
+        return { male, female, hasDetails };
+    }
+
+    function validateData(data) {
+        const errors = [];
+        data.forEach((r, i) => {
+            if (!r.name || r.name === '') errors.push(`Row ${i+2}: Missing name`);
+            if (!r.father || r.father === '') {
+                const isReligious = r.name.includes('Imam') || r.name.includes('Hazrat') || r.name.includes('PBUH');
+                if (!isReligious && r.name !== '') errors.push(`Row ${i+2}: Missing father for ${r.name}`);
+            }
+            const g = (r.gender || '').toUpperCase();
+            if (g && g !== 'MALE' && g !== 'FEMALE') errors.push(`Row ${i+2}: Invalid gender "${r.gender}" for ${r.name}`);
+        });
+        return errors;
+    }
+
+    function findDuplicates(data) {
+        const nameMap = new Map();
+        const nameFatherMap = new Map();
+        data.forEach((r, i) => {
+            const name = r.name;
+            const father = r.father;
+            const rowNum = i + 2;
+            if (!name || name === '') return;
+            if (!nameMap.has(name)) nameMap.set(name, []);
+            nameMap.get(name).push(rowNum);
+            const key = `${name}|${father}`;
+            if (!nameFatherMap.has(key)) nameFatherMap.set(key, []);
+            nameFatherMap.get(key).push(rowNum);
+        });
+        const dupByName = [], trueDup = [];
+        for (const [name, rows] of nameMap.entries()) {
+            if (rows.length > 1) dupByName.push({ name, rows, count: rows.length });
+        }
+        for (const [key, rows] of nameFatherMap.entries()) {
+            if (rows.length > 1) {
+                const [name, father] = key.split('|');
+                trueDup.push({ name, father, rows, count: rows.length });
+            }
+        }
+        return { duplicatesByName: dupByName, trueDuplicates: trueDup };
+    }
+
+    async function loadAndMergeExcel(file) {
+        const dataBuffer = await file.arrayBuffer();
+        const wb = XLSX.read(dataBuffer, { cellText: true });
+        convSheetTimestamp = extractTimestampFromSheet100(wb);
+        sheet2DateSpan.innerText = convSheetTimestamp;
+        dateInfo.style.display = 'block';
+        const allRecords = [];
+        convSheetContribution = {};
+        convMissingFathers = [];
+        if (debugCheckbox.checked) {
+            debugPanel.style.display = 'block';
+            debugPanel.innerHTML = '<h4>🔍 Debug output (raw Excel data):</h4><hr>';
+        } else {
+            debugPanel.style.display = 'none';
+            debugPanel.innerHTML = '';
+        }
+        const isUrdu = (convCurrent === 2);
+        const dataSheetNames = wb.SheetNames.filter(n => n !== '100');
+        for (const sheetName of dataSheetNames) {
+            const sheet = wb.Sheets[sheetName];
+            const rawRows = sheetToRows(sheet);
+            if (!rawRows || rawRows.length < 2) { convSheetContribution[sheetName] = 0; continue; }
+            const jsonRows = rowsToObjects(rawRows);
+            const processed = processSheetRows(jsonRows, isUrdu, sheetName);
+            convSheetContribution[sheetName] = processed.length;
+            allRecords.push(...processed);
+        }
+        convBrokenLinks = validateFatherReferences(allRecords);
+        return { records: allRecords, wb };
+    }
+
+    function setConversion(conv) {
+        convCurrent = conv;
+        conv1.classList.toggle('active', conv === 1);
+        conv2.classList.toggle('active', conv === 2);
+        convData = null;
+        fileInfo.style.display = 'none';
+        statsPanel.style.display = 'none';
+        dateInfo.style.display = 'none';
+        errorLog.style.display = 'none';
+        brokenWarning.style.display = 'none';
+        actionBtn.disabled = true;
+        commentReportBtn.disabled = true;
+        fileInput.value = '';
+        sheetStats.innerText = '';
+        if (conv === 1) {
+            rightTitle.innerText = 'English Excel → JS (Multi-Sheet Merge)';
+            activeDesc.innerText = 'Load English Excel → Merges Main+1+2+3+4+5 → 20-Family-Data-E';
+            uploadArea.className = 'upload-area';
+            uploadIcon.innerText = '📤';
+            uploadText.innerText = 'Load English Excel File';
+            uploadHint.innerText = '.xlsx, .xls, or .csv (Main,1,2,3,4,5 sheets)';
+            actionBtn.className = 'btn btn-en';
+            actionBtn.innerHTML = '⬇️ Generate js file';
+            dateInfo.className = 'date-info';
+        } else {
+            rightTitle.innerText = 'Urdu Excel → JS (Multi-Sheet Merge)';
+            activeDesc.innerText = 'Load Urdu Excel → Merges Main+1+2+3+4+5 → 20-Family-Data-U.js';
+            uploadArea.className = 'upload-area urdu';
+            uploadIcon.innerText = '📤';
+            uploadText.innerText = 'Load Urdu Excel File';
+            uploadHint.innerText = '.xlsx, .xls, or .csv (with Urdu column headers)';
+            actionBtn.className = 'btn btn-ur';
+            actionBtn.innerHTML = '⬇️ Generate js file';
+            dateInfo.className = 'date-info urdu';
+        }
+    }
+
+    conv1.onclick = () => setConversion(1);
+    conv2.onclick = () => setConversion(2);
+    resetBtn.onclick = function() {
+        if (confirm("🚨 Warning: This will permanently delete ALL loaded data. Are you sure?")) {
+            convData = null;
+            convFileName = '';
+            convValidationErrors = [];
+            convMissingFathers = [];
+            convBrokenLinks = [];
+            convSheetTimestamp = '';
+            convSheetContribution = {};
+            fileInput.value = '';
+            fileInfo.style.display = 'none';
+            statsPanel.style.display = 'none';
+            dateInfo.style.display = 'none';
+            errorLog.style.display = 'none';
+            brokenWarning.style.display = 'none';
+            debugPanel.style.display = 'none';
+            debugPanel.innerHTML = '';
+            actionBtn.disabled = true;
+            commentReportBtn.disabled = true;
+            stat1.innerText = '0';
+            statMale.innerText = '0';
+            statFemale.innerText = '0';
+            statComments.innerText = '0';
+            fileCountSpan.innerText = '0 members';
+            fileNameSpan.innerText = '';
+            sheet2DateSpan.innerText = '';
+            sheetStats.innerText = '';
+            alert("✅ All data cleared.");
+        }
+    };
+    uploadArea.onclick = () => fileInput.click();
+
+    fileInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        convFileName = file.name;
+        fileNameSpan.innerText = convFileName;
+        fileInfo.style.display = 'flex';
+        actionBtn.disabled = true;
+        commentReportBtn.disabled = true;
+        statsPanel.style.display = 'none';
+        dateInfo.style.display = 'none';
+        errorLog.style.display = 'none';
+        brokenWarning.style.display = 'none';
+        try {
+            const { records } = await loadAndMergeExcel(file);
+            convData = records;
+            const sheetLines = Object.entries(convSheetContribution)
+                .filter(([_, count]) => count > 0)
+                .map(([name, count]) => `${name}: ${count}`)
+                .join(' | ');
+            sheetStats.innerHTML = `📑 Sheets merged: ${sheetLines || 'None'}`;
+            const stats = getGenderStats(convData);
+            convValidationErrors = validateData(convData);
+            stat1.innerText = convData.length;
+            statMale.innerText = stats.male;
+            statFemale.innerText = stats.female;
+            statComments.innerText = stats.hasDetails;
+            fileCountSpan.innerText = `${convData.length} members (total from all sheets)`;
+            if (convBrokenLinks.length > 0) {
+                brokenWarning.style.display = 'block';
+                brokenList.innerHTML = convBrokenLinks.map(link =>
+                    `<div>• <b>${link.name}</b> → father "${link.father}" not found (${link.sheet}, row ${link.row})</div>`
+                ).join('');
+            } else {
+                brokenWarning.style.display = 'none';
+            }
+            if (convValidationErrors.length > 0) {
+                errorLog.innerHTML = convValidationErrors.map(err => `• ${err}`).join('<br>');
+                errorLog.style.display = 'block';
+            } else {
+                errorLog.style.display = 'none';
+            }
+            statsPanel.style.display = 'block';
+            actionBtn.disabled = false;
+            commentReportBtn.disabled = (stats.hasDetails === 0);
+            if (convBrokenLinks.length > 0) {
+                setTimeout(() => alert(`⚠️ Warning: ${convBrokenLinks.length} broken father links detected!`), 500);
+            }
+        } catch (err) {
+            errorLog.innerHTML = `Error loading file: ${err.message}`;
+            errorLog.style.display = 'block';
+            fileInfo.style.display = 'none';
+            actionBtn.disabled = true;
+        }
+    });
+
+    actionBtn.onclick = function() {
+        if (!convData || convData.length === 0) { alert('No data loaded.'); return; }
+        try {
+            const filteredData = convData;
+            if (filteredData.length === 0) { alert('No valid records found.'); return; }
+            const variableName = (convCurrent === 1) ? 'FAMILY_DATA_E' : 'FAMILY_DATA_URDU';
+            const detailsCount = filteredData.filter(r => r.details && r.details.trim() !== '').length;
+            const jsRows = filteredData.map(row => {
+                const { _sourceSheet, _sourceRow, ...cleanRow } = row;
+                return `  {\n    name: ${JSON.stringify(cleanRow.name)},\n    father: ${JSON.stringify(cleanRow.father)},\n    mother: ${JSON.stringify(cleanRow.mother)},\n    spouse: ${JSON.stringify(cleanRow.spouse)},\n    gen: ${JSON.stringify(cleanRow.gen)},\n    gender: ${JSON.stringify(cleanRow.gender)},\n    details: ${JSON.stringify(cleanRow.details)}\n  }`;
+            }).join(",\n");
+            const jsContent = `// Family Data (Merged from sheets: Main,1,2,3,4,5)\n// Source: ${convFileName}\n// Saved: ${convSheetTimestamp}\n// Total members: ${filteredData.length}\n\nconst ${variableName} = [\n${jsRows}\n];\n\nconst FILE_INFO = { \n    source_file: "${convFileName}",\n    saved_time: "${convSheetTimestamp}", \n    total_members: ${filteredData.length},\n    details_count: ${detailsCount},\n    sheets_merged: ["Main","1","2","3","4","5"]\n};`;
+            const blob = new Blob([jsContent], { type: 'text/javascript' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            const filename = (convCurrent === 1) ? '20-Family-Data-E.js' : '20-family-Data-U.js';
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        } catch (err) {
+            alert('Export error: ' + err.message);
+        }
+    };
+
+    reportBtn.onclick = function() {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:10000;';
+        const card = document.createElement('div');
+        card.style.cssText = 'background:white; max-width:700px; width:90%; border-radius:16px; padding:20px; max-height:80vh; overflow:auto;';
+        if (!convData) {
+            card.innerHTML = '<h2 style="color:#7c3aed;">📋 Validation Report</h2><p><strong>Status:</strong> No Excel file loaded.</p><button id="closeReportModalEmbed" style="margin-top:15px; background:#7c3aed; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">Close</button>';
+        } else {
+            const { duplicatesByName, trueDuplicates } = findDuplicates(convData);
+            const stats = getGenderStats(convData);
+            let html = '<div style="display:flex; justify-content:flex-end; margin-bottom:15px;"><button id="closeReportModalEmbed" style="background:#7c3aed; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">✕ Close</button></div>';
+            html += '<h2 style="color:#7c3aed;">📋 Validation Report</h2>';
+            html += `<p><strong>File:</strong> ${convFileName}</p><p><strong>Total Members:</strong> ${convData.length}</p><hr>`;
+            if (convBrokenLinks.length > 0) {
+                html += '<div style="background:#fee2e2; padding:12px; border-radius:10px; margin:10px 0;"><h3 style="color:#b91c1c;">🔗 BROKEN FATHER LINKS (' + convBrokenLinks.length + ')</h3><ul style="margin-left:20px; max-height:150px; overflow:auto;">';
+                convBrokenLinks.forEach(function(link) {
+                    html += '<li><b>' + link.name + '</b> → father "' + link.father + '" not found (' + link.sheet + ', row ' + link.row + ')</li>';
+                });
+                html += '</ul></div>';
+            } else {
+                html += '<div style="background:#dcfce7; padding:12px; border-radius:10px; margin:10px 0;"><h3 style="color:#166534;">✅ All father links are valid!</h3></div>';
+            }
+            if (convMissingFathers.length > 0) {
+                html += '<div style="background:#fef3c7; padding:12px; border-radius:10px; margin:10px 0;"><h3 style="color:#b45309;">⚠️ Empty Fathers (' + convMissingFathers.length + ')</h3><ul style="margin-left:20px; max-height:150px; overflow:auto;">';
+                convMissingFathers.forEach(function(m) {
+                    html += '<li><b>' + m.name + '</b> (' + m.sheet + ', row ' + m.row + ')</li>';
+                });
+                html += '</ul></div>';
+            }
+            if (convValidationErrors.length > 0) {
+                html += '<div style="background:#fee2e2; padding:12px; border-radius:10px; margin:10px 0;"><h3 style="color:#b91c1c;">❌ Other Issues (' + convValidationErrors.length + ')</h3><ul style="margin-left:20px;">';
+                convValidationErrors.forEach(function(e) { html += '<li>' + e + '</li>'; });
+                html += '</ul></div>';
+            }
+            if (duplicatesByName.length > 0) {
+                html += '<div style="background:#fef3c7; padding:12px; border-radius:10px; margin:10px 0;"><h3 style="color:#b45309;">⚠️ Duplicate Names (' + duplicatesByName.length + ')</h3><ul style="margin-left:20px; max-height:150px; overflow:auto;">';
+                for (var i = 0; i < Math.min(10, duplicatesByName.length); i++) {
+                    var d = duplicatesByName[i];
+                    html += '<li>"' + d.name + '" appears ' + d.count + ' times (rows: ' + d.rows.join(', ') + ')</li>';
+                }
+                if (duplicatesByName.length > 10) html += '<li><i>... and ' + (duplicatesByName.length - 10) + ' more</i></li>';
+                html += '</ul></div>';
+            } else {
+                html += '<div style="background:#dcfce7; padding:12px; border-radius:10px; margin:10px 0;"><h3 style="color:#166534;">✅ No duplicate names found!</h3></div>';
+            }
+            if (trueDuplicates.length > 0) {
+                html += '<div style="background:#fee2e2; padding:12px; border-radius:10px; margin:10px 0;"><h3 style="color:#b91c1c;">🔴 CRITICAL: True Duplicates (' + trueDuplicates.length + ')</h3><ul style="margin-left:20px;">';
+                for (var i = 0; i < Math.min(5, trueDuplicates.length); i++) {
+                    var d = trueDuplicates[i];
+                    html += '<li>"' + d.name + '" (father: ' + d.father + ') appears ' + d.count + ' times</li>';
+                }
+                if (trueDuplicates.length > 5) html += '<li><i>... and ' + (trueDuplicates.length - 5) + ' more</i></li>';
+                html += '</ul></div>';
+            }
+            html += '<hr><div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px;">';
+            html += '<div style="background:#f1f5f9; padding:10px; border-radius:8px; text-align:center;"><div>👨 Male</div><div style="font-size:24px; font-weight:bold;">' + stats.male + '</div></div>';
+            html += '<div style="background:#f1f5f9; padding:10px; border-radius:8px; text-align:center;"><div>👩 Female</div><div style="font-size:24px; font-weight:bold;">' + stats.female + '</div></div>';
+            html += '<div style="background:#f1f5f9; padding:10px; border-radius:8px; text-align:center;"><div>📝 With Details</div><div style="font-size:24px; font-weight:bold;">' + stats.hasDetails + '</div></div>';
+            html += '<div style="background:#f1f5f9; padding:10px; border-radius:8px; text-align:center;"><div>🔄 Duplicate Names</div><div style="font-size:20px; font-weight:bold; ' + (duplicatesByName.length > 0 ? 'color:#b45309;' : 'color:#166534;') + '">' + duplicatesByName.length + '</div></div></div>';
+            card.innerHTML = html;
+        }
+        modal.appendChild(card);
+        document.body.appendChild(modal);
+        document.getElementById('closeReportModalEmbed').onclick = function() { modal.remove(); };
+    };
+
+    commentReportBtn.onclick = function() {
+        if (!convData) { alert("No Excel file loaded."); return; }
+        const detailsRecords = convData.filter(r => r.details && r.details.trim() !== '');
+        if (detailsRecords.length === 0) { alert("No details found in the 'detail' column."); return; }
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:10001;';
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#fff9e6; width:700px; max-width:95%; height:85vh; border-radius:20px; display:flex; flex-direction:column; overflow:hidden;';
+        const headerDiv = document.createElement('div');
+        headerDiv.style.cssText = 'padding:20px 20px 10px 20px; border-bottom:2px solid #b45309; flex-shrink:0;';
+        headerDiv.innerHTML = `<div style="display:flex; justify-content:flex-end; margin-bottom:10px;"><button id="closeModalEmbed" style="background:#b45309; color:white; border:none; padding:8px 20px; border-radius:30px; cursor:pointer;">✕ Close</button></div><h2 style="color:#b45309; margin:0;">📝 Member Details (${detailsRecords.length})</h2><hr style="margin:10px 0 0 0;">`;
+        const contentDiv = document.createElement('div');
+        contentDiv.style.cssText = 'flex:1; overflow-y:auto; padding:0 20px 20px 20px;';
+        let html = '';
+        detailsRecords.forEach((rec, i) => {
+            const sheetInfo = rec._sourceSheet ? ` [${rec._sourceSheet}]` : '';
+            html += `<div style="background:#fef3c7; margin:12px 0; padding:12px; border-radius:12px; border-left:6px solid #b45309;">
+                <b>${i+1}. ${rec.name}${sheetInfo}</b><br>
+                <div style="margin-top:8px; background:white; padding:8px; border-radius:8px;">📝 ${rec.details.replace(/\n/g, '<br>').replace(/\\n/g, '<br>')}</div>
+            </div>`;
+        });
+        contentDiv.innerHTML = html;
+        card.appendChild(headerDiv);
+        card.appendChild(contentDiv);
+        modal.appendChild(card);
+        document.body.appendChild(modal);
+        document.getElementById('closeModalEmbed').onclick = () => modal.remove();
+    };
+
+    setConversion(1);
+})();
+</script>
+
+<!-- ============================================================ -->
+<!-- EDITOR JAVASCRIPT                                             -->
+<!-- ============================================================ -->
+<script>
+(function() {
+    let editData = [];
+    let editRows = [];
+    let currentLangEdit = 'en';
+    let isTranslatingEdit = false;
+
+    function generateId() { return Date.now() + '-' + Math.random().toString(36).substring(2, 10); }
+    function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'); }); }
+    function displayName(str) { if (!str) return ''; return str.replace(/[\s-\.۔]*\d+$/, '').trim(); }
+
+    function loadEditData() {
+        const saved = localStorage.getItem('familyDB');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                editData = parsed.map(p => ({
+                    name: p.name, father: p.father || "", mother: p.mother || "", spouse: p.spouse || "",
+                    gen: p.gen || "", gender: p.gender === "MALE" ? "Male" : "Female", detail: p.details || ""
+                }));
+                return true;
+            } catch(e) { console.error('Error parsing saved data:', e); }
+        }
+        if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
+            editData = FAMILY_DATA_E.map(p => ({
+                name: p.name, father: p.father || "", mother: p.mother || "", spouse: p.spouse || "",
+                gen: p.gen || "", gender: p.gender === "MALE" ? "Male" : "Female", detail: p.details || ""
+            }));
+            localStorage.setItem('familyDB', JSON.stringify(FAMILY_DATA_E));
+            return true;
+        }
+        return false;
+    }
+
+    function findPerson(name) { if (!name) return null; return editData.find(p => p.name.toLowerCase() === name.toLowerCase()); }
+    function getSpouse(name) { var p = findPerson(name); return p ? (p.spouse || "") : ""; }
+    function getAllMembers() { return editData; }
+    function getAllMaleMembers() { return editData.filter(p => p.gender === "Male"); }
+    function extractGenNumber(gen) { if (!gen) return 0; var match = gen.match(/[SD](\d+)$/); return match ? parseInt(match[1]) : 0; }
+    function generateGenWithSequence(fatherName, childGender, seqNum) {
+        if (!fatherName) return "";
+        var father = findPerson(fatherName);
+        if (!father || !father.gen) return "";
+        var match = father.gen.match(/(G-\d+)/);
+        if (!match) return "";
+        var nextGenNumber = parseInt(match[1].split('-')[1]) + 1;
+        var nextGenPrefix = "G-" + String(nextGenNumber).padStart(3, '0');
+        var suffix = childGender === 'Male' ? 'S' : 'D';
+        return nextGenPrefix + "-" + suffix + seqNum;
+    }
+    function getMaxChildNumber(fatherName, gender, excludeRow) {
+        var maxNum = 0;
+        for (var i = 0; i < editData.length; i++) {
+            var p = editData[i];
+            if (p.father === fatherName && p.gender === gender && p.gen) {
+                var num = extractGenNumber(p.gen);
+                if (num > maxNum) maxNum = num;
+            }
+        }
+        for (var j = 0; j < editRows.length; j++) {
+            var r = editRows[j];
+            if (r !== excludeRow && r.father === fatherName && r.gender === gender && r.gen) {
+                var num2 = extractGenNumber(r.gen);
+                if (num2 > maxNum) maxNum = num2;
+            }
+        }
+        return maxNum;
+    }
+
+    function createEmptyRow(inheritFromFirst) {
+        var base = {
+            id: generateId(), name: "", father: "", mother: "", spouse: "",
+            gen: "", gender: "Male", detail: "",
+            _nameEn: "", _fatherEn: "", _motherEn: "", _spouseEn: "", _detailEn: ""
+        };
+        if (inheritFromFirst && editRows.length > 0 && editRows[0].father) {
+            base.father = editRows[0].father;
+            base.mother = editRows[0].mother;
+            base._fatherEn = editRows[0].father;
+            base._motherEn = editRows[0].mother;
+            if (base.father) {
+                var maxNum = getMaxChildNumber(base.father, base.gender);
+                base.gen = generateGenWithSequence(base.father, base.gender, maxNum + 1);
+            }
+        }
+        return base;
+    }
+
+    function getParentRelation(person) {
+        if (!person || !person.father) return "Unknown";
+        var fatherRecord = editData.find(function(f) { return f.name === person.father; });
+        if (!fatherRecord) return 'Child of ' + person.father;
+        var prefix = person.gender === 'Male' ? 'S/o' : 'D/o';
+        return prefix + ' ' + fatherRecord.name;
+    }
+
+    function renderSuggestionHTML(person) {
+        return '<div class="suggestion-name"><span>' + escapeHtml(displayName(person.name)) + '</span><span class="suggestion-gen">' + escapeHtml(person.gen || '') + '</span></div><div class="suggestion-parent">' + escapeHtml(getParentRelation(person)) + '</div>';
+    }
+
+    function openDropdown(targetRow, field, filterGender, buttonElement) {
+        document.querySelectorAll('.suggestions-box').forEach(function(b) { b.remove(); });
+        var cell = buttonElement ? buttonElement.closest('td') : null;
+        if (!cell) return;
+        var originalContent = cell.innerHTML;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'field-wrapper';
+        wrapper.style.width = '100%';
+        wrapper.style.position = 'relative';
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'dropdown-input';
+        input.placeholder = field === 'name' ? '🔍 Search member...' : '🔍 Search father...';
+        input.autocomplete = 'off';
+        if (field === 'name' && targetRow.name) input.value = targetRow.name;
+        else if (field === 'father' && targetRow.father) input.value = targetRow.father;
+        var box = document.createElement('div');
+        box.className = 'suggestions-box';
+        box.style.display = 'none';
+        wrapper.appendChild(input);
+        wrapper.appendChild(box);
+        var closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '✕';
+        closeBtn.style.cssText = 'position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; font-size:18px; cursor:pointer; color:#999; z-index:10; padding:4px 8px;';
+        wrapper.appendChild(closeBtn);
+        cell.innerHTML = '';
+        cell.appendChild(wrapper);
+        var members = field === 'name' ? getAllMembers() : getAllMaleMembers();
+        if (filterGender) members = members.filter(p => p.gender === filterGender);
+
+        function renderOptions(filterText) {
+            box.innerHTML = '';
+            var filtered = members.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()));
+            if (filtered.length === 0) {
+                var div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.innerHTML = '<div style="color:#999; text-align:center; padding:10px;">❌ No members found</div>';
+                box.appendChild(div);
+                box.style.display = 'block';
+                return;
+            }
+            filtered.slice(0, 30).forEach(function(person) {
+                var div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.innerHTML = renderSuggestionHTML(person);
+                div.onclick = function() {
+                    if (field === 'name') {
+                        targetRow.name = person.name;
+                        targetRow.father = person.father || "";
+                        targetRow.mother = person.mother || "";
+                        targetRow.spouse = person.spouse || "";
+                        targetRow.gen = person.gen || "";
+                        targetRow.gender = person.gender;
+                        targetRow.detail = person.detail || "";
+                        targetRow._nameEn = person.name;
+                        targetRow._fatherEn = person.father || "";
+                        targetRow._motherEn = person.mother || "";
+                        targetRow._spouseEn = person.spouse || "";
+                        targetRow._detailEn = person.detail || "";
+                    } else if (field === 'father') {
+                        targetRow.father = person.name;
+                        targetRow.mother = getSpouse(person.name);
+                        targetRow._fatherEn = targetRow.father;
+                        targetRow._motherEn = targetRow.mother;
+                        if (targetRow.father) {
+                            var maxNum = getMaxChildNumber(targetRow.father, targetRow.gender, targetRow);
+                            targetRow.gen = generateGenWithSequence(targetRow.father, targetRow.gender, maxNum + 1);
+                        }
+                        if (editRows.indexOf(targetRow) === 0) {
+                            for (var i = 1; i < editRows.length; i++) {
+                                editRows[i].father = targetRow.father;
+                                editRows[i].mother = targetRow.mother;
+                                editRows[i]._fatherEn = targetRow.father;
+                                editRows[i]._motherEn = targetRow.mother;
+                                if (editRows[i].father) {
+                                    var childMax = getMaxChildNumber(editRows[i].father, editRows[i].gender, editRows[i]);
+                                    editRows[i].gen = generateGenWithSequence(editRows[i].father, editRows[i].gender, childMax + 1);
+                                }
+                            }
+                        }
+                    }
+                    renderEditTable();
+                };
+                box.appendChild(div);
+            });
+            box.style.display = 'block';
+        }
+
+        closeBtn.onclick = function(e) {
+            e.stopPropagation();
+            cell.innerHTML = originalContent;
+            var newBtn = cell.querySelector('.dropdown-button');
+            if (newBtn) { newBtn.onclick = function(e) { e.preventDefault(); e.stopPropagation(); openDropdown(targetRow, field, filterGender, newBtn); }; }
+        };
+        input.addEventListener('input', function(e) {
+            var searchText = input.value.trim();
+            if (searchText.length >= 2) renderOptions(searchText);
+            else box.style.display = 'none';
+        });
+        input.addEventListener('focus', function() {
+            var currentText = input.value.trim();
+            if (currentText.length >= 2) renderOptions(currentText);
+        });
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { var firstSuggestion = box.querySelector('.suggestion-item:not(:has(div[style]))'); if (firstSuggestion) firstSuggestion.click(); }
+            if (e.key === 'Escape') closeBtn.click();
+        });
+        input.focus();
+        var outsideHandler = function(e) { if (!wrapper.contains(e.target)) box.style.display = 'none'; };
+        document.addEventListener('mousedown', outsideHandler);
+        wrapper._cleanup = function() { document.removeEventListener('mousedown', outsideHandler); };
+    }
+
+    function attachNameDropdown(cellElement, currentRow) {
+        cellElement.innerHTML = '';
+        var wrapper = document.createElement('div');
+        wrapper.style.width = '100%';
+        var triggerBtn = document.createElement('button');
+        triggerBtn.className = 'dropdown-button';
+        var displayText = currentRow.name || '▼ Select Member to Edit';
+        triggerBtn.innerHTML = '<span>' + escapeHtml(displayText) + '</span> <span style="color:#2a7f49;">▼</span>';
+        wrapper.appendChild(triggerBtn);
+        cellElement.appendChild(wrapper);
+        triggerBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openDropdown(currentRow, 'name', null, triggerBtn);
+        };
+    }
+
+    function onEdit(row, field, val) {
+        row[field] = val;
+        if (['name', 'father', 'mother', 'spouse', 'detail'].indexOf(field) !== -1) row['_' + field + 'En'] = val;
+        if (field === 'gen') row.gen = val.toUpperCase();
+        if (field === 'name' || field === 'father') renderEditTable();
+    }
+
+    function changeGender(row, newGender) {
+        if (row.gender === newGender) return;
+        row.gender = newGender;
+        if (row.father) {
+            var maxNum = getMaxChildNumber(row.father, newGender, row);
+            row.gen = generateGenWithSequence(row.father, newGender, maxNum + 1);
+        }
+        renderEditTable();
+    }
+
+    function addRow() {
+        var newRow = createEmptyRow(true);
+        editRows.push(newRow);
+        renderEditTable();
+        setTimeout(function() {
+            var wrapper = document.querySelector('.editor-table-wrapper');
+            if (wrapper) wrapper.scrollTop = wrapper.scrollHeight;
+        }, 50);
+    }
+
+    function deleteRow(idx) {
+        if (editRows.length === 1) { alert("Cannot delete last member."); return; }
+        if (confirm("Delete this member?")) { editRows.splice(idx, 1); renderEditTable(); }
+    }
+
+    function renderEditTable() {
+        var tbody = document.getElementById('editTableBodyEmbed');
+        tbody.innerHTML = '';
+        for (var i = 0; i < editRows.length; i++) {
+            var m = editRows[i];
+            var tr = tbody.insertRow();
+            var tdName = tr.insertCell(0);
+            attachNameDropdown(tdName, m);
+            var tdFather = tr.insertCell(1);
+            var fatherInp = document.createElement('input');
+            fatherInp.value = m.father || '';
+            fatherInp.onchange = function(r) { return function(e) { onEdit(r, 'father', e.target.value); }; }(m);
+            tdFather.appendChild(fatherInp);
+            var tdMother = tr.insertCell(2);
+            var motherTa = document.createElement('textarea');
+            motherTa.value = m.mother || '';
+            motherTa.rows = 2;
+            motherTa.onchange = function(r) { return function(e) { onEdit(r, 'mother', e.target.value); }; }(m);
+            tdMother.appendChild(motherTa);
+            var tdSpouse = tr.insertCell(3);
+            var spouseTa = document.createElement('textarea');
+            spouseTa.value = m.spouse || '';
+            spouseTa.rows = 2;
+            spouseTa.onchange = function(r) { return function(e) { onEdit(r, 'spouse', e.target.value); }; }(m);
+            tdSpouse.appendChild(spouseTa);
+            var tdGen = tr.insertCell(4);
+            var genInp = document.createElement('input');
+            genInp.value = m.gen || '';
+            genInp.style.fontWeight = 'bold';
+            genInp.onchange = function(r) { return function(e) { onEdit(r, 'gen', e.target.value); }; }(m);
+            tdGen.appendChild(genInp);
+            var tdGender = tr.insertCell(5);
+            var sel = document.createElement('select');
+            var opt1 = document.createElement('option');
+            opt1.value = 'Male';
+            opt1.text = '👨 Male';
+            sel.appendChild(opt1);
+            var opt2 = document.createElement('option');
+            opt2.value = 'Female';
+            opt2.text = '👩 Female';
+            sel.appendChild(opt2);
+            sel.value = m.gender;
+            sel.onchange = function(r) { return function(e) { changeGender(r, e.target.value); }; }(m);
+            tdGender.appendChild(sel);
+            var tdDetail = tr.insertCell(6);
+            var detailTa = document.createElement('textarea');
+            var raw = m.detail || '';
+            raw = raw.replace(/\\n/g, '\n');
+            detailTa.value = raw;
+            detailTa.rows = 3;
+            if (currentLangEdit === 'ur') detailTa.classList.add('rtl-mode');
+            detailTa.onchange = function(r) { return function(e) { onEdit(r, 'detail', e.target.value); }; }(m);
+            tdDetail.appendChild(detailTa);
+            var tdDel = tr.insertCell(7);
+            var delBtn = document.createElement('button');
+            delBtn.innerHTML = '🗑️';
+            delBtn.className = 'delete-btn';
+            delBtn.onclick = function(idx) { return function() { deleteRow(idx); }; }(i);
+            tdDel.appendChild(delBtn);
+        }
+        document.getElementById('rowCountEmbed').innerHTML = editRows.length + ' members';
+    }
+
+    function parseExcelPaste(text) {
+        var rowsArr = [];
+        var currentRow = [];
+        var currentField = '';
+        var inQuotes = false;
+        var i = 0;
+        while (i < text.length) {
+            var ch = text[i];
+            var nextCh = text[i + 1];
+            if (ch === '"') {
+                if (inQuotes && nextCh === '"') { currentField += '"'; i++; }
+                else { inQuotes = !inQuotes; }
+            } else if (ch === '\t' && !inQuotes) {
+                currentRow.push(currentField);
+                currentField = '';
+            } else if (ch === '\n' && !inQuotes) {
+                currentRow.push(currentField);
+                rowsArr.push(currentRow);
+                currentRow = [];
+                currentField = '';
+            } else if (ch === '\r' && !inQuotes) {
+                // ignore
+            } else {
+                currentField += ch;
+            }
+            i++;
+        }
+        if (currentField !== '' || currentRow.length > 0) { currentRow.push(currentField); rowsArr.push(currentRow); }
+        return rowsArr;
+    }
+
+    function loadFromPastedData(rawText) {
+        var parsed = parseExcelPaste(rawText);
+        if (!parsed.length) return false;
+        var newRows = [];
+        for (var j = 0; j < parsed.length; j++) {
+            var rowData = parsed[j];
+            if (rowData.length === 0 || (rowData.length === 1 && rowData[0].trim() === "")) continue;
+            var newRow = createEmptyRow(false);
+            newRow.name = rowData[0] || "";
+            newRow.father = rowData[1] || "";
+            newRow.mother = rowData[2] || "";
+            newRow.spouse = rowData[3] || "";
+            newRow.gen = rowData[4] || "";
+            newRow.gender = (rowData[5] && (rowData[5].toLowerCase().includes('female') || rowData[5].toLowerCase() === 'female')) ? "Female" : "Male";
+            newRow.detail = rowData[6] || "";
+            newRow._nameEn = newRow.name;
+            newRow._fatherEn = newRow.father;
+            newRow._motherEn = newRow.mother;
+            newRow._spouseEn = newRow.spouse;
+            newRow._detailEn = newRow.detail;
+            newRows.push(newRow);
+        }
+        if (newRows.length) {
+            editRows = newRows;
+            renderEditTable();
+            var statusDiv = document.createElement('div');
+            statusDiv.className = 'status-msg';
+            statusDiv.innerText = '✅ Pasted ' + newRows.length + ' rows from Excel.';
+            document.querySelector('.editor-header').after(statusDiv);
+            setTimeout(function() { if(statusDiv) statusDiv.remove(); }, 3000);
+            return true;
+        }
+        return false;
+    }
+
+    function showExcelPasteDialog() {
+        var existing = document.getElementById('excelPasteDialogEmbed');
+        if (existing) existing.remove();
+        var dialog = document.createElement('div');
+        dialog.id = 'excelPasteDialogEmbed';
+        dialog.className = 'paste-dialog';
+        dialog.innerHTML = '<h3 style="margin:0 0 12px 0;">📋 Paste from Excel</h3><textarea id="pasteExcelAreaEmbed" rows="8" placeholder="Press Ctrl+V to paste your Excel table (columns: Name, Father, Mother, Spouse, Gen, Gender, Detail)"></textarea><div class="dialog-actions"><button class="btn-cancel" id="cancelExcelPasteEmbed">Cancel</button><button class="btn-confirm" id="confirmExcelPasteEmbed">✅ Load Data</button></div>';
+        document.body.appendChild(dialog);
+        var textarea = dialog.querySelector('#pasteExcelAreaEmbed');
+        setTimeout(function() { textarea.focus(); }, 100);
+        dialog.querySelector('#confirmExcelPasteEmbed').onclick = function() {
+            var raw = textarea.value;
+            if (raw.trim()) { var success = loadFromPastedData(raw); if (!success) alert('No valid data rows found.'); }
+            else { alert('Paste some Excel data first.'); }
+            dialog.remove();
+        };
+        dialog.querySelector('#cancelExcelPasteEmbed').onclick = function() { dialog.remove(); };
+    }
+
+    function copyTable() {
+        if (!editRows.length) return alert('No data');
+        var txt = "Name\tFather\tMother\tSpouse\tGen\tGender\tDetail\n";
+        for (var r = 0; r < editRows.length; r++) {
+            var row = editRows[r];
+            var detailContent = row.detail || '—';
+            var formattedDetail = '"' + '\u202A' + detailContent + '"';
+            txt += (row.name || '—') + '\t' + (row.father || '—') + '\t' + (row.mother || '—') + '\t' + (row.spouse || '—') + '\t' + (row.gen || '—') + '\t' + (row.gender || '—') + '\t' + formattedDetail + '\n';
+        }
+        navigator.clipboard.writeText(txt).then(function() { alert('Copied to clipboard!'); });
+    }
+
+    async function translateText(text, target) {
+        if (!text || text.trim() === '') return text;
+        try {
+            var res = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' + target + '&dt=t&q=' + encodeURIComponent(text));
+            var data = await res.json();
+            if (data && data[0]) { var translated = data[0].map(function(item) { return item[0]; }).join(''); return translated; }
+            return text;
+        } catch(e) { return text; }
+    }
+
+    async function translateAll(target) {
+        if (isTranslatingEdit) return;
+        isTranslatingEdit = true;
+        for (var i = 0; i < editRows.length; i++) {
+            var row = editRows[i];
+            if (!row._nameEn) row._nameEn = row.name || "";
+            if (!row._fatherEn) row._fatherEn = row.father || "";
+            if (!row._motherEn) row._motherEn = row.mother || "";
+            if (!row._spouseEn) row._spouseEn = row.spouse || "";
+            if (!row._detailEn) row._detailEn = row.detail || "";
+            if (target === 'ur') {
+                row.name = await translateText(row._nameEn, 'ur');
+                row.father = await translateText(row._fatherEn, 'ur');
+                row.mother = await translateText(row._motherEn, 'ur');
+                row.spouse = await translateText(row._spouseEn, 'ur');
+                if (row._detailEn) {
+                    var lines = row._detailEn.split('\n');
+                    var translatedLines = [];
+                    for (var j = 0; j < lines.length; j++) {
+                        var trimmedLine = lines[j].trim();
+                        if (!trimmedLine) { translatedLines.push(""); continue; }
+                        var translatedLine = await translateText(trimmedLine, 'ur');
+                        translatedLines.push(translatedLine);
+                    }
+                    row.detail = translatedLines.join('\n');
+                }
+            } else {
+                row.name = row._nameEn;
+                row.father = row._fatherEn;
+                row.mother = row._motherEn;
+                row.spouse = row._spouseEn;
+                row.detail = row._detailEn;
+            }
+        }
+        currentLangEdit = target;
+        isTranslatingEdit = false;
+        renderEditTable();
+    }
+
+    function initEditor() {
+        loadEditData();
+        editRows = [createEmptyRow(false)];
+        renderEditTable();
+    }
+
+    document.getElementById('addRowBtnEmbed').onclick = addRow;
+    document.getElementById('copyBtnEmbed').onclick = copyTable;
+    document.getElementById('pasteExcelBtnEmbed').onclick = showExcelPasteDialog;
+
+    initEditor();
+})();
+</script>
+
+</body>
+</html>

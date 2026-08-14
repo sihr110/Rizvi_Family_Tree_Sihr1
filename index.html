@@ -35,57 +35,62 @@
       width: 100%;
       border-radius: 20px;
       border: 3px solid var(--gold);
-      padding: 26px 24px 24px;
+      padding: 34px 26px 30px;
       box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
       text-align: center;
     }
 
     .family-seal {
-      font-size: 48px;
-      margin-bottom: 5px;
+      font-size: 56px;
+      margin-bottom: 10px;
     }
 
     .login-card h1 {
       font-family: 'Playfair Display', serif;
       color: var(--dark-blue);
-      font-size: 26px;
+      font-size: 30px;
+      margin-bottom: 4px;
     }
 
     .subtitle {
       color: var(--maroon);
-      font-size: 13px;
+      font-size: 14px;
       font-style: italic;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
     }
 
     .section-label {
-      font-size: 11px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: #888;
-      margin: 15px 0 8px 0;
+      margin: 28px 0 12px 0;
       text-align: left;
+    }
+
+    .section-label:first-of-type {
+      margin-top: 8px;
     }
 
     .btn-group {
       display: flex;
-      gap: 10px;
+      gap: 12px;
     }
 
     .btn-group .btn {
       flex: 1;
-      padding: 12px 10px;
+      padding: 16px 12px;
       border: 2px solid var(--gold);
       background: white;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 15px;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .btn-group .btn.active {
@@ -100,14 +105,14 @@
 
     .password-wrapper {
       position: relative;
-      margin: 10px 0;
+      margin: 14px 0 8px 0;
     }
 
     .password-wrapper input {
       width: 100%;
-      padding: 14px 15px;
+      padding: 18px 16px;
       border: 2px solid var(--gold);
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 16px;
       outline: none;
       font-family: 'Inter', sans-serif;
@@ -120,7 +125,7 @@
 
     .toggle-btn {
       position: absolute;
-      right: 15px;
+      right: 16px;
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
@@ -128,7 +133,7 @@
       font-size: 14px;
       color: var(--maroon);
       background: white;
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 4px;
       user-select: none;
     }
@@ -141,14 +146,14 @@
       background: var(--maroon);
       color: white;
       border: none;
-      padding: 16px;
-      border-radius: 8px;
+      padding: 20px;
+      border-radius: 10px;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 17px;
       cursor: pointer;
       width: 100%;
       transition: all 0.2s;
-      margin-top: 5px;
+      margin-top: 14px;
     }
 
     .unlock-btn:active {
@@ -160,10 +165,10 @@
       color: var(--maroon);
       font-weight: 600;
       font-size: 14px;
-      padding: 10px;
+      padding: 14px;
       background: #ffe6e6;
-      border-radius: 6px;
-      margin-top: 10px;
+      border-radius: 8px;
+      margin-top: 16px;
       display: none;
     }
 
@@ -171,14 +176,14 @@
       background: transparent;
       color: var(--dark-blue);
       border: 2px solid #ddd;
-      padding: 14px;
-      border-radius: 8px;
+      padding: 18px;
+      border-radius: 10px;
       font-weight: 600;
       font-size: 15px;
       cursor: pointer;
       width: 100%;
       transition: all 0.2s;
-      margin-top: 10px;
+      margin-top: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -191,11 +196,12 @@
     }
 
     .footer {
-      margin-top: 5px;
-      padding-top: 15px;
+      margin-top: 4px;
+      padding-top: 10px;
       border-top: 1px solid #eee;
-      font-size: 10px;
+      font-size: 11px;
       color: #666;
+      line-height: 1.6;
     }
 
     .footer strong {
@@ -211,7 +217,7 @@
       color: var(--maroon);
       animation: blink 1.5s infinite;
       font-weight: 600;
-      margin-top: 6px;
+      margin-top: 10px;
       font-size: 12px;
     }
 
@@ -223,11 +229,11 @@
     .access-granted {
       background: #e8f5e9;
       color: #2e7d32;
-      padding: 10px;
+      padding: 14px;
       border-radius: 8px;
       font-weight: 600;
       font-size: 14px;
-      margin: 10px 0;
+      margin: 16px 0;
       display: none;
     }
 
@@ -237,10 +243,6 @@
 
     .hidden {
       display: none !important;
-    }
-
-    .device-section {
-      margin-top: 5px;
     }
   </style>
 </head>
@@ -258,13 +260,6 @@
   <div class="btn-group">
     <button class="btn active" id="englishBtn"> English</button>
     <button class="btn" id="urduBtn">🇵🇰 Urdu</button>
-  </div>
-
-  <!-- ===== DEVICE ===== -->
-  <div class="section-label">📱 Device</div>
-  <div class="btn-group">
-    <button class="btn active" id="mobileBtn">📱 Mobile</button>
-    <button class="btn" id="pcBtn">💻 Desktop</button>
   </div>
 
   <!-- ===== PASSWORD ===== -->
@@ -300,14 +295,11 @@
   const CONFIG = { password: 'sihr110' };
 
   let selectedLanguage = 'english';
-  let selectedDevice = 'mobile';
   let isUnlocked = false;
 
   // ===== DOM ELEMENTS =====
   const englishBtn = document.getElementById('englishBtn');
   const urduBtn = document.getElementById('urduBtn');
-  const pcBtn = document.getElementById('pcBtn');
-  const mobileBtn = document.getElementById('mobileBtn');
   const passwordField = document.getElementById('passwordField');
   const toggleBtn = document.getElementById('toggleBtn');
   const unlockBtn = document.getElementById('unlockBtn');
@@ -326,19 +318,6 @@
     selectedLanguage = 'urdu';
     urduBtn.classList.add('active');
     englishBtn.classList.remove('active');
-  });
-
-  // ===== DEVICE SELECTION =====
-  mobileBtn.addEventListener('click', function() {
-    selectedDevice = 'mobile';
-    mobileBtn.classList.add('active');
-    pcBtn.classList.remove('active');
-  });
-
-  pcBtn.addEventListener('click', function() {
-    selectedDevice = 'pc';
-    pcBtn.classList.add('active');
-    mobileBtn.classList.remove('active');
   });
 
   // ===== TOGGLE PASSWORD VISIBILITY =====
@@ -397,32 +376,23 @@
   });
 
   // ===== NAVIGATE TO DASHBOARD =====
-function navigateToDashboard() {
+  function navigateToDashboard() {
     let dashboard;
 
     if (selectedLanguage === 'english') {
-        if (selectedDevice === 'pc') {
-            dashboard = 'EFT/1-dashboard-pc.html';
-        } else {
-            dashboard = 'EFT/6-dashboard-mobile.html';
-        }
+      dashboard = 'EFT/00-Dashboard-E.html';
     } else {
-        if (selectedDevice === 'pc') {
-            dashboard = 'UFT/01-dashboard-U.html';
-        } else {
-            dashboard = 'UFT/01-dashboard-U.html';
-        }
+      dashboard = 'UFT/00-Dashboard-U.html';
     }
 
     window.location.href = dashboard;
-}
+  }
 
   // ===== FOCUS ON PASSWORD FIELD =====
   passwordField.focus();
 
-// ===== HIDE ACCESS GRANTED ON PAGE LOAD =====
-document.getElementById('accessGranted').classList.remove('show');
-
+  // ===== HIDE ACCESS GRANTED ON PAGE LOAD =====
+  document.getElementById('accessGranted').classList.remove('show');
 </script>
 
 </body>

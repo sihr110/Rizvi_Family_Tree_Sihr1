@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 08/16/2026 11:33
+// Saved: 08/16/2026 13:13
 // Total members: 608
 
 const FAMILY_DATA_E = [
@@ -2599,7 +2599,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syed Abbas",
     father: "Syed Asad Abbas",
-    mother: "",
+    mother: "Syeda Sumera Fatima Rizvi",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -2608,7 +2608,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Fatima Zehra",
     father: "Syed Asad Abbas",
-    mother: "",
+    mother: "Syeda Sumera Fatima Rizvi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -2617,7 +2617,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Maryam Zehra",
     father: "Syed Asad Abbas",
-    mother: "",
+    mother: "Syeda Sumera Fatima Rizvi",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -2626,7 +2626,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Umme Layla",
     father: "Syed Asad Abbas",
-    mother: "",
+    mother: "Syeda Sumera Fatima Rizvi",
     spouse: "",
     gen: "G-042-D3",
     gender: "FEMALE",
@@ -2635,7 +2635,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syed Haider Abbas",
     father: "Syed Asfar Abbas",
-    mother: "",
+    mother: "Syeda Noor Ul Huda Rizvi (Jafry)",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -2644,7 +2644,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syed Haadi Abbas",
     father: "Syed Asfar Abbas",
-    mother: "",
+    mother: "Syeda Noor Ul Huda Rizvi (Jafry)",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -2653,7 +2653,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Masooma Zahra",
     father: "Syed Asfar Abbas",
-    mother: "",
+    mother: "Syeda Noor Ul Huda Rizvi (Jafry)",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -2662,7 +2662,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Batool Zahra",
     father: "Syed Asfar Abbas",
-    mother: "",
+    mother: "Syeda Noor Ul Huda Rizvi (Jafry)",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -2671,7 +2671,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Kulsoom Zehra",
     father: "Syed Qaumber Abbas",
-    mother: "",
+    mother: "Syeda Aiman Zaidi",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -2680,7 +2680,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Khadija Zehr",
     father: "Syed Qaumber Abbas",
-    mother: "",
+    mother: "Syeda Aiman Zaidi",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -2831,7 +2831,7 @@ const FAMILY_DATA_E = [
     details: ""
   },
   {
-    name: "Syeda - ? - 03",
+    name: "Syeda Rafiya - 03",
     father: "Syed Mohammad Muslim",
     mother: "Syeda Rifat Zehra Rizvi",
     spouse: "",
@@ -2873,7 +2873,7 @@ const FAMILY_DATA_E = [
     spouse: "Syeda Sabra Khatoon Rizvi",
     gen: "G-039-S1",
     gender: "MALE",
-    details: "Syed Mohammad Taqi married Syeda Sabra Khatoon Rizvi (sister of Ibrahim & Ashfaq Hussain) + Their common root is Syed Badhsha Hussain Shaheed - G-022-S"
+    details: "Syed Mohammad Taqi married Syeda Sabra Khatoon Rizvi (sister of Ibrahim & Ashfaq Hussain) + Their common root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Mohammad Naqi",
@@ -4718,7 +4718,7 @@ const FAMILY_DATA_E = [
     spouse: "Syed Mohammad Taqi Ul Hasan Rizvi",
     gen: "G-039-D2",
     gender: "FEMALE",
-    details: "Syeda Sabra Khatoon Rizvi married Syed Mohammad Taqi Rizvi + Their common root is Syed Badhsha Hussain Shaheed - G-022-S"
+    details: "Syeda Sabra Khatoon Rizvi married Syed Mohammad Taqi Rizvi + Their common root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syed Athar Hussain (Munney)",
@@ -5123,7 +5123,7 @@ const FAMILY_DATA_E = [
     spouse: "Syed Muntazir Mehdi Zaidi",
     gen: "G-042-D1",
     gender: "FEMALE",
-    details: "Syeda Tabinda married  Syed Muntazir, son of Khala Syeda Ifat Rizvi"
+    details: "Syeda Tabinda married  Syed Muntazir, son of Khala Syeda Ifat Rizvi\\n\\nChilren of Tabinda Zehra:\\n\\nD1: Syeda Zainab Zehra"
   },
   {
     name: "Syeda Mahira Zehra",
@@ -5480,7 +5480,7 @@ const FAMILY_DATA_E = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "08/16/2026 11:33", 
+    saved_time: "08/16/2026 13:13", 
     total_members: 608,
     details_count: 87,
     sheets_merged: ["Main","1","2","3","4","5"]

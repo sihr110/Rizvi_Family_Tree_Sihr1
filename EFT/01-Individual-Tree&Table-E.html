@@ -326,6 +326,16 @@
       justify-content: center;
       align-items: flex-start;
     }
+
+
+/* Only on mobile devices */
+@media (max-width: 768px) {
+    .view-container {
+        zoom: 0.5;
+    }
+}
+
+
     .view-container::-webkit-scrollbar {
       width: 10px;
       height: 10px;
@@ -346,19 +356,18 @@
     }
 
     /* ===== TREE BOXES ===== */
-    .box {
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-      background: white;
-      width: 260px;
-      max-width: 100%;
-      text-align: left;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      transition: all 0.2s;
-      font-size: 12px;
-      position: relative;
-    }
+.box {
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    background: white;
+    width: 280px;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+    font-size: 12px;
+}
     .box:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
     .box.female-box { background-color: var(--light-pink); border-color: #fb7185; }
     .box.selected { animation: gentleBeat 2.2s infinite; border-width: 4px; z-index: 10; }
@@ -439,33 +448,37 @@
     }
     .toggle-icon:hover { transform: scale(1.1); background: var(--light-gold); }
 
-    .children-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      margin: 0 auto 8px auto;
-    }
-    .children-row.one-box, .children-row.two-boxes, .children-row.three-boxes {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .children-row.four-in-row {
-      display: grid;
-      grid-template-columns: repeat(4, auto);
-      justify-content: center;
-      gap: 10px;
-    }
-    .children-row.remaining-center {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      flex-wrap: wrap;
-    }
+.children-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin: 0 auto 10px auto;
+}
+.children-row.four-in-row {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.children-row.one-box,
+.children-row.two-boxes,
+.children-row.three-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.children-row.remaining-center {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
 
     .family-group { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 15px; }
 
@@ -552,23 +565,25 @@
     }
 
     /* ===== INFO MODAL - EXACTLY FROM FILE 1 ===== */
-    .info-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      border: 3px solid var(--gold);
-      border-radius: 12px;
-      padding: 16px;
-      min-width: 260px;
-      max-width: 340px;
-      width: 85%;
-      z-index: 10000;
-      display: none;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      font-family: 'Inter', sans-serif;
-    }
+.info-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 300px;
+    max-width: 420px;
+    width: 92%;
+    max-height: 85vh;
+    z-index: 10000;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
 
     .info-modal h3 {
       color: var(--maroon);
@@ -580,36 +595,49 @@
       border-bottom: 2px solid var(--gold);
     }
 
-    .info-modal p {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      line-height: 1.5;
-      margin: 8px 0 2px 0;
-      white-space: pre-wrap;
-      word-break: break-word;
-      color: #2d2d2d;
-      max-height: 220px;
-      overflow-y: auto;
-      background: #fef9e6;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border-left: 3px solid var(--gold);
-    }
+.info-modal p {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 8px 0 2px 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #2d2d2d;
+    max-height: 55vh;
+    overflow-y: auto !important;
+    background: #fef9e6;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+}
 
-    .info-modal button {
-      margin-top: 10px;
-      padding: 6px 15px;
-      background: var(--gold);
-      color: var(--dark-blue);
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      width: 100%;
-      transition: all 0.2s;
-    }
+/* Scrollbar styling */
+.info-modal p::-webkit-scrollbar {
+    width: 6px;
+}
+.info-modal p::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+.info-modal p::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+}
+
+.info-modal button {
+    margin-top: 12px;
+    padding: 8px 15px;
+    background: var(--gold);
+    color: var(--dark-blue);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    width: 100%;
+    transition: all 0.2s;
+}
 
     .info-modal button:hover {
       background: var(--light-gold);
@@ -960,20 +988,21 @@
     return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}${d.getHours()>=12?'pm':'am'}`;
   }
 
-  function findParent(p) {
+function findParent(p) {
     return p?.father ? db.find(x => x.name === p.father) : null;
-  }
+}
 
-  function getAncestors(p) {
-    let arr = [], cur = p;
+function getAncestors(p) {
+    let arr = [],
+        cur = p;
     while (cur?.father) {
-      const father = db.find(x => x.name === cur.father);
-      if (!father) break;
-      arr.push(father);
-      cur = father;
+        const father = db.find(x => x.name === cur.father);
+        if (!father) break;
+        arr.push(father);
+        cur = father;
     }
     return arr;
-  }
+}
 
   function getMother(person) { return person?.mother || '—'; }
 
@@ -1039,7 +1068,7 @@
   // ============================================================
   // TREE RENDER
   // ============================================================
-  function renderBox(person, label, isSiblingOrChild = false) {
+function renderBox(person, label, isSiblingOrChild = false) {
     const isFemale = person.gender?.startsWith('F');
     const isSelected = currentIndividual?.name === person.name;
     const mother = person.mother || '—';
@@ -1048,52 +1077,68 @@
     const idCode = person.gen || '—';
 
     let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}">`;
-    html += `<div class="box-header"><span class="label">${label}</span>`;
+    html += `<div class="box-header">`;
+    html += `<span class="label">${label}</span>`;
     if (hasDetails) {
-      html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
+        html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
     } else {
-      html += `<div style="width:20px;"></div>`;
+        html += `<div style="width:20px;"></div>`;
     }
-    html += `<span class="id-code">${idCode}</span></div>`;
-    const boxBodyMinHeight = showFullDetails ? '100px' : '40px';
-    html += `<div class="box-body ${!showFullDetails ? 'collapsed' : ''}" onclick="handleBoxClick(this.parentElement)" style="min-height:${boxBodyMinHeight};">`;
+    html += `<span class="id-code">${idCode}</span>`;
+    html += `</div>`;
+
+    const boxBodyMinHeight = showFullDetails ? '120px' : '50px';
+    html += `<div class="box-body" onclick="handleBoxClick(this.parentElement)" style="min-height: ${boxBodyMinHeight};">`;
     html += `<div class="box-row"><span class="box-label">Name :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
+
     if (showFullDetails) {
-      html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
-      html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
-      html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+        if (isSiblingOrChild) {
+            html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
+            html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
+            html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+        } else {
+            html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
+            html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
+            html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+        }
     }
-    // 👪 icon for members with children
+
     if (hasKids) html += `<div class="child-icon">👪</div>`;
     html += `</div></div>`;
     return html;
-  }
-
-  function renderGenderGroup(genderMembers, type) {
+}
+function renderGenderGroup(genderMembers, type) {
     const count = genderMembers.length;
     const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
-    if (count === 1) return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 2) return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 3) return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 4) return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else {
-      const firstFour = genderMembers.slice(0,4);
-      const remaining = genderMembers.slice(4);
-      let remClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
-      return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-              <div class="children-row ${remClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    }
-  }
 
-  function renderMembersWithLayout(members, type) {
-    if (!members.length) return '';
+    if (count === 1)
+        return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    else if (count === 2)
+        return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    else if (count === 3)
+        return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    else if (count === 4)
+        return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    else {
+        const firstFour = genderMembers.slice(0, 4);
+        const remaining = genderMembers.slice(4);
+        let remainingClass = remaining.length === 1 ? 'one-box' :
+            (remaining.length === 2 ? 'two-boxes' :
+            (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
+        return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+    }
+}
+
+function renderMembersWithLayout(members, type) {
+    if (members.length === 0) return '';
     if (members.length > 4) {
-      const males = members.filter(m => m.gender === 'MALE');
-      const females = members.filter(m => m.gender === 'FEMALE');
-      let html = '';
-      if (males.length) html += renderGenderGroup(males, type);
-      if (females.length) html += renderGenderGroup(females, type);
-      return html;
+        const males = members.filter(m => m.gender === 'MALE');
+        const females = members.filter(m => m.gender === 'FEMALE');
+        let html = '';
+        if (males.length > 0) html += renderGenderGroup(males, type);
+        if (females.length > 0) html += renderGenderGroup(females, type);
+        return html;
     }
     const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
     const count = members.length;
@@ -1102,56 +1147,63 @@
     else if (count === 3) return `<div class="children-row three-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
     else if (count === 4) return `<div class="children-row four-in-row">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
     else {
-      const firstFour = members.slice(0,4);
-      const remaining = members.slice(4);
-      let remClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
-      return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-              <div class="children-row ${remClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+        const firstFour = members.slice(0, 4);
+        const remaining = members.slice(4);
+        let remainingClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
+        return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
     }
-  }
+}
 
-  function renderTree() {
-    if (!currentIndividual) { showWelcome('tree'); return; }
-    let html = '<div style="width:100%; display:flex; flex-direction:column; align-items:center;">';
+function renderTree() {
+    if (!currentIndividual) {
+        showWelcome();
+        return;
+    }
+    let html = '<div>';
     if (showAncestors) {
-      let ancestors = getAncestors(currentIndividual);
-      if (ancestors.length) ancestors = ancestors.slice(1);
-      if (ancestors.length) {
-        html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span>🌳 ANCESTORS (${ancestors.length})</span><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span></div>`;
-        if (!ancestorsCollapsed) {
-          html += '<div class="family-group">';
-          [...ancestors].reverse().forEach((a, idx) => {
-            html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
-            if (idx < ancestors.length - 1) html += '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>';
-          });
-          if (ancestors.length > 0) html += '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>';
-          html += '</div>';
+        let ancestors = getAncestors(currentIndividual);
+        if (ancestors.length) ancestors = ancestors.slice(1);
+        if (ancestors.length) {
+            html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span>🌳 ANCESTORS (${ancestors.length})</span><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span></div>`;
+            if (!ancestorsCollapsed) {
+                html += '<div class="family-group">';
+                [...ancestors].reverse().forEach((a, idx) => {
+                    html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
+                    if (idx < ancestors.length - 1) html += '<div class="v-line"></div>';
+                });
+                if (ancestors.length > 0) html += '<div class="v-line"></div>';
+                html += '</div>';
+            }
         }
-      }
     }
     const father = findParent(currentIndividual);
-    if (father) {
-      html += '<div class="family-group">' + renderBox(father, 'Father', false) + '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>' + renderBox(currentIndividual, 'Selected', false) + '</div>';
-    } else {
-      html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+if (father) {
+    html += '<div class="family-group">' + renderBox(father, 'Father', false) + 
+            '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>' + 
+            renderBox(currentIndividual, 'Selected', false) + '</div>';
+}
+
+ else {
+        html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
     }
     if (showSiblings && father) {
-      const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
-      if (siblings.length) {
-        html += `<div class="section-heading" onclick="toggleSection('siblings')"><span>👥 Siblings (${siblings.length})</span><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span></div>`;
-        if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
-      }
+        const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
+        if (siblings.length) {
+            html += `<div class="section-heading" onclick="toggleSection('siblings')"><span>👥 Siblings Of ${displayName(currentIndividual.name)} (${siblings.length})</span><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span></div>`;
+            if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
+        }
     }
     if (showDescendants) {
-      const children = db.filter(c => c.father === currentIndividual.name);
-      if (children.length) {
-        html += `<div class="section-heading" onclick="toggleSection('children')"><span>👶 Children (${children.length})</span><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span></div>`;
-        if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
-      }
+        const children = db.filter(c => c.father === currentIndividual.name);
+        if (children.length) {
+            html += `<div class="section-heading" onclick="toggleSection('children')"><span>👶 Children Of ${displayName(currentIndividual.name)} (${children.length})</span><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span></div>`;
+            if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
+        }
     }
     html += '</div>';
     treeRoot.innerHTML = html;
-  }
+}
 
   function toggleSection(section) {
     if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
@@ -1302,15 +1354,32 @@ function renderTable() {
   // ============================================================
   // INFO MODAL - EXACTLY FROM FILE 1
   // ============================================================
-  function showInfoModal(personName) {
+function showInfoModal(personName) {
     const person = db.find(p => p.name === personName);
     if (!person) return;
     let detailsText = person.details && person.details.trim() !== '' ? person.details : 'No additional information available.';
-    detailsText = detailsText.replace(/\\n/g, '<br>');
-    document.getElementById('infoModalText').innerHTML = detailsText;
+    
+    // Convert literal \n to actual line breaks
+    detailsText = detailsText.replace(/\\n/g, '\n');
+    
+    // Split by new lines
+    let lines = detailsText.split('\n');
+    let html = '';
+    
+    lines.forEach(line => {
+        // Use trimEnd() to keep leading spaces
+        let trimmed = line;
+        if (trimmed === '') {
+            html += '<br>';
+        } else {
+            html += `<div style="padding:2px 0; color:#333; white-space: pre-wrap;">${trimmed.replace(/\n/g, '<br>')}</div>`;
+        }
+    });
+    
+    document.getElementById('infoModalText').innerHTML = html;
     document.getElementById('infoModal').style.display = 'block';
     document.getElementById('infoModalOverlay').style.display = 'block';
-  }
+}
 
   function closeInfoModal() {
     document.getElementById('infoModal').style.display = 'none';

@@ -2568,160 +2568,170 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
         // ============================================================
         // JAVASCRIPT SECTION 16: MEMBER DETAIL MODAL
         // ============================================================
-        function showMemberDetails(name) {
-            if (!name) return;
-            
-            const person = globalPersonMap[name];
-            if (!person) {
-                alert('Member not found: ' + name);
-                return;
-            }
-            
-            const modal = document.getElementById('memberModal');
-            const content = document.getElementById('memberDetailsContent');
-            
-            let html = `
-                <div class="detail-card">
-                    <div class="detail-header">
-                        <h2>${displayName(person.name)}</h2>
-                        <span class="detail-gender ${person.gender ? person.gender.toLowerCase() : ''}">${person.gender || 'UNKNOWN'}</span>
-                    </div>
-                    <div class="detail-body">
-            `;
-            
-            if (person.father && person.father.trim() !== '') {
-                const fatherClean = displayName(person.father);
-                const fatherLink = getMemberPageLink(person.father);
-                html += `
-                    <div class="detail-row">
-                        <strong>Father:</strong>
-                        <span class="detail-value">${fatherLink || fatherClean || '—'}</span>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="detail-row">
-                        <strong>Father:</strong>
-                        <span class="detail-value">—</span>
-                    </div>
-                `;
-            }
-            
-            if (person.mother && person.mother.trim() !== '') {
-                const motherClean = displayName(person.mother);
-                const motherLink = getMemberPageLink(person.mother);
-                html += `
-                    <div class="detail-row">
-                        <strong>Mother:</strong>
-                        <span class="detail-value">${motherLink || motherClean}</span>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="detail-row">
-                        <strong>Mother:</strong>
-                        <span class="detail-value">—</span>
-                    </div>
-                `;
-            }
-            
-            if (person.spouse && person.spouse.trim() !== '') {
-                const spouseClean = displayName(person.spouse);
-                const spouseLink = getMemberPageLink(person.spouse);
-                html += `
-                    <div class="detail-row">
-                        <strong>Spouse:</strong>
-                        <span class="detail-value">${spouseLink || spouseClean}</span>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="detail-row">
-                        <strong>Spouse:</strong>
-                        <span class="detail-value">—</span>
-                    </div>
-                `;
-            }
-            
-            html += `
-                <div class="detail-row">
-                    <strong>Generation:</strong>
-                    <span class="detail-value">${person.gen || '—'}</span>
+        
+
+
+
+
+
+function showMemberDetails(name) {
+    if (!name) return;
+    
+    const person = globalPersonMap[name];
+    if (!person) {
+        alert('Member not found: ' + name);
+        return;
+    }
+    
+    const modal = document.getElementById('memberModal');
+    const content = document.getElementById('memberDetailsContent');
+    
+    let html = `
+        <div class="detail-card">
+            <div class="detail-header">
+                <h2>${displayName(person.name)}</h2>
+                <!-- HEADER CLOSE BUTTON - SAME STYLE AS BOTTOM -->
+                <button onclick="closeMemberModal()" style="background:#d4af37; color:#0f172a; border:2px solid #d4af37; border-radius:8px; padding:8px 20px; font-weight:700; font-size:14px; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s;">✕ Close</button>
+            </div>
+            <div class="detail-body">
+    `;
+    
+    if (person.father && person.father.trim() !== '') {
+        const fatherClean = displayName(person.father);
+        const fatherLink = getMemberPageLink(person.father);
+        html += `
+            <div class="detail-row">
+                <strong>Father:</strong>
+                <span class="detail-value">${fatherLink || fatherClean || '—'}</span>
+            </div>
+        `;
+    } else {
+        html += `
+            <div class="detail-row">
+                <strong>Father:</strong>
+                <span class="detail-value">—</span>
+            </div>
+        `;
+    }
+    
+    if (person.mother && person.mother.trim() !== '') {
+        const motherClean = displayName(person.mother);
+        const motherLink = getMemberPageLink(person.mother);
+        html += `
+            <div class="detail-row">
+                <strong>Mother:</strong>
+                <span class="detail-value">${motherLink || motherClean}</span>
+            </div>
+        `;
+    } else {
+        html += `
+            <div class="detail-row">
+                <strong>Mother:</strong>
+                <span class="detail-value">—</span>
+            </div>
+        `;
+    }
+    
+    if (person.spouse && person.spouse.trim() !== '') {
+        const spouseClean = displayName(person.spouse);
+        const spouseLink = getMemberPageLink(person.spouse);
+        html += `
+            <div class="detail-row">
+                <strong>Spouse:</strong>
+                <span class="detail-value">${spouseLink || spouseClean}</span>
+            </div>
+        `;
+    } else {
+        html += `
+            <div class="detail-row">
+                <strong>Spouse:</strong>
+                <span class="detail-value">—</span>
+            </div>
+        `;
+    }
+    
+    html += `
+        <div class="detail-row">
+            <strong>Generation:</strong>
+            <span class="detail-value">${person.gen || '—'}</span>
+        </div>
+    `;
+    
+    if (person.details && person.details.trim() !== '') {
+        const detailsHtml = person.details.replace(/\\n/g, '<br>');
+        html += `
+            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                <strong style="margin-bottom:6px;">📝 Details</strong>
+                <div class="detail-notes">${detailsHtml}</div>
+            </div>
+        `;
+    }
+    
+    const children = getChildren(person.name, globalMap);
+    if (children && children.length > 0) {
+        html += `
+            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0; border-bottom:1px solid #f0ebe4;">
+                <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
+                <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px;">
+        `;
+        children.forEach(child => {
+            const childClean = displayName(child);
+            const childLink = getMemberPageLink(child);
+            html += `<span style="font-size:14px; color:#1a3a5c;">${childLink || childClean}</span>`;
+        });
+        html += `
                 </div>
-            `;
-            
-            if (person.details && person.details.trim() !== '') {
-                const detailsHtml = person.details.replace(/\\n/g, '<br>');
-                html += `
-                    <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-                        <strong style="margin-bottom:6px;">📝 Details</strong>
-                        <div class="detail-notes">${detailsHtml}</div>
-                    </div>
-                `;
-            }
-            
-            const children = getChildren(person.name, globalMap);
-            if (children && children.length > 0) {
-                html += `
-                    <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0; border-bottom:1px solid #f0ebe4;">
-                        <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
-                        <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px;">
-                `;
-                children.forEach(child => {
-                    const childClean = displayName(child);
-                    const childLink = getMemberPageLink(child);
-                    html += `<span style="font-size:14px; color:#1a3a5c;">${childLink || childClean}</span>`;
-                });
-                html += `
-                        </div>
-                    </div>
-                `;
-            }
-            
-            let pageIdx = -1;
-            for (let i = 0; i < cachedPages.length; i++) {
-                if (cachedPages[i].root === person.name) {
-                    pageIdx = i;
-                    break;
-                }
-            }
-
-            html += `
-                <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
-                    <button onclick="closeMemberModal()" 
-                            style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
-                                   border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                                   cursor:pointer; font-family:'Inter',sans-serif;
-                                   transition:all 0.2s;">
-                        ✕ Close
-                    </button>
-            `;
-
-            if (pageIdx >= 0) {
-                html += `
-                    <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
-                            style="padding:10px 24px; background:var(--green); color:white; 
-                                   border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                                   cursor:pointer; font-family:'Inter',sans-serif;
-                                   transition:all 0.2s;">
-                        📄 View Full Page
-                    </button>
-                `;
-            }
-
-            html += `</div>`;
-            
-            html += `
-                    </div>
-                </div>
-            `;
-            
-            content.innerHTML = html;
-            modal.style.display = 'block';
-            document.getElementById('memberModalOverlay').style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            </div>
+        `;
+    }
+    
+    let pageIdx = -1;
+    for (let i = 0; i < cachedPages.length; i++) {
+        if (cachedPages[i].root === person.name) {
+            pageIdx = i;
+            break;
         }
+    }
 
+    html += `
+        <div style="margin-top:16px; display:flex; justify-content:space-between; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
+    `;
+
+    if (pageIdx >= 0) {
+        html += `
+            <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
+                    style="flex:1; padding:10px 24px; background:var(--green); color:white; 
+                           border:2px solid var(--green); border-radius:8px; font-size:14px; font-weight:700; 
+                           cursor:pointer; font-family:'Inter',sans-serif;
+                           transition:all 0.2s;">
+                📄 View Full Page
+            </button>
+        `;
+    }
+
+    html += `
+        <!-- BOTTOM CLOSE BUTTON - SAME STYLE AS HEADER CLOSE BUTTON -->
+        <button onclick="closeMemberModal()" 
+                style="flex:1; padding:10px 24px; background:#d4af37; color:#0f172a; 
+                       border:2px solid #d4af37; border-radius:8px; font-size:14px; font-weight:700; 
+                       cursor:pointer; font-family:'Inter',sans-serif;
+                       transition:all 0.2s;">
+            ✕ Close
+        </button>
+    `;
+
+    html += `</div>`;
+    
+    html += `
+            </div>
+        </div>
+    `;
+    
+    content.innerHTML = html;
+    modal.style.display = 'block';
+    document.getElementById('memberModalOverlay').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
         function closeMemberModal() {
             document.getElementById('memberModal').style.display = 'none';
             document.getElementById('memberModalOverlay').style.display = 'none';

@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 08/21/2026 10:54
+// Saved: 08/21/2026 15:41
 // Total members: 608
 
 const FAMILY_DATA_E = [
@@ -4958,7 +4958,7 @@ const FAMILY_DATA_E = [
     name: "Syed Najaf Haider",
     father: "Syed Wiladat Hussain",
     mother: "Syeda Tanveer Fatima Rizvi",
-    spouse: "Syeda Sabeen Rizvi",
+    spouse: "Syeda Sabeen Rizvi (Sadaf)",
     gen: "G-041-S3",
     gender: "MALE",
     details: "Syed Najaf married with his mamoo Syed Muslim daugher Syeda Sabeen + Their common root is Syed Badhsha Hussain Shaheed (G-022-S1)"
@@ -5101,7 +5101,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syed Hussain Haider - 01",
     father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
+    mother: "Syeda Sabeen Rizvi (Sadaf)",
     spouse: "",
     gen: "G-042-S1",
     gender: "MALE",
@@ -5110,7 +5110,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syed Ahsan Sajjad",
     father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
+    mother: "Syeda Sabeen Rizvi (Sadaf)",
     spouse: "",
     gen: "G-042-S2",
     gender: "MALE",
@@ -5119,7 +5119,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Mariyum Najaf",
     father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
+    mother: "Syeda Sabeen Rizvi (Sadaf)",
     spouse: "",
     gen: "G-042-D1",
     gender: "FEMALE",
@@ -5128,7 +5128,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Rimsha Najaf",
     father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
+    mother: "Syeda Sabeen Rizvi (Sadaf)",
     spouse: "",
     gen: "G-042-D2",
     gender: "FEMALE",
@@ -5137,7 +5137,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Sara Najaf",
     father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
+    mother: "Syeda Sabeen Rizvi (Sadaf)",
     spouse: "",
     gen: "G-042-D3",
     gender: "FEMALE",
@@ -5146,7 +5146,7 @@ const FAMILY_DATA_E = [
   {
     name: "Syeda Farwah Najaf",
     father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
+    mother: "Syeda Sabeen Rizvi (Sadaf)",
     spouse: "",
     gen: "G-042-D4",
     gender: "FEMALE",
@@ -5480,7 +5480,7 @@ const FAMILY_DATA_E = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "08/21/2026 10:54", 
+    saved_time: "08/21/2026 15:41", 
     total_members: 608,
     details_count: 87,
     sheets_merged: ["Main","1","2","3","4","5"]

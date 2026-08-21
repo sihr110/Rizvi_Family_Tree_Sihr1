@@ -227,24 +227,22 @@
             100% { color: #3d2b1a; }
         }
 
-        /* CHANGE 1: Reset Button CSS */
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
+.reset-btn {
+  background: transparent;
+  color: var(--dark-blue);
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 1px 4px;
+  transition: 0.2s;
+  white-space: nowrap;
+  transform: translateY(-4px);
+}
+.reset-btn:hover {
+  transform: scale(1.2);
+  color: var(--gold);
+}
 
         /* Gentle pulsing/blinking effect with gold and light green - Header Toggle */
         .left-toggle-btn {
@@ -765,7 +763,7 @@
         <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
         <div id="dropdown1" class="dropdown"></div>
     </div>
-    <div class="reset-btn" onclick="resetSearchRow(1)">🔄 Reset</div>
+    <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
     <div style="width: 85px; flex-shrink: 0;"></div>  <!-- SPACER ONLY ON MEMBER 1 -->
 </div>
 
@@ -775,7 +773,7 @@
         <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
         <div id="dropdown2" class="dropdown"></div>
     </div>
-    <div class="reset-btn" onclick="resetSearchRow(2)">🔄 Reset</div>
+    <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
     <!-- NO SPACER HERE -->
     <button class="tips-btn" onclick="openTips()">💡 Tips</button>
 </div>

@@ -1416,14 +1416,13 @@ function showInfoModal(personName) {
     applyZoom();
   }
 
-  function applyZoom() {
+function applyZoom() {
     const root = currentView === 'tree' ? treeRoot : tableRoot;
     if (root) {
-      root.style.transform = `scale(${zoomLevel})`;
-      root.style.transformOrigin = 'center top';
+        root.style.zoom = zoomLevel;
     }
     document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
-  }
+}
 
   function toggleZoomControls() {
     zoomVisible = !zoomVisible;

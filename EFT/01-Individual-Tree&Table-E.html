@@ -1,1816 +1,2073 @@
 <!-- ======================================== -->
 <!-- FILE NAME: 01-Individual-Tree&Table-E.html   -->
-<!-- English Version - Rizvi Family Lineage Tree -->
+<!-- English Version - Rizvi Family Lineage Tree & Table -->
 <!-- ======================================== -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
-  <title>Rizvi family · Tree & Table (unified)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <title>Rizvi family · Tree & Table</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        /* ===== COMMON STYLES ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --maroon: #5a0000;
+            --dark-blue: #0f172a;
+            --gold: #d4af37;
+            --light-gold: #f1d279;
+            --green: #2e7d32;
+            --dark-green: #1b5e20;
+            --light-pink: #ffe4e9;
+            --bronze: #bc8c4f;
+            --table-header-bg: #fdf6e3;
+            --table-border: #e2d5b3;
+            --selected-row-bg: #e8f5e9;
+        }
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 10px;
+            position: relative;
+        }
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --maroon: #5a0000;
-      --dark-blue: #0f172a;
-      --gold: #d4af37;
-      --light-gold: #f1d279;
-      --green: #2e7d32;
-      --dark-green: #1b5e20;
-      --light-pink: #ffe4e9;
-      --bronze: #bc8c4f;
-      --table-header-bg: #fdf6e3;
-      --table-border: #e2d5b3;
-      --selected-row-bg: #e8f5e9;
-    }
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #1a1a1a;
-      height: 100vh;
-      overflow: hidden;
-      margin: 0;
-      padding: 10px;
-    }
+        .app-header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
+            color: var(--gold);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+            flex-shrink: 0;
+        }
 
-    .app-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      background: white;
-      height: calc(100vh - 20px);
-      display: flex;
-      flex-direction: column;
-      border-radius: 20px;
-      border: 2px solid var(--gold);
-      overflow: hidden;
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
-    }
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-    .app-header {
-      background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-      color: var(--gold);
-      padding: 8px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 3px solid var(--gold);
-      flex-shrink: 0;
-      position: relative;
-      min-height: 56px;
-    }
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .header-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-    }
-    .header-title .header-icon {
-      background: var(--gold);
-      color: var(--dark-blue);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
+        .left-toggle-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
 
-    .left-toggle-btn {
-      background: var(--gold);
-      color: var(--dark-blue);
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      border: 2px solid white;
-      z-index: 2000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .left-toggle-btn:hover { background: var(--light-gold); transform: scale(1.05); }
+        .left-toggle-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
 
-    .header-actions {
-      display: flex;
-      gap: 8px;
-      margin-left: auto;
-      align-items: center;
-    }
-    #memberCounter {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+            align-items: center;
+        }
 
-    .toggle-menu-panel {
-      position: absolute;
-      left: 10px;
-      top: 60px;
-      background: white;
-      border: 3px solid var(--gold);
-      border-radius: 12px;
-      padding: 12px;
-      display: none;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 1999;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      min-width: 200px;
-    }
-    .toggle-menu-panel.show { display: flex; }
+        #memberCounter {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
 
-    .toggle-menu-item {
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      border: 2px solid var(--gold);
-      background: white;
-      color: var(--dark-blue);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
-    }
-    .toggle-menu-item:hover { background: #faebcd; transform: translateX(4px); }
-    .toggle-menu-item.active { background: #d4edda !important; border-color: var(--dark-green) !important; }
-    .toggle-menu-item .toggle-switch {
-      width: 44px;
-      height: 22px;
-      background: #ccc;
-      border-radius: 22px;
-      display: inline-block;
-      position: relative;
-      transition: 0.2s;
-      flex-shrink: 0;
-      cursor: pointer;
-      margin-left: auto;
-    }
-    .toggle-menu-item .toggle-switch.active {
-      background: var(--green);
-    }
-    .toggle-menu-item .toggle-switch::after {
-      content: "";
-      width: 18px;
-      height: 18px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 3px;
-      transition: 0.2s;
-    }
-    .toggle-menu-item .toggle-switch.active::after {
-      left: 23px;
-    }
+        /* ===== TOGGLE MENU ===== */
+        .toggle-menu-panel {
+            position: absolute;
+            left: 10px;
+            top: 60px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 220px;
+        }
 
-    .main-content {
-      flex: 1;
-      display: flex;
-      overflow: hidden;
-      background: #fffcf8;
-      position: relative;
-    }
-    .center-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-    }
+        .toggle-menu-panel.show { display: flex; }
 
-    .search-section {
-      padding: 10px 15px;
-      background: #fffcf8;
-      border-bottom: 2px solid var(--gold);
-      flex-shrink: 0;
-      width: 92%;
-      margin: 0 auto;
-    }
-    .search-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .search-label {
-      font-weight: 700;
-      color: var(--maroon);
-      font-size: 11px;
-      white-space: nowrap;
-    }
-    .search-wrapper {
-      position: relative;
-      flex: 1;
-      min-width: 120px;
-    }
-.search-input {
-    width: 100%;
-    padding: 8px 12px;
-    border: 2px solid #cbd5e1;
-    border-radius: 4px;
-    font-size: 13px;
-    outline: none;
-touch-action: manipulation;
-}
-    .search-input:focus { border-color: var(--gold); }
-    .search-dropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      border: 2px solid var(--gold);
-      border-radius: 0 0 4px 4px;
-      max-height: 260px;
-      overflow-y: auto;
-      display: none;
-      z-index: 1000;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .result-item {
-      padding: 8px 12px;
-      cursor: pointer;
-      border-bottom: 1px solid #eee;
-    }
-    .result-item:hover { background: #faebcd; }
-    .result-item .main-name { font-weight: 700; font-size: 13px; color: var(--dark-blue); }
-    .result-item .gen { color: var(--maroon); font-size: 11px; margin-left: 6px; }
-    .result-item .father-name { font-size: 10px; color: #666; }
+        .toggle-menu-item {
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
 
-    .reset-btn {
-      background: transparent;
-      color: var(--dark-blue);
-      border: none;
-      font-size: 32px;
-      cursor: pointer;
-      font-weight: 600;
-      padding: 1px 4px;
-      transition: 0.2s;
-      white-space: nowrap;
-transform: translateY(-4px);
-    }
-    .reset-btn:hover { transform: scale(1.2); color: var(--gold); }
+        .toggle-menu-item:hover {
+            background: #faebcd;
+            transform: translateX(5px);
+        }
 
-    .tips-btn {
-      background: none;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      padding: 4px 6px;
-      border-radius: 6px;
-      font-weight: 600;
-      color: #3d2b1a;
-      animation: tipsBlink 1.5s ease-in-out infinite;
-      font-family: 'Inter', sans-serif;
-    }
-    .tips-btn:hover { background: #faebcd; animation: none; }
-    @keyframes tipsBlink {
-      0% { color: #3d2b1a; }
-      50% { color: #d4af37; }
-      100% { color: #3d2b1a; }
-    }
+        .toggle-menu-item.active {
+            background: #d4edda !important;
+            border-color: var(--dark-green) !important;
+        }
 
-.view-toggle {
-  display: flex;
-  gap: 4px;
-  background: #d4edda;
-  border-radius: 8px;
-  padding: 3px;
-  flex-shrink: 0;
-  border: 2px solid var(--gold);
-}
-.view-toggle button {
-  border: none;
-  background: transparent;
-  padding: 6px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 12px;
-  cursor: pointer;
-  transition: 0.2s;
-  color: #555;
-  font-family: 'Inter', sans-serif;
-}
-    .view-toggle button.active {
-      background: var(--gold);
-      color: var(--dark-blue);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .view-toggle button:hover:not(.active) { background: #c3e6cb; }
+        .toggle-switch {
+            width: 44px;
+            height: 22px;
+            background: #ccc;
+            border-radius: 22px;
+            display: inline-block;
+            position: relative;
+            transition: 0.2s;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .toggle-switch.active { background: var(--green); }
+        .toggle-switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: 0.2s;
+        }
+        .toggle-switch.active::after { left: 23px; }
 
-    /* === TREE & TABLE CONTAINER === */
-    .view-container {
-      flex: 1;
-      overflow: auto !important;
-      padding: 12px 16px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            background: #fffcf8;
+            position: relative;
+        }
 
+        .center-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
 
-/* Only on mobile devices */
-@media (max-width: 768px) {
-    body {
-        zoom: 0.5;
-    }
-}
+        /* ===== SEARCH SECTION ===== */
+        .search-section {
+            padding: 12px 15px;
+            background: #fffcf8;
+            border-bottom: 2px solid var(--gold);
+            width: 85%;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
 
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .view-container::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
-    .view-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 6px; }
-    .view-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 6px; }
-    .view-container::-webkit-scrollbar-thumb:hover { background: var(--dark-blue); }
+        .search-label {
+            font-weight: 700;
+            color: var(--maroon);
+            font-size: 11px;
+            white-space: nowrap;
+        }
 
-    .tree-root-layout, .table-root-layout {
-      transform-origin: center top;
-      transition: transform 0.1s;
-      min-width: 100%;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+        }
 
-    /* ===== TREE BOXES ===== */
-.box {
-    border: 2px solid var(--gold);
-    border-radius: 12px;
-    background: white;
-    width: 280px;
-    text-align: left;
-    cursor: pointer;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    transition: all 0.2s;
-    font-size: 12px;
-}
-    .box:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-    .box.female-box { background-color: var(--light-pink); border-color: #fb7185; }
-    .box.selected { animation: gentleBeat 2.2s infinite; border-width: 4px; z-index: 10; }
-    @keyframes gentleBeat {
-      0% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); }
-      35% { border-color: #4caf50; background: #c8e6c9; transform: scale(1.04); }
-      70% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); }
-      100% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); }
-    }
-    .box-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      border-bottom: 2px solid var(--gold);
-      border-radius: 10px 10px 0 0;
-    }
-    .box-header .label { font-weight: 700; color: var(--dark-blue); }
-    .box-header .id-code { font-weight: 600; color: var(--maroon); }
-    .details-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      cursor: pointer;
-      color: var(--dark-blue);
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      transition: 0.2s;
-      z-index: 10;
-      position: relative;
-    }
-    .details-icon:hover { background: var(--light-gold); transform: scale(1.1); }
-    .box-body { padding: 10px 12px; min-height: 70px; position: relative; }
-    .box-body.collapsed { min-height: 40px; }
-    .box-row { display: flex; margin-bottom: 3px; line-height: 1.4; }
-    .box-label { font-weight: 700; min-width: 52px; color: var(--dark-blue); }
-    .box-value { color: #333; flex: 1; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-    .member-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 15px; }
-    .child-icon {
-      position: absolute;
-      bottom: 6px;
-      right: 10px;
-      font-size: 18px;
-      line-height: 1;
-      color: #555;
-    }
+        .search-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 13px;
+            outline: none;
+        }
 
-    .section-heading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--maroon);
-      margin: 15px 0 10px;
-      padding-bottom: 6px;
-      border-bottom: 3px solid var(--gold);
-      font-family: 'Playfair Display', serif;
-      cursor: pointer;
-      gap: 12px;
-    }
-    .toggle-icon {
-      font-size: 20px;
-      font-weight: bold;
-      background: var(--gold);
-      color: var(--dark-blue);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.2s;
-      flex-shrink: 0;
-    }
-    .toggle-icon:hover { transform: scale(1.1); background: var(--light-gold); }
+        .search-input:focus { border-color: var(--gold); }
 
-.children-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    margin: 0 auto 10px auto;
-}
-.children-row.four-in-row {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-.children-row.one-box,
-.children-row.two-boxes,
-.children-row.three-boxes {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-.children-row.remaining-center {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    margin-top: 0;
-    margin-bottom: 10px;
-}
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 0 0 4px 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-    .family-group { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 15px; }
+        .result-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+        .result-item:hover { background: #faebcd; }
+        .result-item .main-name { font-weight: 700; color: var(--dark-blue); font-size: 13px; }
+        .result-item .gen { color: var(--maroon); font-size: 11px; margin-left: 6px; }
+        .result-item .father-name { font-size: 10px; color: #666; margin-top: 2px; }
 
-    /* Manning connector */
-    .manning-connector-single {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 3px 0;
-    }
-    .manning-line-down { width: 3px; height: 20px; background: var(--gold); }
-    .manning-arrow-down { color: var(--gold); font-size: 14px; font-weight: bold; margin-top: -4px; }
+        .reset-btn {
+            margin-left: -10px;
+            margin-right: -5px;
+            padding: 10px 5px;
+            background: transparent;
+            color: var(--dark-blue);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-size: 18px;
+        }
+        .reset-btn:hover { transform: scale(1.1); color: var(--gold); }
 
-    /* ===== TABLE ===== */
-    .family-table {
-      width: 100%;
-      max-width: 1200px;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      table-layout: fixed;
-    }
-    .family-table th {
-      background: var(--table-header-bg);
-      color: var(--dark-blue);
-      font-weight: 700;
-      font-size: 12px;
-      padding: 10px 6px;
-      text-align: center;
-      border-bottom: 2px solid var(--gold);
-      border-right: 1px solid var(--table-border);
-    }
-    .family-table th:last-child { border-right: none; }
-.family-table td {
-  padding: 8px 6px;
-  font-size: 12px;
-  border-bottom: 1px solid #eee;
-  border-right: 1px solid #f0f0f0;
-  vertical-align: middle;
-  word-wrap: break-word;
-}
-.family-table td:last-child { border-right: none; }
-.family-table td:nth-child(2) {
-  text-align: center;
-}
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 4px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-btn:hover { background: #faebcd; animation: none; }
 
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
+        }
 
+        /* ===== VIEW TOGGLE ===== */
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+            background: #d4edda;
+            border-radius: 8px;
+            padding: 3px;
+            flex-shrink: 0;
+            border: 2px solid var(--gold);
+        }
 
-    .family-table tbody tr.selected-row { background: var(--selected-row-bg) !important; border-left: 4px solid var(--green); }
-    .family-table .father-line { font-size: 10px; color: #5a0000; display: block; margin-top: 2px; }
+        .view-toggle button {
+            border: none;
+            background: transparent;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #555;
+            font-family: 'Inter', sans-serif;
+        }
 
-    .welcome-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      min-height: 400px;
-      width: 100%;
-    }
-    .welcome-box {
-      text-align: center;
-      max-width: 460px;
-      padding: 30px;
-      background: white;
-      border: 3px solid var(--gold);
-      border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    }
-    .welcome-icon { font-size: 60px; margin-bottom: 15px; color: var(--gold); }
-    .welcome-title { font-size: 28px; font-weight: 700; color: var(--dark-blue); font-family: 'Playfair Display', serif; }
-    .welcome-text { font-size: 15px; color: #666; margin: 12px 0; line-height: 1.5; }
+        .view-toggle button.active {
+            background: var(--gold);
+            color: var(--dark-blue);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
-    .app-footer {
-      background: var(--dark-blue);
-      color: var(--gold);
-      text-align: center;
-      padding: 6px;
-      font-size: 10px;
-      border-top: 2px solid var(--gold);
-      flex-shrink: 0;
-    }
+        .view-toggle button:hover:not(.active) { background: #c3e6cb; }
 
-    /* ===== INFO MODAL - EXACTLY FROM FILE 1 ===== */
-.info-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 3px solid var(--gold);
-    border-radius: 12px;
-    padding: 20px;
-    min-width: 300px;
-    max-width: 420px;
-    width: 92%;
-    max-height: 85vh;
-    z-index: 10000;
-    display: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    font-family: 'Inter', sans-serif;
-    overflow: hidden;
-}
+        /* ===== TREE CONTAINER ===== */
+        .tree-container {
+            flex: 1;
+            overflow: auto !important;
+            padding: 12px 16px;
+            position: relative;
+            min-height: 0;
+        }
 
-    .info-modal h3 {
-      color: var(--maroon);
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      font-weight: 700;
-      margin: 0 0 3px 0;
-      padding: 0 0 6px 0;
-      border-bottom: 2px solid var(--gold);
-    }
+        .tree-container::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        .tree-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+        .tree-container::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 6px;
+        }
+        .tree-container::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-blue);
+        }
 
-.info-modal p {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    line-height: 1.8;
-    margin: 8px 0 2px 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    color: #2d2d2d;
-    max-height: 55vh;
-    overflow-y: auto !important;
-    background: #fef9e6;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border-left: 3px solid var(--gold);
-}
+        .tree-root-layout {
+            transform-origin: top left;
+            transition: transform 0.1s;
+            min-width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-/* Scrollbar styling */
-.info-modal p::-webkit-scrollbar {
-    width: 6px;
-}
-.info-modal p::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-}
-.info-modal p::-webkit-scrollbar-thumb {
-    background: var(--gold);
-    border-radius: 4px;
-}
+        /* ===== TREE BOXES ===== */
+        .box {
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            background: white;
+            width: 280px;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            font-size: 12px;
+        }
 
-.info-modal button {
-    margin-top: 12px;
-    padding: 8px 15px;
-    background: var(--gold);
-    color: var(--dark-blue);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    width: 100%;
-    transition: all 0.2s;
-}
+        .box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
 
-    .info-modal button:hover {
-      background: var(--light-gold);
-    }
+        .box.female-box {
+            background-color: var(--light-pink);
+            border-color: #fb7185;
+        }
 
-    .info-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 9999;
-      display: none;
-    }
+        .box.selected {
+            animation: gentleBeat 2.2s infinite;
+            border-width: 4px;
+            z-index: 10;
+        }
 
-    /* ===== TIPS MODAL ===== */
-    .tips-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 9999;
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
+        @keyframes gentleBeat {
+            0% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
+            35% { border-color: #4caf50; background: #c8e6c9; transform: scale(1.04); box-shadow: 0 0 25px rgba(76,175,80,0.5); }
+            70% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
+            100% { border-color: #2e7d32; background: #e8f5e9; transform: scale(1.02); box-shadow: 0 0 15px rgba(46,125,50,0.3); }
+        }
 
-    .tips-modal {
-      background: white;
-      border-radius: 16px;
-      padding: 24px 28px;
-      max-width: 480px;
-      width: 92%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      max-height: 85vh;
-      overflow-y: auto;
-    }
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 2px solid var(--gold);
+            border-radius: 10px 10px 0 0;
+        }
 
-    .tips-modal h3 {
-      font-family: 'Playfair Display', serif;
-      color: #0f172a;
-      font-size: 20px;
-      margin-bottom: 14px;
-      border-bottom: 2px solid #d4af37;
-      padding-bottom: 10px;
-    }
+        .box-header .label { font-weight: 700; color: var(--dark-blue); }
+        .box-header .id-code { font-weight: 600; color: var(--maroon); }
 
-    .tips-grid {
-      display: grid;
-      grid-template-columns: auto auto 1fr;
-      gap: 4px 10px;
-      text-align: left;
-      align-items: baseline;
-      margin-bottom: 16px;
-    }
-    .tips-grid .title { font-weight: 700; color: #5a0000; font-size: 13px; white-space: nowrap; }
-    .tips-grid .colon { color: #5a0000; font-weight: 700; font-size: 13px; }
-    .tips-grid .desc { font-size: 13px; line-height: 1.5; color: #1a1a1a; }
+        .details-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 6px;
+            transition: all 0.2s;
+        }
+        .details-icon:hover {
+            background: var(--light-gold);
+            transform: scale(1.1);
+        }
 
-    .tips-close-btn {
-      background: #d4af37;
-      border: none;
-      padding: 10px 28px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-      color: #0f172a;
-      transition: background 0.2s;
-      display: block;
-      margin: 0 auto;
-      font-family: 'Inter', sans-serif;
-    }
+        .box-body {
+            padding: 12px;
+            position: relative;
+            min-height: 120px;
+        }
+        .box-body.collapsed { min-height: 50px; }
 
-    .tips-close-btn:hover {
-      background: #f1d279;
-    }
+        .box-row {
+            display: flex;
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
 
-    /* ===== SAVE OPTIONS MODAL ===== */
-    .save-options-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      border: 3px solid var(--gold);
-      border-radius: 12px;
-      padding: 25px;
-      z-index: 4000;
-      min-width: 350px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      display: none;
-    }
+        .box-label {
+            font-weight: 700;
+            color: var(--dark-blue);
+            min-width: 55px;
+        }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 3999;
-      display: none;
-    }
+        .box-value {
+            color: #333;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
 
-    /* ===== ZOOM CONTROLS (draggable) ===== */
-    .zoom-controls {
-      position: fixed;
-      bottom: 15px;
-      right: 60px;
-      background: rgba(255,255,255,0.95);
-      border: 2px solid var(--gold);
-      border-radius: 10px;
-      padding: 5px;
-      display: none;
-      flex-direction: row;
-      gap: 4px;
-      z-index: 2000;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      align-items: center;
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-      transform: scale(0.7);
-      transform-origin: bottom right;
-    }
-    .zoom-controls.visible { display: flex; }
-    .zoom-controls.dragging { cursor: grabbing; opacity: 0.85; }
-    .zoom-btn {
-      width: 32px;
-      height: 32px;
-      border: 2px solid var(--gold);
-      background: white;
-      color: var(--dark-blue);
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      transition: 0.2s;
-    }
-    .zoom-btn:hover { background: var(--gold); color: white; }
-    .zoom-level { font-size: 10px; font-weight: 600; padding: 0 4px; min-width: 32px; text-align: center; }
+        .member-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 16px;
+        }
 
-    /* responsive */
-    @media (max-width: 700px) {
-      .header-title { font-size: 13px; }
-      .header-title .header-icon { width: 22px; height: 22px; font-size: 12px; }
-      .box { width: 100%; max-width: 260px; }
-      .children-row.four-in-row { grid-template-columns: repeat(2, auto); }
-      .search-section { width: 100%; padding: 6px 10px; }
-      .search-label { font-size: 10px; }
-      .search-input { font-size: 12px; padding: 6px 10px; }
-      .view-toggle button { font-size: 10px; padding: 4px 10px; }
-      .family-table th, .family-table td { font-size: 10px; padding: 4px; }
-      .family-table th:nth-child(1), .family-table td:nth-child(1) { width: 28%; }
-      .family-table th:nth-child(2), .family-table td:nth-child(2) { width: 12%; }
-      .family-table th:nth-child(3), .family-table td:nth-child(3) { width: 30%; }
-      .family-table th:nth-child(4), .family-table td:nth-child(4) { width: 30%; }
-      .zoom-controls { transform: scale(0.6); bottom: 8px; right: 40px; }
-      .left-toggle-btn { padding: 4px 10px; font-size: 11px; }
-      .toggle-menu-item { font-size: 12px; padding: 8px 12px; }
-      .welcome-title { font-size: 22px; }
+        .child-icon {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 18px;
+            line-height: 1;
+            color: #555;
+        }
 
-.family-table td:nth-child(2) {
-  text-align: center;
-}
+        .section-heading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--maroon);
+            margin: 20px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--gold);
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            position: relative;
+        }
 
-    }
+        .toggle-icon {
+            font-size: 22px;
+            font-weight: bold;
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .toggle-icon:hover {
+            transform: scale(1.1);
+            background: var(--light-gold);
+        }
 
-    @media (max-width: 480px) {
-      .box { max-width: 200px; }
-      .children-row.four-in-row { grid-template-columns: repeat(2, auto); gap: 6px; }
-      .children-row { gap: 6px; }
-    }
+        .children-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin: 0 auto 10px auto;
+        }
 
+        .children-row.four-in-row {
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
 
+        .children-row.one-box,
+        .children-row.two-boxes,
+        .children-row.three-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
 
-  </style>
+        .children-row.remaining-center {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .family-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .manning-connector-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .manning-line-down {
+            width: 3px;
+            height: 25px;
+            background: var(--gold);
+        }
+
+        .manning-arrow-down {
+            color: var(--gold);
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: -5px;
+        }
+
+        /* ===== TABLE STYLES ===== */
+        .table-container {
+            flex: 1;
+            overflow: auto !important;
+            padding: 12px 16px;
+            position: relative;
+            min-height: 0;
+        }
+
+        .table-container::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 6px;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 6px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-blue);
+        }
+
+        .table-root-layout {
+            transform-origin: top left;
+            transition: transform 0.1s;
+            min-width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .family-table {
+            width: 100%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            table-layout: fixed;
+        }
+
+        .family-table th {
+            background: var(--table-header-bg);
+            color: var(--dark-blue);
+            font-weight: 700;
+            font-size: 12px;
+            padding: 10px 6px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            border-right: 1px solid var(--table-border);
+        }
+        .family-table th:last-child { border-right: none; }
+
+        .family-table td {
+            padding: 8px 6px;
+            font-size: 12px;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #f0f0f0;
+            vertical-align: middle;
+            word-wrap: break-word;
+        }
+        .family-table td:last-child { border-right: none; }
+        .family-table td:nth-child(2) { text-align: center; }
+
+        .family-table tbody tr.selected-row {
+            background: var(--selected-row-bg) !important;
+            border-left: 4px solid var(--green);
+        }
+
+        .family-table .father-line {
+            font-size: 10px;
+            color: #5a0000;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ===== WELCOME ===== */
+        .welcome-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .welcome-box {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .welcome-icon { font-size: 72px; margin-bottom: 20px; color: var(--gold); }
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        .welcome-text {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .app-footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        /* ===== ZOOM CONTROLS ===== */
+        .zoom-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            left: auto;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 6px;
+            display: none;
+            flex-direction: row;
+            gap: 4px;
+            z-index: 2000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+
+        .zoom-controls.dragging { cursor: grabbing; opacity: 0.85; }
+        .zoom-controls.visible { display: flex; }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .zoom-btn:hover { background: var(--gold); color: white; }
+
+        .zoom-level {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
+        }
+
+        /* ===== MODALS ===== */
+        .save-options-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            z-index: 4000;
+            min-width: 350px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: none;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 3999;
+            display: none;
+        }
+
+        .info-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 260px;
+            max-width: 340px;
+            width: 85%;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .info-modal h3 {
+            color: var(--maroon);
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 3px 0;
+            padding: 0 0 6px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .info-modal p {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 8px 0 2px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #2d2d2d;
+            max-height: 220px;
+            overflow-y: auto;
+            background: #fef9e6;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .info-modal button {
+            margin-top: 10px;
+            padding: 6px 15px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .info-modal button:hover { background: var(--light-gold); }
+
+        .info-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            max-width: 480px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .tips-modal h3 {
+            font-family: 'Playfair Display', serif;
+            color: #0f172a;
+            font-size: 20px;
+            margin-bottom: 14px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 6px 12px;
+            text-align: left;
+            direction: ltr;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .tips-grid .title {
+            font-weight: 700;
+            color: #5a0000;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: left;
+        }
+        .tips-grid .colon { color: #5a0000; font-weight: 700; font-size: 14px; text-align: left; }
+        .tips-grid .desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            text-align: left;
+        }
+
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-close-btn:hover { background: #f1d279; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-title { font-size: 16px; }
+            .header-title .header-icon { width: 26px; height: 26px; font-size: 14px; }
+            .search-section { width: 92%; padding: 8px 10px; }
+            .search-input { font-size: 13px; padding: 6px 10px; }
+            .box { width: 240px; }
+            .children-row.four-in-row { grid-template-columns: repeat(2, auto); }
+            .view-toggle button { font-size: 10px; padding: 4px 10px; }
+            .left-toggle-btn { padding: 6px 12px; font-size: 12px; }
+            .toggle-menu-item { font-size: 12px; padding: 8px 14px; }
+            .zoom-controls { transform: scale(0.6); bottom: 8px; right: 40px; }
+            .family-table th, .family-table td { font-size: 10px; padding: 4px; }
+            .family-table th:nth-child(1), .family-table td:nth-child(1) { width: 28%; }
+            .family-table th:nth-child(2), .family-table td:nth-child(2) { width: 12%; }
+            .family-table th:nth-child(3), .family-table td:nth-child(3) { width: 30%; }
+            .family-table th:nth-child(4), .family-table td:nth-child(4) { width: 30%; }
+        }
+
+        @media (max-width: 480px) {
+            .box { max-width: 200px; }
+            .children-row.four-in-row { grid-template-columns: repeat(2, auto); gap: 6px; }
+            .children-row { gap: 6px; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="app-container">
-  <div class="app-header">
-    <div class="left-toggle-btn" id="menuBtn" onclick="toggleLeftMenu()">☰ MENU</div>
-    <div class="header-title">
-      <span class="header-icon">🌿</span>
-      <span>Rizvi family · Tree & Table</span>
-    </div>
-    <div class="header-actions">
-      <span id="memberCounter">📊 Members: 0</span>
-    </div>
-  </div>
+    <div class="app-container">
+        <div class="app-header">
+            <div class="left-toggle-btn" id="menuBtn" onclick="toggleLeftMenu()">MENU</div>
 
-  <div class="toggle-menu-panel" id="toggleMenuPanel">
-    <!-- Show Full Details Toggle (from File 1) -->
-    <div class="toggle-menu-item" id="showAllMenuItem" style="justify-content: space-between;">
-      <span>📂 Show Full Details</span>
-      <span id="showAllToggleSwitch" class="toggle-switch active"></span>
-    </div>
-    <div style="border-top:1px solid var(--gold); margin:4px 0;"></div>
-    <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 Siblings</div>
-    <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
-    <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
-    <div style="border-top:1px solid var(--gold); margin:4px 0;"></div>
-    <div class="toggle-menu-item" onclick="toggleZoomControls()">🔍 Zoom Controls</div>
-    <div class="toggle-menu-item" onclick="showDashboard()" style="background:#6495ED; color:white; border-color:#6495ED;">🏠 Dashboard</div>
-    <div class="toggle-menu-item" onclick="showSaveOptions()" style="background:#d4af37; color:black; border-color:#d4af37;">💾 Save File</div>
-  </div>
+            <div class="header-title">
+                <span class="header-icon">🌿</span>
+                <span>Rizvi family · Tree & Table</span>
+            </div>
 
-  <div class="main-content">
-    <div class="center-content">
-      <div class="search-section">
-        <div class="search-row">
-          <span class="search-label">SEARCH</span>
-          <div class="search-wrapper">
-<input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-            <div id="searchDropdown" class="search-dropdown"></div>
-          </div>
-          <div class="reset-btn" onclick="resetIndividual()">🔄</div>
-          <button class="tips-btn" onclick="openTips()">💡</button>
-          <div class="view-toggle">
-            <button id="treeViewBtn" class="active" onclick="switchView('tree')">🌳 Tree</button>
-            <button id="tableViewBtn" onclick="switchView('table')">📋 Table</button>
-          </div>
+            <div class="header-actions">
+                <span id="memberCounter">📊 Members: 0</span>
+            </div>
         </div>
-      </div>
 
-      <div class="view-container" id="viewContainer">
-        <div class="tree-root-layout" id="treeRoot"></div>
-        <div class="table-root-layout" id="tableRoot" style="display:none;"></div>
-      </div>
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div class="toggle-menu-item" id="showAllMenuItem" style="justify-content: space-between;">
+                <span>📂 Show Full Details</span>
+                <span id="showAllToggleSwitch" class="toggle-switch active"></span>
+            </div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 Siblings</div>
+            <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
+            <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #2e7d32; color: white; border-color: #2e7d32;">🔍 Zoom Controls</div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 Save File</div>
+        </div>
+
+        <div class="main-content">
+            <div class="center-content">
+                <div class="search-section">
+                    <div class="search-row">
+                        <span class="search-label">SEARCH</span>
+                        <div class="search-wrapper">
+                            <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                            <div id="searchDropdown" class="search-dropdown"></div>
+                        </div>
+                        <div class="reset-btn" onclick="resetIndividual()">🔄</div>
+                        <button class="tips-btn" onclick="openTips()">💡</button>
+                        <div class="view-toggle">
+                            <button id="treeViewBtn" class="active" onclick="switchView('tree')">🌳 Tree</button>
+                            <button id="tableViewBtn" onclick="switchView('table')">📋 Table</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tree View -->
+                <div class="tree-container" id="treeContainer">
+                    <div class="tree-root-layout" id="treeRoot"></div>
+                </div>
+
+                <!-- Table View -->
+                <div class="table-container" id="tableContainer" style="display:none;">
+                    <div class="table-root-layout" id="tableRoot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-footer">
+            Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
+        </div>
     </div>
-  </div>
 
-  <div class="app-footer">
-    Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
-  </div>
-</div>
-
-<!-- ===== INFO MODAL - EXACTLY FROM FILE 1 (outside app-container) ===== -->
-<div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
-<div class="info-modal" id="infoModal">
-  <h3>ℹ️ Other Informations</h3>
-  <p id="infoModalText"></p>
-  <button onclick="closeInfoModal()">Close</button>
-</div>
-
-<!-- ===== TIPS MODAL ===== -->
-<div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
-  <div class="tips-modal">
-    <h3>💡 Tips for Using Family Tree</h3>
-    <div class="tips-grid">
-      <div class="title">Search</div><div class="colon">:</div><div class="desc">Type name to view that person's page</div>
-      <div class="title">Tree/Table</div><div class="colon">:</div><div class="desc">Toggle between Tree and Table views</div>
-      <div class="title">View Details</div><div class="colon">:</div><div class="desc">Click ℹ️ icon to view full details</div>
-      <div class="title">Expand/Collapse</div><div class="colon">:</div><div class="desc">Click ➕/➖ on section headings</div>
-      <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">Menu Options</div><div class="colon" style="margin-top:8px;"></div><div class="desc" style="margin-top:8px;"></div>
-      <div class="title">Siblings</div><div class="colon">:</div><div class="desc">Show/Hide siblings of selected person</div>
-      <div class="title">Descendants</div><div class="colon">:</div><div class="desc">Show/Hide children of selected person</div>
-      <div class="title">Ancestors</div><div class="colon">:</div><div class="desc">Show/Hide ancestors of selected person</div>
-      <div class="title">Full Details</div><div class="colon">:</div><div class="desc">Show/hide extra info in tree boxes</div>
-      <div class="title">Dashboard</div><div class="colon">:</div><div class="desc">Go to Dashboard (Main Menu)</div>
-      <div class="title">Save</div><div class="colon">:</div><div class="desc">Save file as PDF or JPEG</div>
+    <!-- Zoom Controls -->
+    <div class="zoom-controls" id="zoomControls">
+        <div class="zoom-btn" onclick="zoomIn()">+</div>
+        <div class="zoom-level" id="zoomLevel">50%</div>
+        <div class="zoom-btn" onclick="zoomOut()">-</div>
+        <div class="zoom-btn" onclick="resetZoom()">↺</div>
     </div>
-    <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
-  </div>
-</div>
 
-<!-- ===== SAVE OPTIONS MODAL ===== -->
-<div class="save-options-modal" id="saveOptionsModal">
-  <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
-  <div style="margin-bottom:20px;">
-    <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">Select Format:</div>
-    <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-      <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-right:10px;"> 
-      <span style="font-weight:600;">📑 PDF - High Resolution</span>
-      <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Best for printing, larger file (3-8 MB)</span>
-    </label>
-    <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-      <input type="radio" name="saveFormat" value="pdf-low" style="margin-right:10px;"> 
-      <span style="font-weight:600;">📑 PDF - Low Resolution</span>
-      <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Good for sharing, smaller file (0.5-2 MB)</span>
-    </label>
-    <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-      <input type="radio" name="saveFormat" value="jpeg" style="margin-right:10px;"> 
-      <span style="font-weight:600;">📸 JPEG Image</span>
-      <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Universal format, very small file (200-500 KB)</span>
-    </label>
-  </div>
-  <div style="display:flex; gap:10px; justify-content:center;">
-    <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer;">Save</button>
-    <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
-  </div>
-</div>
-<div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
+    <!-- Info Modal -->
+    <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+    <div class="info-modal" id="infoModal">
+        <h3>ℹ️ Other Informations</h3>
+        <p id="infoModalText"></p>
+        <button onclick="closeInfoModal()">Close</button>
+    </div>
 
-<!-- ===== ZOOM CONTROLS ===== -->
-<div class="zoom-controls" id="zoomControls">
-  <div class="zoom-btn" onclick="zoomIn()">+</div>
-  <div class="zoom-level" id="zoomLevel">100%</div>
-  <div class="zoom-btn" onclick="zoomOut()">-</div>
-  <div class="zoom-btn" onclick="resetZoom()">↺</div>
-</div>
+    <!-- Tips Modal -->
+    <div class="tips-overlay" id="tipsOverlay" onclick="if(event.target===this) this.style.display='none'">
+        <div class="tips-modal">
+            <h3>💡 Tips for Using Family Tree</h3>
+            <div class="tips-grid">
+                <div class="title">Search</div><div class="colon">:</div><div class="desc">Type name to view that person's page</div>
+                <div class="title">Tree/Table</div><div class="colon">:</div><div class="desc">Toggle between Tree and Table views</div>
+                <div class="title">View Details</div><div class="colon">:</div><div class="desc">Click ℹ️ icon to view full details</div>
+                <div class="title">Expand/Collapse</div><div class="colon">:</div><div class="desc">Click ➕/➖ on section headings</div>
+                <div class="title" style="margin-top:8px; color:#0f172a; font-size:15px;">Menu Options</div><div class="colon" style="margin-top:8px;"></div><div class="desc" style="margin-top:8px;"></div>
+                <div class="title">Siblings</div><div class="colon">:</div><div class="desc">Show/Hide siblings of selected person</div>
+                <div class="title">Descendants</div><div class="colon">:</div><div class="desc">Show/Hide children of selected person</div>
+                <div class="title">Ancestors</div><div class="colon">:</div><div class="desc">Show/Hide ancestors of selected person</div>
+                <div class="title">Full Details</div><div class="colon">:</div><div class="desc">Show/hide extra info in tree boxes</div>
+                <div class="title">Dashboard</div><div class="colon">:</div><div class="desc">Go to Dashboard (Main Menu)</div>
+                <div class="title">Save</div><div class="colon">:</div><div class="desc">Save file as PDF or JPEG</div>
+            </div>
+            <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
+        </div>
+    </div>
 
-<script src="20-Family-Data-E.js"></script>
-<script>
-  // ============================================================
-  // STATE
-  // ============================================================
-  let db = [];
-  let fileInfo = null;
-  let currentIndividual = null;
-  let showSiblings = true;
-  let showDescendants = true;
-  let showAncestors = true;
-  let siblingsCollapsed = true;
-  let childrenCollapsed = true;
-  let ancestorsCollapsed = true;
-  let currentView = 'tree'; // 'tree' or 'table'
-  let zoomLevel = 1.00; // PC default = 1.00
-  let zoomVisible = false; // hidden by default
-  let showFullDetails = true; // for tree boxes
+    <!-- Save Options Modal -->
+    <div class="save-options-modal" id="saveOptionsModal">
+        <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
+        <div style="margin-bottom:20px;">
+            <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">Select Format:</div>
+            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+                <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-right:10px;"> 
+                <span style="font-weight:600;">📑 PDF - High Resolution</span>
+                <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Best for printing, larger file (3-8 MB)</span>
+            </label>
+            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+                <input type="radio" name="saveFormat" value="pdf-low" style="margin-right:10px;"> 
+                <span style="font-weight:600;">📑 PDF - Low Resolution</span>
+                <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Good for sharing, smaller file (0.5-2 MB)</span>
+            </label>
+            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
+                <input type="radio" name="saveFormat" value="jpeg" style="margin-right:10px;"> 
+                <span style="font-weight:600;">📸 JPEG Image</span>
+                <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Universal format, very small file (200-500 KB)</span>
+            </label>
+        </div>
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer;">Save</button>
+            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+    <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
-  // ============================================================
-  // DOM REFS
-  // ============================================================
-  const treeRoot = document.getElementById('treeRoot');
-  const tableRoot = document.getElementById('tableRoot');
-  const viewContainer = document.getElementById('viewContainer');
-  const searchInput = document.getElementById('searchInput');
-  const searchDropdown = document.getElementById('searchDropdown');
-  const menuBtn = document.getElementById('menuBtn');
+    <script src="20-Family-Data-E.js"></script>
+    <script>
+        // ============================================================
+        // STATE
+        // ============================================================
+        let db = [];
+        let fileInfo = null;
+        let currentIndividual = null;
+        let showSiblings = true;
+        let showDescendants = true;
+        let showAncestors = true;
+        let siblingsCollapsed = true;
+        let childrenCollapsed = true;
+        let ancestorsCollapsed = true;
+        let currentView = 'tree';
+        let showFullDetails = true;
 
-  // ============================================================
-  // HELPERS
-  // ============================================================
-  function displayName(str) {
-    if (!str) return '';
-    return str.replace(/[\s-\.۔]*\d+$/, '').trim();
-  }
+        let zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.70;
+        let zoomVisible = false;
 
-  function formatCurrentTime() {
-    const d = new Date();
-    return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}${d.getHours()>=12?'pm':'am'}`;
-  }
+        // ============================================================
+        // DOM REFS
+        // ============================================================
+        const treeRoot = document.getElementById('treeRoot');
+        const tableRoot = document.getElementById('tableRoot');
+        const treeContainer = document.getElementById('treeContainer');
+        const tableContainer = document.getElementById('tableContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchDropdown = document.getElementById('searchDropdown');
+        const menuBtn = document.getElementById('menuBtn');
 
-function findParent(p) {
-    return p?.father ? db.find(x => x.name === p.father) : null;
-}
-
-function getAncestors(p) {
-    let arr = [],
-        cur = p;
-    while (cur?.father) {
-        const father = db.find(x => x.name === cur.father);
-        if (!father) break;
-        arr.push(father);
-        cur = father;
-    }
-    return arr;
-}
-
-  function getMother(person) { return person?.mother || '—'; }
-
-  // ============================================================
-  // NAVIGATION
-  // ============================================================
-  function showDashboard() { window.location.href = '00-Dashboard-E.html'; }
-
-  // ============================================================
-  // TOGGLE MENU
-  // ============================================================
-  function toggleLeftMenu() {
-    document.getElementById('toggleMenuPanel').classList.toggle('show');
-  }
-
-  function handleToggleMenuClick(filter) {
-    if (!currentIndividual) return;
-    if (filter === 'siblings') {
-      showSiblings = !showSiblings;
-      document.getElementById('toggleSiblings').classList.toggle('active', showSiblings);
-    } else if (filter === 'descendants') {
-      showDescendants = !showDescendants;
-      document.getElementById('toggleDescendants').classList.toggle('active', showDescendants);
-    } else if (filter === 'ancestors') {
-      showAncestors = !showAncestors;
-      document.getElementById('toggleAncestors').classList.toggle('active', showAncestors);
-    }
-    renderCurrentView();
-    document.getElementById('toggleMenuPanel').classList.remove('show');
-  }
-
-  // ============================================================
-  // FULL DETAILS TOGGLE (from File 1)
-  // ============================================================
-  function toggleFullDetails() {
-    showFullDetails = !showFullDetails;
-    document.getElementById('showAllToggleSwitch').classList.toggle('active', showFullDetails);
-    renderCurrentView();
-  }
-
-  // ============================================================
-  // VIEW SWITCH
-  // ============================================================
-  function switchView(view) {
-    currentView = view;
-    document.getElementById('treeViewBtn').classList.toggle('active', view === 'tree');
-    document.getElementById('tableViewBtn').classList.toggle('active', view === 'table');
-    if (view === 'tree') {
-      treeRoot.style.display = 'flex';
-      tableRoot.style.display = 'none';
-    } else {
-      treeRoot.style.display = 'none';
-      tableRoot.style.display = 'flex';
-    }
-    renderCurrentView();
-  }
-
-  function renderCurrentView() {
-    if (currentView === 'tree') renderTree();
-    else renderTable();
-  }
-
-  // ============================================================
-  // TREE RENDER
-  // ============================================================
-function renderBox(person, label, isSiblingOrChild = false) {
-    const isFemale = person.gender?.startsWith('F');
-    const isSelected = currentIndividual?.name === person.name;
-    const mother = person.mother || '—';
-    const hasKids = db.some(c => c.father === person.name);
-    const hasDetails = person.details && person.details !== '' && person.details !== '—';
-    const idCode = person.gen || '—';
-
-    let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}">`;
-    html += `<div class="box-header">`;
-    html += `<span class="label">${label}</span>`;
-    if (hasDetails) {
-        html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
-    } else {
-        html += `<div style="width:20px;"></div>`;
-    }
-    html += `<span class="id-code">${idCode}</span>`;
-    html += `</div>`;
-
-    const boxBodyMinHeight = showFullDetails ? '120px' : '50px';
-    html += `<div class="box-body" onclick="handleBoxClick(this.parentElement)" style="min-height: ${boxBodyMinHeight};">`;
-    html += `<div class="box-row"><span class="box-label">Name :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
-
-    if (showFullDetails) {
-        if (isSiblingOrChild) {
-            html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
-        } else {
-            html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
-            html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function displayName(str) {
+            if (!str) return '';
+            return str.replace(/[\s-\.۔]*\d+$/, '').trim();
         }
-    }
 
-    if (hasKids) html += `<div class="child-icon">👪</div>`;
-    html += `</div></div>`;
-    return html;
-}
-function renderGenderGroup(genderMembers, type) {
-    const count = genderMembers.length;
-    const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
+        function formatCurrentTime() {
+            const d = new Date();
+            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}${d.getHours()>=12?'pm':'am'}`;
+        }
 
-    if (count === 1)
-        return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 2)
-        return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 3)
-        return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 4)
-        return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else {
-        const firstFour = genderMembers.slice(0, 4);
-        const remaining = genderMembers.slice(4);
-        let remainingClass = remaining.length === 1 ? 'one-box' :
-            (remaining.length === 2 ? 'two-boxes' :
-            (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
-        return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-                <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    }
-}
+        function findParent(p) {
+            return p?.father ? db.find(x => x.name === p.father) : null;
+        }
 
-function renderMembersWithLayout(members, type) {
-    if (members.length === 0) return '';
-    if (members.length > 4) {
-        const males = members.filter(m => m.gender === 'MALE');
-        const females = members.filter(m => m.gender === 'FEMALE');
-        let html = '';
-        if (males.length > 0) html += renderGenderGroup(males, type);
-        if (females.length > 0) html += renderGenderGroup(females, type);
-        return html;
-    }
-    const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
-    const count = members.length;
-    if (count === 1) return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 2) return `<div class="children-row two-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 3) return `<div class="children-row three-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else if (count === 4) return `<div class="children-row four-in-row">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    else {
-        const firstFour = members.slice(0, 4);
-        const remaining = members.slice(4);
-        let remainingClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
-        return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
-                <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
-    }
-}
+        function getAncestors(p) {
+            let arr = [], cur = p;
+            while (cur?.father) {
+                const father = db.find(x => x.name === cur.father);
+                if (!father) break;
+                arr.push(father);
+                cur = father;
+            }
+            return arr;
+        }
 
-function renderTree() {
-    if (!currentIndividual) {
-        showWelcome();
-        return;
-    }
-    let html = '<div>';
-    if (showAncestors) {
-        let ancestors = getAncestors(currentIndividual);
-        if (ancestors.length) ancestors = ancestors.slice(1);
-        if (ancestors.length) {
-            html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span>🌳 ANCESTORS (${ancestors.length})</span><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span></div>`;
-            if (!ancestorsCollapsed) {
-                html += '<div class="family-group">';
-                [...ancestors].reverse().forEach((a, idx) => {
-                    html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
-                    if (idx < ancestors.length - 1) html += '<div class="v-line"></div>';
-                });
-                if (ancestors.length > 0) html += '<div class="v-line"></div>';
-                html += '</div>';
+        function getMother(person) { return person?.mother || '—'; }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        function showDashboard() { window.location.href = '00-Dashboard-E.html'; }
+
+        // ============================================================
+        // TOGGLE MENU
+        // ============================================================
+        function toggleLeftMenu() {
+            document.getElementById('toggleMenuPanel').classList.toggle('show');
+        }
+
+        function handleToggleMenuClick(filter) {
+            if (!currentIndividual) return;
+            if (filter === 'siblings') {
+                showSiblings = !showSiblings;
+                document.getElementById('toggleSiblings').classList.toggle('active', showSiblings);
+            } else if (filter === 'descendants') {
+                showDescendants = !showDescendants;
+                document.getElementById('toggleDescendants').classList.toggle('active', showDescendants);
+            } else if (filter === 'ancestors') {
+                showAncestors = !showAncestors;
+                document.getElementById('toggleAncestors').classList.toggle('active', showAncestors);
+            }
+            renderCurrentView();
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        }
+
+        // ============================================================
+        // FULL DETAILS TOGGLE
+        // ============================================================
+        function toggleFullDetails() {
+            showFullDetails = !showFullDetails;
+            document.getElementById('showAllToggleSwitch').classList.toggle('active', showFullDetails);
+            renderCurrentView();
+        }
+
+        const showAllItem = document.getElementById('showAllMenuItem');
+        if (showAllItem) {
+            showAllItem.onclick = function(e) {
+                e.stopPropagation();
+                toggleFullDetails();
+                document.getElementById('toggleMenuPanel').classList.remove('show');
+            };
+        }
+
+        // ============================================================
+        // VIEW SWITCH
+        // ============================================================
+        function switchView(view) {
+            currentView = view;
+            document.getElementById('treeViewBtn').classList.toggle('active', view === 'tree');
+            document.getElementById('tableViewBtn').classList.toggle('active', view === 'table');
+
+            if (view === 'tree') {
+                treeContainer.style.display = 'flex';
+                tableContainer.style.display = 'none';
+                applyZoom();
+            } else {
+                treeContainer.style.display = 'none';
+                tableContainer.style.display = 'flex';
+                applyZoom();
+            }
+            renderCurrentView();
+        }
+
+        function renderCurrentView() {
+            if (currentView === 'tree') renderTree();
+            else renderTable();
+        }
+
+        // ============================================================
+        // INFO MODAL
+        // ============================================================
+        function showInfoModal(personName) {
+            const person = db.find(p => p.name === personName);
+            if (!person) return;
+            let detailsText = person.details && person.details.trim() !== '' ? person.details : 'No additional information available.';
+            detailsText = detailsText.replace(/\\n/g, '<br>');
+            document.getElementById('infoModalText').innerHTML = detailsText;
+            document.getElementById('infoModal').style.display = 'block';
+            document.getElementById('infoModalOverlay').style.display = 'block';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.getElementById('infoModalOverlay').style.display = 'none';
+        }
+
+        // ============================================================
+        // TIPS
+        // ============================================================
+        function openTips() {
+            document.getElementById('tipsOverlay').style.display = 'flex';
+        }
+
+        function closeTips() {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+
+        // ============================================================
+        // ZOOM FUNCTIONS
+        // ============================================================
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel + 0.1, 2.0);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel - 0.1, 0.3);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.70;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            if (currentView === 'tree') {
+                if (treeRoot) treeRoot.style.zoom = zoomLevel;
+            } else {
+                if (tableRoot) tableRoot.style.zoom = zoomLevel;
+            }
+            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+        }
+
+        function toggleZoomControls() {
+            zoomVisible = !zoomVisible;
+            const controls = document.getElementById('zoomControls');
+            if (zoomVisible) {
+                controls.classList.add('visible');
+            } else {
+                controls.classList.remove('visible');
+            }
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        }
+
+        // ============================================================
+        // TREE RENDER
+        // ============================================================
+        function renderBox(person, label, isSiblingOrChild = false) {
+            const isFemale = person.gender?.startsWith('F');
+            const isSelected = currentIndividual?.name === person.name;
+            const mother = person.mother || '—';
+            const hasKids = db.some(c => c.father === person.name);
+            const hasDetails = person.details && person.details !== '' && person.details !== '—';
+            const idCode = person.gen || '—';
+
+            let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}">`;
+            html += `<div class="box-header">`;
+            html += `<span class="label">${label}</span>`;
+            if (hasDetails) {
+                html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
+            } else {
+                html += `<div style="width:20px;"></div>`;
+            }
+            html += `<span class="id-code">${idCode}</span>`;
+            html += `</div>`;
+
+            const boxBodyMinHeight = showFullDetails ? '120px' : '50px';
+            html += `<div class="box-body ${!showFullDetails ? 'collapsed' : ''}" onclick="handleBoxClick(this.parentElement)" style="min-height: ${boxBodyMinHeight};">`;
+            html += `<div class="box-row"><span class="box-label">Name :</span><span class="box-value"><span class="member-name">${displayName(person.name)}</span></span></div>`;
+
+            if (showFullDetails) {
+                if (isSiblingOrChild) {
+                    html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+                } else {
+                    html += `<div class="box-row"><span class="box-label">Father :</span><span class="box-value">${displayName(person.father) || '—'}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Mother :</span><span class="box-value">${mother}</span></div>`;
+                    html += `<div class="box-row"><span class="box-label">Spouse :</span><span class="box-value">${person.spouse || '—'}</span></div>`;
+                }
+            }
+
+            if (hasKids) html += `<div class="child-icon">👪</div>`;
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderGenderGroup(genderMembers, type) {
+            const count = genderMembers.length;
+            const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
+
+            if (count === 1)
+                return `<div class="children-row one-box">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 2)
+                return `<div class="children-row two-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 3)
+                return `<div class="children-row three-boxes">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 4)
+                return `<div class="children-row four-in-row">${genderMembers.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else {
+                const firstFour = genderMembers.slice(0, 4);
+                const remaining = genderMembers.slice(4);
+                let remainingClass = remaining.length === 1 ? 'one-box' :
+                    (remaining.length === 2 ? 'two-boxes' :
+                    (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
+                return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                        <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
             }
         }
-    }
-    const father = findParent(currentIndividual);
-if (father) {
-    html += '<div class="family-group">' + renderBox(father, 'Father', false) + 
-            '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>' + 
-            renderBox(currentIndividual, 'Selected', false) + '</div>';
-}
 
- else {
-        html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
-    }
-    if (showSiblings && father) {
-        const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
-        if (siblings.length) {
-            html += `<div class="section-heading" onclick="toggleSection('siblings')"><span>👥 Siblings Of ${displayName(currentIndividual.name)} (${siblings.length})</span><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span></div>`;
-            if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
+        function renderMembersWithLayout(members, type) {
+            if (members.length === 0) return '';
+            if (members.length > 4) {
+                const males = members.filter(m => m.gender === 'MALE');
+                const females = members.filter(m => m.gender === 'FEMALE');
+                let html = '';
+                if (males.length > 0) html += renderGenderGroup(males, type);
+                if (females.length > 0) html += renderGenderGroup(females, type);
+                return html;
+            }
+            const getLabel = (m) => type === 'sibling' ? (m.gender?.startsWith('F') ? 'Sister' : 'Brother') : (m.gender?.startsWith('F') ? 'Daughter' : 'Son');
+            const count = members.length;
+            if (count === 1) return `<div class="children-row one-box">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 2) return `<div class="children-row two-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 3) return `<div class="children-row three-boxes">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else if (count === 4) return `<div class="children-row four-in-row">${members.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            else {
+                const firstFour = members.slice(0, 4);
+                const remaining = members.slice(4);
+                let remainingClass = remaining.length === 1 ? 'one-box' : (remaining.length === 2 ? 'two-boxes' : (remaining.length === 3 ? 'three-boxes' : 'remaining-center'));
+                return `<div class="children-row four-in-row">${firstFour.map(m => renderBox(m, getLabel(m), true)).join('')}</div>
+                        <div class="children-row ${remainingClass}">${remaining.map(m => renderBox(m, getLabel(m), true)).join('')}</div>`;
+            }
         }
-    }
-    if (showDescendants) {
-        const children = db.filter(c => c.father === currentIndividual.name);
-        if (children.length) {
-            html += `<div class="section-heading" onclick="toggleSection('children')"><span>👶 Children Of ${displayName(currentIndividual.name)} (${children.length})</span><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span></div>`;
-            if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
+
+        function renderTree() {
+            if (!currentIndividual) {
+                showWelcome();
+                return;
+            }
+            let html = '<div>';
+            if (showAncestors) {
+                let ancestors = getAncestors(currentIndividual);
+                if (ancestors.length) ancestors = ancestors.slice(1);
+                if (ancestors.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('ancestors')"><span>🌳 ANCESTORS (${ancestors.length})</span><span class="toggle-icon">${ancestorsCollapsed ? '+' : '-'}</span></div>`;
+                    if (!ancestorsCollapsed) {
+                        html += '<div class="family-group">';
+                        [...ancestors].reverse().forEach((a, idx) => {
+                            html += renderBox(a, idx === 0 ? 'Earliest' : 'Ancestor', false);
+                            if (idx < ancestors.length - 1) html += '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>';
+                        });
+                        if (ancestors.length > 0) html += '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>';
+                        html += '</div>';
+                    }
+                }
+            }
+            const father = findParent(currentIndividual);
+            if (father) {
+                html += '<div class="family-group">' + renderBox(father, 'Father', false) + '<div class="manning-connector-single"><div class="manning-line-down"></div><div class="manning-arrow-down">▼</div></div>' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+            } else {
+                html += '<div class="family-group">' + renderBox(currentIndividual, 'Selected', false) + '</div>';
+            }
+            if (showSiblings && father) {
+                const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
+                if (siblings.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('siblings')"><span>👥 Siblings Of ${displayName(currentIndividual.name)} (${siblings.length})</span><span class="toggle-icon">${siblingsCollapsed ? '+' : '-'}</span></div>`;
+                    if (!siblingsCollapsed) html += renderMembersWithLayout(siblings, 'sibling');
+                }
+            }
+            if (showDescendants) {
+                const children = db.filter(c => c.father === currentIndividual.name);
+                if (children.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('children')"><span>👶 Children Of ${displayName(currentIndividual.name)} (${children.length})</span><span class="toggle-icon">${childrenCollapsed ? '+' : '-'}</span></div>`;
+                    if (!childrenCollapsed) html += renderMembersWithLayout(children, 'child');
+                }
+            }
+            html += '</div>';
+            treeRoot.innerHTML = html;
         }
-    }
-    html += '</div>';
-    treeRoot.innerHTML = html;
-}
 
-  function toggleSection(section) {
-    if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
-    else if (section === 'children') childrenCollapsed = !childrenCollapsed;
-    else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
-    renderCurrentView();
-  }
-
-  // ============================================================
-  // TABLE RENDER
-  // ============================================================
-function renderMemberInfoCard(member) {
-  const mother = getMother(member);
-  const fatherDisplay = member.father ? displayName(member.father) : '—';
-  const hasDetails = member.details && member.details !== '' && member.details !== '—';
-  let spouseDisplay = member.spouse || '—';
-  if (spouseDisplay.includes('See details in ℹ️')) {
-    spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${member.name.replace(/'/g, "\\'")}')" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
-  }
-  return `
-    <table class="family-table" style="margin-bottom:20px;">
-      <thead><tr><th>NAME</th><th>GEN</th><th>MOTHER</th><th>SPOUSE</th></tr></thead>
-      <tbody><tr class="selected-row">
-        <td><strong>${displayName(member.name)}</strong>${member.father ? `<span class="father-line">S/o ${fatherDisplay}</span>` : ''}</td>
-        <td>${member.gen || '—'}</td><td>${mother}</td>
-        <td>${spouseDisplay}</td>
-      </tr></tbody>
-    </table>
-  `;
-}
-
-function renderTableForMembers(members) {
-  if (!members || !members.length) return '';
-  let html = `<table class="family-table"><thead><tr><th>NAME</th><th>GEN</th><th>MOTHER</th><th>SPOUSE</th></tr></thead><tbody>`;
-  members.forEach(m => {
-    if (currentIndividual?.name === m.name) return;
-    const mother = getMother(m);
-    const isSelected = currentIndividual?.name === m.name ? 'selected-row' : '';
-    const hasDetails = m.details && m.details !== '' && m.details !== '—';
-    html += `<tr class="${isSelected}">`;
-    // NAME column - click to select member
-    html += `<td><strong onclick="selectMember(db.find(x => x.name === '${m.name.replace(/'/g, "\\'")}'))" style="cursor:pointer;">${displayName(m.name)}</strong></td>`;
-    html += `<td>${m.gen || '—'}</td><td>${mother}</td>`;
-    // SPOUSE column - if spouse contains "See details in ℹ️" make it clickable
-    let spouseDisplay = m.spouse || '—';
-    if (spouseDisplay.includes('See details in ℹ️')) {
-      spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${m.name.replace(/'/g, "\\'")}')" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
-    }
-    html += `<td>${spouseDisplay}</td></tr>`;
-  });
-  html += '</tbody></table>';
-  return html;
-}
-
-
-
-function renderTable() {
-  if (!currentIndividual) { showWelcome('table'); return; }
-  let html = '<div style="width:100%; max-width:1200px; margin:0 auto;">';
-  html += renderMemberInfoCard(currentIndividual);
-  
-  if (showAncestors) {
-    const ancestors = getAncestors(currentIndividual);
-    if (ancestors.length) {
-      html += `<div class="section-heading" onclick="toggleSection('ancestors')" style="display:flex; align-items:center; gap:12px; justify-content:flex-start; cursor:pointer; width:100%; font-size:16px; font-weight:800; color:var(--maroon); margin:15px 0 10px; padding-bottom:6px; border-bottom:3px solid var(--gold); font-family:'Playfair Display',serif;">
-        <span class="toggle-icon" style="font-size:20px; font-weight:bold; background:var(--gold); color:var(--dark-blue); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;">${ancestorsCollapsed ? '+' : '-'}</span>
-        <span>🌳 ANCESTORS (${ancestors.length})</span>
-      </div>`;
-      if (!ancestorsCollapsed) html += renderTableForMembers(ancestors);
-    }
-  }
-  
-  if (showSiblings) {
-    const father = findParent(currentIndividual);
-    if (father) {
-      const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
-      if (siblings.length) {
-        html += `<div class="section-heading" onclick="toggleSection('siblings')" style="display:flex; align-items:center; gap:12px; justify-content:flex-start; cursor:pointer; width:100%; font-size:16px; font-weight:800; color:var(--maroon); margin:15px 0 10px; padding-bottom:6px; border-bottom:3px solid var(--gold); font-family:'Playfair Display',serif;">
-          <span class="toggle-icon" style="font-size:20px; font-weight:bold; background:var(--gold); color:var(--dark-blue); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;">${siblingsCollapsed ? '+' : '-'}</span>
-          <span>👥 SIBLINGS (${siblings.length})</span>
-        </div>`;
-        if (!siblingsCollapsed) html += renderTableForMembers(siblings);
-      }
-    }
-  }
-  
-  if (showDescendants) {
-    const children = db.filter(c => c.father === currentIndividual.name);
-    if (children.length) {
-      html += `<div class="section-heading" onclick="toggleSection('children')" style="display:flex; align-items:center; gap:12px; justify-content:flex-start; cursor:pointer; width:100%; font-size:16px; font-weight:800; color:var(--maroon); margin:15px 0 10px; padding-bottom:6px; border-bottom:3px solid var(--gold); font-family:'Playfair Display',serif;">
-        <span class="toggle-icon" style="font-size:20px; font-weight:bold; background:var(--gold); color:var(--dark-blue); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;">${childrenCollapsed ? '+' : '-'}</span>
-        <span>👶 CHILDREN (${children.length})</span>
-      </div>`;
-      if (!childrenCollapsed) html += renderTableForMembers(children);
-    }
-  }
-  
-  html += '</div>';
-  tableRoot.innerHTML = html;
-}
-  // ============================================================
-  // WELCOME
-  // ============================================================
-  function showWelcome(view) {
-    const html = `
-      <div class="welcome-container">
-        <div class="welcome-box">
-          <div class="welcome-icon">🌿</div>
-          <div class="welcome-title">Rizvi Family</div>
-          <div class="welcome-text">Type a name in the search box to view their family connections.</div>
-        </div>
-      </div>
-    `;
-    if (view === 'tree') treeRoot.innerHTML = html;
-    else tableRoot.innerHTML = html;
-  }
-
-  // ============================================================
-  // SELECT / RESET
-  // ============================================================
-  function selectMember(member) {
-    currentIndividual = member;
-    searchInput.value = displayName(member.name);
-    const url = new URL(window.location);
-    url.searchParams.set('member', encodeURIComponent(member.name));
-    window.history.pushState({}, '', url);
-    renderCurrentView();
-    menuBtn.classList.add('visible');
-  }
-
-  function resetIndividual() {
-    searchInput.value = '';
-    currentIndividual = null;
-    const url = new URL(window.location);
-    url.searchParams.delete('member');
-    window.history.pushState({}, '', url);
-    showWelcome(currentView);
-    menuBtn.classList.remove('visible');
-    document.getElementById('toggleMenuPanel').classList.remove('show');
-  }
-
-  function handleBoxClick(el) {
-    const name = el.dataset.name;
-    const member = db.find(m => m.name === name);
-    if (member) selectMember(member);
-  }
-
-  // ============================================================
-  // INFO MODAL - EXACTLY FROM FILE 1
-  // ============================================================
-function showInfoModal(personName) {
-    const person = db.find(p => p.name === personName);
-    if (!person) return;
-    let detailsText = person.details && person.details.trim() !== '' ? person.details : 'No additional information available.';
-    
-    // Convert literal \n to actual line breaks
-    detailsText = detailsText.replace(/\\n/g, '\n');
-    
-    // Split by new lines
-    let lines = detailsText.split('\n');
-    let html = '';
-    
-    lines.forEach(line => {
-        // Use trimEnd() to keep leading spaces
-        let trimmed = line;
-        if (trimmed === '') {
-            html += '<br>';
-        } else {
-            html += `<div style="padding:2px 0; color:#333; white-space: pre-wrap;">${trimmed.replace(/\n/g, '<br>')}</div>`;
+        function toggleSection(section) {
+            if (section === 'siblings') siblingsCollapsed = !siblingsCollapsed;
+            else if (section === 'children') childrenCollapsed = !childrenCollapsed;
+            else if (section === 'ancestors') ancestorsCollapsed = !ancestorsCollapsed;
+            renderCurrentView();
         }
-    });
-    
-    document.getElementById('infoModalText').innerHTML = html;
-    document.getElementById('infoModal').style.display = 'block';
-    document.getElementById('infoModalOverlay').style.display = 'block';
-}
 
-  function closeInfoModal() {
-    document.getElementById('infoModal').style.display = 'none';
-    document.getElementById('infoModalOverlay').style.display = 'none';
-  }
+        // ============================================================
+        // TABLE RENDER
+        // ============================================================
+        function renderMemberInfoCard(member) {
+            const mother = getMother(member);
+            const fatherDisplay = member.father ? displayName(member.father) : '—';
+            let spouseDisplay = member.spouse || '—';
+            if (spouseDisplay.includes('See details in ℹ️')) {
+                spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${member.name.replace(/'/g, "\\'")}')" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
+            }
+            return `
+                <table class="family-table" style="margin-bottom:20px;">
+                    <thead><tr><th>NAME</th><th>GEN</th><th>MOTHER</th><th>SPOUSE</th></tr></thead>
+                    <tbody><tr class="selected-row">
+                        <td><strong>${displayName(member.name)}</strong>${member.father ? `<span class="father-line">S/o ${fatherDisplay}</span>` : ''}</td>
+                        <td>${member.gen || '—'}</td><td>${mother}</td>
+                        <td>${spouseDisplay}</td>
+                    </tr></tbody>
+                </table>
+            `;
+        }
 
-  // ============================================================
-  // TIPS
-  // ============================================================
-  function openTips() { document.getElementById('tipsOverlay').style.display = 'flex'; }
-  function closeTips() { document.getElementById('tipsOverlay').style.display = 'none'; }
+        function renderTableForMembers(members) {
+            if (!members || !members.length) return '';
+            let html = `<table class="family-table"><thead><tr><th>NAME</th><th>GEN</th><th>MOTHER</th><th>SPOUSE</th></tr></thead><tbody>`;
+            members.forEach(m => {
+                if (currentIndividual?.name === m.name) return;
+                const mother = getMother(m);
+                const isSelected = currentIndividual?.name === m.name ? 'selected-row' : '';
+                let spouseDisplay = m.spouse || '—';
+                if (spouseDisplay.includes('See details in ℹ️')) {
+                    spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${m.name.replace(/'/g, "\\'")}')" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
+                }
+                html += `<tr class="${isSelected}">`;
+                html += `<td><strong onclick="selectMember(db.find(x => x.name === '${m.name.replace(/'/g, "\\'")}'))" style="cursor:pointer;">${displayName(m.name)}</strong></td>`;
+                html += `<td>${m.gen || '—'}</td><td>${mother}</td>`;
+                html += `<td>${spouseDisplay}</td></tr>`;
+            });
+            html += '</tbody></table>';
+            return html;
+        }
 
-  // ============================================================
-  // ZOOM - changes by 0.1 (10%) increments
-  // ============================================================
-  function zoomIn() { 
-    zoomLevel = Math.min(zoomLevel + 0.1, 2.0); 
-    applyZoom(); 
-  }
+        function renderTable() {
+            if (!currentIndividual) { showWelcome(); return; }
+            let html = '<div style="width:100%; max-width:1200px; margin:0 auto;">';
+            html += renderMemberInfoCard(currentIndividual);
 
-  function zoomOut() { 
-    zoomLevel = Math.max(zoomLevel - 0.1, 0.3); 
-    applyZoom(); 
-  }
+            if (showAncestors) {
+                const ancestors = getAncestors(currentIndividual);
+                if (ancestors.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('ancestors')" style="display:flex; align-items:center; gap:12px; justify-content:flex-start; cursor:pointer; width:100%; font-size:16px; font-weight:800; color:var(--maroon); margin:15px 0 10px; padding-bottom:6px; border-bottom:3px solid var(--gold); font-family:'Playfair Display',serif;">
+                        <span class="toggle-icon" style="font-size:20px; font-weight:bold; background:var(--gold); color:var(--dark-blue); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;">${ancestorsCollapsed ? '+' : '-'}</span>
+                        <span>🌳 ANCESTORS (${ancestors.length})</span>
+                    </div>`;
+                    if (!ancestorsCollapsed) html += renderTableForMembers(ancestors);
+                }
+            }
 
-  function resetZoom() {
-    const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    zoomLevel = isMobile ? 0.50 : 1.00;
-    applyZoom();
-  }
+            if (showSiblings) {
+                const father = findParent(currentIndividual);
+                if (father) {
+                    const siblings = db.filter(s => s.father === father.name && s.name !== currentIndividual.name);
+                    if (siblings.length) {
+                        html += `<div class="section-heading" onclick="toggleSection('siblings')" style="display:flex; align-items:center; gap:12px; justify-content:flex-start; cursor:pointer; width:100%; font-size:16px; font-weight:800; color:var(--maroon); margin:15px 0 10px; padding-bottom:6px; border-bottom:3px solid var(--gold); font-family:'Playfair Display',serif;">
+                            <span class="toggle-icon" style="font-size:20px; font-weight:bold; background:var(--gold); color:var(--dark-blue); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;">${siblingsCollapsed ? '+' : '-'}</span>
+                            <span>👥 SIBLINGS (${siblings.length})</span>
+                        </div>`;
+                        if (!siblingsCollapsed) html += renderTableForMembers(siblings);
+                    }
+                }
+            }
 
-function applyZoom() {
-    const root = currentView === 'tree' ? treeRoot : tableRoot;
-    if (root) {
-        root.style.zoom = zoomLevel;
-    }
-    document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
-}
+            if (showDescendants) {
+                const children = db.filter(c => c.father === currentIndividual.name);
+                if (children.length) {
+                    html += `<div class="section-heading" onclick="toggleSection('children')" style="display:flex; align-items:center; gap:12px; justify-content:flex-start; cursor:pointer; width:100%; font-size:16px; font-weight:800; color:var(--maroon); margin:15px 0 10px; padding-bottom:6px; border-bottom:3px solid var(--gold); font-family:'Playfair Display',serif;">
+                        <span class="toggle-icon" style="font-size:20px; font-weight:bold; background:var(--gold); color:var(--dark-blue); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0;">${childrenCollapsed ? '+' : '-'}</span>
+                        <span>👶 CHILDREN (${children.length})</span>
+                    </div>`;
+                    if (!childrenCollapsed) html += renderTableForMembers(children);
+                }
+            }
 
-  function toggleZoomControls() {
-    zoomVisible = !zoomVisible;
-    document.getElementById('zoomControls').classList.toggle('visible', zoomVisible);
-    document.getElementById('toggleMenuPanel').classList.remove('show');
-  }
+            html += '</div>';
+            tableRoot.innerHTML = html;
+        }
 
-  // ============================================================
-  // SAVE
-  // ============================================================
-  function showSaveOptions() {
-    if (!currentIndividual) { alert('Please select a family member first'); return; }
-    document.getElementById('saveOptionsModal').style.display = 'block';
-    document.getElementById('saveModalOverlay').style.display = 'block';
-    document.getElementById('toggleMenuPanel').classList.remove('show');
-  }
+        // ============================================================
+        // WELCOME
+        // ============================================================
+        function showWelcome() {
+            const html = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">Rizvi Family</div>
+                        <div class="welcome-text">Type a name in the search box to view their family connections.</div>
+                    </div>
+                </div>
+            `;
+            if (currentView === 'tree') treeRoot.innerHTML = html;
+            else tableRoot.innerHTML = html;
+        }
 
-  function closeSaveModal() {
-    document.getElementById('saveOptionsModal').style.display = 'none';
-    document.getElementById('saveModalOverlay').style.display = 'none';
-  }
+        // ============================================================
+        // SELECT / RESET
+        // ============================================================
+        function selectMember(member) {
+            currentIndividual = member;
+            searchInput.value = displayName(member.name);
+            const url = new URL(window.location);
+            url.searchParams.set('member', encodeURIComponent(member.name));
+            window.history.pushState({}, '', url);
+            renderCurrentView();
+            menuBtn.classList.add('visible');
+        }
 
-  function processSave() {
-    const selected = document.querySelector('input[name="saveFormat"]:checked');
-    if (!selected) { alert('Please select a format'); return; }
-    closeSaveModal();
-    if (selected.value === 'jpeg') exportAsJPEG();
-    else exportTreePDF(selected.value === 'pdf-high' ? 'high' : 'low');
-  }
+        function resetIndividual() {
+            searchInput.value = '';
+            currentIndividual = null;
+            const url = new URL(window.location);
+            url.searchParams.delete('member');
+            window.history.pushState({}, '', url);
+            showWelcome();
+            closeAllMenus();
+            menuBtn.classList.remove('visible');
+        }
 
-  async function exportTreePDF(quality = 'high') {
-    if (!currentIndividual) { alert('Please select a member first'); return; }
-    const originalRoot = currentView === 'tree' ? treeRoot : tableRoot;
-    const savedTransform = originalRoot.style.transform;
-    originalRoot.style.transform = 'scale(1)';
-    await new Promise(r => setTimeout(r, 200));
+        function handleBoxClick(el) {
+            const name = el.dataset.name;
+            const member = db.find(m => m.name === name);
+            if (member) selectMember(member);
+        }
 
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'absolute';
-    wrapper.style.left = '-9999px';
-    wrapper.style.top = '0';
-    wrapper.style.backgroundColor = 'white';
-    wrapper.style.padding = '15px';
-    wrapper.style.width = 'fit-content';
-    wrapper.style.minWidth = '100%';
-    wrapper.style.fontFamily = "'Inter', sans-serif";
-    document.body.appendChild(wrapper);
+        function closeAllMenus() {
+            searchDropdown.style.display = 'none';
+            document.querySelectorAll('.context-menu').forEach(m => m.remove());
+            document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+            closeInfoModal();
+        }
 
-    const styleTag = document.createElement('style');
-    styleTag.textContent = `
-      * { font-family: 'Inter', sans-serif; }
-      .member-name, .box-header, .box-label, .box-value { font-family: 'Inter', sans-serif; }
-      h1, h2, .section-heading { font-family: 'Playfair Display', serif; }
-      .box { width: 240px; }
-      .children-row { gap: 6px; }
-      .section-heading { font-size: 15px; margin: 12px 0 8px; }
-      .toggle-icon { width: 28px; height: 28px; font-size: 16px; }
-      .tree-root-layout, .table-root-layout { transform: scale(1) !important; }
-    `;
-    wrapper.appendChild(styleTag);
+        // ============================================================
+        // SAVE
+        // ============================================================
+        function showSaveOptions() {
+            if (!currentIndividual) {
+                alert('Please select a family member first');
+                return;
+            }
+            document.getElementById('saveOptionsModal').style.display = 'block';
+            document.getElementById('saveModalOverlay').style.display = 'block';
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        }
 
-    const header = document.createElement('div');
-    header.style.marginBottom = '15px';
-    header.style.textAlign = 'center';
-    header.innerHTML = `<h1 style="color:#d4af37;font-size:26px;margin:0;">Rizvi Family ${currentView === 'tree' ? 'Tree' : 'Table'}</h1>
-      <h2 style="color:#5a0000;font-size:18px;margin:6px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-    wrapper.appendChild(header);
+        function closeSaveModal() {
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
 
-    const clone = originalRoot.cloneNode(true);
-    clone.style.transform = 'none';
-    clone.style.width = '100%';
-    clone.style.height = 'auto';
-    clone.style.overflow = 'visible';
-    wrapper.appendChild(clone);
+        function processSave() {
+            const selected = document.querySelector('input[name="saveFormat"]:checked');
+            if (!selected) {
+                alert('Please select a format');
+                return;
+            }
+            closeSaveModal();
+            switch (selected.value) {
+                case 'pdf-high': exportTreePDF('high'); break;
+                case 'pdf-low': exportTreePDF('low'); break;
+                case 'jpeg': exportAsJPEG(); break;
+            }
+        }
 
-    const footer = document.createElement('div');
-    footer.style.marginTop = '15px';
-    footer.style.padding = '10px';
-    footer.style.background = '#fcf9f4';
-    footer.style.textAlign = 'center';
-    footer.style.fontSize = '10px';
-    const timeStr = formatCurrentTime();
-    const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
-    footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-      <div>Last Data Updated: ${excelSavedTime} | Generated: ${timeStr}</div>`;
-    wrapper.appendChild(footer);
+        async function exportTreePDF(quality = 'high') {
+            if (!currentIndividual) { alert('Please select a member first'); return; }
 
-    const loadingMsg = document.createElement('div');
-    loadingMsg.style.position = 'fixed';
-    loadingMsg.style.top = '50%';
-    loadingMsg.style.left = '50%';
-    loadingMsg.style.transform = 'translate(-50%, -50%)';
-    loadingMsg.style.background = '#5a0000';
-    loadingMsg.style.color = 'white';
-    loadingMsg.style.padding = '15px 30px';
-    loadingMsg.style.borderRadius = '8px';
-    loadingMsg.style.zIndex = '9999';
-    loadingMsg.style.fontSize = '14px';
-    loadingMsg.textContent = `📄 Creating ${quality === 'high' ? 'High Resolution' : 'Low Resolution'} PDF...`;
-    document.body.appendChild(loadingMsg);
-    await new Promise(r => setTimeout(r, 300));
+            const container = currentView === 'tree' ? treeContainer : tableContainer;
+            const root = currentView === 'tree' ? treeRoot : tableRoot;
+            const originalBodyOverflow = document.body.style.overflow;
+            const originalContainerZoom = container.style.zoom;
+            const originalContainerOverflow = container.style.overflow;
+            const originalContainerHeight = container.style.height;
+            const originalRootMinWidth = root.style.minWidth;
 
-    try {
-      const scale = quality === 'high' ? 2.0 : 1.5;
-      const jpegQuality = quality === 'high' ? 0.95 : 0.7;
-      const canvas = await html2canvas(wrapper, { scale, backgroundColor: '#ffffff', logging: false, useCORS: true, windowWidth: wrapper.scrollWidth, windowHeight: wrapper.scrollHeight });
-      const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-      const { jsPDF } = window.jspdf;
-      const isLandscape = canvas.width > canvas.height;
-      const mmWidth = canvas.width * 0.264583;
-      const mmHeight = canvas.height * 0.264583;
-      const margin = 10;
-      const pdf = new jsPDF({ orientation: isLandscape ? 'l' : 'p', unit: 'mm', format: [mmWidth + margin*2, mmHeight + margin*2] });
-      pdf.addImage(imgData, 'JPEG', margin, margin, mmWidth, mmHeight);
-      const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      pdf.save(`family_${currentView}_${safeName}_${quality}_${Date.now()}.pdf`);
-      const base64Len = imgData.length - 'data:image/jpeg;base64,'.length;
-      const fileSizeKB = Math.ceil((base64Len * 0.75) / 1024);
-      setTimeout(() => alert(`✅ ${quality === 'high' ? 'High Resolution' : 'Low Resolution'} PDF saved!\nFile size: ~${fileSizeKB} KB`), 100);
-    } catch (err) {
-      console.error('PDF Error:', err);
-      alert('❌ PDF generation failed: ' + err.message);
-    } finally {
-      originalRoot.style.transform = savedTransform || '';
-      document.body.removeChild(wrapper);
-      document.body.removeChild(loadingMsg);
-    }
-  }
+            try {
+                document.body.style.overflow = 'visible';
+                container.style.zoom = '1';
+                container.style.overflow = 'visible';
+                container.style.height = 'auto';
 
-  async function exportAsJPEG() {
-    if (!currentIndividual) { alert('Please select a member first'); return; }
-    const originalRoot = currentView === 'tree' ? treeRoot : tableRoot;
-    const savedTransform = originalRoot.style.transform;
-    originalRoot.style.transform = 'scale(1)';
-    await new Promise(r => setTimeout(r, 200));
+                let maxBoxesInRow = 0;
+                const rows = root.querySelectorAll('.children-row');
+                rows.forEach(row => {
+                    const boxCount = row.querySelectorAll('.box').length;
+                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
+                });
+                const familyGroups = root.querySelectorAll('.family-group');
+                familyGroups.forEach(group => {
+                    const boxCount = group.querySelectorAll('.box').length;
+                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
+                });
+                if (maxBoxesInRow < 1) maxBoxesInRow = 1;
+                const requiredWidth = (maxBoxesInRow * 290) + 100;
+                root.style.minWidth = requiredWidth + 'px';
 
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'absolute';
-    wrapper.style.left = '-9999px';
-    wrapper.style.top = '0';
-    wrapper.style.backgroundColor = 'white';
-    wrapper.style.padding = '15px';
-    wrapper.style.width = 'fit-content';
-    wrapper.style.minWidth = '100%';
-    wrapper.style.fontFamily = "'Inter', sans-serif";
-    document.body.appendChild(wrapper);
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px';
+                header.style.textAlign = 'center';
+                header.style.width = '100%';
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family ${currentView === 'tree' ? 'Tree' : 'Table'}</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                root.insertBefore(header, root.firstChild);
 
-    const styleTag = document.createElement('style');
-    styleTag.textContent = `
-      * { font-family: 'Inter', sans-serif; }
-      .member-name, .box-header, .box-label, .box-value { font-family: 'Inter', sans-serif; }
-      h1, h2, .section-heading { font-family: 'Playfair Display', serif; }
-      .box { width: 240px; }
-      .children-row { gap: 6px; }
-      .section-heading { font-size: 15px; margin: 12px 0 8px; }
-      .toggle-icon { width: 28px; height: 28px; font-size: 16px; }
-      .tree-root-layout, .table-root-layout { transform: scale(1) !important; }
-    `;
-    wrapper.appendChild(styleTag);
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
 
-    const header = document.createElement('div');
-    header.style.marginBottom = '15px';
-    header.style.textAlign = 'center';
-    header.innerHTML = `<h1 style="color:#d4af37;font-size:26px;margin:0;">Rizvi Family ${currentView === 'tree' ? 'Tree' : 'Table'}</h1>
-      <h2 style="color:#5a0000;font-size:18px;margin:6px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-    wrapper.appendChild(header);
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
 
-    const clone = originalRoot.cloneNode(true);
-    clone.style.transform = 'none';
-    clone.style.width = '100%';
-    clone.style.height = 'auto';
-    clone.style.overflow = 'visible';
-    wrapper.appendChild(clone);
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
+                `;
+                root.appendChild(footer);
 
-    const footer = document.createElement('div');
-    footer.style.marginTop = '15px';
-    footer.style.padding = '10px';
-    footer.style.background = '#fcf9f4';
-    footer.style.textAlign = 'center';
-    footer.style.fontSize = '10px';
-    const timeStr = formatCurrentTime();
-    const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
-    footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-      <div>Last Data Updated: ${excelSavedTime} | JPEG Generated: ${timeStr}</div>`;
-    wrapper.appendChild(footer);
+                await new Promise(resolve => setTimeout(resolve, 500));
 
-    const loadingMsg = document.createElement('div');
-    loadingMsg.style.position = 'fixed';
-    loadingMsg.style.top = '50%';
-    loadingMsg.style.left = '50%';
-    loadingMsg.style.transform = 'translate(-50%, -50%)';
-    loadingMsg.style.background = '#5a0000';
-    loadingMsg.style.color = 'white';
-    loadingMsg.style.padding = '15px 30px';
-    loadingMsg.style.borderRadius = '8px';
-    loadingMsg.style.zIndex = '9999';
-    loadingMsg.style.fontSize = '14px';
-    loadingMsg.textContent = '📸 Creating JPEG...';
-    document.body.appendChild(loadingMsg);
-    await new Promise(r => setTimeout(r, 300));
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%';
+                loadingMsg.style.left = '50%';
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000';
+                loadingMsg.style.color = 'white';
+                loadingMsg.style.padding = '20px 40px';
+                loadingMsg.style.borderRadius = '8px';
+                loadingMsg.style.zIndex = '9999';
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = `📄 Creating ${quality === 'high' ? 'High Resolution' : 'Low Resolution'} PDF...`;
+                document.body.appendChild(loadingMsg);
 
-    try {
-      const canvas = await html2canvas(wrapper, { scale: 1.5, backgroundColor: '#ffffff', logging: false, useCORS: true, windowWidth: wrapper.scrollWidth, windowHeight: wrapper.scrollHeight });
-      const imgData = canvas.toDataURL('image/jpeg', 0.9);
-      const link = document.createElement('a');
-      const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      link.download = `family_${currentView}_${safeName}_${Date.now()}.jpg`;
-      link.href = imgData;
-      link.click();
-      const base64Len = imgData.length - 'data:image/jpeg;base64,'.length;
-      const fileSizeKB = Math.ceil((base64Len * 0.75) / 1024);
-      setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
-    } catch (err) {
-      console.error('JPEG Export Error:', err);
-      alert('❌ JPEG generation failed: ' + err.message);
-    } finally {
-      originalRoot.style.transform = savedTransform || '';
-      document.body.removeChild(wrapper);
-      document.body.removeChild(loadingMsg);
-    }
-  }
+                await new Promise(resolve => setTimeout(resolve, 100));
 
-  // ============================================================
-  // SEARCH
-  // ============================================================
-  document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
-    const query = this.value;
-    if (query.length < 2) { searchDropdown.style.display = 'none'; return; }
-    const results = db.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
-    searchDropdown.innerHTML = '';
-    results.forEach(member => {
-      const div = document.createElement('div');
-      div.className = 'result-item';
-      div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen}</span><div class="father-name">${member.gender?.startsWith('F') ? 'D/o' : 'S/o'} ${displayName(member.father) || '—'}</div></div>`;
-      div.onclick = () => { selectMember(member); searchDropdown.style.display = 'none'; this.value = displayName(member.name); };
-      searchDropdown.appendChild(div);
-    });
-    searchDropdown.style.display = 'block';
-  });
+                const scale = quality === 'high' ? 2.0 : 1.0;
+                const jpegQuality = quality === 'high' ? 0.95 : 0.7;
+                const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
 
-  // ============================================================
-  // GLOBAL CLOSE
-  // ============================================================
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.search-wrapper')) searchDropdown.style.display = 'none';
-    if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
-      document.getElementById('toggleMenuPanel')?.classList.remove('show');
-    }
-    if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
-      document.getElementById('saveOptionsModal').style.display = 'none';
-      document.getElementById('saveModalOverlay').style.display = 'none';
-    }
-  });
+                const canvas = await html2canvas(root, {
+                    scale: scale,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    logging: false,
+                    width: root.scrollWidth,
+                    height: root.scrollHeight,
+                    windowWidth: root.scrollWidth,
+                    windowHeight: root.scrollHeight,
+                    onclone: (clonedDoc, element) => {
+                        const clonedRoot = clonedDoc.getElementById(currentView === 'tree' ? 'treeRoot' : 'tableRoot');
+                        if (clonedRoot) {
+                            clonedRoot.style.minWidth = requiredWidth + 'px';
+                        }
+                    }
+                });
 
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      closeTips();
-      closeInfoModal();
-      closeSaveModal();
-      document.getElementById('toggleMenuPanel')?.classList.remove('show');
-      searchDropdown.style.display = 'none';
-    }
-  });
+                root.removeChild(header);
+                root.removeChild(footer);
+                document.body.removeChild(loadingMsg);
 
-  // ============================================================
-  // DRAGGABLE ZOOM
-  // ============================================================
-  (function() {
-    const zoomControls = document.getElementById('zoomControls');
-    let isDragging = false, offsetX, offsetY;
-    zoomControls.addEventListener('mousedown', function(e) {
-      if (e.target.closest('.zoom-btn')) return;
-      isDragging = true;
-      const rect = zoomControls.getBoundingClientRect();
-      offsetX = e.clientX - rect.left;
-      offsetY = e.clientY - rect.top;
-      zoomControls.classList.add('dragging');
-      e.preventDefault();
-    });
-    document.addEventListener('mousemove', function(e) {
-      if (!isDragging) return;
-      const vw = window.innerWidth, vh = window.innerHeight;
-      const cw = zoomControls.offsetWidth, ch = zoomControls.offsetHeight;
-      let nx = e.clientX - offsetX, ny = e.clientY - offsetY;
-      nx = Math.max(0, Math.min(nx, vw - cw));
-      ny = Math.max(0, Math.min(ny, vh - ch));
-      zoomControls.style.right = (vw - nx - cw) + 'px';
-      zoomControls.style.bottom = (vh - ny - ch) + 'px';
-    });
-    document.addEventListener('mouseup', function() {
-      if (isDragging) { isDragging = false; zoomControls.classList.remove('dragging'); }
-    });
-    let touchOffX, touchOffY, isTouching = false;
-    zoomControls.addEventListener('touchstart', function(e) {
-      if (e.target.closest('.zoom-btn')) return;
-      const touch = e.touches[0];
-      const rect = zoomControls.getBoundingClientRect();
-      touchOffX = touch.clientX - rect.left;
-      touchOffY = touch.clientY - rect.top;
-      isTouching = true;
-      zoomControls.classList.add('dragging');
-      e.preventDefault();
-    }, { passive: false });
-    document.addEventListener('touchmove', function(e) {
-      if (!isTouching) return;
-      const touch = e.touches[0];
-      const vw = window.innerWidth, vh = window.innerHeight;
-      const cw = zoomControls.offsetWidth, ch = zoomControls.offsetHeight;
-      let nx = touch.clientX - touchOffX, ny = touch.clientY - touchOffY;
-      nx = Math.max(0, Math.min(nx, vw - cw));
-      ny = Math.max(0, Math.min(ny, vh - ch));
-      zoomControls.style.right = (vw - nx - cw) + 'px';
-      zoomControls.style.bottom = (vh - ny - ch) + 'px';
-      e.preventDefault();
-    }, { passive: false });
-    document.addEventListener('touchend', function() {
-      if (isTouching) { isTouching = false; zoomControls.classList.remove('dragging'); }
-    });
-  })();
+                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+                const { jsPDF } = window.jspdf;
+                const w = canvas.width * (0.264583 / scale);
+                const h = canvas.height * (0.264583 / scale);
 
-  // ============================================================
-  // INIT
-  // ============================================================
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof FAMILY_DATA_E !== 'undefined') db = FAMILY_DATA_E;
-    if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
-    document.getElementById('memberCounter').textContent = `📊 Members: ${db.length}`;
+                const pdf = new jsPDF({
+                    orientation: w > h ? 'l' : 'p',
+                    unit: 'mm',
+                    format: [w + 40, h + 40]
+                });
 
-    // Set up Full Details toggle
-    const showAllItem = document.getElementById('showAllMenuItem');
-    if (showAllItem) {
-      showAllItem.onclick = function(e) {
-        e.stopPropagation();
-        toggleFullDetails();
-        document.getElementById('toggleMenuPanel').classList.remove('show');
-      };
-    }
+                pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
+                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                pdf.save(`family_${currentView}_${safeName}_${quality}_${Date.now()}.pdf`);
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const memberName = urlParams.get('member');
-    if (memberName) {
-      const member = db.find(m => m.name === decodeURIComponent(memberName));
-      if (member) {
-        currentIndividual = member;
-        searchInput.value = displayName(member.name);
-        renderCurrentView();
-        menuBtn.classList.add('visible');
-      } else {
-        showWelcome(currentView);
-        menuBtn.classList.remove('visible');
-      }
-    } else {
-      showWelcome(currentView);
-      menuBtn.classList.remove('visible');
-    }
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
 
-    // Set PC zoom default to 1.00, mobile to 0.50
-    const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    zoomLevel = isMobile ? 0.50 : 1.00;
-    
-    // Zoom controls hidden by default (only appear when menu clicked)
-    document.getElementById('zoomControls').classList.remove('visible');
-    applyZoom();
+            } catch (err) {
+                console.error('PDF Error:', err);
+                alert('❌ PDF generation failed: ' + err.message);
+            } finally {
+                document.body.style.overflow = originalBodyOverflow;
+                container.style.zoom = '0.5';
+                container.style.overflow = originalContainerOverflow;
+                container.style.height = originalContainerHeight;
+                root.style.minWidth = originalRootMinWidth;
+            }
+        }
 
-    // expose globals
-    window.goHome = showDashboard;
-    window.showDashboard = showDashboard;
-    window.toggleLeftMenu = toggleLeftMenu;
-    window.handleToggleMenuClick = handleToggleMenuClick;
-    window.toggleSection = toggleSection;
-    window.selectMember = selectMember;
-    window.resetIndividual = resetIndividual;
-    window.handleBoxClick = handleBoxClick;
-    window.showInfoModal = showInfoModal;
-    window.closeInfoModal = closeInfoModal;
-    window.openTips = openTips;
-    window.closeTips = closeTips;
-    window.showSaveOptions = showSaveOptions;
-    window.closeSaveModal = closeSaveModal;
-    window.processSave = processSave;
-    window.exportAsJPEG = exportAsJPEG;
-    window.switchView = switchView;
-    window.zoomIn = zoomIn;
-    window.zoomOut = zoomOut;
-    window.resetZoom = resetZoom;
-    window.toggleZoomControls = toggleZoomControls;
-    window.toggleFullDetails = toggleFullDetails;
-  });
-</script>
+        async function exportAsJPEG() {
+            if (!currentIndividual) {
+                alert('Please select a member first');
+                return;
+            }
+
+            const container = currentView === 'tree' ? treeContainer : tableContainer;
+            const root = currentView === 'tree' ? treeRoot : tableRoot;
+            const originalBodyOverflow = document.body.style.overflow;
+            const originalContainerZoom = container.style.zoom;
+            const originalContainerOverflow = container.style.overflow;
+            const originalContainerHeight = container.style.height;
+            const originalRootMinWidth = root.style.minWidth;
+
+            try {
+                document.body.style.overflow = 'visible';
+                container.style.zoom = '1';
+                container.style.overflow = 'visible';
+                container.style.height = 'auto';
+
+                let maxBoxesInRow = 0;
+                const rows = root.querySelectorAll('.children-row');
+                rows.forEach(row => {
+                    const boxCount = row.querySelectorAll('.box').length;
+                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
+                });
+                const familyGroups = root.querySelectorAll('.family-group');
+                familyGroups.forEach(group => {
+                    const boxCount = group.querySelectorAll('.box').length;
+                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
+                });
+                if (maxBoxesInRow < 1) maxBoxesInRow = 1;
+                const requiredWidth = (maxBoxesInRow * 290) + 100;
+                root.style.minWidth = requiredWidth + 'px';
+
+                const header = document.createElement('div');
+                header.style.marginBottom = '30px';
+                header.style.textAlign = 'center';
+                header.style.width = '100%';
+                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family ${currentView === 'tree' ? 'Tree' : 'Table'}</h1>
+                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
+                root.insertBefore(header, root.firstChild);
+
+                const footer = document.createElement('div');
+                footer.style.marginTop = '30px';
+                footer.style.padding = '15px 20px';
+                footer.style.background = '#fcf9f4';
+                footer.style.width = '100%';
+                footer.style.boxSizing = 'border-box';
+                footer.style.fontFamily = "'Inter', sans-serif";
+                footer.style.fontSize = '12px';
+                footer.style.textAlign = 'center';
+
+                const timeStr = formatCurrentTime();
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
+
+                footer.innerHTML = `
+                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
+                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
+                `;
+                root.appendChild(footer);
+
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                const loadingMsg = document.createElement('div');
+                loadingMsg.style.position = 'fixed';
+                loadingMsg.style.top = '50%';
+                loadingMsg.style.left = '50%';
+                loadingMsg.style.transform = 'translate(-50%, -50%)';
+                loadingMsg.style.background = '#5a0000';
+                loadingMsg.style.color = 'white';
+                loadingMsg.style.padding = '20px 40px';
+                loadingMsg.style.borderRadius = '8px';
+                loadingMsg.style.zIndex = '9999';
+                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+                loadingMsg.textContent = '📸 Creating JPEG...';
+                document.body.appendChild(loadingMsg);
+
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                const canvas = await html2canvas(root, {
+                    scale: 1.5,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    width: root.scrollWidth,
+                    height: root.scrollHeight,
+                    windowWidth: root.scrollWidth,
+                    windowHeight: root.scrollHeight,
+                    onclone: (clonedDoc, element) => {
+                        const clonedRoot = clonedDoc.getElementById(currentView === 'tree' ? 'treeRoot' : 'tableRoot');
+                        if (clonedRoot) {
+                            clonedRoot.style.minWidth = requiredWidth + 'px';
+                        }
+                    }
+                });
+
+                root.removeChild(header);
+                root.removeChild(footer);
+                document.body.removeChild(loadingMsg);
+
+                const imgData = canvas.toDataURL('image/jpeg', 0.9);
+                const link = document.createElement('a');
+                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                link.download = `family_${currentView}_${safeName}_${Date.now()}.jpg`;
+                link.href = imgData;
+                link.click();
+
+                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
+                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
+                setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
+
+            } catch (err) {
+                console.error('JPEG Export Error:', err);
+                alert('❌ JPEG generation failed: ' + err.message);
+            } finally {
+                document.body.style.overflow = originalBodyOverflow;
+                container.style.zoom = '0.5';
+                container.style.overflow = originalContainerOverflow;
+                container.style.height = originalContainerHeight;
+                root.style.minWidth = originalRootMinWidth;
+            }
+        }
+
+        // ============================================================
+        // SEARCH DROPDOWN
+        // ============================================================
+        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+            const query = this.value;
+            const dropdown = document.getElementById('searchDropdown');
+            if (query.length < 2) {
+                dropdown.style.display = 'none';
+                return;
+            }
+            const results = db.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
+            dropdown.innerHTML = '';
+            results.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen}</span><div class="father-name">${member.gender?.startsWith('F') ? 'D/o' : 'S/o'} ${displayName(member.father) || '—'}</div></div>`;
+                div.onclick = () => {
+                    selectMember(member);
+                    dropdown.style.display = 'none';
+                    this.value = displayName(member.name);
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
+        });
+
+        // ============================================================
+        // GLOBAL CLICK HANDLERS
+        // ============================================================
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+            if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
+                document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            }
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+                document.getElementById('saveOptionsModal').style.display = 'none';
+                document.getElementById('saveModalOverlay').style.display = 'none';
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTips();
+                closeInfoModal();
+                closeSaveModal();
+                document.getElementById('toggleMenuPanel')?.classList.remove('show');
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+        });
+
+        // ============================================================
+        // DRAGGABLE ZOOM
+        // ============================================================
+        (function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('dragstart', function(e) { e.preventDefault(); });
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+        })();
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof FAMILY_DATA_E !== 'undefined') db = FAMILY_DATA_E;
+            if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
+
+            document.getElementById('memberCounter').textContent = `📊 Members: ${db.length}`;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const memberName = urlParams.get('member');
+
+            if (memberName) {
+                const member = db.find(m => m.name === decodeURIComponent(memberName));
+                if (member) {
+                    currentIndividual = member;
+                    searchInput.value = displayName(member.name);
+                    renderCurrentView();
+                    menuBtn.classList.add('visible');
+                } else {
+                    showWelcome();
+                    menuBtn.classList.remove('visible');
+                }
+            } else {
+                showWelcome();
+                menuBtn.classList.remove('visible');
+            }
+
+            document.getElementById('zoomControls').classList.remove('visible');
+            applyZoom();
+
+            // expose globals
+            window.goHome = showDashboard;
+            window.showDashboard = showDashboard;
+            window.toggleLeftMenu = toggleLeftMenu;
+            window.handleToggleMenuClick = handleToggleMenuClick;
+            window.toggleSection = toggleSection;
+            window.selectMember = selectMember;
+            window.resetIndividual = resetIndividual;
+            window.handleBoxClick = handleBoxClick;
+            window.showInfoModal = showInfoModal;
+            window.closeInfoModal = closeInfoModal;
+            window.openTips = openTips;
+            window.closeTips = closeTips;
+            window.showSaveOptions = showSaveOptions;
+            window.closeSaveModal = closeSaveModal;
+            window.processSave = processSave;
+            window.exportAsJPEG = exportAsJPEG;
+            window.switchView = switchView;
+            window.zoomIn = zoomIn;
+            window.zoomOut = zoomOut;
+            window.resetZoom = resetZoom;
+            window.toggleZoomControls = toggleZoomControls;
+            window.toggleFullDetails = toggleFullDetails;
+        });
+    </script>
 </body>
 </html>

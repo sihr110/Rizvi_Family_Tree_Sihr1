@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
   <title>Rizvi family · Tree & Table (unified)</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -223,14 +223,15 @@
       flex: 1;
       min-width: 120px;
     }
-    .search-input {
-      width: 100%;
-      padding: 8px 12px;
-      border: 2px solid #cbd5e1;
-      border-radius: 4px;
-      font-size: 13px;
-      outline: none;
-    }
+.search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+touch-action: manipulation;
+}
     .search-input:focus { border-color: var(--gold); }
     .search-dropdown {
       position: absolute;
@@ -260,12 +261,13 @@
       background: transparent;
       color: var(--dark-blue);
       border: none;
-      font-size: 18px;
+      font-size: 32px;
       cursor: pointer;
       font-weight: 600;
-      padding: 4px 8px;
+      padding: 1px 4px;
       transition: 0.2s;
       white-space: nowrap;
+transform: translateY(-4px);
     }
     .reset-btn:hover { transform: scale(1.2); color: var(--gold); }
 
@@ -330,7 +332,7 @@
 
 /* Only on mobile devices */
 @media (max-width: 768px) {
-    .view-container {
+    body {
         zoom: 0.5;
     }
 }
@@ -819,6 +821,9 @@
       .children-row.four-in-row { grid-template-columns: repeat(2, auto); gap: 6px; }
       .children-row { gap: 6px; }
     }
+
+
+
   </style>
 </head>
 <body>
@@ -857,7 +862,7 @@
         <div class="search-row">
           <span class="search-label">SEARCH</span>
           <div class="search-wrapper">
-            <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off">
+<input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
             <div id="searchDropdown" class="search-dropdown"></div>
           </div>
           <div class="reset-btn" onclick="resetIndividual()">🔄</div>

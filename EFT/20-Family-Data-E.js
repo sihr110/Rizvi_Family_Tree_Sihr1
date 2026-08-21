@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 08/16/2026 13:13
+// Saved: 08/21/2026 10:54
 // Total members: 608
 
 const FAMILY_DATA_E = [
@@ -4946,22 +4946,22 @@ const FAMILY_DATA_E = [
     details: ""
   },
   {
-    name: "Syed Najaf Haider",
-    father: "Syed Wiladat Hussain",
-    mother: "Syeda Tanveer Fatima Rizvi",
-    spouse: "Syeda Sabeen Rizvi",
-    gen: "G-041-S2",
-    gender: "MALE",
-    details: "Syed Najaf married with his mamoo Syed Muslim daugher Syeda Sabeen + Their common root is Syed Badhsha Hussain Shaheed (G-022-S1)"
-  },
-  {
     name: "Syed Raza Haider",
     father: "Syed Wiladat Hussain",
     mother: "Syeda Tanveer Fatima Rizvi",
     spouse: "Syeda Sarwat Zehra Rizvi",
-    gen: "G-041-S3",
+    gen: "G-041-S2",
     gender: "MALE",
     details: "Syed Raza married Syeda Sarwat + Their common root is Syed Khoob Ullah Hussain (G-033-S1)"
+  },
+  {
+    name: "Syed Najaf Haider",
+    father: "Syed Wiladat Hussain",
+    mother: "Syeda Tanveer Fatima Rizvi",
+    spouse: "Syeda Sabeen Rizvi",
+    gen: "G-041-S3",
+    gender: "MALE",
+    details: "Syed Najaf married with his mamoo Syed Muslim daugher Syeda Sabeen + Their common root is Syed Badhsha Hussain Shaheed (G-022-S1)"
   },
   {
     name: "Syed Shamim Haider",
@@ -5036,60 +5036,6 @@ const FAMILY_DATA_E = [
     details: ""
   },
   {
-    name: "Syed Ahsan Sajjad",
-    father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
-    spouse: "",
-    gen: "G-042-S1",
-    gender: "MALE",
-    details: ""
-  },
-  {
-    name: "Syed Hussain Haider - 01",
-    father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
-    spouse: "",
-    gen: "G-042-S2",
-    gender: "MALE",
-    details: ""
-  },
-  {
-    name: "Syeda Mariyum Najaf",
-    father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
-    spouse: "",
-    gen: "G-042-D1",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
-    name: "Syeda Rimsha Najaf",
-    father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
-    spouse: "",
-    gen: "G-042-D2",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
-    name: "Syeda Sara Najaf",
-    father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
-    spouse: "",
-    gen: "G-042-D3",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
-    name: "Syeda Farwah Najaf",
-    father: "Syed Najaf Haider",
-    mother: "Syeda Sabeen Rizvi (Sadat)",
-    spouse: "",
-    gen: "G-042-D4",
-    gender: "FEMALE",
-    details: ""
-  },
-  {
     name: "Syed Muhammad Khurram Haider",
     father: "Syed Raza Haider",
     mother: "Syeda Sarwat Zehra Rizvi",
@@ -5149,6 +5095,60 @@ const FAMILY_DATA_E = [
     mother: "Syeda Samana Batool Rizvi",
     spouse: "",
     gen: "G-043-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syed Hussain Haider - 01",
+    father: "Syed Najaf Haider",
+    mother: "Syeda Sabeen Rizvi (Sadat)",
+    spouse: "",
+    gen: "G-042-S1",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syed Ahsan Sajjad",
+    father: "Syed Najaf Haider",
+    mother: "Syeda Sabeen Rizvi (Sadat)",
+    spouse: "",
+    gen: "G-042-S2",
+    gender: "MALE",
+    details: ""
+  },
+  {
+    name: "Syeda Mariyum Najaf",
+    father: "Syed Najaf Haider",
+    mother: "Syeda Sabeen Rizvi (Sadat)",
+    spouse: "",
+    gen: "G-042-D1",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Rimsha Najaf",
+    father: "Syed Najaf Haider",
+    mother: "Syeda Sabeen Rizvi (Sadat)",
+    spouse: "",
+    gen: "G-042-D2",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Sara Najaf",
+    father: "Syed Najaf Haider",
+    mother: "Syeda Sabeen Rizvi (Sadat)",
+    spouse: "",
+    gen: "G-042-D3",
+    gender: "FEMALE",
+    details: ""
+  },
+  {
+    name: "Syeda Farwah Najaf",
+    father: "Syed Najaf Haider",
+    mother: "Syeda Sabeen Rizvi (Sadat)",
+    spouse: "",
+    gen: "G-042-D4",
     gender: "FEMALE",
     details: ""
   },
@@ -5480,7 +5480,7 @@ const FAMILY_DATA_E = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "08/16/2026 13:13", 
+    saved_time: "08/21/2026 10:54", 
     total_members: 608,
     details_count: 87,
     sheets_merged: ["Main","1","2","3","4","5"]

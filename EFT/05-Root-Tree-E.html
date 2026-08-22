@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <!-- MOBILE VIEWPORT - initial-scale=0.5 -->
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+
 
 <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover, shrink-to-fit=no">
 
@@ -980,10 +980,19 @@ input, textarea, select {
 
         // ==================== EXISTING CODE ====================
         // --- GLOBAL DATA ---
-let zoomLevel = 0.70;
+let zoomLevel = window.innerWidth <= 768 ? 1.0 : 0.70;let member1 = null;
+let member2 = null;
+
+
+
 window.zoomIn = function() { zoomLevel = Math.min(zoomLevel + 0.01, 2); applyZoom(); };
 window.zoomOut = function() { zoomLevel = Math.max(zoomLevel - 0.01, 0.3); applyZoom(); };
-window.resetZoom = function() { zoomLevel = 0.5; applyZoom(); };
+window.resetZoom = function() { 
+    zoomLevel = window.innerWidth <= 768 ? 1.0 : 0.70; 
+    applyZoom(); 
+};
+
+
 function applyZoom() {
     const c = document.getElementById('rootTree');
     if(c) {
@@ -1032,7 +1041,7 @@ function hideZoom() { document.getElementById('zoomControls').classList.remove('
                 if (saved) {
                     db = JSON.parse(saved);
                 } else {
-                    db = (typeof FAMILY_DATA !== 'undefined') ? FAMILY_DATA : [];
+                    db = (typeof FAMILY_DATA_E !== 'undefined') ? FAMILY_DATA_E : [];
                     if (db.length > 0) {
                         localStorage.setItem('familyDB', JSON.stringify(db));
                     }

@@ -1,246 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover" />
-    <title>Family Tree</title>
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=yes" />
+    <meta name="google" content="notranslate">
+    <title>Rizvi Family · Family Tree</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
+        /* ===== ZOOM CONTROLS ===== */
+        .zoom-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 6px;
+            display: none;
+            flex-direction: row;
+            gap: 4px;
+            z-index: 2000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
+        }
+        .zoom-controls.dragging { cursor: grabbing; opacity: 0.85; }
+        .zoom-controls.visible { display: flex; }
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .zoom-btn:hover { background: var(--gold); color: white; }
+        .zoom-level {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
+        }
 
+        .tips-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #3d2b1a;
+            white-space: nowrap;
+            animation: tipsBlink 1.5s ease-in-out infinite;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-btn:hover { background: #faebcd; animation: none; }
+        @keyframes tipsBlink {
+            0% { color: #3d2b1a; }
+            50% { color: #d4af37; }
+            100% { color: #3d2b1a; }
+        }
 
-.search-input {
-    width: 100%;
-    padding: 10px 15px;
-    border: 2px solid #cbd5e1;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-    font-family: 'Inter', sans-serif;
-}
-.search-input:focus {
-    border-color: var(--gold);
-}
-.reset-btn {
-    padding: 10px 20px;
-    background: var(--gold);
-    color: var(--dark-blue);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
-    transition: all 0.2s;
-}
-.reset-btn:hover {
-    background: var(--light-gold);
-    transform: scale(1.02);
-}
-.search-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-}
-.search-label {
-    font-weight: 700;
-    color: var(--maroon);
-    font-size: 13px;
-    white-space: nowrap;
-}
-.search-wrapper {
-    position: relative;
-    flex: 1;
-}
+        .tips-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .tips-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 30px 35px;
+            max-width: 520px;
+            width: 92%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: fadeIn 0.25s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .tips-modal h3 {
+            font-family: 'Playfair Display', serif;
+            color: #0f172a;
+            font-size: 22px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        .tips-modal ul li {
+            display: flex;
+            align-items: flex-start;
+            padding: 8px 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            border-bottom: 1px solid #f0ebe4;
+            gap: 12px;
+            text-align: left;
+        }
+        .tips-modal ul li:last-child { border-bottom: none; }
+        .tips-modal ul li strong {
+            display: inline-block;
+            width: 140px;
+            flex-shrink: 0;
+            color: #5a0000;
+            font-weight: 700;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-modal ul li span {
+            flex: 1;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-close-btn {
+            background: #d4af37;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            color: #0f172a;
+            transition: background 0.2s;
+            display: block;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+        }
+        .tips-close-btn:hover { background: #f1d279; }
 
-
-.view-toggle {
-    display: flex;
-    gap: 4px;
-    background: #d4edda;
-    border-radius: 8px;
-    padding: 3px;
-    border: 2px solid var(--gold);
-}
-.view-toggle button {
-    border: none;
-    background: transparent;
-    padding: 6px 16px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 12px;
-    cursor: pointer;
-    color: #555;
-    font-family: 'Inter', sans-serif;
-}
-.view-toggle button.active {
-    background: var(--gold);
-    color: var(--dark-blue);
-}
-
-
-
-
-/* Tips Button - Blinking only */
-.tips-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-    color: #3d2b1a;
-    white-space: nowrap;
-    animation: tipsBlink 1.5s ease-in-out infinite;
-    font-family: 'Inter', sans-serif;
-}
-
-.tips-btn:hover {
-    background: #faebcd;
-    animation: none;
-}
-
-@keyframes tipsBlink {
-    0% { color: #3d2b1a; }
-    50% { color: #d4af37; }
-    100% { color: #3d2b1a; }
-}
-
-.tips-btn:hover {
-  transform: scale(1.1);
-  animation: none;
-  background: #faebcd;
-}
-
-@keyframes tipsPulse {
-  0% {
-    color: #3d2b1a;
-    transform: scale(1);
-    text-shadow: 0 0 0px #d4af37;
-  }
-  25% {
-    color: #d4af37;
-    transform: scale(1.08);
-    text-shadow: 0 0 10px #d4af37;
-  }
-  50% {
-    color: #ff6b35;
-    transform: scale(1.12);
-    text-shadow: 0 0 20px #ff6b35;
-  }
-  75% {
-    color: #d4af37;
-    transform: scale(1.08);
-    text-shadow: 0 0 10px #d4af37;
-  }
-  100% {
-    color: #3d2b1a;
-    transform: scale(1);
-    text-shadow: 0 0 0px #d4af37;
-  }
-}
-
-.tips-btn:hover {
-  background: #faebcd;
-}
-
-/* Tips Modal Overlay */
-.tips-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Tips Modal */
-.tips-modal {
-  background: white;
-  border-radius: 16px;
-  padding: 30px 35px;
-  max-width: 520px;
-  width: 92%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  position: relative;
-  animation: fadeIn 0.25s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.tips-modal h3 {
-  font-family: 'Playfair Display', serif;
-  color: #0f172a;
-  font-size: 22px;
-  margin-bottom: 16px;
-  border-bottom: 2px solid #d4af37;
-  padding-bottom: 10px;
-}
-
-.tips-modal ul li {
-  display: flex;
-  align-items: flex-start;
-  padding: 8px 0;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #1a1a1a;
-  border-bottom: 1px solid #f0ebe4;
-  gap: 12px;
-}
-
-.tips-modal ul li:last-child {
-  border-bottom: none;
-}
-
-.tips-modal ul li strong {
-  display: inline-block;
-  width: 140px;
-  flex-shrink: 0;
-  color: #5a0000;
-  font-weight: 700;
-  text-align: left;
-}
-
-.tips-modal ul li span {
-  flex: 1;
-  text-align: left;
-}
-
-
-.tips-close-btn {
-  background: #d4af37;
-  border: none;
-  padding: 10px 28px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  color: #0f172a;
-  transition: background 0.2s;
-  display: block;
-  margin: 0 auto;
-}
-
-.tips-close-btn:hover {
-  background: #f1d279;
-}
-
-
-
-        /* ============================================================
-           SECTION 1: WELCOME SCREEN STYLES
-           ============================================================ */
         .welcome-container {
             display: flex;
             justify-content: center;
@@ -257,11 +175,7 @@
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
-        .welcome-icon {
-            font-size: 72px;
-            margin-bottom: 20px;
-            color: var(--gold);
-        }
+        .welcome-icon { font-size: 72px; margin-bottom: 20px; color: var(--gold); }
         .welcome-title {
             font-size: 32px;
             font-weight: 700;
@@ -274,41 +188,10 @@
             color: #666;
             margin-bottom: 25px;
             line-height: 1.6;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* ============================================================
-           SECTION 2: BASE STYLES & CSS VARIABLES
-           ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-body {
-    background: #1a1a1a;  /* Changed to match file 03 */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
-    min-height: 100vh;
-    position: relative;
-}
-
-.app-wrapper {
-    width: 100%;
-    max-width: 1400px;  /* Match file 03 */
-    margin: 0 auto;     /* Center the container */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform-origin: top center;
-    background: white;  /* Add white background */
-    border-radius: 20px; /* Match file 03 */
-    border: 2px solid var(--gold); /* Match file 03 */
-    overflow: hidden;   /* Match file 03 */
-}
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --gold: #d4af37;
             --dark-blue: #0f172a;
@@ -317,23 +200,48 @@ body {
             --green: #2e7d32;
         }
 
+        body {
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            position: relative;
+            direction: ltr;
+            text-align: left;
+        }
 
+        .app-wrapper {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+        }
 
-/* Fix for Gen and Next Gen column centering */
-.tree-row .tree-gen span,
-.tree-row .tree-page span {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-}
+        .zoom-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
 
-        /* ============================================================
-           SECTION 3: MENU PANEL STYLES
-           ============================================================ */
         .menu-panel {
             position: fixed;
             left: 20px;
-            top: 55px;
+            right: auto;
+            top: 90px;
             background: white;
             border: 3px solid var(--gold);
             border-radius: 12px;
@@ -345,11 +253,7 @@ body {
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             min-width: 180px;
         }
-
-        .menu-panel.show {
-            display: flex;
-        }
-
+        .menu-panel.show { display: flex; }
         .menu-item {
             padding: 10px 16px;
             border-radius: 8px;
@@ -366,36 +270,35 @@ body {
             transition: all 0.2s;
             font-family: 'Inter', sans-serif;
         }
-
-        .menu-item:hover {
-            background: #faebcd;
-            transform: translateX(5px);
-        }
-
+        .menu-item:hover { background: #faebcd; transform: translateX(-5px); }
         .menu-item.dashboard {
             background: #6495ED;
             color: white;
             border-color: #6495ED;
         }
-
-        .menu-item.dashboard:hover {
-            background: #4a7fd4;
-        }
-
+        .menu-item.dashboard:hover { background: #4a7fd4; }
         .menu-item.save {
             background: var(--gold);
             color: var(--dark-blue);
             border-color: var(--gold);
         }
+        .menu-item.save:hover { background: var(--light-gold); }
+        .menu-item.zoom-toggle {
+            background: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+        .menu-item.zoom-toggle:hover { background: #1b5e20; }
 
-        .menu-item.save:hover {
-            background: var(--light-gold);
+        .header-stats {
+            font-size: 12px;
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 10px;
         }
 
-        /* ============================================================
-           SECTION 4:  HEADER STYLES
-           ============================================================ */
- 
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
             color: var(--gold);
@@ -405,10 +308,33 @@ body {
             align-items: center;
             border-bottom: 3px solid var(--gold);
             width: 100%;
-            border-radius: 12px 12px 0 0;
+            border-radius: 0;
             position: relative;
+            min-height: 60px;
+            flex-shrink: 0;
         }
-
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+        .header-icon {
+            background: var(--gold);
+            color: var(--dark-blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .menu-toggle-btn {
             background: var(--gold);
             color: var(--dark-blue);
@@ -425,102 +351,51 @@ body {
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: all 0.3s;
             font-family: 'Inter', sans-serif;
-            animation: gentle-blink 1.5s infinite;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
+        .menu-toggle-btn:hover { background: var(--light-gold); transform: scale(1.05); }
 
-        .menu-toggle-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.05);
-        }
-
-        .menu-toggle-btn:active {
-            transform: scale(0.95);
-        }
-
-        @keyframes gentle-blink {
-            0% { opacity: 1; background: var(--gold); }
-            50% { opacity: 0.7; background: #90EE90; transform: scale(1.05); }
-            100% { opacity: 1; background: var(--gold); }
-        }
-
-        .header-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .header-icon {
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .header-spacer {
-            width: 80px;
-        }
-
-        /* ============================================================
-           SECTION 5: CONTROLS / SEARCH BAR STYLES
-           ============================================================ */
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 20px;
-    align-items: center;
-    background: #fffcf8;
-    padding: 12px 16px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    /* Remove border-left and border-right since they're on .app-wrapper */
-}
-
-        .controls .row1 {
+        .controls {
             display: flex;
             flex-wrap: wrap;
             gap: 12px 20px;
             align-items: center;
+            background: #fffcf8;
+            padding: 12px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
             width: 100%;
+            flex-direction: column;
+            align-items: stretch;
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+            flex-shrink: 0;
         }
-
-        .controls .row2 {
+        .search-row {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px 20px;
             align-items: center;
+            gap: 15px;
             width: 100%;
-            margin-top: 4px;
         }
-
-        .controls label {
-            font-weight: 600;
-            color: #3d2b1a;
-            font-size: 14px;
+        .search-label {
+            font-weight: 700;
+            color: var(--maroon);
+            font-size: 13px;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
         }
-
-        .controls .search-wrapper {
+        .search-wrapper {
             position: relative;
             flex: 2;
             min-width: 200px;
         }
-
-        .controls .search-box {
+        .search-box {
             display: flex;
             gap: 8px;
             align-items: center;
             width: 100%;
         }
-
-        .controls .search-box input {
+        .search-box input {
             padding: 10px 15px;
             border: 2px solid #cbd5e1;
             border-radius: 4px;
@@ -529,32 +404,14 @@ body {
             color: #2d1f13;
             width: 100%;
             font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+            text-align: left;
         }
-
-        .controls .search-box input:focus {
+        .search-box input:focus {
             outline: none;
             border-color: var(--gold);
             box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
         }
-
-        .controls .search-box button {
-            padding: 6px 14px;
-            background: #8b7355;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
-        }
-
-        .controls .search-box button:hover {
-            background: #6b5a48;
-        }
-
-        .controls .search-box .clear-btn {
+        .search-box .clear-btn {
             background: var(--gold);
             color: var(--dark-blue);
             border: none;
@@ -566,40 +423,20 @@ body {
             white-space: nowrap;
             font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
-
-        .controls .search-box .clear-btn:hover {
-            background: var(--light-gold);
-        }
-
-        .search-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .search-label {
-            font-weight: 700;
-            color: var(--maroon);
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
+        .search-box .clear-btn:hover { background: var(--light-gold); }
         .controls .stats {
             font-size: 13px;
             color: #6b5a48;
             white-space: nowrap;
+            font-family: 'Inter', sans-serif;
         }
-
         .controls .error-msg {
             color: #a94442;
             font-size: 13px;
             font-weight: 600;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* ============================================================
-           SECTION 6: SEARCH DROPDOWN STYLES
-           ============================================================ */
         .search-dropdown {
             position: absolute;
             top: 100%;
@@ -615,7 +452,6 @@ body {
             margin-top: 4px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-
         .search-dropdown .result-item {
             padding: 8px 14px;
             cursor: pointer;
@@ -624,52 +460,44 @@ body {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
         }
-
-        .search-dropdown .result-item:hover {
-            background: #faebcd;
-        }
-
+        .search-dropdown .result-item:hover { background: #faebcd; }
         .search-dropdown .result-item .main-name {
             font-weight: 600;
             color: #1a3a5c;
+            font-family: 'Inter', sans-serif;
         }
-
         .search-dropdown .result-item .gen {
             font-size: 11px;
             color: #6b5a48;
         }
-
         .search-dropdown .result-item .father-name {
             font-size: 11px;
             color: #6b5a48;
+            font-family: 'Inter', sans-serif;
         }
-
         .search-dropdown .no-result {
             padding: 12px 14px;
             color: #999;
             text-align: center;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* ============================================================
-           SECTION 7: PAGE / WORKSHEET STYLES
-           ============================================================ */
-.page {
-    width: 100%;
-    min-height: 297mm;
-    background: #fffcf8;
-    padding: 8mm 10mm;
-    /* Remove border-left and border-right since they're now on .app-wrapper */
-    overflow: visible;
-    page-break-after: always;
-    display: flex;
-    flex-direction: column;
-    flex: 1;  /* Make it fill the container */
-}
+        .page {
+            width: 100%;
+            flex: 1;
+            overflow: auto !important;
+            background: #fffcf8;
+            padding: 8mm 10mm;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            page-break-after: always;
+            border-left: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
 
-        /* ============================================================
-           SECTION 8: PAGE HEADER STYLES
-           ============================================================ */
         .page-header {
             text-align: center;
             border-bottom: 2px solid #b8a088;
@@ -678,7 +506,6 @@ body {
             font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
             flex-shrink: 0;
         }
-
         .page-header h1 {
             font-size: 22px;
             font-weight: 900;
@@ -686,7 +513,6 @@ body {
             font-family: 'DM Serif Display', 'Georgia', serif;
             letter-spacing: 1px;
         }
-
         .page-header .ref {
             font-size: 13px;
             color: #6b5a48;
@@ -694,18 +520,13 @@ body {
             font-family: 'Playfair Display', 'Georgia', serif;
             font-weight: 700;
         }
-
         .page-header .ref .page-link {
             color: #2e7d32;
             font-weight: 700;
             cursor: pointer;
             text-decoration: underline;
         }
-
-        .page-header .ref .page-link:hover {
-            color: #cc0000;
-        }
-
+        .page-header .ref .page-link:hover { color: #cc0000; }
         .page-header .search-result-info {
             font-size: 13px;
             color: #2e7d32;
@@ -714,181 +535,141 @@ body {
             font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
 
-        /* ============================================================
-           SECTION 9: COLUMN & TREE ROW STYLES - UPDATED WITH SPOUSE
-           ============================================================ */
-        :root {
-            --col-tree-width: 30px;
-            --col-name-width: 40%;
-            --col-spouse-width: 30%;
-            --col-gen-width: 10%;
-            --col-page-width: 20%;
-            --heading-offset: 4ch;
+        .family-table-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            overflow-x: auto;
         }
-
-        .col-headers {
-            display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
-            font-family: 'DM Serif Display', 'Georgia', serif;
+        .family-table {
+            width: 100%;
+            max-width: 700px;
+            border-collapse: collapse;
+            border: 2px solid var(--gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            table-layout: auto;
+        }
+        .family-table-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .family-table th {
+            background: #faf6f0;
+            color: #5a0000;
             font-weight: 700;
             font-size: 13px;
-            color: #5a0000;
-            letter-spacing: 0.5px;
-            padding: 4px 0 6px 0;
-            border-bottom: 2px solid #b8a088;
-            margin-bottom: 6px;
-            flex-shrink: 0;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #666;
+            font-family: 'Inter', sans-serif;
         }
-
-        .col-headers .col-tree {
-            text-align: left;
+        .family-table th:last-child { border-left: none; }
+        .family-table td {
+            padding: 8px 8px;
+            font-size: 12px;
+            border: 1px solid #666;
+            vertical-align: middle;
+            font-family: 'Inter', sans-serif;
         }
-
-        .col-headers .col-name {
-            text-align: left;
-            padding-left: var(--heading-offset);
-        }
-
-        .col-headers .col-spouse {
-            text-align: left;
-            padding-left: var(--heading-offset);
-        }
-
-.col-headers .col-gen {
+        .family-table td:last-child { border-left: none; }
+.family-table td.col-tree {
     text-align: center;
-    padding-left: 0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    color: #6b5a48;
+    padding: 6px 4px;
+    width: 5%;
 }
-
-.col-headers .col-page {
-    text-align: center;
-    padding-left: 0;
+.family-table td.col-name {
+    text-align: left;
+    padding: 6px 8px;
+    width: 38%;
     white-space: nowrap;
 }
-
-        .tree-container {
-            font-family: 'Roboto Mono', 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 2.0;
-            padding: 2px 0;
-            color: #1a1a1a;
-            width: 100%;
-            overflow: visible;
-            direction: ltr;
-            text-align: left;
-            flex: 1;
-        }
-
-        .tree-row {
-            display: grid;
-            grid-template-columns: var(--col-tree-width) var(--col-name-width) var(--col-spouse-width) var(--col-gen-width) var(--col-page-width);
-            align-items: center;
-        }
-
-        .tree-row .tree-chars {
-            color: #6b5a48;
-            text-align: left;
-        }
-
-        .tree-row .tree-name {
-            text-align: left;
-        }
-
-        .tree-row .tree-spouse {
-            text-align: left;
-        }
-
-.tree-row .tree-gen {
-    text-align: center;
+.family-table td.col-name.father-name-cell {
+    font-weight: 700;
+    color: #cc0000;
 }
-
-.tree-row .tree-page {
-    text-align: center;
+.family-table td.col-name.child-name-cell {
+    font-weight: 400;
+    color: #1a3a5c;
 }
-
-        /* ============================================================
-           SECTION 10: TREE NAME COLOR STYLES
-           ============================================================ */
-        .tree-container .father-red {
+.family-table td.col-spouse {
+    text-align: left;
+    padding: 6px 8px;
+    width: 32%;
+    white-space: nowrap;
+}
+.family-table td.col-gen {
+    text-align: center;
+    padding: 6px 8px;
+    width: 12%;
+    white-space: nowrap;  /* ← ADDED */
+}
+.family-table td.col-next {
+    text-align: center;
+    padding: 6px 8px;
+    width: 13%;
+    white-space: nowrap;  /* ← ADDED */
+}
+        .family-table tbody tr:hover {
+            background: #faebcd;
+            cursor: pointer;
+        }
+        .family-table tbody tr.female-row { background-color: #fff0f0; }
+        .family-table tbody tr.father-row td.col-name {
+            font-weight: 700;
             color: #cc0000;
-            font-weight: 900;
         }
-
-        .tree-container .father-normal {
-            color: #000;
-            font-weight: 700;
+        .family-table tbody tr.selected-row {
+            background: #e8f5e9 !important;
+            border-right: 4px solid var(--green);
         }
-
-        .tree-container .child-name {
-            color: #1a3a5c;
-            font-weight: 600;
-        }
-
-        .tree-container .child-name.female {
-            color: #FF1493;
-            font-weight: 700;
-        }
-
-        .tree-container .father-red.female {
-            color: #FF1493;
-            font-weight: 900;
-        }
-
-        .tree-container .father-normal.female {
-            color: #FF1493;
-            font-weight: 700;
-        }
-
-        .tree-container .spouse-name {
-            color: #1a3a5c;
-            font-weight: 500;
-        }
-
-        .tree-container .spouse-name.female {
-            color: #FF1493;
-            font-weight: 600;
-        }
-
-        .tree-container .spouse-name.male {
-            color: #1a3a5c;
-            font-weight: 500;
-        }
-
-        .tree-container .continue-arrow {
+        .family-table .father-red { color: #cc0000; font-weight: 900; }
+        .family-table .father-normal { color: #000; font-weight: 700; }
+        .family-table .child-name { color: #1a3a5c; font-weight: 600; }
+        .family-table .child-name.female { color: #FF1493; font-weight: 700; }
+        .family-table .continue-arrow {
             color: #2e7d32;
             font-weight: 700;
             cursor: pointer;
         }
-
-        .tree-container .continue-arrow:hover {
-            color: #cc0000;
-            text-decoration: underline;
-        }
-
-        .tree-container .highlight {
-            background: #ffeb3b;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-
-        .clickable-name {
+        .family-table .continue-arrow:hover { color: #cc0000; text-decoration: underline; }
+        .family-table .clickable-name {
             cursor: pointer;
             transition: all 0.2s;
             padding: 2px 4px;
             border-radius: 4px;
         }
-
-        .clickable-name:hover {
+        .family-table .clickable-name:hover {
             background: #faebcd;
             transform: scale(1.02);
         }
-
-        .clickable-name.female:hover {
-            background: #f8d0d8;
+        .family-table .clickable-name.female:hover { background: #f8d0d8; }
+        .family-table .highlight {
+            background: #ffeb3b;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        .family-table .details-link {
+            color: #2e7d32;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            background: #f0f7f0;
+        }
+        .family-table .details-link:hover {
+            background: #ffeb3b;
+            transform: scale(1.05);
         }
 
-        /* ============================================================
-           SECTION 11: PAGE FOOTER STYLES
-           ============================================================ */
         .page-footer {
             margin-top: 12px;
             padding-top: 8px;
@@ -897,7 +678,6 @@ body {
             font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
             flex-shrink: 0;
         }
-
         .page-footer .family-name {
             font-family: 'Playfair Display', 'Georgia', serif;
             font-style: italic;
@@ -906,23 +686,19 @@ body {
             font-weight: 700;
             letter-spacing: 0.5px;
         }
-
         .page-footer .developer {
             font-size: 11px;
             color: #6b5a48;
             margin-top: 2px;
             font-weight: 400;
             letter-spacing: 0.3px;
+            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
-
         .page-footer .developer strong {
             color: #3d2b1a;
             font-weight: 600;
         }
 
-        /* ============================================================
-           SECTION 12: NO DATA & ERROR STYLES
-           ============================================================ */
         .no-data {
             text-align: center;
             padding: 60px 20px;
@@ -930,16 +706,13 @@ body {
             font-size: 18px;
             font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
         }
-
         .no-data .error {
             color: #a94442;
             font-size: 14px;
             margin-top: 10px;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* ============================================================
-           SECTION 13: SAVE OPTIONS MODAL STYLES
-           ============================================================ */
         .save-options-modal {
             position: fixed;
             top: 50%;
@@ -955,14 +728,14 @@ body {
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             display: none;
             width: 92%;
+            font-family: 'Inter', sans-serif;
         }
-
         .save-options-modal h3 {
             color: var(--maroon);
             margin-bottom: 15px;
             text-align: center;
+            font-family: 'Inter', sans-serif;
         }
-
         .save-options-modal .save-mode-label {
             display: block;
             margin-bottom: 10px;
@@ -971,53 +744,49 @@ body {
             border-radius: 8px;
             cursor: pointer;
             transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-
-        .save-options-modal .save-mode-label:hover {
-            border-color: var(--gold);
-        }
-
+        .save-options-modal .save-mode-label:hover { border-color: var(--gold); }
         .save-options-modal .save-mode-label input {
             margin-right: 10px;
+            margin-left: 0;
         }
-
         .save-options-modal .save-mode-label .label-title {
             font-weight: 600;
             font-size: 14px;
+            font-family: 'Inter', sans-serif;
         }
-
         .save-options-modal .save-mode-label .label-desc {
             display: block;
             font-size: 12px;
             color: #666;
             margin-left: 25px;
+            margin-right: 0;
+            font-family: 'Inter', sans-serif;
         }
-
         .save-options-modal .format-section {
             margin: 15px 0;
             padding: 12px;
             background: #f8f5f0;
             border-radius: 8px;
         }
-
         .save-options-modal .format-section .format-label {
             display: block;
             padding: 6px 10px;
             font-size: 13px;
             cursor: pointer;
+            font-family: 'Inter', sans-serif;
         }
-
         .save-options-modal .format-section .format-label input {
             margin-right: 8px;
+            margin-left: 0;
         }
-
         .save-options-modal .modal-actions {
             display: flex;
             gap: 10px;
             justify-content: center;
             margin-top: 5px;
         }
-
         .save-options-modal .modal-actions .save-btn {
             flex: 2;
             padding: 12px;
@@ -1028,12 +797,9 @@ body {
             font-weight: 600;
             cursor: pointer;
             font-size: 14px;
+            font-family: 'Inter', sans-serif;
         }
-
-        .save-options-modal .modal-actions .save-btn:hover {
-            background: #1b5e20;
-        }
-
+        .save-options-modal .modal-actions .save-btn:hover { background: #1b5e20; }
         .save-options-modal .modal-actions .cancel-btn {
             flex: 1;
             padding: 12px;
@@ -1042,11 +808,9 @@ body {
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
+            font-family: 'Inter', sans-serif;
         }
-
-        .save-options-modal .modal-actions .cancel-btn:hover {
-            background: #e0e0e0;
-        }
+        .save-options-modal .modal-actions .cancel-btn:hover { background: #e0e0e0; }
 
         .modal-overlay {
             position: fixed;
@@ -1059,9 +823,6 @@ body {
             display: none;
         }
 
-        /* ============================================================
-           SECTION 14: MEMBER DETAIL MODAL STYLES
-           ============================================================ */
         #memberModalOverlay {
             position: fixed;
             top: 0;
@@ -1072,7 +833,6 @@ body {
             z-index: 4999;
             display: none;
         }
-
         .member-modal {
             position: fixed;
             top: 50%;
@@ -1090,11 +850,6 @@ body {
             display: none;
             border: 3px solid var(--gold);
         }
-
-        .member-modal .modal-content {
-            position: relative;
-        }
-
         .detail-card .detail-header {
             display: flex;
             justify-content: space-between;
@@ -1103,7 +858,6 @@ body {
             padding-bottom: 14px;
             margin-bottom: 18px;
         }
-
         .detail-card .detail-header h2 {
             font-family: 'Playfair Display', serif;
             color: var(--dark-blue);
@@ -1111,7 +865,6 @@ body {
             margin: 0;
             line-height: 1.3;
         }
-
         .detail-card .detail-gender {
             padding: 4px 16px;
             border-radius: 20px;
@@ -1120,225 +873,263 @@ body {
             text-transform: uppercase;
             letter-spacing: 0.5px;
             white-space: nowrap;
+            font-family: 'Inter', sans-serif;
         }
-
         .detail-card .detail-gender.male {
             background: #e3f2fd;
             color: #0d47a1;
         }
-
         .detail-card .detail-gender.female {
             background: #fce4ec;
             color: #880e4f;
         }
-
-        .detail-card .detail-body {
-            padding: 4px 0;
-        }
-
         .detail-card .detail-row {
             padding: 10px 0;
             border-bottom: 1px solid #f0ebe4;
             font-size: 15px;
             display: flex;
             align-items: flex-start;
+            font-family: 'Inter', sans-serif;
         }
-
-        .detail-card .detail-row:last-child {
-            border-bottom: none;
-        }
-
+        .detail-card .detail-row:last-child { border-bottom: none; }
         .detail-card .detail-row strong {
             color: var(--maroon);
             min-width: 80px;
             flex-shrink: 0;
             font-weight: 700;
+            font-family: 'Inter', sans-serif;
         }
-
-        .detail-card .detail-row .detail-value {
-            color: #1a1a1a;
-            word-break: break-word;
-        }
-
         .detail-card .detail-notes {
             background: #faf6f0;
             padding: 14px;
             border-radius: 8px;
             margin-top: 4px;
             border-left: 3px solid var(--gold);
+            border-right: none;
             white-space: pre-wrap;
             font-size: 14px;
             line-height: 1.6;
+            font-family: 'Inter', sans-serif;
         }
 
-        .detail-card .detail-notes strong {
-            color: var(--maroon);
-            display: block;
-            margin-bottom: 6px;
+        .details-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fffcf8;
+            border-radius: 16px;
+            padding: 30px;
+            z-index: 6001;
+            max-width: 600px;
+            width: 92%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            border: 3px solid var(--gold);
+            direction: ltr;
+            text-align: left;
+            display: none;
         }
+        .details-modal .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+        }
+        .details-modal .details-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-blue);
+            font-size: 20px;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .details-modal .details-content-box {
+            background: #faf6f0;
+            padding: 18px;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            border-right: none;
+            white-space: pre-wrap;
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .details-modal .details-actions {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 2px solid var(--gold);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .details-modal .details-actions .close-btn {
+            padding: 10px 24px;
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+        .details-modal .details-actions .close-btn:hover { background: var(--light-gold); }
 
-        /* ============================================================
-           SECTION 15: PRINT STYLES
-           ============================================================ */
         @media print {
-            body { background: #fff; padding: 0; }
-            .controls { display: none !important; }
-            .menu-toggle-btn { display: none !important; }
-            .menu-panel { display: none !important; }
-            .page {
-                width: 100%;
-                min-height: 100vh;
-                box-shadow: none;
-                border-radius: 0;
-                padding: 8mm 10mm;
-                margin: 0;
-                page-break-after: always;
+            .app-header, .controls, .menu-panel, .zoom-controls,
+            .save-options-modal, .modal-overlay, .tips-overlay,
+            .menu-toggle-btn, .header-spacer, .tips-btn {
+                display: none !important;
             }
-            .app-wrapper { zoom: 1 !important; }
-            .tree-container { font-size: 11px; line-height: 1.8; }
-            #memberModalOverlay { display: none !important; }
-            .member-modal { display: none !important; }
-            #saveOptionsModal { display: none !important; }
-            #saveModalOverlay { display: none !important; }
+            .page {
+                zoom: 1 !important;
+                transform: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                min-height: auto !important;
+                padding: 15px !important;
+            }
+            body { background: white !important; padding: 0 !important; }
+            .app-wrapper {
+                width: 100% !important;
+                height: auto !important;
+                border-radius: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .header-title { font-size: 13px; }
+            .header-title span { display: inline; font-size: 12px; }
+            .header-icon { width: 24px; height: 24px; font-size: 12px; }
+            .menu-toggle-btn { padding: 5px 10px; font-size: 11px; }
+            .controls .search-box input { font-size: 12px; padding: 8px 10px; }
+            .search-row { flex-wrap: wrap; gap: 8px; }
+            .search-label { font-size: 11px; min-width: 50px; }
+            .search-wrapper { flex: 1; min-width: 150px; }
+        }
+
+        @media screen and (max-width: 360px) {
+            .header-title span { font-size: 10px; }
+            .header-title { font-size: 11px; }
+            .header-icon { width: 20px; height: 20px; font-size: 10px; }
+            .menu-toggle-btn { padding: 4px 8px; font-size: 10px; }
         }
 
 
-
-/* MAKE BORDERS VISIBLE */
-.tree-row {
-    border: 1px solid #333 !important;
-}
-.tree-row span {
-    border-right: 1px solid #333 !important;
-}
-.tree-row span:last-child {
-    border-right: none !important;
-}
-.col-headers span {
-    border-right: 1px solid #333 !important;
-}
-.col-headers span:last-child {
-    border-right: none !important;
-}
-.col-headers {
-    border: 2px solid #333 !important;
-}
-
-
+        .page, .page * {
+            font-family: 'Inter', sans-serif !important;
+        }
     </style>
 </head>
-
-
 <body>
 
-    <!-- ============================================================
-         HTML SECTION 1: MENU PANEL
-         ============================================================ -->
-<div class="menu-panel" id="menuPanel">
-    <div class="menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
-    <div class="menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 Save</div>
-</div>
-
-<!-- ============================================================
-     HTML SECTION 2: APP WRAPPER
-     ============================================================ -->
-<div class="app-wrapper">
-
-
-
-    <!-- ============================================================
-         HTML SECTION 3: APP HEADER
-         ============================================================ -->
-    <div class="app-header">
-        <div class="menu-toggle-btn" onclick="toggleMenu()">☰ MENU</div>
-        <div class="header-title">
-            <span class="header-icon">🌿</span>
-            <span>Rizvi Family Tree</span>
-        </div>
-        <div class="header-spacer"></div>
+    <div class="zoom-controls" id="zoomControls">
+        <div class="zoom-btn" onclick="zoomIn()">+</div>
+        <div class="zoom-level" id="zoomLevel">70%</div>
+        <div class="zoom-btn" onclick="zoomOut()">-</div>
+        <div class="zoom-btn" onclick="resetZoom()">↺</div>
     </div>
 
+    <div class="menu-panel" id="menuPanel">
+        <div class="menu-item zoom-toggle" onclick="toggleZoomControls()">🔍 Zoom Controls</div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="menu-item" onclick="goToDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
+        <div class="menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 Save</div>
+        <div class="menu-item" onclick="openTips()" style="background: #FFD700; color: black; border-color: #FFD700;">💡 Tips</div>
+    </div>
 
+    <div class="app-wrapper">
+        <div class="app-header">
+            <div class="menu-toggle-btn" onclick="toggleMenu()">☰ Menu</div>
+            <div class="header-title">
+                <span class="header-icon">🌿</span>
+                <span>Rizvi Family · Family Tree</span>
+            </div>
+            <div class="header-stats" id="headerStats"></div>
+        </div>
 
-    <!-- ============================================================
-         HTML SECTION 4: CONTROLS / SEARCH BAR
-         ============================================================ -->
-    <div class="controls">
-        <div style="width:85%; margin:0 auto;">
-            <div class="search-row">
-                <span class="search-label">SEARCH</span>
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-                    <div id="searchDropdown" class="search-dropdown"></div>
-                </div>
-                <button class="reset-btn" onclick="clearSearch()">🔄 Reset</button>
-                <button class="tips-btn" onclick="openTips()">💡</button>
-                <div class="view-toggle">
-                    <button id="treeViewBtn" onclick="switchView('tree')">🌳 Tree</button>
-                    <button id="tableViewBtn" class="active" onclick="switchView('table')">📋 Table</button>
+        <div class="controls">
+            <div style="width:85%; margin:0 auto;">
+                <div class="search-row">
+                    <span class="search-label">Search Name</span>
+                    <div class="search-wrapper">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Type name..." autocomplete="off" />
+                            <button class="clear-btn" onclick="clearSearch()">🔄 Reset</button>
+                        </div>
+                        <div class="search-dropdown" id="searchDropdown"></div>
+                    </div>
                 </div>
             </div>
-<!-- Stats and Error below the search row (centered like file 03) -->
-<div style="display:flex; justify-content:center; align-items:center; margin-top:8px; padding-top:8px; border-top:1px solid #e0d6c8; position:relative;">
-    <span class="stats" id="stats"></span>
-    <span class="error-msg" id="errorMsg" style="position:absolute; right:0;"></span>
-</div>
 
-    <!-- ============================================================
-         HTML SECTION 5: PAGE CONTENT
-         ============================================================ -->
-    <div class="page" id="pageContainer">
-        <div class="no-data">Loading family data...</div>
+            <div style="width:85%; margin:0 auto; border-bottom: 2px solid var(--gold); padding-bottom: 12px;">
+                <div style="display:flex; justify-content:center; align-items:center; position:relative;">
+                </div>
+                <div style="text-align:center; margin-top:4px;">
+                    <span class="error-msg" id="errorMsg"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="pageContainer">
+            <div class="no-data">Loading family data...</div>
+        </div>
     </div>
 
-</div>
-<!-- END OF APP WRAPPER -->
-
-    
-    <!-- ============================================================
-         HTML SECTION 6: SAVE OPTIONS MODAL
-         ============================================================ -->
     <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
     <div class="save-options-modal" id="saveOptionsModal">
         <h3>💾 Save Family Tree</h3>
-
         <div style="margin-bottom:15px;">
-            <div style="font-weight:600; margin-bottom:8px; color:var(--dark-blue); font-size:14px;">Select Save Mode:</div>
-
+            <div style="font-weight:600; margin-bottom:8px; color:var(--dark-blue); font-size:14px; font-family:'Inter', sans-serif;">Select Save Mode:</div>
             <label class="save-mode-label">
                 <input type="radio" name="saveMode" value="screen" checked />
-                <span class="label-title">💾 On screen page</span>
+                <span class="label-title">💾 Current page</span>
                 <span class="label-desc">Save ONLY the currently visible page</span>
             </label>
-
             <label class="save-mode-label">
                 <input type="radio" name="saveMode" value="selected" />
                 <span class="label-title">💾 Selected member pages</span>
-                <span class="label-desc">Save pages from root to the selected member (skip unrelated pages)</span>
+                <span class="label-desc">Save pages from root to the selected member</span>
             </label>
-
             <label class="save-mode-label">
                 <input type="radio" name="saveMode" value="all" />
                 <span class="label-title">💾 All pages</span>
-                <span class="label-desc">Save ALL pages in the family tree (one big PDF)</span>
+                <span class="label-desc">Save ALL pages in the family tree</span>
             </label>
         </div>
 
-        <div class="format-section">
-            <div style="font-weight:600; margin-bottom:6px; color:var(--dark-blue); font-size:13px;">Format:</div>
-            <label class="format-label">
-                <input type="radio" name="saveFormat" value="pdf-high" checked />
-                📑 PDF - High Resolution (Best for printing)
-            </label>
-            <label class="format-label">
-                <input type="radio" name="saveFormat" value="pdf-low" />
-                📑 PDF - Low Resolution (Good for sharing)
-            </label>
-            <label class="format-label">
-                <input type="radio" name="saveFormat" value="jpeg" />
-                📸 JPEG Image (Universal format)
-            </label>
-        </div>
+
+<div id="rangeSection" style="display:none; margin:10px 0; padding:12px; background:#f8f5f0; border-radius:8px;">
+    <div style="font-weight:600; margin-bottom:8px; color:var(--dark-blue); font-size:13px; font-family:'Inter',sans-serif;">Page Range:</div>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <label style="font-size:13px; font-family:'Inter',sans-serif;">From:</label>
+        <input type="number" id="fromPage" value="1" min="1" style="width:70px; padding:5px 8px; border:2px solid #cbd5e1; border-radius:4px; font-size:13px; text-align:center;">
+        <label style="font-size:13px; font-family:'Inter',sans-serif;">To:</label>
+        <input type="number" id="toPage" value="1" min="1" style="width:70px; padding:5px 8px; border:2px solid #cbd5e1; border-radius:4px; font-size:13px; text-align:center;">
+        <span id="rangeTotalPages" style="font-size:12px; color:#6b5a48; font-family:'Inter',sans-serif;"></span>
+    </div>
+</div>
+
+
+
+
+<div class="format-section">
+    <div style="font-weight:600; margin-bottom:6px; color:var(--dark-blue); font-size:13px; font-family:'Inter',sans-serif;">Format:</div>
+    <div style="padding:10px 14px; background:#f0f7f0; border-radius:6px; font-size:14px; color:#2e7d32; font-weight:600; font-family:'Inter',sans-serif;">
+        📑 PDF - High Resolution
+    </div>
+    <input type="hidden" name="saveFormat" value="pdf-high" />
+</div>
+
 
         <div class="modal-actions">
             <button class="save-btn" onclick="processSave()">💾 Save</button>
@@ -1346,9 +1137,6 @@ body {
         </div>
     </div>
 
-    <!-- ============================================================
-         HTML SECTION 7: MEMBER DETAIL MODAL
-         ============================================================ -->
     <div id="memberModalOverlay" onclick="closeMemberModal()"></div>
     <div class="member-modal" id="memberModal">
         <div class="modal-content">
@@ -1356,15 +1144,38 @@ body {
         </div>
     </div>
 
-    <!-- ============================================================
-         JAVASCRIPT SECTION 1: LOAD DATA
-         ============================================================ -->
-    <script src="20-Family-Data-E.js"></script>
+    <div class="details-modal" id="detailsModal">
+        <div class="details-header">
+            <h2 id="detailsModalTitle">📝 Details</h2>
+            <span style="font-size:12px; color:#6b5a48; font-family:'Inter',sans-serif;"></span>
+        </div>
+        <div class="details-body">
+            <div class="details-content-box" id="detailsModalContent">Loading details...</div>
+        </div>
+        <div class="details-actions">
+            <button class="close-btn" onclick="closeDetailsModal()">Close</button>
+        </div>
+    </div>
 
+    <div class="tips-overlay" id="tipsOverlay">
+        <div class="tips-modal">
+            <h3>💡 Usage Guide</h3>
+            <ul>
+                <li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
+                <li><strong>View Details</strong> <span>: Click any name to view full details</span></li>
+                <li><strong>Navigate Pages</strong> <span>: Click red "Page number" to go to that page</span></li>
+                <li><strong>Menu</strong> <span>: Click ☰ Menu (top-left) to access options</span></li>
+                <li><strong>Zoom</strong> <span>: Enable Zoom Controls from Menu</span></li>
+                <li><strong>Save</strong> <span>: From Menu, choose save mode</span></li>
+            </ul>
+            <button class="tips-close-btn" onclick="closeTips()">Close</button>
+        </div>
+    </div>
+
+    <script src="20-Family-Data-E.js"></script>
     <script>
-        // ============================================================
-        // JAVASCRIPT SECTION 2: DISPLAY NAME HELPER
-        // ============================================================
+        let fileInfo = { saved_time: '7/26/26 17:19' };
+
         function displayName(str) {
             if (!str) return '';
             let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
@@ -1372,9 +1183,11 @@ body {
             return cleaned;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 3: GLOBAL VARIABLES
-        // ============================================================
+        function formatCurrentTime() {
+            const d = new Date();
+            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'PM':'AM'}`;
+        }
+
         let globalMap = {};
         let globalPersonMap = {};
         let rootToPageMap = {};
@@ -1382,16 +1195,86 @@ body {
         let cachedPages = [];
         let familyData = null;
         let currentPageIndex = 0;
+        let pageLoaded = false;
+        let zoomLevel = 0.7;
+        let zoomVisible = false;
 
-        // ============================================================
-        // JAVASCRIPT SECTION 4: MENU FUNCTIONS
-        // ============================================================
+        function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2.0); applyZoom(); }
+        function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
+        function resetZoom() { zoomLevel = 0.7; applyZoom(); }
+
+        function applyZoom() {
+            const container = document.getElementById('pageContainer');
+            if (container) {
+                container.style.zoom = zoomLevel;
+                document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
+            }
+        }
+
+        function toggleZoomControls() {
+            zoomVisible = !zoomVisible;
+            const controls = document.getElementById('zoomControls');
+            if (zoomVisible) controls.classList.add('visible');
+            else controls.classList.remove('visible');
+            document.getElementById('menuPanel').classList.remove('show');
+        }
+
+        window.addEventListener('beforeprint', function() {
+            window._savedZoom = zoomLevel;
+            zoomLevel = 1.0;
+            applyZoom();
+        });
+
+        window.addEventListener('afterprint', function() {
+            zoomLevel = window._savedZoom !== undefined ? window._savedZoom : 1.0;
+            applyZoom();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            applyZoom();
+        });
+
         function toggleMenu() {
             document.getElementById('menuPanel').classList.toggle('show');
         }
 
         function goToDashboard() {
-            window.location.href = '00-Dashboard-E.html';
+            window.location.href = '00-Dashboard-U.html';
         }
 
         function showSaveOptions() {
@@ -1405,505 +1288,637 @@ body {
             document.getElementById('saveModalOverlay').style.display = 'none';
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 5: EXPORT FUNCTIONS
-        // ============================================================
-
-        function exportTreePDF(quality) {
-            const pageElement = document.getElementById('pageContainer');
-            if (!pageElement) {
-                alert('❌ No page to save!');
-                return;
-            }
-
-            html2canvas(pageElement, {
-                scale: quality === 'high' ? 2.0 : 1.0,
-                backgroundColor: '#ffffff',
-                useCORS: true,
-                logging: false
-            }).then(canvas => {
-                const { jsPDF } = window.jspdf;
-                const imgWidth = canvas.width;
-                const imgHeight = canvas.height;
-                const mmWidth = imgWidth * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
-                const mmHeight = imgHeight * 0.264583 / (quality === 'high' ? 2.0 : 1.0);
-
-                const pdf = new jsPDF({
-                    orientation: mmWidth > mmHeight ? 'l' : 'p',
-                    unit: 'mm',
-                    format: [mmWidth + 20, mmHeight + 20]
-                });
-
-                const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
-                pdf.addImage(imgData, 'JPEG', 10, 10, mmWidth, mmHeight, undefined, 'FAST');
-
-                const fileName = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.pdf`;
-                pdf.save(fileName);
-                alert(`✅ Saved current page as "${fileName}"`);
-            }).catch(err => {
-                alert('❌ Error generating PDF: ' + err.message);
-                console.error('PDF Export Error:', err);
-            });
-        }
-
-        function exportAsJPEG() {
-            const pageElement = document.getElementById('pageContainer');
-            if (!pageElement) {
-                alert('❌ No page to save!');
-                return;
-            }
-
-            html2canvas(pageElement, {
-                scale: 1.5,
-                backgroundColor: '#ffffff',
-                useCORS: true,
-                logging: false
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/jpeg', 0.9);
-                const link = document.createElement('a');
-                link.download = `family_tree_page_${currentPageIndex + 1}_${Date.now()}.jpg`;
-                link.href = imgData;
-                link.click();
-                alert(`✅ Saved current page as JPEG`);
-            }).catch(err => {
-                alert('❌ Error generating JPEG: ' + err.message);
-                console.error('JPEG Export Error:', err);
-            });
-        }
-
-        // ============================================================
-        // JAVASCRIPT SECTION 6: SAVE FUNCTIONS
-        // ============================================================
-
         function getSelectedSaveMode() {
             const selected = document.querySelector('input[name="saveMode"]:checked');
             return selected ? selected.value : 'screen';
         }
 
-        function getSelectedFormat() {
-            const selected = document.querySelector('input[name="saveFormat"]:checked');
-            return selected ? selected.value : 'pdf-high';
+
+
+document.querySelectorAll('input[name="saveMode"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        var rangeSection = document.getElementById('rangeSection');
+        if (this.value === 'all') {
+            rangeSection.style.display = 'block';
+            var totalPages = cachedPages.length || 1;
+            document.getElementById('toPage').value = totalPages;
+            document.getElementById('rangeTotalPages').textContent = '(Total pages: ' + totalPages + ')';
+        } else {
+            rangeSection.style.display = 'none';
         }
+    });
+});
+
 
         function getCurrentMemberName() {
             if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) return null;
-            const page = cachedPages[currentPageIndex];
-            return page.root || null;
-        }
-
-        function getCurrentMemberPerson() {
-            const name = getCurrentMemberName();
-            if (!name) return null;
-            return globalPersonMap[name] || null;
-        }
-
-        function isAncestorPage(pageRoot, memberName, visited) {
-            if (pageRoot === memberName) return true;
-
-            const person = globalPersonMap[pageRoot];
-            if (!person || !person.father) return false;
-
-            const fatherName = person.father.trim();
-            if (!fatherName) return false;
-
-            if (fatherName === memberName) return true;
-
-            const fatherPageIndex = rootToPageMap[fatherName];
-            if (fatherPageIndex === undefined) return false;
-
-            if (visited.has(fatherName)) return false;
-            visited.add(fatherName);
-
-            const fatherPage = cachedPages[fatherPageIndex];
-            if (!fatherPage) return false;
-
-            if (fatherName === memberName) return true;
-
-            return isAncestorPage(fatherName, memberName, visited);
+            return cachedPages[currentPageIndex].root || null;
         }
 
         function getAncestorPages(memberName) {
             const result = [];
             const visited = new Set();
-            
             let currentName = memberName;
             let chain = [];
-            
+
             while (currentName) {
                 chain.push(currentName);
                 const person = globalPersonMap[currentName];
-                if (!person || !person.father || person.father.trim() === '') {
-                    break;
-                }
+                if (!person || !person.father || person.father.trim() === '') break;
                 currentName = person.father.trim();
-                
                 if (visited.has(currentName)) break;
                 visited.add(currentName);
             }
-            
+
             for (let i = chain.length - 1; i >= 0; i--) {
                 const name = chain[i];
                 for (let j = 0; j < cachedPages.length; j++) {
                     if (cachedPages[j].root === name) {
-                        if (!result.includes(j)) {
-                            result.push(j);
-                        }
+                        if (!result.includes(j)) result.push(j);
                         break;
                     }
                 }
             }
-            
+
             result.sort((a, b) => a - b);
             return result;
         }
 
-        function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
-            const footer = pageElement.querySelector('.page-footer');
-            if (footer) {
-                const counterDiv = document.createElement('div');
-                counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right;';
-                counterDiv.textContent = `Page ${actualPageNum} of ${totalPages} (${filteredPageNum})`;
-                footer.appendChild(counterDiv);
-            }
-            return pageElement;
+function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
+    const footer = pageElement.querySelector('.page-footer');
+    if (footer) {
+        const counterDiv = document.createElement('div');
+        counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
+        counterDiv.textContent = `Page ${actualPageNum} of ${totalPages} (${filteredPageNum})`;
+        footer.appendChild(counterDiv);
+    }
+    return pageElement;
+}
+
+
+
+
+
+function processSave() {
+    const saveMode = getSelectedSaveMode();
+    const searchInput = document.getElementById('searchInput');
+    const searchedName = searchInput ? searchInput.value.trim() : '';
+    closeSaveModal();
+
+    if (saveMode === 'screen') {
+        exportTreePDF(searchedName);
+    } else if (saveMode === 'selected') {
+        const memberName = getCurrentMemberName();
+        if (!memberName) {
+            alert('No member selected! Please search for a member first.');
+            return;
+        }
+        const displayNameToUse = searchedName || memberName;
+        saveSelectedMemberPages(memberName, displayNameToUse);
+    } else if (saveMode === 'all') {
+        var fromPage = parseInt(document.getElementById('fromPage').value) || 1;
+        var toPage = parseInt(document.getElementById('toPage').value) || cachedPages.length;
+        if (fromPage < 1) fromPage = 1;
+        if (toPage > cachedPages.length) toPage = cachedPages.length;
+        if (fromPage > toPage) {
+            alert('From page cannot be greater than To page!');
+            return;
+        }
+        saveAllPages(fromPage, toPage);
+    }
+}
+
+
+
+
+
+async function exportTreePDF(searchedName) {
+    const pageElement = document.getElementById('pageContainer');
+    if (!pageElement) {
+        alert('❌ Page not found!');
+        return;
+    }
+
+    // 🔥 Save current zoom and set to 1
+    const currentZoom = zoomLevel;
+    zoomLevel = 1.0;
+    applyZoom();
+
+    const memberName = searchedName || getCurrentMemberName() || 'Family';
+
+    const loadingMsg = document.createElement('div');
+    loadingMsg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#5a0000;color:white;padding:15px 30px;border-radius:8px;z-index:9999;font-size:14px;font-family:"Inter",sans-serif';
+    loadingMsg.textContent = '📄 Creating PDF... (High Resolution)';
+    document.body.appendChild(loadingMsg);
+
+    try {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
+        document.body.appendChild(wrapper);
+
+        const clone = pageElement.cloneNode(true);
+        clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white';
+        wrapper.appendChild(clone);
+
+        const header = document.createElement('div');
+        header.style.cssText = 'margin-bottom:20px;text-align:center';
+        header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;font-family:"Playfair Display",serif;">Rizvi Family Tree</h1>
+            <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">${displayName(memberName)}</h2>`;
+        wrapper.insertBefore(header, wrapper.firstChild);
+
+        const footer = document.createElement('div');
+        footer.className = 'page-footer';
+        footer.style.cssText = 'margin-top:20px;padding:12px;background:#fcf9f4;text-align:center;font-size:10px;font-family:"Inter",sans-serif';
+
+        const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+        footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 6010-787-0332</div>
+            <div>Last Updated: ${excelSavedTime} | PDF Generated: ${formatCurrentTime()}</div>`;
+        wrapper.appendChild(footer);
+
+        const counterDiv = document.createElement('div');
+        counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
+        counterDiv.textContent = `Page 1 of 1`;
+        footer.appendChild(counterDiv);
+
+        await new Promise(resolve => setTimeout(resolve, 400));
+
+        const canvas = await html2canvas(wrapper, {
+            scale: 2.5,
+            backgroundColor: '#ffffff',
+            logging: false,
+            useCORS: true,
+            windowWidth: wrapper.scrollWidth,
+            windowHeight: wrapper.scrollHeight
+        });
+
+        document.body.removeChild(wrapper);
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 12;
+        const contentWidth = pageWidth - (margin * 2);
+        const contentHeight = pageHeight - (margin * 2);
+
+        const imgWidth = contentWidth;
+        const imgHeight = (canvas.height / canvas.width) * contentWidth;
+        const totalPages = Math.ceil(imgHeight / contentHeight);
+
+        for (let i = 0; i < totalPages; i++) {
+            if (i > 0) pdf.addPage();
+            
+            const yOffset = i * contentHeight;
+            const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
+            
+            const srcY = (yOffset / imgHeight) * canvas.height;
+            const srcHeight = (remainingHeight / imgHeight) * canvas.height;
+            
+            const pageCanvas = document.createElement('canvas');
+            pageCanvas.width = canvas.width;
+            pageCanvas.height = srcHeight;
+            const ctx = pageCanvas.getContext('2d');
+            ctx.drawImage(canvas, 0, srcY, canvas.width, srcHeight, 0, 0, canvas.width, srcHeight);
+            
+            const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
         }
 
-        function processSave() {
-            const saveMode = getSelectedSaveMode();
-            const format = getSelectedFormat();
+        const safeName = memberName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        pdf.save(`table_${safeName}_${Date.now()}.pdf`);
+        
+        document.body.removeChild(loadingMsg);
+        alert(`✅ PDF saved!\nTotal ${totalPages} A4 pages`);
 
-            closeSaveModal();
+    } catch (err) {
+        console.error('PDF Error:', err);
+        document.body.removeChild(loadingMsg);
+        alert('❌ PDF could not be created: ' + err.message);
+    }
 
-            if (saveMode === 'screen') {
-                const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
-                if (format === 'jpeg') {
-                    exportAsJPEG();
-                } else {
-                    exportTreePDF(quality);
-                }
-            } else if (saveMode === 'selected') {
-                const memberName = getCurrentMemberName();
-                if (!memberName) {
-                    alert('No member selected! Please search for a member first.');
-                    return;
-                }
-                const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
-                if (format === 'jpeg') {
-                    saveSelectedMemberPagesAsJPEG(memberName);
-                } else {
-                    saveSelectedMemberPages(quality, memberName);
-                }
-            } else if (saveMode === 'all') {
-                const quality = format === 'pdf-high' ? 'high' : (format === 'pdf-low' ? 'low' : 'jpeg');
-                if (format === 'jpeg') {
-                    saveAllPagesAsJPEG();
-                } else {
-                    saveAllPages(quality);
-                }
-            }
+    // 🔥 Restore zoom
+    zoomLevel = currentZoom;
+    applyZoom();
+}
+
+function saveSelectedMemberPages(memberName, displayNameToUse) {
+    const ancestorPageIndices = getAncestorPages(memberName);
+
+    if (ancestorPageIndices.length === 0) {
+        alert('No ancestor pages found for: ' + displayName(memberName));
+        return;
+    }
+
+    const totalFullPages = cachedPages.length;
+    let filteredCount = 0;
+    let capturedPages = [];
+
+    function capturePage(index) {
+        return new Promise((resolve, reject) => {
+            const pageIndex = ancestorPageIndices[index];
+            const actualPageNum = pageIndex + 1;
+            filteredCount++;
+
+            const originalPageIndex = currentPageIndex;
+            currentPageIndex = pageIndex;
+            renderPage();
+
+            const pageElement = document.getElementById('pageContainer');
+
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
+            document.body.appendChild(wrapper);
+
+            // Clone page content
+            const clone = pageElement.cloneNode(true);
+            clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white;overflow:visible;height:auto;';
+            wrapper.appendChild(clone);
+
+            // Add header
+            const header = document.createElement('div');
+            header.style.cssText = 'margin-bottom:20px;text-align:center';
+            header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;font-family:"Playfair Display",serif;">Rizvi Family Tree</h1>
+                <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">${displayName(displayNameToUse)}</h2>`;
+            wrapper.insertBefore(header, wrapper.firstChild);
+
+            // Add footer
+            const footer = document.createElement('div');
+            footer.style.cssText = 'margin-top:20px;padding:12px;background:#fcf9f4;text-align:center;font-size:10px;font-family:"Inter",sans-serif';
+            const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+            footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 6010-787-0332</div>
+                <div>Last Updated: ${excelSavedTime} | PDF Generated: ${formatCurrentTime()}</div>`;
+            wrapper.appendChild(footer);
+
+
+            // Add page counter
+            const counterDiv = document.createElement('div');
+            counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
+            counterDiv.textContent = `Page ${actualPageNum} of ${totalFullPages} (${filteredCount})`;
+
+
+footer.appendChild(counterDiv);
+
+            setTimeout(() => {
+                html2canvas(wrapper, {
+                    scale: 2.5,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    logging: false,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                }).then(canvas => {
+                    document.body.removeChild(wrapper);
+                    capturedPages.push(canvas);
+                    currentPageIndex = originalPageIndex;
+                    renderPage();
+                    resolve();
+                }).catch(err => {
+                    document.body.removeChild(wrapper);
+                    reject(err);
+                });
+            }, 500);
+        });
+    }
+
+    async function captureAll() {
+        for (let i = 0; i < ancestorPageIndices.length; i++) {
+            await capturePage(i);
         }
 
-        function saveSelectedMemberPages(quality, memberName) {
-            const ancestorPageIndices = getAncestorPages(memberName);
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 12;
+        const contentWidth = pageWidth - (margin * 2);
+        const contentHeight = pageHeight - (margin * 2);
 
-            if (ancestorPageIndices.length === 0) {
-                alert('No ancestor pages found for: ' + displayName(memberName));
+        let totalA4Pages = 0;
+
+        capturedPages.forEach((canvas, idx) => {
+            const imgWidth = contentWidth;
+            const imgHeight = (canvas.height / canvas.width) * contentWidth;
+            const totalPagesForThis = Math.ceil(imgHeight / contentHeight);
+
+            for (let i = 0; i < totalPagesForThis; i++) {
+                if (idx > 0 || i > 0) pdf.addPage();
+                
+                const yOffset = i * contentHeight;
+                const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
+                
+                const srcY = (yOffset / imgHeight) * canvas.height;
+                const srcHeight = (remainingHeight / imgHeight) * canvas.height;
+                
+                const pageCanvas = document.createElement('canvas');
+                pageCanvas.width = canvas.width;
+                pageCanvas.height = srcHeight;
+                const ctx = pageCanvas.getContext('2d');
+                ctx.drawImage(canvas, 0, srcY, canvas.width, srcHeight, 0, 0, canvas.width, srcHeight);
+                
+                const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
+                totalA4Pages++;
+            }
+        });
+
+        const fileName = `${displayNameToUse}_ancestor_pages_${Date.now()}.pdf`;
+        pdf.save(fileName);
+        alert(`✅ ${capturedPages.length} pages (${totalA4Pages} A4 pages) saved as "${fileName}"`);
+    }
+
+    captureAll().catch(err => {
+        alert('❌ Error saving selected member pages: ' + err.message);
+        console.error(err);
+    });
+}
+      
+
+
+
+
+function saveAllPages(fromPage, toPage) {
+    fromPage = fromPage || 1;
+    toPage = toPage || cachedPages.length;
+    const totalPages = cachedPages.length;
+    let capturedPages = [];
+
+    function capturePage(index) {
+        return new Promise((resolve, reject) => {
+            const actualPageNum = index + 1;
+            const originalPageIndex = currentPageIndex;
+            currentPageIndex = index;
+            renderPage();
+
+            const pageElement = document.getElementById('pageContainer');
+
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
+            document.body.appendChild(wrapper);
+
+            // Clone page content
+            const clone = pageElement.cloneNode(true);
+            clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white;overflow:visible;height:auto;';
+            wrapper.appendChild(clone);
+
+            // Add header (only for first page)
+            let header = null;
+            if (index === 0) {
+                header = document.createElement('div');
+                header.style.cssText = 'margin-bottom:20px;text-align:center';
+                header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;font-family:"Playfair Display",serif;">Rizvi Family Tree</h1>
+                    <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">Complete Family Tree</h2>`;
+                wrapper.insertBefore(header, wrapper.firstChild);
+            }
+
+            // Add footer (only for last page)
+            let footer = null;
+            if (index === totalPages - 1) {
+                footer = document.createElement('div');
+                footer.style.cssText = 'margin-top:20px;padding:12px;background:#fcf9f4;text-align:center;font-size:10px;font-family:"Inter",sans-serif';
+                const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+                footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 6010-787-0332</div>
+                    <div>Last Updated: ${excelSavedTime} | PDF Generated: ${formatCurrentTime()}</div>`;
+                wrapper.appendChild(footer);
+            }
+
+            // Add page counter
+            const counterDiv = document.createElement('div');
+counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
+counterDiv.textContent = `Page ${actualPageNum} of ${totalPages}`;
+wrapper.appendChild(counterDiv);
+
+            const savedZoom = pageElement.style.zoom || '1.0';
+            pageElement.style.zoom = '1.0';
+            pageElement.style.transform = 'none';
+
+            setTimeout(() => {
+                html2canvas(wrapper, {
+                    scale: 2.5,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    logging: false,
+                    windowWidth: wrapper.scrollWidth,
+                    windowHeight: wrapper.scrollHeight
+                }).then(canvas => {
+                    document.body.removeChild(wrapper);
+                    pageElement.style.zoom = savedZoom;
+                    capturedPages.push(canvas);
+                    currentPageIndex = originalPageIndex;
+                    renderPage();
+                    resolve();
+                }).catch(err => {
+                    document.body.removeChild(wrapper);
+                    pageElement.style.zoom = savedZoom;
+                    reject(err);
+                });
+            }, 500);
+        });
+    }
+
+    async function captureAll() {
+        for (let i = fromPage - 1; i < toPage; i++) {
+            await capturePage(i);
+        }
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 12;
+        const contentWidth = pageWidth - (margin * 2);
+        const contentHeight = pageHeight - (margin * 2);
+
+        let totalA4Pages = 0;
+
+        capturedPages.forEach((canvas, idx) => {
+            const imgWidth = contentWidth;
+            const imgHeight = (canvas.height / canvas.width) * contentWidth;
+            const totalPagesForThis = Math.ceil(imgHeight / contentHeight);
+
+            for (let i = 0; i < totalPagesForThis; i++) {
+                if (idx > 0 || i > 0) pdf.addPage();
+                
+                const yOffset = i * contentHeight;
+                const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
+                
+                const srcY = (yOffset / imgHeight) * canvas.height;
+                const srcHeight = (remainingHeight / imgHeight) * canvas.height;
+                
+                const pageCanvas = document.createElement('canvas');
+                pageCanvas.width = canvas.width;
+                pageCanvas.height = srcHeight;
+                const ctx = pageCanvas.getContext('2d');
+                ctx.drawImage(canvas, 0, srcY, canvas.width, srcHeight, 0, 0, canvas.width, srcHeight);
+                
+                const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+                pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
+                totalA4Pages++;
+            }
+        });
+
+        const fileName = `family_tree_all_pages_${Date.now()}.pdf`;
+        pdf.save(fileName);
+        alert(`✅ All ${capturedPages.length} pages (${totalA4Pages} A4 pages) saved as "${fileName}"`);
+    }
+
+    captureAll().catch(err => {
+        alert('❌ Error saving all pages: ' + err.message);
+        console.error(err);
+    });
+}
+
+
+
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function findMemberPage(memberName) {
+            const searchLower = memberName.trim().toLowerCase();
+            if (!searchLower) return -1;
+
+            for (let i = 0; i < cachedPages.length; i++) {
+                const page = cachedPages[i];
+                if (page.root.toLowerCase() === searchLower) return i;
+            }
+
+            for (let i = 0; i < cachedPages.length; i++) {
+                const page = cachedPages[i];
+                if (page.root.toLowerCase().includes(searchLower)) return i;
+                const children = getChildren(page.root, globalMap);
+                for (let child of children) {
+                    if (child.toLowerCase().includes(searchLower)) return i;
+                }
+            }
+
+            return -1;
+        }
+
+        function searchMember() {
+            const input = document.getElementById('searchInput');
+            const query = input.value.trim();
+            if (!query) {
+                renderPage();
                 return;
             }
 
-            const totalFullPages = cachedPages.length;
-            let filteredCount = 0;
-            let capturedPages = [];
-
-            function capturePage(index) {
-                return new Promise((resolve, reject) => {
-                    const pageIndex = ancestorPageIndices[index];
-                    const actualPageNum = pageIndex + 1;
-                    filteredCount++;
-
-                    const originalPageIndex = currentPageIndex;
-                    currentPageIndex = pageIndex;
-                    renderPage();
-
-                    const pageElement = document.getElementById('pageContainer');
-                    addPageCounterToPage(pageElement, actualPageNum, totalFullPages, filteredCount);
-
-                    setTimeout(() => {
-                        html2canvas(pageElement, {
-                            scale: quality === 'high' ? 2.0 : 1.0,
-                            backgroundColor: '#ffffff',
-                            useCORS: true,
-                            logging: false
-                        }).then(canvas => {
-                            capturedPages.push(canvas);
-                            currentPageIndex = originalPageIndex;
-                            renderPage();
-                            resolve();
-                        }).catch(err => {
-                            reject(err);
-                        });
-                    }, 200);
-                });
-            }
-
-            async function captureAll() {
-                for (let i = 0; i < ancestorPageIndices.length; i++) {
-                    await capturePage(i);
-                }
-
-                const { jsPDF } = window.jspdf;
-                const firstCanvas = capturedPages[0];
-                const w = firstCanvas.width * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
-                const h = firstCanvas.height * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
-
-                const pdf = new jsPDF({
-                    orientation: w > h ? 'l' : 'p',
-                    unit: 'mm',
-                    format: [w + 40, h + 40]
-                });
-
-                capturedPages.forEach((canvas, idx) => {
-                    if (idx > 0) pdf.addPage();
-                    const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
-                    pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-                });
-
-                const fileName = `${displayName(memberName)}_ancestors_${Date.now()}.pdf`;
-                pdf.save(fileName);
-                alert(`✅ Saved ${capturedPages.length} pages for ${displayName(memberName)} as "${fileName}"`);
-            }
-
-            captureAll().catch(err => {
-                alert('❌ Error saving selected member pages: ' + err.message);
-                console.error(err);
-            });
-        }
-
-        function saveAllPages(quality) {
-            const totalPages = cachedPages.length;
-            let capturedPages = [];
-            let progress = 0;
-
-            function capturePage(index) {
-                return new Promise((resolve, reject) => {
-                    const actualPageNum = index + 1;
-                    const originalPageIndex = currentPageIndex;
-                    currentPageIndex = index;
-                    renderPage();
-
-                    const pageElement = document.getElementById('pageContainer');
-                    addPageCounterToPage(pageElement, actualPageNum, totalPages, actualPageNum);
-
-                    setTimeout(() => {
-                        html2canvas(pageElement, {
-                            scale: quality === 'high' ? 2.0 : 1.0,
-                            backgroundColor: '#ffffff',
-                            useCORS: true,
-                            logging: false
-                        }).then(canvas => {
-                            capturedPages.push(canvas);
-                            progress++;
-                            console.log(`Captured page ${progress}/${totalPages}`);
-                            currentPageIndex = originalPageIndex;
-                            renderPage();
-                            resolve();
-                        }).catch(err => {
-                            reject(err);
-                        });
-                    }, 200);
-                });
-            }
-
-            async function captureAll() {
-                const total = totalPages;
-
-                for (let i = 0; i < total; i++) {
-                    await capturePage(i);
-                }
-
-                const { jsPDF } = window.jspdf;
-                const firstCanvas = capturedPages[0];
-                const w = firstCanvas.width * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
-                const h = firstCanvas.height * (0.264583 / (quality === 'high' ? 2.0 : 1.0));
-
-                const pdf = new jsPDF({
-                    orientation: w > h ? 'l' : 'p',
-                    unit: 'mm',
-                    format: [w + 40, h + 40]
-                });
-
-                capturedPages.forEach((canvas, idx) => {
-                    if (idx > 0) pdf.addPage();
-                    const imgData = canvas.toDataURL('image/jpeg', quality === 'high' ? 0.95 : 0.7);
-                    pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-                });
-
-                const fileName = `family_tree_all_pages_${Date.now()}.pdf`;
-                pdf.save(fileName);
-                alert(`✅ Saved all ${capturedPages.length} pages as "${fileName}"`);
-            }
-
-            captureAll().catch(err => {
-                alert('❌ Error saving all pages: ' + err.message);
-                console.error(err);
-            });
-        }
-
-        function saveSelectedMemberPagesAsJPEG(memberName) {
-            const ancestorPageIndices = getAncestorPages(memberName);
-
-            if (ancestorPageIndices.length === 0) {
-                alert('No ancestor pages found for: ' + displayName(memberName));
+            const pageIndex = findMemberPage(query);
+            if (pageIndex === -1) {
+                document.getElementById('errorMsg').textContent = '⚠️ Member not found: "' + query + '"';
                 return;
             }
 
-            const totalFullPages = cachedPages.length;
-            let filteredCount = 0;
-            let capturedPages = [];
-
-            function capturePage(index) {
-                return new Promise((resolve, reject) => {
-                    const pageIndex = ancestorPageIndices[index];
-                    const actualPageNum = pageIndex + 1;
-                    filteredCount++;
-
-                    const originalPageIndex = currentPageIndex;
-                    currentPageIndex = pageIndex;
-                    renderPage();
-
-                    const pageElement = document.getElementById('pageContainer');
-                    addPageCounterToPage(pageElement, actualPageNum, totalFullPages, filteredCount);
-
-                    setTimeout(() => {
-                        html2canvas(pageElement, {
-                            scale: 1.5,
-                            backgroundColor: '#ffffff',
-                            useCORS: true,
-                            logging: false
-                        }).then(canvas => {
-                            capturedPages.push({ canvas, actualPageNum });
-                            currentPageIndex = originalPageIndex;
-                            renderPage();
-                            resolve();
-                        }).catch(err => {
-                            reject(err);
-                        });
-                    }, 200);
-                });
-            }
-
-            async function captureAll() {
-                for (let i = 0; i < ancestorPageIndices.length; i++) {
-                    await capturePage(i);
-                }
-
-                if (capturedPages.length === 1) {
-                    const data = capturedPages[0].canvas.toDataURL('image/jpeg', 0.9);
-                    const link = document.createElement('a');
-                    link.download = `${displayName(memberName)}_ancestor_page_${capturedPages[0].actualPageNum}.jpg`;
-                    link.href = data;
-                    link.click();
-                    alert(`✅ Saved 1 page as JPEG`);
-                } else {
-                    let downloadCount = 0;
-                    capturedPages.forEach((item, idx) => {
-                        setTimeout(() => {
-                            const data = item.canvas.toDataURL('image/jpeg', 0.9);
-                            const link = document.createElement('a');
-                            link.download = `${displayName(memberName)}_ancestor_page_${item.actualPageNum}.jpg`;
-                            link.href = data;
-                            link.click();
-                            downloadCount++;
-                            if (downloadCount === capturedPages.length) {
-                                alert(`✅ Saved ${capturedPages.length} pages as JPEGs`);
-                            }
-                        }, idx * 300);
-                    });
-                }
-            }
-
-            captureAll().catch(err => {
-                alert('❌ Error: ' + err.message);
-                console.error(err);
-            });
+            document.getElementById('errorMsg').textContent = '';
+            renderPage(query);
         }
 
-        function saveAllPagesAsJPEG() {
-            const totalPages = cachedPages.length;
-            let capturedPages = [];
-
-            function capturePage(index) {
-                return new Promise((resolve, reject) => {
-                    const actualPageNum = index + 1;
-                    const originalPageIndex = currentPageIndex;
-                    currentPageIndex = index;
-                    renderPage();
-
-                    const pageElement = document.getElementById('pageContainer');
-                    addPageCounterToPage(pageElement, actualPageNum, totalPages, actualPageNum);
-
-                    setTimeout(() => {
-                        html2canvas(pageElement, {
-                            scale: 1.5,
-                            backgroundColor: '#ffffff',
-                            useCORS: true,
-                            logging: false
-                        }).then(canvas => {
-                            capturedPages.push({ canvas, actualPageNum });
-                            currentPageIndex = originalPageIndex;
-                            renderPage();
-                            resolve();
-                        }).catch(err => {
-                            reject(err);
-                        });
-                    }, 200);
-                });
-            }
-
-            async function captureAll() {
-                for (let i = 0; i < totalPages; i++) {
-                    await capturePage(i);
-                }
-
-                if (capturedPages.length <= 5) {
-                    capturedPages.forEach((item, idx) => {
-                        setTimeout(() => {
-                            const data = item.canvas.toDataURL('image/jpeg', 0.9);
-                            const link = document.createElement('a');
-                            link.download = `family_tree_page_${item.actualPageNum}.jpg`;
-                            link.href = data;
-                            link.click();
-                            if (idx === capturedPages.length - 1) {
-                                alert(`✅ Saved ${capturedPages.length} pages as JPEGs`);
-                            }
-                        }, idx * 300);
-                    });
-                } else {
-                    alert(`📸 Saving ${capturedPages.length} JPEGs... They will download one by one.`);
-                    capturedPages.forEach((item, idx) => {
-                        setTimeout(() => {
-                            const data = item.canvas.toDataURL('image/jpeg', 0.9);
-                            const link = document.createElement('a');
-                            link.download = `family_tree_page_${item.actualPageNum}.jpg`;
-                            link.href = data;
-                            link.click();
-                            if (idx === capturedPages.length - 1) {
-                                alert(`✅ Saved ${capturedPages.length} pages as JPEGs`);
-                            }
-                        }, idx * 500);
-                    });
-                }
-            }
-
-            captureAll().catch(err => {
-                alert('❌ Error: ' + err.message);
-                console.error(err);
-            });
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('errorMsg').textContent = '';
+            document.getElementById('searchDropdown').style.display = 'none';
+            
+            const container = document.getElementById('pageContainer');
+            container.innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">Rizvi Family Tree</div>
+                        <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
+                    </div>
+                </div>
+            `;
+            currentPageIndex = 0;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 7: FAMILY TREE BUILDING FUNCTIONS
-        // ============================================================
+        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+            const query = this.value;
+            const dropdown = document.getElementById('searchDropdown');
+            if (query.length < 2) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            const results = db.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
+
+            dropdown.innerHTML = '';
+            if (results.length === 0) {
+                dropdown.innerHTML = '<div class="no-result">No results found</div>';
+                dropdown.style.display = 'block';
+                return;
+            }
+
+            results.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+
+                let pageIdx = -1;
+                for (let i = 0; i < cachedPages.length; i++) {
+                    if (cachedPages[i].root === member.name) {
+                        pageIdx = i;
+                        break;
+                    }
+                    const children = getChildren(cachedPages[i].root, globalMap);
+                    if (children.includes(member.name)) {
+                        pageIdx = i;
+                        break;
+                    }
+                }
+
+                const pageDisplay = pageIdx >= 0 ? ` · Page ${pageIdx + 1}` : '';
+
+                div.innerHTML = `
+                    <div>
+                        <span class="main-name">${displayName(member.name)}</span>
+                        <span class="gen">${member.gen || ''}</span>
+                        <span style="font-size:11px;color:#2e7d32;">${pageDisplay}</span>
+                        <div class="father-name">Father: ${displayName(member.father) || '—'}</div>
+                    </div>
+                `;
+                div.onclick = () => {
+                    let targetPage = -1;
+                    for (let i = 0; i < cachedPages.length; i++) {
+                        if (cachedPages[i].root === member.name) {
+                            targetPage = i;
+                            break;
+                        }
+                        const children = getChildren(cachedPages[i].root, globalMap);
+                        if (children.includes(member.name)) {
+                            targetPage = i;
+                            break;
+                        }
+                    }
+                    if (targetPage >= 0) {
+                        currentPageIndex = targetPage;
+                        renderPage(displayName(member.name));
+                        dropdown.style.display = 'none';
+                        this.value = displayName(member.name);
+                    }
+                };
+                dropdown.appendChild(div);
+            });
+            dropdown.style.display = 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchDropdown').style.display = 'none';
+            }
+            if (!e.target.closest('.menu-panel') && !e.target.closest('.menu-toggle-btn')) {
+                document.getElementById('menuPanel').classList.remove('show');
+            }
+            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+                document.getElementById('saveOptionsModal').style.display = 'none';
+                document.getElementById('saveModalOverlay').style.display = 'none';
+            }
+            if (e.target === document.getElementById('tipsOverlay')) {
+                document.getElementById('tipsOverlay').style.display = 'none';
+            }
+        });
+
         function buildFamilyMap(data) {
             const map = {};
             const personMap = {};
@@ -1965,9 +1980,6 @@ body {
             return null;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 8: PAGE GENERATION
-        // ============================================================
         function generatePages(data) {
             const { map, personMap } = buildFamilyMap(data);
             const pages = [];
@@ -2043,9 +2055,6 @@ body {
             return pages;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 9: PAGE NAVIGATION
-        // ============================================================
         function goToPage(pageIndex) {
             if (pageIndex < 0 || pageIndex >= cachedPages.length) return;
             currentPageIndex = pageIndex;
@@ -2053,31 +2062,27 @@ body {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 10: RENDER PAGE CONTENT (DATA)
-        // ============================================================
         function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
             const person = personMap[name];
             const children = getChildren(name, map);
             const isFather = hasChildren(name, map);
             const isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
-            
+
             let rows = [];
             let fatherClass = (isFather ? 'father-red' : 'father-normal') + (isFemale ? ' female' : '');
 
             const fullName = name;
             const cleanName = displayName(name);
             const rootGen = (person && person.gen ? person.gen : '');
-            
+
             const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
             const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
-            
+
             const rootFather = getActualFather(name, personMap);
             let rootPagePart = '';
-            
+
             if (rootFather && rootToPageMap[rootFather] !== undefined) {
                 const fatherPage = rootToPageMap[rootFather];
-                const fatherDisplay = displayName(rootFather);
                 rootPagePart = ` (Father) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">Page ${fatherPage + 1}</span>`;
             } else if (rootFather) {
                 rootPagePart = ` (Father)`;
@@ -2085,62 +2090,62 @@ body {
 
             rows.push({
                 tree: '',
-                name: '<span class="' + fatherClass + '">' + cleanName + rootPagePart + '</span>',
+                name: cleanName + rootPagePart,
                 plainName: fullName,
+                isFather: isFather,
+                isFemale: isFemale,
                 spouse: cleanSpouse,
                 plainSpouse: rootSpouse,
                 gen: rootGen,
-                page: ''
+                page: '',
+                fatherClass: fatherClass
             });
 
             if (isFather && children.length > 0) {
-                children.forEach((child, index) => {
-                    const isLast = index === children.length - 1;
+                children.forEach((child) => {
                     const childPerson = personMap[child];
                     const childFullName = child;
                     const childCleanName = displayName(child);
                     const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
                     const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
-                    
+
                     const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
                     const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
-                    
-                    let treeChars = isLast ? '└──' : '├──';
-                    
+
                     let childPagePart = '';
                     if (splitChildren && splitChildren.includes(child)) {
                         const actualPageIndex = rootToPageMap[child];
-                        childPagePart = actualPageIndex !== undefined ? 
+                        childPagePart = actualPageIndex !== undefined ?
                             '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
                     }
 
                     let childClass = 'child-name' + (childIsFemale ? ' female' : '');
-                    
+
                     rows.push({
-                        tree: treeChars,
-                        name: '<span class="' + childClass + '">' + childCleanName + '</span>',
+                        tree: '•',
+                        name: childCleanName,
                         plainName: childFullName,
+                        isFather: false,
+                        isFemale: childIsFemale,
                         spouse: childCleanSpouse,
                         plainSpouse: childSpouse,
                         gen: childGen,
-                        page: childPagePart
+                        page: childPagePart,
+                        childClass: childClass
                     });
                 });
             }
             return rows;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 11: RENDER PAGE HTML (DISPLAY) - FULLY FIXED
-        // ============================================================
         function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
             const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
 
-            let fatherPageDisplay = '(Root)';
+            let fatherPageDisplay = '';
             if (parentPage) {
                 const idx = rootToPageMap[parentPage];
                 if (idx !== undefined) {
-                    fatherPageDisplay = ' <span style="color:#2e7d32; font-weight:700; cursor:pointer; text-decoration:underline;" onclick="showMemberDetails(\'' + parentPage + '\')">' + displayName(parentPage) + '</span> → <span style="color:#cc0000; font-weight:900; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">Page ' + (idx + 1) + '</span>';
+                    fatherPageDisplay = '<span style="color:#2e7d32; font-weight:1200; cursor:pointer; text-decoration:underline;" onclick="showMemberDetails(\'' + parentPage + '\')">' + displayName(parentPage) + '</span> : <span style="color:#cc0000; font-weight:1200; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">Page ' + (idx + 1) + '</span>';
                 } else {
                     fatherPageDisplay = displayName(parentPage);
                 }
@@ -2150,361 +2155,120 @@ body {
 
             html += `
                 <div class="page-header">
-                    <h1>🌳 Rizvi Family Tree</h1>
                     <div class="ref" style="font-weight:700; font-size:14px;">
-                        Continues from: → ${fatherPageDisplay}
+                        ${fatherPageDisplay}
                     </div>
-                    ${highlightName ? `<div class="search-result-info">🔍 Showing: <b>${highlightName}</b></div>` : ''}
                 </div>
             `;
 
             html += `
-                <div style="display:flex; justify-content:center; width:100%;">
-                    <div style="width:90%;">
-
-                       <div class="col-headers" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; background:#faf6f0; border-bottom:2px solid #b8a088; border-left:1px solid #b8a088; border-right:1px solid #b8a088; padding:4px 0; font-weight:700; color:#5a0000;">
-    <span style="padding-left:4px; border-right:1px solid #b8a088; text-align:center;"> </span>
-    <span style="padding-left:8px; border-right:1px solid #b8a088; text-align:center;">Name</span>
-    <span style="padding-left:8px; border-right:1px solid #b8a088; text-align:center;">Spouse</span>
-    <span style="padding-left:8px; border-right:1px solid #b8a088; text-align:center;">Gen</span>
-    <span style="padding-left:8px; text-align:center;">Next Gen</span>
-</div>
-<div class="tree-container">
+                <div class="family-table-wrapper">
+                    <table class="family-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Spouse</th>
+                                <th>Gen</th>
+                                <th>Next Gen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
             `;
-            
+
             if (lines && lines.length > 0) {
-                lines.forEach((row, index) => {
-                    let nameHtml = row.name;
-                    let spouseHtml = row.spouse || '—';
-                    let genHtml = row.gen;
-                    let pageHtml = row.page;
-                    
+                lines.forEach((row) => {
                     let personName = row.plainName || '';
                     let person = globalPersonMap[personName];
-                    let isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
-                    
-                    let spousePerson = null;
-                    let spouseName = row.plainSpouse || '';
-                    if (spouseName) {
-                        spousePerson = globalPersonMap[spouseName];
+                    let isFemale = row.isFemale || false;
+
+                    let rowBg = '';
+                    if (isFemale) {
+                        rowBg = 'female-row';
                     }
-                    let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
-                    
+
+                    let nameDisplay = row.name;
+                    if (row.isFather) {
+                        nameDisplay = `<span class="${row.fatherClass}">${row.name}</span>`;
+                    } else {
+                        nameDisplay = `<span class="${row.childClass}">${row.name}</span>`;
+                    }
+
                     if (highlightName) {
                         const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                        nameHtml = nameHtml.replace(new RegExp(escaped, 'gi'), match => {
+                        nameDisplay = nameDisplay.replace(new RegExp(escaped, 'gi'), match => {
                             return '<span class="highlight">' + match + '</span>';
                         });
                     }
-                    
-                    let isChild = index > 0;
-                    
-                    // Check if this is the highlighted name (for bold)
-                    let isHighlighted = false;
-                    if (highlightName) {
-                        const cleanHighlight = displayName(highlightName);
-                        const cleanPerson = displayName(personName);
-                        if (cleanPerson === cleanHighlight) {
-                            isHighlighted = true;
-                        }
-                    }
-                    
-                    // Build the name display
-                    let displayNameText = '';
-                    if (isChild) {
-                        // Child - normal with bullet in tree column
-                        displayNameText = nameHtml;
-                    } else {
-                        // Root/Parent - bold
-                        displayNameText = '<b>' + nameHtml + '</b>';
-                    }
-                    
-                    // If highlighted, make it bold
-                    if (isHighlighted) {
-                        displayNameText = '<b>' + displayNameText + '</b>';
-                    }
-                    
-                    let fontWeight = isChild ? '400' : '700';
-                    let color = isChild ? '#1a3a5c' : '#cc0000';
-                    
-                    let rowBg;
-                    if (isFemale) {
-                        rowBg = '#fff0f0';
-                    } else {
-                        rowBg = (index % 2 === 0) ? '#ffffff' : '#e8f5e9';
-                    }
-                    
-                    // Make names clickable
-                    let clickableName = displayNameText;
+
+                    let clickableName = nameDisplay;
                     if (personName) {
                         const genderClass = isFemale ? 'female' : 'male';
-                        // Check if name already has spans
-                        if (nameHtml.includes('<span')) {
-                            const cleanNameText = displayName(personName);
-                            clickableName = displayNameText.replace(cleanNameText, function(match) {
-                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
-                            });
-                        } else {
-                            // For root with <b> tags
-                            const cleanNameText = displayName(personName);
-                            clickableName = displayNameText.replace(cleanNameText, function(match) {
-                                return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName.replace(/'/g, "\\'") + '\')">' + match + '</span>';
-                            });
+                        const cleanNameText = displayName(personName);
+                        clickableName = nameDisplay.replace(cleanNameText, function(match) {
+                            return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
+                        });
+                        if (clickableName === nameDisplay) {
+                            clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + nameDisplay + '</span>';
                         }
                     }
-                    
-                    // Make spouse clickable - FIXED
-                    let clickableSpouse = spouseHtml;
-                    if (spouseName && spouseHtml !== '—') {
-                        const genderClass = isSpouseFemale ? 'female' : 'male';
-                        clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName.replace(/'/g, "\\'") + '\')">' + displayName(spouseName) + '</span>';
-                    }
-                    
-// Tree character - Use the tree data from row
-// Check if person has details
-let hasDetails = person && person.details && person.details.trim() !== '';
 
-// Show ℹ️ if has details, otherwise show •
-let treeChar = hasDetails ? 'ℹ️' : '•';
-                    
-                    // Make Next Gen page links clickable
-                    let clickablePageHtml = pageHtml;
-                    if (pageHtml && pageHtml.includes('Page')) {
-                        clickablePageHtml = pageHtml;
-                    } else if (pageHtml && pageHtml.trim() !== '') {
-                        const pagePerson = globalPersonMap[pageHtml];
+                    let clickableSpouse = row.spouse || '—';
+                    let spouseName = row.plainSpouse || '';
+                    if (spouseName && row.spouse !== '—') {
+                        let spousePerson = globalPersonMap[spouseName];
+                        let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
+                        const genderClass = isSpouseFemale ? 'female' : 'male';
+                        clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName + '\')">' + displayName(spouseName) + '</span>';
+                    }
+
+if (row.spouse && row.spouse.includes('See details in ℹ️')) {
+    const targetPerson = globalPersonMap[personName];
+    if (targetPerson && targetPerson.spouse && targetPerson.spouse.includes('See details in ℹ️')) {
+        clickableSpouse = '<span class="details-link" onclick="showOnlyDetails(\'' + personName + '\')" style="color:#2e7d32;font-weight:600;cursor:pointer;padding:2px 8px;border-radius:4px;display:inline-block;background:#f0f7f0;font-family:\'Inter\',sans-serif;font-size:13px;">See details</span>';
+    }
+}
+
+                    let clickablePageHtml = row.page || '';
+                    if (row.page && row.page.includes('Page')) {
+                        clickablePageHtml = row.page;
+                    } else if (row.page && row.page.trim() !== '') {
+                        const pagePerson = globalPersonMap[row.page];
                         if (pagePerson) {
                             const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
                             const genderClassPage = isFemalePage ? 'female' : 'male';
-                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + pageHtml.replace(/'/g, "\\'") + '\')">' + displayName(pageHtml) + '</span>';
+                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + row.page + '\')">' + displayName(row.page) + '</span>';
                         }
                     }
-                    
-                    html += `<div class="tree-row" style="display:grid; grid-template-columns:30px 40% 30% 10% 20%; align-items:center; border-bottom:1px solid #d0c8be; border-left:1px solid #d0c8be; border-right:1px solid #d0c8be; padding:3px 0; background:${rowBg};">`;
-                    // If ℹ️, make it clickable; otherwise just show •
-if (hasDetails) {
-    html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:16px; color:#d4af37; text-align:center; cursor:pointer;" onclick="showMemberDetails('${personName.replace(/'/g, "\\'")}')" title="View details">ℹ️</span>`;
-} else {
-    html += `<span style="padding-left:4px; border-right:1px solid #d0c8be; font-family:'Roboto Mono',monospace; font-size:14px; color:#6b5a48; text-align:center;">•</span>`;
-}
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-weight:${fontWeight}; color:${color}; font-size:13px;">${clickableName}</span>`;
-                    html += `<span style="padding-left:8px; border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px;">${clickableSpouse}</span>`;
-                    
 
-html += `<span style="border-right:1px solid #d0c8be; font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${genHtml}</span>`;
-html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:inline-block; text-align:center; width:100%;">${clickablePageHtml}</span>`;
-                    html += `</div>`;
+                    let treeChar = row.tree || '';
+                    if (personName && globalPersonMap[personName] && globalPersonMap[personName].details && globalPersonMap[personName].details.trim() !== '') {
+                        const escapedName = personName.replace(/'/g, "\\'");
+treeChar = '<span class="details-icon" onclick="event.stopPropagation(); showOnlyDetails(\'' + escapedName + '\')" style="cursor:pointer;font-size:14px;color:var(--gold);">ℹ️</span>';
+                    }
+
+                    let rowClass = rowBg;
+                    if (row.isFather) rowClass += ' father-row';
+                    
+                    html += `<tr class="${rowClass}">`;
+                    html += `<td class="col-tree">${treeChar}</td>`;
+                    html += `<td class="col-name ${row.isFather ? 'father-name-cell' : 'child-name-cell'}">${clickableName}</td>`;
+                    html += `<td class="col-spouse">${clickableSpouse}</td>`;
+                    html += `<td class="col-gen">${row.gen || ''}</td>`;
+                    html += `<td class="col-next">${clickablePageHtml}</td>`;
+                    html += `</tr>`;
                 });
-            } else {
-                html += 'No data available for ' + displayName(root);
             }
-            
-            html += `
-                        </div>
-                    </div>
-                </div>
-            `;
 
             html += `
-                <div class="page-footer">
-                    <div class="family-name">${displayName(root)} Family</div>
-                    <div class="developer">
-                        Developer: <strong>Imran Haider</strong> S/o <strong>Syed Risalat Hussain Rizvi</strong> | 0332-787-6010
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             `;
 
             return html;
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 12: SEARCH & PAGINATION HELPERS
-        // ============================================================
-        function changePage(delta) {
-            const allMembers = [];
-            familyData.forEach(p => {
-                allMembers.push({ name: p.name.trim(), gen: p.gen || '' });
-            });
-            const ROWS_PER_PAGE = 40;
-            const totalPages = Math.ceil(allMembers.length / ROWS_PER_PAGE);
-            let newPage = currentPageIndex + delta;
-            if (newPage < 0) newPage = 0;
-            if (newPage >= totalPages) newPage = totalPages - 1;
-            if (newPage !== currentPageIndex) {
-                currentPageIndex = newPage;
-                renderPage();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function changePageTo(pageNum) {
-            const allMembers = [];
-            familyData.forEach(p => {
-                allMembers.push({ name: p.name.trim(), gen: p.gen || '' });
-            });
-            const ROWS_PER_PAGE = 40;
-            const totalPages = Math.ceil(allMembers.length / ROWS_PER_PAGE);
-            if (pageNum < 1 || pageNum > totalPages) return;
-            const newPage = pageNum - 1;
-            if (newPage !== currentPageIndex) {
-                currentPageIndex = newPage;
-                renderPage();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function findMemberPage(memberName) {
-            const searchLower = memberName.trim().toLowerCase();
-            if (!searchLower) return -1;
-
-            for (let i = 0; i < cachedPages.length; i++) {
-                const page = cachedPages[i];
-                if (page.root.toLowerCase() === searchLower) {
-                    return i;
-                }
-            }
-
-            for (let i = 0; i < cachedPages.length; i++) {
-                const page = cachedPages[i];
-                if (page.root.toLowerCase().includes(searchLower)) {
-                    return i;
-                }
-                const children = getChildren(page.root, globalMap);
-                for (let child of children) {
-                    if (child.toLowerCase().includes(searchLower)) {
-                        return i;
-                    }
-                }
-            }
-
-            return -1;
-        }
-
-        function searchMember() {
-            const input = document.getElementById('searchInput');
-            const query = input.value.trim();
-            if (!query) {
-                renderPage();
-                return;
-            }
-
-            const pageIndex = findMemberPage(query);
-            if (pageIndex === -1) {
-                document.getElementById('errorMsg').textContent = '⚠️ Member not found: "' + query + '"';
-                return;
-            }
-
-            document.getElementById('errorMsg').textContent = '';
-            renderPage(query);
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('errorMsg').textContent = '';
-            document.getElementById('searchDropdown').style.display = 'none';
-            const container = document.getElementById('pageContainer');
-            container.innerHTML = `
-                <div class="welcome-container">
-                    <div class="welcome-box">
-                        <div class="welcome-icon">🌿</div>
-                        <div class="welcome-title">Rizvi Family Tree</div>
-                        <div class="welcome-text">Select a family member from the search box above<br>to view their family connections and relationships.</div>
-                    </div>
-                </div>
-            `;
-            currentPageIndex = 0;
-        }
-
-        // ============================================================
-        // JAVASCRIPT SECTION 13: SEARCH DROPDOWN
-        // ============================================================
-        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
-            const query = this.value;
-            const dropdown = document.getElementById('searchDropdown');
-            if (query.length < 2) { 
-                dropdown.style.display = 'none'; 
-                return; 
-            }
-            
-            const results = db.filter(m => 
-                m.name.toLowerCase().includes(query.toLowerCase())
-            ).slice(0, 8);
-            
-            dropdown.innerHTML = '';
-            if (results.length === 0) {
-                dropdown.innerHTML = '<div class="no-result">No results found</div>';
-                dropdown.style.display = 'block';
-                return;
-            }
-            
-            results.forEach(member => {
-                const div = document.createElement('div');
-                div.className = 'result-item';
-                
-                let pageIdx = -1;
-                for (let i = 0; i < cachedPages.length; i++) {
-                    if (cachedPages[i].root === member.name) {
-                        pageIdx = i;
-                        break;
-                    }
-                    const children = getChildren(cachedPages[i].root, globalMap);
-                    if (children.includes(member.name)) {
-                        pageIdx = i;
-                        break;
-                    }
-                }
-                
-                const pageDisplay = pageIdx >= 0 ? ` · Page ${pageIdx + 1}` : '';
-                const genderPrefix = member.gender?.startsWith('F') ? 'D/o' : 'S/o';
-                
-                div.innerHTML = `
-                    <div>
-                        <span class="main-name">${displayName(member.name)}</span>
-                        <span class="gen">${member.gen || ''}</span>
-                        <span style="font-size:11px;color:#2e7d32;">${pageDisplay}</span>
-                        <div class="father-name">${genderPrefix} ${displayName(member.father) || '—'}</div>
-                    </div>
-                `;
-                div.onclick = () => { 
-                    let targetPage = -1;
-                    for (let i = 0; i < cachedPages.length; i++) {
-                        if (cachedPages[i].root === member.name) {
-                            targetPage = i;
-                            break;
-                        }
-                        const children = getChildren(cachedPages[i].root, globalMap);
-                        if (children.includes(member.name)) {
-                            targetPage = i;
-                            break;
-                        }
-                    }
-                    if (targetPage >= 0) {
-                        currentPageIndex = targetPage;
-                        renderPage(displayName(member.name));
-                        dropdown.style.display = 'none';
-                        this.value = displayName(member.name);
-                    }
-                };
-                dropdown.appendChild(div);
-            });
-            dropdown.style.display = 'block';
-        });
-
-        // ============================================================
-        // JAVASCRIPT SECTION 14: CLICK OUTSIDE HANDLER
-        // ============================================================
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-wrapper')) {
-                document.getElementById('searchDropdown').style.display = 'none';
-            }
-            if (!e.target.closest('.menu-panel') && !e.target.closest('.menu-toggle-btn')) {
-                document.getElementById('menuPanel').classList.remove('show');
-            }
-        });
-
-        // ============================================================
-        // JAVASCRIPT SECTION 15: RENDER FUNCTIONS
-        // ============================================================
         function renderAllPages() {
             const container = document.getElementById('pageContainer');
             const errorMsg = document.getElementById('errorMsg');
@@ -2522,8 +2286,8 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
             try {
                 cachedPages = generatePages(familyData);
 
-                document.getElementById('stats').textContent =
-                    `Total: ${familyData.length} members · ${cachedPages.length} pages`;
+                document.getElementById('headerStats').textContent = 
+                    `Members: ${familyData.length} · Pages: ${cachedPages.length}`;
 
                 if (cachedPages.length === 0) {
                     container.innerHTML = `
@@ -2531,7 +2295,7 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
                             <div class="welcome-box">
                                 <div class="welcome-icon">🌿</div>
                                 <div class="welcome-title">Rizvi Family Tree</div>
-                                <div class="welcome-text">Select a family member from the search box above<br>to view their family connections and relationships.</div>
+                                <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
                             </div>
                         </div>
                     `;
@@ -2565,16 +2329,8 @@ html += `<span style="font-family:'Inter',sans-serif; font-size:13px; display:in
             }
         }
 
-        // ============================================================
-        // JAVASCRIPT SECTION 16: MEMBER DETAIL MODAL
-        // ============================================================
-        
 
-
-
-
-
-function showMemberDetails(name) {
+function showOnlyDetails(name) {
     if (!name) return;
     
     const person = globalPersonMap[name];
@@ -2583,26 +2339,55 @@ function showMemberDetails(name) {
         return;
     }
     
+    const modal = document.getElementById('detailsModal');
+    const title = document.getElementById('detailsModalTitle');
+    const content = document.getElementById('detailsModalContent');
+    
+    title.textContent = '📝 Details - ' + displayName(person.name);
+    
+    let detailsHtml = person.details || 'No details available.';
+    detailsHtml = detailsHtml.replace(/\\n/g, '<br>');
+    
+    content.innerHTML = detailsHtml;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function showMemberDetails(name) {
+    if (!name) return;
+
+    const person = globalPersonMap[name];
+    if (!person) {
+        alert('Member not found: ' + name);
+        return;
+    }
+
     const modal = document.getElementById('memberModal');
     const content = document.getElementById('memberDetailsContent');
-    
-    let html = `
-        <div class="detail-card">
-            <div class="detail-header">
-                <h2>${displayName(person.name)}</h2>
-                <!-- HEADER CLOSE BUTTON - SAME STYLE AS BOTTOM -->
-                <button onclick="closeMemberModal()" style="background:#d4af37; color:#0f172a; border:2px solid #d4af37; border-radius:8px; padding:8px 20px; font-weight:700; font-size:14px; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s;">✕ Close</button>
-            </div>
-            <div class="detail-body">
+
+    let html = '';
+
+html += `
+    <div class="detail-card">
+        <div class="detail-header">
+            <h2>${displayName(person.name)}</h2>
+            <button onclick="closeMemberModal()" 
+                    style="padding:8px 20px; background:var(--gold); color:var(--dark-blue); 
+                           border:none; border-radius:8px; font-size:14px; font-weight:700; 
+                           cursor:pointer; font-family:'Inter',sans-serif;
+                           transition:all 0.2s;">
+                 Close
+            </button>
+        </div>
+        <div class="detail-body">
     `;
-    
+
     if (person.father && person.father.trim() !== '') {
         const fatherClean = displayName(person.father);
-        const fatherLink = getMemberPageLink(person.father);
         html += `
             <div class="detail-row">
                 <strong>Father:</strong>
-                <span class="detail-value">${fatherLink || fatherClean || '—'}</span>
+                <span class="detail-value">${fatherClean}</span>
             </div>
         `;
     } else {
@@ -2613,14 +2398,13 @@ function showMemberDetails(name) {
             </div>
         `;
     }
-    
+
     if (person.mother && person.mother.trim() !== '') {
         const motherClean = displayName(person.mother);
-        const motherLink = getMemberPageLink(person.mother);
         html += `
             <div class="detail-row">
                 <strong>Mother:</strong>
-                <span class="detail-value">${motherLink || motherClean}</span>
+                <span class="detail-value">${motherClean}</span>
             </div>
         `;
     } else {
@@ -2631,14 +2415,13 @@ function showMemberDetails(name) {
             </div>
         `;
     }
-    
+
     if (person.spouse && person.spouse.trim() !== '') {
         const spouseClean = displayName(person.spouse);
-        const spouseLink = getMemberPageLink(person.spouse);
         html += `
             <div class="detail-row">
                 <strong>Spouse:</strong>
-                <span class="detail-value">${spouseLink || spouseClean}</span>
+                <span class="detail-value">${spouseClean}</span>
             </div>
         `;
     } else {
@@ -2649,14 +2432,14 @@ function showMemberDetails(name) {
             </div>
         `;
     }
-    
+
     html += `
         <div class="detail-row">
             <strong>Generation:</strong>
             <span class="detail-value">${person.gen || '—'}</span>
         </div>
     `;
-    
+
     if (person.details && person.details.trim() !== '') {
         const detailsHtml = person.details.replace(/\\n/g, '<br>');
         html += `
@@ -2666,25 +2449,24 @@ function showMemberDetails(name) {
             </div>
         `;
     }
-    
+
     const children = getChildren(person.name, globalMap);
     if (children && children.length > 0) {
         html += `
-            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0; border-bottom:1px solid #f0ebe4;">
+            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
                 <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
-                <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px;">
+                <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px; padding-right:0;">
         `;
         children.forEach(child => {
             const childClean = displayName(child);
-            const childLink = getMemberPageLink(child);
-            html += `<span style="font-size:14px; color:#1a3a5c;">${childLink || childClean}</span>`;
+            html += `<span style="font-size:14px; color:#1a3a5c; font-family:'Inter',sans-serif;">${childClean}</span>`;
         });
         html += `
                 </div>
             </div>
         `;
     }
-    
+
     let pageIdx = -1;
     for (let i = 0; i < cachedPages.length; i++) {
         if (cachedPages[i].root === person.name) {
@@ -2694,14 +2476,14 @@ function showMemberDetails(name) {
     }
 
     html += `
-        <div style="margin-top:16px; display:flex; justify-content:space-between; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
+        <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
     `;
 
     if (pageIdx >= 0) {
         html += `
             <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
-                    style="flex:1; padding:10px 24px; background:var(--green); color:white; 
-                           border:2px solid var(--green); border-radius:8px; font-size:14px; font-weight:700; 
+                    style="padding:10px 24px; background:var(--green); color:white; 
+                           border:none; border-radius:8px; font-size:14px; font-weight:700; 
                            cursor:pointer; font-family:'Inter',sans-serif;
                            transition:all 0.2s;">
                 📄 View Full Page
@@ -2710,73 +2492,56 @@ function showMemberDetails(name) {
     }
 
     html += `
-        <!-- BOTTOM CLOSE BUTTON - SAME STYLE AS HEADER CLOSE BUTTON -->
         <button onclick="closeMemberModal()" 
-                style="flex:1; padding:10px 24px; background:#d4af37; color:#0f172a; 
-                       border:2px solid #d4af37; border-radius:8px; font-size:14px; font-weight:700; 
+                style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
+                       border:none; border-radius:8px; font-size:14px; font-weight:700; 
                        cursor:pointer; font-family:'Inter',sans-serif;
                        transition:all 0.2s;">
-            ✕ Close
+             Close
         </button>
     `;
 
     html += `</div>`;
-    
+
     html += `
             </div>
         </div>
     `;
-    
+
     content.innerHTML = html;
     modal.style.display = 'block';
     document.getElementById('memberModalOverlay').style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
-        function closeMemberModal() {
-            document.getElementById('memberModal').style.display = 'none';
-            document.getElementById('memberModalOverlay').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
 
-        function getMemberPageLink(name) {
-            if (!name) return null;
-            
-            const cleanName = displayName(name);
-            let pageIdx = -1;
-            
-            for (let i = 0; i < cachedPages.length; i++) {
-                if (displayName(cachedPages[i].root) === cleanName) {
-                    pageIdx = i;
-                    break;
-                }
-                const children = getChildren(cachedPages[i].root, globalMap);
-                if (children.some(c => displayName(c) === cleanName)) {
-                    pageIdx = i;
-                    break;
-                }
-            }
-            
-            if (pageIdx >= 0) {
-                return `<span style="color:#2e7d32; font-weight:600; cursor:pointer; text-decoration:underline;" 
-                              onclick="closeMemberModal(); goToPage(${pageIdx});">${cleanName}</span>`;
-            }
-            return null;
-        }
+function closeMemberModal() {
+    document.getElementById('memberModal').style.display = 'none';
+    document.getElementById('memberModalOverlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
 
-        // ============================================================
-        // JAVASCRIPT SECTION 17: ESCAPE KEY HANDLER
-        // ============================================================
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeMemberModal();
-            }
-        });
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeMemberModal();
+        closeDetailsModal();
+        closeTips();
+    }
+});
 
-        // ============================================================
-        // JAVASCRIPT SECTION 18: INITIALIZATION
-        // ============================================================
+function openTips() {
+    document.getElementById('tipsOverlay').style.display = 'flex';
+}
+
+function closeTips() {
+    document.getElementById('tipsOverlay').style.display = 'none';
+}
+
+document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
+    if (e.target === this) closeTips();
+});
 
 window.onload = function() {
+    pageLoaded = true;
     if (typeof FAMILY_DATA_E !== 'undefined') {
         renderAllPages();
     } else {
@@ -2796,77 +2561,15 @@ window.onload = function() {
             }
         }, 5000);
     }
-
-    // Read search parameter from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchParam = urlParams.get('search');
-    if (searchParam) {
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            const decodedName = decodeURIComponent(searchParam);
-            searchInput.value = decodedName;
-            // Wait for data to be fully loaded
-            setTimeout(function() {
-                if (familyData && familyData.length > 0 && cachedPages && cachedPages.length > 0) {
-                    // Find the member and render
-                    const pageIndex = findMemberPage(decodedName);
-                    if (pageIndex !== -1) {
-                        currentPageIndex = pageIndex;
-                        renderPage(decodedName);
-                        document.getElementById('errorMsg').textContent = '';
-                    } else {
-                        document.getElementById('errorMsg').textContent = '⚠️ Member not found: "' + decodedName + '"';
-                    }
-                }
-            }, 800);
-        }
-    }
 };
 
-        // Tips functions
-        function openTips() {
-            document.getElementById('tipsOverlay').style.display = 'flex';
-        }
-
-        function closeTips() {
-            document.getElementById('tipsOverlay').style.display = 'none';
-        }
-
-        document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
-            if (e.target === this) closeTips();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeTips();
-        });
-
-
-function switchView(view) {
-    // Save the current search value before switching
-    const searchValue = document.getElementById('searchInput')?.value || '';
-    if (view === 'tree') {
-        window.location.href = '03-Full Shajra-Tree-E.html?search=' + encodeURIComponent(searchValue);
-    }
-}
-
+window.zoomIn = zoomIn;
+window.zoomOut = zoomOut;
+window.resetZoom = resetZoom;
+window.applyZoom = applyZoom;
+window.toggleZoomControls = toggleZoomControls;
 
 
     </script>
-
-    <!-- Tips Modal -->
-    <div class="tips-overlay" id="tipsOverlay">
-        <div class="tips-modal">
-            <h3>💡 Tips for Using the Family Tree File</h3>
-            <ul>
-                <li><strong>Search</strong> <span>: Type name to view that person's page</span></li>
-                <li><strong>View Details</strong> <span>: Click any name to view full details</span></li>
-                <li><strong>Navigate Pages</strong> <span>: Click Red "Page number" to view "Next Generation Tree"</span></li>
-                <li><strong>Menu</strong> <span>: Click ≡ MENU (top-left) to go to Dashboard or Save options</span></li>
-                <li><strong>Save</strong> <span>: From menu, choose: On screen page / Selected member pages / All pages</span></li>
-            </ul>
-            <button class="tips-close-btn" onclick="closeTips()">Close</button>
-        </div>
-    </div>
-
 </body>
 </html>

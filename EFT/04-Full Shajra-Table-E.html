@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+
     <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover" />
 
     <meta name="google" content="notranslate">
     <title>Rizvi Family · Family Tree</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet" />
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -395,17 +397,23 @@
             align-items: center;
             width: 100%;
         }
-        .search-box input {
-            padding: 10px 15px;
-            border: 2px solid #cbd5e1;
-            border-radius: 4px;
-            font-size: 14px;
-            background: white;
-            color: #2d1f13;
-            width: 100%;
-            font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
-            text-align: left;
-        }
+.search-box input {
+    padding: 10px 15px;
+    border: 2px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+    color: #2d1f13;
+    width: 100%;
+    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
+    text-align: left;
+}
+
+/* Disable double-tap zoom on search bar */
+#searchInput {
+    touch-action: manipulation !important;
+}
+
         .search-box input:focus {
             outline: none;
             border-color: var(--gold);
@@ -485,18 +493,21 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .page {
-            width: 100%;
-            flex: 1;
-            overflow: auto !important;
-            background: #fffcf8;
-            padding: 8mm 10mm;
-            border-radius: 0 0 4px 4px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-            page-break-after: always;
-            border-left: 2px solid var(--gold);
-            border-right: 2px solid var(--gold);
-        }
+.page {
+    width: 100%;
+    flex: 1;
+    overflow: auto !important;
+    background: #fffcf8;
+    padding: 8mm 10mm;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    page-break-after: always;
+    border-left: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    min-height: 100vh;  /* ADD THIS */
+    height: auto;       /* ADD THIS */
+}
 
         .page-header {
             text-align: center;
@@ -1196,23 +1207,24 @@
     let familyData = null;
     let currentPageIndex = 0;
     let pageLoaded = false;
-    let zoomLevel = window.innerWidth <= 768 ? 0.50 : 1.0;
+   let zoomLevel = window.innerWidth <= 768 ? 1.0 : 0.70;
     let zoomVisible = false;
 
-    function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2.0); applyZoom(); }
-    function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
-    function resetZoom() { zoomLevel = window.innerWidth <= 768 ? 0.50 : 1.0; applyZoom(); }
+function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.01, 2); applyZoom(); }
+function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.01, 0.3); applyZoom(); }
+    function resetZoom() { 
+    zoomLevel = window.innerWidth <= 768 ? 1.0 : 0.70; 
+    applyZoom(); 
+}
 
 function applyZoom() {
     const container = document.getElementById('pageContainer');
     if (container) {
-        container.style.zoom = zoomLevel;
+        container.style.transform = `scale(${zoomLevel})`;
+        container.style.transformOrigin = 'top left';
+        container.style.width = `${100/zoomLevel}%`;
+        container.style.height = `${100/zoomLevel}%`;
         document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
-    }
-    // Update viewport for pinch zoom support
-    const meta = document.getElementById('viewportMeta');
-    if (meta) {
-        meta.content = `width=device-width, initial-scale=${zoomLevel}, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover`;
     }
 }
 
@@ -1235,44 +1247,52 @@ function applyZoom() {
         applyZoom();
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const zoomControls = document.getElementById('zoomControls');
-        let isDragging = false;
-        let offsetX, offsetY;
 
-        zoomControls.addEventListener('mousedown', function(e) {
-            if (e.target.closest('.zoom-btn')) return;
-            isDragging = true;
-            const rect = zoomControls.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            zoomControls.classList.add('dragging');
-            e.preventDefault();
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    const zoomControls = document.getElementById('zoomControls');
+    let isDragging = false;
+    let offsetX, offsetY;
 
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const controlWidth = zoomControls.offsetWidth;
-            const controlHeight = zoomControls.offsetHeight;
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
-            newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-            newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-            zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-            zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-        });
-
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                zoomControls.classList.remove('dragging');
-            }
-        });
-
-        applyZoom();
+    zoomControls.addEventListener('mousedown', function(e) {
+        if (e.target.closest('.zoom-btn')) return;
+        isDragging = true;
+        const rect = zoomControls.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        zoomControls.classList.add('dragging');
+        e.preventDefault();
     });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const controlWidth = zoomControls.offsetWidth;
+        const controlHeight = zoomControls.offsetHeight;
+        let newX = e.clientX - offsetX;
+        let newY = e.clientY - offsetY;
+        newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+        newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+        zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+        zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            zoomControls.classList.remove('dragging');
+        }
+    });
+
+    applyZoom();
+});
+
+window.addEventListener('orientationchange', function() {
+    setTimeout(function() {
+        zoomLevel = window.innerWidth <= 768 ? 0.50 : 1.0;
+        applyZoom();
+    }, 300);
+});
 
     function toggleMenu() {
         document.getElementById('menuPanel').classList.toggle('show');

@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=yes" />
+
     <meta name="google" content="notranslate">
     <title>Rizvi Family · Family Tree</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -1201,19 +1201,20 @@
 
     function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2.0); applyZoom(); }
     function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
-    function resetZoom() { zoomLevel = window.innerWidth <= 768 ? 0.50 : 0.70; applyZoom(); }
+    function resetZoom() { zoomLevel = window.innerWidth <= 768 ? 0.50 : 1.0; applyZoom(); }
 
-    function applyZoom() {
-        const container = document.getElementById('pageContainer');
-        if (container) {
-            container.style.zoom = zoomLevel;
-            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
-        }
-        const meta = document.getElementById('viewportMeta');
-        if (meta) {
-            meta.content = `width=device-width, initial-scale=${zoomLevel}, maximum-scale=${zoomLevel}, user-scalable=yes, viewport-fit=cover`;
-        }
+function applyZoom() {
+    const container = document.getElementById('pageContainer');
+    if (container) {
+        container.style.zoom = zoomLevel;
+        document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
     }
+    // Update viewport for pinch zoom support
+    const meta = document.getElementById('viewportMeta');
+    if (meta) {
+        meta.content = `width=device-width, initial-scale=${zoomLevel}, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover`;
+    }
+}
 
     function toggleZoomControls() {
         zoomVisible = !zoomVisible;
@@ -1230,7 +1231,7 @@
     });
 
     window.addEventListener('afterprint', function() {
-        zoomLevel = window._savedZoom !== undefined ? window._savedZoom : 0.7;
+        zoomLevel = window._savedZoom !== undefined ? window._savedZoom : 1.0;
         applyZoom();
     });
 

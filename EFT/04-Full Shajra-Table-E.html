@@ -1173,436 +1173,292 @@
     </div>
 
     <script src="20-Family-Data-E.js"></script>
-    <script>
-        let fileInfo = { saved_time: '7/26/26 17:19' };
+<script>
+    let fileInfo = { saved_time: '7/26/26 17:19' };
 
-        function displayName(str) {
-            if (!str) return '';
-            let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
-            cleaned = cleaned.replace(/-\d+$/, '').trim();
-            return cleaned;
+    function displayName(str) {
+        if (!str) return '';
+        let cleaned = str.replace(/[\s-\.۔]*\d+$/, '').trim();
+        cleaned = cleaned.replace(/-\d+$/, '').trim();
+        return cleaned;
+    }
+
+    function formatCurrentTime() {
+        const d = new Date();
+        return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'PM':'AM'}`;
+    }
+
+    let globalMap = {};
+    let globalPersonMap = {};
+    let rootToPageMap = {};
+    let db = [];
+    let cachedPages = [];
+    let familyData = null;
+    let currentPageIndex = 0;
+    let pageLoaded = false;
+    let zoomLevel = window.innerWidth <= 768 ? 0.50 : 1.0;
+    let zoomVisible = false;
+
+    function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2.0); applyZoom(); }
+    function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
+    function resetZoom() { zoomLevel = window.innerWidth <= 768 ? 0.50 : 0.70; applyZoom(); }
+
+    function applyZoom() {
+        const container = document.getElementById('pageContainer');
+        if (container) {
+            container.style.zoom = zoomLevel;
+            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
         }
-
-        function formatCurrentTime() {
-            const d = new Date();
-            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')} ${d.getHours()>=12?'PM':'AM'}`;
+        const meta = document.getElementById('viewportMeta');
+        if (meta) {
+            meta.content = `width=device-width, initial-scale=${zoomLevel}, maximum-scale=${zoomLevel}, user-scalable=yes, viewport-fit=cover`;
         }
+    }
 
-        let globalMap = {};
-        let globalPersonMap = {};
-        let rootToPageMap = {};
-        let db = [];
-        let cachedPages = [];
-        let familyData = null;
-        let currentPageIndex = 0;
-        let pageLoaded = false;
-        let zoomLevel = 0.7;
-        let zoomVisible = false;
+    function toggleZoomControls() {
+        zoomVisible = !zoomVisible;
+        const controls = document.getElementById('zoomControls');
+        if (zoomVisible) controls.classList.add('visible');
+        else controls.classList.remove('visible');
+        document.getElementById('menuPanel').classList.remove('show');
+    }
 
-        function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.1, 2.0); applyZoom(); }
-        function zoomOut() { zoomLevel = Math.max(zoomLevel - 0.1, 0.5); applyZoom(); }
-        function resetZoom() { zoomLevel = 0.7; applyZoom(); }
-
-        function applyZoom() {
-            const container = document.getElementById('pageContainer');
-            if (container) {
-                container.style.zoom = zoomLevel;
-                document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
-            }
-        }
-
-        function toggleZoomControls() {
-            zoomVisible = !zoomVisible;
-            const controls = document.getElementById('zoomControls');
-            if (zoomVisible) controls.classList.add('visible');
-            else controls.classList.remove('visible');
-            document.getElementById('menuPanel').classList.remove('show');
-        }
-
-        window.addEventListener('beforeprint', function() {
-            window._savedZoom = zoomLevel;
-            zoomLevel = 1.0;
-            applyZoom();
-        });
-
-        window.addEventListener('afterprint', function() {
-            zoomLevel = window._savedZoom !== undefined ? window._savedZoom : 1.0;
-            applyZoom();
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const zoomControls = document.getElementById('zoomControls');
-            let isDragging = false;
-            let offsetX, offsetY;
-
-            zoomControls.addEventListener('mousedown', function(e) {
-                if (e.target.closest('.zoom-btn')) return;
-                isDragging = true;
-                const rect = zoomControls.getBoundingClientRect();
-                offsetX = e.clientX - rect.left;
-                offsetY = e.clientY - rect.top;
-                zoomControls.classList.add('dragging');
-                e.preventDefault();
-            });
-
-            document.addEventListener('mousemove', function(e) {
-                if (!isDragging) return;
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                const controlWidth = zoomControls.offsetWidth;
-                const controlHeight = zoomControls.offsetHeight;
-                let newX = e.clientX - offsetX;
-                let newY = e.clientY - offsetY;
-                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-            });
-
-            document.addEventListener('mouseup', function() {
-                if (isDragging) {
-                    isDragging = false;
-                    zoomControls.classList.remove('dragging');
-                }
-            });
-
-            applyZoom();
-        });
-
-        function toggleMenu() {
-            document.getElementById('menuPanel').classList.toggle('show');
-        }
-
-        function goToDashboard() {
-            window.location.href = '00-Dashboard-U.html';
-        }
-
-        function showSaveOptions() {
-            document.getElementById('saveOptionsModal').style.display = 'block';
-            document.getElementById('saveModalOverlay').style.display = 'block';
-            document.getElementById('menuPanel').classList.remove('show');
-        }
-
-        function closeSaveModal() {
-            document.getElementById('saveOptionsModal').style.display = 'none';
-            document.getElementById('saveModalOverlay').style.display = 'none';
-        }
-
-        function getSelectedSaveMode() {
-            const selected = document.querySelector('input[name="saveMode"]:checked');
-            return selected ? selected.value : 'screen';
-        }
-
-
-
-document.querySelectorAll('input[name="saveMode"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-        var rangeSection = document.getElementById('rangeSection');
-        if (this.value === 'all') {
-            rangeSection.style.display = 'block';
-            var totalPages = cachedPages.length || 1;
-            document.getElementById('toPage').value = totalPages;
-            document.getElementById('rangeTotalPages').textContent = '(Total pages: ' + totalPages + ')';
-        } else {
-            rangeSection.style.display = 'none';
-        }
+    window.addEventListener('beforeprint', function() {
+        window._savedZoom = zoomLevel;
+        zoomLevel = 1.0;
+        applyZoom();
     });
-});
 
+    window.addEventListener('afterprint', function() {
+        zoomLevel = window._savedZoom !== undefined ? window._savedZoom : 0.7;
+        applyZoom();
+    });
 
-        function getCurrentMemberName() {
-            if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) return null;
-            return cachedPages[currentPageIndex].root || null;
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        const zoomControls = document.getElementById('zoomControls');
+        let isDragging = false;
+        let offsetX, offsetY;
 
-        function getAncestorPages(memberName) {
-            const result = [];
-            const visited = new Set();
-            let currentName = memberName;
-            let chain = [];
-
-            while (currentName) {
-                chain.push(currentName);
-                const person = globalPersonMap[currentName];
-                if (!person || !person.father || person.father.trim() === '') break;
-                currentName = person.father.trim();
-                if (visited.has(currentName)) break;
-                visited.add(currentName);
-            }
-
-            for (let i = chain.length - 1; i >= 0; i--) {
-                const name = chain[i];
-                for (let j = 0; j < cachedPages.length; j++) {
-                    if (cachedPages[j].root === name) {
-                        if (!result.includes(j)) result.push(j);
-                        break;
-                    }
-                }
-            }
-
-            result.sort((a, b) => a - b);
-            return result;
-        }
-
-function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
-    const footer = pageElement.querySelector('.page-footer');
-    if (footer) {
-        const counterDiv = document.createElement('div');
-        counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
-        counterDiv.textContent = `Page ${actualPageNum} of ${totalPages} (${filteredPageNum})`;
-        footer.appendChild(counterDiv);
-    }
-    return pageElement;
-}
-
-
-
-
-
-function processSave() {
-    const saveMode = getSelectedSaveMode();
-    const searchInput = document.getElementById('searchInput');
-    const searchedName = searchInput ? searchInput.value.trim() : '';
-    closeSaveModal();
-
-    if (saveMode === 'screen') {
-        exportTreePDF(searchedName);
-    } else if (saveMode === 'selected') {
-        const memberName = getCurrentMemberName();
-        if (!memberName) {
-            alert('No member selected! Please search for a member first.');
-            return;
-        }
-        const displayNameToUse = searchedName || memberName;
-        saveSelectedMemberPages(memberName, displayNameToUse);
-    } else if (saveMode === 'all') {
-        var fromPage = parseInt(document.getElementById('fromPage').value) || 1;
-        var toPage = parseInt(document.getElementById('toPage').value) || cachedPages.length;
-        if (fromPage < 1) fromPage = 1;
-        if (toPage > cachedPages.length) toPage = cachedPages.length;
-        if (fromPage > toPage) {
-            alert('From page cannot be greater than To page!');
-            return;
-        }
-        saveAllPages(fromPage, toPage);
-    }
-}
-
-
-
-
-
-async function exportTreePDF(searchedName) {
-    const pageElement = document.getElementById('pageContainer');
-    if (!pageElement) {
-        alert('❌ Page not found!');
-        return;
-    }
-
-    // 🔥 Save current zoom and set to 1
-    const currentZoom = zoomLevel;
-    zoomLevel = 1.0;
-    applyZoom();
-
-    const memberName = searchedName || getCurrentMemberName() || 'Family';
-
-    const loadingMsg = document.createElement('div');
-    loadingMsg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#5a0000;color:white;padding:15px 30px;border-radius:8px;z-index:9999;font-size:14px;font-family:"Inter",sans-serif';
-    loadingMsg.textContent = '📄 Creating PDF... (High Resolution)';
-    document.body.appendChild(loadingMsg);
-
-    try {
-        const wrapper = document.createElement('div');
-        wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
-        document.body.appendChild(wrapper);
-
-        const clone = pageElement.cloneNode(true);
-        clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white';
-        wrapper.appendChild(clone);
-
-        const header = document.createElement('div');
-        header.style.cssText = 'margin-bottom:20px;text-align:center';
-        header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;font-family:"Playfair Display",serif;">Rizvi Family Tree</h1>
-            <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">${displayName(memberName)}</h2>`;
-        wrapper.insertBefore(header, wrapper.firstChild);
-
-        const footer = document.createElement('div');
-        footer.className = 'page-footer';
-        footer.style.cssText = 'margin-top:20px;padding:12px;background:#fcf9f4;text-align:center;font-size:10px;font-family:"Inter",sans-serif';
-
-        const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
-        footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 6010-787-0332</div>
-            <div>Last Updated: ${excelSavedTime} | PDF Generated: ${formatCurrentTime()}</div>`;
-        wrapper.appendChild(footer);
-
-        const counterDiv = document.createElement('div');
-        counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
-        counterDiv.textContent = `Page 1 of 1`;
-        footer.appendChild(counterDiv);
-
-        await new Promise(resolve => setTimeout(resolve, 400));
-
-        const canvas = await html2canvas(wrapper, {
-            scale: 2.5,
-            backgroundColor: '#ffffff',
-            logging: false,
-            useCORS: true,
-            windowWidth: wrapper.scrollWidth,
-            windowHeight: wrapper.scrollHeight
+        zoomControls.addEventListener('mousedown', function(e) {
+            if (e.target.closest('.zoom-btn')) return;
+            isDragging = true;
+            const rect = zoomControls.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            zoomControls.classList.add('dragging');
+            e.preventDefault();
         });
 
-        document.body.removeChild(wrapper);
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const controlWidth = zoomControls.offsetWidth;
+            const controlHeight = zoomControls.offsetHeight;
+            let newX = e.clientX - offsetX;
+            let newY = e.clientY - offsetY;
+            newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+            newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+            zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+            zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+        });
 
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 12;
-        const contentWidth = pageWidth - (margin * 2);
-        const contentHeight = pageHeight - (margin * 2);
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                zoomControls.classList.remove('dragging');
+            }
+        });
 
-        const imgWidth = contentWidth;
-        const imgHeight = (canvas.height / canvas.width) * contentWidth;
-        const totalPages = Math.ceil(imgHeight / contentHeight);
+        applyZoom();
+    });
 
-        for (let i = 0; i < totalPages; i++) {
-            if (i > 0) pdf.addPage();
-            
-            const yOffset = i * contentHeight;
-            const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
-            
-            const srcY = (yOffset / imgHeight) * canvas.height;
-            const srcHeight = (remainingHeight / imgHeight) * canvas.height;
-            
-            const pageCanvas = document.createElement('canvas');
-            pageCanvas.width = canvas.width;
-            pageCanvas.height = srcHeight;
-            const ctx = pageCanvas.getContext('2d');
-            ctx.drawImage(canvas, 0, srcY, canvas.width, srcHeight, 0, 0, canvas.width, srcHeight);
-            
-            const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
-            pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
+    function toggleMenu() {
+        document.getElementById('menuPanel').classList.toggle('show');
+    }
+
+    function goToDashboard() {
+        window.location.href = '00-Dashboard-U.html';
+    }
+
+    function showSaveOptions() {
+        document.getElementById('saveOptionsModal').style.display = 'block';
+        document.getElementById('saveModalOverlay').style.display = 'block';
+        document.getElementById('menuPanel').classList.remove('show');
+    }
+
+    function closeSaveModal() {
+        document.getElementById('saveOptionsModal').style.display = 'none';
+        document.getElementById('saveModalOverlay').style.display = 'none';
+    }
+
+    function getSelectedSaveMode() {
+        const selected = document.querySelector('input[name="saveMode"]:checked');
+        return selected ? selected.value : 'screen';
+    }
+
+    document.querySelectorAll('input[name="saveMode"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            var rangeSection = document.getElementById('rangeSection');
+            if (this.value === 'all') {
+                rangeSection.style.display = 'block';
+                var totalPages = cachedPages.length || 1;
+                document.getElementById('toPage').value = totalPages;
+                document.getElementById('rangeTotalPages').textContent = '(Total pages: ' + totalPages + ')';
+            } else {
+                rangeSection.style.display = 'none';
+            }
+        });
+    });
+
+    function getCurrentMemberName() {
+        if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) return null;
+        return cachedPages[currentPageIndex].root || null;
+    }
+
+    function getAncestorPages(memberName) {
+        const result = [];
+        const visited = new Set();
+        let currentName = memberName;
+        let chain = [];
+
+        while (currentName) {
+            chain.push(currentName);
+            const person = globalPersonMap[currentName];
+            if (!person || !person.father || person.father.trim() === '') break;
+            currentName = person.father.trim();
+            if (visited.has(currentName)) break;
+            visited.add(currentName);
         }
 
-        const safeName = memberName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-        pdf.save(`table_${safeName}_${Date.now()}.pdf`);
-        
-        document.body.removeChild(loadingMsg);
-        alert(`✅ PDF saved!\nTotal ${totalPages} A4 pages`);
+        for (let i = chain.length - 1; i >= 0; i--) {
+            const name = chain[i];
+            for (let j = 0; j < cachedPages.length; j++) {
+                if (cachedPages[j].root === name) {
+                    if (!result.includes(j)) result.push(j);
+                    break;
+                }
+            }
+        }
 
-    } catch (err) {
-        console.error('PDF Error:', err);
-        document.body.removeChild(loadingMsg);
-        alert('❌ PDF could not be created: ' + err.message);
+        result.sort((a, b) => a - b);
+        return result;
     }
 
-    // 🔥 Restore zoom
-    zoomLevel = currentZoom;
-    applyZoom();
-}
-
-function saveSelectedMemberPages(memberName, displayNameToUse) {
-    const ancestorPageIndices = getAncestorPages(memberName);
-
-    if (ancestorPageIndices.length === 0) {
-        alert('No ancestor pages found for: ' + displayName(memberName));
-        return;
+    function addPageCounterToPage(pageElement, actualPageNum, totalPages, filteredPageNum) {
+        const footer = pageElement.querySelector('.page-footer');
+        if (footer) {
+            const counterDiv = document.createElement('div');
+            counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
+            counterDiv.textContent = `Page ${actualPageNum} of ${totalPages} (${filteredPageNum})`;
+            footer.appendChild(counterDiv);
+        }
+        return pageElement;
     }
 
-    const totalFullPages = cachedPages.length;
-    let filteredCount = 0;
-    let capturedPages = [];
+    function processSave() {
+        const saveMode = getSelectedSaveMode();
+        const searchInput = document.getElementById('searchInput');
+        const searchedName = searchInput ? searchInput.value.trim() : '';
+        closeSaveModal();
 
-    function capturePage(index) {
-        return new Promise((resolve, reject) => {
-            const pageIndex = ancestorPageIndices[index];
-            const actualPageNum = pageIndex + 1;
-            filteredCount++;
+        if (saveMode === 'screen') {
+            exportTreePDF(searchedName);
+        } else if (saveMode === 'selected') {
+            const memberName = getCurrentMemberName();
+            if (!memberName) {
+                alert('No member selected! Please search for a member first.');
+                return;
+            }
+            const displayNameToUse = searchedName || memberName;
+            saveSelectedMemberPages(memberName, displayNameToUse);
+        } else if (saveMode === 'all') {
+            var fromPage = parseInt(document.getElementById('fromPage').value) || 1;
+            var toPage = parseInt(document.getElementById('toPage').value) || cachedPages.length;
+            if (fromPage < 1) fromPage = 1;
+            if (toPage > cachedPages.length) toPage = cachedPages.length;
+            if (fromPage > toPage) {
+                alert('From page cannot be greater than To page!');
+                return;
+            }
+            saveAllPages(fromPage, toPage);
+        }
+    }
 
-            const originalPageIndex = currentPageIndex;
-            currentPageIndex = pageIndex;
-            renderPage();
+    async function exportTreePDF(searchedName) {
+        const pageElement = document.getElementById('pageContainer');
+        if (!pageElement) {
+            alert('❌ Page not found!');
+            return;
+        }
 
-            const pageElement = document.getElementById('pageContainer');
+        const currentZoom = zoomLevel;
+        zoomLevel = 1.0;
+        applyZoom();
 
-            // Create wrapper
+        const memberName = searchedName || getCurrentMemberName() || 'Family';
+
+        const loadingMsg = document.createElement('div');
+        loadingMsg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#5a0000;color:white;padding:15px 30px;border-radius:8px;z-index:9999;font-size:14px;font-family:"Inter",sans-serif';
+        loadingMsg.textContent = '📄 Creating PDF... (High Resolution)';
+        document.body.appendChild(loadingMsg);
+
+        try {
             const wrapper = document.createElement('div');
             wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
             document.body.appendChild(wrapper);
 
-            // Clone page content
             const clone = pageElement.cloneNode(true);
-            clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white;overflow:visible;height:auto;';
+            clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white';
             wrapper.appendChild(clone);
 
-            // Add header
             const header = document.createElement('div');
             header.style.cssText = 'margin-bottom:20px;text-align:center';
             header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;font-family:"Playfair Display",serif;">Rizvi Family Tree</h1>
-                <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">${displayName(displayNameToUse)}</h2>`;
+                <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">${displayName(memberName)}</h2>`;
             wrapper.insertBefore(header, wrapper.firstChild);
 
-            // Add footer
             const footer = document.createElement('div');
+            footer.className = 'page-footer';
             footer.style.cssText = 'margin-top:20px;padding:12px;background:#fcf9f4;text-align:center;font-size:10px;font-family:"Inter",sans-serif';
+
             const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
             footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 6010-787-0332</div>
                 <div>Last Updated: ${excelSavedTime} | PDF Generated: ${formatCurrentTime()}</div>`;
             wrapper.appendChild(footer);
 
-
-            // Add page counter
             const counterDiv = document.createElement('div');
             counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
-            counterDiv.textContent = `Page ${actualPageNum} of ${totalFullPages} (${filteredCount})`;
+            counterDiv.textContent = `Page 1 of 1`;
+            footer.appendChild(counterDiv);
 
+            await new Promise(resolve => setTimeout(resolve, 400));
 
-footer.appendChild(counterDiv);
+            const canvas = await html2canvas(wrapper, {
+                scale: 2.5,
+                backgroundColor: '#ffffff',
+                logging: false,
+                useCORS: true,
+                windowWidth: wrapper.scrollWidth,
+                windowHeight: wrapper.scrollHeight
+            });
 
-            setTimeout(() => {
-                html2canvas(wrapper, {
-                    scale: 2.5,
-                    backgroundColor: '#ffffff',
-                    useCORS: true,
-                    logging: false,
-                    windowWidth: wrapper.scrollWidth,
-                    windowHeight: wrapper.scrollHeight
-                }).then(canvas => {
-                    document.body.removeChild(wrapper);
-                    capturedPages.push(canvas);
-                    currentPageIndex = originalPageIndex;
-                    renderPage();
-                    resolve();
-                }).catch(err => {
-                    document.body.removeChild(wrapper);
-                    reject(err);
-                });
-            }, 500);
-        });
-    }
+            document.body.removeChild(wrapper);
 
-    async function captureAll() {
-        for (let i = 0; i < ancestorPageIndices.length; i++) {
-            await capturePage(i);
-        }
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const margin = 12;
+            const contentWidth = pageWidth - (margin * 2);
+            const contentHeight = pageHeight - (margin * 2);
 
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 12;
-        const contentWidth = pageWidth - (margin * 2);
-        const contentHeight = pageHeight - (margin * 2);
-
-        let totalA4Pages = 0;
-
-        capturedPages.forEach((canvas, idx) => {
             const imgWidth = contentWidth;
             const imgHeight = (canvas.height / canvas.width) * contentWidth;
-            const totalPagesForThis = Math.ceil(imgHeight / contentHeight);
+            const totalPages = Math.ceil(imgHeight / contentHeight);
 
-            for (let i = 0; i < totalPagesForThis; i++) {
-                if (idx > 0 || i > 0) pdf.addPage();
+            for (let i = 0; i < totalPages; i++) {
+                if (i > 0) pdf.addPage();
                 
                 const yOffset = i * contentHeight;
                 const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
@@ -1618,958 +1474,1070 @@ footer.appendChild(counterDiv);
                 
                 const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
                 pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
-                totalA4Pages++;
             }
-        });
 
-        const fileName = `${displayNameToUse}_ancestor_pages_${Date.now()}.pdf`;
-        pdf.save(fileName);
-        alert(`✅ ${capturedPages.length} pages (${totalA4Pages} A4 pages) saved as "${fileName}"`);
+            const safeName = memberName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            pdf.save(`table_${safeName}_${Date.now()}.pdf`);
+            
+            document.body.removeChild(loadingMsg);
+            alert(`✅ PDF saved!\nTotal ${totalPages} A4 pages`);
+
+        } catch (err) {
+            console.error('PDF Error:', err);
+            document.body.removeChild(loadingMsg);
+            alert('❌ PDF could not be created: ' + err.message);
+        }
+
+        zoomLevel = currentZoom;
+        applyZoom();
     }
 
-    captureAll().catch(err => {
-        alert('❌ Error saving selected member pages: ' + err.message);
-        console.error(err);
-    });
-}
-      
+    function saveSelectedMemberPages(memberName, displayNameToUse) {
+        const ancestorPageIndices = getAncestorPages(memberName);
 
+        if (ancestorPageIndices.length === 0) {
+            alert('No ancestor pages found for: ' + displayName(memberName));
+            return;
+        }
 
+        const totalFullPages = cachedPages.length;
+        let filteredCount = 0;
+        let capturedPages = [];
 
+        function capturePage(index) {
+            return new Promise((resolve, reject) => {
+                const pageIndex = ancestorPageIndices[index];
+                const actualPageNum = pageIndex + 1;
+                filteredCount++;
 
-function saveAllPages(fromPage, toPage) {
-    fromPage = fromPage || 1;
-    toPage = toPage || cachedPages.length;
-    const totalPages = cachedPages.length;
-    let capturedPages = [];
+                const originalPageIndex = currentPageIndex;
+                currentPageIndex = pageIndex;
+                renderPage();
 
-    function capturePage(index) {
-        return new Promise((resolve, reject) => {
-            const actualPageNum = index + 1;
-            const originalPageIndex = currentPageIndex;
-            currentPageIndex = index;
-            renderPage();
+                const pageElement = document.getElementById('pageContainer');
 
-            const pageElement = document.getElementById('pageContainer');
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
+                document.body.appendChild(wrapper);
 
-            // Create wrapper
-            const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
-            document.body.appendChild(wrapper);
+                const clone = pageElement.cloneNode(true);
+                clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white;overflow:visible;height:auto;';
+                wrapper.appendChild(clone);
 
-            // Clone page content
-            const clone = pageElement.cloneNode(true);
-            clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white;overflow:visible;height:auto;';
-            wrapper.appendChild(clone);
-
-            // Add header (only for first page)
-            let header = null;
-            if (index === 0) {
-                header = document.createElement('div');
+                const header = document.createElement('div');
                 header.style.cssText = 'margin-bottom:20px;text-align:center';
                 header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;font-family:"Playfair Display",serif;">Rizvi Family Tree</h1>
-                    <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">Complete Family Tree</h2>`;
+                    <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">${displayName(displayNameToUse)}</h2>`;
                 wrapper.insertBefore(header, wrapper.firstChild);
-            }
 
-            // Add footer (only for last page)
-            let footer = null;
-            if (index === totalPages - 1) {
-                footer = document.createElement('div');
+                const footer = document.createElement('div');
                 footer.style.cssText = 'margin-top:20px;padding:12px;background:#fcf9f4;text-align:center;font-size:10px;font-family:"Inter",sans-serif';
                 const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
                 footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 6010-787-0332</div>
                     <div>Last Updated: ${excelSavedTime} | PDF Generated: ${formatCurrentTime()}</div>`;
                 wrapper.appendChild(footer);
+
+                const counterDiv = document.createElement('div');
+                counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
+                counterDiv.textContent = `Page ${actualPageNum} of ${totalFullPages} (${filteredCount})`;
+                footer.appendChild(counterDiv);
+
+                setTimeout(() => {
+                    html2canvas(wrapper, {
+                        scale: 2.5,
+                        backgroundColor: '#ffffff',
+                        useCORS: true,
+                        logging: false,
+                        windowWidth: wrapper.scrollWidth,
+                        windowHeight: wrapper.scrollHeight
+                    }).then(canvas => {
+                        document.body.removeChild(wrapper);
+                        capturedPages.push(canvas);
+                        currentPageIndex = originalPageIndex;
+                        renderPage();
+                        resolve();
+                    }).catch(err => {
+                        document.body.removeChild(wrapper);
+                        reject(err);
+                    });
+                }, 500);
+            });
+        }
+
+        async function captureAll() {
+            for (let i = 0; i < ancestorPageIndices.length; i++) {
+                await capturePage(i);
             }
 
-            // Add page counter
-            const counterDiv = document.createElement('div');
-counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
-counterDiv.textContent = `Page ${actualPageNum} of ${totalPages}`;
-wrapper.appendChild(counterDiv);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const margin = 12;
+            const contentWidth = pageWidth - (margin * 2);
+            const contentHeight = pageHeight - (margin * 2);
 
-            const savedZoom = pageElement.style.zoom || '1.0';
-            pageElement.style.zoom = '1.0';
-            pageElement.style.transform = 'none';
+            let totalA4Pages = 0;
 
-            setTimeout(() => {
-                html2canvas(wrapper, {
-                    scale: 2.5,
-                    backgroundColor: '#ffffff',
-                    useCORS: true,
-                    logging: false,
-                    windowWidth: wrapper.scrollWidth,
-                    windowHeight: wrapper.scrollHeight
-                }).then(canvas => {
-                    document.body.removeChild(wrapper);
-                    pageElement.style.zoom = savedZoom;
-                    capturedPages.push(canvas);
-                    currentPageIndex = originalPageIndex;
-                    renderPage();
-                    resolve();
-                }).catch(err => {
-                    document.body.removeChild(wrapper);
-                    pageElement.style.zoom = savedZoom;
-                    reject(err);
-                });
-            }, 500);
+            capturedPages.forEach((canvas, idx) => {
+                const imgWidth = contentWidth;
+                const imgHeight = (canvas.height / canvas.width) * contentWidth;
+                const totalPagesForThis = Math.ceil(imgHeight / contentHeight);
+
+                for (let i = 0; i < totalPagesForThis; i++) {
+                    if (idx > 0 || i > 0) pdf.addPage();
+                    
+                    const yOffset = i * contentHeight;
+                    const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
+                    
+                    const srcY = (yOffset / imgHeight) * canvas.height;
+                    const srcHeight = (remainingHeight / imgHeight) * canvas.height;
+                    
+                    const pageCanvas = document.createElement('canvas');
+                    pageCanvas.width = canvas.width;
+                    pageCanvas.height = srcHeight;
+                    const ctx = pageCanvas.getContext('2d');
+                    ctx.drawImage(canvas, 0, srcY, canvas.width, srcHeight, 0, 0, canvas.width, srcHeight);
+                    
+                    const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+                    pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
+                    totalA4Pages++;
+                }
+            });
+
+            const fileName = `${displayNameToUse}_ancestor_pages_${Date.now()}.pdf`;
+            pdf.save(fileName);
+            alert(`✅ ${capturedPages.length} pages (${totalA4Pages} A4 pages) saved as "${fileName}"`);
+        }
+
+        captureAll().catch(err => {
+            alert('❌ Error saving selected member pages: ' + err.message);
+            console.error(err);
         });
     }
 
-    async function captureAll() {
-        for (let i = fromPage - 1; i < toPage; i++) {
-            await capturePage(i);
+    function saveAllPages(fromPage, toPage) {
+        fromPage = fromPage || 1;
+        toPage = toPage || cachedPages.length;
+        const totalPages = cachedPages.length;
+        let capturedPages = [];
+
+        function capturePage(index) {
+            return new Promise((resolve, reject) => {
+                const actualPageNum = index + 1;
+                const originalPageIndex = currentPageIndex;
+                currentPageIndex = index;
+                renderPage();
+
+                const pageElement = document.getElementById('pageContainer');
+
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'position:absolute;left:-9999px;top:0;background:white;padding:15px;width:fit-content;min-width:100%;font-family:"Inter",sans-serif';
+                document.body.appendChild(wrapper);
+
+                const clone = pageElement.cloneNode(true);
+                clone.style.cssText = 'zoom:1;transform:none;width:100%;padding:15px;background:white;overflow:visible;height:auto;';
+                wrapper.appendChild(clone);
+
+                let header = null;
+                if (index === 0) {
+                    header = document.createElement('div');
+                    header.style.cssText = 'margin-bottom:20px;text-align:center';
+                    header.innerHTML = `<h1 style="color:#d4af37;font-size:28px;margin:0;font-family:"Playfair Display",serif;">Rizvi Family Tree</h1>
+                        <h2 style="color:#5a0000;font-size:20px;margin:8px 0 0 0;font-family:"Playfair Display",serif;">Complete Family Tree</h2>`;
+                    wrapper.insertBefore(header, wrapper.firstChild);
+                }
+
+                let footer = null;
+                if (index === totalPages - 1) {
+                    footer = document.createElement('div');
+                    footer.style.cssText = 'margin-top:20px;padding:12px;background:#fcf9f4;text-align:center;font-size:10px;font-family:"Inter",sans-serif';
+                    const excelSavedTime = fileInfo ? fileInfo.saved_time : '18/03/2026, 9:04:20 pm';
+                    footer.innerHTML = `<div>Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 6010-787-0332</div>
+                        <div>Last Updated: ${excelSavedTime} | PDF Generated: ${formatCurrentTime()}</div>`;
+                    wrapper.appendChild(footer);
+                }
+
+                const counterDiv = document.createElement('div');
+                counterDiv.style.cssText = 'font-size:12px; color:#6b5a48; margin-top:4px; font-weight:600; text-align:right; font-family:"Inter",sans-serif;';
+                counterDiv.textContent = `Page ${actualPageNum} of ${totalPages}`;
+                wrapper.appendChild(counterDiv);
+
+                const savedZoom = pageElement.style.zoom || '1.0';
+                pageElement.style.zoom = '1.0';
+                pageElement.style.transform = 'none';
+
+                setTimeout(() => {
+                    html2canvas(wrapper, {
+                        scale: 2.5,
+                        backgroundColor: '#ffffff',
+                        useCORS: true,
+                        logging: false,
+                        windowWidth: wrapper.scrollWidth,
+                        windowHeight: wrapper.scrollHeight
+                    }).then(canvas => {
+                        document.body.removeChild(wrapper);
+                        pageElement.style.zoom = savedZoom;
+                        capturedPages.push(canvas);
+                        currentPageIndex = originalPageIndex;
+                        renderPage();
+                        resolve();
+                    }).catch(err => {
+                        document.body.removeChild(wrapper);
+                        pageElement.style.zoom = savedZoom;
+                        reject(err);
+                    });
+                }, 500);
+            });
         }
 
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 12;
-        const contentWidth = pageWidth - (margin * 2);
-        const contentHeight = pageHeight - (margin * 2);
-
-        let totalA4Pages = 0;
-
-        capturedPages.forEach((canvas, idx) => {
-            const imgWidth = contentWidth;
-            const imgHeight = (canvas.height / canvas.width) * contentWidth;
-            const totalPagesForThis = Math.ceil(imgHeight / contentHeight);
-
-            for (let i = 0; i < totalPagesForThis; i++) {
-                if (idx > 0 || i > 0) pdf.addPage();
-                
-                const yOffset = i * contentHeight;
-                const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
-                
-                const srcY = (yOffset / imgHeight) * canvas.height;
-                const srcHeight = (remainingHeight / imgHeight) * canvas.height;
-                
-                const pageCanvas = document.createElement('canvas');
-                pageCanvas.width = canvas.width;
-                pageCanvas.height = srcHeight;
-                const ctx = pageCanvas.getContext('2d');
-                ctx.drawImage(canvas, 0, srcY, canvas.width, srcHeight, 0, 0, canvas.width, srcHeight);
-                
-                const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
-                pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
-                totalA4Pages++;
+        async function captureAll() {
+            for (let i = fromPage - 1; i < toPage; i++) {
+                await capturePage(i);
             }
-        });
 
-        const fileName = `family_tree_all_pages_${Date.now()}.pdf`;
-        pdf.save(fileName);
-        alert(`✅ All ${capturedPages.length} pages (${totalA4Pages} A4 pages) saved as "${fileName}"`);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const margin = 12;
+            const contentWidth = pageWidth - (margin * 2);
+            const contentHeight = pageHeight - (margin * 2);
+
+            let totalA4Pages = 0;
+
+            capturedPages.forEach((canvas, idx) => {
+                const imgWidth = contentWidth;
+                const imgHeight = (canvas.height / canvas.width) * contentWidth;
+                const totalPagesForThis = Math.ceil(imgHeight / contentHeight);
+
+                for (let i = 0; i < totalPagesForThis; i++) {
+                    if (idx > 0 || i > 0) pdf.addPage();
+                    
+                    const yOffset = i * contentHeight;
+                    const remainingHeight = Math.min(contentHeight, imgHeight - yOffset);
+                    
+                    const srcY = (yOffset / imgHeight) * canvas.height;
+                    const srcHeight = (remainingHeight / imgHeight) * canvas.height;
+                    
+                    const pageCanvas = document.createElement('canvas');
+                    pageCanvas.width = canvas.width;
+                    pageCanvas.height = srcHeight;
+                    const ctx = pageCanvas.getContext('2d');
+                    ctx.drawImage(canvas, 0, srcY, canvas.width, srcHeight, 0, 0, canvas.width, srcHeight);
+                    
+                    const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+                    pdf.addImage(imgData, 'JPEG', margin, margin, contentWidth, remainingHeight);
+                    totalA4Pages++;
+                }
+            });
+
+            const fileName = `family_tree_all_pages_${Date.now()}.pdf`;
+            pdf.save(fileName);
+            alert(`✅ All ${capturedPages.length} pages (${totalA4Pages} A4 pages) saved as "${fileName}"`);
+        }
+
+        captureAll().catch(err => {
+            alert('❌ Error saving all pages: ' + err.message);
+            console.error(err);
+        });
     }
 
-    captureAll().catch(err => {
-        alert('❌ Error saving all pages: ' + err.message);
-        console.error(err);
-    });
-}
+    function closeDetailsModal() {
+        document.getElementById('detailsModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 
+    function findMemberPage(memberName) {
+        const searchLower = memberName.trim().toLowerCase();
+        if (!searchLower) return -1;
 
-
-
-        function closeDetailsModal() {
-            document.getElementById('detailsModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        for (let i = 0; i < cachedPages.length; i++) {
+            const page = cachedPages[i];
+            if (page.root.toLowerCase() === searchLower) return i;
         }
 
-        function findMemberPage(memberName) {
-            const searchLower = memberName.trim().toLowerCase();
-            if (!searchLower) return -1;
-
-            for (let i = 0; i < cachedPages.length; i++) {
-                const page = cachedPages[i];
-                if (page.root.toLowerCase() === searchLower) return i;
+        for (let i = 0; i < cachedPages.length; i++) {
+            const page = cachedPages[i];
+            if (page.root.toLowerCase().includes(searchLower)) return i;
+            const children = getChildren(page.root, globalMap);
+            for (let child of children) {
+                if (child.toLowerCase().includes(searchLower)) return i;
             }
+        }
 
+        return -1;
+    }
+
+    function searchMember() {
+        const input = document.getElementById('searchInput');
+        const query = input.value.trim();
+        if (!query) {
+            renderPage();
+            return;
+        }
+
+        const pageIndex = findMemberPage(query);
+        if (pageIndex === -1) {
+            document.getElementById('errorMsg').textContent = '⚠️ Member not found: "' + query + '"';
+            return;
+        }
+
+        document.getElementById('errorMsg').textContent = '';
+        renderPage(query);
+    }
+
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('errorMsg').textContent = '';
+        document.getElementById('searchDropdown').style.display = 'none';
+        
+        const container = document.getElementById('pageContainer');
+        container.innerHTML = `
+            <div class="welcome-container">
+                <div class="welcome-box">
+                    <div class="welcome-icon">🌿</div>
+                    <div class="welcome-title">Rizvi Family Tree</div>
+                    <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
+                </div>
+            </div>
+        `;
+        currentPageIndex = 0;
+    }
+
+    document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+        const query = this.value;
+        const dropdown = document.getElementById('searchDropdown');
+        if (query.length < 2) {
+            dropdown.style.display = 'none';
+            return;
+        }
+
+        const results = db.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
+
+        dropdown.innerHTML = '';
+        if (results.length === 0) {
+            dropdown.innerHTML = '<div class="no-result">No results found</div>';
+            dropdown.style.display = 'block';
+            return;
+        }
+
+        results.forEach(member => {
+            const div = document.createElement('div');
+            div.className = 'result-item';
+
+            let pageIdx = -1;
             for (let i = 0; i < cachedPages.length; i++) {
-                const page = cachedPages[i];
-                if (page.root.toLowerCase().includes(searchLower)) return i;
-                const children = getChildren(page.root, globalMap);
-                for (let child of children) {
-                    if (child.toLowerCase().includes(searchLower)) return i;
+                if (cachedPages[i].root === member.name) {
+                    pageIdx = i;
+                    break;
+                }
+                const children = getChildren(cachedPages[i].root, globalMap);
+                if (children.includes(member.name)) {
+                    pageIdx = i;
+                    break;
                 }
             }
 
-            return -1;
-        }
+            const pageDisplay = pageIdx >= 0 ? ` · Page ${pageIdx + 1}` : '';
 
-        function searchMember() {
-            const input = document.getElementById('searchInput');
-            const query = input.value.trim();
-            if (!query) {
-                renderPage();
-                return;
-            }
-
-            const pageIndex = findMemberPage(query);
-            if (pageIndex === -1) {
-                document.getElementById('errorMsg').textContent = '⚠️ Member not found: "' + query + '"';
-                return;
-            }
-
-            document.getElementById('errorMsg').textContent = '';
-            renderPage(query);
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('errorMsg').textContent = '';
-            document.getElementById('searchDropdown').style.display = 'none';
-            
-            const container = document.getElementById('pageContainer');
-            container.innerHTML = `
-                <div class="welcome-container">
-                    <div class="welcome-box">
-                        <div class="welcome-icon">🌿</div>
-                        <div class="welcome-title">Rizvi Family Tree</div>
-                        <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
-                    </div>
+            div.innerHTML = `
+                <div>
+                    <span class="main-name">${displayName(member.name)}</span>
+                    <span class="gen">${member.gen || ''}</span>
+                    <span style="font-size:11px;color:#2e7d32;">${pageDisplay}</span>
+                    <div class="father-name">Father: ${displayName(member.father) || '—'}</div>
                 </div>
             `;
-            currentPageIndex = 0;
-        }
-
-        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
-            const query = this.value;
-            const dropdown = document.getElementById('searchDropdown');
-            if (query.length < 2) {
-                dropdown.style.display = 'none';
-                return;
-            }
-
-            const results = db.filter(m => m.name.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
-
-            dropdown.innerHTML = '';
-            if (results.length === 0) {
-                dropdown.innerHTML = '<div class="no-result">No results found</div>';
-                dropdown.style.display = 'block';
-                return;
-            }
-
-            results.forEach(member => {
-                const div = document.createElement('div');
-                div.className = 'result-item';
-
-                let pageIdx = -1;
+            div.onclick = () => {
+                let targetPage = -1;
                 for (let i = 0; i < cachedPages.length; i++) {
                     if (cachedPages[i].root === member.name) {
-                        pageIdx = i;
+                        targetPage = i;
                         break;
                     }
                     const children = getChildren(cachedPages[i].root, globalMap);
                     if (children.includes(member.name)) {
-                        pageIdx = i;
+                        targetPage = i;
                         break;
                     }
                 }
+                if (targetPage >= 0) {
+                    currentPageIndex = targetPage;
+                    renderPage(displayName(member.name));
+                    dropdown.style.display = 'none';
+                    this.value = displayName(member.name);
+                }
+            };
+            dropdown.appendChild(div);
+        });
+        dropdown.style.display = 'block';
+    });
 
-                const pageDisplay = pageIdx >= 0 ? ` · Page ${pageIdx + 1}` : '';
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-wrapper')) {
+            document.getElementById('searchDropdown').style.display = 'none';
+        }
+        if (!e.target.closest('.menu-panel') && !e.target.closest('.menu-toggle-btn')) {
+            document.getElementById('menuPanel').classList.remove('show');
+        }
+        if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
+            document.getElementById('saveOptionsModal').style.display = 'none';
+            document.getElementById('saveModalOverlay').style.display = 'none';
+        }
+        if (e.target === document.getElementById('tipsOverlay')) {
+            document.getElementById('tipsOverlay').style.display = 'none';
+        }
+    });
 
-                div.innerHTML = `
-                    <div>
-                        <span class="main-name">${displayName(member.name)}</span>
-                        <span class="gen">${member.gen || ''}</span>
-                        <span style="font-size:11px;color:#2e7d32;">${pageDisplay}</span>
-                        <div class="father-name">Father: ${displayName(member.father) || '—'}</div>
+    function buildFamilyMap(data) {
+        const map = {};
+        const personMap = {};
+
+        data.forEach(p => {
+            const key = p.name.trim();
+            personMap[key] = p;
+            map[key] = [];
+        });
+
+        data.forEach(p => {
+            const fatherName = p.father ? p.father.trim() : '';
+            if (fatherName !== '') {
+                if (map[fatherName]) {
+                    if (!map[fatherName].includes(p.name.trim())) {
+                        map[fatherName].push(p.name.trim());
+                    }
+                } else {
+                    map[fatherName] = [p.name.trim()];
+                }
+            }
+        });
+
+        globalMap = map;
+        globalPersonMap = personMap;
+        db = data;
+        return { map, personMap };
+    }
+
+    function findRoots(data, map) {
+        const allNames = new Set(data.map(p => p.name.trim()));
+        const roots = [];
+
+        data.forEach(p => {
+            const fatherName = p.father ? p.father.trim() : '';
+            if (fatherName === '' || !allNames.has(fatherName)) {
+                if (!roots.includes(p.name.trim())) {
+                    roots.push(p.name.trim());
+                }
+            }
+        });
+
+        return roots.length > 0 ? roots : [data[0].name.trim()];
+    }
+
+    function getChildren(name, map) {
+        return map[name] || [];
+    }
+
+    function hasChildren(name, map) {
+        return getChildren(name, map).length > 0;
+    }
+
+    function getActualFather(name, personMap) {
+        const person = personMap[name];
+        if (person && person.father && person.father.trim() !== '') {
+            return person.father.trim();
+        }
+        return null;
+    }
+
+    function generatePages(data) {
+        const { map, personMap } = buildFamilyMap(data);
+        const pages = [];
+        const processed = new Set();
+        const roots = findRoots(data, map);
+
+        const queue = [];
+
+        roots.forEach(root => {
+            if (!processed.has(root)) {
+                processed.add(root);
+                queue.push(root);
+            }
+        });
+
+        for (const [parent, children] of Object.entries(map)) {
+            if (children.length > 0 && !processed.has(parent)) {
+                const hasParent = data.some(p => p.name.trim() === parent && p.father && p.father.trim() !== '');
+                if (hasParent) {
+                    processed.add(parent);
+                    queue.push(parent);
+                }
+            }
+        }
+
+        while (queue.length > 0) {
+            const currentRoot = queue.shift();
+            const children = getChildren(currentRoot, map);
+
+            const childrenWithChildren = [];
+            children.forEach(child => {
+                const childChildren = getChildren(child, map);
+                if (childChildren.length > 0) {
+                    childrenWithChildren.push(child);
+                }
+            });
+
+            const actualFather = getActualFather(currentRoot, personMap);
+
+            pages.push({
+                root: currentRoot,
+                lines: [],
+                splitChildren: childrenWithChildren,
+                parentPage: actualFather,
+                hasChildren: hasChildren(currentRoot, map),
+                rootPerson: personMap[currentRoot]
+            });
+
+            childrenWithChildren.forEach(child => {
+                if (!processed.has(child)) {
+                    processed.add(child);
+                    queue.push(child);
+                }
+            });
+        }
+
+        rootToPageMap = {};
+        pages.forEach((page, index) => {
+            rootToPageMap[page.root] = index;
+        });
+
+        pages.forEach((page, index) => {
+            page.lines = renderPageContent(
+                page.root,
+                map,
+                personMap,
+                page.splitChildren,
+                index,
+                rootToPageMap
+            );
+        });
+
+        return pages;
+    }
+
+    function goToPage(pageIndex) {
+        if (pageIndex < 0 || pageIndex >= cachedPages.length) return;
+        currentPageIndex = pageIndex;
+        renderPage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
+        const person = personMap[name];
+        const children = getChildren(name, map);
+        const isFather = hasChildren(name, map);
+        const isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
+
+        let rows = [];
+        let fatherClass = (isFather ? 'father-red' : 'father-normal') + (isFemale ? ' female' : '');
+
+        const fullName = name;
+        const cleanName = displayName(name);
+        const rootGen = (person && person.gen ? person.gen : '');
+
+        const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
+        const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
+
+        const rootFather = getActualFather(name, personMap);
+        let rootPagePart = '';
+
+        if (rootFather && rootToPageMap[rootFather] !== undefined) {
+            const fatherPage = rootToPageMap[rootFather];
+            rootPagePart = ` (Father) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">Page ${fatherPage + 1}</span>`;
+        } else if (rootFather) {
+            rootPagePart = ` (Father)`;
+        }
+
+        rows.push({
+            tree: '',
+            name: cleanName + rootPagePart,
+            plainName: fullName,
+            isFather: isFather,
+            isFemale: isFemale,
+            spouse: cleanSpouse,
+            plainSpouse: rootSpouse,
+            gen: rootGen,
+            page: '',
+            fatherClass: fatherClass
+        });
+
+        if (isFather && children.length > 0) {
+            children.forEach((child) => {
+                const childPerson = personMap[child];
+                const childFullName = child;
+                const childCleanName = displayName(child);
+                const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
+                const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
+
+                const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
+                const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
+
+                let childPagePart = '';
+                if (splitChildren && splitChildren.includes(child)) {
+                    const actualPageIndex = rootToPageMap[child];
+                    childPagePart = actualPageIndex !== undefined ?
+                        '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
+                }
+
+                let childClass = 'child-name' + (childIsFemale ? ' female' : '');
+
+                rows.push({
+                    tree: '•',
+                    name: childCleanName,
+                    plainName: childFullName,
+                    isFather: false,
+                    isFemale: childIsFemale,
+                    spouse: childCleanSpouse,
+                    plainSpouse: childSpouse,
+                    gen: childGen,
+                    page: childPagePart,
+                    childClass: childClass
+                });
+            });
+        }
+        return rows;
+    }
+
+    function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
+        const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
+
+        let fatherPageDisplay = '';
+        if (parentPage) {
+            const idx = rootToPageMap[parentPage];
+            if (idx !== undefined) {
+                fatherPageDisplay = '<span style="color:#2e7d32; font-weight:1200; cursor:pointer; text-decoration:underline;" onclick="showMemberDetails(\'' + parentPage + '\')">' + displayName(parentPage) + '</span> : <span style="color:#cc0000; font-weight:1200; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">Page ' + (idx + 1) + '</span>';
+            } else {
+                fatherPageDisplay = displayName(parentPage);
+            }
+        }
+
+        let html = '';
+
+        html += `
+            <div class="page-header">
+                <div class="ref" style="font-weight:700; font-size:14px;">
+                    ${fatherPageDisplay}
+                </div>
+            </div>
+        `;
+
+        html += `
+            <div class="family-table-wrapper">
+                <table class="family-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Spouse</th>
+                            <th>Gen</th>
+                            <th>Next Gen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        if (lines && lines.length > 0) {
+            lines.forEach((row) => {
+                let personName = row.plainName || '';
+                let person = globalPersonMap[personName];
+                let isFemale = row.isFemale || false;
+
+                let rowBg = '';
+                if (isFemale) {
+                    rowBg = 'female-row';
+                }
+
+                let nameDisplay = row.name;
+                if (row.isFather) {
+                    nameDisplay = `<span class="${row.fatherClass}">${row.name}</span>`;
+                } else {
+                    nameDisplay = `<span class="${row.childClass}">${row.name}</span>`;
+                }
+
+                if (highlightName) {
+                    const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    nameDisplay = nameDisplay.replace(new RegExp(escaped, 'gi'), match => {
+                        return '<span class="highlight">' + match + '</span>';
+                    });
+                }
+
+                let clickableName = nameDisplay;
+                if (personName) {
+                    const genderClass = isFemale ? 'female' : 'male';
+                    const cleanNameText = displayName(personName);
+                    clickableName = nameDisplay.replace(cleanNameText, function(match) {
+                        return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
+                    });
+                    if (clickableName === nameDisplay) {
+                        clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + nameDisplay + '</span>';
+                    }
+                }
+
+                let clickableSpouse = row.spouse || '—';
+                let spouseName = row.plainSpouse || '';
+                if (spouseName && row.spouse !== '—') {
+                    let spousePerson = globalPersonMap[spouseName];
+                    let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
+                    const genderClass = isSpouseFemale ? 'female' : 'male';
+                    clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName + '\')">' + displayName(spouseName) + '</span>';
+                }
+
+                if (row.spouse && row.spouse.includes('See details in ℹ️')) {
+                    const targetPerson = globalPersonMap[personName];
+                    if (targetPerson && targetPerson.spouse && targetPerson.spouse.includes('See details in ℹ️')) {
+                        clickableSpouse = '<span class="details-link" onclick="showOnlyDetails(\'' + personName + '\')" style="color:#2e7d32;font-weight:600;cursor:pointer;padding:2px 8px;border-radius:4px;display:inline-block;background:#f0f7f0;font-family:\'Inter\',sans-serif;font-size:13px;">See details</span>';
+                    }
+                }
+
+                let clickablePageHtml = row.page || '';
+                if (row.page && row.page.includes('Page')) {
+                    clickablePageHtml = row.page;
+                } else if (row.page && row.page.trim() !== '') {
+                    const pagePerson = globalPersonMap[row.page];
+                    if (pagePerson) {
+                        const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
+                        const genderClassPage = isFemalePage ? 'female' : 'male';
+                        clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + row.page + '\')">' + displayName(row.page) + '</span>';
+                    }
+                }
+
+                let treeChar = row.tree || '';
+                if (personName && globalPersonMap[personName] && globalPersonMap[personName].details && globalPersonMap[personName].details.trim() !== '') {
+                    const escapedName = personName.replace(/'/g, "\\'");
+                    treeChar = '<span class="details-icon" onclick="event.stopPropagation(); showOnlyDetails(\'' + escapedName + '\')" style="cursor:pointer;font-size:14px;color:var(--gold);">ℹ️</span>';
+                }
+
+                let rowClass = rowBg;
+                if (row.isFather) rowClass += ' father-row';
+                
+                html += `<tr class="${rowClass}">`;
+                html += `<td class="col-tree">${treeChar}</td>`;
+                html += `<td class="col-name ${row.isFather ? 'father-name-cell' : 'child-name-cell'}">${clickableName}</td>`;
+                html += `<td class="col-spouse">${clickableSpouse}</td>`;
+                html += `<td class="col-gen">${row.gen || ''}</td>`;
+                html += `<td class="col-next">${clickablePageHtml}</td>`;
+                html += `</tr>`;
+            });
+        }
+
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        return html;
+    }
+
+    function renderAllPages() {
+        const container = document.getElementById('pageContainer');
+        const errorMsg = document.getElementById('errorMsg');
+
+        if (typeof FAMILY_DATA_E === 'undefined') {
+            container.innerHTML =
+                `<div class="no-data">⚠️ Data not loaded!<div class="error">Make sure <strong>20-Family-Data-E.js</strong> is in the same folder.</div></div>`;
+            errorMsg.textContent = '⚠️ Data not loaded!';
+            return;
+        }
+
+        familyData = FAMILY_DATA_E;
+        buildFamilyMap(familyData);
+
+        try {
+            cachedPages = generatePages(familyData);
+
+            document.getElementById('headerStats').textContent = 
+                `Members: ${familyData.length} · Pages: ${cachedPages.length}`;
+
+            if (cachedPages.length === 0) {
+                container.innerHTML = `
+                    <div class="welcome-container">
+                        <div class="welcome-box">
+                            <div class="welcome-icon">🌿</div>
+                            <div class="welcome-title">Rizvi Family Tree</div>
+                            <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
+                        </div>
                     </div>
                 `;
-                div.onclick = () => {
-                    let targetPage = -1;
-                    for (let i = 0; i < cachedPages.length; i++) {
-                        if (cachedPages[i].root === member.name) {
-                            targetPage = i;
-                            break;
-                        }
-                        const children = getChildren(cachedPages[i].root, globalMap);
-                        if (children.includes(member.name)) {
-                            targetPage = i;
-                            break;
-                        }
-                    }
-                    if (targetPage >= 0) {
-                        currentPageIndex = targetPage;
-                        renderPage(displayName(member.name));
-                        dropdown.style.display = 'none';
-                        this.value = displayName(member.name);
-                    }
-                };
-                dropdown.appendChild(div);
-            });
-            dropdown.style.display = 'block';
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-wrapper')) {
-                document.getElementById('searchDropdown').style.display = 'none';
-            }
-            if (!e.target.closest('.menu-panel') && !e.target.closest('.menu-toggle-btn')) {
-                document.getElementById('menuPanel').classList.remove('show');
-            }
-            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
-                document.getElementById('saveOptionsModal').style.display = 'none';
-                document.getElementById('saveModalOverlay').style.display = 'none';
-            }
-            if (e.target === document.getElementById('tipsOverlay')) {
-                document.getElementById('tipsOverlay').style.display = 'none';
-            }
-        });
-
-        function buildFamilyMap(data) {
-            const map = {};
-            const personMap = {};
-
-            data.forEach(p => {
-                const key = p.name.trim();
-                personMap[key] = p;
-                map[key] = [];
-            });
-
-            data.forEach(p => {
-                const fatherName = p.father ? p.father.trim() : '';
-                if (fatherName !== '') {
-                    if (map[fatherName]) {
-                        if (!map[fatherName].includes(p.name.trim())) {
-                            map[fatherName].push(p.name.trim());
-                        }
-                    } else {
-                        map[fatherName] = [p.name.trim()];
-                    }
-                }
-            });
-
-            globalMap = map;
-            globalPersonMap = personMap;
-            db = data;
-            return { map, personMap };
-        }
-
-        function findRoots(data, map) {
-            const allNames = new Set(data.map(p => p.name.trim()));
-            const roots = [];
-
-            data.forEach(p => {
-                const fatherName = p.father ? p.father.trim() : '';
-                if (fatherName === '' || !allNames.has(fatherName)) {
-                    if (!roots.includes(p.name.trim())) {
-                        roots.push(p.name.trim());
-                    }
-                }
-            });
-
-            return roots.length > 0 ? roots : [data[0].name.trim()];
-        }
-
-        function getChildren(name, map) {
-            return map[name] || [];
-        }
-
-        function hasChildren(name, map) {
-            return getChildren(name, map).length > 0;
-        }
-
-        function getActualFather(name, personMap) {
-            const person = personMap[name];
-            if (person && person.father && person.father.trim() !== '') {
-                return person.father.trim();
-            }
-            return null;
-        }
-
-        function generatePages(data) {
-            const { map, personMap } = buildFamilyMap(data);
-            const pages = [];
-            const processed = new Set();
-            const roots = findRoots(data, map);
-
-            const queue = [];
-
-            roots.forEach(root => {
-                if (!processed.has(root)) {
-                    processed.add(root);
-                    queue.push(root);
-                }
-            });
-
-            for (const [parent, children] of Object.entries(map)) {
-                if (children.length > 0 && !processed.has(parent)) {
-                    const hasParent = data.some(p => p.name.trim() === parent && p.father && p.father.trim() !== '');
-                    if (hasParent) {
-                        processed.add(parent);
-                        queue.push(parent);
-                    }
-                }
+                return;
             }
 
-            while (queue.length > 0) {
-                const currentRoot = queue.shift();
-                const children = getChildren(currentRoot, map);
-
-                const childrenWithChildren = [];
-                children.forEach(child => {
-                    const childChildren = getChildren(child, map);
-                    if (childChildren.length > 0) {
-                        childrenWithChildren.push(child);
-                    }
-                });
-
-                const actualFather = getActualFather(currentRoot, personMap);
-
-                pages.push({
-                    root: currentRoot,
-                    lines: [],
-                    splitChildren: childrenWithChildren,
-                    parentPage: actualFather,
-                    hasChildren: hasChildren(currentRoot, map),
-                    rootPerson: personMap[currentRoot]
-                });
-
-                childrenWithChildren.forEach(child => {
-                    if (!processed.has(child)) {
-                        processed.add(child);
-                        queue.push(child);
-                    }
-                });
-            }
-
-            rootToPageMap = {};
-            pages.forEach((page, index) => {
-                rootToPageMap[page.root] = index;
-            });
-
-            pages.forEach((page, index) => {
-                page.lines = renderPageContent(
-                    page.root,
-                    map,
-                    personMap,
-                    page.splitChildren,
-                    index,
-                    rootToPageMap
-                );
-            });
-
-            return pages;
-        }
-
-        function goToPage(pageIndex) {
-            if (pageIndex < 0 || pageIndex >= cachedPages.length) return;
-            currentPageIndex = pageIndex;
+            errorMsg.textContent = '';
+            currentPageIndex = 0;
             renderPage();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (e) {
+            container.innerHTML = `<div class="no-data">⚠️ Error: ${e.message}</div>`;
+            errorMsg.textContent = '⚠️ Error: ' + e.message;
+            console.error(e);
+        }
+    }
+
+    function renderPage(highlightName = null) {
+        const container = document.getElementById('pageContainer');
+
+        if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) {
+            container.innerHTML = `<div class="no-data">No page selected.</div>`;
+            return;
         }
 
-        function renderPageContent(name, map, personMap, splitChildren, pageIndex, rootToPageMap) {
-            const person = personMap[name];
-            const children = getChildren(name, map);
-            const isFather = hasChildren(name, map);
-            const isFemale = person && person.gender && person.gender.toUpperCase() === 'FEMALE';
+        try {
+            const html = renderPageHTML(cachedPages[currentPageIndex], currentPageIndex, cachedPages.length, highlightName);
+            container.innerHTML = html;
+        } catch (e) {
+            container.innerHTML = `<div class="no-data">⚠️ Error loading page: ${e.message}</div>`;
+            console.error(e);
+        }
+    }
 
-            let rows = [];
-            let fatherClass = (isFather ? 'father-red' : 'father-normal') + (isFemale ? ' female' : '');
+    function showOnlyDetails(name) {
+        if (!name) return;
+        
+        const person = globalPersonMap[name];
+        if (!person) {
+            alert('Member not found: ' + name);
+            return;
+        }
+        
+        const modal = document.getElementById('detailsModal');
+        const title = document.getElementById('detailsModalTitle');
+        const content = document.getElementById('detailsModalContent');
+        
+        title.textContent = '📝 Details - ' + displayName(person.name);
+        
+        let detailsHtml = person.details || 'No details available.';
+        detailsHtml = detailsHtml.replace(/\\n/g, '<br>');
+        
+        content.innerHTML = detailsHtml;
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
 
-            const fullName = name;
-            const cleanName = displayName(name);
-            const rootGen = (person && person.gen ? person.gen : '');
+    function showMemberDetails(name) {
+        if (!name) return;
 
-            const rootSpouse = person && person.spouse ? person.spouse.trim() : '';
-            const cleanSpouse = rootSpouse ? displayName(rootSpouse) : '';
-
-            const rootFather = getActualFather(name, personMap);
-            let rootPagePart = '';
-
-            if (rootFather && rootToPageMap[rootFather] !== undefined) {
-                const fatherPage = rootToPageMap[rootFather];
-                rootPagePart = ` (Father) - <span class="continue-arrow" onclick="goToPage(${fatherPage})">Page ${fatherPage + 1}</span>`;
-            } else if (rootFather) {
-                rootPagePart = ` (Father)`;
-            }
-
-            rows.push({
-                tree: '',
-                name: cleanName + rootPagePart,
-                plainName: fullName,
-                isFather: isFather,
-                isFemale: isFemale,
-                spouse: cleanSpouse,
-                plainSpouse: rootSpouse,
-                gen: rootGen,
-                page: '',
-                fatherClass: fatherClass
-            });
-
-            if (isFather && children.length > 0) {
-                children.forEach((child) => {
-                    const childPerson = personMap[child];
-                    const childFullName = child;
-                    const childCleanName = displayName(child);
-                    const childIsFemale = childPerson && childPerson.gender && childPerson.gender.toUpperCase() === 'FEMALE';
-                    const childGen = (childPerson && childPerson.gen ? childPerson.gen : '');
-
-                    const childSpouse = childPerson && childPerson.spouse ? childPerson.spouse.trim() : '';
-                    const childCleanSpouse = childSpouse ? displayName(childSpouse) : '';
-
-                    let childPagePart = '';
-                    if (splitChildren && splitChildren.includes(child)) {
-                        const actualPageIndex = rootToPageMap[child];
-                        childPagePart = actualPageIndex !== undefined ?
-                            '<span class="continue-arrow" onclick="goToPage(' + actualPageIndex + ')">Page ' + (actualPageIndex + 1) + '</span>' : '';
-                    }
-
-                    let childClass = 'child-name' + (childIsFemale ? ' female' : '');
-
-                    rows.push({
-                        tree: '•',
-                        name: childCleanName,
-                        plainName: childFullName,
-                        isFather: false,
-                        isFemale: childIsFemale,
-                        spouse: childCleanSpouse,
-                        plainSpouse: childSpouse,
-                        gen: childGen,
-                        page: childPagePart,
-                        childClass: childClass
-                    });
-                });
-            }
-            return rows;
+        const person = globalPersonMap[name];
+        if (!person) {
+            alert('Member not found: ' + name);
+            return;
         }
 
-        function renderPageHTML(pageData, pageIndex, totalPages, highlightName = null) {
-            const { root, lines, splitChildren, parentPage, hasChildren } = pageData;
+        const modal = document.getElementById('memberModal');
+        const content = document.getElementById('memberDetailsContent');
 
-            let fatherPageDisplay = '';
-            if (parentPage) {
-                const idx = rootToPageMap[parentPage];
-                if (idx !== undefined) {
-                    fatherPageDisplay = '<span style="color:#2e7d32; font-weight:1200; cursor:pointer; text-decoration:underline;" onclick="showMemberDetails(\'' + parentPage + '\')">' + displayName(parentPage) + '</span> : <span style="color:#cc0000; font-weight:1200; cursor:pointer; text-decoration:underline;" onclick="goToPage(' + idx + ')">Page ' + (idx + 1) + '</span>';
-                } else {
-                    fatherPageDisplay = displayName(parentPage);
-                }
-            }
+        let html = '';
 
-            let html = '';
+        html += `
+            <div class="detail-card">
+                <div class="detail-header">
+                    <h2>${displayName(person.name)}</h2>
+                    <button onclick="closeMemberModal()" 
+                            style="padding:8px 20px; background:var(--gold); color:var(--dark-blue); 
+                                   border:none; border-radius:8px; font-size:14px; font-weight:700; 
+                                   cursor:pointer; font-family:'Inter',sans-serif;
+                                   transition:all 0.2s;">
+                         Close
+                    </button>
+                </div>
+                <div class="detail-body">
+        `;
 
+        if (person.father && person.father.trim() !== '') {
+            const fatherClean = displayName(person.father);
             html += `
-                <div class="page-header">
-                    <div class="ref" style="font-weight:700; font-size:14px;">
-                        ${fatherPageDisplay}
+                <div class="detail-row">
+                    <strong>Father:</strong>
+                    <span class="detail-value">${fatherClean}</span>
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="detail-row">
+                    <strong>Father:</strong>
+                    <span class="detail-value">—</span>
+                </div>
+            `;
+        }
+
+        if (person.mother && person.mother.trim() !== '') {
+            const motherClean = displayName(person.mother);
+            html += `
+                <div class="detail-row">
+                    <strong>Mother:</strong>
+                    <span class="detail-value">${motherClean}</span>
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="detail-row">
+                    <strong>Mother:</strong>
+                    <span class="detail-value">—</span>
+                </div>
+            `;
+        }
+
+        if (person.spouse && person.spouse.trim() !== '') {
+            const spouseClean = displayName(person.spouse);
+            html += `
+                <div class="detail-row">
+                    <strong>Spouse:</strong>
+                    <span class="detail-value">${spouseClean}</span>
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="detail-row">
+                    <strong>Spouse:</strong>
+                    <span class="detail-value">—</span>
+                </div>
+            `;
+        }
+
+        html += `
+            <div class="detail-row">
+                <strong>Generation:</strong>
+                <span class="detail-value">${person.gen || '—'}</span>
+            </div>
+        `;
+
+        if (person.details && person.details.trim() !== '') {
+            const detailsHtml = person.details.replace(/\\n/g, '<br>');
+            html += `
+                <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                    <strong style="margin-bottom:6px;">📝 Details</strong>
+                    <div class="detail-notes">${detailsHtml}</div>
+                </div>
+            `;
+        }
+
+        const children = getChildren(person.name, globalMap);
+        if (children && children.length > 0) {
+            html += `
+                <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                    <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
+                    <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px; padding-right:0;">
+            `;
+            children.forEach(child => {
+                const childClean = displayName(child);
+                html += `<span style="font-size:14px; color:#1a3a5c; font-family:'Inter',sans-serif;">${childClean}</span>`;
+            });
+            html += `
                     </div>
                 </div>
             `;
+        }
 
+        let pageIdx = -1;
+        for (let i = 0; i < cachedPages.length; i++) {
+            if (cachedPages[i].root === person.name) {
+                pageIdx = i;
+                break;
+            }
+        }
+
+        html += `
+            <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
+        `;
+
+        if (pageIdx >= 0) {
             html += `
-                <div class="family-table-wrapper">
-                    <table class="family-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Name</th>
-                                <th>Spouse</th>
-                                <th>Gen</th>
-                                <th>Next Gen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
+                        style="padding:10px 24px; background:var(--green); color:white; 
+                               border:none; border-radius:8px; font-size:14px; font-weight:700; 
+                               cursor:pointer; font-family:'Inter',sans-serif;
+                               transition:all 0.2s;">
+                    📄 View Full Page
+                </button>
             `;
-
-            if (lines && lines.length > 0) {
-                lines.forEach((row) => {
-                    let personName = row.plainName || '';
-                    let person = globalPersonMap[personName];
-                    let isFemale = row.isFemale || false;
-
-                    let rowBg = '';
-                    if (isFemale) {
-                        rowBg = 'female-row';
-                    }
-
-                    let nameDisplay = row.name;
-                    if (row.isFather) {
-                        nameDisplay = `<span class="${row.fatherClass}">${row.name}</span>`;
-                    } else {
-                        nameDisplay = `<span class="${row.childClass}">${row.name}</span>`;
-                    }
-
-                    if (highlightName) {
-                        const escaped = highlightName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                        nameDisplay = nameDisplay.replace(new RegExp(escaped, 'gi'), match => {
-                            return '<span class="highlight">' + match + '</span>';
-                        });
-                    }
-
-                    let clickableName = nameDisplay;
-                    if (personName) {
-                        const genderClass = isFemale ? 'female' : 'male';
-                        const cleanNameText = displayName(personName);
-                        clickableName = nameDisplay.replace(cleanNameText, function(match) {
-                            return '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + match + '</span>';
-                        });
-                        if (clickableName === nameDisplay) {
-                            clickableName = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + personName + '\')">' + nameDisplay + '</span>';
-                        }
-                    }
-
-                    let clickableSpouse = row.spouse || '—';
-                    let spouseName = row.plainSpouse || '';
-                    if (spouseName && row.spouse !== '—') {
-                        let spousePerson = globalPersonMap[spouseName];
-                        let isSpouseFemale = spousePerson && spousePerson.gender && spousePerson.gender.toUpperCase() === 'FEMALE';
-                        const genderClass = isSpouseFemale ? 'female' : 'male';
-                        clickableSpouse = '<span class="clickable-name ' + genderClass + '" onclick="showMemberDetails(\'' + spouseName + '\')">' + displayName(spouseName) + '</span>';
-                    }
-
-if (row.spouse && row.spouse.includes('See details in ℹ️')) {
-    const targetPerson = globalPersonMap[personName];
-    if (targetPerson && targetPerson.spouse && targetPerson.spouse.includes('See details in ℹ️')) {
-        clickableSpouse = '<span class="details-link" onclick="showOnlyDetails(\'' + personName + '\')" style="color:#2e7d32;font-weight:600;cursor:pointer;padding:2px 8px;border-radius:4px;display:inline-block;background:#f0f7f0;font-family:\'Inter\',sans-serif;font-size:13px;">See details</span>';
-    }
-}
-
-                    let clickablePageHtml = row.page || '';
-                    if (row.page && row.page.includes('Page')) {
-                        clickablePageHtml = row.page;
-                    } else if (row.page && row.page.trim() !== '') {
-                        const pagePerson = globalPersonMap[row.page];
-                        if (pagePerson) {
-                            const isFemalePage = pagePerson.gender && pagePerson.gender.toUpperCase() === 'FEMALE';
-                            const genderClassPage = isFemalePage ? 'female' : 'male';
-                            clickablePageHtml = '<span class="clickable-name ' + genderClassPage + '" onclick="showMemberDetails(\'' + row.page + '\')">' + displayName(row.page) + '</span>';
-                        }
-                    }
-
-                    let treeChar = row.tree || '';
-                    if (personName && globalPersonMap[personName] && globalPersonMap[personName].details && globalPersonMap[personName].details.trim() !== '') {
-                        const escapedName = personName.replace(/'/g, "\\'");
-treeChar = '<span class="details-icon" onclick="event.stopPropagation(); showOnlyDetails(\'' + escapedName + '\')" style="cursor:pointer;font-size:14px;color:var(--gold);">ℹ️</span>';
-                    }
-
-                    let rowClass = rowBg;
-                    if (row.isFather) rowClass += ' father-row';
-                    
-                    html += `<tr class="${rowClass}">`;
-                    html += `<td class="col-tree">${treeChar}</td>`;
-                    html += `<td class="col-name ${row.isFather ? 'father-name-cell' : 'child-name-cell'}">${clickableName}</td>`;
-                    html += `<td class="col-spouse">${clickableSpouse}</td>`;
-                    html += `<td class="col-gen">${row.gen || ''}</td>`;
-                    html += `<td class="col-next">${clickablePageHtml}</td>`;
-                    html += `</tr>`;
-                });
-            }
-
-            html += `
-                        </tbody>
-                    </table>
-                </div>
-            `;
-
-            return html;
         }
 
-        function renderAllPages() {
-            const container = document.getElementById('pageContainer');
-            const errorMsg = document.getElementById('errorMsg');
-
-            if (typeof FAMILY_DATA_E === 'undefined') {
-                container.innerHTML =
-                    `<div class="no-data">⚠️ Data not loaded!<div class="error">Make sure <strong>13-family-data.js</strong> is in the same folder.</div></div>`;
-                errorMsg.textContent = '⚠️ Data not loaded!';
-                return;
-            }
-
-            familyData = FAMILY_DATA_E;
-            buildFamilyMap(familyData);
-
-            try {
-                cachedPages = generatePages(familyData);
-
-                document.getElementById('headerStats').textContent = 
-                    `Members: ${familyData.length} · Pages: ${cachedPages.length}`;
-
-                if (cachedPages.length === 0) {
-                    container.innerHTML = `
-                        <div class="welcome-container">
-                            <div class="welcome-box">
-                                <div class="welcome-icon">🌿</div>
-                                <div class="welcome-title">Rizvi Family Tree</div>
-                                <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
-                            </div>
-                        </div>
-                    `;
-                    return;
-                }
-
-                errorMsg.textContent = '';
-                currentPageIndex = 0;
-                renderPage();
-            } catch (e) {
-                container.innerHTML = `<div class="no-data">⚠️ Error: ${e.message}</div>`;
-                errorMsg.textContent = '⚠️ Error: ' + e.message;
-                console.error(e);
-            }
-        }
-
-        function renderPage(highlightName = null) {
-            const container = document.getElementById('pageContainer');
-
-            if (currentPageIndex < 0 || currentPageIndex >= cachedPages.length) {
-                container.innerHTML = `<div class="no-data">No page selected.</div>`;
-                return;
-            }
-
-            try {
-                const html = renderPageHTML(cachedPages[currentPageIndex], currentPageIndex, cachedPages.length, highlightName);
-                container.innerHTML = html;
-            } catch (e) {
-                container.innerHTML = `<div class="no-data">⚠️ Error loading page: ${e.message}</div>`;
-                console.error(e);
-            }
-        }
-
-
-function showOnlyDetails(name) {
-    if (!name) return;
-    
-    const person = globalPersonMap[name];
-    if (!person) {
-        alert('Member not found: ' + name);
-        return;
-    }
-    
-    const modal = document.getElementById('detailsModal');
-    const title = document.getElementById('detailsModalTitle');
-    const content = document.getElementById('detailsModalContent');
-    
-    title.textContent = '📝 Details - ' + displayName(person.name);
-    
-    let detailsHtml = person.details || 'No details available.';
-    detailsHtml = detailsHtml.replace(/\\n/g, '<br>');
-    
-    content.innerHTML = detailsHtml;
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
-
-function showMemberDetails(name) {
-    if (!name) return;
-
-    const person = globalPersonMap[name];
-    if (!person) {
-        alert('Member not found: ' + name);
-        return;
-    }
-
-    const modal = document.getElementById('memberModal');
-    const content = document.getElementById('memberDetailsContent');
-
-    let html = '';
-
-html += `
-    <div class="detail-card">
-        <div class="detail-header">
-            <h2>${displayName(person.name)}</h2>
+        html += `
             <button onclick="closeMemberModal()" 
-                    style="padding:8px 20px; background:var(--gold); color:var(--dark-blue); 
+                    style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
                            border:none; border-radius:8px; font-size:14px; font-weight:700; 
                            cursor:pointer; font-family:'Inter',sans-serif;
                            transition:all 0.2s;">
                  Close
             </button>
-        </div>
-        <div class="detail-body">
-    `;
+        `;
 
-    if (person.father && person.father.trim() !== '') {
-        const fatherClean = displayName(person.father);
-        html += `
-            <div class="detail-row">
-                <strong>Father:</strong>
-                <span class="detail-value">${fatherClean}</span>
-            </div>
-        `;
-    } else {
-        html += `
-            <div class="detail-row">
-                <strong>Father:</strong>
-                <span class="detail-value">—</span>
-            </div>
-        `;
-    }
+        html += `</div>`;
 
-    if (person.mother && person.mother.trim() !== '') {
-        const motherClean = displayName(person.mother);
-        html += `
-            <div class="detail-row">
-                <strong>Mother:</strong>
-                <span class="detail-value">${motherClean}</span>
-            </div>
-        `;
-    } else {
-        html += `
-            <div class="detail-row">
-                <strong>Mother:</strong>
-                <span class="detail-value">—</span>
-            </div>
-        `;
-    }
-
-    if (person.spouse && person.spouse.trim() !== '') {
-        const spouseClean = displayName(person.spouse);
-        html += `
-            <div class="detail-row">
-                <strong>Spouse:</strong>
-                <span class="detail-value">${spouseClean}</span>
-            </div>
-        `;
-    } else {
-        html += `
-            <div class="detail-row">
-                <strong>Spouse:</strong>
-                <span class="detail-value">—</span>
-            </div>
-        `;
-    }
-
-    html += `
-        <div class="detail-row">
-            <strong>Generation:</strong>
-            <span class="detail-value">${person.gen || '—'}</span>
-        </div>
-    `;
-
-    if (person.details && person.details.trim() !== '') {
-        const detailsHtml = person.details.replace(/\\n/g, '<br>');
-        html += `
-            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-                <strong style="margin-bottom:6px;">📝 Details</strong>
-                <div class="detail-notes">${detailsHtml}</div>
-            </div>
-        `;
-    }
-
-    const children = getChildren(person.name, globalMap);
-    if (children && children.length > 0) {
-        html += `
-            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-                <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
-                <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px; padding-right:0;">
-        `;
-        children.forEach(child => {
-            const childClean = displayName(child);
-            html += `<span style="font-size:14px; color:#1a3a5c; font-family:'Inter',sans-serif;">${childClean}</span>`;
-        });
         html += `
                 </div>
             </div>
         `;
+
+        content.innerHTML = html;
+        modal.style.display = 'block';
+        document.getElementById('memberModalOverlay').style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
 
-    let pageIdx = -1;
-    for (let i = 0; i < cachedPages.length; i++) {
-        if (cachedPages[i].root === person.name) {
-            pageIdx = i;
-            break;
+    function closeMemberModal() {
+        document.getElementById('memberModal').style.display = 'none';
+        document.getElementById('memberModalOverlay').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeMemberModal();
+            closeDetailsModal();
+            closeTips();
         }
+    });
+
+    function openTips() {
+        document.getElementById('tipsOverlay').style.display = 'flex';
     }
 
-    html += `
-        <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
-    `;
-
-    if (pageIdx >= 0) {
-        html += `
-            <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
-                    style="padding:10px 24px; background:var(--green); color:white; 
-                           border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                           cursor:pointer; font-family:'Inter',sans-serif;
-                           transition:all 0.2s;">
-                📄 View Full Page
-            </button>
-        `;
+    function closeTips() {
+        document.getElementById('tipsOverlay').style.display = 'none';
     }
 
-    html += `
-        <button onclick="closeMemberModal()" 
-                style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
-                       border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                       cursor:pointer; font-family:'Inter',sans-serif;
-                       transition:all 0.2s;">
-             Close
-        </button>
-    `;
+    document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
+        if (e.target === this) closeTips();
+    });
 
-    html += `</div>`;
+    window.onload = function() {
+        pageLoaded = true;
+        if (typeof FAMILY_DATA_E !== 'undefined') {
+            renderAllPages();
+        } else {
+            const checkData = setInterval(function() {
+                if (typeof FAMILY_DATA_E !== 'undefined') {
+                    clearInterval(checkData);
+                    renderAllPages();
+                }
+            }, 100);
 
-    html += `
-            </div>
-        </div>
-    `;
-
-    content.innerHTML = html;
-    modal.style.display = 'block';
-    document.getElementById('memberModalOverlay').style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
-
-function closeMemberModal() {
-    document.getElementById('memberModal').style.display = 'none';
-    document.getElementById('memberModalOverlay').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeMemberModal();
-        closeDetailsModal();
-        closeTips();
-    }
-});
-
-function openTips() {
-    document.getElementById('tipsOverlay').style.display = 'flex';
-}
-
-function closeTips() {
-    document.getElementById('tipsOverlay').style.display = 'none';
-}
-
-document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
-    if (e.target === this) closeTips();
-});
-
-window.onload = function() {
-    pageLoaded = true;
-    if (typeof FAMILY_DATA_E !== 'undefined') {
-        renderAllPages();
-    } else {
-        const checkData = setInterval(function() {
-            if (typeof FAMILY_DATA_E !== 'undefined') {
+            setTimeout(function() {
                 clearInterval(checkData);
-                renderAllPages();
-            }
-        }, 100);
+                if (typeof FAMILY_DATA_E === 'undefined') {
+                    document.getElementById('pageContainer').innerHTML = `
+                        <div class="no-data">⏳ Loading data...<div class="error">Make sure <strong>20-Family-Data-E.js</strong> is in the same folder.</div></div>
+                    `;
+                }
+            }, 5000);
+        }
+    };
 
-        setTimeout(function() {
-            clearInterval(checkData);
-            if (typeof FAMILY_DATA_E === 'undefined') {
-                document.getElementById('pageContainer').innerHTML = `
-                    <div class="no-data">⏳ Loading data...<div class="error">Make sure <strong>20-Family-Data-E.js</strong> is in the same folder.</div></div>
-                `;
-            }
-        }, 5000);
-    }
-};
-
-window.zoomIn = zoomIn;
-window.zoomOut = zoomOut;
-window.resetZoom = resetZoom;
-window.applyZoom = applyZoom;
-window.toggleZoomControls = toggleZoomControls;
-
-
-    </script>
+    window.zoomIn = zoomIn;
+    window.zoomOut = zoomOut;
+    window.resetZoom = resetZoom;
+    window.applyZoom = applyZoom;
+    window.toggleZoomControls = toggleZoomControls;
+</script>
 </body>
 </html>

@@ -82,6 +82,7 @@
             overflow: hidden;
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
             width: 100%;
+            position: relative;
         }
 
         .zoom-wrapper {
@@ -139,29 +140,99 @@
             white-space: nowrap;
         }
 
-        .home-btn {
+        /* ===== MENU BUTTON ===== */
+        .menu-btn {
             background: var(--gold);
             color: var(--dark-blue);
-            border: none;
+            padding: 8px 16px;
             border-radius: 8px;
-            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
             font-weight: 600;
-            font-size: 13px;
             cursor: pointer;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
             border: 2px solid white;
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: all 0.3s;
             flex-shrink: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .menu-btn:hover {
+            background: var(--light-gold);
+            transform: scale(1.05);
+        }
+
+        /* ===== TOGGLE MENU PANEL ===== */
+        .toggle-menu-panel {
+            position: absolute;
+            left: 10px;
+            top: 60px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 220px;
+        }
+
+        .toggle-menu-panel.show {
+            display: flex;
+        }
+
+        .toggle-menu-item {
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
             white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 4px;
-            z-index: 10;
+            justify-content: space-between;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
-        .home-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.05);
+
+        .toggle-menu-item:hover {
+            background: #faebcd;
+            transform: translateX(5px);
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 22px;
+            background: #ccc;
+            border-radius: 22px;
+            display: inline-block;
+            position: relative;
+            transition: 0.2s;
+        }
+        .toggle-switch.active {
+            background: var(--green);
+        }
+        .toggle-switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: 0.2s;
+        }
+        .toggle-switch.active::after {
+            left: 23px;
         }
 
         .search-section {
@@ -259,21 +330,20 @@
         }
 
         .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
+            background: transparent;
             color: var(--dark-blue);
             border: none;
-            border-radius: 4px;
+            font-size: 32px;
             cursor: pointer;
             font-weight: 600;
-            font-family: 'Inter', sans-serif;
+            padding: 1px 4px;
+            transition: 0.2s;
             white-space: nowrap;
-            transition: all 0.2s;
-            flex-shrink: 0;
+            transform: translateY(-4px);
         }
         .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
+            transform: scale(1.2);
+            color: var(--gold);
         }
 
         .search-results-inline {
@@ -838,7 +908,7 @@
 
         /* Responsive */
         @media screen and (max-width: 480px) {
-            .home-btn {
+            .menu-btn {
                 padding: 4px 10px;
                 font-size: 11px;
             }
@@ -910,7 +980,7 @@
                  APP HEADER
                  ============================================================ -->
             <div class="app-header">
-                <a href="00-Dashboard-E.html" class="home-btn"><span>🏠</span> Home</a>
+                <div class="menu-btn" id="menuBtn" onclick="toggleLeftMenu()">MENU</div>
 
                 <div class="header-title">
                     <span class="header-icon">🌿</span>
@@ -923,6 +993,15 @@
             </div>
 
             <!-- ============================================================
+                 TOGGLE MENU PANEL
+                 ============================================================ -->
+            <div class="toggle-menu-panel" id="toggleMenuPanel">
+                <div class="toggle-menu-item" onclick="toggleZoomControls()">🔍 Zoom Controls</div>
+                <div style="border-top:1px solid var(--gold); margin:4px 0;"></div>
+                <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
+            </div>
+
+            <!-- ============================================================
                  SEARCH SECTION
                  ============================================================ -->
             <div class="search-section">
@@ -932,7 +1011,7 @@
                         <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off">
                         <div id="searchDropdown" class="search-dropdown"></div>
                     </div>
-                    <div class="reset-btn" onclick="resetSearch()">🔄 Reset</div>
+                    <div class="reset-btn" onclick="resetSearch()">🔄</div>
                     <button class="tips-btn" onclick="openTips()">💡 Tips</button>
                 </div>
             </div>
@@ -1038,9 +1117,17 @@
                 <div class="colon" style="margin-top:8px;"></div>
                 <div class="desc" style="margin-top:8px;"></div>
 
-                <div class="title">Home</div>
+                <div class="title">Menu</div>
                 <div class="colon">:</div>
-                <div class="desc">🏠 Go to main dashboard</div>
+                <div class="desc">Click MENU for Zoom Controls and Dashboard</div>
+
+                <div class="title">Zoom Controls</div>
+                <div class="colon">:</div>
+                <div class="desc">Show/hide zoom buttons (+/-/↺)</div>
+
+                <div class="title">Dashboard</div>
+                <div class="colon">:</div>
+                <div class="desc">Go to Main Dashboard</div>
 
                 <div class="title">Results</div>
                 <div class="colon">:</div>
@@ -1102,6 +1189,21 @@
             } else {
                 controls.classList.remove('visible');
             }
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        }
+
+        // ================================================================
+        // Menu Functions
+        // ================================================================
+        function toggleLeftMenu() {
+            document.getElementById('toggleMenuPanel').classList.toggle('show');
+        }
+
+        // ================================================================
+        // Dashboard Navigation
+        // ================================================================
+        function showDashboard() {
+            window.location.href = '00-Dashboard-E.html';
         }
 
         // ================================================================
@@ -1183,6 +1285,12 @@
             });
 
             applyZoom();
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.menu-btn')) {
+                document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            }
         });
 
         // ================================================================
@@ -1495,13 +1603,6 @@
                 document.body.removeChild(wrapper);
                 document.body.removeChild(loadingMsg);
             }
-        }
-
-        // ================================================================
-        // Dashboard Navigation
-        // ================================================================
-        function showDashboard() {
-            window.location.href = '00-Dashboard-E.html';
         }
 
         // ================================================================
@@ -1877,6 +1978,7 @@
         window.closeInfoModal = closeInfoModal;
         window.showDashboard = showDashboard;
         window.toggleZoomControls = toggleZoomControls;
+        window.toggleLeftMenu = toggleLeftMenu;
     </script>
 
 </body>

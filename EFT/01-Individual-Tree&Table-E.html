@@ -7,17 +7,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+
     <title>Rizvi family · Tree & Table</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
-    <style>
-        /* ===== COMMON STYLES ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+
+  
+<style>
+               * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --maroon: #5a0000;
@@ -27,27 +27,36 @@
             --green: #2e7d32;
             --dark-green: #1b5e20;
             --light-pink: #ffe4e9;
-            --bronze: #bc8c4f;
             --table-header-bg: #fdf6e3;
             --table-border: #e2d5b3;
             --selected-row-bg: #e8f5e9;
         }
 
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: #1a1a1a;
+            padding: 10px;
             height: 100vh;
             overflow: hidden;
-            margin: 0;
-            padding: 10px;
-            position: relative;
+            box-sizing: border-box;
         }
 
+        /* ============================================================
+               PART 1: APP CONTAINER
+               ============================================================ */
         .app-container {
-            max-width: 1400px;
+            max-width: 1450px;
+            width: 1450px;
+            height: 675px;
             margin: 0 auto;
             background: white;
-            height: calc(100vh - 20px);
             display: flex;
             flex-direction: column;
             border-radius: 20px;
@@ -56,6 +65,9 @@
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
         }
 
+        /* ============================================================
+               PART 2: HEADER (never scrolls)
+               ============================================================ */
         .app-header {
             background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
             color: var(--gold);
@@ -66,6 +78,7 @@
             border-bottom: 3px solid var(--gold);
             position: relative;
             flex-shrink: 0;
+            z-index: 100;
         }
 
         .header-title {
@@ -106,6 +119,7 @@
             z-index: 2000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .left-toggle-btn:hover {
@@ -127,94 +141,9 @@
             white-space: nowrap;
         }
 
-        /* ===== TOGGLE MENU ===== */
-        .toggle-menu-panel {
-            position: absolute;
-            left: 10px;
-            top: 60px;
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 12px;
-            padding: 15px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1999;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            min-width: 220px;
-        }
-
-        .toggle-menu-panel.show { display: flex; }
-
-        .toggle-menu-item {
-            padding: 12px 18px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            border: 2px solid var(--gold);
-            background: white;
-            color: var(--dark-blue);
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .toggle-menu-item:hover {
-            background: #faebcd;
-            transform: translateX(5px);
-        }
-
-        .toggle-menu-item.active {
-            background: #d4edda !important;
-            border-color: var(--dark-green) !important;
-        }
-
-        .toggle-switch {
-            width: 44px;
-            height: 22px;
-            background: #ccc;
-            border-radius: 22px;
-            display: inline-block;
-            position: relative;
-            transition: 0.2s;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-        .toggle-switch.active { background: var(--green); }
-        .toggle-switch::after {
-            content: "";
-            width: 18px;
-            height: 18px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 3px;
-            transition: 0.2s;
-        }
-        .toggle-switch.active::after { left: 23px; }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-            background: #fffcf8;
-            position: relative;
-        }
-
-        .center-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* ===== SEARCH SECTION ===== */
+        /* ============================================================
+               PART 3: SEARCH BAR (never scrolls)
+               ============================================================ */
         .search-section {
             padding: 12px 15px;
             background: #fffcf8;
@@ -222,6 +151,7 @@
             width: 85%;
             margin: 0 auto;
             flex-shrink: 0;
+            z-index: 99;
         }
 
         .search-row {
@@ -316,7 +246,6 @@
             100% { color: #3d2b1a; }
         }
 
-        /* ===== VIEW TOGGLE ===== */
         .view-toggle {
             display: flex;
             gap: 4px;
@@ -348,42 +277,164 @@
 
         .view-toggle button:hover:not(.active) { background: #c3e6cb; }
 
-        /* ===== TREE CONTAINER ===== */
-        .tree-container {
+        /* ============================================================
+               PART 4: PAGE CONTENT (scrolls)
+               ============================================================ */
+        .page-content {
             flex: 1;
-            overflow: auto !important;
-            padding: 12px 16px;
+            overflow: auto;
+            background: #fffcf8;
             position: relative;
             min-height: 0;
         }
 
-        .tree-container::-webkit-scrollbar {
+        .page-content::-webkit-scrollbar {
             width: 12px;
             height: 12px;
         }
-        .tree-container::-webkit-scrollbar-track {
+        .page-content::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 6px;
         }
-        .tree-container::-webkit-scrollbar-thumb {
+        .page-content::-webkit-scrollbar-thumb {
             background: var(--gold);
             border-radius: 6px;
         }
-        .tree-container::-webkit-scrollbar-thumb:hover {
+        .page-content::-webkit-scrollbar-thumb:hover {
             background: var(--dark-blue);
+        }
+
+        .tree-container {
+            padding: 12px 16px;
+            display: flex ;
+            justify-content: center ;
+            min-height: 100%;
         }
 
         .tree-root-layout {
             transform-origin: top left;
             transition: transform 0.1s;
-            min-width: 100%;
+            min-width: 1200px;
             min-height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* ===== TREE BOXES ===== */
+        .table-container {
+            padding: 12px 16px;
+            display: flex  ;
+            justify-content: center ;
+            min-height: 100%;
+	    flex: 1;         
+    	    width: 100%
+		height: 100%;
+        }
+
+.table-root-layout {
+    transform-origin: top left;
+    transition: transform 0.1s;
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+    max-width: 1200px;
+    height: 100%;  
+}
+
+        /* ============================================================
+               PART 5: FOOTER (never scrolls)
+               ============================================================ */
+        .app-footer {
+            background: var(--dark-blue);
+            color: var(--gold);
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            border-top: 2px solid var(--gold);
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        /* ============================================================
+               TOGGLE MENU
+               ============================================================ */
+        .toggle-menu-panel {
+            position: absolute;
+            left: 10px;
+            top: 60px;
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-width: 220px;
+        }
+
+        .toggle-menu-panel.show { display: flex; }
+
+        .toggle-menu-item {
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .toggle-menu-item:hover {
+            background: #faebcd;
+            transform: translateX(5px);
+        }
+
+        .toggle-menu-item.active {
+            background: #d4edda !important;
+            border-color: var(--dark-green) !important;
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 22px;
+            background: #ccc;
+            border-radius: 22px;
+            display: inline-block;
+            position: relative;
+            transition: 0.2s;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .toggle-switch.active { background: var(--green); }
+        .toggle-switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            transition: 0.2s;
+        }
+        .toggle-switch.active::after { left: 23px; }
+
+        /* ============================================================
+               TREE BOXES
+               ============================================================ */
         .box {
             border: 2px solid var(--gold);
             border-radius: 12px;
@@ -594,43 +645,9 @@
             margin-top: -5px;
         }
 
-        /* ===== TABLE STYLES ===== */
-        .table-container {
-            flex: 1;
-            overflow: auto !important;
-            padding: 12px 16px;
-            position: relative;
-            min-height: 0;
-        }
-
-        .table-container::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-        .table-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 6px;
-        }
-        .table-container::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 6px;
-        }
-        .table-container::-webkit-scrollbar-thumb:hover {
-            background: var(--dark-blue);
-        }
-
-        .table-root-layout {
-            transform-origin: top left;
-            transition: transform 0.1s;
-            min-width: 100%;
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            padding: 0 10px;
-        }
-
+        /* ============================================================
+               TABLE STYLES
+               ============================================================ */
         .family-table {
             width: 100%;
             max-width: 1200px;
@@ -678,13 +695,17 @@
             margin-top: 2px;
         }
 
-        /* ===== WELCOME ===== */
+        /* ============================================================
+               WELCOME
+               ============================================================ */
         .welcome-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100%;
             min-height: 500px;
+            flex: 1;
+            width: 100%;
         }
 
         .welcome-box {
@@ -712,98 +733,9 @@
             line-height: 1.6;
         }
 
-        .app-footer {
-            background: var(--dark-blue);
-            color: var(--gold);
-            text-align: center;
-            padding: 8px;
-            font-size: 11px;
-            border-top: 2px solid var(--gold);
-            flex-shrink: 0;
-        }
-
-        /* ===== ZOOM CONTROLS ===== */
-        .zoom-controls {
-            position: fixed;
-            bottom: 15px;
-            right: 60px;
-            left: auto;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid var(--gold);
-            border-radius: 10px;
-            padding: 6px;
-            display: none;
-            flex-direction: row;
-            gap: 4px;
-            z-index: 2000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            align-items: center;
-            cursor: grab;
-            user-select: none;
-            touch-action: none;
-            transform: scale(0.75);
-            transform-origin: bottom right;
-        }
-
-        .zoom-controls.dragging { cursor: grabbing; opacity: 0.85; }
-        .zoom-controls.visible { display: flex; }
-
-        .zoom-btn {
-            width: 36px;
-            height: 36px;
-            border: 2px solid var(--gold);
-            background: white;
-            color: var(--dark-blue);
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
-        }
-        .zoom-btn:hover { background: var(--gold); color: white; }
-
-        .zoom-level {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 0 6px;
-            min-width: 38px;
-            font-family: 'Inter', sans-serif;
-            color: var(--dark-blue);
-            pointer-events: none;
-        }
-
-        /* ===== MODALS ===== */
-        .save-options-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 12px;
-            padding: 25px;
-            z-index: 4000;
-            min-width: 350px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            display: none;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 3999;
-            display: none;
-        }
-
+        /* ============================================================
+               MODALS
+               ============================================================ */
         .info-modal {
             position: fixed;
             top: 50%;
@@ -925,6 +857,7 @@
             white-space: nowrap;
             text-align: left;
         }
+
         .tips-grid .colon { color: #5a0000; font-weight: 700; font-size: 14px; text-align: left; }
         .tips-grid .desc {
             font-size: 14px;
@@ -949,35 +882,165 @@
         }
         .tips-close-btn:hover { background: #f1d279; }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .header-title { font-size: 16px; }
-            .header-title .header-icon { width: 26px; height: 26px; font-size: 14px; }
-            .search-section { width: 92%; padding: 8px 10px; }
-            .search-input { font-size: 13px; padding: 6px 10px; }
-            .box { width: 240px; }
-            .children-row.four-in-row { grid-template-columns: repeat(2, auto); }
-            .view-toggle button { font-size: 10px; padding: 4px 10px; }
-            .left-toggle-btn { padding: 6px 12px; font-size: 12px; }
-            .toggle-menu-item { font-size: 12px; padding: 8px 14px; }
-            .zoom-controls { transform: scale(0.6); bottom: 8px; right: 40px; }
-            .family-table th, .family-table td { font-size: 10px; padding: 4px; }
-            .family-table th:nth-child(1), .family-table td:nth-child(1) { width: 28%; }
-            .family-table th:nth-child(2), .family-table td:nth-child(2) { width: 12%; }
-            .family-table th:nth-child(3), .family-table td:nth-child(3) { width: 30%; }
-            .family-table th:nth-child(4), .family-table td:nth-child(4) { width: 30%; }
+        /* ============================================================
+               DRAGGABLE FLOATING ZOOM CONTROLS
+               ============================================================ */
+        .zoom-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 6px;
+            display: none;
+            flex-direction: row;
+            gap: 4px;
+            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+            transform: scale(0.75);
+            transform-origin: bottom right;
         }
 
-        @media (max-width: 480px) {
-            .box { max-width: 200px; }
-            .children-row.four-in-row { grid-template-columns: repeat(2, auto); gap: 6px; }
-            .children-row { gap: 6px; }
+        .zoom-controls.visible {
+            display: flex;
         }
-    </style>
+
+        .zoom-controls.dragging {
+            cursor: grabbing;
+            opacity: 0.85;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--gold);
+            background: white;
+            color: var(--dark-blue);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: var(--gold);
+            color: white;
+        }
+
+        .zoom-level {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 0 6px;
+            min-width: 38px;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            pointer-events: none;
+        }
+
+        /* ============================================================
+               DESKTOP
+               ============================================================ */
+        @media (min-width: 769px) {
+            .tree-root-layout, .table-root-layout {
+                zoom: 0.70;
+            }
+
+            .app-container {
+                max-width: 1450px;
+                width: 1450px;
+                height: 675px;
+            }
+        }
+
+/* ============================================================
+       MOBILE
+       ============================================================ */
+@media (max-width: 768px) {
+    .tree-root-layout, .table-root-layout {
+        zoom: 0.50;
+    }
+
+    .app-container {
+        max-width: 100%;
+        width: 100%;
+        height: 100vh;
+        min-height: 100vh;
+        border-radius: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    body {
+        padding: 0;
+    }
+
+    .search-section {
+        width: 95%;
+    }
+
+    .page-content {
+        flex: 1;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tree-container {
+        padding: 10px;
+    }
+
+    .tree-root-layout {
+        min-width: 1200px;
+        width: fit-content;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .welcome-container {
+        min-height: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        width: 100%;
+    }
+
+    .welcome-box {
+        max-width: 90%;
+        padding: 30px 20px;
+    }
+}
+
+</style>
+
+
 </head>
 <body>
 
+    <!-- DRAGGABLE FLOATING ZOOM CONTROLS -->
+    <div class="zoom-controls" id="zoomControls">
+        <div class="zoom-btn" onclick="zoomIn()">+</div>
+        <div class="zoom-level" id="zoomLevel">100%</div>
+        <div class="zoom-btn" onclick="zoomOut()">-</div>
+        <div class="zoom-btn" onclick="resetZoom()">↺</div>
+    </div>
+
     <div class="app-container">
+        <!-- ============================================================
+             PART 1: HEADER
+             ============================================================ -->
         <div class="app-header">
             <div class="left-toggle-btn" id="menuBtn" onclick="toggleLeftMenu()">MENU</div>
 
@@ -991,64 +1054,64 @@
             </div>
         </div>
 
-        <div class="toggle-menu-panel" id="toggleMenuPanel">
-            <div class="toggle-menu-item" id="showAllMenuItem" style="justify-content: space-between;">
-                <span>📂 Show Full Details</span>
-                <span id="showAllToggleSwitch" class="toggle-switch active"></span>
-            </div>
-            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 Siblings</div>
-            <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
-            <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
-            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #2e7d32; color: white; border-color: #2e7d32;">🔍 Zoom Controls</div>
-            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
-            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-            <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black; border-color: #d4af37;">💾 Save File</div>
-        </div>
-
-        <div class="main-content">
-            <div class="center-content">
-                <div class="search-section">
-                    <div class="search-row">
-                        <span class="search-label">SEARCH</span>
-                        <div class="search-wrapper">
-                            <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
-                            <div id="searchDropdown" class="search-dropdown"></div>
-                        </div>
-                        <div class="reset-btn" onclick="resetIndividual()">🔄</div>
-                        <button class="tips-btn" onclick="openTips()">💡</button>
-                        <div class="view-toggle">
-                            <button id="treeViewBtn" class="active" onclick="switchView('tree')">🌳 Tree</button>
-                            <button id="tableViewBtn" onclick="switchView('table')">📋 Table</button>
-                        </div>
-                    </div>
+        <!-- ============================================================
+             PART 2: SEARCH BAR
+             ============================================================ -->
+        <div class="search-section">
+            <div class="search-row">
+                <span class="search-label">SEARCH</span>
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                    <div id="searchDropdown" class="search-dropdown"></div>
                 </div>
-
-                <!-- Tree View -->
-                <div class="tree-container" id="treeContainer">
-                    <div class="tree-root-layout" id="treeRoot"></div>
-                </div>
-
-                <!-- Table View -->
-                <div class="table-container" id="tableContainer" style="display:none;">
-                    <div class="table-root-layout" id="tableRoot"></div>
+                <div class="reset-btn" onclick="resetIndividual()">🔄</div>
+                <button class="tips-btn" onclick="openTips()">💡</button>
+                <div class="view-toggle">
+                    <button id="treeViewBtn" class="active" onclick="switchView('tree')">🌳 Tree</button>
+                    <button id="tableViewBtn" onclick="switchView('table')">📋 Table</button>
                 </div>
             </div>
         </div>
 
+        <!-- ============================================================
+             PART 3: PAGE CONTENT (scrolls)
+             ============================================================ -->
+        <div class="page-content">
+            <!-- Tree View -->
+            <div class="tree-container" id="treeContainer">
+                <div class="tree-root-layout" id="treeRoot"></div>
+            </div>
+
+            <!-- Table View -->
+            <div class="table-container" id="tableContainer" style="display:none;">
+                <div class="table-root-layout" id="tableRoot"></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             PART 4: FOOTER
+             ============================================================ -->
         <div class="app-footer">
             Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010
         </div>
     </div>
 
-    <!-- Zoom Controls -->
-    <div class="zoom-controls" id="zoomControls">
-        <div class="zoom-btn" onclick="zoomIn()">+</div>
-        <div class="zoom-level" id="zoomLevel">50%</div>
-        <div class="zoom-btn" onclick="zoomOut()">-</div>
-        <div class="zoom-btn" onclick="resetZoom()">↺</div>
+    <!-- TOGGLE MENU PANEL -->
+    <div class="toggle-menu-panel" id="toggleMenuPanel">
+        <div class="toggle-menu-item" id="showAllMenuItem" style="justify-content: space-between;">
+            <span>📂 Show Full Details</span>
+            <span id="showAllToggleSwitch" class="toggle-switch active"></span>
+        </div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="toggle-menu-item active" id="toggleSiblings" onclick="handleToggleMenuClick('siblings')">👥 Siblings</div>
+        <div class="toggle-menu-item active" id="toggleDescendants" onclick="handleToggleMenuClick('descendants')">👶 Descendants</div>
+        <div class="toggle-menu-item active" id="toggleAncestors" onclick="handleToggleMenuClick('ancestors')">🌳 Ancestors</div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="toggle-menu-item" onclick="toggleZoomControls()">🔍 Zoom Controls</div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white; border-color: #6495ED;">🏠 Dashboard</div>
+        <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+        <div class="toggle-menu-item" onclick="openPrint()" style="background: #d4af37; color: black; border-color: #d4af37;">🖨️ Print</div>
     </div>
 
     <!-- Info Modal -->
@@ -1073,40 +1136,13 @@
                 <div class="title">Descendants</div><div class="colon">:</div><div class="desc">Show/Hide children of selected person</div>
                 <div class="title">Ancestors</div><div class="colon">:</div><div class="desc">Show/Hide ancestors of selected person</div>
                 <div class="title">Full Details</div><div class="colon">:</div><div class="desc">Show/hide extra info in tree boxes</div>
+                <div class="title">Zoom Controls</div><div class="colon">:</div><div class="desc">Show/hide zoom buttons (+/-/↺)</div>
                 <div class="title">Dashboard</div><div class="colon">:</div><div class="desc">Go to Dashboard (Main Menu)</div>
-                <div class="title">Save</div><div class="colon">:</div><div class="desc">Save file as PDF or JPEG</div>
+                <div class="title">Print</div><div class="colon">:</div><div class="desc">Open print page to save as PDF or JPEG</div>
             </div>
             <button class="tips-close-btn" onclick="document.getElementById('tipsOverlay').style.display='none'">Close</button>
         </div>
     </div>
-
-    <!-- Save Options Modal -->
-    <div class="save-options-modal" id="saveOptionsModal">
-        <h3 style="color:var(--maroon); margin-bottom:20px; text-align:center;">💾 Save Family Tree</h3>
-        <div style="margin-bottom:20px;">
-            <div style="font-weight:600; margin-bottom:10px; color:var(--dark-blue);">Select Format:</div>
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="pdf-high" checked style="margin-right:10px;"> 
-                <span style="font-weight:600;">📑 PDF - High Resolution</span>
-                <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Best for printing, larger file (3-8 MB)</span>
-            </label>
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="pdf-low" style="margin-right:10px;"> 
-                <span style="font-weight:600;">📑 PDF - Low Resolution</span>
-                <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Good for sharing, smaller file (0.5-2 MB)</span>
-            </label>
-            <label style="display:block; margin-bottom:15px; padding:10px; border:2px solid #e0e0e0; border-radius:8px; cursor:pointer;">
-                <input type="radio" name="saveFormat" value="jpeg" style="margin-right:10px;"> 
-                <span style="font-weight:600;">📸 JPEG Image</span>
-                <span style="display:block; font-size:12px; color:#666; margin-left:25px;">Universal format, very small file (200-500 KB)</span>
-            </label>
-        </div>
-        <div style="display:flex; gap:10px; justify-content:center;">
-            <button onclick="processSave()" style="flex:2; padding:12px; background:var(--green); color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer;">Save</button>
-            <button onclick="closeSaveModal()" style="flex:1; padding:12px; background:#f0f0f0; border:1px solid #ccc; border-radius:6px; cursor:pointer;">Cancel</button>
-        </div>
-    </div>
-    <div class="modal-overlay" id="saveModalOverlay" onclick="closeSaveModal()"></div>
 
     <script src="20-Family-Data-E.js"></script>
     <script>
@@ -1125,8 +1161,137 @@
         let currentView = 'tree';
         let showFullDetails = true;
 
-        let zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.70;
+        // ============================================================
+        // ZOOM CONTROLS
+        // ============================================================
+        let zoomLevel = 0.9;
         let zoomVisible = false;
+
+        function zoomIn() { 
+            zoomLevel = Math.min(zoomLevel + 0.01, 2.0); 
+            applyZoom(); 
+        }
+
+        function zoomOut() { 
+            zoomLevel = Math.max(zoomLevel - 0.01, 0.3); 
+            applyZoom(); 
+        }
+
+        function resetZoom() {
+            zoomLevel = 0.9;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const container = document.getElementById('treeContainer');
+            if (container) {
+                container.style.transform = `scale(${zoomLevel})`;
+                container.style.transformOrigin = 'center top';
+            }
+            const levelEl = document.getElementById('zoomLevel');
+            if (levelEl) {
+                levelEl.textContent = Math.round(zoomLevel * 100) + '%';
+            }
+        }
+
+        function toggleZoomControls() {
+            zoomVisible = !zoomVisible;
+            const controls = document.getElementById('zoomControls');
+            if (controls) {
+                controls.classList.toggle('visible', zoomVisible);
+            }
+            const menu = document.getElementById('toggleMenuPanel');
+            if (menu) {
+                menu.classList.remove('show');
+            }
+        }
+
+        // ============================================================
+        // DRAGGABLE ZOOM CONTROLS
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoomControls = document.getElementById('zoomControls');
+            if (!zoomControls) return;
+            
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            zoomControls.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+
+            zoomControls.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                isDragging = true;
+                const rect = zoomControls.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            let touchOffsetX, touchOffsetY;
+            let isTouching = false;
+
+            zoomControls.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-btn')) return;
+                const touch = e.touches[0];
+                const rect = zoomControls.getBoundingClientRect();
+                touchOffsetX = touch.clientX - rect.left;
+                touchOffsetY = touch.clientY - rect.top;
+                isTouching = true;
+                zoomControls.classList.add('dragging');
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                const touch = e.touches[0];
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const controlWidth = zoomControls.offsetWidth;
+                const controlHeight = zoomControls.offsetHeight;
+                let newX = touch.clientX - touchOffsetX;
+                let newY = touch.clientY - touchOffsetY;
+                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
+                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
+                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
+                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function() {
+                if (isTouching) {
+                    isTouching = false;
+                    zoomControls.classList.remove('dragging');
+                }
+            });
+
+            zoomControls.classList.remove('visible');
+            zoomVisible = false;
+            resetZoom();
+        });
 
         // ============================================================
         // DOM REFS
@@ -1147,11 +1312,6 @@
             return str.replace(/[\s-\.۔]*\d+$/, '').trim();
         }
 
-        function formatCurrentTime() {
-            const d = new Date();
-            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} - ${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}${d.getHours()>=12?'pm':'am'}`;
-        }
-
         function findParent(p) {
             return p?.father ? db.find(x => x.name === p.father) : null;
         }
@@ -1170,9 +1330,58 @@
         function getMother(person) { return person?.mother || '—'; }
 
         // ============================================================
+        // ZOOM RESET FOR MOBILE
+        // ============================================================
+       function resetZoomOnMobile(callback) {
+            if (window.innerWidth <= 768) {
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+
+                try {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    if (viewport) {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=no');
+
+                        setTimeout(function() {
+                            viewport.setAttribute('content', 'width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover');
+                            window.scrollTo(0, 0);
+
+                            if (typeof callback === 'function') {
+                                callback();
+                            }
+                        }, 150);
+                        return;
+                    }
+                } catch(e) {
+                    // Silently fail
+                }
+            }
+
+            if (typeof callback === 'function') {
+                callback();
+            }
+        }
+
+        // ============================================================
         // NAVIGATION
         // ============================================================
         function showDashboard() { window.location.href = '00-Dashboard-E.html'; }
+
+        function openPrint() {
+            if (!currentIndividual) {
+                alert('Please select a family member first');
+                return;
+            }
+            document.getElementById('toggleMenuPanel')?.classList.remove('show');
+            
+            var url = '050-Print.html?member=' + encodeURIComponent(currentIndividual.name) +
+                      '&view=' + currentView +
+                      '&siblings=' + (siblingsCollapsed ? '0' : '1') +
+                      '&descendants=' + (childrenCollapsed ? '0' : '1') +
+                      '&ancestors=' + (ancestorsCollapsed ? '0' : '1');
+            window.open(url, '_blank');
+        }
 
         // ============================================================
         // TOGGLE MENU
@@ -1226,11 +1435,9 @@
             if (view === 'tree') {
                 treeContainer.style.display = 'flex';
                 tableContainer.style.display = 'none';
-                applyZoom();
             } else {
                 treeContainer.style.display = 'none';
                 tableContainer.style.display = 'flex';
-                applyZoom();
             }
             renderCurrentView();
         }
@@ -1267,44 +1474,6 @@
 
         function closeTips() {
             document.getElementById('tipsOverlay').style.display = 'none';
-        }
-
-        // ============================================================
-        // ZOOM FUNCTIONS
-        // ============================================================
-        function zoomIn() {
-            zoomLevel = Math.min(zoomLevel + 0.1, 2.0);
-            applyZoom();
-        }
-
-        function zoomOut() {
-            zoomLevel = Math.max(zoomLevel - 0.1, 0.3);
-            applyZoom();
-        }
-
-        function resetZoom() {
-            zoomLevel = (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ? 0.50 : 0.70;
-            applyZoom();
-        }
-
-        function applyZoom() {
-            if (currentView === 'tree') {
-                if (treeRoot) treeRoot.style.zoom = zoomLevel;
-            } else {
-                if (tableRoot) tableRoot.style.zoom = zoomLevel;
-            }
-            document.getElementById('zoomLevel').textContent = Math.round(zoomLevel * 100) + '%';
-        }
-
-        function toggleZoomControls() {
-            zoomVisible = !zoomVisible;
-            const controls = document.getElementById('zoomControls');
-            if (zoomVisible) {
-                controls.classList.add('visible');
-            } else {
-                controls.classList.remove('visible');
-            }
-            document.getElementById('toggleMenuPanel').classList.remove('show');
         }
 
         // ============================================================
@@ -1566,6 +1735,7 @@
             window.history.pushState({}, '', url);
             renderCurrentView();
             menuBtn.classList.add('visible');
+            resetZoomOnMobile();
         }
 
         function resetIndividual() {
@@ -1577,7 +1747,9 @@
             showWelcome();
             closeAllMenus();
             menuBtn.classList.remove('visible');
+            resetZoomOnMobile();
         }
+
 
         function handleBoxClick(el) {
             const name = el.dataset.name;
@@ -1589,297 +1761,7 @@
             searchDropdown.style.display = 'none';
             document.querySelectorAll('.context-menu').forEach(m => m.remove());
             document.getElementById('toggleMenuPanel')?.classList.remove('show');
-            document.getElementById('saveOptionsModal').style.display = 'none';
-            document.getElementById('saveModalOverlay').style.display = 'none';
             closeInfoModal();
-        }
-
-        // ============================================================
-        // SAVE
-        // ============================================================
-        function showSaveOptions() {
-            if (!currentIndividual) {
-                alert('Please select a family member first');
-                return;
-            }
-            document.getElementById('saveOptionsModal').style.display = 'block';
-            document.getElementById('saveModalOverlay').style.display = 'block';
-            document.getElementById('toggleMenuPanel').classList.remove('show');
-        }
-
-        function closeSaveModal() {
-            document.getElementById('saveOptionsModal').style.display = 'none';
-            document.getElementById('saveModalOverlay').style.display = 'none';
-        }
-
-        function processSave() {
-            const selected = document.querySelector('input[name="saveFormat"]:checked');
-            if (!selected) {
-                alert('Please select a format');
-                return;
-            }
-            closeSaveModal();
-            switch (selected.value) {
-                case 'pdf-high': exportTreePDF('high'); break;
-                case 'pdf-low': exportTreePDF('low'); break;
-                case 'jpeg': exportAsJPEG(); break;
-            }
-        }
-
-        async function exportTreePDF(quality = 'high') {
-            if (!currentIndividual) { alert('Please select a member first'); return; }
-
-            const container = currentView === 'tree' ? treeContainer : tableContainer;
-            const root = currentView === 'tree' ? treeRoot : tableRoot;
-            const originalBodyOverflow = document.body.style.overflow;
-            const originalContainerZoom = container.style.zoom;
-            const originalContainerOverflow = container.style.overflow;
-            const originalContainerHeight = container.style.height;
-            const originalRootMinWidth = root.style.minWidth;
-
-            try {
-                document.body.style.overflow = 'visible';
-                container.style.zoom = '1';
-                container.style.overflow = 'visible';
-                container.style.height = 'auto';
-
-                let maxBoxesInRow = 0;
-                const rows = root.querySelectorAll('.children-row');
-                rows.forEach(row => {
-                    const boxCount = row.querySelectorAll('.box').length;
-                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
-                });
-                const familyGroups = root.querySelectorAll('.family-group');
-                familyGroups.forEach(group => {
-                    const boxCount = group.querySelectorAll('.box').length;
-                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
-                });
-                if (maxBoxesInRow < 1) maxBoxesInRow = 1;
-                const requiredWidth = (maxBoxesInRow * 290) + 100;
-                root.style.minWidth = requiredWidth + 'px';
-
-                const header = document.createElement('div');
-                header.style.marginBottom = '30px';
-                header.style.textAlign = 'center';
-                header.style.width = '100%';
-                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family ${currentView === 'tree' ? 'Tree' : 'Table'}</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-                root.insertBefore(header, root.firstChild);
-
-                const footer = document.createElement('div');
-                footer.style.marginTop = '30px';
-                footer.style.padding = '15px 20px';
-                footer.style.background = '#fcf9f4';
-                footer.style.width = '100%';
-                footer.style.boxSizing = 'border-box';
-                footer.style.fontFamily = "'Inter', sans-serif";
-                footer.style.fontSize = '12px';
-                footer.style.textAlign = 'center';
-
-                const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
-
-                footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | PDF Generated : ${timeStr}</div>
-                `;
-                root.appendChild(footer);
-
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                const loadingMsg = document.createElement('div');
-                loadingMsg.style.position = 'fixed';
-                loadingMsg.style.top = '50%';
-                loadingMsg.style.left = '50%';
-                loadingMsg.style.transform = 'translate(-50%, -50%)';
-                loadingMsg.style.background = '#5a0000';
-                loadingMsg.style.color = 'white';
-                loadingMsg.style.padding = '20px 40px';
-                loadingMsg.style.borderRadius = '8px';
-                loadingMsg.style.zIndex = '9999';
-                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-                loadingMsg.textContent = `📄 Creating ${quality === 'high' ? 'High Resolution' : 'Low Resolution'} PDF...`;
-                document.body.appendChild(loadingMsg);
-
-                await new Promise(resolve => setTimeout(resolve, 100));
-
-                const scale = quality === 'high' ? 2.0 : 1.0;
-                const jpegQuality = quality === 'high' ? 0.95 : 0.7;
-                const qualityText = quality === 'high' ? 'High Resolution' : 'Low Resolution';
-
-                const canvas = await html2canvas(root, {
-                    scale: scale,
-                    backgroundColor: '#ffffff',
-                    useCORS: true,
-                    logging: false,
-                    width: root.scrollWidth,
-                    height: root.scrollHeight,
-                    windowWidth: root.scrollWidth,
-                    windowHeight: root.scrollHeight,
-                    onclone: (clonedDoc, element) => {
-                        const clonedRoot = clonedDoc.getElementById(currentView === 'tree' ? 'treeRoot' : 'tableRoot');
-                        if (clonedRoot) {
-                            clonedRoot.style.minWidth = requiredWidth + 'px';
-                        }
-                    }
-                });
-
-                root.removeChild(header);
-                root.removeChild(footer);
-                document.body.removeChild(loadingMsg);
-
-                const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
-                const { jsPDF } = window.jspdf;
-                const w = canvas.width * (0.264583 / scale);
-                const h = canvas.height * (0.264583 / scale);
-
-                const pdf = new jsPDF({
-                    orientation: w > h ? 'l' : 'p',
-                    unit: 'mm',
-                    format: [w + 40, h + 40]
-                });
-
-                pdf.addImage(imgData, 'JPEG', 20, 20, w, h, undefined, 'FAST');
-                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                pdf.save(`family_${currentView}_${safeName}_${quality}_${Date.now()}.pdf`);
-
-                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-                alert(`✅ ${qualityText} PDF saved!\nFile size: ~${fileSizeKB} KB`);
-
-            } catch (err) {
-                console.error('PDF Error:', err);
-                alert('❌ PDF generation failed: ' + err.message);
-            } finally {
-                document.body.style.overflow = originalBodyOverflow;
-                container.style.zoom = '0.5';
-                container.style.overflow = originalContainerOverflow;
-                container.style.height = originalContainerHeight;
-                root.style.minWidth = originalRootMinWidth;
-            }
-        }
-
-        async function exportAsJPEG() {
-            if (!currentIndividual) {
-                alert('Please select a member first');
-                return;
-            }
-
-            const container = currentView === 'tree' ? treeContainer : tableContainer;
-            const root = currentView === 'tree' ? treeRoot : tableRoot;
-            const originalBodyOverflow = document.body.style.overflow;
-            const originalContainerZoom = container.style.zoom;
-            const originalContainerOverflow = container.style.overflow;
-            const originalContainerHeight = container.style.height;
-            const originalRootMinWidth = root.style.minWidth;
-
-            try {
-                document.body.style.overflow = 'visible';
-                container.style.zoom = '1';
-                container.style.overflow = 'visible';
-                container.style.height = 'auto';
-
-                let maxBoxesInRow = 0;
-                const rows = root.querySelectorAll('.children-row');
-                rows.forEach(row => {
-                    const boxCount = row.querySelectorAll('.box').length;
-                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
-                });
-                const familyGroups = root.querySelectorAll('.family-group');
-                familyGroups.forEach(group => {
-                    const boxCount = group.querySelectorAll('.box').length;
-                    if (boxCount > maxBoxesInRow) maxBoxesInRow = boxCount;
-                });
-                if (maxBoxesInRow < 1) maxBoxesInRow = 1;
-                const requiredWidth = (maxBoxesInRow * 290) + 100;
-                root.style.minWidth = requiredWidth + 'px';
-
-                const header = document.createElement('div');
-                header.style.marginBottom = '30px';
-                header.style.textAlign = 'center';
-                header.style.width = '100%';
-                header.innerHTML = `<h1 style="color: #d4af37; font-size: 36px; font-family: 'Playfair Display', serif; margin:0;">Rizvi Family ${currentView === 'tree' ? 'Tree' : 'Table'}</h1>
-                    <h2 style="color:#5a0000; font-size:24px; font-family:'Playfair Display', serif; margin:10px 0 0 0;">${displayName(currentIndividual.name)}</h2>`;
-                root.insertBefore(header, root.firstChild);
-
-                const footer = document.createElement('div');
-                footer.style.marginTop = '30px';
-                footer.style.padding = '15px 20px';
-                footer.style.background = '#fcf9f4';
-                footer.style.width = '100%';
-                footer.style.boxSizing = 'border-box';
-                footer.style.fontFamily = "'Inter', sans-serif";
-                footer.style.fontSize = '12px';
-                footer.style.textAlign = 'center';
-
-                const timeStr = formatCurrentTime();
-                const excelSavedTime = fileInfo ? fileInfo.saved_time : '19/03/2026, 2:02:45 am';
-
-                footer.innerHTML = `
-                    <div style="padding:2px 0; font-weight:bold; color:#0f172a;">Developer : Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010</div>
-                    <div style="padding:2px 0; font-weight:bold; color:#5a0000;">Last Data Updated : ${excelSavedTime} | JPEG Generated : ${timeStr}</div>
-                `;
-                root.appendChild(footer);
-
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                const loadingMsg = document.createElement('div');
-                loadingMsg.style.position = 'fixed';
-                loadingMsg.style.top = '50%';
-                loadingMsg.style.left = '50%';
-                loadingMsg.style.transform = 'translate(-50%, -50%)';
-                loadingMsg.style.background = '#5a0000';
-                loadingMsg.style.color = 'white';
-                loadingMsg.style.padding = '20px 40px';
-                loadingMsg.style.borderRadius = '8px';
-                loadingMsg.style.zIndex = '9999';
-                loadingMsg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-                loadingMsg.textContent = '📸 Creating JPEG...';
-                document.body.appendChild(loadingMsg);
-
-                await new Promise(resolve => setTimeout(resolve, 100));
-
-                const canvas = await html2canvas(root, {
-                    scale: 1.5,
-                    backgroundColor: '#ffffff',
-                    logging: false,
-                    width: root.scrollWidth,
-                    height: root.scrollHeight,
-                    windowWidth: root.scrollWidth,
-                    windowHeight: root.scrollHeight,
-                    onclone: (clonedDoc, element) => {
-                        const clonedRoot = clonedDoc.getElementById(currentView === 'tree' ? 'treeRoot' : 'tableRoot');
-                        if (clonedRoot) {
-                            clonedRoot.style.minWidth = requiredWidth + 'px';
-                        }
-                    }
-                });
-
-                root.removeChild(header);
-                root.removeChild(footer);
-                document.body.removeChild(loadingMsg);
-
-                const imgData = canvas.toDataURL('image/jpeg', 0.9);
-                const link = document.createElement('a');
-                const safeName = currentIndividual.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                link.download = `family_${currentView}_${safeName}_${Date.now()}.jpg`;
-                link.href = imgData;
-                link.click();
-
-                const base64Length = imgData.length - 'data:image/jpeg;base64,'.length;
-                const fileSizeKB = Math.ceil((base64Length * 0.75) / 1024);
-                setTimeout(() => alert(`✅ JPEG saved!\nFile size: ~${fileSizeKB} KB`), 100);
-
-            } catch (err) {
-                console.error('JPEG Export Error:', err);
-                alert('❌ JPEG generation failed: ' + err.message);
-            } finally {
-                document.body.style.overflow = originalBodyOverflow;
-                container.style.zoom = '0.5';
-                container.style.overflow = originalContainerOverflow;
-                container.style.height = originalContainerHeight;
-                root.style.minWidth = originalRootMinWidth;
-            }
         }
 
         // ============================================================
@@ -1898,10 +1780,12 @@
                 const div = document.createElement('div');
                 div.className = 'result-item';
                 div.innerHTML = `<div><span class="main-name">${displayName(member.name)}</span> <span class="gen">${member.gen}</span><div class="father-name">${member.gender?.startsWith('F') ? 'D/o' : 'S/o'} ${displayName(member.father) || '—'}</div></div>`;
+
                 div.onclick = () => {
-                    selectMember(member);
+                    document.getElementById('searchInput').blur(); 
                     dropdown.style.display = 'none';
-                    this.value = displayName(member.name);
+                    document.getElementById('searchInput').value = displayName(member.name);
+                    selectMember(member); 
                 };
                 dropdown.appendChild(div);
             });
@@ -1918,100 +1802,16 @@
             if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
                 document.getElementById('toggleMenuPanel')?.classList.remove('show');
             }
-            if (!e.target.closest('.save-options-modal') && !e.target.closest('[onclick="showSaveOptions()"]')) {
-                document.getElementById('saveOptionsModal').style.display = 'none';
-                document.getElementById('saveModalOverlay').style.display = 'none';
-            }
         });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeTips();
                 closeInfoModal();
-                closeSaveModal();
                 document.getElementById('toggleMenuPanel')?.classList.remove('show');
                 document.getElementById('searchDropdown').style.display = 'none';
             }
         });
-
-        // ============================================================
-        // DRAGGABLE ZOOM
-        // ============================================================
-        (function() {
-            const zoomControls = document.getElementById('zoomControls');
-            let isDragging = false;
-            let offsetX, offsetY;
-
-            zoomControls.addEventListener('dragstart', function(e) { e.preventDefault(); });
-
-            zoomControls.addEventListener('mousedown', function(e) {
-                if (e.target.closest('.zoom-btn')) return;
-                isDragging = true;
-                const rect = zoomControls.getBoundingClientRect();
-                offsetX = e.clientX - rect.left;
-                offsetY = e.clientY - rect.top;
-                zoomControls.classList.add('dragging');
-                e.preventDefault();
-            });
-
-            document.addEventListener('mousemove', function(e) {
-                if (!isDragging) return;
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                const controlWidth = zoomControls.offsetWidth;
-                const controlHeight = zoomControls.offsetHeight;
-                let newX = e.clientX - offsetX;
-                let newY = e.clientY - offsetY;
-                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-            });
-
-            document.addEventListener('mouseup', function() {
-                if (isDragging) {
-                    isDragging = false;
-                    zoomControls.classList.remove('dragging');
-                }
-            });
-
-            let touchOffsetX, touchOffsetY;
-            let isTouching = false;
-
-            zoomControls.addEventListener('touchstart', function(e) {
-                if (e.target.closest('.zoom-btn')) return;
-                const touch = e.touches[0];
-                const rect = zoomControls.getBoundingClientRect();
-                touchOffsetX = touch.clientX - rect.left;
-                touchOffsetY = touch.clientY - rect.top;
-                isTouching = true;
-                zoomControls.classList.add('dragging');
-                e.preventDefault();
-            }, { passive: false });
-
-            document.addEventListener('touchmove', function(e) {
-                if (!isTouching) return;
-                const touch = e.touches[0];
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                const controlWidth = zoomControls.offsetWidth;
-                const controlHeight = zoomControls.offsetHeight;
-                let newX = touch.clientX - touchOffsetX;
-                let newY = touch.clientY - touchOffsetY;
-                newX = Math.max(0, Math.min(newX, viewportWidth - controlWidth));
-                newY = Math.max(0, Math.min(newY, viewportHeight - controlHeight));
-                zoomControls.style.right = (viewportWidth - newX - controlWidth) + 'px';
-                zoomControls.style.bottom = (viewportHeight - newY - controlHeight) + 'px';
-                e.preventDefault();
-            }, { passive: false });
-
-            document.addEventListener('touchend', function() {
-                if (isTouching) {
-                    isTouching = false;
-                    zoomControls.classList.remove('dragging');
-                }
-            });
-        })();
 
         // ============================================================
         // INIT
@@ -2041,12 +1841,17 @@
                 menuBtn.classList.remove('visible');
             }
 
-            document.getElementById('zoomControls').classList.remove('visible');
-            applyZoom();
+            // Search input blur - reset zoom on mobile when leaving search
+            searchInput.addEventListener('blur', function() {
+                if (window.innerWidth <= 768) {
+                    setTimeout(resetZoomOnMobile, 100);
+                }
+            });
 
             // expose globals
             window.goHome = showDashboard;
             window.showDashboard = showDashboard;
+            window.openPrint = openPrint;
             window.toggleLeftMenu = toggleLeftMenu;
             window.handleToggleMenuClick = handleToggleMenuClick;
             window.toggleSection = toggleSection;
@@ -2057,16 +1862,13 @@
             window.closeInfoModal = closeInfoModal;
             window.openTips = openTips;
             window.closeTips = closeTips;
-            window.showSaveOptions = showSaveOptions;
-            window.closeSaveModal = closeSaveModal;
-            window.processSave = processSave;
-            window.exportAsJPEG = exportAsJPEG;
             window.switchView = switchView;
+            window.toggleFullDetails = toggleFullDetails;
+            window.resetZoomOnMobile = resetZoomOnMobile;
             window.zoomIn = zoomIn;
             window.zoomOut = zoomOut;
             window.resetZoom = resetZoom;
             window.toggleZoomControls = toggleZoomControls;
-            window.toggleFullDetails = toggleFullDetails;
         });
     </script>
 </body>

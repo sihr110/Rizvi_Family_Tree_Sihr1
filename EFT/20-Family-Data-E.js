@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 08/21/2026 15:41
+// Saved: 08/24/2026 16:55
 // Total members: 608
 
 const FAMILY_DATA_E = [
@@ -2828,7 +2828,7 @@ const FAMILY_DATA_E = [
     spouse: "Syed Najaf Haider Rizvi",
     gen: "G-041-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Syeda Sabeen married Syed Najaf (Phopi Syeda Tanveer's son ) + Their common root is Syed Badhsha Hussain Shaheed - G-022-S1"
   },
   {
     name: "Syeda Rafiya - 03",
@@ -2837,7 +2837,7 @@ const FAMILY_DATA_E = [
     spouse: "",
     gen: "G-041-D2",
     gender: "FEMALE",
-    details: "Syeda Sabeen married Syed Najaf (Phopi Syeda Tanveer's son ) + Their common root is Syed Badhsha Hussain Shaheed - G-022-S1"
+    details: ""
   },
   {
     name: "Syed Irfan",
@@ -5480,7 +5480,7 @@ const FAMILY_DATA_E = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "08/21/2026 15:41", 
+    saved_time: "08/24/2026 16:55", 
     total_members: 608,
     details_count: 87,
     sheets_merged: ["Main","1","2","3","4","5"]

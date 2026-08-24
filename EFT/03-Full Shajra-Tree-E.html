@@ -441,23 +441,22 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .reset-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: var(--dark-blue);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-
-        .reset-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.02);
-        }
+.reset-btn {
+  background: transparent;
+  color: var(--dark-blue);
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 1px 4px;
+  transition: 0.2s;
+  white-space: nowrap;
+  transform: translateY(-4px);
+}
+.reset-btn:hover {
+  transform: scale(1.2);
+  color: var(--gold);
+}
 
         .result-item {
             padding: 10px 15px;
@@ -850,8 +849,115 @@
 .child-arrow { color: var(--gold); font-size: 14px; font-weight: bold; margin-top: -3px; }
 
 
+/* ============================================================
+   NEW: DESKTOP SETTINGS (min-width: 769px)
+   ============================================================ */
+@media (min-width: 769px) {
+    .app-container {
+        max-width: 1450px;
+        width: 1450px;
+        height: 675px;
+    }
 
+    .tree-root-layout {
+        zoom: 0.70;
+    }
+}
 
+/* ============================================================
+   NEW: MOBILE SETTINGS (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    .app-container {
+        max-width: 100%;
+        width: 100%;
+        height: 100vh;
+        min-height: 100vh;
+        border-radius: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    body {
+        padding: 0;
+    }
+
+    .search-section {
+        width: 95%;
+        padding: 10px 8px;
+    }
+
+    .search-row {
+        gap: 6px;
+        flex-wrap: nowrap;
+    }
+
+    .search-label {
+        font-size: 10px;
+    }
+
+    .search-wrapper {
+        flex: 1;
+        min-width: 60px;
+    }
+
+    .reset-btn {
+        font-size: 20px;
+        padding: 2px 4px;
+        transform: translateY(-2px);
+    }
+
+    .tips-btn {
+        font-size: 14px;
+        padding: 2px 6px;
+    }
+
+    .view-toggle {
+        transform: scale(0.80);
+        transform-origin: right center;
+        flex-shrink: 0;
+    }
+
+    .view-toggle button {
+        font-size: 9px;
+        padding: 3px 6px;
+    }
+
+    .tree-wrapper {
+        flex: 1;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tree-container {
+        padding: 10px;
+    }
+
+    .tree-root-layout {
+        min-width: 1200px;
+        width: fit-content;
+        margin: 0;
+        padding: 10px;
+        zoom: 0.50;
+    }
+
+    .header-title {
+        font-size: 16px;
+    }
+    .header-title .header-icon {
+        width: 26px;
+        height: 26px;
+        font-size: 14px;
+    }
+    .left-toggle-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    .toggle-menu-item {
+        font-size: 12px;
+        padding: 8px 14px;
+    }
+}
 
     </style>
 </head>
@@ -882,7 +988,7 @@
             <input type="text" id="searchInput" class="search-input" placeholder="Type name..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
             <div id="searchDropdown" class="search-dropdown"></div>
         </div>
-        <div class="reset-btn" onclick="resetToRoot()">🔄 Reset</div>
+        <div class="reset-btn" onclick="resetToRoot()">🔄</div>
         <button class="tips-btn" onclick="openTips()">💡</button>
 <div class="view-toggle">
     <button id="treeViewBtn" class="active" onclick="switchView('tree')">🌳 Tree</button>
@@ -1490,7 +1596,9 @@ function init() {
     };
 
     document.addEventListener('click', function(e) {
-        // ... existing code ...
+        if (!e.target.closest('.toggle-menu-panel') && !e.target.closest('.left-toggle-btn')) {
+            document.getElementById('toggleMenuPanel').classList.remove('show');
+        }
     });
     
     const showAllItem = document.getElementById('showAllMenuItem');
@@ -1508,7 +1616,6 @@ function init() {
     zoomVisible = false;
     resetZoom();
 
-    // Read search parameter from URL
     const urlParams = new URLSearchParams(window.location.search);
     const searchParam = urlParams.get('search');
     if (searchParam) {
@@ -1529,7 +1636,6 @@ function init() {
         }
     }
 }
-
         document.addEventListener('DOMContentLoaded', init);
         
         window.toggleExpand = toggleExpand;
@@ -1622,8 +1728,7 @@ function switchView(view) {
 <div class="title">Dashboard</div>
 <div class="colon">:</div>
 <div class="desc">Go to Dashboard (Main Menu)</div>
-
-<div class="title">Save</div>
+document.addEventListener('click', function(e) {<div class="title">Save</div>
 <div class="colon">:</div>
 <div class="desc">Save file as PDF or JPEG</div>
 
@@ -1635,7 +1740,7 @@ function switchView(view) {
 <div class="title">Zoom In</div>
 <div class="colon">:</div>
 <div class="desc">Click <strong>+</strong> to zoom in</div>
-
+document.addEventListener('click', function(e) {
 <div class="title">Zoom Out</div>
 <div class="colon">:</div>
 <div class="desc">Click <strong>−</strong> to zoom out</div>

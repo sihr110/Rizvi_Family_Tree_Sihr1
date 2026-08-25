@@ -432,13 +432,7 @@ input, textarea, select {
             background: #fffcf8;
         }
 
-        #rootSection {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow: hidden;
-            flex: 1;
-        }
+
 
         /* CHANGE 2: Fixed header section centered */
         .fixed-header-section {
@@ -460,16 +454,14 @@ input, textarea, select {
     overflow-x: auto;
     padding: 0 15px 15px 15px;
     -webkit-overflow-scrolling: touch;
-  }
+}
 
-
-
-        #rootTree {
-            transform-origin: top left;
-            transition: transform 0.1s;
-            width: 100%;
-            min-height: 100%;
-        }
+#rootTree {
+    transform-origin: top left;
+    transition: transform 0.1s;
+    width: 100%;
+    min-height: 90vh;
+}
 
         /* Scrollbar styling for mobile */
         .scrollable-content::-webkit-scrollbar {
@@ -888,10 +880,9 @@ input, textarea, select {
                 font-size: 14px;
             }
         }
+
     </style>
 </head>
-<body>
-
 
 <body>
     <!-- DRAGGABLE FLOATING ZOOM CONTROLS - PC ONLY -->
@@ -905,7 +896,6 @@ input, textarea, select {
 
     <!-- NO ZOOM CONTROLS - mobile uses pinch-to-zoom -->
 
-   
     <div class="app-container">
         <div class="app-header">
             <div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>
@@ -914,45 +904,42 @@ input, textarea, select {
                 <span>Rizvi Family - Root Tree View</span>
             </div>
             <button class="tips-btn bulb-on" id="tipsToggleBtn" onclick="toggleTips()">💡</button>
+            
+            <div class="toggle-menu-panel" id="toggleMenuPanel">
+                <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+                <div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #f0f0f0; color: black;">🔍 Zoom Controls</div>
+                <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+                <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+                <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
+            </div>
         </div>
 
-        <div class="toggle-menu-panel" id="toggleMenuPanel">
-            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-
-<div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #f0f0f0; color: black;">🔍 Zoom Controls</div>
-<div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-                       <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
-            <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
+        <div class="fixed-header-section">
+            <div class="search-row">
+                <span class="search-label">MEMBER 1</span>
+                <div class="search-wrapper">
+                    <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
+                    <div id="dropdown1" class="dropdown"></div>
+                </div>
+                <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
+            </div>
+            <div class="search-row">
+                <span class="search-label">MEMBER 2</span>
+                <div class="search-wrapper">
+                    <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
+                    <div id="dropdown2" class="dropdown"></div>
+                </div>
+                <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
+            </div>
+            <div class="border-line"></div>
         </div>
 
         <div class="main-content">
-            <div id="rootSection">
-                <div class="fixed-header-section">
-                    <!-- CHANGE 3: Search rows with reset buttons -->
-                    <div class="search-row">
-                        <span class="search-label">MEMBER 1</span>
-                        <div class="search-wrapper">
-                            <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
-                            <div id="dropdown1" class="dropdown"></div>
-                        </div>
-                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
-                    </div>
-                    <div class="search-row">
-                        <span class="search-label">MEMBER 2</span>
-                        <div class="search-wrapper">
-                            <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
-                            <div id="dropdown2" class="dropdown"></div>
-                        </div>
-                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
-                    </div>
-                    <div class="border-line"></div>
-                </div>
-                <div class="scrollable-content" id="rootTree">
-                    <div class="empty-state">
-                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
-                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
-                        <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
-                    </div>
+            <div class="scrollable-content" id="rootTree">
+                <div class="empty-state">
+                    <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                    <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                    <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
                 </div>
             </div>
         </div>

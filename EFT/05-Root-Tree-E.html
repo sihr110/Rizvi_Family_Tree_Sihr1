@@ -765,30 +765,33 @@ input, textarea, select {
     }
     
     /* ===== SIDE-BY-SIDE ON MOBILE ===== */
-    .paths-container {
+@media screen and (max-width: 480px) {
+       .paths-container {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
         overflow-y: visible;
-        gap: 6px;
-        padding: 10px 5px 20px 5px;
-        justify-content: flex-start;
+        gap: 4px;
+        padding: 10px 10px 20px 10px;  
+        justify-content: center;
         -webkit-overflow-scrolling: touch;
     }
     
     .path-column {
-        flex: 0 0 78%;
-        min-width: 250px;
-        max-width: 78%;
+        flex: 0 0 48%;  
+        min-width: 200px;  
+        max-width: 48%;  
         text-align: center;
+        padding: 0 2px;   
     }
     
     .box {
-        min-width: 230px;
+        min-width: 180px;  
         max-width: 100%;
-        margin: 8px auto;
+        margin: 6px auto;
     }
+}
     
     /* Scrollbar styling */
     .paths-container::-webkit-scrollbar {

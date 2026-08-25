@@ -131,7 +131,7 @@ input, textarea, select {
         .tips-grid {
             display: grid;
             grid-template-columns: auto auto 1fr;
-            gap: 6px 12px;
+            gap: 0px 12px;
             text-align: left;
             direction: ltr;
             align-items: baseline;
@@ -730,53 +730,158 @@ input, textarea, select {
             display: none;
         }
         
-        @media screen and (max-width: 480px) {
-            .app-header {
-                padding: 8px 10px;
-            }
-            
-            .header-title {
-                font-size: 16px;
-                position: static;
-                transform: none;
-                margin-left: 10px;
-            }
-            
-            .left-toggle-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            
-            .box {
-                min-width: 240px;
-            }
-            
-            .fixed-header-section {
-                width: 95%;
-            }
-            
-            .search-label {
-                font-size: 10px;
-                width: 55px;
-            }
-            
-            
-            .reset-btn {
-                padding: 6px 3px;
-                font-size: 16px;
-                width: 25px;
-            }
-            
-            .tips-btn {
-                font-size: 18px;
-                padding: 4px 6px;
-            }
-            
-            .empty-state {
-                padding: 30px 20px;
-                margin: 20px 15px;
-            }
-        }
+@media screen and (max-width: 480px) {
+    .app-header {
+        padding: 8px 10px;
+    }
+    
+    .header-title {
+        font-size: 16px;
+        position: static;
+        transform: none;
+        margin-left: 10px;
+    }
+    
+    .left-toggle-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .fixed-header-section {
+        width: 95%;
+    }
+    
+    .search-label {
+        font-size: 10px;
+        width: 55px;
+    }
+    
+    .reset-btn {
+        padding: 6px 3px;
+        font-size: 16px;
+        width: 25px;
+    }
+    
+    .tips-btn {
+        font-size: 18px;
+        padding: 4px 6px;
+    }
+    
+    .empty-state {
+        padding: 30px 20px;
+        margin: 20px 15px;
+    }
+    
+    /* ===== SIDE-BY-SIDE ON MOBILE ===== */
+    .paths-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: visible;
+        gap: 6px;
+        padding: 10px 5px 20px 5px;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .path-column {
+        flex: 0 0 78%;
+        min-width: 250px;
+        max-width: 78%;
+        text-align: center;
+    }
+    
+    .box {
+        min-width: 230px;
+        max-width: 100%;
+        margin: 8px auto;
+    }
+    
+    /* Scrollbar styling */
+    .paths-container::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .paths-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    
+    .paths-container::-webkit-scrollbar-thumb {
+        background: var(--gold);
+        border-radius: 3px;
+    }
+    
+    /* Smaller text on mobile */
+    .member-name {
+        font-size: 15px;
+    }
+    
+    .box-header {
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+    
+    .parent-info {
+        font-size: 10px;
+    }
+    
+    .parent-info .label {
+        width: 50px;
+    }
+    
+    /* Generation info responsive */
+    .gap-row {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .gap-item {
+        font-size: 11px;
+        padding: 4px 10px;
+        white-space: normal;
+    }
+    
+    .gap-value {
+        padding: 2px 8px;
+        font-size: 11px;
+    }
+    
+    .root-announce {
+        padding: 15px 20px;
+        margin: 10px auto;
+        width: 95%;
+    }
+    
+    .root-announce h2 {
+        font-size: 18px;
+    }
+    
+    .root-announce h3 {
+        font-size: 18px;
+    }
+}
+
+/* For tablets and larger phones */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .paths-container {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        gap: 8px !important;
+        padding: 10px !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .path-column {
+        flex: 0 0 75% !important;
+        min-width: 300px !important;
+        max-width: 75% !important;
+    }
+}
+
         
         @media screen and (max-width: 360px) {
             .header-title {

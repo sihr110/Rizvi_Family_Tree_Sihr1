@@ -1,8 +1,14 @@
+<!-- ======================================== -->
+<!-- FILE NAME: 00-Dashboard-E.html           -->
+<!-- English Version - Rizvi Family Dashboard -->
+<!-- 5 Views - Clean & Simple                 -->
+<!-- ======================================== -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi Family · Dashboard</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -29,7 +35,7 @@
         }
         
         .dashboard-container {
-            max-width: 1100px;
+            max-width: 900px;
             width: 100%;
             background: white;
             border-radius: 24px;
@@ -44,6 +50,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* ===== HEADER ===== */
         .dashboard-header {
             text-align: center;
             padding-bottom: 25px;
@@ -68,6 +75,7 @@
             border-radius: 2px;
         }
         
+        /* ===== HEADER ACTIONS ===== */
         .header-actions {
             position: absolute;
             right: 0;
@@ -118,11 +126,17 @@
             color: white;
         }
         
+        /* ===== NAVIGATION - 5 VIEWS ===== */
         .nav-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 30px;
+        }
+        
+        /* Full width for last item (5th) */
+        .nav-grid .full-width {
+            grid-column: 1 / -1;
         }
         
         .nav-card {
@@ -136,6 +150,9 @@
             text-decoration: none;
             color: var(--dark-blue);
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .nav-card:hover {
@@ -158,6 +175,7 @@
             margin-top: 6px;
         }
         
+        /* ===== TOOLS SECTION ===== */
         .tools-section {
             background: linear-gradient(135deg, #f8f4f0 0%, #fff8f0 100%);
             border: 2px solid var(--gold);
@@ -256,6 +274,7 @@
             margin-top: 2px;
         }
         
+        /* ===== STATS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -318,6 +337,7 @@
             to { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
         }
         
+        /* ===== RESPONSIVE ===== */
         @media screen and (max-width: 768px) {
             body { padding: 10px; }
             .dashboard-container { padding: 20px 15px; border-radius: 16px; }
@@ -328,7 +348,7 @@
                 margin-top: 10px;
             }
             .header-actions .btn-icon { padding: 6px 10px; font-size: 12px; }
-            .nav-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .nav-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
             .nav-card { padding: 15px 10px; }
             .nav-card .emoji { font-size: 28px; }
             .tools-grid .tool-card { min-width: 100%; }
@@ -339,11 +359,12 @@
         @media screen and (max-width: 480px) {
             .dashboard-container { padding: 15px 10px; border-radius: 12px; }
             .dashboard-header h1 { font-size: 20px; }
-            .nav-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .nav-grid { grid-template-columns: 1fr; gap: 8px; }
             .nav-card { padding: 12px 8px; border-radius: 10px; }
             .nav-card .emoji { font-size: 24px; }
             .nav-card .label { font-size: 12px; }
             .nav-card .desc { font-size: 10px; }
+            .nav-card .full-width { grid-column: 1; }
             #resolutionDisplay { font-size: 20px; padding: 6px; }
         }
     </style>
@@ -351,7 +372,7 @@
 <body>
     <div class="dashboard-container">
         
-        <!-- HEADER -->
+        <!-- ===== HEADER ===== -->
         <div class="dashboard-header">
             <span class="icon">🏠</span>
             <h1>Rizvi Family</h1>
@@ -364,43 +385,48 @@
             </div>
         </div>
         
-        <!-- NAVIGATION CARDS -->
+        <!-- ===== 5 VIEWS ===== -->
         <div class="nav-grid">
-            <a href="05-Root-Tree-E.html" class="nav-card">
+            
+            <!-- View 1 -->
+            <a href="01-Individual-Tree&Table-E.html" class="nav-card">
+                <span class="emoji">👤</span>
+                <div class="label">1- Individual Tree</div>
+                <div class="desc">View individual with tree &amp; table format</div>
+            </a>
+            
+            <!-- View 2 -->
+            <a href="02-Search Any Name-E.html" class="nav-card">
+                <span class="emoji">🔎</span>
+                <div class="label">2- Search Any Name</div>
+                <div class="desc">Search any family member by name</div>
+            </a>
+            
+            <!-- View 3 -->
+            <a href="03-Full Shajra-Tree-E.html" class="nav-card">
                 <span class="emoji">🌳</span>
-                <div class="label">Root Tree View</div>
-                <div class="desc">Find common ancestors</div>
+                <div class="label">3- Family Lineage Tree</div>
+                <div class="desc">Complete family lineage in tree format</div>
+            </a>
+            
+            <!-- View 4 -->
+            <a href="04-Full Shajra-Table-E.html" class="nav-card">
+                <span class="emoji">📊</span>
+                <div class="label">4- Family Table View</div>
+                <div class="desc">Expandable family tree in table format</div>
+            </a>
+            
+            <!-- View 5 - Full Width -->
+            <a href="05-Root-Tree-E.html" class="nav-card full-width">
+                <span class="emoji">👥</span>
+                <div class="label">5- Root Relative</div>
+                <div class="desc">Find relationship between two individuals</div>
                 <span class="badge">Popular</span>
             </a>
-            <a href="01-Table-View-E.html" class="nav-card">
-                <span class="emoji">📊</span>
-                <div class="label">Table View</div>
-                <div class="desc">Browse all members</div>
-            </a>
-            <a href="02-Desc-Tree-E.html" class="nav-card">
-                <span class="emoji">👨‍👩‍👧‍👦</span>
-                <div class="label">Descendant Tree</div>
-                <div class="desc">View family branches</div>
-            </a>
-            <a href="03-Relation-E.html" class="nav-card">
-                <span class="emoji">🔗</span>
-                <div class="label">Relationship Finder</div>
-                <div class="desc">Find connections</div>
-            </a>
-            <a href="04-Visual-Tree-E.html" class="nav-card">
-                <span class="emoji">🎨</span>
-                <div class="label">Visual Tree</div>
-                <div class="desc">Interactive family map</div>
-            </a>
-            <a href="05-Root-Tree-E.html" class="nav-card" style="border-color: var(--gold); background: #fdf8f0;">
-                <span class="emoji">🔍</span>
-                <div class="label">Root Search</div>
-                <div class="desc">Quick ancestor lookup</div>
-                <span class="badge">Active</span>
-            </a>
+            
         </div>
         
-        <!-- TOOLS SECTION -->
+        <!-- ===== TOOLS SECTION ===== -->
         <div class="tools-section">
             <div class="section-title">🛠️ Tools</div>
             
@@ -447,7 +473,7 @@
             </div>
         </div>
         
-        <!-- FOOTER -->
+        <!-- ===== FOOTER ===== -->
         <div class="dashboard-footer">
             <strong>Developer:</strong> Imran Haider S/o Syed Risalat Hussain Rizvi &nbsp;|&nbsp; 📞 0332-787-6010
             <br>
@@ -579,8 +605,7 @@
                 sessionStorage.clear();
                 showToast('👋', 'Logged Out', 'Redirecting...');
                 setTimeout(function() {
-                    window.location.href = '../index.html';
-
+                    window.location.href = 'index.html';
                 }, 1500);
             }
         }

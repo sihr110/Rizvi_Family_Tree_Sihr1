@@ -1,24 +1,14 @@
-<!-- ======================================= -->
-<!-- FILE NAME: 00-Dashboard-E.html          -->
-<!-- LAST UPDATED: 26/08/2026                -->
-<!-- Dashboard for Rizvi Family - PC/Mobile  -->
-<!-- ======================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Rizvi Family · Dashboard</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --maroon: #5a0000;
@@ -26,13 +16,6 @@
             --gold: #d4af37;
             --light-gold: #f1d279;
             --green: #2e7d32;
-            --dark-green: #1b5e20;
-            --light-green: #d4edda;
-            --pink-bg: #fff0f5;
-            --light-pink: #ffe4e9;
-            --light-sage: #f4f7f2;
-            --border-sage: #c9d6c2;
-            --bronze: #bc8c4f;
         }
         
         body {
@@ -57,45 +40,26 @@
         }
         
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* ===== HEADER ===== */
         .dashboard-header {
             text-align: center;
             padding-bottom: 25px;
             border-bottom: 3px solid var(--gold);
             margin-bottom: 25px;
+            position: relative;
         }
         
-        .dashboard-header .icon {
-            font-size: 48px;
-            display: block;
-            margin-bottom: 5px;
-        }
-        
+        .dashboard-header .icon { font-size: 48px; display: block; margin-bottom: 5px; }
         .dashboard-header h1 {
             font-family: 'Playfair Display', serif;
             font-size: 32px;
             font-weight: 900;
             color: var(--maroon);
-            letter-spacing: 1px;
         }
-        
-        .dashboard-header .subtitle {
-            font-size: 14px;
-            color: #666;
-            margin-top: 4px;
-            font-weight: 400;
-        }
-        
+        .dashboard-header .subtitle { font-size: 14px; color: #666; margin-top: 4px; }
         .dashboard-header .gold-line {
             width: 80px;
             height: 3px;
@@ -104,7 +68,56 @@
             border-radius: 2px;
         }
         
-        /* ===== NAVIGATION CARDS ===== */
+        .header-actions {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .header-actions .btn-icon {
+            background: none;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-blue);
+            background: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .header-actions .btn-icon:hover {
+            background: var(--gold);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .header-actions .btn-icon.admin {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        .header-actions .btn-icon.admin:hover {
+            background: #3498db;
+            color: white;
+        }
+        
+        .header-actions .btn-icon.logout {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        .header-actions .btn-icon.logout:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        
         .nav-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -131,24 +144,9 @@
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
         }
         
-        .nav-card .emoji {
-            font-size: 36px;
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        .nav-card .label {
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--dark-blue);
-        }
-        
-        .nav-card .desc {
-            font-size: 12px;
-            color: #888;
-            margin-top: 4px;
-        }
-        
+        .nav-card .emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+        .nav-card .label { font-weight: 700; font-size: 15px; color: var(--dark-blue); }
+        .nav-card .desc { font-size: 12px; color: #888; margin-top: 4px; }
         .nav-card .badge {
             display: inline-block;
             background: var(--gold);
@@ -160,7 +158,6 @@
             margin-top: 6px;
         }
         
-        /* ===== TOOLS SECTION ===== */
         .tools-section {
             background: linear-gradient(135deg, #f8f4f0 0%, #fff8f0 100%);
             border: 2px solid var(--gold);
@@ -195,12 +192,6 @@
             border-radius: 12px;
             border: 2px solid #e0e0e0;
             text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .tools-grid .tool-card:hover {
-            border-color: var(--gold);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
         
         .tools-grid .tool-card h4 {
@@ -209,7 +200,6 @@
             font-size: 16px;
         }
         
-        /* ===== RESOLUTION DISPLAY ===== */
         #resolutionDisplay {
             font-size: 28px;
             font-weight: 700;
@@ -219,7 +209,6 @@
             border-radius: 8px;
             margin: 10px 0;
             font-family: 'Inter', sans-serif;
-            letter-spacing: 1px;
         }
         
         #deviceType {
@@ -230,7 +219,6 @@
             display: inline-block;
             margin: 5px 0;
             font-family: 'Inter', sans-serif;
-            transition: all 0.3s;
         }
         
         #breakpointInfo {
@@ -239,27 +227,6 @@
             font-size: 12px;
             color: #888;
             font-weight: 500;
-        }
-        
-        /* ===== BUTTONS ===== */
-        .btn-soft {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 8px;
-            background: #f0f0f0;
-            color: var(--dark-blue);
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-soft:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
         }
         
         .btn-hard {
@@ -289,7 +256,6 @@
             margin-top: 2px;
         }
         
-        /* ===== STATS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -302,20 +268,17 @@
         .stat-item {
             text-align: center;
         }
-        
         .stat-item .number {
             font-size: 24px;
             font-weight: 800;
             color: var(--maroon);
         }
-        
         .stat-item .label {
             font-size: 11px;
             color: #888;
             font-weight: 500;
         }
         
-        /* ===== FOOTER ===== */
         .dashboard-footer {
             text-align: center;
             padding-top: 20px;
@@ -325,11 +288,8 @@
             color: #999;
         }
         
-        .dashboard-footer strong {
-            color: var(--maroon);
-        }
+        .dashboard-footer strong { color: var(--maroon); }
         
-        /* ===== TOAST ===== */
         .toast-notification {
             position: fixed;
             top: 50%;
@@ -349,142 +309,62 @@
         }
         
         @keyframes toastPopIn {
-            from {
-                transform: translate(-50%, -50%) scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
         
         @keyframes toastPopOut {
-            from {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-            to {
-                transform: translate(-50%, -50%) scale(0.8);
-                opacity: 0;
-            }
+            from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            to { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
         }
         
-        /* ===== MOBILE RESPONSIVE ===== */
         @media screen and (max-width: 768px) {
-            body {
-                padding: 10px;
+            body { padding: 10px; }
+            .dashboard-container { padding: 20px 15px; border-radius: 16px; }
+            .dashboard-header h1 { font-size: 24px; }
+            .header-actions {
+                position: static;
+                justify-content: center;
+                margin-top: 10px;
             }
-            
-            .dashboard-container {
-                padding: 20px 15px;
-                border-radius: 16px;
-            }
-            
-            .dashboard-header h1 {
-                font-size: 24px;
-            }
-            
-            .dashboard-header .icon {
-                font-size: 36px;
-            }
-            
-            .nav-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            
-            .nav-card {
-                padding: 15px 10px;
-            }
-            
-            .nav-card .emoji {
-                font-size: 28px;
-            }
-            
-            .nav-card .label {
-                font-size: 13px;
-            }
-            
-            .tools-grid .tool-card {
-                min-width: 100%;
-            }
-            
-            #resolutionDisplay {
-                font-size: 22px;
-                padding: 8px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .header-actions .btn-icon { padding: 6px 10px; font-size: 12px; }
+            .nav-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .nav-card { padding: 15px 10px; }
+            .nav-card .emoji { font-size: 28px; }
+            .tools-grid .tool-card { min-width: 100%; }
+            #resolutionDisplay { font-size: 22px; padding: 8px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
         
         @media screen and (max-width: 480px) {
-            .dashboard-container {
-                padding: 15px 10px;
-                border-radius: 12px;
-            }
-            
-            .dashboard-header h1 {
-                font-size: 20px;
-            }
-            
-            .nav-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            
-            .nav-card {
-                padding: 12px 8px;
-                border-radius: 10px;
-            }
-            
-            .nav-card .emoji {
-                font-size: 24px;
-                margin-bottom: 4px;
-            }
-            
-            .nav-card .label {
-                font-size: 12px;
-            }
-            
-            .nav-card .desc {
-                font-size: 10px;
-            }
-            
-            .tools-section {
-                padding: 15px;
-            }
-            
-            .tools-section .section-title {
-                font-size: 17px;
-            }
-            
-            #resolutionDisplay {
-                font-size: 20px;
-                padding: 6px;
-            }
-            
-            .toast-notification {
-                padding: 20px;
-                min-width: 200px;
-            }
+            .dashboard-container { padding: 15px 10px; border-radius: 12px; }
+            .dashboard-header h1 { font-size: 20px; }
+            .nav-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .nav-card { padding: 12px 8px; border-radius: 10px; }
+            .nav-card .emoji { font-size: 24px; }
+            .nav-card .label { font-size: 12px; }
+            .nav-card .desc { font-size: 10px; }
+            #resolutionDisplay { font-size: 20px; padding: 6px; }
         }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         
-        <!-- ===== HEADER ===== -->
+        <!-- HEADER -->
         <div class="dashboard-header">
             <span class="icon">🏠</span>
             <h1>Rizvi Family</h1>
             <div class="subtitle">Family Tree Management System</div>
             <div class="gold-line"></div>
+            
+            <div class="header-actions">
+                <a href="Admin.html" class="btn-icon admin">🔐 Admin</a>
+                <button class="btn-icon logout" onclick="logoutUser()">🚪 Logout</button>
+            </div>
         </div>
         
-        <!-- ===== NAVIGATION CARDS ===== -->
+        <!-- NAVIGATION CARDS -->
         <div class="nav-grid">
             <a href="05-Root-Tree-E.html" class="nav-card">
                 <span class="emoji">🌳</span>
@@ -492,31 +372,26 @@
                 <div class="desc">Find common ancestors</div>
                 <span class="badge">Popular</span>
             </a>
-            
             <a href="01-Table-View-E.html" class="nav-card">
                 <span class="emoji">📊</span>
                 <div class="label">Table View</div>
                 <div class="desc">Browse all members</div>
             </a>
-            
             <a href="02-Desc-Tree-E.html" class="nav-card">
                 <span class="emoji">👨‍👩‍👧‍👦</span>
                 <div class="label">Descendant Tree</div>
                 <div class="desc">View family branches</div>
             </a>
-            
             <a href="03-Relation-E.html" class="nav-card">
                 <span class="emoji">🔗</span>
                 <div class="label">Relationship Finder</div>
                 <div class="desc">Find connections</div>
             </a>
-            
             <a href="04-Visual-Tree-E.html" class="nav-card">
                 <span class="emoji">🎨</span>
                 <div class="label">Visual Tree</div>
                 <div class="desc">Interactive family map</div>
             </a>
-            
             <a href="05-Root-Tree-E.html" class="nav-card" style="border-color: var(--gold); background: #fdf8f0;">
                 <span class="emoji">🔍</span>
                 <div class="label">Root Search</div>
@@ -525,55 +400,33 @@
             </a>
         </div>
         
-        <!-- ===== TOOLS SECTION ===== -->
+        <!-- TOOLS SECTION -->
         <div class="tools-section">
             <div class="section-title">🛠️ Tools</div>
             
             <div class="tools-grid">
-                <!-- ===== MOBILE RESOLUTION CHECKER ===== -->
+                <!-- Resolution Checker -->
                 <div class="tool-card">
                     <h4>📱 Mobile Resolution</h4>
-                    <div id="resolutionDisplay">
-                        <span style="font-size:14px; font-weight:400; color:#666;">Loading...</span>
-                    </div>
-                    <div id="deviceType" style="
-                        font-size:16px;
-                        font-weight:600;
-                        padding:8px 20px;
-                        border-radius:30px;
-                        display:inline-block;
-                        margin:5px 0;
-                        font-family:'Inter',sans-serif;
-                    ">
-                        Detecting...
-                    </div>
-                    <div id="breakpointInfo" style="
-                        margin-top:8px;
-                        font-size:12px;
-                        color:#888;
-                        font-weight:500;
-                    ">
-                        Loading device info...
-                    </div>
+                    <div id="resolutionDisplay">Loading...</div>
+                    <div id="deviceType">Detecting...</div>
+                    <div id="breakpointInfo">Loading device info...</div>
                 </div>
 
-                <!-- ===== FULL RESET BUTTONS ===== -->
+                <!-- Hard Reset -->
                 <div class="tool-card">
                     <h4>🔄 Full Reset</h4>
-                    
-                    <button class="btn-soft" onclick="softReset()">
-                        🧹 Soft Reset
-                        <span class="btn-sub">Clear selections, keep data</span>
-                    </button>
-                    
                     <button class="btn-hard" onclick="hardReset()">
                         🗑️ Hard Reset
                         <span class="btn-sub">⚠️ Clears ALL data permanently</span>
                     </button>
+                    <div style="margin-top:10px; font-size:11px; color:#999;">
+                        ⚠️ This will delete all stored data
+                    </div>
                 </div>
             </div>
             
-            <!-- ===== STATS ===== -->
+            <!-- STATS -->
             <div class="stats-grid" id="statsGrid">
                 <div class="stat-item">
                     <div class="number" id="totalMembers">--</div>
@@ -594,7 +447,7 @@
             </div>
         </div>
         
-        <!-- ===== FOOTER ===== -->
+        <!-- FOOTER -->
         <div class="dashboard-footer">
             <strong>Developer:</strong> Imran Haider S/o Syed Risalat Hussain Rizvi &nbsp;|&nbsp; 📞 0332-787-6010
             <br>
@@ -602,20 +455,25 @@
         </div>
     </div>
 
-    <!-- ===== SCRIPTS ===== -->
+    <script src="20-Family-Data-E.js"></script>
+    
     <script>
-        // ===== LOAD FAMILY DATA =====
         let db = [];
         let fileInfo = {};
         
         function loadData() {
             try {
-                // Try localStorage first
                 const saved = localStorage.getItem('familyDB');
                 if (saved) {
                     db = JSON.parse(saved);
-                } else if (typeof FAMILY_DATA_E !== 'undefined') {
+                    console.log('✅ Loaded from localStorage:', db.length, 'members');
+                } else if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
                     db = FAMILY_DATA_E;
+                    localStorage.setItem('familyDB', JSON.stringify(db));
+                    console.log('✅ Loaded from JS file:', db.length, 'members');
+                } else {
+                    db = [];
+                    console.log('❌ No data found');
                 }
                 
                 const savedInfo = localStorage.getItem('fileInfo');
@@ -633,7 +491,6 @@
             }
         }
         
-        // ===== UPDATE STATS =====
         function updateStats() {
             const total = document.getElementById('totalMembers');
             const males = document.getElementById('totalMales');
@@ -642,17 +499,12 @@
             
             if (db && db.length > 0) {
                 total.textContent = db.length;
-                
                 const maleCount = db.filter(m => m.gender && m.gender.toUpperCase().includes('MALE')).length;
                 const femaleCount = db.filter(m => m.gender && m.gender.toUpperCase().includes('FEMALE')).length;
                 males.textContent = maleCount;
                 females.textContent = femaleCount;
-                
-                // Count unique generations
                 const genSet = new Set();
-                db.forEach(m => {
-                    if (m.gen) genSet.add(m.gen);
-                });
+                db.forEach(m => { if (m.gen) genSet.add(m.gen); });
                 gens.textContent = genSet.size;
             } else {
                 total.textContent = '0';
@@ -662,168 +514,102 @@
             }
         }
         
-        // ===== UPDATE FOOTER =====
         function updateFooter() {
             const el = document.getElementById('lastUpdated');
             if (el) {
                 const time = fileInfo?.saved_time || 'No timestamp';
-                el.textContent = `📅 Last Data Updated: ${time}`;
+                el.textContent = '📅 Last Data Updated: ' + time;
             }
         }
         
-        // ===== RESOLUTION CHECKER =====
         function updateResolution() {
             const width = window.innerWidth;
             const height = window.innerHeight;
-            const dpr = window.devicePixelRatio || 1;
+            document.getElementById('resolutionDisplay').innerHTML = width + ' × ' + height;
             
-            const display = document.getElementById('resolutionDisplay');
+            let type = '', color = '', emoji = '';
+            if (width <= 480) { type = 'Mobile Phone'; color = '#e74c3c'; emoji = '📱'; }
+            else if (width <= 768) { type = 'Tablet'; color = '#f39c12'; emoji = '📟'; }
+            else if (width <= 1024) { type = 'Small Laptop'; color = '#2ecc71'; emoji = '💻'; }
+            else { type = 'Desktop'; color = '#3498db'; emoji = '🖥️'; }
+            
             const deviceType = document.getElementById('deviceType');
-            const breakpointInfo = document.getElementById('breakpointInfo');
+            deviceType.textContent = emoji + ' ' + type;
+            deviceType.style.background = color + '20';
+            deviceType.style.color = color;
+            deviceType.style.border = '2px solid ' + color;
             
-            if (display) {
-                display.innerHTML = `${width} × ${height}`;
-            }
-            
-            if (deviceType) {
-                let type = '';
-                let color = '';
-                let emoji = '';
-                
-                if (width <= 480) {
-                    type = 'Mobile Phone';
-                    color = '#e74c3c';
-                    emoji = '📱';
-                } else if (width <= 768) {
-                    type = 'Tablet';
-                    color = '#f39c12';
-                    emoji = '📟';
-                } else if (width <= 1024) {
-                    type = 'Small Laptop';
-                    color = '#2ecc71';
-                    emoji = '💻';
-                } else {
-                    type = 'Desktop';
-                    color = '#3498db';
-                    emoji = '🖥️';
-                }
-                
-                deviceType.textContent = `${emoji} ${type}`;
-                deviceType.style.background = color + '20';
-                deviceType.style.color = color;
-                deviceType.style.border = `2px solid ${color}`;
-            }
-            
-            if (breakpointInfo) {
-                let info = '';
-                if (width <= 480) {
-                    info = '📱 Using: Mobile CSS (max-width: 480px)';
-                } else if (width <= 768) {
-                    info = '📟 Using: Tablet CSS (481-768px)';
-                } else {
-                    info = '💻 Using: Desktop CSS (768px+)';
-                }
-                breakpointInfo.textContent = info;
-            }
-        }
-        
-        // ===== RESET FUNCTIONS =====
-        function softReset() {
-            if (confirm('🧹 Soft Reset: Clear search selections only?\n\nYour family data will remain intact.')) {
-                // Clear localStorage selections
-                localStorage.removeItem('rootMember1');
-                localStorage.removeItem('rootMember2');
-                localStorage.removeItem('descMember');
-                localStorage.removeItem('relationMember1');
-                localStorage.removeItem('relationMember2');
-                
-                // Clear session data
-                sessionStorage.clear();
-                
-                showToast('✅ Soft Reset Complete!', 'Selections cleared successfully');
-                
-                setTimeout(() => {
-                    window.location.href = '05-Root-Tree-E.html';
-                }, 1500);
-            }
+            let info = '';
+            if (width <= 480) info = '📱 Using: Mobile CSS (max-width: 480px)';
+            else if (width <= 768) info = '📟 Using: Tablet CSS (481-768px)';
+            else info = '💻 Using: Desktop CSS (768px+)';
+            document.getElementById('breakpointInfo').textContent = info;
         }
         
         function hardReset() {
             if (confirm('⚠️ HARD RESET: This will delete ALL data!\n\nThis includes:\n• All family members\n• Search selections\n• Local stored data\n• Session data\n\nAre you sure you want to continue?')) {
                 if (confirm('⚠️ FINAL WARNING: This action cannot be undone!\n\nClick OK to permanently delete all data.')) {
-                    // Clear everything
                     localStorage.clear();
                     sessionStorage.clear();
                     
-                    // Clear IndexedDB
                     if (window.indexedDB) {
-                        try {
-                            indexedDB.deleteDatabase('familyDB');
-                        } catch(e) {
-                            console.log('No IndexedDB found');
-                        }
+                        try { indexedDB.deleteDatabase('familyDB'); } catch(e) {}
                     }
                     
-                    // Clear cookies
                     document.cookie.split(";").forEach(function(c) { 
                         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
                     });
                     
-                    showToast('🗑️ Hard Reset Complete!', 'All data has been cleared');
+                    showToast('🗑️', 'Hard Reset Complete!', 'All data has been cleared');
                     
-                    setTimeout(() => {
+                    setTimeout(function() {
                         window.location.href = '05-Root-Tree-E.html';
                     }, 2000);
                 }
             }
         }
         
-        // ===== TOAST NOTIFICATION =====
-        function showToast(title, message) {
-            const existing = document.querySelector('.toast-notification');
-            if (existing) existing.remove();
-            
-            const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            
-            const emoji = title.includes('Soft') ? '🧹' : title.includes('Hard') ? '🗑️' : '✅';
-            
-            toast.innerHTML = `
-                <div style="font-size:48px; margin-bottom:10px;">${emoji}</div>
-                <div style="font-size:20px; font-weight:700; color:var(--dark-blue);">${title}</div>
-                <div style="font-size:14px; color:#666; margin:10px 0;">${message}</div>
-                <div style="font-size:12px; color:#999; margin-top:10px;">⏳ Redirecting...</div>
-            `;
-            
-            document.body.appendChild(toast);
-            
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.style.animation = 'toastPopOut 0.3s ease-in forwards';
-                    setTimeout(() => {
-                        if (toast.parentNode) toast.remove();
-                    }, 300);
-                }
-            }, 5000);
+        function logoutUser() {
+            if (confirm('🚪 Logout from dashboard?\n\nAll selections will be cleared.')) {
+                localStorage.removeItem('rootMember1');
+                localStorage.removeItem('rootMember2');
+                localStorage.removeItem('descMember');
+                localStorage.removeItem('relationMember1');
+                localStorage.removeItem('relationMember2');
+                sessionStorage.clear();
+                showToast('👋', 'Logged Out', 'Redirecting...');
+                setTimeout(function() {
+                    window.location.href = '../index.html';
+
+                }, 1500);
+            }
         }
         
-        // ===== INITIALIZATION =====
+        function showToast(emoji, title, message) {
+            var existing = document.querySelector('.toast-notification');
+            if (existing) existing.remove();
+            
+            var toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.innerHTML = '<div style="font-size:48px; margin-bottom:10px;">' + emoji + '</div><div style="font-size:20px; font-weight:700; color:var(--dark-blue);">' + title + '</div><div style="font-size:14px; color:#666; margin:10px 0;">' + message + '</div>';
+            document.body.appendChild(toast);
+            
+            setTimeout(function() {
+                if (toast.parentNode) {
+                    toast.style.animation = 'toastPopOut 0.3s ease-in forwards';
+                    setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
+                }
+            }, 3000);
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
             updateResolution();
-            
-            // Update on resize
-            window.addEventListener('resize', function() {
-                updateResolution();
-            });
-            
-            // Update resolution every 2 seconds (for orientation changes)
+            window.addEventListener('resize', updateResolution);
             setInterval(updateResolution, 2000);
         });
         
-        // Make functions globally available
-        window.softReset = softReset;
+        window.logoutUser = logoutUser;
         window.hardReset = hardReset;
         window.updateResolution = updateResolution;
         window.showToast = showToast;

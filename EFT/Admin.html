@@ -917,12 +917,17 @@
                 </div>
             </div>
 
-            <div class="admin-actions">
-
-                <div class="action-btn logout-btn" id="logoutBtn">
-                    <span>🚪</span> Exit to Login
-                </div>
-            </div>
+<div class="admin-actions">
+    <!-- Exit to Dashboard -->
+    <a href="00-Dashboard-E.html" class="action-btn dashboard-btn" style="text-decoration:none;">
+        <span>🏠</span> Exit to Dashboard
+    </a>
+    
+    <!-- Exit to Login -->
+    <div class="action-btn logout-btn" id="logoutBtn">
+        <span>🚪</span> Exit to Login
+    </div>
+</div>
         </div>
     </div>
 
@@ -1124,14 +1129,15 @@ function showEditor() {
     // ============================================================
     // EXIT / LOGOUT
     // ============================================================
-    function logout() {
-        if (confirm('Are you sure you want to exit?')) {
-            localStorage.removeItem('familyDB');
-            localStorage.removeItem('fileInfo');
-            adminDb = [];
-            window.location.href = '../index.html';
-        }
+function logout() {
+    if (confirm('Are you sure you want to exit?')) {
+        localStorage.removeItem('familyDB');
+        localStorage.removeItem('fileInfo');
+        adminDb = [];
+        window.location.href = '../index.html';
+
     }
+}
 
     function goToDashboard() {
         window.location.href = '00-Dashboard-E.html';

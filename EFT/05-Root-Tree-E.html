@@ -677,13 +677,6 @@ input, textarea, select {
 }
 
 
-
-
-
-
-
-   
-
         .path-connector { width: 3px; height: 25px; background: var(--gold); margin: 5px auto; }
 
         .app-footer {
@@ -764,34 +757,35 @@ input, textarea, select {
         margin: 20px 15px;
     }
     
-    /* ===== SIDE-BY-SIDE ON MOBILE ===== */
-@media screen and (max-width: 480px) {
-       .paths-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: visible;
-        gap: 4px;
-        padding: 10px 10px 20px 10px;  
-        justify-content: center;
-        -webkit-overflow-scrolling: touch;
+    /* ===== SIDE-BY-SIDE ON MOBILE - FIXED ===== */
+    .paths-container {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        gap: 10px !important;
+        padding: 10px 10px 20px 10px !important;
+        justify-content: flex-start !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin: 0 !important;
     }
     
     .path-column {
-        flex: 0 0 48%;  
-        min-width: 200px;  
-        max-width: 48%;  
-        text-align: center;
-        padding: 0 2px;   
+        flex: 0 0 80% !important;
+        min-width: 280px !important;
+        max-width: 80% !important;
+        text-align: center !important;
+        padding: 0 5px !important;
+        margin: 0 !important;
     }
     
+    /* Smaller boxes on mobile */
     .box {
-        min-width: 180px;  
-        max-width: 100%;
-        margin: 6px auto;
+        min-width: 220px !important;
+        max-width: 100% !important;
+        margin: 6px auto !important;
     }
-}
     
     /* Scrollbar styling */
     .paths-container::-webkit-scrollbar {
@@ -808,7 +802,6 @@ input, textarea, select {
         border-radius: 3px;
     }
     
-    /* Smaller text on mobile */
     .member-name {
         font-size: 15px;
     }
@@ -826,7 +819,6 @@ input, textarea, select {
         width: 50px;
     }
     
-    /* Generation info responsive */
     .gap-row {
         flex-wrap: wrap;
         gap: 6px;
@@ -865,15 +857,16 @@ input, textarea, select {
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         overflow-x: auto !important;
-        gap: 8px !important;
+        gap: 15px !important;
         padding: 10px !important;
         -webkit-overflow-scrolling: touch !important;
+        justify-content: flex-start !important;
     }
     
     .path-column {
-        flex: 0 0 75% !important;
-        min-width: 300px !important;
-        max-width: 75% !important;
+        flex: 0 0 70% !important;
+        min-width: 320px !important;
+        max-width: 70% !important;
     }
 }
 

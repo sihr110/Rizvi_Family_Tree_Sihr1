@@ -1,624 +1,834 @@
-<!-- ======================================== -->
-<!-- FILE NAME: 00-Dashboard-E.html           -->
-<!-- English Version - Rizvi Family Dashboard -->
-<!-- ======================================== -->
+<!-- ======================================= -->
+<!-- FILE NAME: 00-Dashboard-E.html          -->
+<!-- LAST UPDATED: 26/08/2026                -->
+<!-- Dashboard for Rizvi Family - PC/Mobile  -->
+<!-- ======================================= -->
 
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="notranslate">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi Family · Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="20-Family-Data-E.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        :root { --maroon: #5a0000; --dark-blue: #0f172a; --gold: #d4af37; --bronze: #bc8c4f; }
-        html, body { height: 100%; overflow: hidden; }
-        body {
-            font-family: 'Inter', 'Playfair Display', sans-serif;
-            background: #1a1a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        * {
             margin: 0;
-            padding: 8px;
-            direction: ltr;
-            height: 100vh;
-            height: 100dvh;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .app-container {
-            width: 100%;
-            max-width: 450px;
-            height: 100vh;
-            height: 100dvh;
-            max-height: 680px;
-            background: white;
-            border-radius: 24px;
-            border: 2px solid var(--gold);
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
-            display: flex;
-            flex-direction: column;
-            margin: 0 auto;
+        
+        :root {
+            --maroon: #5a0000;
+            --dark-blue: #0f172a;
+            --gold: #d4af37;
+            --light-gold: #f1d279;
+            --green: #2e7d32;
+            --dark-green: #1b5e20;
+            --light-green: #d4edda;
+            --pink-bg: #fff0f5;
+            --light-pink: #ffe4e9;
+            --light-sage: #f4f7f2;
+            --border-sage: #c9d6c2;
+            --bronze: #bc8c4f;
         }
-        .app-header {
-            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3d3d 100%);
-            color: var(--gold);
-            padding: 10px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--gold);
-            flex-shrink: 0;
-            min-height: 48px;
-        }
-        .header-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 15px;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .header-icon {
-            background: var(--gold);
-            color: var(--dark-blue);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-        .header-actions { display: flex; flex-shrink: 0; }
-        .status-badge {
-            background: var(--gold);
-            color: var(--dark-blue);
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
+        
+        body {
             font-family: 'Inter', sans-serif;
-        }
-        .main-content {
-            background: #fffcf8;
-            padding: 10px 14px;
-            flex: 1;
+            background: #1a1a1a;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            min-height: 0;
-        }
-        .screen-dashboard {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            width: 100%;
-            height: 100%;
             justify-content: center;
-        }
-        .screen-dashboard.hidden { display: none; }
-        .dashboard-card {
-            background: white;
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            padding: 20px 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.15s;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 340px;
-            margin: 0 auto;
-            touch-action: manipulation;
-            user-select: none;
-            -webkit-user-select: none;
-            flex-shrink: 0;
-            min-height: 130px;
-        }
-        .dashboard-card:active { transform: scale(0.98); border-color: var(--bronze); }
-        .card-icon { font-size: 24px; margin-bottom: 12px; line-height: 1; }
-        .card-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--dark-blue);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.4;
-            margin-bottom: 12px;
-        }
-        .card-desc {
-            color: #666;
-            font-size: 10px;
-            font-family: 'Inter', sans-serif;
-            line-height: 1.2;
-        }
-        .action-row {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            margin-top: 6px;
-            width: 100%;
-            max-width: 340px;
-            margin-left: auto;
-            margin-right: auto;
-            flex-shrink: 0;
-        }
-        .exit-btn-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: #5a0000;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            border: 2px solid var(--gold);
-            width: 100%;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.15s;
-            font-family: 'Inter', sans-serif;
-            min-height: 40px;
-        }
-        .exit-btn-container:active { background: #7a1f1f; transform: scale(0.98); }
-        .exit-btn-container.hardreset { background: #1e4b8b; }
-        .exit-btn-container.hardreset:active { background: #2569b3; }
-        .exit-btn-icon { font-size: 16px; }
-        .exit-btn-subtext { font-size: 10px; opacity: 0.9; }
-
-        /* ===== ADMIN BOX ===== */
-        .admin-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: transparent;
-            color: var(--dark-blue);
-            padding: 6px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            border: 2px dashed var(--gold);
-            width: 100%;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.15s;
-            font-family: 'Inter', sans-serif;
-            min-height: 32px;
-            text-decoration: none;
-            margin-top: 2px;
-        }
-        .admin-box:hover {
-            background: #faebcd;
-            border-color: var(--maroon);
-        }
-        .admin-box:active {
-            transform: scale(0.98);
-        }
-        .admin-box .admin-icon {
-            font-size: 14px;
-        }
-
-        .app-footer {
-            background: var(--dark-blue);
-            color: var(--gold);
-            text-align: center;
-            padding: 6px 8px;
-            font-size: 9px;
-            border-top: 2px solid var(--gold);
-            line-height: 1.2;
-            flex-shrink: 0;
-            font-family: 'Inter', sans-serif;
-            min-height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            direction: ltr;
-        }
-        #fileInput { display: none; }
-
-        /* MODAL COMMON */
-        .tree-option-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
         }
-        .tree-option-overlay.show { display: flex; }
-        .tree-option-modal {
-            background: white;
-            border-radius: 20px;
-            border: 3px solid var(--gold);
-            max-width: 400px;
+        
+        .dashboard-container {
+            max-width: 1100px;
             width: 100%;
-            padding: 24px 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalSlideUp 0.3s ease;
-            text-align: left;
-        }
-        @keyframes modalSlideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .tree-option-modal h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            color: var(--maroon);
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        .tree-option-modal .subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 12px;
-            margin-bottom: 16px;
-            font-family: 'Inter', sans-serif;
-        }
-        .tree-option-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 10px;
             background: white;
-            font-family: 'Inter', sans-serif;
-            text-align: left;
+            border-radius: 24px;
+            border: 3px solid var(--gold);
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
+            animation: fadeInUp 0.6s ease-out;
         }
-        .tree-option-btn:active { transform: scale(0.97); }
-        .tree-option-btn .icon { font-size: 28px; flex-shrink: 0; }
-        .tree-option-btn .info { flex: 1; }
-        .tree-option-btn .info .title {
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== HEADER ===== */
+        .dashboard-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 25px;
+        }
+        
+        .dashboard-header .icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .dashboard-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--maroon);
+            letter-spacing: 1px;
+        }
+        
+        .dashboard-header .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+        
+        .dashboard-header .gold-line {
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        /* ===== NAVIGATION CARDS ===== */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-card {
+            background: white;
+            border: 2px solid #e8e4e0;
+            border-radius: 14px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--dark-blue);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+        
+        .nav-card .emoji {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .nav-card .label {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .nav-card .desc {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        
+        .nav-card .badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--dark-blue);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-top: 6px;
+        }
+        
+        /* ===== TOOLS SECTION ===== */
+        .tools-section {
+            background: linear-gradient(135deg, #f8f4f0 0%, #fff8f0 100%);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tools-section .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--maroon);
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .tools-grid .tool-card {
+            flex: 1;
+            min-width: 240px;
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .tools-grid .tool-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+        
+        .tools-grid .tool-card h4 {
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        /* ===== RESOLUTION DISPLAY ===== */
+        #resolutionDisplay {
+            font-size: 28px;
             font-weight: 700;
             color: var(--dark-blue);
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-        }
-        .tree-option-btn .info .desc {
-            font-size: 11px;
-            color: #666;
-            margin-top: 2px;
-            font-family: 'Inter', sans-serif;
-        }
-        .tree-option-btn .arrow { color: var(--gold); font-size: 18px; flex-shrink: 0; }
-        .tree-option-btn:hover { background: #faebcd; }
-        .tree-option-close {
-            display: block;
-            width: 100%;
             padding: 10px;
-            text-align: center;
-            color: #999;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        #deviceType {
+            font-size: 16px;
             font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 5px 0;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        #breakpointInfo {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn-soft {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f0f0f0;
+            color: var(--dark-blue);
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 13px;
-            margin-top: 4px;
+            transition: all 0.3s;
             font-family: 'Inter', sans-serif;
         }
-        .tree-option-close:hover { color: #555; }
-        .tree-option-btn.search-option {
-            border-color: #2e7d32;
-            background: #f0f7f0;
+        
+        .btn-soft:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
         }
-        .tree-option-btn.search-option:hover { background: #dce8dc; }
-        .tree-option-btn.search-option .icon { color: #2e7d32; }
+        
+        .btn-hard {
+            width: 100%;
+            padding: 12px;
+            background: #5a0000;
+            color: white;
+            border: 2px solid var(--maroon);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-hard:hover {
+            background: #7a1f1f;
+            transform: translateY(-2px);
+        }
+        
+        .btn-sub {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+        
+        /* ===== STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item .number {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--maroon);
+        }
+        
+        .stat-item .label {
+            font-size: 11px;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        /* ===== FOOTER ===== */
+        .dashboard-footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 2px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .dashboard-footer strong {
+            color: var(--maroon);
+        }
+        
+        /* ===== TOAST ===== */
+        .toast-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--gold);
+            border-radius: 16px;
+            padding: 30px 40px;
+            z-index: 99999;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            min-width: 280px;
+            max-width: 90%;
+            font-family: 'Inter', sans-serif;
+            animation: toastPopIn 0.3s ease-out;
+        }
+        
+        @keyframes toastPopIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes toastPopOut {
+            from {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+        }
+        
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .dashboard-container {
+                padding: 20px 15px;
+                border-radius: 16px;
+            }
+            
+            .dashboard-header h1 {
+                font-size: 24px;
+            }
+            
+            .dashboard-header .icon {
+                font-size: 36px;
+            }
+            
+            .nav-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .nav-card {
+                padding: 15px 10px;
+            }
+            
+            .nav-card .emoji {
+                font-size: 28px;
+            }
+            
+            .nav-card .label {
+                font-size: 13px;
+            }
+            
+            .tools-grid .tool-card {
+                min-width: 100%;
+            }
+            
+            #resolutionDisplay {
+                font-size: 22px;
+                padding: 8px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .dashboard-container {
+                padding: 15px 10px;
+                border-radius: 12px;
+            }
+            
+            .dashboard-header h1 {
+                font-size: 20px;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            
+            .nav-card {
+                padding: 12px 8px;
+                border-radius: 10px;
+            }
+            
+            .nav-card .emoji {
+                font-size: 24px;
+                margin-bottom: 4px;
+            }
+            
+            .nav-card .label {
+                font-size: 12px;
+            }
+            
+            .nav-card .desc {
+                font-size: 10px;
+            }
+            
+            .tools-section {
+                padding: 15px;
+            }
+            
+            .tools-section .section-title {
+                font-size: 17px;
+            }
+            
+            #resolutionDisplay {
+                font-size: 20px;
+                padding: 6px;
+            }
+            
+            .toast-notification {
+                padding: 20px;
+                min-width: 200px;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="app-container" id="appContainer">
-    <div class="app-header">
-        <div class="header-title">
-            <span class="header-icon">🌿</span>
-            <span id="headerTitle">Family Tree - Rizvi</span>
-        </div>
-        <div class="header-actions">
-            <span class="status-badge" id="headerStatus">📊 Members: 0</span>
-        </div>
-    </div>
-    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none;">
-    <div class="main-content" id="mainContent">
-        <!-- SCREEN 1: MAIN DASHBOARD -->
-        <div class="screen-dashboard" id="screenDashboard">
-            <div class="dashboard-card" id="cardIndividual">
-                <div class="card-icon">👤</div>
-                <div class="card-title">1- Individual Tree</div>
-                <div class="card-desc">Search an individual</div>
-            </div>
-            <div class="dashboard-card" id="cardFullTree">
-                <div class="card-icon">🌳</div>
-                <div class="card-title">2- Family Tree</div>
-                <div class="card-desc">Complete family lineage tree</div>
-            </div>
-            <div class="dashboard-card" id="cardRoot">
-                <div class="card-icon">👥</div>
-                <div class="card-title">3- Root Relative</div>
-                <div class="card-desc">Relationship between two individuals</div>
-            </div> 
-            <div class="action-row">
-                <div class="exit-btn-container" id="exitBtn">
-                    <span class="exit-btn-icon">🚪</span>
-                    <span class="exit-btn-text">Logout</span>
-                    <span class="exit-btn-subtext">(Main Page)</span>
-                </div>
-                <div class="exit-btn-container hardreset" id="resetBtn">
-                    <span class="exit-btn-icon">⚠️</span>
-                    <span class="exit-btn-text">Full Reset</span>
-                    <span class="exit-btn-subtext">(Delete All Data)</span>
-                </div>
-                <!-- ===== ADMIN BOX ===== -->
-                <a href="Admin.html" class="admin-box" id="adminBtn">
-                    <span class="admin-icon">🔑</span>
-                    <span class="admin-text">For Admin Only</span>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="app-footer">
-        Developer: Imran Haider s/o Syed Risalat Hussain Rizvi | 0332-787-6010
-    </div>
-</div>
-
-<!-- ===== MODAL 1: FULL TREE OPTIONS ===== -->
-<div class="tree-option-overlay" id="treeOptionOverlay">
-    <div class="tree-option-modal">
-        <h2>🌳 Complete Family Tree</h2>
-        <p class="subtitle">Select how you want to view the tree</p>
-        <div class="tree-option-btn" id="optionTextView">
-            <span class="icon">📄</span>
-            <div class="info">
-                <div class="title">2A- Family Lineage Tree</div>
-                <div class="desc">Clean and organized lineage in tree format</div>
-            </div>
-            <span class="arrow">→</span>
-        </div>
-        <div class="tree-option-btn" id="optionVisualTree">
-            <span class="icon">🎨</span>
-            <div class="info">
-                <div class="title">2B- Family Table View</div>
-                <div class="desc">Expandable tree in table format</div>
-            </div>
-            <span class="arrow">→</span>
-        </div>
-        <button class="tree-option-close" id="treeOptionClose">Cancel</button>
-    </div>
-</div>
-
-<!-- ===== MODAL 2: INDIVIDUAL OPTIONS (UPDATED) ===== -->
-<div class="tree-option-overlay" id="individualOptionOverlay">
-    <div class="tree-option-modal">
-        <h2>👤 Individual</h2>
-        <p class="subtitle">Select how you want to view an individual</p>
+    <div class="dashboard-container">
         
-        <!-- A- Individual Family Tree (Tree & Table) -->
-        <div class="tree-option-btn" id="optionIndividualTree">
-            <span class="icon">🌳</span>
-            <div class="info">
-                <div class="title">1A- Individual Family Tree</div>
-                <div class="desc">In Tree &amp; Table format</div>
-            </div>
-            <span class="arrow">→</span>
+        <!-- ===== HEADER ===== -->
+        <div class="dashboard-header">
+            <span class="icon">🏠</span>
+            <h1>Rizvi Family</h1>
+            <div class="subtitle">Family Tree Management System</div>
+            <div class="gold-line"></div>
         </div>
-
-        <!-- B- Search Any Name -->
-        <div class="tree-option-btn search-option" id="optionGlobalSearch">
-            <span class="icon">🔎</span>
-            <div class="info">
-                <div class="title">1B- Search Any Name</div>
-                <div class="desc">Search any family member</div>
-            </div>
-            <span class="arrow">→</span>
+        
+        <!-- ===== NAVIGATION CARDS ===== -->
+        <div class="nav-grid">
+            <a href="05-Root-Tree-E.html" class="nav-card">
+                <span class="emoji">🌳</span>
+                <div class="label">Root Tree View</div>
+                <div class="desc">Find common ancestors</div>
+                <span class="badge">Popular</span>
+            </a>
+            
+            <a href="01-Table-View-E.html" class="nav-card">
+                <span class="emoji">📊</span>
+                <div class="label">Table View</div>
+                <div class="desc">Browse all members</div>
+            </a>
+            
+            <a href="02-Desc-Tree-E.html" class="nav-card">
+                <span class="emoji">👨‍👩‍👧‍👦</span>
+                <div class="label">Descendant Tree</div>
+                <div class="desc">View family branches</div>
+            </a>
+            
+            <a href="03-Relation-E.html" class="nav-card">
+                <span class="emoji">🔗</span>
+                <div class="label">Relationship Finder</div>
+                <div class="desc">Find connections</div>
+            </a>
+            
+            <a href="04-Visual-Tree-E.html" class="nav-card">
+                <span class="emoji">🎨</span>
+                <div class="label">Visual Tree</div>
+                <div class="desc">Interactive family map</div>
+            </a>
+            
+            <a href="05-Root-Tree-E.html" class="nav-card" style="border-color: var(--gold); background: #fdf8f0;">
+                <span class="emoji">🔍</span>
+                <div class="label">Root Search</div>
+                <div class="desc">Quick ancestor lookup</div>
+                <span class="badge">Active</span>
+            </a>
         </div>
+        
+        <!-- ===== TOOLS SECTION ===== -->
+        <div class="tools-section">
+            <div class="section-title">🛠️ Tools</div>
+            
+            <div class="tools-grid">
+                <!-- ===== MOBILE RESOLUTION CHECKER ===== -->
+                <div class="tool-card">
+                    <h4>📱 Mobile Resolution</h4>
+                    <div id="resolutionDisplay">
+                        <span style="font-size:14px; font-weight:400; color:#666;">Loading...</span>
+                    </div>
+                    <div id="deviceType" style="
+                        font-size:16px;
+                        font-weight:600;
+                        padding:8px 20px;
+                        border-radius:30px;
+                        display:inline-block;
+                        margin:5px 0;
+                        font-family:'Inter',sans-serif;
+                    ">
+                        Detecting...
+                    </div>
+                    <div id="breakpointInfo" style="
+                        margin-top:8px;
+                        font-size:12px;
+                        color:#888;
+                        font-weight:500;
+                    ">
+                        Loading device info...
+                    </div>
+                </div>
 
-        <button class="tree-option-close" id="individualOptionClose">Cancel</button>
-    </div> 
-</div>
+                <!-- ===== FULL RESET BUTTONS ===== -->
+                <div class="tool-card">
+                    <h4>🔄 Full Reset</h4>
+                    
+                    <button class="btn-soft" onclick="softReset()">
+                        🧹 Soft Reset
+                        <span class="btn-sub">Clear selections, keep data</span>
+                    </button>
+                    
+                    <button class="btn-hard" onclick="hardReset()">
+                        🗑️ Hard Reset
+                        <span class="btn-sub">⚠️ Clears ALL data permanently</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- ===== STATS ===== -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-item">
+                    <div class="number" id="totalMembers">--</div>
+                    <div class="label">Total Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="totalMales">--</div>
+                    <div class="label">Males</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="totalFemales">--</div>
+                    <div class="label">Females</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="totalGenerations">--</div>
+                    <div class="label">Generations</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== FOOTER ===== -->
+        <div class="dashboard-footer">
+            <strong>Developer:</strong> Imran Haider S/o Syed Risalat Hussain Rizvi &nbsp;|&nbsp; 📞 0332-787-6010
+            <br>
+            <span id="lastUpdated">Loading data info...</span>
+        </div>
+    </div>
 
-<script>
-    (function() {
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // ===== LOAD FAMILY DATA =====
         let db = [];
-
-        function loadFromStorageOrFallback() {
-            if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
-                db = FAMILY_DATA_E;
-                localStorage.setItem('familyDB', JSON.stringify(db));
-                if (typeof FILE_INFO !== 'undefined') {
-                    localStorage.setItem('fileInfo', JSON.stringify(FILE_INFO));
+        let fileInfo = {};
+        
+        function loadData() {
+            try {
+                // Try localStorage first
+                const saved = localStorage.getItem('familyDB');
+                if (saved) {
+                    db = JSON.parse(saved);
+                } else if (typeof FAMILY_DATA_E !== 'undefined') {
+                    db = FAMILY_DATA_E;
                 }
-                console.log('✅ Auto-loaded ' + db.length + ' members');
+                
+                const savedInfo = localStorage.getItem('fileInfo');
+                if (savedInfo) {
+                    fileInfo = JSON.parse(savedInfo);
+                } else if (typeof FILE_INFO !== 'undefined') {
+                    fileInfo = FILE_INFO;
+                }
+                
+                updateStats();
+                updateFooter();
+            } catch (e) {
+                console.error('Data load error:', e);
+                db = [];
+            }
+        }
+        
+        // ===== UPDATE STATS =====
+        function updateStats() {
+            const total = document.getElementById('totalMembers');
+            const males = document.getElementById('totalMales');
+            const females = document.getElementById('totalFemales');
+            const gens = document.getElementById('totalGenerations');
+            
+            if (db && db.length > 0) {
+                total.textContent = db.length;
+                
+                const maleCount = db.filter(m => m.gender && m.gender.toUpperCase().includes('MALE')).length;
+                const femaleCount = db.filter(m => m.gender && m.gender.toUpperCase().includes('FEMALE')).length;
+                males.textContent = maleCount;
+                females.textContent = femaleCount;
+                
+                // Count unique generations
+                const genSet = new Set();
+                db.forEach(m => {
+                    if (m.gen) genSet.add(m.gen);
+                });
+                gens.textContent = genSet.size;
             } else {
-                db = [];
-            }
-            updateHeaderCounter();
-        }
-
-        function updateHeaderCounter() {
-            var count = db.length;
-            var statusEl = document.getElementById('headerStatus');
-            if (statusEl) {
-                statusEl.innerHTML = '📊 Members: ' + count;
+                total.textContent = '0';
+                males.textContent = '0';
+                females.textContent = '0';
+                gens.textContent = '0';
             }
         }
-
-        function hardResetMobile() {
-            var confirmation = confirm('🚨 Warning: All data will be permanently deleted. Are you sure?');
-            if (confirmation) {
-                localStorage.removeItem('familyDB');
-                localStorage.removeItem('fileInfo');
-                localStorage.removeItem('tableViewMember');
-                localStorage.removeItem('tableViewFilters');
-                db = [];
-                loadFromStorageOrFallback();
-                updateHeaderCounter();
-                alert('✅ All data cleared and reloaded');
+        
+        // ===== UPDATE FOOTER =====
+        function updateFooter() {
+            const el = document.getElementById('lastUpdated');
+            if (el) {
+                const time = fileInfo?.saved_time || 'No timestamp';
+                el.textContent = `📅 Last Data Updated: ${time}`;
             }
         }
-
-        function logoutMobile() {
-            if (confirm('Do you want to logout and return to the login page?')) {
-                localStorage.removeItem('familyDB');
-                localStorage.removeItem('fileInfo');
-                localStorage.removeItem('tableViewMember');
-                localStorage.removeItem('tableViewFilters');
-                db = [];
-                window.location.href = '../index.html';
+        
+        // ===== RESOLUTION CHECKER =====
+        function updateResolution() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const dpr = window.devicePixelRatio || 1;
+            
+            const display = document.getElementById('resolutionDisplay');
+            const deviceType = document.getElementById('deviceType');
+            const breakpointInfo = document.getElementById('breakpointInfo');
+            
+            if (display) {
+                display.innerHTML = `${width} × ${height}`;
             }
-        }
-
-        // ================================================================
-        // NAVIGATION - FULL TREE
-        function openTreeOptions() { document.getElementById('treeOptionOverlay').classList.add('show'); }
-        function closeTreeOptions() { document.getElementById('treeOptionOverlay').classList.remove('show'); }
-        function goToVisualTree() {
-            closeTreeOptions();
-            if (db.length === 0) { var saved = localStorage.getItem('familyDB'); if (saved) db = JSON.parse(saved); else { alert('No data found. Please load data via Admin on desktop.'); return; } }
-            window.location.href = '04-Full Shajra-Table-E.html';
-        }
-        function goToTextView() {
-            closeTreeOptions();
-            if (db.length === 0) { var saved = localStorage.getItem('familyDB'); if (saved) db = JSON.parse(saved); else { alert('No data found. Please load data via Admin on desktop.'); return; } }
-            window.location.href = '03-Full Shajra-Tree-E.html';
-        }
-
-        // ================================================================
-        // NAVIGATION - INDIVIDUAL (UPDATED: only Tree+Table and Search)
-        function openIndividualOptions() { document.getElementById('individualOptionOverlay').classList.add('show'); }
-        function closeIndividualOptions() { document.getElementById('individualOptionOverlay').classList.remove('show'); }
-        function goToIndividualTree() {
-            closeIndividualOptions();
-            if (db.length === 0) { var saved = localStorage.getItem('familyDB'); if (saved) db = JSON.parse(saved); else { alert('No data found. Please load data via Admin on desktop.'); return; } }
-            window.location.href = '01-Individual-Tree&Table-E.html';
-        }
-        function goToGlobalSearch() {
-            closeIndividualOptions();
-            if (db.length === 0) { var saved = localStorage.getItem('familyDB'); if (saved) db = JSON.parse(saved); else { alert('No data found. Please load data via Admin on desktop.'); return; } }
-            window.location.href = '02-Search Any Name-E.html';
-        }
-
-        // ================================================================
-        // NAVIGATION - ROOT RELATIVE
-        function goToRootTree() {
-            if (db.length === 0) { var saved = localStorage.getItem('familyDB'); if (saved) db = JSON.parse(saved); else { alert('No data found. Please load data via Admin on desktop.'); return; } }
-            window.location.href = '05-Root-Tree-E.html';
-        }
-
-        // ================================================================
-        // SETUP EVENTS
-        function setupEvents() {
-            document.getElementById('cardFullTree').addEventListener('click', openTreeOptions);
-            document.getElementById('cardIndividual').addEventListener('click', openIndividualOptions);
-            document.getElementById('cardRoot').addEventListener('click', goToRootTree);
-            document.getElementById('exitBtn').addEventListener('click', logoutMobile);
-            document.getElementById('resetBtn').addEventListener('click', hardResetMobile);
-
-            // Full Tree modal
-            document.getElementById('treeOptionClose').addEventListener('click', closeTreeOptions);
-            document.getElementById('optionVisualTree').addEventListener('click', goToVisualTree);
-            document.getElementById('optionTextView').addEventListener('click', goToTextView);
-
-            // Individual modal (updated)
-            document.getElementById('individualOptionClose').addEventListener('click', closeIndividualOptions);
-            document.getElementById('optionIndividualTree').addEventListener('click', goToIndividualTree);
-            document.getElementById('optionGlobalSearch').addEventListener('click', goToGlobalSearch);
-
-            // Close modals on overlay click
-            document.getElementById('treeOptionOverlay').addEventListener('click', function(e) {
-                if (e.target === this) closeTreeOptions();
-            });
-            document.getElementById('individualOptionOverlay').addEventListener('click', function(e) {
-                if (e.target === this) closeIndividualOptions();
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeTreeOptions();
-                    closeIndividualOptions();
+            
+            if (deviceType) {
+                let type = '';
+                let color = '';
+                let emoji = '';
+                
+                if (width <= 480) {
+                    type = 'Mobile Phone';
+                    color = '#e74c3c';
+                    emoji = '📱';
+                } else if (width <= 768) {
+                    type = 'Tablet';
+                    color = '#f39c12';
+                    emoji = '📟';
+                } else if (width <= 1024) {
+                    type = 'Small Laptop';
+                    color = '#2ecc71';
+                    emoji = '💻';
+                } else {
+                    type = 'Desktop';
+                    color = '#3498db';
+                    emoji = '🖥️';
                 }
-            });
-
-            // File input (keep for compatibility)
-            document.getElementById('fileInput').onchange = function(e) {
-                var file = e.target.files[0];
-                if (!file) return;
-                var reader = new FileReader();
-                reader.onload = function(ev) {
-                    try {
-                        var data = new Uint8Array(ev.target.result);
-                        var wb = XLSX.read(data, { type: 'array' });
-                        var rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-                        db = rows.map(function(r) {
-                            return {
-                                name: String(r.Name || r.name || '').trim(),
-                                father: String(r.Father || r.father || '').trim(),
-                                mother: String(r.Mother || r.mother || '').trim(),
-                                spouse: String(r.Spouse || r.spouse || '').trim(),
-                                gen: String(r.Gen || r.gen || '').trim(),
-                                gender: String(r.Gender || r.gender || 'Male').trim().toUpperCase(),
-                                maritalStatus: String(r.MaritalStatus || r.maritalStatus || r.Maritalstatus || r.maritalstatus || '').trim(),
-                                alive: String(r.Alive || r.alive || '').trim()
-                            };
-                        }).filter(function(p) { return p.name; });
-                        localStorage.setItem('familyDB', JSON.stringify(db));
-                        updateHeaderCounter();
-                    } catch (err) {
-                        alert('❌ Error: ' + err.message);
-                    }
-                };
-                reader.readAsArrayBuffer(file);
-            };
-        }
-
-        // ================================================================
-        // INIT
-        document.addEventListener('DOMContentLoaded', function() {
-            setupEvents();
-        });
-        loadFromStorageOrFallback();
-
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'familyDB') {
-                if (e.newValue) {
-                    try { db = JSON.parse(e.newValue); } catch (err) { db = []; }
-                } else { db = []; }
-                updateHeaderCounter();
+                
+                deviceType.textContent = `${emoji} ${type}`;
+                deviceType.style.background = color + '20';
+                deviceType.style.color = color;
+                deviceType.style.border = `2px solid ${color}`;
             }
+            
+            if (breakpointInfo) {
+                let info = '';
+                if (width <= 480) {
+                    info = '📱 Using: Mobile CSS (max-width: 480px)';
+                } else if (width <= 768) {
+                    info = '📟 Using: Tablet CSS (481-768px)';
+                } else {
+                    info = '💻 Using: Desktop CSS (768px+)';
+                }
+                breakpointInfo.textContent = info;
+            }
+        }
+        
+        // ===== RESET FUNCTIONS =====
+        function softReset() {
+            if (confirm('🧹 Soft Reset: Clear search selections only?\n\nYour family data will remain intact.')) {
+                // Clear localStorage selections
+                localStorage.removeItem('rootMember1');
+                localStorage.removeItem('rootMember2');
+                localStorage.removeItem('descMember');
+                localStorage.removeItem('relationMember1');
+                localStorage.removeItem('relationMember2');
+                
+                // Clear session data
+                sessionStorage.clear();
+                
+                showToast('✅ Soft Reset Complete!', 'Selections cleared successfully');
+                
+                setTimeout(() => {
+                    window.location.href = '05-Root-Tree-E.html';
+                }, 1500);
+            }
+        }
+        
+        function hardReset() {
+            if (confirm('⚠️ HARD RESET: This will delete ALL data!\n\nThis includes:\n• All family members\n• Search selections\n• Local stored data\n• Session data\n\nAre you sure you want to continue?')) {
+                if (confirm('⚠️ FINAL WARNING: This action cannot be undone!\n\nClick OK to permanently delete all data.')) {
+                    // Clear everything
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    
+                    // Clear IndexedDB
+                    if (window.indexedDB) {
+                        try {
+                            indexedDB.deleteDatabase('familyDB');
+                        } catch(e) {
+                            console.log('No IndexedDB found');
+                        }
+                    }
+                    
+                    // Clear cookies
+                    document.cookie.split(";").forEach(function(c) { 
+                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+                    });
+                    
+                    showToast('🗑️ Hard Reset Complete!', 'All data has been cleared');
+                    
+                    setTimeout(() => {
+                        window.location.href = '05-Root-Tree-E.html';
+                    }, 2000);
+                }
+            }
+        }
+        
+        // ===== TOAST NOTIFICATION =====
+        function showToast(title, message) {
+            const existing = document.querySelector('.toast-notification');
+            if (existing) existing.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            
+            const emoji = title.includes('Soft') ? '🧹' : title.includes('Hard') ? '🗑️' : '✅';
+            
+            toast.innerHTML = `
+                <div style="font-size:48px; margin-bottom:10px;">${emoji}</div>
+                <div style="font-size:20px; font-weight:700; color:var(--dark-blue);">${title}</div>
+                <div style="font-size:14px; color:#666; margin:10px 0;">${message}</div>
+                <div style="font-size:12px; color:#999; margin-top:10px;">⏳ Redirecting...</div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.animation = 'toastPopOut 0.3s ease-in forwards';
+                    setTimeout(() => {
+                        if (toast.parentNode) toast.remove();
+                    }, 300);
+                }
+            }, 5000);
+        }
+        
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            updateResolution();
+            
+            // Update on resize
+            window.addEventListener('resize', function() {
+                updateResolution();
+            });
+            
+            // Update resolution every 2 seconds (for orientation changes)
+            setInterval(updateResolution, 2000);
         });
-
-        // Expose functions
-        window.showDashboard = function() {
-            document.getElementById('screenDashboard').classList.remove('hidden');
-            document.getElementById('headerTitle').innerText = 'Rizvi Family (Mobile)';
-        };
-        window.openTreeOptions = openTreeOptions;
-        window.closeTreeOptions = closeTreeOptions;
-        window.goToVisualTree = goToVisualTree;
-        window.goToTextView = goToTextView;
-        window.openIndividualOptions = openIndividualOptions;
-        window.closeIndividualOptions = closeIndividualOptions;
-        window.goToIndividualTree = goToIndividualTree;
-        window.goToGlobalSearch = goToGlobalSearch;  
-        window.goToRootTree = goToRootTree;
-        window.hardResetMobile = hardResetMobile;
-        window.logoutMobile = logoutMobile;
-    })();
-</script>
+        
+        // Make functions globally available
+        window.softReset = softReset;
+        window.hardReset = hardReset;
+        window.updateResolution = updateResolution;
+        window.showToast = showToast;
+        window.loadData = loadData;
+        window.updateStats = updateStats;
+    </script>
 </body>
 </html>

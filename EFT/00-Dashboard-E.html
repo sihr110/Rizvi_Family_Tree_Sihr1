@@ -357,15 +357,57 @@
         }
         
         @media screen and (max-width: 480px) {
-            .dashboard-container { padding: 15px 10px; border-radius: 12px; }
-            .dashboard-header h1 { font-size: 20px; }
-            .nav-grid { grid-template-columns: 1fr; gap: 8px; }
-            .nav-card { padding: 12px 8px; border-radius: 10px; }
-            .nav-card .emoji { font-size: 24px; }
-            .nav-card .label { font-size: 12px; }
-            .nav-card .desc { font-size: 10px; }
-            .nav-card .full-width { grid-column: 1; }
-            #resolutionDisplay { font-size: 20px; padding: 6px; }
+            .dashboard-container { padding: 15px 8px; border-radius: 12px; }
+            .dashboard-header h1 { font-size: 18px; }
+            .dashboard-header .icon { font-size: 32px; }
+            .dashboard-header .subtitle { font-size: 11px; }
+            
+            /* FORCE 2 COLUMNS ON MOBILE */
+            .nav-grid { 
+                grid-template-columns: 1fr 1fr !important; 
+                gap: 6px !important; 
+                margin-bottom: 15px;
+            }
+            
+            .nav-card { 
+                padding: 10px 6px !important; 
+                border-radius: 10px; 
+                min-height: 90px;
+            }
+            .nav-card .emoji { font-size: 20px !important; margin-bottom: 4px; }
+            .nav-card .label { font-size: 10px !important; }
+            .nav-card .desc { font-size: 8px !important; }
+            .nav-card .badge { font-size: 7px !important; padding: 1px 6px; margin-top: 3px; }
+            .nav-card .full-width { grid-column: 1 / -1 !important; }
+            
+            .tools-section { padding: 12px; }
+            .tools-section .section-title { font-size: 16px; }
+            .tools-grid .tool-card { min-width: 100%; padding: 12px; }
+            .tools-grid .tool-card h4 { font-size: 13px; }
+            
+            #resolutionDisplay { font-size: 18px; padding: 6px; }
+            #deviceType { font-size: 13px; padding: 4px 12px; }
+            #breakpointInfo { font-size: 10px; }
+            
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+            .stat-item .number { font-size: 18px; }
+            .stat-item .label { font-size: 10px; }
+            
+            .btn-hard { font-size: 12px; padding: 10px; }
+            .btn-sub { font-size: 9px; }
+            
+            .dashboard-footer { font-size: 10px; padding-top: 12px; margin-top: 12px; }
+            .dashboard-footer strong { font-size: 10px; }
+        }
+        
+        /* For very small phones (<= 380px) */
+        @media screen and (max-width: 380px) {
+            .nav-grid { gap: 4px !important; }
+            .nav-card { padding: 8px 4px !important; min-height: 75px; }
+            .nav-card .emoji { font-size: 16px !important; }
+            .nav-card .label { font-size: 9px !important; }
+            .nav-card .desc { font-size: 7px !important; }
+            .nav-card .badge { font-size: 6px !important; padding: 1px 4px; }
         }
     </style>
 </head>
@@ -374,7 +416,7 @@
         
         <!-- ===== HEADER ===== -->
         <div class="dashboard-header">
-            <span class="icon">🏠</span>
+            <span class="icon">🌿</span>
             <h1>Rizvi Family</h1>
             <div class="subtitle">Family Tree Management System</div>
             <div class="gold-line"></div>

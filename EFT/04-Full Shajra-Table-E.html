@@ -4,7 +4,7 @@
 
     <meta charset="UTF-8" />
 
-<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=0.25, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover" />
 
     <meta name="google" content="notranslate">
     <title>Rizvi Family · Family Tree</title>
@@ -505,8 +505,8 @@
     border-left: 2px solid var(--gold);
     border-right: 2px solid var(--gold);
     border-bottom: 2px solid var(--gold);
-    min-height: 100vh;
-    height: auto;
+    min-height: 0;
+    height: 100%;
     overflow-x: auto !important;  /* ← ADD THIS */
     overflow-y: auto !important;  /* ← ADD THIS */
 }
@@ -601,7 +601,8 @@
     text-align: left;
     padding: 6px 8px;
     width: 38%;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
 }
 .family-table td.col-name.father-name-cell {
     font-weight: 700;
@@ -615,7 +616,8 @@
     text-align: left;
     padding: 6px 8px;
     width: 32%;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
 }
 .family-table td.col-gen {
     text-align: center;
@@ -1041,26 +1043,6 @@
         .page, .page * {
             font-family: 'Inter', sans-serif !important;
         }
-
-
-/* Mobile horizontal scroll - keep like PC */
-.family-table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-@media screen and (max-width: 768px) {
-    .page {
-        overflow-x: auto;
-        padding: 4mm;
-    }
-    .family-table {
-        min-width: 700px;
-        width: auto;
-    }
-}
-
-
     </style>
 </head>
 <body>
@@ -1229,7 +1211,7 @@
     let familyData = null;
     let currentPageIndex = 0;
     let pageLoaded = false;
-   let zoomLevel = window.innerWidth <= 768 ? 1.0 : 0.70;
+   let zoomLevel = window.innerWidth <= 768 ? 0.75 : 1.0;
     let zoomVisible = false;
 
 function zoomIn() { zoomLevel = Math.min(zoomLevel + 0.01, 2); applyZoom(); }
@@ -1311,7 +1293,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('orientationchange', function() {
     setTimeout(function() {
-        zoomLevel = window.innerWidth <= 768 ? 0.50 : 1.0;
+        zoomLevel = window.innerWidth <= 768 ? 0.75 : 1.0;
         applyZoom();
     }, 300);
 });

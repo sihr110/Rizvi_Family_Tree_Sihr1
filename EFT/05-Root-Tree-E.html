@@ -1,18 +1,14 @@
-<!-- ======================================= -->
-<!-- FILE NAME: 05-Root-Tree-E.html          -->
-<!-- LAST UPDATED: 25/03/2026                -->
-<!-- Root view for Rizvi Family - PC version -->
-<!-- ======================================= -->
+<!-- ============================================================ -->
+<!-- FILE NAME: 05-Root-Tree-E-FINAL.html                        -->
+<!-- ============================================================ -->
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <!-- MOBILE VIEWPORT - initial-scale=0.5 -->
-
-
-<meta name="viewport" content="width=device-width, initial-scale=0.4, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
     <title>Rizvi Family · Root Tree View (Mobile)</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -22,13 +18,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <script src="20-Family-Data-E.js"></script>
-    
-    <style>
 
-input, textarea, select {
-    font-size: 16px !important;
+        <style>
+
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.header-stats {
+    margin-left: auto;  /* ← Pushes it to the right */
+    margin-right: 5px;
+}
 
         /* ===== TIPS BUTTON & MODAL ===== */
         .tips-btn {
@@ -131,7 +134,7 @@ input, textarea, select {
         .tips-grid {
             display: grid;
             grid-template-columns: auto auto 1fr;
-            gap: 0px 12px;
+            gap: 6px 12px;
             text-align: left;
             direction: ltr;
             align-items: baseline;
@@ -218,92 +221,6 @@ input, textarea, select {
             --dashboard-green: #1b5e20;
         }
 
-
-
-/* ===== ZOOM CONTROLS ===== */
-.zoom-controls {
-    position: fixed;
-    bottom: 15px;
-    right: 60px;
-    background: rgba(255,255,255,0.95);
-    border: 2px solid var(--gold);
-    border-radius: 10px;
-    padding: 6px;
-    display: none;
-    flex-direction: row;
-    gap: 4px;
-    z-index: 2000;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    align-items: center;
-    cursor: grab;
-    user-select: none;
-    transform: scale(0.75);
-    transform-origin: bottom right;
-}
-.zoom-controls.visible { display: flex !important; }
-.zoom-btn {
-    width: 44px; height: 44px;
-    border: 2px solid var(--gold);
-    background: white;
-    color: var(--dark-blue);
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.zoom-level {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 0 6px;
-    min-width: 38px;
-}
-
-        .zoom-controls.dragging {
-            cursor: grabbing;
-            opacity: 0.85;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-        }
-
-.zoom-btn {
-    width: 44px;
-    height: 44px;
-    border: 2px solid var(--gold);
-    background: white;
-    color: var(--dark-blue);
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
-    touch-action: manipulation;  /* ADD THIS LINE */
-    -webkit-tap-highlight-color: transparent;  /* ADD THIS LINE */
-}
-
-        .zoom-btn:hover {
-            background: var(--gold);
-            color: white;
-        }
-
-        .zoom-level {
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 0 6px;
-            min-width: 38px;
-            font-family: 'Inter', sans-serif;
-            color: var(--dark-blue);
-            pointer-events: none;
-        }
-
-
-
         body {
             font-family: 'Inter', sans-serif;
             background: #1a1a1a;
@@ -359,6 +276,15 @@ input, textarea, select {
             align-items: center;
             justify-content: center;
             font-size: 16px;
+        }
+
+        .header-stats {
+            font-size: 12px;
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 10px;
         }
 
         .left-toggle-btn {
@@ -432,7 +358,13 @@ input, textarea, select {
             background: #fffcf8;
         }
 
-
+        #rootSection {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            flex: 1;
+        }
 
         /* CHANGE 2: Fixed header section centered */
         .fixed-header-section {
@@ -448,20 +380,14 @@ input, textarea, select {
             margin: 20px 0 0 0;
         }
 
-.scrollable-content {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: auto;
-    padding: 0 15px 15px 15px;
-    -webkit-overflow-scrolling: touch;
-}
-
-#rootTree {
-    transform-origin: top left;
-    transition: transform 0.1s;
-    width: 100%;
-    min-height: 90vh;
-}
+        .scrollable-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: auto;
+            padding: 0 15px 15px 15px;
+            -webkit-overflow-scrolling: touch;
+            zoom: 0.5;  /* ONLY CHANGE FOR MOBILE */
+        }
 
         /* Scrollbar styling for mobile */
         .scrollable-content::-webkit-scrollbar {
@@ -518,20 +444,17 @@ input, textarea, select {
             min-width: 0;
         }
 
-.search-input {
-    width: 100%;
-    padding: 8px 10px;
-    border: 2px solid #cbd5e1;
-    border-radius: 4px;
-    font-size: 13px;
-    outline: none;
-    transition: all 0.3s;
-    min-width: 0;
-    box-sizing: border-box;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
+        .search-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s;
+            min-width: 0;
+            box-sizing: border-box;
+        }
 
         .search-input:focus {
             border-color: var(--gold);
@@ -619,13 +542,13 @@ input, textarea, select {
             margin: 8px auto;
         }
 
-.box.selected-box {
-    border: 4px solid #2e7d32;
-    background: #e8f5e9;
-    z-index: 10;
-}
-
         .box:hover { transform: translateY(-3px); }
+        .box.blinking-box { animation: blinkBoxLightGreen 1.5s infinite; border-width: 4px; z-index: 10; transform: scale(1.02); }
+
+        @keyframes blinkBoxLightGreen {
+            0%, 100% { border-color: #2e7d32; background: #e8f5e9; box-shadow: 0 0 15px rgba(46, 125, 50, 0.4); }
+            50% { border-color: #4caf50; background: #c8e6c9; box-shadow: 0 0 30px rgba(76, 175, 80, 0.6); transform: scale(1.05); }
+        }
 
         .box.root-box { border-color: var(--maroon); border-width: 4px; background: #fff0f0; }
         .box.female-box { background-color: var(--light-pink) !important; border-color: #fb7185 !important; }
@@ -676,7 +599,6 @@ input, textarea, select {
     text-align: left;
 }
 
-
         .path-connector { width: 3px; height: 25px; background: var(--gold); margin: 5px auto; }
 
         .app-footer {
@@ -715,294 +637,114 @@ input, textarea, select {
             display: none;
         }
         
-@media screen and (max-width: 480px) {
-    .app-header {
-        padding: 8px 10px;
-    }
-    
-    .header-title {
-        font-size: 14px;
-        position: static;
-        transform: none;
-        margin-left: 10px;
-    }
-    
-    .left-toggle-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-    
-    .fixed-header-section {
-        width: 100%;
-        padding: 10px 8px 0 8px;
-    }
-    
-    .search-label {
-        font-size: 9px;
-        width: 50px;
-    }
-    
-    .reset-btn {
-        padding: 6px 3px;
-        font-size: 16px;
-        width: 25px;
-    }
-    
-    .tips-btn {
-        font-size: 18px;
-        padding: 4px 6px;
-    }
-    
-    .empty-state {
-        padding: 30px 20px;
-        margin: 20px 15px;
-    }
-    
-    /* ===== SIDE-BY-SIDE ON MOBILE ===== */
-    .paths-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: visible;
-        gap: 8px;
-        padding: 10px 8px 20px 8px;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        margin: 0;
-        width: 100%;
-        min-height: 350px;
-    }
-    
-    .path-column {
-        flex: 0 0 85%;
-        min-width: 270px;
-        max-width: 85%;
-        text-align: center;
-        padding: 0 4px;
-        margin: 0;
-    }
-    
-    .path-column h3 {
-        font-size: 13px;
-        margin-bottom: 8px;
-        white-space: nowrap;
-    }
-    
-    .box {
-        min-width: 200px;
-        max-width: 100%;
-        margin: 5px auto;
-        border-radius: 10px;
-    }
-    
-    .box-body {
-        padding: 8px;
-    }
-    
-    .box-header {
-        font-size: 9px;
-        padding: 4px 8px;
-    }
-    
-    .member-name {
-        font-size: 13px;
-    }
-    
-    .parent-info {
-        font-size: 9px;
-    }
-    
-    .parent-info .label {
-        width: 40px;
-        font-size: 9px;
-    }
-    
-    .parent-info .colon {
-        font-size: 9px;
-    }
-    
-    .parent-info .value {
-        font-size: 9px;
-    }
-    
-    .path-connector {
-        height: 12px;
-        margin: 3px auto;
-    }
-    
-    .paths-container::-webkit-scrollbar {
-        height: 4px;
-    }
-    
-    .paths-container::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-    
-    .paths-container::-webkit-scrollbar-thumb {
-        background: var(--gold);
-        border-radius: 3px;
-    }
-    
-    .gap-row {
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-    
-    .gap-item {
-        font-size: 10px;
-        padding: 3px 8px;
-        white-space: normal;
-    }
-    
-    .gap-value {
-        padding: 2px 6px;
-        font-size: 10px;
-    }
-    
-    .root-announce {
-        padding: 12px 12px;
-        margin: 8px auto;
-        width: 95%;
-    }
-    
-    .root-announce h2 {
-        font-size: 15px;
-    }
-    
-    .root-announce h3 {
-        font-size: 15px;
-    }
-    
-    .generation-info {
-        padding: 8px;
-        margin-top: 8px;
-    }
-    
-    .scrollable-content {
-        padding: 0 5px 10px 5px;
-        min-height: 500px;
-    }
-    
-    .search-wrapper {
-        position: relative;
-        width: 100%;
-    }
-    
-    .dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        border: 2px solid var(--gold);
-        border-radius: 0 0 8px 8px;
-        max-height: 200px;
-        overflow-y: auto;
-        z-index: 9999;
-        box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        width: 100%;
-    }
-    
-    .result-item {
-        padding: 12px 10px;
-        font-size: 14px;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .search-input {
-        font-size: 16px;
-        padding: 10px 12px;
-        height: 44px;
-    }
-}
-/* For tablets and larger phones */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-    .paths-container {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        gap: 15px !important;
-        padding: 10px !important;
-        -webkit-overflow-scrolling: touch !important;
-        justify-content: flex-start !important;
-    }
-    
-    .path-column {
-        flex: 0 0 70% !important;
-        min-width: 320px !important;
-        max-width: 70% !important;
-    }
-}
-
+        @media screen and (max-width: 480px) {
+            .app-header {
+                padding: 8px 10px;
+            }
+            
+            .header-title {
+                font-size: 16px;
+                position: static;
+                transform: none;
+                margin-left: 10px;
+            }
+            
+            .left-toggle-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .box {
+                min-width: 240px;
+            }
+            
+            .fixed-header-section {
+                width: 95%;
+            }
+            
+            .search-label {
+                font-size: 10px;
+                width: 55px;
+            }
+            
+            .search-input {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+            
+            .reset-btn {
+                padding: 6px 3px;
+                font-size: 16px;
+                width: 25px;
+            }
+            
+            .tips-btn {
+                font-size: 18px;
+                padding: 4px 6px;
+            }
+            
+            .empty-state {
+                padding: 30px 20px;
+                margin: 20px 15px;
+            }
+        }
         
         @media screen and (max-width: 360px) {
             .header-title {
                 font-size: 14px;
             }
         }
-
     </style>
 </head>
-
 <body>
-    <!-- DRAGGABLE FLOATING ZOOM CONTROLS - PC ONLY -->
-    <div class="zoom-controls" id="zoomControls">
-        <div class="zoom-btn" onclick="zoomIn()">+</div>
-        <div class="zoom-level" id="zoomLevel">70%</div>
-        <div class="zoom-btn" onclick="zoomOut()">-</div>
-        <div class="zoom-btn" onclick="resetZoom()">↺</div>
-    </div>
-
-
     <!-- NO ZOOM CONTROLS - mobile uses pinch-to-zoom -->
 
     <div class="app-container">
-        <div class="app-header">
-            <div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>
-            <div class="header-title">
-                <span class="header-icon">👥</span>
-                <span>Rizvi Family - Root Tree View</span>
-            </div>
-            <button class="tips-btn bulb-on" id="tipsToggleBtn" onclick="toggleTips()">💡</button>
-            
-            <div class="toggle-menu-panel" id="toggleMenuPanel">
-                <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-                <div class="toggle-menu-item" onclick="toggleZoomControls()" style="background: #f0f0f0; color: black;">🔍 Zoom Controls</div>
-                <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
-                <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
-                <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
-            </div>
-        </div>
+<div class="app-header">
+    <div class="left-toggle-btn" onclick="toggleLeftMenu()">MENU</div>
+    <div class="header-title">
+        <span class="header-icon">👥</span>
+        <span>Rizvi Family - Root Tree View</span>
+    </div>
+    <div style="flex:1;"></div>  <!-- ← ADD THIS spacer -->
+    <div class="header-stats" id="headerStats">Loading data...</div>
+    <button class="tips-btn bulb-on" id="tipsToggleBtn" onclick="toggleTips()">💡</button>
+</div>
 
-        <div class="fixed-header-section">
-            <div class="search-row">
-                <span class="search-label">MEMBER 1</span>
-                <div class="search-wrapper">
-                    <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
-                    <div id="dropdown1" class="dropdown"></div>
-                </div>
-                <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
-            </div>
-            <div class="search-row">
-                <span class="search-label">MEMBER 2</span>
-                <div class="search-wrapper">
-                    <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
-                    <div id="dropdown2" class="dropdown"></div>
-                </div>
-                <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
-            </div>
-            <div class="border-line"></div>
+        <div class="toggle-menu-panel" id="toggleMenuPanel">
+            <div style="border-top:1px solid var(--gold); margin:5px 0;"></div>
+            <div class="toggle-menu-item" onclick="showDashboard()" style="background: #6495ED; color: white;">🏠 Dashboard</div>
+            <div class="toggle-menu-item" onclick="showSaveOptions()" style="background: #d4af37; color: black;">💾 Save File</div>
         </div>
 
         <div class="main-content">
-            <div class="scrollable-content" id="rootTree">
-                <div class="empty-state">
-                    <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
-                    <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
-                    <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+            <div id="rootSection">
+                <div class="fixed-header-section">
+                    <!-- CHANGE 3: Search rows with reset buttons -->
+                    <div class="search-row">
+                        <span class="search-label">MEMBER 1</span>
+                        <div class="search-wrapper">
+                            <input type="text" id="search1" class="search-input" placeholder="Type name..." autocomplete="off">
+                            <div id="dropdown1" class="dropdown"></div>
+                        </div>
+                        <div class="reset-btn" onclick="resetSearchRow(1)">🔄</div>
+                    </div>
+                    <div class="search-row">
+                        <span class="search-label">MEMBER 2</span>
+                        <div class="search-wrapper">
+                            <input type="text" id="search2" class="search-input" placeholder="Type name..." autocomplete="off">
+                            <div id="dropdown2" class="dropdown"></div>
+                        </div>
+                        <div class="reset-btn" onclick="resetSearchRow(2)">🔄</div>
+                    </div>
+                    <div class="border-line"></div>
+                </div>
+                <div class="scrollable-content" id="rootTree">
+                    <div class="empty-state">
+                        <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
+                        <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
+                        <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1073,10 +815,6 @@ input, textarea, select {
                 <div class="colon" style="margin-top:8px;"></div>
                 <div class="desc" style="margin-top:8px;"></div>
 
-                <div class="title">Table View</div>
-                <div class="colon">:</div>
-                <div class="desc">Switch to Table View</div>
-
                 <div class="title">Dashboard</div>
                 <div class="colon">:</div>
                 <div class="desc">Go to Dashboard (Main Menu)</div>
@@ -1135,35 +873,10 @@ input, textarea, select {
 
         // ==================== EXISTING CODE ====================
         // --- GLOBAL DATA ---
-let zoomLevel = window.innerWidth <= 768 ? 1.0 : 0.70;let member1 = null;
-let member2 = null;
-
-
-
-window.zoomIn = function() { zoomLevel = Math.min(zoomLevel + 0.01, 2); applyZoom(); };
-window.zoomOut = function() { zoomLevel = Math.max(zoomLevel - 0.01, 0.3); applyZoom(); };
-window.resetZoom = function() { 
-    zoomLevel = window.innerWidth <= 768 ? 1.0 : 0.70; 
-    applyZoom(); 
-};
-
-
-function applyZoom() {
-    const c = document.getElementById('rootTree');
-    if(c) {
-        c.style.transform = `scale(${zoomLevel})`;
-        c.style.transformOrigin = 'top left';
-        c.style.width = `${100/zoomLevel}%`;
-        c.style.height = `${100/zoomLevel}%`;
-        document.getElementById('zoomLevel').textContent = Math.round(zoomLevel*100)+'%';
-    }
-}
-function toggleZoomControls() {
-    document.getElementById('zoomControls').classList.toggle('visible');
-    document.getElementById('toggleMenuPanel').classList.remove('show');
-}
-function hideZoom() { document.getElementById('zoomControls').classList.remove('visible'); }
-        
+        let db = [];
+        let fileInfo = { saved_time: "No timestamp" };
+        let member1 = null, member2 = null;
+        let zoomLevel = 1;
 
         // --- CORE FUNCTIONS ---
         function displayName(str) { 
@@ -1190,39 +903,84 @@ function hideZoom() { document.getElementById('zoomControls').classList.remove('
         }
 
         // --- DATA LOADING ---
+
         function initializeData() {
+            // Try to load from localStorage first (cached by Dashboard)
+            let data = null;
+            let isCached = false;
+            
             try {
                 const saved = localStorage.getItem('familyDB');
                 if (saved) {
-                    db = JSON.parse(saved);
-                } else {
-                    db = (typeof FAMILY_DATA_E !== 'undefined') ? FAMILY_DATA_E : [];
-                    if (db.length > 0) {
-                        localStorage.setItem('familyDB', JSON.stringify(db));
-                    }
+                    data = JSON.parse(saved);
+                    isCached = true;
+                    console.log('✅ Data loaded from cache');
                 }
-                
+            } catch(error) {
+                console.warn('Cache read failed, falling back to JS file');
+            }
+            
+            // If no cache, load from JS file (fallback)
+            if (!data || data.length === 0) {
+                if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
+                    data = FAMILY_DATA_E;
+                    isCached = false;
+                    console.log('📂 Data loaded from JS file (fallback)');
+                    
+                    // Cache for next time
+                    try {
+                        localStorage.setItem('familyDB', JSON.stringify(data));
+                        console.log('💾 Data cached for next time');
+                    } catch(e) {
+                        console.warn('Could not cache data');
+                    }
+                } else {
+                    data = [];
+                    console.log('❌ No data found');
+                }
+            }
+            
+            db = data;
+            
+            // Load file info
+            try {
                 const savedInfo = localStorage.getItem('fileInfo');
                 if (savedInfo) {
                     fileInfo = JSON.parse(savedInfo);
-                } else {
-                    fileInfo = (typeof FILE_INFO !== 'undefined') ? FILE_INFO : { saved_time: "No timestamp" };
+                } else if (typeof FILE_INFO !== 'undefined') {
+                    fileInfo = FILE_INFO;
                 }
-                
-                updateFooter();
-                
-            } catch (error) {
-                console.error('Data initialization error:', error);
+            } catch(e) {
+                console.warn('Could not load file info');
+            }
+            
+            // Update header stats (like File 04)
+            updateHeaderStats(isCached);
+            
+            // Update footer
+            updateFooter(isCached);
+        }
+
+        function updateHeaderStats(isCached) {
+            const el = document.getElementById('headerStats');
+            if (!el) return;
+            
+            const cacheIcon = isCached ? ' 📦' : '';
+            if (db && db.length > 0) {
+                el.textContent = `Members: ${db.length}${cacheIcon}`;
+            } else {
+                el.textContent = 'Members: 0';
             }
         }
 
-        function updateFooter() {
-            const footer = document.getElementById('appFooter');
-            if (!footer) return;
-            
-            let timeStr = fileInfo?.saved_time || 'No timestamp';
-            footer.innerHTML = `📅 Last Data saved: ${timeStr} | Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010`;
-        }
+function updateFooter(isCached) {
+    const footer = document.getElementById('appFooter');
+    if (!footer) return;
+    
+    let timeStr = fileInfo?.saved_time || 'No timestamp';
+    // Remove the cacheIcon from footer
+    footer.innerHTML = `📅 Last Data saved: ${timeStr} | Developer: Imran Haider S/o Syed Risalat Hussain Rizvi | 0332-787-6010`;
+}
 
         // --- MENU FUNCTIONS ---
         window.toggleLeftMenu = function() {
@@ -1258,7 +1016,6 @@ function hideZoom() { document.getElementById('zoomControls').classList.remove('
             } else {
                 document.getElementById('rootTree').innerHTML = `
                     <div class="empty-state">
-
                         <div style="font-size:48px; margin-bottom:15px; opacity:0.5;">👥</div>
                         <div style="font-size:18px; font-weight:600; color:var(--maroon); margin-bottom:8px;">Select two members</div>
                         <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
@@ -1305,6 +1062,7 @@ function hideZoom() { document.getElementById('zoomControls').classList.remove('
             }
         };
 
+        // --- NAVIGATION ---
 
         function showDashboard() { 
             window.location.href = '00-Dashboard-E.html'; 
@@ -1389,24 +1147,25 @@ function hideZoom() { document.getElementById('zoomControls').classList.remove('
         };
 
         // --- RENDER BOX (UPDATED) ---
-function renderBox(m, label, isRoot = false, isSelected = false) {
-    if (!m) return '';
-    const isF = m.gender && m.gender.startsWith('F');
-    const motherName = m.mother ? displayName(m.mother) : '—';
-    
-     return `<div class="box ${isF ? 'female-box' : ''} ${isRoot ? 'root-box' : ''} ${isSelected ? 'selected-box' : ''}">   <div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>
-        <div class="box-body">
-            <span class="member-name">${displayName(m.name)}</span>
-            <div class="parent-info">
-                <div class="row">
-                    <span class="label">Mother</span>
-                    <span class="colon">:</span>
-                    <span class="value">${motherName}</span>
+        function renderBox(m, label, isRoot = false, isSelected = false) {
+            if (!m) return '';
+            const isF = m.gender && m.gender.startsWith('F');
+            const motherName = m.mother ? displayName(m.mother) : '—';
+            
+            return `<div class="box ${isF ? 'female-box' : ''} ${isSelected ? 'blinking-box' : ''} ${isRoot ? 'root-box' : ''}">
+                <div class="box-header"><span>${label}</span><span>${m.gen || ''}</span></div>
+                <div class="box-body">
+                    <span class="member-name">${displayName(m.name)}</span>
+                    <div class="parent-info">
+                        <div class="row">
+                            <span class="label">Mother</span>
+                            <span class="colon">:</span>
+                            <span class="value">${motherName}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>`;
-}
+            </div>`;
+        }
         // --- RENDER TREE ---
         function renderTree() {
             if (!member1 || !member2) return;
@@ -1474,9 +1233,8 @@ function renderBox(m, label, isRoot = false, isSelected = false) {
                     <div style="font-size:13px; color:#666;">Search and select two family members above to find their common root</div>
                 </div>
             `;
-
-document.getElementById('dropdown1').style.display = 'none';
-document.getElementById('dropdown2').style.display = 'none';
+            document.getElementById('dropdown1').style.display = 'none';
+            document.getElementById('dropdown2').style.display = 'none';
         }
 
         // --- PDF EXPORT WITH QUALITY PARAMETER ---
@@ -1709,10 +1467,8 @@ document.getElementById('dropdown2').style.display = 'none';
         };
 
         // --- INITIALIZATION ---
-document.addEventListener('DOMContentLoaded', function() {
-    initializeData();
-    applyZoom();
-hideZoom();
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeData();
             
             // Initialize bulb to ON state
             const btn = document.getElementById('tipsToggleBtn');
@@ -1770,10 +1526,7 @@ hideZoom();
                     document.getElementById('search2').value = displayName(member2.name) + ' (' + (member2.gen || '') + ')';
                     localStorage.removeItem('rootMember1');
                     localStorage.removeItem('rootMember2');
-
-
                     renderTree();
-                    applyZoom();
                 }
             } catch(e) { 
                 console.error("Stored member parse error", e); 
@@ -1781,6 +1534,7 @@ hideZoom();
         });
 
         // Make functions globally available
+       
         window.resetSearch = resetSearch;
         window.resetSearchRow = resetSearchRow;
         window.exportPDF = exportPDF;
@@ -1791,5 +1545,4 @@ hideZoom();
         window.toggleTips = toggleTips;
     </script>
 </body>
-
 </html>

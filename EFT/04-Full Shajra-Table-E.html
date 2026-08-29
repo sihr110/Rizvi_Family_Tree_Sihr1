@@ -505,8 +505,10 @@
     border-left: 2px solid var(--gold);
     border-right: 2px solid var(--gold);
     border-bottom: 2px solid var(--gold);
-    min-height: 100vh;  /* ADD THIS */
-    height: auto;       /* ADD THIS */
+    min-height: 100vh;
+    height: auto;
+    overflow-x: auto !important;  /* ← ADD THIS */
+    overflow-y: auto !important;  /* ← ADD THIS */
 }
 
         .page-header {
@@ -1039,6 +1041,26 @@
         .page, .page * {
             font-family: 'Inter', sans-serif !important;
         }
+
+
+/* Mobile horizontal scroll - keep like PC */
+.family-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 768px) {
+    .page {
+        overflow-x: auto;
+        padding: 4mm;
+    }
+    .family-table {
+        min-width: 700px;
+        width: auto;
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -2261,48 +2283,66 @@ window.addEventListener('orientationchange', function() {
         return html;
     }
 
-    function renderAllPages() {
-        const container = document.getElementById('pageContainer');
-        const errorMsg = document.getElementById('errorMsg');
+function renderAllPages() {
+    const container = document.getElementById('pageContainer');
+    const errorMsg = document.getElementById('errorMsg');
 
+    // Try to load from localStorage first (cached by Dashboard)
+    let data = null;
+    try {
+        const cached = localStorage.getItem('familyDB');
+        if (cached) {
+            data = JSON.parse(cached);
+            console.log('✅ Data loaded from cache');
+        }
+    } catch(e) {
+        console.warn('Cache read failed, falling back to JS file');
+    }
+
+    // If no cache, load from JS file (fallback)
+    if (!data || data.length === 0) {
         if (typeof FAMILY_DATA_E === 'undefined') {
             container.innerHTML =
                 `<div class="no-data">⚠️ Data not loaded!<div class="error">Make sure <strong>20-Family-Data-E.js</strong> is in the same folder.</div></div>`;
             errorMsg.textContent = '⚠️ Data not loaded!';
             return;
         }
-
-        familyData = FAMILY_DATA_E;
-        buildFamilyMap(familyData);
-
-        try {
-            cachedPages = generatePages(familyData);
-
-            document.getElementById('headerStats').textContent = 
-                `Members: ${familyData.length} · Pages: ${cachedPages.length}`;
-
-            if (cachedPages.length === 0) {
-                container.innerHTML = `
-                    <div class="welcome-container">
-                        <div class="welcome-box">
-                            <div class="welcome-icon">🌿</div>
-                            <div class="welcome-title">Rizvi Family Tree</div>
-                            <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-
-            errorMsg.textContent = '';
-            currentPageIndex = 0;
-            renderPage();
-        } catch (e) {
-            container.innerHTML = `<div class="no-data">⚠️ Error: ${e.message}</div>`;
-            errorMsg.textContent = '⚠️ Error: ' + e.message;
-            console.error(e);
-        }
+        data = FAMILY_DATA_E;
+        console.log('📂 Data loaded from JS file (fallback)');
     }
+
+    familyData = data;
+    buildFamilyMap(familyData);
+
+    try {
+        cachedPages = generatePages(familyData);
+
+        const isCached = localStorage.getItem('familyDB') !== null;
+        document.getElementById('headerStats').textContent = 
+            `Members: ${familyData.length} · Pages: ${cachedPages.length}${isCached ? ' 📦' : ''}`;
+
+        if (cachedPages.length === 0) {
+            container.innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-box">
+                        <div class="welcome-icon">🌿</div>
+                        <div class="welcome-title">Rizvi Family Tree</div>
+                        <div class="welcome-text">Search for a family member above<br>to view their connections and relationships.</div>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        errorMsg.textContent = '';
+        currentPageIndex = 0;
+        renderPage();
+    } catch (e) {
+        container.innerHTML = `<div class="no-data">⚠️ Error: ${e.message}</div>`;
+        errorMsg.textContent = '⚠️ Error: ' + e.message;
+        console.error(e);
+    }
+}
 
     function renderPage(highlightName = null) {
         const container = document.getElementById('pageContainer');

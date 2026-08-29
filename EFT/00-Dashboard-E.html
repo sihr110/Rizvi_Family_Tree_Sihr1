@@ -247,33 +247,6 @@
             font-weight: 500;
         }
         
-        .btn-hard {
-            width: 100%;
-            padding: 12px;
-            background: #5a0000;
-            color: white;
-            border: 2px solid var(--maroon);
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-hard:hover {
-            background: #7a1f1f;
-            transform: translateY(-2px);
-        }
-        
-        .btn-sub {
-            display: block;
-            font-size: 11px;
-            font-weight: 400;
-            opacity: 0.7;
-            margin-top: 2px;
-        }
-        
         /* ===== STATS ===== */
         .stats-grid {
             display: grid;
@@ -393,9 +366,6 @@
             .stat-item .number { font-size: 18px; }
             .stat-item .label { font-size: 10px; }
             
-            .btn-hard { font-size: 12px; padding: 10px; }
-            .btn-sub { font-size: 9px; }
-            
             .dashboard-footer { font-size: 10px; padding-top: 12px; margin-top: 12px; }
             .dashboard-footer strong { font-size: 10px; }
         }
@@ -480,18 +450,6 @@
                     <div id="deviceType">Detecting...</div>
                     <div id="breakpointInfo">Loading device info...</div>
                 </div>
-
-                <!-- Hard Reset -->
-                <div class="tool-card">
-                    <h4>🔄 Full Reset</h4>
-                    <button class="btn-hard" onclick="hardReset()">
-                        🗑️ Hard Reset
-                        <span class="btn-sub">⚠️ Clears ALL data permanently</span>
-                    </button>
-                    <div style="margin-top:10px; font-size:11px; color:#999;">
-                        ⚠️ This will delete all stored data
-                    </div>
-                </div>
             </div>
             
             <!-- STATS -->
@@ -528,35 +486,64 @@
     <script>
         let db = [];
         let fileInfo = {};
+        const DATA_VERSION = '1.0'; // ← CHANGE THIS when JS file updates
         
         function loadData() {
+            let data = null;
+            let cachedVersion = null;
+            
             try {
-                const saved = localStorage.getItem('familyDB');
-                if (saved) {
-                    db = JSON.parse(saved);
-                    console.log('✅ Loaded from localStorage:', db.length, 'members');
-                } else if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
-                    db = FAMILY_DATA_E;
-                    localStorage.setItem('familyDB', JSON.stringify(db));
-                    console.log('✅ Loaded from JS file:', db.length, 'members');
-                } else {
-                    db = [];
-                    console.log('❌ No data found');
-                }
+                const cached = localStorage.getItem('familyDB');
+                cachedVersion = localStorage.getItem('familyDB_version');
                 
+                if (cached && cachedVersion === DATA_VERSION) {
+                    data = JSON.parse(cached);
+                    console.log('✅ Dashboard: Loaded from cache (version ' + DATA_VERSION + ')');
+                } else if (cached && cachedVersion !== DATA_VERSION) {
+                    console.log('🔄 Dashboard: Version mismatch, reloading from JS...');
+                    localStorage.removeItem('familyDB');
+                    localStorage.removeItem('familyDB_version');
+                }
+            } catch(e) {
+                console.warn('Dashboard: Cache read failed');
+            }
+            
+            // If no cache, load from JS file
+            if (!data || data.length === 0) {
+                if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
+                    data = FAMILY_DATA_E;
+                    console.log('📂 Dashboard: Loaded from JS file:', data.length, 'members');
+                    
+                    // Cache for next time
+                    try {
+                        localStorage.setItem('familyDB', JSON.stringify(data));
+                        localStorage.setItem('familyDB_version', DATA_VERSION);
+                        console.log('💾 Dashboard: Data cached (version ' + DATA_VERSION + ')');
+                    } catch(e) {
+                        console.warn('Dashboard: Could not cache data');
+                    }
+                } else {
+                    data = [];
+                    console.log('❌ Dashboard: No data found');
+                }
+            }
+            
+            db = data;
+            
+            // Load file info
+            try {
                 const savedInfo = localStorage.getItem('fileInfo');
                 if (savedInfo) {
                     fileInfo = JSON.parse(savedInfo);
                 } else if (typeof FILE_INFO !== 'undefined') {
                     fileInfo = FILE_INFO;
                 }
-                
-                updateStats();
-                updateFooter();
-            } catch (e) {
-                console.error('Data load error:', e);
-                db = [];
+            } catch(e) {
+                console.warn('Dashboard: Could not load file info');
             }
+            
+            updateStats();
+            updateFooter();
         }
         
         function updateStats() {
@@ -614,29 +601,6 @@
             document.getElementById('breakpointInfo').textContent = info;
         }
         
-        function hardReset() {
-            if (confirm('⚠️ HARD RESET: This will delete ALL data!\n\nThis includes:\n• All family members\n• Search selections\n• Local stored data\n• Session data\n\nAre you sure you want to continue?')) {
-                if (confirm('⚠️ FINAL WARNING: This action cannot be undone!\n\nClick OK to permanently delete all data.')) {
-                    localStorage.clear();
-                    sessionStorage.clear();
-                    
-                    if (window.indexedDB) {
-                        try { indexedDB.deleteDatabase('familyDB'); } catch(e) {}
-                    }
-                    
-                    document.cookie.split(";").forEach(function(c) { 
-                        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
-                    });
-                    
-                    showToast('🗑️', 'Hard Reset Complete!', 'All data has been cleared');
-                    
-                    setTimeout(function() {
-                        window.location.href = '05-Root-Tree-E.html';
-                    }, 2000);
-                }
-            }
-        }
-        
         function logoutUser() {
             if (confirm('🚪 Logout from dashboard?\n\nAll selections will be cleared.')) {
                 localStorage.removeItem('rootMember1');
@@ -677,7 +641,6 @@
         });
         
         window.logoutUser = logoutUser;
-        window.hardReset = hardReset;
         window.updateResolution = updateResolution;
         window.showToast = showToast;
         window.loadData = loadData;

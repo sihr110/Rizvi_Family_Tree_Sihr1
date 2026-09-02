@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 08/24/2026 16:55
+// Saved: 09/02/2026 11:11
 // Total members: 608
 
 const FAMILY_DATA_E = [
@@ -2393,10 +2393,10 @@ const FAMILY_DATA_E = [
     name: "Syeda Saeed",
     father: "Syed Ali Abbas",
     mother: "Syeda Laieeq Fatima Rizvi",
-    spouse: "",
+    spouse: "Syed Mohammed Ahmed Zaidi",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: ""
+    details: "Syeda Saeed's children\\n\\nS1: Syed Ghazanfar Hussain Zaidi"
   },
   {
     name: "Syed Asif Raza",
@@ -2459,7 +2459,7 @@ const FAMILY_DATA_E = [
     spouse: "Syed Salman Jaffery",
     gen: "G-041-D4",
     gender: "FEMALE",
-    details: "Syeda Kiran children-\\n\\nKiran (twin sister of Farha) ko uss k Jaffar mamoo nay godh lay liya tha."
+    details: "Syeda Kiran:\\n\\nKiran (twin sister of Farha) ko uss k Jaffar mamoo nay godh lay liya tha."
   },
   {
     name: "Muhammad Akbar",
@@ -2678,7 +2678,7 @@ const FAMILY_DATA_E = [
     details: ""
   },
   {
-    name: "Syeda Khadija Zehr",
+    name: "Syeda Khadija Zehra",
     father: "Syed Qaumber Abbas",
     mother: "Syeda Aiman Zaidi",
     spouse: "",
@@ -5480,8 +5480,8 @@ const FAMILY_DATA_E = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "08/24/2026 16:55", 
+    saved_time: "09/02/2026 11:11", 
     total_members: 608,
-    details_count: 87,
+    details_count: 88,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data ur.xlsx
-// Saved: 8/21/26 10:56
+// Saved: 9/2/26 11:09
 // Total members: 608
 
 const FAMILY_DATA_URDU = [
@@ -2384,7 +2384,7 @@ const FAMILY_DATA_URDU = [
     name: "سید منظر عباس",
     father: "سید علی عباس",
     mother: "سیدہ لئیق فاطمہ رضوی",
-    spouse: "",
+    spouse: "سیدہ رخسانہ زہرا زیدی",
     gen: "G-040-S4",
     gender: "MALE",
     details: ""
@@ -2393,10 +2393,10 @@ const FAMILY_DATA_URDU = [
     name: "سیدہ سعید",
     father: "سید علی عباس",
     mother: "سیدہ لئیق فاطمہ رضوی",
-    spouse: "",
+    spouse: "سید محمد احمد زیدی",
     gen: "G-040-D1",
     gender: "FEMALE",
-    details: ""
+    details: "سیدہ سعید کی اولاد:\\n\\nS1: سید غضنفر حسین زیدی"
   },
   {
     name: "سید آصف رضا",
@@ -2459,7 +2459,7 @@ const FAMILY_DATA_URDU = [
     spouse: "سید سلمان جعفری",
     gen: "G-041-D5",
     gender: "FEMALE",
-    details: "سیدہ کرن کی اولاد:\\n\\nسیدہ کرن (سیدہ فرح کی جڑواں بہن) کو اس کے ماموں سیدہ جعفر نے گود لے لیا تھا۔"
+    details: "سیدہ کرن :\\n\\nسیدہ کرن (سیدہ فرح کی جڑواں بہن) کو اس کے ماموں سیدہ جعفر نے گود لے لیا تھا۔"
   },
   {
     name: "سید محمد اکبر",
@@ -2689,7 +2689,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید داش عباس",
     father: "سید منظر عباس",
-    mother: "سیدہ رخسانہ زہرا",
+    mother: "سیدہ رخسانہ زہرا زیدی",
     spouse: "",
     gen: "G-041-S1",
     gender: "MALE",
@@ -2698,7 +2698,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سید رضا عباس",
     father: "سید منظر عباس",
-    mother: "سیدہ رخسانہ زہرا",
+    mother: "سیدہ رخسانہ زہرا زیدی",
     spouse: "",
     gen: "G-041-S2",
     gender: "MALE",
@@ -2707,7 +2707,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ فضہ زہرا",
     father: "سید منظر عباس",
-    mother: "سیدہ رخسانہ زہرا",
+    mother: "سیدہ رخسانہ زہرا زیدی",
     spouse: "",
     gen: "G-041-D1",
     gender: "FEMALE",
@@ -2716,7 +2716,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ فاریہ زہرا",
     father: "سید منظر عباس",
-    mother: "سیدہ رخسانہ زہرا",
+    mother: "سیدہ رخسانہ زہرا زیدی",
     spouse: "",
     gen: "G-041-D2",
     gender: "FEMALE",
@@ -2725,7 +2725,7 @@ const FAMILY_DATA_URDU = [
   {
     name: "سیدہ وانیہ زہرا",
     father: "سید منظر عباس",
-    mother: "سیدہ رخسانہ زہرا",
+    mother: "سیدہ رخسانہ زہرا زیدی",
     spouse: "",
     gen: "G-041-D3",
     gender: "FEMALE",
@@ -5480,8 +5480,8 @@ const FAMILY_DATA_URDU = [
 
 const FILE_INFO = { 
     source_file: "Data ur.xlsx",
-    saved_time: "8/21/26 10:56", 
+    saved_time: "9/2/26 11:09", 
     total_members: 608,
-    details_count: 87,
+    details_count: 88,
     sheets_merged: ["Main","1","2","3","4","5"]
 };

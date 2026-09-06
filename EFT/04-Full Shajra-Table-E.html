@@ -554,9 +554,12 @@
             width: 100%;
             overflow-x: auto;
         }
+
+
+
         .family-table {
             width: 100%;
-            max-width: 700px;
+            max-width: 780px;
             border-collapse: collapse;
             border: 2px solid var(--gold);
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -589,48 +592,48 @@
             font-family: 'Inter', sans-serif;
         }
         .family-table td:last-child { border-left: none; }
+
+
 .family-table td.col-tree {
     text-align: center;
     font-family: 'Roboto Mono', monospace;
     font-size: 14px;
     color: #6b5a48;
     padding: 6px 4px;
-    width: 5%;
+    width: 4%;
 }
+
 .family-table td.col-name {
     text-align: left;
     padding: 6px 8px;
-    width: 38%;
-    white-space: normal;
-    word-break: break-word;
+    width: 42%;
+    white-space: nowrap;
+    word-break: keep-all;
 }
-.family-table td.col-name.father-name-cell {
-    font-weight: 700;
-    color: #cc0000;
-}
-.family-table td.col-name.child-name-cell {
-    font-weight: 400;
-    color: #1a3a5c;
-}
+
 .family-table td.col-spouse {
     text-align: left;
     padding: 6px 8px;
-    width: 32%;
+    width: 33%;
     white-space: normal;
     word-break: break-word;
 }
+
 .family-table td.col-gen {
     text-align: center;
     padding: 6px 8px;
-    width: 12%;
-    white-space: nowrap;  /* ← ADDED */
+    width: 9%;
+    white-space: nowrap;
 }
+
 .family-table td.col-next {
     text-align: center;
     padding: 6px 8px;
-    width: 13%;
-    white-space: nowrap;  /* ← ADDED */
+    width: 12%;
+    white-space: nowrap;
 }
+
+
         .family-table tbody tr:hover {
             background: #faebcd;
             cursor: pointer;
@@ -1040,9 +1043,44 @@
         }
 
 
-        .page, .page * {
-            font-family: 'Inter', sans-serif !important;
-        }
+      .page, .page * {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* ===== ADD THIS ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* ===== SMOOTH SCROLL BEHAVIOR ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ===== MODAL POSITIONING ===== */
+.member-modal,
+.details-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5000;
+}
+
+#memberModalOverlay,
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4999;
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -1306,16 +1344,31 @@ window.addEventListener('orientationchange', function() {
         window.location.href = '00-Dashboard-E.html';
     }
 
-    function showSaveOptions() {
-        document.getElementById('saveOptionsModal').style.display = 'block';
-        document.getElementById('saveModalOverlay').style.display = 'block';
-        document.getElementById('menuPanel').classList.remove('show');
-    }
+function showSaveOptions() {
+    // SAVE SCROLL POSITION BEFORE OPENING
+    window._savedScrollPosition = window.scrollY || window.pageYOffset;
+    
+    document.getElementById('saveOptionsModal').style.display = 'block';
+    document.getElementById('saveModalOverlay').style.display = 'block';
+    document.getElementById('menuPanel').classList.remove('show');
+    
+    // SCROLL TO TOP (where modal appears)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-    function closeSaveModal() {
-        document.getElementById('saveOptionsModal').style.display = 'none';
-        document.getElementById('saveModalOverlay').style.display = 'none';
+function closeSaveModal() {
+    document.getElementById('saveOptionsModal').style.display = 'none';
+    document.getElementById('saveModalOverlay').style.display = 'none';
+    
+    // SCROLL BACK TO SAVED POSITION
+    if (window._savedScrollPosition !== undefined) {
+        window.scrollTo({
+            top: window._savedScrollPosition,
+            behavior: 'smooth'
+        });
+        delete window._savedScrollPosition;
     }
+}
 
     function getSelectedSaveMode() {
         const selected = document.querySelector('input[name="saveMode"]:checked');
@@ -1768,31 +1821,20 @@ window.addEventListener('orientationchange', function() {
         });
     }
 
-    function closeDetailsModal() {
-        document.getElementById('detailsModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
+function closeDetailsModal() {
+    document.getElementById('detailsModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // SCROLL BACK TO SAVED POSITION
+    if (window._savedScrollPosition !== undefined) {
+        window.scrollTo({
+            top: window._savedScrollPosition,
+            behavior: 'smooth'
+        });
+        delete window._savedScrollPosition;
     }
-
-    function findMemberPage(memberName) {
-        const searchLower = memberName.trim().toLowerCase();
-        if (!searchLower) return -1;
-
-        for (let i = 0; i < cachedPages.length; i++) {
-            const page = cachedPages[i];
-            if (page.root.toLowerCase() === searchLower) return i;
-        }
-
-        for (let i = 0; i < cachedPages.length; i++) {
-            const page = cachedPages[i];
-            if (page.root.toLowerCase().includes(searchLower)) return i;
-            const children = getChildren(page.root, globalMap);
-            for (let child of children) {
-                if (child.toLowerCase().includes(searchLower)) return i;
-            }
-        }
-
-        return -1;
-    }
+}
+         
 
     function searchMember() {
         const input = document.getElementById('searchInput');
@@ -2343,195 +2385,224 @@ function renderAllPages() {
         }
     }
 
-    function showOnlyDetails(name) {
-        if (!name) return;
-        
-        const person = globalPersonMap[name];
-        if (!person) {
-            alert('Member not found: ' + name);
-            return;
-        }
-        
-        const modal = document.getElementById('detailsModal');
-        const title = document.getElementById('detailsModalTitle');
-        const content = document.getElementById('detailsModalContent');
-        
-        title.textContent = '📝 Details - ' + displayName(person.name);
-        
-        let detailsHtml = person.details || 'No details available.';
-        detailsHtml = detailsHtml.replace(/\\n/g, '<br>');
-        
-        content.innerHTML = detailsHtml;
-        modal.style.display = 'block';
+function showOnlyDetails(name) {
+    if (!name) return;
+    
+    const person = globalPersonMap[name];
+    if (!person) {
+        alert('Member not found: ' + name);
+        return;
+    }
+    
+    const modal = document.getElementById('detailsModal');
+    const title = document.getElementById('detailsModalTitle');
+    const content = document.getElementById('detailsModalContent');
+    
+    title.textContent = '📝 Details - ' + displayName(person.name);
+    
+    let detailsHtml = person.details || 'No details available.';
+    detailsHtml = detailsHtml.replace(/\\n/g, '<br>');
+    
+    content.innerHTML = detailsHtml;
+    modal.style.display = 'block';
+    
+    // SAVE SCROLL POSITION BEFORE OPENING
+    window._savedScrollPosition = window.scrollY || window.pageYOffset;
+    
+    // SCROLL TO MODAL
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    if (window.innerWidth > 768) {
         document.body.style.overflow = 'hidden';
     }
+}
 
-    function showMemberDetails(name) {
-        if (!name) return;
 
-        const person = globalPersonMap[name];
-        if (!person) {
-            alert('Member not found: ' + name);
-            return;
-        }
 
-        const modal = document.getElementById('memberModal');
-        const content = document.getElementById('memberDetailsContent');
+function showMemberDetails(name) {
+    if (!name) return;
 
-        let html = '';
+    const person = globalPersonMap[name];
+    if (!person) {
+        alert('Member not found: ' + name);
+        return;
+    }
 
-        html += `
-            <div class="detail-card">
-                <div class="detail-header">
-                    <h2>${displayName(person.name)}</h2>
-                    <button onclick="closeMemberModal()" 
-                            style="padding:8px 20px; background:var(--gold); color:var(--dark-blue); 
-                                   border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                                   cursor:pointer; font-family:'Inter',sans-serif;
-                                   transition:all 0.2s;">
-                         Close
-                    </button>
-                </div>
-                <div class="detail-body">
-        `;
+    const modal = document.getElementById('memberModal');
+    const content = document.getElementById('memberDetailsContent');
 
-        if (person.father && person.father.trim() !== '') {
-            const fatherClean = displayName(person.father);
-            html += `
-                <div class="detail-row">
-                    <strong>Father:</strong>
-                    <span class="detail-value">${fatherClean}</span>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="detail-row">
-                    <strong>Father:</strong>
-                    <span class="detail-value">—</span>
-                </div>
-            `;
-        }
+    let html = '';
 
-        if (person.mother && person.mother.trim() !== '') {
-            const motherClean = displayName(person.mother);
-            html += `
-                <div class="detail-row">
-                    <strong>Mother:</strong>
-                    <span class="detail-value">${motherClean}</span>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="detail-row">
-                    <strong>Mother:</strong>
-                    <span class="detail-value">—</span>
-                </div>
-            `;
-        }
-
-        if (person.spouse && person.spouse.trim() !== '') {
-            const spouseClean = displayName(person.spouse);
-            html += `
-                <div class="detail-row">
-                    <strong>Spouse:</strong>
-                    <span class="detail-value">${spouseClean}</span>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="detail-row">
-                    <strong>Spouse:</strong>
-                    <span class="detail-value">—</span>
-                </div>
-            `;
-        }
-
-        html += `
-            <div class="detail-row">
-                <strong>Generation:</strong>
-                <span class="detail-value">${person.gen || '—'}</span>
-            </div>
-        `;
-
-        if (person.details && person.details.trim() !== '') {
-            const detailsHtml = person.details.replace(/\\n/g, '<br>');
-            html += `
-                <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-                    <strong style="margin-bottom:6px;">📝 Details</strong>
-                    <div class="detail-notes">${detailsHtml}</div>
-                </div>
-            `;
-        }
-
-        const children = getChildren(person.name, globalMap);
-        if (children && children.length > 0) {
-            html += `
-                <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
-                    <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
-                    <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px; padding-right:0;">
-            `;
-            children.forEach(child => {
-                const childClean = displayName(child);
-                html += `<span style="font-size:14px; color:#1a3a5c; font-family:'Inter',sans-serif;">${childClean}</span>`;
-            });
-            html += `
-                    </div>
-                </div>
-            `;
-        }
-
-        let pageIdx = -1;
-        for (let i = 0; i < cachedPages.length; i++) {
-            if (cachedPages[i].root === person.name) {
-                pageIdx = i;
-                break;
-            }
-        }
-
-        html += `
-            <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
-        `;
-
-        if (pageIdx >= 0) {
-            html += `
-                <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
-                        style="padding:10px 24px; background:var(--green); color:white; 
+    html += `
+        <div class="detail-card">
+            <div class="detail-header">
+                <h2>${displayName(person.name)}</h2>
+                <button onclick="closeMemberModal()" 
+                        style="padding:8px 20px; background:var(--gold); color:var(--dark-blue); 
                                border:none; border-radius:8px; font-size:14px; font-weight:700; 
                                cursor:pointer; font-family:'Inter',sans-serif;
                                transition:all 0.2s;">
-                    📄 View Full Page
+                     Close
                 </button>
-            `;
-        }
+            </div>
+            <div class="detail-body">
+    `;
 
+    if (person.father && person.father.trim() !== '') {
+        const fatherClean = displayName(person.father);
         html += `
-            <button onclick="closeMemberModal()" 
-                    style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
-                           border:none; border-radius:8px; font-size:14px; font-weight:700; 
-                           cursor:pointer; font-family:'Inter',sans-serif;
-                           transition:all 0.2s;">
-                 Close
-            </button>
+            <div class="detail-row">
+                <strong>Father:</strong>
+                <span class="detail-value">${fatherClean}</span>
+            </div>
         `;
+    } else {
+        html += `
+            <div class="detail-row">
+                <strong>Father:</strong>
+                <span class="detail-value">—</span>
+            </div>
+        `;
+    }
 
-        html += `</div>`;
+    if (person.mother && person.mother.trim() !== '') {
+        const motherClean = displayName(person.mother);
+        html += `
+            <div class="detail-row">
+                <strong>Mother:</strong>
+                <span class="detail-value">${motherClean}</span>
+            </div>
+        `;
+    } else {
+        html += `
+            <div class="detail-row">
+                <strong>Mother:</strong>
+                <span class="detail-value">—</span>
+            </div>
+        `;
+    }
 
+    if (person.spouse && person.spouse.trim() !== '') {
+        const spouseClean = displayName(person.spouse);
+        html += `
+            <div class="detail-row">
+                <strong>Spouse:</strong>
+                <span class="detail-value">${spouseClean}</span>
+            </div>
+        `;
+    } else {
+        html += `
+            <div class="detail-row">
+                <strong>Spouse:</strong>
+                <span class="detail-value">—</span>
+            </div>
+        `;
+    }
+
+    html += `
+        <div class="detail-row">
+            <strong>Generation:</strong>
+            <span class="detail-value">${person.gen || '—'}</span>
+        </div>
+    `;
+
+    if (person.details && person.details.trim() !== '') {
+        const detailsHtml = person.details.replace(/\\n/g, '<br>');
+        html += `
+            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                <strong style="margin-bottom:6px;">📝 Details</strong>
+                <div class="detail-notes">${detailsHtml}</div>
+            </div>
+        `;
+    }
+
+    const children = getChildren(person.name, globalMap);
+    if (children && children.length > 0) {
+        html += `
+            <div class="detail-row" style="flex-direction:column; align-items:stretch; padding:10px 0;">
+                <strong style="margin-bottom:6px;">👨‍👩‍👧‍👦 Children (${children.length})</strong>
+                <div style="display:flex; flex-wrap:wrap; gap:4px 12px; padding-left:4px; padding-right:0;">
+        `;
+        children.forEach(child => {
+            const childClean = displayName(child);
+            html += `<span style="font-size:14px; color:#1a3a5c; font-family:'Inter',sans-serif;">${childClean}</span>`;
+        });
         html += `
                 </div>
             </div>
         `;
+    }
 
-        content.innerHTML = html;
-        modal.style.display = 'block';
-        document.getElementById('memberModalOverlay').style.display = 'block';
+    let pageIdx = -1;
+    for (let i = 0; i < cachedPages.length; i++) {
+        if (cachedPages[i].root === person.name) {
+            pageIdx = i;
+            break;
+        }
+    }
+
+    html += `
+        <div style="margin-top:16px; display:flex; justify-content:flex-end; padding-top:14px; border-top:2px solid var(--gold); gap:10px;">
+    `;
+
+    if (pageIdx >= 0) {
+        html += `
+            <button onclick="closeMemberModal(); goToPage(${pageIdx});" 
+                    style="padding:10px 24px; background:var(--green); color:white; 
+                           border:none; border-radius:8px; font-size:14px; font-weight:700; 
+                           cursor:pointer; font-family:'Inter',sans-serif;
+                           transition:all 0.2s;">
+                📄 View Full Page
+            </button>
+        `;
+    }
+
+    html += `
+        <button onclick="closeMemberModal()" 
+                style="padding:10px 24px; background:var(--gold); color:var(--dark-blue); 
+                       border:none; border-radius:8px; font-size:14px; font-weight:700; 
+                       cursor:pointer; font-family:'Inter',sans-serif;
+                       transition:all 0.2s;">
+             Close
+        </button>
+    `;
+
+    html += `</div>`;
+
+    html += `
+            </div>
+        </div>
+    `;
+
+    content.innerHTML = html;
+    modal.style.display = 'block';
+    document.getElementById('memberModalOverlay').style.display = 'block';
+    
+    // SAVE SCROLL POSITION BEFORE OPENING
+    window._savedScrollPosition = window.scrollY || window.pageYOffset;
+    
+    // SCROLL TO MODAL
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    if (window.innerWidth > 768) {
         document.body.style.overflow = 'hidden';
     }
+}
 
-    function closeMemberModal() {
-        document.getElementById('memberModal').style.display = 'none';
-        document.getElementById('memberModalOverlay').style.display = 'none';
-        document.body.style.overflow = 'auto';
+function closeMemberModal() {
+    document.getElementById('memberModal').style.display = 'none';
+    document.getElementById('memberModalOverlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // SCROLL BACK TO SAVED POSITION
+    if (window._savedScrollPosition !== undefined) {
+        window.scrollTo({
+            top: window._savedScrollPosition,
+            behavior: 'smooth'
+        });
+        delete window._savedScrollPosition;
     }
+}
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
@@ -2541,13 +2612,28 @@ function renderAllPages() {
         }
     });
 
-    function openTips() {
-        document.getElementById('tipsOverlay').style.display = 'flex';
-    }
+function openTips() {
+    // SAVE SCROLL POSITION BEFORE OPENING
+    window._savedScrollPosition = window.scrollY || window.pageYOffset;
+    
+    document.getElementById('tipsOverlay').style.display = 'flex';
+    
+    // SCROLL TO MODAL
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-    function closeTips() {
-        document.getElementById('tipsOverlay').style.display = 'none';
+function closeTips() {
+    document.getElementById('tipsOverlay').style.display = 'none';
+    
+    // SCROLL BACK TO SAVED POSITION
+    if (window._savedScrollPosition !== undefined) {
+        window.scrollTo({
+            top: window._savedScrollPosition,
+            behavior: 'smooth'
+        });
+        delete window._savedScrollPosition;
     }
+}
 
     document.getElementById('tipsOverlay')?.addEventListener('click', function(e) {
         if (e.target === this) closeTips();

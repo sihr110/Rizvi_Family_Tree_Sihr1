@@ -1752,9 +1752,8 @@
 
                 let html = '';
                 for (const m of uniqueMatches) {
-                    const isFemale = m.gender && m.gender.toUpperCase() === 'FEMALE';
-                    let parentLabel = isFemale ? 'Mother' : 'Father';
-                    let parentVal = isFemale ? (m.mother || m.father || '—') : (m.father || '—');
+		let parentLabel = 'Father';
+		let parentVal = m.father || '—';
 
                     let namePart = escHtml(displayName(m.name) || '—');
                     let genPart = m.gen ? ` (${escHtml(m.gen)})` : '';

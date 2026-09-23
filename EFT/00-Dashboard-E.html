@@ -141,16 +141,6 @@
             background: rgba(212, 175, 106, 0.08);
         }
 
-        .clock-display {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--ink);
-            letter-spacing: 1px;
-            font-variant-numeric: tabular-nums;
-            padding-left: 12px;
-        }
-
         /* ===== SECTION HEADER ===== */
         .section-head {
             text-align: center;
@@ -212,7 +202,7 @@
             background: linear-gradient(90deg, #4a5670 0%, #2a3752 40%, transparent 100%);
         }
 
-        /* ===== OPTION CARDS (ALL ROWS SAME COLOR) ===== */
+        /* ===== OPTION CARDS ===== */
         .options-list {
             display: flex;
             flex-direction: column;
@@ -247,7 +237,6 @@
                 0 0 0 1px rgba(212, 175, 106, 0.2) inset;
         }
 
-        /* Number badge (left column, cream/gold box) */
         .option-num-banner {
             flex-shrink: 0;
             width: 62px;
@@ -272,7 +261,6 @@
             pointer-events: none;
         }
 
-        /* Icon */
         .option-icon {
             flex-shrink: 0;
             width: 78px;
@@ -288,7 +276,6 @@
             transform: scale(1.06);
         }
 
-        /* Body */
         .option-body {
             flex: 1;
             min-width: 0;
@@ -329,7 +316,6 @@
             text-transform: uppercase;
         }
 
-        /* Arrow button (right side, cream/gold) */
         .option-arrow {
             flex-shrink: 0;
             width: 42px;
@@ -353,7 +339,7 @@
             background: linear-gradient(135deg, #f5e4a8, #e8c874);
         }
 
-        /* ===== STATS BAR (light gray) ===== */
+        /* ===== STATS BAR (height reduced ~44% total from original) ===== */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -369,7 +355,7 @@
         }
 
         .stat-cell {
-            padding: 26px 18px 22px;
+            padding: 14px 18px 12px; /* was 19px 18px 16px → 25% further reduction */
             text-align: center;
             position: relative;
         }
@@ -386,7 +372,7 @@
 
         .stat-cell .num {
             font-family: 'Playfair Display', serif;
-            font-size: 38px;
+            font-size: 22px; /* was 29px → 25% further reduction */
             font-weight: 900;
             color: #1a2330;
             letter-spacing: -1px;
@@ -395,12 +381,12 @@
         }
 
         .stat-cell .lab {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #5a6478;
-            margin-top: 10px;
+            margin-top: 5px; /* was 7px → 25% further reduction */
         }
 
         /* ===== DEVICE BAR ===== */
@@ -497,14 +483,13 @@
             .page-wrap { padding: 16px 16px 22px; border-radius: 18px; }
             .section-head h2 { font-size: 30px; }
             .topbar { padding: 14px 18px; }
-            .clock-display { font-size: 18px; }
             .option-num-banner { width: 54px; height: 72px; font-size: 13px; }
             .option-icon { width: 66px; height: 72px; font-size: 28px; }
             .option-title { font-size: 18px; }
             .option-desc { font-size: 12px; }
             .option-arrow { width: 38px; height: 38px; font-size: 16px; margin-right: 18px; }
-            .stat-cell .num { font-size: 30px; }
-            .stat-cell .lab { font-size: 10px; }
+            .stat-cell .num { font-size: 17px; } /* was 23px → 25% further */
+            .stat-cell .lab { font-size: 9px; }
         }
 
         @media screen and (max-width: 600px) {
@@ -515,7 +500,6 @@
             .brand-text h1 { font-size: 17px; }
             .brand-text p { font-size: 9px; letter-spacing: 1.5px; }
             .btn { padding: 7px 12px; font-size: 11px; }
-            .clock-display { font-size: 16px; padding-left: 6px; }
 
             .section-head { margin-bottom: 22px; }
             .section-head h2 { font-size: 22px; }
@@ -538,13 +522,13 @@
                 grid-template-columns: repeat(2, 1fr);
                 margin-top: 22px;
             }
-            .stat-cell { padding: 18px 8px 16px; }
+            .stat-cell { padding: 10px 8px 9px; } /* was 13px 8px 12px → 25% further */
             .stat-cell:not(:last-child)::after { display: none; }
             .stat-cell:nth-child(odd) { border-right: 1px solid #a8b0c0; }
             .stat-cell:nth-child(1),
             .stat-cell:nth-child(2) { border-bottom: 1px solid #a8b0c0; }
-            .stat-cell .num { font-size: 24px; }
-            .stat-cell .lab { font-size: 9px; letter-spacing: 1.3px; margin-top: 8px; }
+            .stat-cell .num { font-size: 13px; } /* was 18px → 25% further */
+            .stat-cell .lab { font-size: 8px; letter-spacing: 1.3px; margin-top: 4px; }
 
             .device-bar {
                 padding: 12px 14px;
@@ -564,7 +548,7 @@
 <body>
     <div class="page-wrap">
 
-        <!-- ===== TOP BAR ===== -->
+        <!-- ===== TOP BAR (clock removed) ===== -->
         <div class="topbar">
             <div class="brand">
                 <div class="brand-mark">🌿</div>
@@ -577,15 +561,13 @@
             <div class="topbar-actions">
                 <a href="Admin.html" class="btn">🔐 Admin</a>
                 <button class="btn" onclick="logoutUser()">🔓 Logout</button>
-                <div class="clock-display" id="liveTime">--:--:--</div>
             </div>
         </div>
 
         <!-- ===== SECTION HEADER ===== -->
         <div class="section-head">
-            
             <h2>Dash Board</h2>
-                    </div>
+        </div>
 
         <!-- ===== GROUP 1 ===== -->
         <div class="group-label">
@@ -667,7 +649,7 @@
 
         </div>
 
-        <!-- ===== STATS BAR ===== -->
+        <!-- ===== STATS BAR (reduced ~44% total height) ===== -->
         <div class="stats-bar">
             <div class="stat-cell">
                 <div class="num" id="totalMembers">--</div>
@@ -720,17 +702,6 @@
         let db = [];
         let fileInfo = {};
         const DATA_VERSION = '1.0';
-
-        function updateClock() {
-            const el = document.getElementById('liveTime');
-            if (el) {
-                const now = new Date();
-                el.textContent =
-                    String(now.getHours()).padStart(2, '0') + ':' +
-                    String(now.getMinutes()).padStart(2, '0') + ':' +
-                    String(now.getSeconds()).padStart(2, '0');
-            }
-        }
 
         function animateCounter(element, target, duration = 1100) {
             if (!element) return;
@@ -889,8 +860,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadData();
             updateResolution();
-            updateClock();
-            setInterval(updateClock, 1000);
             window.addEventListener('resize', updateResolution);
             setInterval(updateResolution, 2000);
         });

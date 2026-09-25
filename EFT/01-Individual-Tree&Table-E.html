@@ -736,23 +736,26 @@
         /* ============================================================
                MODALS
                ============================================================ */
-        .info-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border: 3px solid var(--gold);
-            border-radius: 12px;
-            padding: 16px;
-            min-width: 260px;
-            max-width: 340px;
-            width: 85%;
-            z-index: 10000;
-            display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            font-family: 'Inter', sans-serif;
-        }
+.info-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* NO transform — JS will set top/left at click position */
+    background: white;
+    border: 3px solid var(--gold);
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 260px;
+    max-width: 340px;
+    width: 85%;
+    z-index: 10000;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    font-family: 'Inter', sans-serif;
+    cursor: grab;
+    user-select: none;
+}
+.info-modal.dragging { cursor: grabbing; opacity: 0.92; }
 
         .info-modal h3 {
             color: var(--maroon);
@@ -1115,7 +1118,7 @@
     </div>
 
     <!-- Info Modal -->
-    <div class="info-modal-overlay" id="infoModalOverlay" onclick="closeInfoModal()"></div>
+    <div class="info-modal-overlay" id="infoModalOverlay" onclick="if(!window._modalJustDragged) closeInfoModal()"></div>
     <div class="info-modal" id="infoModal">
         <h3>ℹ️ Other Informations</h3>
         <p id="infoModalText"></p>
@@ -1447,23 +1450,176 @@
             else renderTable();
         }
 
-        // ============================================================
+
+    // ============================================================
         // INFO MODAL
         // ============================================================
-        function showInfoModal(personName) {
-            const person = db.find(p => p.name === personName);
-            if (!person) return;
-            let detailsText = person.details && person.details.trim() !== '' ? person.details : 'No additional information available.';
-            detailsText = detailsText.replace(/\\n/g, '<br>');
-            document.getElementById('infoModalText').innerHTML = detailsText;
-            document.getElementById('infoModal').style.display = 'block';
-            document.getElementById('infoModalOverlay').style.display = 'block';
+function showInfoModal(personName, evt) {
+    const person = db.find(p => p.name === personName);
+    if (!person) return;
+
+    let detailsText = person.details && person.details.trim() !== ''
+        ? person.details
+        : 'No additional information available.';
+    detailsText = detailsText.replace(/\\n/g, '<br>');
+
+    const modal = document.getElementById('infoModal');
+    const overlay = document.getElementById('infoModalOverlay');
+
+    document.getElementById('infoModalText').innerHTML = detailsText;
+
+    // Reset any previous drag transform
+    modal.style.transform = '';
+    modal.style.cursor = 'grab';
+
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+
+    // ---- POSITION AT CLICK ----
+    if (evt && evt.target) {
+        const r = evt.target.getBoundingClientRect();
+        const modalW = modal.offsetWidth || 300;
+        const modalH = modal.offsetHeight || 200;
+
+        let left = r.left;
+        let top  = r.bottom + 6;
+
+        // Keep inside viewport
+        if (left + modalW > window.innerWidth - 8) {
+            left = window.innerWidth - modalW - 8;
+        }
+        if (left < 8) left = 8;
+
+        if (top + modalH > window.innerHeight - 8) {
+            // Open above the icon instead
+            top = r.top - modalH - 6;
+            if (top < 8) top = 8;
         }
 
-        function closeInfoModal() {
-            document.getElementById('infoModal').style.display = 'none';
-            document.getElementById('infoModalOverlay').style.display = 'none';
+        modal.style.left = left + 'px';
+        modal.style.top  = top  + 'px';
+    } else {
+        // Fallback: center
+        modal.style.left = ((window.innerWidth  - (modal.offsetWidth  || 300)) / 2) + 'px';
+        modal.style.top  = ((window.innerHeight - (modal.offsetHeight || 200)) / 2) + 'px';
+    }
+
+    // Save scroll for restore
+    window._savedScrollPosition = window.scrollY || window.pageYOffset;
+}
+
+function closeInfoModal() {
+    document.getElementById('infoModal').style.display = 'none';
+    document.getElementById('infoModalOverlay').style.display = 'none';
+
+    if (window._savedScrollPosition !== undefined) {
+        window.scrollTo({ top: window._savedScrollPosition, behavior: 'smooth' });
+        delete window._savedScrollPosition;
+    }
+}
+
+
+// ============================================================
+// DRAGGABLE INFO MODAL + MODAL ZOOM (from File 04)
+// ============================================================
+(function() {
+    function makeDraggable(modal) {
+        if (!modal) return;
+        let isDown = false, offX = 0, offY = 0;
+
+        function startDrag(e) {
+            const t = e.target;
+            if (t.closest('button') || t.closest('input')) return;
+            isDown = true;
+            const r = modal.getBoundingClientRect();
+            const p = e.touches ? e.touches[0] : e;
+            offX = p.clientX - r.left;
+            offY = p.clientY - r.top;
+            modal.classList.add('dragging');
         }
+        function moveDrag(e) {
+            if (!isDown) return;
+            const p = e.touches ? e.touches[0] : e;
+            let newLeft = p.clientX - offX;
+            let newTop  = p.clientY - offY;
+
+            // Clamp to viewport
+            const w = modal.offsetWidth;
+            const h = modal.offsetHeight;
+            newLeft = Math.max(0, Math.min(newLeft, window.innerWidth  - w));
+            newTop  = Math.max(0, Math.min(newTop,  window.innerHeight - h));
+
+            modal.style.left = newLeft + 'px';
+            modal.style.top  = newTop  + 'px';
+            e.preventDefault();
+        }
+function endDrag() {
+    if (!isDown) return;
+    isDown = false;
+    modal.classList.remove('dragging');
+    window._modalJustDragged = true;
+    setTimeout(() => { window._modalJustDragged = false; }, 150);
+}
+
+        modal.addEventListener('mousedown', startDrag);
+        modal.addEventListener('touchstart', startDrag, { passive: false });
+        document.addEventListener('mousemove', moveDrag);
+        document.addEventListener('touchmove', moveDrag, { passive: false });
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchend', endDrag);
+    }
+
+    function attachModalZoom(modal) {
+        if (!modal) return;
+        let scale = 1.0;
+
+        // PC: Ctrl + wheel
+        modal.addEventListener('wheel', function(e) {
+            if (!e.ctrlKey) return;
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 0.1 : -0.1;
+            scale = Math.min(3, Math.max(0.3, scale + delta));
+            modal.style.transform = 'scale(' + scale + ')';
+            modal.style.transformOrigin = 'top left';
+        }, { passive: false });
+
+        // Mobile: pinch
+        let startDist = 0, startScale = 1;
+        modal.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 2) {
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                startDist = Math.hypot(dx, dy);
+                startScale = scale;
+            }
+        }, { passive: true });
+
+        modal.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 2 && startDist > 0) {
+                e.preventDefault();
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                const dist = Math.hypot(dx, dy);
+                scale = Math.min(3, Math.max(0.3, startScale * (dist / startDist)));
+                modal.style.transform = 'scale(' + scale + ')';
+                modal.style.transformOrigin = 'top left';
+            }
+        }, { passive: false });
+
+        modal.addEventListener('touchend', function() {
+            startDist = 0;
+        }, { passive: true });
+    }
+
+    window.addEventListener('load', function() {
+        const m = document.getElementById('infoModal');
+        makeDraggable(m);
+        attachModalZoom(m);
+    });
+})();
+
+
+
 
         // ============================================================
         // TIPS
@@ -1490,9 +1646,12 @@
             let html = `<div class="box ${isFemale ? 'female-box' : ''} ${isSelected ? 'selected' : ''}" data-name="${person.name}">`;
             html += `<div class="box-header">`;
             html += `<span class="label">${label}</span>`;
-            if (hasDetails) {
-                html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}')">ℹ️</div>`;
-            } else {
+          
+if (hasDetails) {
+    html += `<div class="details-icon" onclick="event.stopPropagation(); showInfoModal('${person.name.replace(/'/g, "\\'")}', event)">ℹ️</div>`;
+}
+
+ else {
                 html += `<div style="width:20px;"></div>`;
             }
             html += `<span class="id-code">${idCode}</span>`;
@@ -1628,7 +1787,7 @@
             const fatherDisplay = member.father ? displayName(member.father) : '—';
             let spouseDisplay = member.spouse || '—';
             if (spouseDisplay.includes('See details in ℹ️')) {
-                spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${member.name.replace(/'/g, "\\'")}')" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
+                spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${member.name.replace(/'/g, "\\'")}', event)" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
             }
             return `
                 <table class="family-table" style="margin-bottom:20px;">
@@ -1651,7 +1810,9 @@
                 const isSelected = currentIndividual?.name === m.name ? 'selected-row' : '';
                 let spouseDisplay = m.spouse || '—';
                 if (spouseDisplay.includes('See details in ℹ️')) {
-                    spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${m.name.replace(/'/g, "\\'")}')" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
+                   
+spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" onclick="event.stopPropagation(); showInfoModal('${m.name.replace(/'/g, "\\'")}', event)" style="cursor:pointer; font-size:14px; display:inline-block;">ℹ️</span>`);
+
                 }
                 html += `<tr class="${isSelected}">`;
                 html += `<td><strong onclick="selectMember(db.find(x => x.name === '${m.name.replace(/'/g, "\\'")}'))" style="cursor:pointer;">${displayName(m.name)}</strong></td>`;

@@ -1,6 +1,6 @@
 // Family Data (Merged from sheets: Main,1,2,3,4,5)
 // Source: Data English.xlsx
-// Saved: 09/02/2026 11:11
+// Saved: 09/30/2026 20:23
 // Total members: 608
 
 const FAMILY_DATA_E = [
@@ -35,7 +35,7 @@ const FAMILY_DATA_E = [
     name: "Muhammad Rasool Allah (PBUH)",
     father: "Hazrat Abdullah (AS)",
     mother: "Bibi Amina bint Wahb (AS)",
-    spouse: "Bibi Khadeja Kubra (AS) &",
+    spouse: "Bibi Khadeja Kubra (AS)",
     gen: "P-003-S1",
     gender: "MALE",
     details: "There is a difference of opinion among historians regarding the number of women whom the Prophet Muhammad (ﷺ) married, which is why the count is cited between 11 and 14.\\n\\n1.\tBibi Khadija bint Khuwaylid (AS)\\n2.\tBibi Sawda bint Zam'a  \\n3.\tBibi Aisha Siddiqa bint Abi Bakr  \\n4.\tBibi Hafsa bint Umar  \\n5.\tBibi Zaynab bint Khuzayma  \\n6.\tBibi Umm Salama Hind bint Abi Umayya  \\n7.\tBibi Zaynab bint Jahsh  \\n8.\tBibi Juwayriya bint al-Harith  \\n9.\tBibi Umm Habiba Ramla bint Abi Sufyan  \\n10.\tBibi Safiyya bint Huyayy  \\n11.\tBibi Maymunah bint al-Harith  \\n12.\tBibi Fatima bint al-Dahhak al-Kilabiyya  \\n13.\tBibi Asma bint al-Nu'man  \\n14.\tBibi Qutayla bint Qays  \\n\\nNote -  The first 11 names listed above are those known as the \"Ummhat al-Mu'minin\" (Mothers of the Believers), while the last three (12, 13, 14) are those with whom the marriage contract was made, but the consummation (Rukhsati) did not take place, or they separated for a specific reason."
@@ -44,7 +44,7 @@ const FAMILY_DATA_E = [
     name: "Imam Ali (AS)",
     father: "Hazrat Abu Talib (AS)",
     mother: "Bibi Fatima Bint Asad (AS)",
-    spouse: "Syeda Fatima Zehra (AS) &",
+    spouse: "Syeda Fatima Zehra (AS)",
     gen: "P-003-S4",
     gender: "MALE",
     details: "Wives of Imam Ali (AS)-\\n\\n1.\tFatimah bint Muhammad (AS) – (Sayyidah Fatimah al-Zahra), daughter of the Prophet Muhammad (PBUH).  \\n2.\tUmm al-Banin (Fatimah bint Huzam) – From the brave Banu Kilab tribe. Mother of Abbas(AS)\\n3.\tLayla bint Mas'ud – From the Banu Tamim tribe.\\n4.\tAsma bint Umais – She was previously married to Ja'far ibn Abi Talib (AS) (Imam Ali's brother) and later to Abu Bakr before marrying Imam Ali (AS).\\n5.\tUmm Habiba (al-Sahba bint Rabi'a) – Also known as al-Sahba al-Taghlibiyyah, from the Taghlib tribe.\\n6.\tUmamah bint Abi al-As – Granddaughter of the Prophet Muhammad (daughter of Zainab, the Prophet's daughter, and Abu al-As).\\n7.\tKhawla bint Ja'far al-Hanafiyyah – Also known as Khawla al-Hanafiyya. Mother of Muhammad ibn al-Hanafiyyah.\\n8.\tUmm Sa'id bint Urwah – From the Banu Thaqif tribe.\\n9.\tMuhayya bint Imru al-Qays – From the Banu Kilab tribe.\\n\\nChildren of Imam Ali (ع) by Mother\\n\\n-Bibi Fatima al-Zahra (sa)\t\\nAl-Hasan (ع), Al-Husayn (ع), Zaynab al-Kubra (sa), Umm Kulthum (Zaynab al-Sughra) (sa), and Mohsin (ع) (the unborn son who passed away during the home invasion)\\n\\n-Umm al-Banīn (Fatimah bint Hizam)\t\\nAl-Abbas (ع), Ja'far, Uthman, and Abdullah. (All four were martyred at Karbala alongside Imam Husayn (ع)).\\n\\n-Khawla bint Ja'far al-Hanafiyya\t\\nMuhammad ibn al-Hanafiyya.\\n\\n-Umm Habib bint Rabi'a\t\\nUmar and Ruqayya (twins).\\n\\n-Layla bint Mas'ud al-Darimi\t\\nMuhammad al-Asghar (also known as Abu Bakr) and Ubaydullah. (Both were martyred at Karbala).\\n\\n-Asma bint Umays\t\\nYahya.\\n\\n-Umm Sa'id bint Urwa\t\\nUmm al-Hasan and Ramla.\\n\\n-Other Mothers\t\\nNafisa, Zaynab al-Sughra, Ruqayya al-Sughra, Umm Hani, Umm al-Kiram, Jumana (Umm Ja'far), Umama, Umm Salama, Maymuna, Khadija, and Fatimah."
@@ -4859,10 +4859,10 @@ const FAMILY_DATA_E = [
     name: "Syeda Taqiya",
     father: "Syed Ashfaq Hussain",
     mother: "Syeda Kaneez Sughra Rizvi",
-    spouse: "Syed khurshid Hussain Rizvi",
+    spouse: "Syed Khurshid Hussain Rizvi",
     gen: "G-040-D4",
     gender: "FEMALE",
-    details: "Children of Syeda Taqiyah :\\n\\n1: Syed Qamar Abbas Rizvi"
+    details: "Children of Syeda Taqiya :\\n\\n1: Syed Qamar Abbas Rizvi"
   },
   {
     name: "Syed Aftab Haider",
@@ -4967,7 +4967,7 @@ const FAMILY_DATA_E = [
     name: "Syed Shamim Haider",
     father: "Syed Wiladat Hussain",
     mother: "Syeda Tanveer Fatima Rizvi",
-    spouse: "",
+    spouse: "Umme Kulsoom",
     gen: "G-041-S4",
     gender: "MALE",
     details: ""
@@ -5480,7 +5480,7 @@ const FAMILY_DATA_E = [
 
 const FILE_INFO = { 
     source_file: "Data English.xlsx",
-    saved_time: "09/02/2026 11:11", 
+    saved_time: "09/30/2026 20:23", 
     total_members: 608,
     details_count: 88,
     sheets_merged: ["Main","1","2","3","4","5"]

@@ -904,62 +904,18 @@
 
         // --- DATA LOADING ---
 
-        function initializeData() {
-            // Try to load from localStorage first (cached by Dashboard)
-            let data = null;
-            let isCached = false;
-            
-            try {
-                const saved = localStorage.getItem('familyDB');
-                if (saved) {
-                    data = JSON.parse(saved);
-                    isCached = true;
-                    console.log('✅ Data loaded from cache');
-                }
-            } catch(error) {
-                console.warn('Cache read failed, falling back to JS file');
-            }
-            
-            // If no cache, load from JS file (fallback)
-            if (!data || data.length === 0) {
-                if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
-                    data = FAMILY_DATA_E;
-                    isCached = false;
-                    console.log('📂 Data loaded from JS file (fallback)');
-                    
-                    // Cache for next time
-                    try {
-                        localStorage.setItem('familyDB', JSON.stringify(data));
-                        console.log('💾 Data cached for next time');
-                    } catch(e) {
-                        console.warn('Could not cache data');
-                    }
-                } else {
-                    data = [];
-                    console.log('❌ No data found');
-                }
-            }
-            
-            db = data;
-            
-            // Load file info
-            try {
-                const savedInfo = localStorage.getItem('fileInfo');
-                if (savedInfo) {
-                    fileInfo = JSON.parse(savedInfo);
-                } else if (typeof FILE_INFO !== 'undefined') {
-                    fileInfo = FILE_INFO;
-                }
-            } catch(e) {
-                console.warn('Could not load file info');
-            }
-            
-            // Update header stats (like File 04)
-            updateHeaderStats(isCached);
-            
-            // Update footer
-            updateFooter(isCached);
-        }
+function initializeData() {
+    db = (typeof FAMILY_DATA_E !== 'undefined') ? FAMILY_DATA_E : [];
+
+    try {
+        const savedInfo = localStorage.getItem('fileInfo');
+        if (savedInfo) fileInfo = JSON.parse(savedInfo);
+        else if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
+    } catch(e) {}
+
+    updateHeaderStats(localStorage.getItem('familyDB_version') !== null);
+    updateFooter();
+}
 
         function updateHeaderStats(isCached) {
             const el = document.getElementById('headerStats');

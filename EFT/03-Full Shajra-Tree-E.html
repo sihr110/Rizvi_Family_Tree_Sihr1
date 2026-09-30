@@ -1789,12 +1789,7 @@ function drawFullTreeAndCenter(centerMemberName = null) {
 
 
 function init() {
-if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length) {
-    familyDB = FAMILY_DATA_E;
-} else {
-    const saved = localStorage.getItem('familyDB');
-    if (saved) familyDB = JSON.parse(saved);
-}
+familyDB = (typeof FAMILY_DATA_E !== 'undefined') ? FAMILY_DATA_E : [];
     if (!familyDB.length) {
         document.getElementById('treeRoot').innerHTML = '<div style="text-align:center; padding:60px;">❌ No family data found.</div>';
         return;

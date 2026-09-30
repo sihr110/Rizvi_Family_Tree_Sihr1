@@ -701,7 +701,7 @@
     <script>
         let db = [];
         let fileInfo = {};
-        const DATA_VERSION = '1.0';
+        
 
         function animateCounter(element, target, duration = 1100) {
             if (!element) return;
@@ -717,43 +717,18 @@
             requestAnimationFrame(step);
         }
 
-        function loadData() {
-            let data = null;
-            let cachedVersion = null;
-            try {
-                const cached = localStorage.getItem('familyDB');
-                cachedVersion = localStorage.getItem('familyDB_version');
-                if (cached && cachedVersion === DATA_VERSION) {
-                    data = JSON.parse(cached);
-                    console.log('✅ Dashboard: Loaded from cache');
-                } else if (cached && cachedVersion !== DATA_VERSION) {
-                    localStorage.removeItem('familyDB');
-                    localStorage.removeItem('familyDB_version');
-                }
-            } catch(e) {}
+function loadData() {
+    db = (typeof FAMILY_DATA_E !== 'undefined') ? FAMILY_DATA_E : [];
 
-            if (!data || data.length === 0) {
-                if (typeof FAMILY_DATA_E !== 'undefined' && FAMILY_DATA_E.length > 0) {
-                    data = FAMILY_DATA_E;
-                    try {
-                        localStorage.setItem('familyDB', JSON.stringify(data));
-                        localStorage.setItem('familyDB_version', DATA_VERSION);
-                    } catch(e) {}
-                } else {
-                    data = [];
-                }
-            }
-            db = data;
+    try {
+        const savedInfo = localStorage.getItem('fileInfo');
+        if (savedInfo) fileInfo = JSON.parse(savedInfo);
+        else if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
+    } catch(e) {}
 
-            try {
-                const savedInfo = localStorage.getItem('fileInfo');
-                if (savedInfo) fileInfo = JSON.parse(savedInfo);
-                else if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
-            } catch(e) {}
-
-            updateStats();
-            updateFooter();
-        }
+    updateStats();
+    updateFooter();
+}
 
         function updateStats() {
             const total = document.getElementById('totalMembers');

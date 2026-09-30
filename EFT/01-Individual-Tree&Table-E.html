@@ -1978,8 +1978,8 @@ spouseDisplay = spouseDisplay.replace('ℹ️', `<span class="details-icon" oncl
         // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            if (typeof FAMILY_DATA_E !== 'undefined') db = FAMILY_DATA_E;
-            if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
+db = (typeof FAMILY_DATA_E !== 'undefined') ? FAMILY_DATA_E : [];
+if (typeof FILE_INFO !== 'undefined') fileInfo = FILE_INFO;
 
             document.getElementById('memberCounter').textContent = `📊 Members: ${db.length}`;
 

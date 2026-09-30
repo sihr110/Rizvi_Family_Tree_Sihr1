@@ -1812,21 +1812,22 @@ function closeInfoModal() {
 
             let familyData = [];
 
-            if (typeof FAMILY_DATA_E !== 'undefined' && Array.isArray(FAMILY_DATA_E) && FAMILY_DATA_E.length > 0) {
-                familyData = FAMILY_DATA_E;
-                window.familyDataList = familyData;
-            } else {
-                treeRoot.innerHTML = `
-                        <div class="welcome-container">
-                            <div class="welcome-box">
-                                <div class="welcome-icon">⚠️</div>
-                                <div class="welcome-title">Data File Not Found</div>
-                                <div class="welcome-text">Please check 20-Family-Data-E.js</div>
-                            </div>
-                        </div>
-                    `;
-                return;
-            }
+const loaded = (typeof FAMILY_DATA_E !== 'undefined' && Array.isArray(FAMILY_DATA_E)) ? FAMILY_DATA_E : [];
+if (loaded && loaded.length > 0) {
+    familyData = loaded;
+    window.familyDataList = familyData;
+} else {
+    treeRoot.innerHTML = `
+            <div class="welcome-container">
+                <div class="welcome-box">
+                    <div class="welcome-icon">⚠️</div>
+                    <div class="welcome-title">Data File Not Found</div>
+                    <div class="welcome-text">Please check 20-Family-Data-E.js</div>
+                </div>
+            </div>
+        `;
+    return;
+}
 
             const totalMembers = familyData.length;
             window.totalMembersCount = totalMembers;

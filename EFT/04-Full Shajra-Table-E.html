@@ -2344,29 +2344,31 @@ function renderAllPages() {
     const container = document.getElementById('pageContainer');
     const errorMsg = document.getElementById('errorMsg');
 
-    // Try to load from localStorage first (cached by Dashboard)
-    let data = null;
+// Prefer fresh JS file over stale cache (this is the fix for the spouse column)
+let data = null;
+
+if (typeof FAMILY_DATA_E !== 'undefined' && Array.isArray(FAMILY_DATA_E) && FAMILY_DATA_E.length > 0) {
+    data = FAMILY_DATA_E;
+    try {
+        localStorage.setItem('familyDB', JSON.stringify(FAMILY_DATA_E));
+    } catch(e) {}
+    console.log('📂 Data loaded from JS file (fresh)');
+} else {
     try {
         const cached = localStorage.getItem('familyDB');
         if (cached) {
             data = JSON.parse(cached);
-            console.log('✅ Data loaded from cache');
+            console.log('✅ Data loaded from cache (fallback)');
         }
-    } catch(e) {
-        console.warn('Cache read failed, falling back to JS file');
-    }
+    } catch(e) {}
+}
 
-    // If no cache, load from JS file (fallback)
-    if (!data || data.length === 0) {
-        if (typeof FAMILY_DATA_E === 'undefined') {
-            container.innerHTML =
-                `<div class="no-data">⚠️ Data not loaded!<div class="error">Make sure <strong>20-Family-Data-E.js</strong> is in the same folder.</div></div>`;
-            errorMsg.textContent = '⚠️ Data not loaded!';
-            return;
-        }
-        data = FAMILY_DATA_E;
-        console.log('📂 Data loaded from JS file (fallback)');
-    }
+if (!data || data.length === 0) {
+    container.innerHTML =
+        `<div class="no-data">⚠️ Data not loaded!<div class="error">Make sure <strong>20-Family-Data-E.js</strong> is in the same folder.</div></div>`;
+    errorMsg.textContent = '⚠️ Data not loaded!';
+    return;
+}
 
     familyData = data;
     buildFamilyMap(familyData);
